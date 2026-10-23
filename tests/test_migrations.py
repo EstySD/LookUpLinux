@@ -173,6 +173,107 @@ class SchemaLifecycleTests(unittest.TestCase):
         self.assertEqual(self.files(self.root, "*.tmp"), [])
 
 
+def _add_probe2(conn):
+    conn.execute("ALTER TABLE words ADD COLUMN probe2 TEXT")
+
+
+M3 = M2 + (_add_probe2,)
+
+
+class ConcurrentVersionChangeTests(unittest.TestCase):
+    """WR-05: data is never migrated without a backup of the version it starts from."""
+
+    def setUp(self):
+        self.root = make_tempdir(self)
+        self.path = self.root / "t.db"
+
+    def files(self, pattern):
+        return sorted(p.name for p in self.root.glob(pattern))
+
+    def bump_to_v2(self, p):
+        other = sqlite3.connect(p, isolation_level=None)
+        try:
+            other.execute("BEGIN IMMEDIATE")
+            other.execute("ALTER TABLE words ADD COLUMN probe TEXT")
+            other.execute("PRAGMA user_version = 2")
+            other.execute("COMMIT")
+        finally:
+            other.close()
+
+    def test_intermediate_version_is_snapshotted_again(self):
+        _make_v1(self.path, ["run", "walk"])
+        real = store._snapshot
+        calls = []
+
+        def racing(conn, p, old_version):
+            calls.append(old_version)
+            tmp = real(conn, p, old_version)
+            if len(calls) == 1:
+                self.bump_to_v2(p)  # an older build migrated v1 -> v2 meanwhile
+            return tmp
+
+        with mock.patch.object(store, "_snapshot", racing):
+            conn = open_store(self.path, migrations=M3)
+        self.addCleanup(conn.close)
+        self.assertEqual(calls, [1, 2])
+        self.assertEqual(conn.execute("PRAGMA user_version").fetchone()[0], 3)
+        self.assertEqual(conn.execute("SELECT COUNT(*) FROM words").fetchone()[0], 2)
+        self.assertEqual(self.files("*.bak-v*"), ["t.db.bak-v2"])
+        b = sqlite3.connect(self.root / "t.db.bak-v2")
+        self.addCleanup(b.close)
+        self.assertEqual(b.execute("PRAGMA user_version").fetchone()[0], 2)
+        self.assertIn("probe", _columns(b))
+        self.assertNotIn("probe2", _columns(b))
+        self.assertEqual(b.execute("SELECT COUNT(*) FROM words").fetchone()[0], 2)
+
+    def test_fresh_db_populated_concurrently_gets_backup(self):
+        real = store._ensure_wal
+
+        def racing(conn, timeout):
+            real(conn, timeout)
+            # Another process creates a v1 database with data after our version read.
+            other = sqlite3.connect(self.path, isolation_level=None)
+            try:
+                other.execute("BEGIN IMMEDIATE")
+                store._v1(other)
+                other.execute(
+                    "INSERT INTO words (word, first_seen, last_seen) VALUES ('run', 1, 1)"
+                )
+                other.execute("PRAGMA user_version = 1")
+                other.execute("COMMIT")
+            finally:
+                other.close()
+
+        with mock.patch.object(store, "_ensure_wal", racing):
+            conn = open_store(self.path, migrations=M2)
+        self.addCleanup(conn.close)
+        self.assertEqual(conn.execute("PRAGMA user_version").fetchone()[0], 2)
+        self.assertEqual(self.files("*.bak-v*"), ["t.db.bak-v1"])
+        b = sqlite3.connect(self.root / "t.db.bak-v1")
+        self.addCleanup(b.close)
+        self.assertEqual(b.execute("SELECT word FROM words").fetchall(), [("run",)])
+
+    def test_endlessly_changing_version_gives_up(self):
+        _make_v1(self.path, ["run"])
+        real = store._snapshot
+        noops = MIGRATIONS + tuple((lambda c: None) for _ in range(9))
+
+        def racing(conn, p, old_version):
+            tmp = real(conn, p, old_version)
+            other = sqlite3.connect(p, isolation_level=None)
+            try:
+                other.execute("PRAGMA user_version = %d" % (old_version + 1))
+            finally:
+                other.close()
+            return tmp
+
+        with mock.patch.object(store, "_snapshot", racing):
+            with self.assertRaises(MigrationError):
+                open_store(self.path, migrations=noops)
+        self.assertEqual(self.files("*.tmp"), [])
+        self.assertEqual(self.files("*.bak-v*"), [])
+
+
 class StepTransactionGuardTests(unittest.TestCase):
     """WR-03: a step cannot end the migration transaction."""
 

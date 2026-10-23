@@ -18,6 +18,9 @@ _MIN_SQLITE = (3, 35, 0)  # RETURNING
 _WAL_MAX_WAIT = 2.0
 # busy_timeout (ms) for a single WAL-switch attempt; the retry loop owns the waiting.
 _WAL_ATTEMPT_BUSY_MS = 50
+# How often open_store re-snapshots when another process changes the schema
+# version between the version read and BEGIN IMMEDIATE (D-14).
+_MIGRATE_ATTEMPTS = 5
 
 
 class SchemaTooNewError(RuntimeError):
@@ -310,34 +313,48 @@ def open_store(path=None, migrations=MIGRATIONS, timeout=5.0):
         return conn
     tmp = None
     try:
-        # 6
-        if v > 0:
-            tmp = _snapshot(conn, path, v)
-        # 7
-        conn.execute("BEGIN IMMEDIATE")
-        locked_v = conn.execute("PRAGMA user_version").fetchone()[0]
-        if locked_v > target:
-            raise SchemaTooNewError(
-                "База версии %d новее программы (знает до %d): обновите программу."
-                % (locked_v, target)
-            )
-        if tmp is not None:
-            if locked_v == v:
-                os.replace(tmp, path.with_name("%s.bak-v%d" % (path.name, v)))
-            else:
-                _remove_quietly(tmp)
-            tmp = None
-        guarded = _StepConnection(conn)
-        for number, step in enumerate(migrations[locked_v:], locked_v + 1):
-            step(guarded)
-            if not conn.in_transaction:
-                raise MigrationError(
-                    "migration step to v%d ended the transaction" % number
+        for _attempt in range(_MIGRATE_ATTEMPTS):
+            # 6
+            if v > 0:
+                tmp = _snapshot(conn, path, v)
+            # 7
+            conn.execute("BEGIN IMMEDIATE")
+            locked_v = conn.execute("PRAGMA user_version").fetchone()[0]
+            if locked_v > target:
+                raise SchemaTooNewError(
+                    "База версии %d новее программы (знает до %d): обновите программу."
+                    % (locked_v, target)
                 )
-        conn.execute("PRAGMA user_version = %d" % target)
-        conn.execute("COMMIT")
-        # 9
-        return conn
+            if locked_v != v and 0 < locked_v < target:
+                # Another process moved the schema to locked_v after step 3, and
+                # we still have steps to run. D-14: existing data is never
+                # migrated without a backup of exactly that version, so drop the
+                # lock and snapshot locked_v outside the transaction.
+                conn.execute("ROLLBACK")
+                _remove_quietly(tmp)
+                tmp = None
+                v = locked_v
+                continue
+            if tmp is not None:
+                if locked_v == v:
+                    os.replace(tmp, path.with_name("%s.bak-v%d" % (path.name, v)))
+                else:
+                    _remove_quietly(tmp)  # locked_v == target: nothing to migrate
+                tmp = None
+            guarded = _StepConnection(conn)
+            for number, step in enumerate(migrations[locked_v:], locked_v + 1):
+                step(guarded)
+                if not conn.in_transaction:
+                    raise MigrationError(
+                        "migration step to v%d ended the transaction" % number
+                    )
+            conn.execute("PRAGMA user_version = %d" % target)
+            conn.execute("COMMIT")
+            # 9
+            return conn
+        raise MigrationError(
+            "schema version kept changing during open (last v%d); reopen to retry" % v
+        )
     except (SchemaTooNewError, MigrationError):
         _abort(conn, tmp)
         raise
