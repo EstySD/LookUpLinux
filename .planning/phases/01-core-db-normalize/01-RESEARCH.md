@@ -387,50 +387,58 @@ The verification probe used a reduced table (`w(word, n)`) with the same UPSERT-
 | A4 | `os.replace` is atomic and overwrites an existing backup on Windows and POSIX | Code Examples 3 | Backup write not atomic; low impact, since the target is a backup file |
 | A5 | Python 3.14.8 (Arch) behaves like 3.14.3 (verified locally) for these APIs | Environment Availability | Minor-version drift; the test suite is the guard |
 | A6 | Default `datetime` adapter deprecation in 3.12 | State of the Art | None; the store uses integers |
-| A7 | Contraction collapse (`it's`→`it`) is acceptable to the user | Pitfall 7 | Wrong dictionary entry for contractions; needs confirmation (Open Question 1) |
-| A8 | Digit-edge stripping (`mp3`→`mp`) is acceptable | Pitfall 8 | Junk two-letter keys; needs confirmation (Open Question 2) |
+| A7 | Contraction collapse (`it's`→`it`) is acceptable to the user | Pitfall 7 | Wrong dictionary entry for contractions; RESOLVED by D-16 (exceptions kept) |
+| A8 | Digit-edge stripping (`mp3`→`mp`) is acceptable | Pitfall 8 | Junk two-letter keys; RESOLVED by D-17 (digits rejected) |
 
-**If this table is empty:** it is not. A1, A3, A4, A5, A6 are low-impact and do not need user confirmation. A7 and A8 do (see Open Questions).
+**If this table is empty:** it is not. A1, A3, A4, A5, A6 are low-impact and do not need user confirmation. A7 and A8 are resolved by D-16 and D-17.
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Contraction exceptions (`it's`, `let's`, `that's`, `there's`, `he's`, `she's`, `what's`, `who's`, `here's`, `where's`, `how's`).**
    - What we know: D-01 strips `'s` unconditionally; the output is `it`, `let`, etc. (verified).
    - What's unclear: whether the user wants these to be looked up as the full contraction.
    - Recommendation: keep the literal D-01 behaviour for Phase 1 and ask the user. If they want exceptions, a small frozenset checked before the possessive strip is a one-line change; it is not a schema change.
+   - **RESOLVED:** D-16 — keep the listed contractions as-is via an exception set; strip other `'s` to a fixed point.
 
 2. **Digits in tokens.**
    - What we know: D-01 strips edge digits (`mp3`→`mp`); internal digits are rejected (`l00k` → None).
    - What's unclear: whether a token containing any digit should be rejected outright (OCR noise guard; PITFALLS.md §Security Mistakes already says "skip long/mixed-digit tokens").
    - Recommendation: reject any token containing a digit. It is safer for the network guard in Phase 2 and avoids `mp`-style keys. This changes D-01's literal edge-strip; confirm with the user first.
+   - **RESOLVED:** D-17 — reject any token containing a digit (checked before edge stripping).
 
 3. **Diacritics in Latin words (`café`, `naïve`, `résumé`).**
    - What we know: D-01 says `→ ASCII`, which can be read as "make the key ASCII" or as "fold the quote characters to ASCII". The implementation above keeps Latin diacritics (`café` stays `café`) and strips only stray combining marks.
    - What's unclear: the intent of D-01's "ASCII" step.
    - Recommendation: keep diacritics. Stripping them merges distinct entries (`resume`/`résumé`) and the dictionary keys in Phase 2 will carry them. Confirm the reading.
+   - **RESOLVED:** D-18 — keep diacritics; "→ ASCII" applies only to quotes/apostrophes/dashes.
 
 4. **Display form of the word.**
    - What we know: the key is lowercase (D-03). PITFALLS says to store the original form for display. D-03 does not say to store it.
    - What's unclear: whether the popup shows `apple` or `Apple`.
    - Recommendation: do not add a display column in Phase 1 (not required by any criterion). Phase 5 can add a nullable `display` column through migration v2, which is what the migration mechanism is for.
+   - **RESOLVED (deferred):** no display column in Phase 1; Phase 5 adds it via migration if the popup needs it.
 
 5. **Is `lemma` in schema v1 or a v2 migration?**
    - What we know: D-06 says the column is in the schema beforehand. Success criterion 4 requires that an old-version database opens under the new code without losing words.
    - What's unclear: with no shipped v1 database yet, a real v1→v2 path does not exist until a later release.
    - Recommendation (ponytail-minimal): put `lemma` in v1 (literal D-06). Prove the migration path with a test that injects a synthetic second step (`ALTER TABLE words ADD COLUMN probe TEXT`) on top of a v1 fixture database. Option B, placing `lemma` in a v2 `ALTER`, also works and exercises a real migration; choose one and state it in the plan.
+   - **RESOLVED:** D-19 — `lemma` in v1; migration path proven by a synthetic v1→v2 test step.
 
 6. **`PRAGMA synchronous`: `NORMAL` or `FULL`.**
    - What we know: in WAL mode, `NORMAL` keeps transactions consistent and durable across application crashes, but a committed transaction can roll back after a power loss or system crash (verified from the official docs).
    - Recommendation: `NORMAL`. A lost last-second counter increment on power loss is acceptable, and it keeps the hotkey path fast. Confirm if the user cares.
+   - **RESOLVED:** D-19 — `synchronous=NORMAL`.
 
 7. **Translation-failure write policy: conflicting research.**
    - What we know: SUMMARY.md says to save the word with a NULL translation on failure. FEATURES.md and PITFALLS.md say do not insert or increment on failure.
    - What's unclear: which is right.
    - Recommendation: not a Phase 1 decision. The store must accept `translation=None` and keep the old value (D-10), which supports both policies. Settle it in Phase 2 with the user.
+   - **RESOLVED (deferred):** Phase 2 decides; the Phase 1 store accepts `translation=None` and keeps the old value (D-10).
 
 8. **Context length cap.**
    - What we know: D-07 stores the last non-empty recognised line; nothing caps its length. Long OCR output could bloat rows.
    - Recommendation: the store truncates `context` to a fixed cap (e.g., 500 characters) and the planner picks the number. This is a store-level guard, not a normalisation rule.
+   - **RESOLVED:** D-19 — context truncated to 500 characters at write.
 
 ## Environment Availability
 
