@@ -192,19 +192,14 @@ class OpenFailureTests(unittest.TestCase):
 
     def _assert_wal_lock_failure(self, path, timeout, bound):
         start = time.monotonic()
-        with self.assertRaises(Exception) as ctx:
+        with self.assertRaises(sqlite3.OperationalError) as ctx:
             open_store(path, timeout=timeout)
         elapsed = time.monotonic() - start
         self.assertLess(elapsed, bound)
-        chain, exc = [], ctx.exception
-        while exc is not None:
-            chain.append(exc)
-            exc = exc.__cause__
-        self.assertTrue(
-            any("locked" in str(e).lower() for e in chain),
-            [repr(e) for e in chain],
-        )
-        self.assertIsInstance(chain[-1], sqlite3.OperationalError)
+        # WR-02: a busy DB is not reported as a migration failure.
+        self.assertNotIsInstance(ctx.exception, MigrationError)
+        self.assertIn("locked", str(ctx.exception).lower())
+        self.assertIsInstance(ctx.exception.__cause__, sqlite3.OperationalError)
 
     def test_wal_switch_under_lock_fails_fast_with_default_timeout(self):
         # WR-01: was ~50 x busy_timeout (minutes); now bounded by _WAL_MAX_WAIT.
@@ -214,6 +209,23 @@ class OpenFailureTests(unittest.TestCase):
     def test_wal_switch_deadline_follows_short_timeout(self):
         path = self._locked_rollback_db()
         self._assert_wal_lock_failure(path, 0.3, 1.5)
+
+    def test_not_a_database_raises_sqlite_error_not_migration_error(self):
+        path = self.root / "garbage.db"
+        path.write_bytes(b"this is not an sqlite database" * 100)
+        with self.assertRaises(sqlite3.DatabaseError) as ctx:
+            open_store(path)
+        self.assertNotIsInstance(ctx.exception, MigrationError)
+        # The connection was closed (Windows refuses to delete an open file).
+        os.remove(path)
+
+    def test_migration_failure_keeps_cause_and_type_name(self):
+        path = self.root / "t.db"
+        _make_v1(path, ["run"])
+        with self.assertRaises(MigrationError) as ctx:
+            open_store(path, migrations=MIGRATIONS + (_fail,))
+        self.assertIsInstance(ctx.exception.__cause__, RuntimeError)
+        self.assertTrue(str(ctx.exception).startswith("RuntimeError: "))
 
     def test_busy_timeout_restored_after_wal_switch(self):
         conn = open_store(self.root / "t.db", timeout=1.5)

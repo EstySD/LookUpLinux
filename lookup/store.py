@@ -24,7 +24,12 @@ class SchemaTooNewError(RuntimeError):
 
 
 class MigrationError(RuntimeError):
-    """A migration step failed; the database was rolled back."""
+    """Migrating the database failed (snapshot, write lock or a step); nothing was committed.
+
+    Open failures that happen before any migration work (locked or corrupt
+    file, failed WAL switch) are raised as the underlying sqlite3.Error or
+    OSError instead.
+    """
 
 
 def _v1(conn):
@@ -185,12 +190,18 @@ def open_store(path=None, migrations=MIGRATIONS, timeout=5.0):
     The numbered order below is locked (D-14): version check before any write,
     snapshot before the write lock, all steps plus the version bump in one
     transaction.
+
+    Errors:
+    - SchemaTooNewError: the database is newer than this program; untouched.
+    - sqlite3.Error / OSError, unwrapped: the database could not be opened
+      (locked, corrupt, not a database, unwritable directory). Steps 1-5.
+    - MigrationError: migrating failed (snapshot, write lock or a step);
+      nothing was committed. Steps 6-7; the cause is in __cause__.
     """
     # 1
     path = Path(path) if path is not None else default_db_path()
     # 2
     conn = _connect(path, timeout)
-    tmp = None
     try:
         # 3
         v = conn.execute("PRAGMA user_version").fetchone()[0]
@@ -203,9 +214,14 @@ def open_store(path=None, migrations=MIGRATIONS, timeout=5.0):
         # 4
         _ensure_wal(conn, timeout)
         conn.execute("PRAGMA synchronous=NORMAL")
-        # 5
-        if v == target:
-            return conn
+    except BaseException:
+        conn.close()
+        raise
+    # 5
+    if v == target:
+        return conn
+    tmp = None
+    try:
         # 6
         if v > 0:
             tmp = _snapshot(conn, path, v)
@@ -235,7 +251,7 @@ def open_store(path=None, migrations=MIGRATIONS, timeout=5.0):
     except Exception as exc:
         # 8
         _abort(conn, tmp)
-        raise MigrationError(str(exc)) from exc
+        raise MigrationError(type(exc).__name__ + ": " + str(exc)) from exc
     except BaseException:
         _abort(conn, tmp)
         raise
