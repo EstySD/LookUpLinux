@@ -130,3 +130,105 @@ def upsert_word(conn, word, translation=None, context=None, now=None) -> int:
     )
     rows = cur.fetchall()
     return int(rows[0][0])
+
+
+def _snapshot(conn, path, old_version) -> Path:
+    """Copy the database to a temporary file beside it and return that path.
+
+    Uses Connection.backup (consistent, includes WAL content). Call it only
+    while `conn` has NO open transaction: a backup from the connection that
+    holds BEGIN IMMEDIATE on a WAL database hangs forever.
+    """
+    path = Path(path)
+    tmp = path.with_name("%s.bak-v%d.%d.tmp" % (path.name, old_version, os.getpid()))
+    dst = sqlite3.connect(tmp)
+    try:
+        try:
+            conn.backup(dst)
+        finally:
+            dst.close()
+    except BaseException:
+        _remove_quietly(tmp)
+        raise
+    return tmp
+
+
+def _remove_quietly(path):
+    if path is None:
+        return
+    try:
+        os.remove(path)
+    except OSError:
+        pass
+
+
+def open_store(path=None, migrations=MIGRATIONS, timeout=5.0):
+    """Open (creating and migrating if needed) the word database.
+
+    The numbered order below is locked (D-14): version check before any write,
+    snapshot before the write lock, all steps plus the version bump in one
+    transaction.
+    """
+    # 1
+    path = Path(path) if path is not None else default_db_path()
+    # 2
+    conn = _connect(path, timeout)
+    tmp = None
+    try:
+        # 3
+        v = conn.execute("PRAGMA user_version").fetchone()[0]
+        target = len(migrations)
+        if v > target:
+            raise SchemaTooNewError(
+                "База версии %d новее программы (знает до %d): обновите программу."
+                % (v, target)
+            )
+        # 4
+        _ensure_wal(conn)
+        conn.execute("PRAGMA synchronous=NORMAL")
+        # 5
+        if v == target:
+            return conn
+        # 6
+        if v > 0:
+            tmp = _snapshot(conn, path, v)
+        # 7
+        conn.execute("BEGIN IMMEDIATE")
+        locked_v = conn.execute("PRAGMA user_version").fetchone()[0]
+        if locked_v > target:
+            raise SchemaTooNewError(
+                "База версии %d новее программы (знает до %d): обновите программу."
+                % (locked_v, target)
+            )
+        if tmp is not None:
+            if locked_v == v:
+                os.replace(tmp, path.with_name("%s.bak-v%d" % (path.name, v)))
+            else:
+                _remove_quietly(tmp)
+            tmp = None
+        for step in migrations[locked_v:]:
+            step(conn)
+        conn.execute("PRAGMA user_version = %d" % target)
+        conn.execute("COMMIT")
+        # 9
+        return conn
+    except SchemaTooNewError:
+        _abort(conn, tmp)
+        raise
+    except Exception as exc:
+        # 8
+        _abort(conn, tmp)
+        raise MigrationError(str(exc)) from exc
+    except BaseException:
+        _abort(conn, tmp)
+        raise
+
+
+def _abort(conn, tmp):
+    try:
+        if conn.in_transaction:
+            conn.execute("ROLLBACK")
+    except sqlite3.Error:
+        pass
+    conn.close()
+    _remove_quietly(tmp)
