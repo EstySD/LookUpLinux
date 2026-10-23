@@ -91,12 +91,41 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
+| TRIG-01 | Phase 4 | Pending |
+| TRIG-02 | Phase 5 | Pending |
+| TRIG-03 | Phase 5 | Pending |
+| TRIG-04 | Phase 7 | Pending |
+| CAPT-01 | Phase 4 | Pending |
+| CAPT-02 | Phase 5 | Pending |
+| CAPT-03 | Phase 3 | Pending |
+| CAPT-04 | Phase 3 | Pending |
+| TRAN-01 | Phase 2 | Pending |
+| TRAN-02 | Phase 2 | Pending |
+| TRAN-03 | Phase 2 | Pending |
+| TRAN-04 | Phase 2 | Pending |
+| TRAN-05 | Phase 2 | Pending |
+| POP-01 | Phase 5 | Pending |
+| POP-02 | Phase 5 | Pending |
+| POP-03 | Phase 5 | Pending |
+| POP-04 | Phase 6 | Pending |
+| POP-05 | Phase 5 | Pending |
+| DATA-01 | Phase 1 | Pending |
+| DATA-02 | Phase 1 | Pending |
+| DATA-03 | Phase 2 | Pending |
+| LIST-01 | Phase 6 | Pending |
+| LIST-02 | Phase 6 | Pending |
+| LEARN-01 | Phase 6 | Pending |
+| LEARN-02 | Phase 6 | Pending |
+| SET-01 | Phase 7 | Pending |
+| INST-01 | Phase 7 | Pending |
+| INST-02 | Phase 7 | Pending |
+| PERF-01 | Phase 8 | Pending |
 
 **Coverage:**
-- v1 requirements: 30 total
-- Mapped to phases: 0
-- Unmapped: 30 ⚠️
+- v1 requirements: 29 total
+- Mapped to phases: 29
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-10-23*
-*Last updated: 2026-10-24 — scope raised to production version close to Lookupper*
+*Last updated: 2026-10-24 — roadmap traceability added (count corrected from 30 to 29)*
