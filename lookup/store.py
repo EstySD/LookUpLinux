@@ -144,6 +144,10 @@ def upsert_word(conn, word, translation=None, context=None, now=None) -> int:
     context = _clean_text(context, CONTEXT_MAX_CHARS)
     if now is None:
         now = int(time.time())
+    elif isinstance(now, bool) or not isinstance(now, (int, float)):
+        raise TypeError("now must be int, got " + type(now).__name__)
+    else:
+        now = int(now)  # D-13: INTEGER Unix seconds, also for now=time.time()
     cur = conn.execute(
         "INSERT INTO words (word, translation, context, first_seen, last_seen) "
         "VALUES (?, NULLIF(?, ''), NULLIF(?, ''), ?, ?) "

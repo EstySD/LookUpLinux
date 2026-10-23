@@ -88,6 +88,22 @@ class UpsertTests(unittest.TestCase):
         self.assertTrue(before <= first <= after)
         self.assertTrue(before <= last <= after)
 
+    def test_float_now_stored_as_integer_seconds(self):
+        # WR-04: now=time.time() must not store REAL timestamps (D-13).
+        upsert_word(self.conn, "run", now=1729771234.7)
+        upsert_word(self.conn, "run", now=1729771300.2)
+        row = self.conn.execute(
+            "SELECT typeof(first_seen), typeof(last_seen), first_seen, last_seen FROM words"
+        ).fetchone()
+        self.assertEqual(row, ("integer", "integer", 1729771234, 1729771300))
+
+    def test_invalid_now_rejected(self):
+        for bad in (True, False, "100", b"100", [1]):
+            with self.subTest(now=bad):
+                with self.assertRaises(TypeError):
+                    upsert_word(self.conn, "run", now=bad)
+        self.assertEqual(self.count_rows(), 0)
+
     def test_distinct_words_distinct_rows(self):
         self.assertEqual(upsert_word(self.conn, "run", now=1), 1)
         self.assertEqual(upsert_word(self.conn, "walk", now=1), 1)
