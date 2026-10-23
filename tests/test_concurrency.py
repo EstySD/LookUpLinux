@@ -4,10 +4,14 @@ import sqlite3
 import time
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from lookup.store import open_store
 from tests import _workers
 from tests._support import make_tempdir
+
+# Upper bound for the reader loop; a hung child fails the test instead of the run.
+_WRITERS_DEADLINE = 90
 
 
 class ConcurrentWriterTests(unittest.TestCase):
@@ -35,7 +39,12 @@ class ConcurrentWriterTests(unittest.TestCase):
 
         reader_values = []
         if reader is not None:
+            deadline = time.monotonic() + _WRITERS_DEADLINE
             while any(p.is_alive() for p in procs):
+                if time.monotonic() > deadline:
+                    self.fail(
+                        "writer processes did not finish in %d s" % _WRITERS_DEADLINE
+                    )
                 row = reader.execute(
                     "SELECT count FROM words WHERE word = 'run'"
                 ).fetchone()
@@ -84,6 +93,17 @@ class ConcurrentWriterTests(unittest.TestCase):
             cur = 0 if value is None else value
             self.assertGreaterEqual(cur, prev)
             prev = cur
+
+    def test_reader_loop_has_deadline(self):
+        # WR-06: a stuck writer must fail the test, not hang the suite.
+        path = self.root / "deadline" / "lookup.db"
+        open_store(path).close()
+        reader = sqlite3.connect(str(path), timeout=5)
+        self.addCleanup(reader.close)
+        with mock.patch(__name__ + "._WRITERS_DEADLINE", -1):
+            with self.assertRaises(AssertionError) as ctx:
+                self._run_writers(path, reader=reader)
+        self.assertIn("did not finish", str(ctx.exception))
 
     def test_ten_writers_on_fresh_db(self):
         for round_no in range(3):
