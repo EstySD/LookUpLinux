@@ -4,17 +4,17 @@ milestone: v1.0
 milestone_name: milestone
 current_phase: 1
 current_phase_name: "Ядро: база и нормализация"
-status: executing
-stopped_at: Completed 01-02-PLAN.md
-last_updated: "2026-10-23T21:13:11.897Z"
+status: verifying
+stopped_at: Completed 01-03-PLAN.md
+last_updated: "2026-10-23T21:14:44.297Z"
 last_activity: 2026-10-23
 last_activity_desc: Phase 1 execution started
 progress:
   total_phases: 8
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
-  percent: 0
+  completed_plans: 3
+  percent: 13
 ---
 
 # Project State
@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-10-24)
 
 Phase: 1 (Ядро: база и нормализация) — EXECUTING
 Plan: 3 of 3
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-10-23 — Phase 1 execution started
 
 Progress: [░░░░░░░░░░] 0%
@@ -57,6 +57,7 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 01 P01 | 10min | 2 tasks | 5 files |
 | Phase 01 P02 | 20min | 4 tasks | 5 files |
+| Phase 01 P03 | 8min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -72,6 +73,7 @@ Recent decisions affecting current work:
 - [Roadmap]: Режим ponytail — минимальное полное решение; относится к реализации, не к объёму фич
 - [Phase 01-01]: Digit check (D-17) runs on raw token before edge trimming; possessive loop stops at D-16 contractions
 - [Phase 01]: Snapshot taken before BEGIN IMMEDIATE and published only if user_version unchanged under the lock — Connection.backup inside the write lock hangs on WAL
+- [Phase 01]: 01-03: store.py needed no change; 10-process spawn tests pass on pre-created and fresh DBs
 
 ### Pending Todos
 
@@ -100,6 +102,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-10-23T21:13:11.889Z
-Stopped at: Completed 01-02-PLAN.md
+Last session: 2026-10-23T21:14:44.290Z
+Stopped at: Completed 01-03-PLAN.md
 Resume file: .planning/phases/01-core-db-normalize/01-CONTEXT.md
