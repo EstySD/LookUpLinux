@@ -12,7 +12,11 @@ from pathlib import Path
 DB_ENV = "LOOKUP_DB"
 CONTEXT_MAX_CHARS = 500  # D-19
 _MIN_SQLITE = (3, 35, 0)  # RETURNING
-_WAL_RETRIES = 50
+# Upper bound on the whole WAL-switch retry loop, in seconds (hotkey latency
+# budget). The effective deadline is min(timeout, _WAL_MAX_WAIT).
+_WAL_MAX_WAIT = 2.0
+# busy_timeout (ms) for a single WAL-switch attempt; the retry loop owns the waiting.
+_WAL_ATTEMPT_BUSY_MS = 50
 
 
 class SchemaTooNewError(RuntimeError):
@@ -69,24 +73,37 @@ def _connect(path, timeout):
     return conn
 
 
-def _ensure_wal(conn):
-    """Switch to WAL once, read-first and retrying on 'locked' (Pitfall 1).
+def _ensure_wal(conn, timeout):
+    """Switch to WAL once, read-first and retrying on 'locked' (Pitfall 1, D-20).
 
-    Must run outside a transaction.
+    Must run outside a transaction. The whole loop is bounded by wall-clock
+    time, min(timeout, _WAL_MAX_WAIT): each attempt runs with a short
+    busy_timeout so SQLite's busy handler cannot multiply the wait. The
+    connection's busy_timeout is restored afterwards.
     """
-    for _ in range(_WAL_RETRIES):
-        try:
-            if conn.execute("PRAGMA journal_mode").fetchone()[0].lower() == "wal":
-                return
-            row = conn.execute("PRAGMA journal_mode=WAL").fetchone()
-            if row is not None and str(row[0]).lower() == "wal":
-                return
-            raise sqlite3.OperationalError("could not switch database to WAL")
-        except sqlite3.OperationalError as exc:
-            if "locked" not in str(exc).lower():
-                raise
+    deadline = time.monotonic() + max(0.0, min(timeout, _WAL_MAX_WAIT))
+    conn.execute("PRAGMA busy_timeout=%d" % _WAL_ATTEMPT_BUSY_MS)
+    try:
+        last = None
+        while True:
+            try:
+                if conn.execute("PRAGMA journal_mode").fetchone()[0].lower() == "wal":
+                    return
+                row = conn.execute("PRAGMA journal_mode=WAL").fetchone()
+                if row is not None and str(row[0]).lower() == "wal":
+                    return
+                raise sqlite3.OperationalError("could not switch database to WAL")
+            except sqlite3.OperationalError as exc:
+                if "locked" not in str(exc).lower():
+                    raise
+                last = exc
+            if time.monotonic() >= deadline:
+                raise sqlite3.OperationalError(
+                    "could not switch database to WAL: database is locked"
+                ) from last
             time.sleep(random.uniform(0.005, 0.05))
-    raise sqlite3.OperationalError("could not switch database to WAL")
+    finally:
+        conn.execute("PRAGMA busy_timeout=%d" % int(timeout * 1000))
 
 
 def _clean_text(value, limit=None):
@@ -184,7 +201,7 @@ def open_store(path=None, migrations=MIGRATIONS, timeout=5.0):
                 % (v, target)
             )
         # 4
-        _ensure_wal(conn)
+        _ensure_wal(conn, timeout)
         conn.execute("PRAGMA synchronous=NORMAL")
         # 5
         if v == target:

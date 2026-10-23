@@ -2,6 +2,7 @@ import faulthandler
 import hashlib
 import os
 import sqlite3
+import time
 import unittest
 from pathlib import Path
 from unittest import mock
@@ -170,6 +171,54 @@ class SchemaLifecycleTests(unittest.TestCase):
         self.assertIn("probe", _columns(conn))
         self.assertFalse((self.root / "t.db.bak-v1").exists())
         self.assertEqual(self.files(self.root, "*.tmp"), [])
+
+
+class OpenFailureTests(unittest.TestCase):
+    def setUp(self):
+        self.root = make_tempdir(self)
+
+    def _locked_rollback_db(self):
+        """A rollback-journal DB whose SHARED lock is held by another connection."""
+        path = self.root / "locked.db"
+        raw = sqlite3.connect(path)
+        raw.execute("CREATE TABLE t (x)")
+        raw.commit()
+        raw.close()
+        reader = sqlite3.connect(path, isolation_level=None)
+        self.addCleanup(reader.close)
+        reader.execute("BEGIN")
+        reader.execute("SELECT * FROM t").fetchall()
+        return path
+
+    def _assert_wal_lock_failure(self, path, timeout, bound):
+        start = time.monotonic()
+        with self.assertRaises(Exception) as ctx:
+            open_store(path, timeout=timeout)
+        elapsed = time.monotonic() - start
+        self.assertLess(elapsed, bound)
+        chain, exc = [], ctx.exception
+        while exc is not None:
+            chain.append(exc)
+            exc = exc.__cause__
+        self.assertTrue(
+            any("locked" in str(e).lower() for e in chain),
+            [repr(e) for e in chain],
+        )
+        self.assertIsInstance(chain[-1], sqlite3.OperationalError)
+
+    def test_wal_switch_under_lock_fails_fast_with_default_timeout(self):
+        # WR-01: was ~50 x busy_timeout (minutes); now bounded by _WAL_MAX_WAIT.
+        path = self._locked_rollback_db()
+        self._assert_wal_lock_failure(path, 5.0, store._WAL_MAX_WAIT + 1.5)
+
+    def test_wal_switch_deadline_follows_short_timeout(self):
+        path = self._locked_rollback_db()
+        self._assert_wal_lock_failure(path, 0.3, 1.5)
+
+    def test_busy_timeout_restored_after_wal_switch(self):
+        conn = open_store(self.root / "t.db", timeout=1.5)
+        self.addCleanup(conn.close)
+        self.assertEqual(conn.execute("PRAGMA busy_timeout").fetchone()[0], 1500)
 
 
 if __name__ == "__main__":
