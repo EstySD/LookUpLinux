@@ -5,6 +5,7 @@ versions and type names only, never word, context or translation text.
 """
 import os
 import random
+import re
 import sqlite3
 import time
 from pathlib import Path
@@ -45,7 +46,11 @@ def _v1(conn):
     )
 
 
-# A step takes the connection, runs inside the caller's transaction, never commits.
+# A step takes a guarded connection (_StepConnection: execute, executemany,
+# executescript) and runs inside the caller's transaction. It must not control
+# that transaction: BEGIN/COMMIT/END/ROLLBACK and commit()/rollback() raise
+# MigrationError, and open_store re-checks after every step that the
+# transaction is still open.
 MIGRATIONS = (_v1,)
 CURRENT_VERSION = len(MIGRATIONS)
 
@@ -154,6 +159,85 @@ def upsert_word(conn, word, translation=None, context=None, now=None) -> int:
     return int(rows[0][0])
 
 
+_SQL_LEAD = re.compile(r"(?:\s+|--[^\n]*(?:\n|\Z)|/\*.*?(?:\*/|\Z))*", re.S)
+_SQL_WORDS = re.compile(r"(\w+)(?:\s+(\w+))?(?:\s+(\w+))?")
+_TX_CONTROL = frozenset(("BEGIN", "COMMIT", "END", "ROLLBACK"))
+
+
+def _sql_body(sql):
+    """`sql` without leading whitespace and comments."""
+    return sql[_SQL_LEAD.match(sql).end():]
+
+
+def _check_step_sql(sql):
+    """Reject statements that would end or restart the migration transaction."""
+    m = _SQL_WORDS.match(_sql_body(sql))
+    if m is None:
+        return
+    words = [w.upper() for w in m.groups() if w]
+    if words[0] not in _TX_CONTROL:
+        return
+    if words[0] == "ROLLBACK" and "TO" in words[1:]:
+        return  # ROLLBACK [TRANSACTION] TO [SAVEPOINT] name stays inside the transaction
+    raise MigrationError("a migration step must not run %s" % words[0])
+
+
+class _StepConnection:
+    """The connection a migration step receives: no transaction control.
+
+    executescript() runs the script statement by statement through execute(),
+    because sqlite3's own executescript() COMMITs a pending transaction first.
+    """
+
+    __slots__ = ("_conn",)
+    _PASS_THROUGH = frozenset(
+        ("create_function", "create_aggregate", "create_collation", "total_changes")
+    )
+
+    def __init__(self, conn):
+        self._conn = conn
+
+    def execute(self, sql, parameters=()):
+        _check_step_sql(sql)
+        return self._conn.execute(sql, parameters)
+
+    def executemany(self, sql, seq_of_parameters):
+        _check_step_sql(sql)
+        return self._conn.executemany(sql, seq_of_parameters)
+
+    def executescript(self, script):
+        buf = []
+        for ch in script:
+            buf.append(ch)
+            if ch == ";":
+                stmt = "".join(buf)
+                if sqlite3.complete_statement(stmt):
+                    self._run_script_part(stmt)
+                    buf = []
+        self._run_script_part("".join(buf))
+
+    def _run_script_part(self, stmt):
+        if _sql_body(stmt).strip(" \t\r\n;"):
+            self.execute(stmt)
+
+    @property
+    def in_transaction(self):
+        return self._conn.in_transaction
+
+    def commit(self):
+        raise MigrationError("a migration step must not commit")
+
+    def rollback(self):
+        raise MigrationError("a migration step must not roll back")
+
+    def __getattr__(self, name):
+        if name in _StepConnection._PASS_THROUGH:
+            return getattr(self._conn, name)
+        raise AttributeError(
+            "migration steps may not use Connection.%s" % name
+        )
+
+
 def _snapshot(conn, path, old_version) -> Path:
     """Copy the database to a temporary file beside it and return that path.
 
@@ -239,13 +323,18 @@ def open_store(path=None, migrations=MIGRATIONS, timeout=5.0):
             else:
                 _remove_quietly(tmp)
             tmp = None
-        for step in migrations[locked_v:]:
-            step(conn)
+        guarded = _StepConnection(conn)
+        for number, step in enumerate(migrations[locked_v:], locked_v + 1):
+            step(guarded)
+            if not conn.in_transaction:
+                raise MigrationError(
+                    "migration step to v%d ended the transaction" % number
+                )
         conn.execute("PRAGMA user_version = %d" % target)
         conn.execute("COMMIT")
         # 9
         return conn
-    except SchemaTooNewError:
+    except (SchemaTooNewError, MigrationError):
         _abort(conn, tmp)
         raise
     except Exception as exc:

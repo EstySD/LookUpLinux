@@ -173,6 +173,103 @@ class SchemaLifecycleTests(unittest.TestCase):
         self.assertEqual(self.files(self.root, "*.tmp"), [])
 
 
+class StepTransactionGuardTests(unittest.TestCase):
+    """WR-03: a step cannot end the migration transaction."""
+
+    def setUp(self):
+        self.root = make_tempdir(self)
+        self.path = self.root / "t.db"
+        _make_v1(self.path, ["run", "walk"])
+
+    def assert_untouched(self):
+        p = sqlite3.connect(self.path, isolation_level=None)
+        try:
+            self.assertEqual(p.execute("PRAGMA user_version").fetchone()[0], 1)
+            self.assertEqual(
+                _columns(p),
+                ["word", "translation", "context", "count", "first_seen", "last_seen", "lemma"],
+            )
+            self.assertEqual(p.execute("SELECT COUNT(*) FROM words").fetchone()[0], 2)
+        finally:
+            p.close()
+        conn = open_store(self.path)  # still opens with the real migrations
+        conn.close()
+
+    def test_executescript_runs_inside_the_transaction(self):
+        # Reviewer's repro: sqlite3's executescript() would COMMIT first and
+        # leave column z behind with user_version still 1.
+        steps = MIGRATIONS + (
+            lambda c: c.executescript("ALTER TABLE words ADD COLUMN z TEXT;"),
+            _fail,
+        )
+        with self.assertRaises(MigrationError):
+            open_store(self.path, migrations=steps)
+        self.assert_untouched()
+
+    def test_multi_statement_script_with_trigger_migrates(self):
+        script = (
+            "-- v2\n"
+            "ALTER TABLE words ADD COLUMN a TEXT; CREATE INDEX ix_a ON words(a);\n"
+            "CREATE TRIGGER tr AFTER INSERT ON words BEGIN "
+            "UPDATE words SET a = 'x' WHERE word = NEW.word; END;\n"
+            "/* trailing comment */"
+        )
+        conn = open_store(self.path, migrations=MIGRATIONS + (lambda c: c.executescript(script),))
+        self.addCleanup(conn.close)
+        self.assertEqual(conn.execute("PRAGMA user_version").fetchone()[0], 2)
+        self.assertIn("a", _columns(conn))
+        names = {r[0] for r in conn.execute("SELECT name FROM sqlite_master")}
+        self.assertTrue({"ix_a", "tr"} <= names, names)
+
+    def test_transaction_control_rejected(self):
+        bad = [
+            lambda c: c.commit(),
+            lambda c: c.rollback(),
+            lambda c: c.execute("COMMIT"),
+            lambda c: c.execute("  /* x */ -- y\n end transaction"),
+            lambda c: c.execute("ROLLBACK"),
+            lambda c: c.execute("BEGIN"),
+            lambda c: c.executescript("ALTER TABLE words ADD COLUMN z TEXT; COMMIT;"),
+            lambda c: c.cursor(),
+        ]
+        for i, step in enumerate(bad):
+            with self.subTest(i=i):
+                with self.assertRaises(MigrationError):
+                    open_store(self.path, migrations=MIGRATIONS + (_add_probe, step))
+                self.assert_untouched()
+
+    def test_savepoint_rollback_to_allowed(self):
+        def step(c):
+            c.execute("SAVEPOINT s")
+            c.execute("ALTER TABLE words ADD COLUMN gone TEXT")
+            c.execute("ROLLBACK TO s")
+            c.execute("RELEASE s")
+            c.execute("ALTER TABLE words ADD COLUMN probe TEXT")
+
+        conn = open_store(self.path, migrations=MIGRATIONS + (step,))
+        self.addCleanup(conn.close)
+        self.assertIn("probe", _columns(conn))
+        self.assertNotIn("gone", _columns(conn))
+
+    def test_step_that_ends_transaction_out_of_band_is_detected(self):
+        captured = []
+        real_connect = store._connect
+
+        def connect(path, timeout):
+            conn = real_connect(path, timeout)
+            captured.append(conn)
+            return conn
+
+        def sneaky(c):
+            captured[0].execute("COMMIT")
+
+        with mock.patch.object(store, "_connect", connect):
+            with self.assertRaises(MigrationError) as ctx:
+                open_store(self.path, migrations=MIGRATIONS + (sneaky,))
+        self.assertIn("v2", str(ctx.exception))
+        self.assert_untouched()
+
+
 class OpenFailureTests(unittest.TestCase):
     def setUp(self):
         self.root = make_tempdir(self)
