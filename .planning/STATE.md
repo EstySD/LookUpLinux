@@ -4,9 +4,9 @@ milestone: v1.0
 milestone_name: milestone
 current_phase: 1
 current_phase_name: "Ядро: база и нормализация"
-status: planning
+status: executing
 stopped_at: Phase 1 context gathered
-last_updated: "2026-10-23T20:36:36.066Z"
+last_updated: "2026-10-23T21:08:19.025Z"
 last_activity: 2026-10-24
 last_activity_desc: Roadmap revised for production scope (8 phases, 29/29 requirements mapped)
 progress:
@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-10-24)
 
 Phase: 1 of 8 (Ядро: база и нормализация)
 Plan: 0 of 0 in current phase
-Status: Ready to plan
+Status: Ready to execute
 Last activity: 2026-10-24 — Roadmap revised for production scope (8 phases, 29/29 requirements mapped)
 
 Progress: [░░░░░░░░░░] 0%
