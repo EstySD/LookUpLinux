@@ -6,14 +6,14 @@ current_phase: 1
 current_phase_name: "Ядро: база и нормализация"
 status: executing
 stopped_at: Phase 1 context gathered
-last_updated: "2026-10-23T21:08:19.025Z"
-last_activity: 2026-10-24
-last_activity_desc: Roadmap revised for production scope (8 phases, 29/29 requirements mapped)
+last_updated: "2026-10-23T21:10:34.260Z"
+last_activity: 2026-10-23
+last_activity_desc: Phase 1 execution started
 progress:
   total_phases: 8
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 3
+  completed_plans: 1
   percent: 0
 ---
 
@@ -28,10 +28,10 @@ See: .planning/PROJECT.md (updated 2026-10-24)
 
 ## Current Position
 
-Phase: 1 of 8 (Ядро: база и нормализация)
-Plan: 0 of 0 in current phase
+Phase: 1 (Ядро: база и нормализация) — EXECUTING
+Plan: 2 of 3
 Status: Ready to execute
-Last activity: 2026-10-24 — Roadmap revised for production scope (8 phases, 29/29 requirements mapped)
+Last activity: 2026-10-23 — Phase 1 execution started
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -55,6 +55,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: -
 
 *Updated after each plan completion*
+| Phase 01 P01 | 10min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -68,6 +69,7 @@ Recent decisions affecting current work:
 - [Roadmap]: Тестируем только в VM Дениса, фазы с железом друга нет; PERF-01 (медиана до 1,5 с) проверяется в Phase 8
 - [Roadmap]: Phase 4 — спайк с двумя гейтами: kdotool или свой скрипт KWin + QtDBus; spectacle или ScreenShot2
 - [Roadmap]: Режим ponytail — минимальное полное решение; относится к реализации, не к объёму фич
+- [Phase 01-01]: Digit check (D-17) runs on raw token before edge trimming; possessive loop stops at D-16 contractions
 
 ### Pending Todos
 
@@ -96,6 +98,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-10-23T20:36:36.059Z
+Last session: 2026-10-23T21:10:28.123Z
 Stopped at: Phase 1 context gathered
 Resume file: .planning/phases/01-core-db-normalize/01-CONTEXT.md

@@ -40,12 +40,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Десять параллельных записей одного слова из разных процессов дают счётчик 10 и не блокируют базу (DATA-01).
   4. Файл базы создаётся в папке данных пользователя; повторный запуск открывает существующую базу, а база старой версии схемы открывается новой версией без потери слов.
 
-**Plans**: 3 plans
+**Plans**: 1/3 plans executed
 
 Plans:
 **Wave 1**
 
-- [ ] 01-01-PLAN.md — пакет `lookup/`, `normalize()` (DATA-02) и тесты нормализации (SC1)
+- [x] 01-01-PLAN.md — пакет `lookup/`, `normalize()` (DATA-02) и тесты нормализации (SC1)
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -169,7 +169,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Ядро: база и нормализация | 0/3 | Planned | - |
+| 1. Ядро: база и нормализация | 1/3 | In Progress|  |
 | 2. Офлайн-словари и перевод | 0/0 | Not started | - |
 | 3. OCR слова на готовых скриншотах | 0/0 | Not started | - |
 | 4. Спайк в VM: хоткей, курсор, скриншот, фон | 0/0 | Not started | - |
