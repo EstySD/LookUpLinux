@@ -6,14 +6,14 @@ current_phase: 2
 current_phase_name: Офлайн-словари и перевод
 status: executing
 stopped_at: Phase 2 context gathered
-last_updated: "2026-10-24T14:28:27.478Z"
+last_updated: "2026-10-24T14:32:37.922Z"
 last_activity: 2026-10-24
-last_activity_desc: Phase 1 complete, transitioned to Phase 2
+last_activity_desc: Phase 2 execution started
 progress:
   total_phases: 8
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  total_plans: 14
+  completed_plans: 4
   percent: 13
 ---
 
@@ -24,14 +24,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-10-24)
 
 **Core value:** Хоткей над английским словом даёт перевод в оверлее у курсора примерно за 1–2 секунды, и слово попадает в базу со счётчиком.
-**Current focus:** Phase 1 — Ядро: база и нормализация
+**Current focus:** Phase 2 — Офлайн-словари и перевод
 
 ## Current Position
 
-Phase: 2 — Офлайн-словари и перевод
-Plan: Not started
+Phase: 2 (Офлайн-словари и перевод) — EXECUTING
+Plan: 2 of 11
 Status: Ready to execute
-Last activity: 2026-10-24 — Phase 1 complete, transitioned to Phase 2
+Last activity: 2026-10-24 — Phase 2 execution started
 
 Progress: [█░░░░░░░░░] 13%
 
@@ -58,6 +58,7 @@ Progress: [█░░░░░░░░░] 13%
 | Phase 01 P01 | 10min | 2 tasks | 5 files |
 | Phase 01 P02 | 20min | 4 tasks | 5 files |
 | Phase 01 P03 | 8min | 2 tasks | 3 files |
+| Phase 2 P01 | 25min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,7 @@ Recent decisions affecting current work:
 - [Phase 01]: 01-03: store.py needed no change; 10-process spawn tests pass on pre-created and fresh DBs
 - [Phase 01]: IN-02: правило D-04 (длина < 2, кроме a/i) действует на весь ключ фразы, не на токен ("plan b" допустим); токен из одной пунктуации отклоняет всю фразу, а не выбрасывается ("rock & roll" не превращается в "rock roll")
 - [Phase 01]: Тестовая VM — VirtualBox `arch-kde` (Windows-хост, QEMU/KVM недоступен), `ssh archvm`
+- [Phase 02-01]: assert_untouched in StepTransactionGuardTests reopens a copy of the V1 fixture with the real tuple, since the real tuple now upgrades V1 to v2
 
 ### Pending Todos
 
@@ -105,6 +107,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-10-24T05:21:06.186Z
+Last session: 2026-10-24T14:32:34.418Z
 Stopped at: Phase 2 context gathered
 Resume file: .planning/phases/02-offline-dicts-translate/02-CONTEXT.md
