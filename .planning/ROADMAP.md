@@ -69,7 +69,34 @@ Plans:
   4. При блокировке (429 или HTML вместо JSON), таймауте или отсутствии сети команда укладывается примерно в 3 с и называет причину, а слово из словаря при этом всё равно переводится; доступность онлайн-перевода проверена из сети VM и решено, нужен ли второй провайдер (TRAN-02).
   5. Повторный поиск переведённого слова отвечает из кэша без сети (TRAN-03); предложение переводится онлайн, а без сети результат приходит без перевода предложения и без падения (TRAN-05).
 
-**Plans**: TBD
+**Plans**: 0/11 plans executed
+
+Plans:
+**Wave 1**
+
+- [ ] 02-01-PLAN.md — схема версии 2 (`translations`, `meta`), `lemma` в `upsert_word`, закрепление тестов Phase 1 на `V1` (TRAN-03, TRAN-04)
+- [ ] 02-02-PLAN.md — кодеки на stdlib: LZO1X, RIPEMD-128, dictzip с произвольным доступом (TRAN-01)
+- [ ] 02-03-PLAN.md — `config.py`, модель `Article`/`SearchResult`, текстовые помощники, кэш индексов, `irregular.txt` из WordNet (TRAN-01, TRAN-04)
+- [ ] 02-04-PLAN.md — `online.py`: Google с ротацией `client=`, MyMemory для фраз и предложений, общий дедлайн 3 с, причины ошибок (TRAN-02, TRAN-05)
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 02-05-PLAN.md — читатель StarDict + разбор статей Mueller и указателей «от X» (TRAN-01, TRAN-04)
+- [ ] 02-06-PLAN.md — читатель Lingvo DSL (кодировки, `{}`-варианты, теги, кэш индекса) (TRAN-01)
+- [ ] 02-07-PLAN.md — читатель MDX (1.2/2.0, zlib/none/LZO, Encrypted=2, редиректы, кэш индекса) (TRAN-01)
+- [ ] 02-09-PLAN.md — `translate.py`: классификация, кэш, онлайн, правила записи, поток перевода предложения (TRAN-02, TRAN-03, TRAN-05, DATA-03)
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [ ] 02-08-PLAN.md — поиск по всем словарям: обнаружение, порядок, базовая форма, указатели (TRAN-01, TRAN-04)
+
+**Wave 4** *(blocked on Wave 3 completion)*
+
+- [ ] 02-10-PLAN.md — CLI `python -m lookup`, тесты приватности и чистоты ядра (TRAN-01..TRAN-05, DATA-03)
+
+**Wave 5** *(blocked on Wave 4 completion)*
+
+- [ ] 02-11-PLAN.md — проверка в VM: Mueller 7, замеры D-09, онлайн из VM (SC4), решение про второй провайдер, реальный MDX (TRAN-01..TRAN-05, DATA-03)
 
 ### Phase 3: OCR слова на готовых скриншотах
 
