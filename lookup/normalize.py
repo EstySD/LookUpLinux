@@ -1,12 +1,15 @@
 """Counting-key normalisation for looked-up words and short phrases (DATA-02)."""
+import re
 import unicodedata as ud
 
 # Explicit maps run BEFORE NFKC: NFKC does not fold these to ASCII
-# (U+2019, U+02BC stay; U+00B4 becomes " ́").
-_APOS = dict.fromkeys(map(ord, "‘’‚‛ʼ′´`"), "'")
+# (U+2019, U+02BC stay; U+00B4 becomes " ́"). They run again after NFKC,
+# which produces some of them (U+0149 -> U+02BC n, U+FE58 -> U+2014).
+_APOS = dict.fromkeys(map(ord, "‘’‚‛ʼʻʹ′´`"), "'")
 _DQUO = dict.fromkeys(map(ord, "“”„‟«»″‹›\""), '"')
 _DASH = dict.fromkeys(map(ord, "‐‑‒–—−"), "-")
 _INNER_OK = frozenset("'-")
+_INNER_RUN = re.compile(r"([-'])[-']+")  # OCR noise: well--known -> well-known
 
 # Contractions where "'s" is not a possessive and must be kept (D-16).
 CONTRACTIONS = frozenset(
@@ -35,6 +38,7 @@ def normalize(text: str) -> str | None:
         raise TypeError("text must be str, got " + type(text).__name__)
     t = text.translate(_APOS).translate(_DQUO).translate(_DASH)
     t = ud.normalize("NFKC", t)                              # ligatures, fullwidth, nbsp, Kelvin
+    t = t.translate(_APOS).translate(_DQUO).translate(_DASH)
     t = "".join(c for c in t if ud.category(c) != "Cf")      # soft hyphen, ZWSP, BOM
     t = ud.normalize("NFC", t.casefold())
     t = "".join(c for c in t if ud.category(c) != "Mn")      # stray combining marks
@@ -45,7 +49,7 @@ def normalize(text: str) -> str | None:
     for raw in tokens:
         if any(c.isnumeric() for c in raw):                  # D-17: before edge trimming
             return None
-        w, prev = _strip_edges(raw), None
+        w, prev = _INNER_RUN.sub(r"\1", _strip_edges(raw)), None
         while w != prev:                                     # fixed point -> idempotent
             prev = w
             if w in CONTRACTIONS:

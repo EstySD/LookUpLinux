@@ -19,13 +19,16 @@ from lookup.store import (
 from tests._support import make_tempdir
 
 
-def setUpModule():
-    # A snapshot taken inside an open transaction hangs; fail with a traceback instead.
-    faulthandler.dump_traceback_later(120, exit=True)
+class _Watchdog(unittest.TestCase):
+    """Per-test hang guard: a snapshot taken inside an open transaction hangs.
 
+    Armed per test, so a slow VM only loses the run if one test hangs, and the
+    traceback names that test.
+    """
 
-def tearDownModule():
-    faulthandler.cancel_dump_traceback_later()
+    def setUp(self):
+        faulthandler.dump_traceback_later(60, exit=True)
+        self.addCleanup(faulthandler.cancel_dump_traceback_later)
 
 
 def _add_probe(conn):
@@ -52,8 +55,9 @@ def _columns(conn):
 M2 = MIGRATIONS + (_add_probe,)  # synthetic second schema version (D-19)
 
 
-class SchemaLifecycleTests(unittest.TestCase):
+class SchemaLifecycleTests(_Watchdog):
     def setUp(self):
+        super().setUp()
         self.root = make_tempdir(self)
 
     def open(self, *args, **kwargs):
@@ -180,10 +184,11 @@ def _add_probe2(conn):
 M3 = M2 + (_add_probe2,)
 
 
-class ConcurrentVersionChangeTests(unittest.TestCase):
+class ConcurrentVersionChangeTests(_Watchdog):
     """WR-05: data is never migrated without a backup of the version it starts from."""
 
     def setUp(self):
+        super().setUp()
         self.root = make_tempdir(self)
         self.path = self.root / "t.db"
 
@@ -273,11 +278,53 @@ class ConcurrentVersionChangeTests(unittest.TestCase):
         self.assertEqual(self.files("*.tmp"), [])
         self.assertEqual(self.files("*.bak-v*"), [])
 
+    def test_newer_version_seen_under_write_lock_refused(self):
+        # IN-08: the step-7 branch; a newer build migrated after our version read.
+        _make_v1(self.path, ["run"])
+        real = store._snapshot
 
-class StepTransactionGuardTests(unittest.TestCase):
+        def racing(conn, p, old_version):
+            tmp = real(conn, p, old_version)
+            other = sqlite3.connect(p, isolation_level=None)
+            try:
+                other.execute("PRAGMA user_version = 99")
+            finally:
+                other.close()
+            return tmp
+
+        with mock.patch.object(store, "_snapshot", racing):
+            with self.assertRaises(SchemaTooNewError) as ctx:
+                open_store(self.path, migrations=M2)
+        self.assertIn("99", str(ctx.exception))
+        self.assertEqual(self.files("*.tmp"), [])
+        self.assertEqual(self.files("*.bak-v*"), [])
+        p = sqlite3.connect(self.path)
+        self.addCleanup(p.close)
+        self.assertEqual(p.execute("PRAGMA user_version").fetchone()[0], 99)
+        self.assertNotIn("probe", _columns(p))
+
+    def test_stale_snapshot_temp_files_removed(self):
+        # IN-06: a killed open leaves t.db.bak-vN.<pid>.tmp; a later open removes it.
+        _make_v1(self.path, ["run"])
+        old = self.root / "t.db.bak-v1.4242.tmp"
+        fresh = self.root / "t.db.bak-v1.4343.tmp"
+        other = self.root / "other.db.bak-v1.4242.tmp"
+        for f in (old, fresh, other):
+            f.write_bytes(b"x")
+        stamp = time.time() - store._STALE_SNAPSHOT_AGE - 60
+        os.utime(old, (stamp, stamp))
+        os.utime(other, (stamp, stamp))
+        open_store(self.path).close()
+        self.assertFalse(old.exists())
+        self.assertTrue(fresh.exists())  # may belong to an open running right now
+        self.assertTrue(other.exists())  # another database's file
+
+
+class StepTransactionGuardTests(_Watchdog):
     """WR-03: a step cannot end the migration transaction."""
 
     def setUp(self):
+        super().setUp()
         self.root = make_tempdir(self)
         self.path = self.root / "t.db"
         _make_v1(self.path, ["run", "walk"])
@@ -352,6 +399,43 @@ class StepTransactionGuardTests(unittest.TestCase):
         self.assertIn("probe", _columns(conn))
         self.assertNotIn("gone", _columns(conn))
 
+    def test_commit_through_cursor_connection_denied(self):
+        # Verification W1: cursor.connection is the raw connection.
+        def sneaky(c):
+            c.execute("ALTER TABLE words ADD COLUMN z TEXT")
+            c.execute("SELECT 1").connection.commit()
+
+        with self.assertRaises(MigrationError) as ctx:
+            open_store(self.path, migrations=MIGRATIONS + (sneaky, _fail))
+        self.assertIn("not authorized", str(ctx.exception))
+        self.assert_untouched()
+
+    def test_commit_through_guard_slot_denied(self):
+        def sneaky(c):
+            c.execute("ALTER TABLE words ADD COLUMN z TEXT")
+            c._conn.execute("COMMIT")
+
+        with self.assertRaises(MigrationError):
+            open_store(self.path, migrations=MIGRATIONS + (sneaky,))
+        self.assert_untouched()
+
+    def test_raw_executescript_denied(self):
+        # sqlite3's own executescript() COMMITs a pending transaction first.
+        def sneaky(c):
+            c.execute("SELECT 1").connection.executescript(
+                "ALTER TABLE words ADD COLUMN z TEXT;"
+            )
+
+        with self.assertRaises(MigrationError):
+            open_store(self.path, migrations=MIGRATIONS + (sneaky,))
+        self.assert_untouched()
+
+    def test_authorizer_removed_after_migration(self):
+        conn = open_store(self.path, migrations=M2)
+        self.addCleanup(conn.close)
+        conn.execute("BEGIN")
+        conn.execute("COMMIT")
+
     def test_step_that_ends_transaction_out_of_band_is_detected(self):
         captured = []
         real_connect = store._connect
@@ -367,12 +451,14 @@ class StepTransactionGuardTests(unittest.TestCase):
         with mock.patch.object(store, "_connect", connect):
             with self.assertRaises(MigrationError) as ctx:
                 open_store(self.path, migrations=MIGRATIONS + (sneaky,))
-        self.assertIn("v2", str(ctx.exception))
+        # Now denied by the authorizer before the post-step check runs.
+        self.assertIn("not authorized", str(ctx.exception))
         self.assert_untouched()
 
 
-class OpenFailureTests(unittest.TestCase):
+class OpenFailureTests(_Watchdog):
     def setUp(self):
+        super().setUp()
         self.root = make_tempdir(self)
 
     def _locked_rollback_db(self, exclusive=False):
@@ -435,7 +521,42 @@ class OpenFailureTests(unittest.TestCase):
         with self.assertRaises(MigrationError) as ctx:
             open_store(path, migrations=MIGRATIONS + (_fail,))
         self.assertIsInstance(ctx.exception.__cause__, RuntimeError)
-        self.assertTrue(str(ctx.exception).startswith("RuntimeError: "))
+        # IN-04 / V7: only the type name; a step's message may carry row values.
+        self.assertEqual(str(ctx.exception), "RuntimeError")
+
+    def test_sqlite_error_text_kept_in_migration_error(self):
+        path = self.root / "t.db"
+        _make_v1(path, ["run"])
+
+        def bad_sql(c):
+            c.execute("ALTER TABLE no_such_table ADD COLUMN x")
+
+        with self.assertRaises(MigrationError) as ctx:
+            open_store(path, migrations=MIGRATIONS + (bad_sql,))
+        self.assertIn("OperationalError: no such table", str(ctx.exception))
+
+    @unittest.skipUnless(os.name == "posix", "POSIX file modes")
+    def test_new_files_private_in_existing_0755_dir(self):
+        # IN-05: the directory exists already, so mkdir(mode=0o700) does not apply.
+        d = self.root / "shared"
+        d.mkdir(mode=0o755)
+        os.chmod(d, 0o755)
+        path = d / "t.db"
+        conn = open_store(path)
+        upsert_word(conn, "run")
+        conn.close()
+        self.assertEqual(path.stat().st_mode & 0o777, 0o600)
+        conn = open_store(path, migrations=M2)
+        conn.close()
+        self.assertEqual((d / "t.db.bak-v1").stat().st_mode & 0o777, 0o600)
+
+    @unittest.skipUnless(os.name == "posix", "POSIX file modes")
+    def test_existing_file_mode_left_alone(self):
+        path = self.root / "t.db"
+        open_store(path).close()
+        os.chmod(path, 0o640)
+        open_store(path).close()
+        self.assertEqual(path.stat().st_mode & 0o777, 0o640)
 
     def test_busy_timeout_restored_after_wal_switch(self):
         conn = open_store(self.root / "t.db", timeout=1.5)

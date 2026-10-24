@@ -3,6 +3,7 @@
 Privacy rule (V7): this module never prints or logs. Exception messages carry
 versions and type names only, never word, context or translation text.
 """
+import glob
 import os
 import random
 import re
@@ -22,6 +23,8 @@ _WAL_ATTEMPT_BUSY_MS = 50
 # How often open_store re-snapshots when another process changes the schema
 # version between the version read and BEGIN IMMEDIATE (D-14).
 _MIGRATE_ATTEMPTS = 5
+# Snapshot temp files older than this (seconds) were left by a crashed open.
+_STALE_SNAPSHOT_AGE = 600
 
 
 class SchemaTooNewError(RuntimeError):
@@ -53,8 +56,9 @@ def _v1(conn):
 # A step takes a guarded connection (_StepConnection: execute, executemany,
 # executescript) and runs inside the caller's transaction. It must not control
 # that transaction: BEGIN/COMMIT/END/ROLLBACK and commit()/rollback() raise
-# MigrationError, and open_store re-checks after every step that the
-# transaction is still open.
+# MigrationError. Routes around the guard (cursor.connection.commit()) are
+# denied by an SQLite authorizer, and open_store re-checks after every step
+# that the transaction is still open.
 MIGRATIONS = (_v1,)
 CURRENT_VERSION = len(MIGRATIONS)
 
@@ -78,13 +82,23 @@ def _connect(path, timeout):
         )
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    created = not path.exists()
+    # connect(timeout=...) sets SQLite's busy_timeout.
     conn = sqlite3.connect(path, timeout=timeout, isolation_level=None)
-    try:
-        conn.execute("PRAGMA busy_timeout=%d" % int(timeout * 1000))
-    except BaseException:
-        conn.close()
-        raise
+    if created:
+        try:
+            _make_private(path)
+        except BaseException:
+            conn.close()
+            raise
     return conn
+
+
+def _make_private(path):
+    """0600 for a file this module created: lookup history must not follow the
+    umask into a pre-existing 0755 directory. SQLite gives -wal/-shm the same mode."""
+    if path.exists():
+        os.chmod(path, 0o600)
 
 
 def _until_unlocked(attempt, deadline, what):
@@ -168,12 +182,13 @@ def upsert_word(conn, word, translation=None, context=None, now=None) -> int:
         now = int(now)  # D-13: INTEGER Unix seconds, also for now=time.time()
     cur = conn.execute(
         "INSERT INTO words (word, translation, context, first_seen, last_seen) "
-        "VALUES (?, NULLIF(?, ''), NULLIF(?, ''), ?, ?) "
+        "VALUES (?, ?, ?, ?, ?) "
         "ON CONFLICT(word) DO UPDATE SET "
         "count = words.count + 1, "
         "last_seen = excluded.last_seen, "
-        "translation = COALESCE(NULLIF(excluded.translation, ''), words.translation), "
-        "context = COALESCE(NULLIF(excluded.context, ''), words.context) "
+        # _clean_text already turned empty text into NULL.
+        "translation = COALESCE(excluded.translation, words.translation), "
+        "context = COALESCE(excluded.context, words.context) "
         "RETURNING count",
         (word, translation, context, now, now),
     )
@@ -260,6 +275,18 @@ class _StepConnection:
         )
 
 
+def _deny_transaction_control(action, *_args):
+    """SQLite authorizer installed while steps run.
+
+    The hard stop behind _StepConnection: a step that reaches the raw
+    connection (cursor.connection, _conn) still cannot BEGIN, COMMIT, END or
+    ROLLBACK; SAVEPOINT and ROLLBACK TO are a different action and stay allowed.
+    """
+    if action == sqlite3.SQLITE_TRANSACTION:
+        return sqlite3.SQLITE_DENY
+    return sqlite3.SQLITE_OK
+
+
 def _snapshot(conn, path, old_version) -> Path:
     """Copy the database to a temporary file beside it and return that path.
 
@@ -272,6 +299,7 @@ def _snapshot(conn, path, old_version) -> Path:
     dst = sqlite3.connect(tmp)
     try:
         try:
+            _make_private(tmp)
             conn.backup(dst)
         finally:
             dst.close()
@@ -290,6 +318,31 @@ def _remove_quietly(path):
         pass
 
 
+def _remove_stale_snapshots(path):
+    """Delete snapshot temp files that a killed open_store left behind; never raises.
+
+    Age, not PID liveness: os.kill(pid, 0) terminates the process on Windows.
+    """
+    cutoff = time.time() - _STALE_SNAPSHOT_AGE
+    try:
+        stale = list(path.parent.glob(glob.escape(path.name) + ".bak-v*.tmp"))
+    except OSError:
+        return
+    for tmp in stale:
+        try:
+            if tmp.stat().st_mtime < cutoff:
+                tmp.unlink()
+        except OSError:
+            pass
+
+
+def _too_new(version, target):
+    return SchemaTooNewError(
+        "База версии %d новее программы (знает до %d): обновите программу."
+        % (version, target)
+    )
+
+
 def open_store(path=None, migrations=MIGRATIONS, timeout=5.0):
     """Open (creating and migrating if needed) the word database.
 
@@ -302,7 +355,14 @@ def open_store(path=None, migrations=MIGRATIONS, timeout=5.0):
     - sqlite3.Error / OSError, unwrapped: the database could not be opened
       (locked, corrupt, not a database, unwritable directory). Steps 1-5.
     - MigrationError: migrating failed (snapshot, write lock or a step);
-      nothing was committed. Steps 6-7; the cause is in __cause__.
+      nothing was committed. Steps 6-7; the cause is in __cause__. The
+      message is the cause's type name, plus its text only for sqlite3.Error
+      (V7: a data-migrating step may raise with row values).
+
+    The snapshot is taken before the write lock, so rows that a process still
+    on the old version writes in between are not in .bak-vN. Long-lived
+    connections (the tray daemon) never re-check user_version: reopen after
+    an upgrade.
     """
     # 1
     path = Path(path) if path is not None else default_db_path()
@@ -318,10 +378,7 @@ def open_store(path=None, migrations=MIGRATIONS, timeout=5.0):
             v = _read_version(conn, deadline)
             target = len(migrations)
             if v > target:
-                raise SchemaTooNewError(
-                    "База версии %d новее программы (знает до %d): обновите программу."
-                    % (v, target)
-                )
+                raise _too_new(v, target)
             # 4
             _ensure_wal(conn, deadline)
         finally:
@@ -330,6 +387,7 @@ def open_store(path=None, migrations=MIGRATIONS, timeout=5.0):
     except BaseException:
         conn.close()
         raise
+    _remove_stale_snapshots(path)
     # 5
     if v == target:
         return conn
@@ -343,10 +401,7 @@ def open_store(path=None, migrations=MIGRATIONS, timeout=5.0):
             conn.execute("BEGIN IMMEDIATE")
             locked_v = conn.execute("PRAGMA user_version").fetchone()[0]
             if locked_v > target:
-                raise SchemaTooNewError(
-                    "База версии %d новее программы (знает до %d): обновите программу."
-                    % (locked_v, target)
-                )
+                raise _too_new(locked_v, target)
             if locked_v != v and 0 < locked_v < target:
                 # Another process moved the schema to locked_v after step 3, and
                 # we still have steps to run. D-14: existing data is never
@@ -364,12 +419,16 @@ def open_store(path=None, migrations=MIGRATIONS, timeout=5.0):
                     _remove_quietly(tmp)  # locked_v == target: nothing to migrate
                 tmp = None
             guarded = _StepConnection(conn)
-            for number, step in enumerate(migrations[locked_v:], locked_v + 1):
-                step(guarded)
-                if not conn.in_transaction:
-                    raise MigrationError(
-                        "migration step to v%d ended the transaction" % number
-                    )
+            conn.set_authorizer(_deny_transaction_control)
+            try:
+                for number, step in enumerate(migrations[locked_v:], locked_v + 1):
+                    step(guarded)
+                    if not conn.in_transaction:
+                        raise MigrationError(
+                            "migration step to v%d ended the transaction" % number
+                        )
+            finally:
+                conn.set_authorizer(None)
             conn.execute("PRAGMA user_version = %d" % target)
             conn.execute("COMMIT")
             # 9
@@ -383,7 +442,10 @@ def open_store(path=None, migrations=MIGRATIONS, timeout=5.0):
     except Exception as exc:
         # 8
         _abort(conn, tmp)
-        raise MigrationError(type(exc).__name__ + ": " + str(exc)) from exc
+        detail = type(exc).__name__
+        if isinstance(exc, sqlite3.Error):
+            detail += ": " + str(exc)
+        raise MigrationError(detail) from exc
     except BaseException:
         _abort(conn, tmp)
         raise

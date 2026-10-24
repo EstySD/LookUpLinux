@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from lookup.store import open_store
+from lookup.store import open_store, upsert_word
 from tests import _workers
 from tests._support import make_tempdir
 
@@ -87,6 +87,7 @@ class ConcurrentWriterTests(unittest.TestCase):
         results, seen = self._run_writers(path, reader=reader)
 
         self._assert_writers_ok(results, path)
+        self.assertTrue(seen, "reader never ran while the writers were alive")
         prev = 0
         for value in seen:
             self.assertTrue(value is None or 1 <= value <= 10, value)
@@ -112,6 +113,51 @@ class ConcurrentWriterTests(unittest.TestCase):
                 self.assertFalse(path.exists())
                 results, _ = self._run_writers(path)
                 self._assert_writers_ok(results, path)
+
+    def test_ten_processes_migrate_v1_to_v2_once(self):
+        # IN-08: real processes, not a simulated race, upgrading one v1 database.
+        path = self.root / "mig" / "lookup.db"
+        conn = open_store(path)
+        upsert_word(conn, "run")
+        upsert_word(conn, "walk")
+        conn.close()
+
+        n = 10
+        ctx = multiprocessing.get_context("spawn")
+        barrier = ctx.Barrier(n)
+        queue = ctx.Queue()
+        procs = [
+            ctx.Process(target=_workers.migrate_child, args=(str(path), barrier, queue))
+            for _ in range(n)
+        ]
+
+        def _reap():
+            for p in procs:
+                if p.is_alive():
+                    p.terminate()
+                p.join(5)
+
+        self.addCleanup(_reap)
+        for p in procs:
+            p.start()
+        results = [queue.get(timeout=60) for _ in range(n)]
+        for p in procs:
+            p.join(30)
+
+        self.assertEqual(results, [("ok", 2)] * n)
+        self.assertEqual(
+            sorted(f.name for f in path.parent.iterdir() if ".bak-v" in f.name),
+            ["lookup.db.bak-v1"],
+        )
+        check = sqlite3.connect(path)
+        self.addCleanup(check.close)
+        self.assertEqual(check.execute("PRAGMA user_version").fetchone()[0], 2)
+        self.assertEqual(
+            check.execute("SELECT word, count FROM words ORDER BY word").fetchall(),
+            [("run", 1), ("walk", 1)],
+        )
+        cols = [r[1] for r in check.execute("PRAGMA table_info(words)")]
+        self.assertIn("probe", cols)
 
 
 if __name__ == "__main__":

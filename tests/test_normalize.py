@@ -86,6 +86,38 @@ class NormalizeTests(unittest.TestCase):
             ("run, 2 times", None),
         ])
 
+    def test_nfkc_outputs_mapped_again(self):
+        # IN-01: NFKC produces apostrophes/dashes the pre-NFKC tables never saw.
+        self.check([
+            ("well﹘known", "well-known"),   # small em dash -> U+2014
+            ("well︱known", "well-known"),   # vertical em dash -> U+2014
+            ("well︲known", "well-known"),   # vertical en dash -> U+2013
+            ("Hawaiʻi", "hawai'i"),         # okina
+            ("donʹt", "don't"),             # modifier prime
+            ("ŉ", None),                    # -> 'n: one letter after trimming
+        ])
+
+    def test_inner_runs_collapsed(self):
+        # IN-03: OCR noise must not create a second key for the same word.
+        self.check([
+            ("well--known", "well-known"),
+            ("well---known", "well-known"),
+            ("don''t", "don't"),
+            ("a'-'b", "a'b"),
+            ("book''s", "book"),
+            ("rock'n'roll", "rock'n'roll"),
+        ])
+
+    def test_phrase_tokens_keep_d04_scope(self):
+        # IN-02, decided: D-04's length rule applies to the whole key, so
+        # "plan b" survives; a punctuation-only token rejects the phrase rather
+        # than silently dropping it ("rock & roll" must not become "rock roll").
+        self.check([
+            ("plan B", "plan b"),
+            ("vitamin C", "vitamin c"),
+            ("rock & roll", None),
+        ])
+
     def test_unicode_folding(self):
         self.check([
             ("Ｒｕｎ", "run"),
