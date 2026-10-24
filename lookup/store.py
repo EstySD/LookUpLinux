@@ -53,13 +53,27 @@ def _v1(conn):
     )
 
 
+def _v2(conn):
+    """Translation cache and key/value meta (D-19); used by lookup.translate only."""
+    conn.execute(
+        "CREATE TABLE translations ("
+        "text TEXT NOT NULL, "
+        "kind TEXT NOT NULL CHECK(kind IN ('word','phrase','sentence')), "
+        "provider TEXT NOT NULL, "
+        "payload TEXT NOT NULL, "
+        "fetched_at INTEGER NOT NULL, "
+        "PRIMARY KEY(text, kind))"
+    )
+    conn.execute("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT)")
+
+
 # A step takes a guarded connection (_StepConnection: execute, executemany,
 # executescript) and runs inside the caller's transaction. It must not control
 # that transaction: BEGIN/COMMIT/END/ROLLBACK and commit()/rollback() raise
 # MigrationError. Routes around the guard (cursor.connection.commit()) are
 # denied by an SQLite authorizer, and open_store re-checks after every step
 # that the transaction is still open.
-MIGRATIONS = (_v1,)
+MIGRATIONS = (_v1, _v2)
 CURRENT_VERSION = len(MIGRATIONS)
 
 
@@ -161,11 +175,16 @@ def _clean_text(value, limit=None):
     return value
 
 
-def upsert_word(conn, word, translation=None, context=None, now=None) -> int:
+def upsert_word(
+    conn, word, translation=None, context=None, now=None, lemma=None
+) -> int:
     """Count one search of `word` and return the new counter value.
 
     `word` is the key from lookup.normalize.normalize(); the store does not
-    normalise. Empty context/translation never overwrite stored values.
+    normalise. Empty context/translation/lemma never overwrite stored values.
+    `lemma` is the base form found by the dictionary layer; the key in `words`
+    stays the surface form (D-12). The cache tables (translations, meta) are
+    used by lookup.translate only.
     """
     if not isinstance(word, str):
         raise TypeError("word must be str, got " + type(word).__name__)
@@ -174,6 +193,7 @@ def upsert_word(conn, word, translation=None, context=None, now=None) -> int:
         raise ValueError("word must not be empty")
     translation = _clean_text(translation)
     context = _clean_text(context, CONTEXT_MAX_CHARS)
+    lemma = _clean_text(lemma)
     if now is None:
         now = int(time.time())
     elif isinstance(now, bool) or not isinstance(now, (int, float)):
@@ -181,16 +201,17 @@ def upsert_word(conn, word, translation=None, context=None, now=None) -> int:
     else:
         now = int(now)  # D-13: INTEGER Unix seconds, also for now=time.time()
     cur = conn.execute(
-        "INSERT INTO words (word, translation, context, first_seen, last_seen) "
-        "VALUES (?, ?, ?, ?, ?) "
+        "INSERT INTO words (word, translation, context, first_seen, last_seen, lemma) "
+        "VALUES (?, ?, ?, ?, ?, ?) "
         "ON CONFLICT(word) DO UPDATE SET "
         "count = words.count + 1, "
         "last_seen = excluded.last_seen, "
         # _clean_text already turned empty text into NULL.
         "translation = COALESCE(excluded.translation, words.translation), "
-        "context = COALESCE(excluded.context, words.context) "
+        "context = COALESCE(excluded.context, words.context), "
+        "lemma = COALESCE(excluded.lemma, words.lemma) "
         "RETURNING count",
-        (word, translation, context, now, now),
+        (word, translation, context, now, now, lemma),
     )
     rows = cur.fetchall()
     return int(rows[0][0])

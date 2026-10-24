@@ -341,8 +341,20 @@ class StepTransactionGuardTests(_Watchdog):
             self.assertEqual(p.execute("SELECT COUNT(*) FROM words").fetchone()[0], 2)
         finally:
             p.close()
-        conn = open_store(self.path)  # still opens with the real migrations
+        # Still opens with the real migrations. Done on a copy: the real tuple
+        # upgrades a V1 file, which would break later subtests on self.path.
+        copy = self.root / "copy.db"
+        src = sqlite3.connect(self.path)
+        dst = sqlite3.connect(copy)
+        try:
+            src.backup(dst)
+        finally:
+            dst.close()
+            src.close()
+        conn = open_store(copy)
         conn.close()
+        for f in self.root.glob("copy.db*"):
+            f.unlink()
 
     def test_executescript_runs_inside_the_transaction(self):
         # Reviewer's repro: sqlite3's executescript() would COMMIT first and
