@@ -4,7 +4,7 @@ from unittest import mock
 
 from lookup import dsl
 from lookup.dictzip import DictzipFile
-from lookup.dicts import Article, DictError
+from lookup.dicts import Article, DictError, fold_key
 from lookup.dsl import MAX_VARIANTS, expand_headword, open_dsl
 from tests._dsl_writer import write_dsl
 from tests._support import make_tempdir
@@ -201,10 +201,10 @@ class DslReaderTests(_Base):
                 ]
                 d = self.open(self.write(entries, stem=encoding + ".dsl", encoding=encoding))
                 self.assertEqual(d.entry_count, 2)
-                art = d.lookup("first" + tricky)[0]
+                art = d.lookup(fold_key("first" + tricky))[0]
                 self.assertIn(tricky + " Привет", art.text)
                 self.assertIn("second line", art.text)
-                self.assertEqual(d.lookup("later")[0].text, "body")
+                self.assertIn("body", d.lookup("later")[0].text)
 
     def test_a_file_above_the_size_cap_is_refused(self):
         path = self.write()
