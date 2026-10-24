@@ -13,10 +13,11 @@ from pathlib import Path
 DB_ENV = "LOOKUP_DB"
 CONTEXT_MAX_CHARS = 500  # D-19
 _MIN_SQLITE = (3, 35, 0)  # RETURNING
-# Upper bound on the whole WAL-switch retry loop, in seconds (hotkey latency
-# budget). The effective deadline is min(timeout, _WAL_MAX_WAIT).
+# Upper bound, in seconds, on waiting for a locked database during open_store
+# steps 3-4 (version read plus WAL switch; hotkey latency budget). The
+# effective deadline is min(timeout, _WAL_MAX_WAIT).
 _WAL_MAX_WAIT = 2.0
-# busy_timeout (ms) for a single WAL-switch attempt; the retry loop owns the waiting.
+# busy_timeout (ms) for a single attempt in steps 3-4; the retry loop owns the waiting.
 _WAL_ATTEMPT_BUSY_MS = 50
 # How often open_store re-snapshots when another process changes the schema
 # version between the version read and BEGIN IMMEDIATE (D-14).
@@ -86,37 +87,51 @@ def _connect(path, timeout):
     return conn
 
 
-def _ensure_wal(conn, timeout):
+def _until_unlocked(attempt, deadline, what):
+    """Call attempt() until it stops failing with 'locked' or deadline passes.
+
+    The caller sets a short busy_timeout (_WAL_ATTEMPT_BUSY_MS) so SQLite's
+    busy handler cannot stretch a single attempt past the deadline.
+    """
+    last = None
+    while True:
+        try:
+            return attempt()
+        except sqlite3.OperationalError as exc:
+            if "locked" not in str(exc).lower():
+                raise
+            last = exc
+        if time.monotonic() >= deadline:
+            raise sqlite3.OperationalError(
+                "could not %s: database is locked" % what
+            ) from last
+        time.sleep(random.uniform(0.005, 0.05))
+
+
+def _read_version(conn, deadline):
+    return _until_unlocked(
+        lambda: conn.execute("PRAGMA user_version").fetchone()[0],
+        deadline,
+        "read the schema version",
+    )
+
+
+def _ensure_wal(conn, deadline):
     """Switch to WAL once, read-first and retrying on 'locked' (Pitfall 1, D-20).
 
-    Must run outside a transaction. The whole loop is bounded by wall-clock
-    time, min(timeout, _WAL_MAX_WAIT): each attempt runs with a short
-    busy_timeout so SQLite's busy handler cannot multiply the wait. The
-    connection's busy_timeout is restored afterwards.
+    Must run outside a transaction, with the short per-attempt busy_timeout
+    set by open_store. Gives up at deadline.
     """
-    deadline = time.monotonic() + max(0.0, min(timeout, _WAL_MAX_WAIT))
-    conn.execute("PRAGMA busy_timeout=%d" % _WAL_ATTEMPT_BUSY_MS)
-    try:
-        last = None
-        while True:
-            try:
-                if conn.execute("PRAGMA journal_mode").fetchone()[0].lower() == "wal":
-                    return
-                row = conn.execute("PRAGMA journal_mode=WAL").fetchone()
-                if row is not None and str(row[0]).lower() == "wal":
-                    return
-                raise sqlite3.OperationalError("could not switch database to WAL")
-            except sqlite3.OperationalError as exc:
-                if "locked" not in str(exc).lower():
-                    raise
-                last = exc
-            if time.monotonic() >= deadline:
-                raise sqlite3.OperationalError(
-                    "could not switch database to WAL: database is locked"
-                ) from last
-            time.sleep(random.uniform(0.005, 0.05))
-    finally:
-        conn.execute("PRAGMA busy_timeout=%d" % int(timeout * 1000))
+
+    def attempt():
+        if conn.execute("PRAGMA journal_mode").fetchone()[0].lower() == "wal":
+            return
+        row = conn.execute("PRAGMA journal_mode=WAL").fetchone()
+        if row is not None and str(row[0]).lower() == "wal":
+            return
+        raise sqlite3.OperationalError("could not switch database to WAL")
+
+    _until_unlocked(attempt, deadline, "switch database to WAL")
 
 
 def _clean_text(value, limit=None):
@@ -294,16 +309,23 @@ def open_store(path=None, migrations=MIGRATIONS, timeout=5.0):
     # 2
     conn = _connect(path, timeout)
     try:
-        # 3
-        v = conn.execute("PRAGMA user_version").fetchone()[0]
-        target = len(migrations)
-        if v > target:
-            raise SchemaTooNewError(
-                "База версии %d новее программы (знает до %d): обновите программу."
-                % (v, target)
-            )
-        # 4
-        _ensure_wal(conn, timeout)
+        # Steps 3-4 share one wall-clock budget, min(timeout, _WAL_MAX_WAIT),
+        # even under an EXCLUSIVE lock that blocks the version read itself.
+        deadline = time.monotonic() + max(0.0, min(timeout, _WAL_MAX_WAIT))
+        conn.execute("PRAGMA busy_timeout=%d" % _WAL_ATTEMPT_BUSY_MS)
+        try:
+            # 3
+            v = _read_version(conn, deadline)
+            target = len(migrations)
+            if v > target:
+                raise SchemaTooNewError(
+                    "База версии %d новее программы (знает до %d): обновите программу."
+                    % (v, target)
+                )
+            # 4
+            _ensure_wal(conn, deadline)
+        finally:
+            conn.execute("PRAGMA busy_timeout=%d" % int(timeout * 1000))
         conn.execute("PRAGMA synchronous=NORMAL")
     except BaseException:
         conn.close()

@@ -229,8 +229,8 @@ class ConcurrentVersionChangeTests(unittest.TestCase):
     def test_fresh_db_populated_concurrently_gets_backup(self):
         real = store._ensure_wal
 
-        def racing(conn, timeout):
-            real(conn, timeout)
+        def racing(conn, deadline):
+            real(conn, deadline)
             # Another process creates a v1 database with data after our version read.
             other = sqlite3.connect(self.path, isolation_level=None)
             try:
@@ -375,17 +375,20 @@ class OpenFailureTests(unittest.TestCase):
     def setUp(self):
         self.root = make_tempdir(self)
 
-    def _locked_rollback_db(self):
-        """A rollback-journal DB whose SHARED lock is held by another connection."""
+    def _locked_rollback_db(self, exclusive=False):
+        """A rollback-journal DB locked by another connection (SHARED or EXCLUSIVE)."""
         path = self.root / "locked.db"
         raw = sqlite3.connect(path)
         raw.execute("CREATE TABLE t (x)")
         raw.commit()
         raw.close()
-        reader = sqlite3.connect(path, isolation_level=None)
-        self.addCleanup(reader.close)
-        reader.execute("BEGIN")
-        reader.execute("SELECT * FROM t").fetchall()
+        holder = sqlite3.connect(path, isolation_level=None)
+        self.addCleanup(holder.close)
+        if exclusive:
+            holder.execute("BEGIN EXCLUSIVE")
+        else:
+            holder.execute("BEGIN")
+            holder.execute("SELECT * FROM t").fetchall()
         return path
 
     def _assert_wal_lock_failure(self, path, timeout, bound):
@@ -403,6 +406,15 @@ class OpenFailureTests(unittest.TestCase):
         # WR-01: was ~50 x busy_timeout (minutes); now bounded by _WAL_MAX_WAIT.
         path = self._locked_rollback_db()
         self._assert_wal_lock_failure(path, 5.0, store._WAL_MAX_WAIT + 1.5)
+
+    def test_exclusive_lock_blocks_version_read_within_same_bound(self):
+        # UAT 01 test 2: EXCLUSIVE blocks step 3 too; it used to wait the full 5 s.
+        path = self._locked_rollback_db(exclusive=True)
+        self._assert_wal_lock_failure(path, 5.0, store._WAL_MAX_WAIT + 1.5)
+
+    def test_exclusive_lock_deadline_follows_short_timeout(self):
+        path = self._locked_rollback_db(exclusive=True)
+        self._assert_wal_lock_failure(path, 0.3, 1.5)
 
     def test_wal_switch_deadline_follows_short_timeout(self):
         path = self._locked_rollback_db()

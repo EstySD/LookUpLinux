@@ -1,9 +1,9 @@
 ---
-status: diagnosed
+status: complete
 phase: 01-core-db-normalize
 source: [01-VERIFICATION.md]
 started: 2026-10-23T21:34:07Z
-updated: 2026-10-24T04:57:34Z
+updated: 2026-10-24T05:03:18Z
 ---
 
 ## Current Test
@@ -23,15 +23,14 @@ evidence: без LOOKUP_DB и XDG_DATA_HOME напечатано `/home/tester/.
 
 ### 2. Переход в WAL при занятой базе сдаётся примерно за 2 с на Arch VM
 expected: open_store() на базе не в WAL, пока другой процесс держит эксклюзивную блокировку, падает с sqlite3.OperationalError "could not switch database to WAL: database is locked" примерно через 2 с, а не через минуты
-result: issue
-reported: "Claude, Arch-контейнер: под SHARED (BEGIN; SELECT) — 2.01 с и под RESERVED (BEGIN IMMEDIATE) — 2.04 с, сообщение 'could not switch database to WAL: database is locked', как ожидалось. Под EXCLUSIVE (BEGIN EXCLUSIVE) — 5.01 с и голое 'database is locked'."
-severity: minor
+result: pass
+note: "Первый прогон — issue (minor): под EXCLUSIVE 5.01 с и голое 'database is locked'. Исправлено (см. Gaps). Повторный прогон в Arch-контейнере: SHARED 2.07 с, RESERVED 2.00 с — 'could not switch database to WAL: database is locked'; EXCLUSIVE 2.02 с — 'could not read the schema version: database is locked' (блокировка мешает уже чтению версии, поэтому текст другой; тип и граница 2 с как ожидалось)."
 
 ## Summary
 
 total: 2
-passed: 1
-issues: 1
+passed: 2
+issues: 0
 pending: 0
 skipped: 0
 blocked: 0
@@ -39,7 +38,8 @@ blocked: 0
 ## Gaps
 
 - truth: "open_store() на базе не в WAL под эксклюзивной блокировкой другого процесса сдаётся примерно за 2 с с 'could not switch database to WAL: database is locked'"
-  status: failed
+  status: resolved
+  resolution: "Шаги 3-4 open_store() теперь делят один дедлайн min(timeout, _WAL_MAX_WAIT): чтение user_version идёт с коротким busy_timeout через общий цикл _until_unlocked. Добавлены тесты test_exclusive_lock_blocks_version_read_within_same_bound и test_exclusive_lock_deadline_follows_short_timeout (на старом коде падают). 65/65 на Python 3.14 и 3.12 и в Arch-контейнере."
   reason: "Claude, Arch-контейнер: под BEGIN EXCLUSIVE open_store() упал через 5.01 с с 'database is locked'; под SHARED и RESERVED — 2.0 с, как ожидалось"
   severity: minor
   test: 2
