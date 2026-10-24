@@ -1,0 +1,29 @@
+{
+ "responseData": {
+  "translatedText": "бегу",
+  "match": 1
+ },
+ "quotaFinished": false,
+ "mtLangSupported": null,
+ "responseDetails": "",
+ "responseStatus": 200,
+ "responderId": null,
+ "exception_code": null,
+ "matches": [
+  {
+   "segment": "run",
+   "translation": "бегу",
+   "match": 1
+  },
+  {
+   "segment": "run",
+   "translation": "щроход",
+   "match": 1
+  },
+  {
+   "segment": "run",
+   "translation": "run",
+   "match": 1
+  }
+ ]
+}

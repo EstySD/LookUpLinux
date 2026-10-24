@@ -1,0 +1,29 @@
+{
+ "responseData": {
+  "translatedText": "Коричневая лиса прыгает через собаку.",
+  "match": 1
+ },
+ "quotaFinished": false,
+ "mtLangSupported": null,
+ "responseDetails": "",
+ "responseStatus": 200,
+ "responderId": null,
+ "exception_code": null,
+ "matches": [
+  {
+   "segment": "The quick brown fox jumps over the lazy dog.",
+   "translation": "Коричневая лиса прыгает через собаку.",
+   "match": 1
+  },
+  {
+   "segment": "The quick brown fox jumps over the lazy dog.",
+   "translation": "Быстрая серая лиса перепрыгивает прямо через ленивую собаку.",
+   "match": 1
+  },
+  {
+   "segment": "The quick brown fox jumps over the lazy dog.",
+   "translation": "Коричневая лиса прыгает через собаку.",
+   "match": 0.99
+  }
+ ]
+}

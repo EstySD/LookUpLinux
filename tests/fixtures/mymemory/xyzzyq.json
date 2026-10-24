@@ -1,0 +1,19 @@
+{
+ "responseData": {
+  "translatedText": "xyzzyq",
+  "match": 0.85
+ },
+ "quotaFinished": false,
+ "mtLangSupported": null,
+ "responseDetails": "",
+ "responseStatus": 200,
+ "responderId": null,
+ "exception_code": null,
+ "matches": [
+  {
+   "segment": "xyzzyq",
+   "translation": "xyzzyq",
+   "match": 0.85
+  }
+ ]
+}

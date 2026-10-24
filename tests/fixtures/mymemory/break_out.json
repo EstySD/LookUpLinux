@@ -1,0 +1,29 @@
+{
+ "responseData": {
+  "translatedText": "уход на перерыв",
+  "match": 1
+ },
+ "quotaFinished": false,
+ "mtLangSupported": null,
+ "responseDetails": "",
+ "responseStatus": 200,
+ "responderId": null,
+ "exception_code": null,
+ "matches": [
+  {
+   "segment": "break out",
+   "translation": "уход на перерыв",
+   "match": 1
+  },
+  {
+   "segment": "break out",
+   "translation": "разразиться, вырваться",
+   "match": 0.99
+  },
+  {
+   "segment": "Break Out",
+   "translation": "Уход на перерыв",
+   "match": 0.98
+  }
+ ]
+}
