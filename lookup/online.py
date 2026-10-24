@@ -215,3 +215,135 @@ def parse_mymemory(body: bytes, kind: str, text: str | None = None) -> OnlineRes
     if text is not None and _norm(translated) == _norm(text):
         raise TranslateError("not_found")
     return OnlineResult("mymemory", None, translated.strip(), (), None, None, "en")
+
+
+_CHUNK = 16 * 1024
+_CLIENT_RE = re.compile(r"[A-Za-z0-9._-]{1,32}")
+# When every attempt failed, report the most actionable reason first.
+_PRIORITY = ("blocked", "bad_response", "timeout", "no_network")
+
+
+def _fail(reason: str):
+    raise TranslateError(reason) from None
+
+
+def _fetch(url: str, timeout: float, deadline_at: float, clock, expected_host: str) -> bytes:
+    """GET url over default-verified TLS and return the body, or raise TranslateError(reason).
+
+    urlopen is looked up by attribute so tests can patch it. urllib's timeout
+    is per socket operation, so the wall clock is checked between chunks.
+    """
+    request = urllib.request.Request(url)
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as resp:
+            final = urllib.parse.urlsplit(resp.geturl())
+            if final.scheme != "https" or final.hostname != expected_host:
+                _fail("bad_response")
+            chunks = []
+            total = 0
+            while True:
+                chunk = resp.read(_CHUNK)
+                if not chunk:
+                    break
+                total += len(chunk)
+                if total > MAX_BODY:
+                    _fail("bad_response")
+                chunks.append(chunk)
+                if clock() > deadline_at:
+                    _fail("timeout")
+            return b"".join(chunks)
+    except TranslateError:
+        raise
+    except urllib.error.HTTPError as e:
+        e.close()
+        _fail("blocked" if e.code in (403, 429) else "bad_response")
+    except urllib.error.URLError as e:
+        _fail("timeout" if isinstance(e.reason, TimeoutError) else "no_network")
+    except TimeoutError:
+        _fail("timeout")
+    except http.client.HTTPException:
+        _fail("bad_response")
+    except (ssl.SSLError, OSError):
+        _fail("no_network")
+
+
+def google_translate(text: str, kind: str, client: str, deadline_at: float, clock) -> OnlineResult:
+    query = urllib.parse.urlencode(
+        [("client", client), ("sl", "en"), ("tl", "ru"), ("dt", "t"), ("dt", "bd"), ("dt", "rm"), ("q", text)]
+    )
+    url = f"https://{GOOGLE_HOST}/translate_a/single?{query}"
+    timeout = max(MIN_ATTEMPT_S, deadline_at - clock())
+    body = _fetch(url, timeout, deadline_at, clock, GOOGLE_HOST)
+    return dataclasses.replace(parse_google(body, kind, text), client=client)
+
+
+def mymemory_translate(text: str, kind: str, deadline_at: float, clock) -> OnlineResult:
+    """Fallback for phrases and sentences only; a single word never leaves for MyMemory (D-31)."""
+    _check_kind(kind)
+    if kind == "word":
+        raise TranslateError("not_found")
+    # Only q and langpair: no `de` (e-mail) and no `key` (T-02-16).
+    query = urllib.parse.urlencode([("q", text), ("langpair", "en|ru")])
+    url = f"https://{MYMEMORY_HOST}/get?{query}"
+    timeout = max(MIN_ATTEMPT_S, deadline_at - clock())
+    body = _fetch(url, timeout, deadline_at, clock, MYMEMORY_HOST)
+    return parse_mymemory(body, kind, text)
+
+
+def translate_online(
+    text: str,
+    kind: str,
+    *,
+    clients=None,
+    first_client=None,
+    deadline_s: float = DEADLINE_S,
+    clock=time.monotonic,
+) -> OnlineResult:
+    """Translate through the ordered Google clients, then MyMemory for phrases and sentences.
+
+    All attempts share one deadline. Returns the first success or raises
+    TranslateError with exactly one of REASONS; not_found ends the chain at once.
+    """
+    _check_kind(kind)
+    if not isinstance(text, str) or not text.strip():
+        raise ValueError("empty text")
+    text = prepare_text(text)
+    names = []
+    for name in clients or ():
+        if isinstance(name, str) and _CLIENT_RE.fullmatch(name) and name not in names:
+            names.append(name)
+    if not names:
+        names = list(DEFAULT_CLIENTS)
+    if first_client in names:
+        names.remove(first_client)
+        names.insert(0, first_client)
+    deadline_at = clock() + deadline_s
+    failures = set()
+
+    def time_left() -> bool:
+        if deadline_at - clock() < MIN_ATTEMPT_S:
+            failures.add("timeout")
+            return False
+        return True
+
+    for client in names:
+        if not time_left():
+            break
+        try:
+            return google_translate(text, kind, client, deadline_at, clock)
+        except TranslateError as e:
+            if e.reason == "not_found":
+                raise
+            failures.add(e.reason)
+    else:
+        if kind != "word" and time_left():
+            try:
+                return mymemory_translate(text, kind, deadline_at, clock)
+            except TranslateError as e:
+                if e.reason == "not_found":
+                    raise
+                failures.add(e.reason)
+    for reason in _PRIORITY:
+        if reason in failures:
+            raise TranslateError(reason)
+    raise TranslateError("bad_response")
