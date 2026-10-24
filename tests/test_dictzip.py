@@ -1,6 +1,5 @@
 """dictzip random-access reader (D-08, D-33, T-02-05, T-02-06)."""
 import gzip
-import struct
 import unittest
 import zlib
 
@@ -103,9 +102,9 @@ class ReadTests(DictzipBase):
                 self.assertEqual(f.read_all(), DATA)
 
     def test_comment_and_header_crc_flags(self):
-        chunks = [_raw(DATA[:500]), _raw(DATA[500:])]
+        chunks = [_raw(DATA[:600]), _raw(DATA[600:])]
         blob = assemble_dictzip(
-            chunks, 500, len(DATA), zlib.crc32(DATA), fname="n", comment="c", hcrc=True
+            chunks, 600, len(DATA), zlib.crc32(DATA), fname="n", comment="c", hcrc=True
         )
         f = self.open(blob)
         self.assertEqual(f.read_all(), DATA)
@@ -193,7 +192,6 @@ class BombTests(DictzipBase):
 
     def test_dictzip_error_is_valueerror(self):
         self.assertTrue(issubclass(DictzipError, ValueError))
-        self.assertIsInstance(struct.calcsize("<H"), int)
 
 
 if __name__ == "__main__":
