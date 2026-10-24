@@ -8,7 +8,7 @@ from unittest import mock
 
 from lookup.store import open_store, upsert_word
 from tests import _workers
-from tests._support import make_tempdir
+from tests._support import V1, make_tempdir
 
 # Upper bound for the reader loop; a hung child fails the test instead of the run.
 _WRITERS_DEADLINE = 90
@@ -117,7 +117,7 @@ class ConcurrentWriterTests(unittest.TestCase):
     def test_ten_processes_migrate_v1_to_v2_once(self):
         # IN-08: real processes, not a simulated race, upgrading one v1 database.
         path = self.root / "mig" / "lookup.db"
-        conn = open_store(path)
+        conn = open_store(path, migrations=V1)
         upsert_word(conn, "run")
         upsert_word(conn, "walk")
         conn.close()

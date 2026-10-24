@@ -1,7 +1,8 @@
 """Spawn-start worker functions (importable top-level, stdlib only)."""
 from pathlib import Path
 
-from lookup.store import MIGRATIONS, open_store, upsert_word
+from lookup.store import open_store, upsert_word
+from tests._support import V1
 
 
 def add_probe(conn):
@@ -29,10 +30,11 @@ def child(path, barrier, queue, index):
 
 
 def migrate_child(path, barrier, queue):
-    """Open a v1 store with a v2 step; report the resulting user_version or the error."""
+    """Open a v1 store with a synthetic v2 step on top of the Phase 1 schema; report
+    the resulting user_version or the error."""
     try:
         barrier.wait(timeout=30)
-        conn = open_store(Path(path), migrations=MIGRATIONS + (add_probe,))
+        conn = open_store(Path(path), migrations=V1 + (add_probe,))
         try:
             version = conn.execute("PRAGMA user_version").fetchone()[0]
         finally:

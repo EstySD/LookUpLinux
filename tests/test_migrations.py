@@ -10,13 +10,12 @@ from unittest import mock
 from lookup import store
 from lookup.store import (
     CURRENT_VERSION,
-    MIGRATIONS,
     MigrationError,
     SchemaTooNewError,
     open_store,
     upsert_word,
 )
-from tests._support import make_tempdir
+from tests._support import V1, make_tempdir
 
 
 class _Watchdog(unittest.TestCase):
@@ -40,7 +39,7 @@ def _fail(conn):
 
 
 def _make_v1(path, rows):
-    conn = open_store(path)
+    conn = open_store(path, migrations=V1)
     try:
         for word in rows:
             upsert_word(conn, word, "tr-" + word, "ctx " + word, now=10)
@@ -52,7 +51,7 @@ def _columns(conn):
     return [r[1] for r in conn.execute("PRAGMA table_info(words)")]
 
 
-M2 = MIGRATIONS + (_add_probe,)  # synthetic second schema version (D-19)
+M2 = V1 + (_add_probe,)  # synthetic second schema version (D-19)
 
 
 class SchemaLifecycleTests(_Watchdog):
@@ -94,7 +93,9 @@ class SchemaLifecycleTests(_Watchdog):
 
     def test_up_to_date_open_makes_no_backup(self):
         path = self.root / "t.db"
-        _make_v1(path, ["run"])
+        first = open_store(path)  # created at the current version
+        upsert_word(first, "run", now=1)
+        first.close()
         conn = self.open(path)
         self.assertEqual(conn.execute("PRAGMA user_version").fetchone()[0], CURRENT_VERSION)
         self.assertEqual(self.files(self.root, "*.bak-v*"), [])
@@ -142,7 +143,7 @@ class SchemaLifecycleTests(_Watchdog):
         path = self.root / "t.db"
         _make_v1(path, ["run", "walk"])
         with self.assertRaises(MigrationError):
-            open_store(path, migrations=MIGRATIONS + (_add_probe, _fail))
+            open_store(path, migrations=V1 + (_add_probe, _fail))
         p = self.plain(path)
         self.assertEqual(p.execute("PRAGMA user_version").fetchone()[0], 1)
         self.assertNotIn("probe", _columns(p))
@@ -261,7 +262,7 @@ class ConcurrentVersionChangeTests(_Watchdog):
     def test_endlessly_changing_version_gives_up(self):
         _make_v1(self.path, ["run"])
         real = store._snapshot
-        noops = MIGRATIONS + tuple((lambda c: None) for _ in range(9))
+        noops = V1 + tuple((lambda c: None) for _ in range(9))
 
         def racing(conn, p, old_version):
             tmp = real(conn, p, old_version)
@@ -346,7 +347,7 @@ class StepTransactionGuardTests(_Watchdog):
     def test_executescript_runs_inside_the_transaction(self):
         # Reviewer's repro: sqlite3's executescript() would COMMIT first and
         # leave column z behind with user_version still 1.
-        steps = MIGRATIONS + (
+        steps = V1 + (
             lambda c: c.executescript("ALTER TABLE words ADD COLUMN z TEXT;"),
             _fail,
         )
@@ -362,7 +363,7 @@ class StepTransactionGuardTests(_Watchdog):
             "UPDATE words SET a = 'x' WHERE word = NEW.word; END;\n"
             "/* trailing comment */"
         )
-        conn = open_store(self.path, migrations=MIGRATIONS + (lambda c: c.executescript(script),))
+        conn = open_store(self.path, migrations=V1 + (lambda c: c.executescript(script),))
         self.addCleanup(conn.close)
         self.assertEqual(conn.execute("PRAGMA user_version").fetchone()[0], 2)
         self.assertIn("a", _columns(conn))
@@ -383,7 +384,7 @@ class StepTransactionGuardTests(_Watchdog):
         for i, step in enumerate(bad):
             with self.subTest(i=i):
                 with self.assertRaises(MigrationError):
-                    open_store(self.path, migrations=MIGRATIONS + (_add_probe, step))
+                    open_store(self.path, migrations=V1 + (_add_probe, step))
                 self.assert_untouched()
 
     def test_savepoint_rollback_to_allowed(self):
@@ -394,7 +395,7 @@ class StepTransactionGuardTests(_Watchdog):
             c.execute("RELEASE s")
             c.execute("ALTER TABLE words ADD COLUMN probe TEXT")
 
-        conn = open_store(self.path, migrations=MIGRATIONS + (step,))
+        conn = open_store(self.path, migrations=V1 + (step,))
         self.addCleanup(conn.close)
         self.assertIn("probe", _columns(conn))
         self.assertNotIn("gone", _columns(conn))
@@ -406,7 +407,7 @@ class StepTransactionGuardTests(_Watchdog):
             c.execute("SELECT 1").connection.commit()
 
         with self.assertRaises(MigrationError) as ctx:
-            open_store(self.path, migrations=MIGRATIONS + (sneaky, _fail))
+            open_store(self.path, migrations=V1 + (sneaky, _fail))
         self.assertIn("not authorized", str(ctx.exception))
         self.assert_untouched()
 
@@ -416,7 +417,7 @@ class StepTransactionGuardTests(_Watchdog):
             c._conn.execute("COMMIT")
 
         with self.assertRaises(MigrationError):
-            open_store(self.path, migrations=MIGRATIONS + (sneaky,))
+            open_store(self.path, migrations=V1 + (sneaky,))
         self.assert_untouched()
 
     def test_raw_executescript_denied(self):
@@ -427,7 +428,7 @@ class StepTransactionGuardTests(_Watchdog):
             )
 
         with self.assertRaises(MigrationError):
-            open_store(self.path, migrations=MIGRATIONS + (sneaky,))
+            open_store(self.path, migrations=V1 + (sneaky,))
         self.assert_untouched()
 
     def test_authorizer_removed_after_migration(self):
@@ -450,7 +451,7 @@ class StepTransactionGuardTests(_Watchdog):
 
         with mock.patch.object(store, "_connect", connect):
             with self.assertRaises(MigrationError) as ctx:
-                open_store(self.path, migrations=MIGRATIONS + (sneaky,))
+                open_store(self.path, migrations=V1 + (sneaky,))
         # Now denied by the authorizer before the post-step check runs.
         self.assertIn("not authorized", str(ctx.exception))
         self.assert_untouched()
@@ -519,7 +520,7 @@ class OpenFailureTests(_Watchdog):
         path = self.root / "t.db"
         _make_v1(path, ["run"])
         with self.assertRaises(MigrationError) as ctx:
-            open_store(path, migrations=MIGRATIONS + (_fail,))
+            open_store(path, migrations=V1 + (_fail,))
         self.assertIsInstance(ctx.exception.__cause__, RuntimeError)
         # IN-04 / V7: only the type name; a step's message may carry row values.
         self.assertEqual(str(ctx.exception), "RuntimeError")
@@ -532,7 +533,7 @@ class OpenFailureTests(_Watchdog):
             c.execute("ALTER TABLE no_such_table ADD COLUMN x")
 
         with self.assertRaises(MigrationError) as ctx:
-            open_store(path, migrations=MIGRATIONS + (bad_sql,))
+            open_store(path, migrations=V1 + (bad_sql,))
         self.assertIn("OperationalError: no such table", str(ctx.exception))
 
     @unittest.skipUnless(os.name == "posix", "POSIX file modes")
@@ -542,7 +543,7 @@ class OpenFailureTests(_Watchdog):
         d.mkdir(mode=0o755)
         os.chmod(d, 0o755)
         path = d / "t.db"
-        conn = open_store(path)
+        conn = open_store(path, migrations=V1)
         upsert_word(conn, "run")
         conn.close()
         self.assertEqual(path.stat().st_mode & 0o777, 0o600)
