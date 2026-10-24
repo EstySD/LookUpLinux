@@ -5,15 +5,15 @@ milestone_name: milestone
 current_phase: 2
 current_phase_name: Офлайн-словари и перевод
 status: executing
-stopped_at: Completed 02-02-PLAN.md
-last_updated: "2026-10-24T14:45:36.054Z"
+stopped_at: Completed 02-05-PLAN.md
+last_updated: "2026-10-24T14:53:14.239Z"
 last_activity: 2026-10-24
 last_activity_desc: Phase 2 execution started
 progress:
   total_phases: 8
   completed_phases: 1
   total_plans: 14
-  completed_plans: 7
+  completed_plans: 8
   percent: 13
 ---
 
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-10-24)
 ## Current Position
 
 Phase: 2 (Офлайн-словари и перевод) — EXECUTING
-Plan: 5 of 11
+Plan: 6 of 11
 Status: Ready to execute
 Last activity: 2026-10-24 — Phase 2 execution started
 
@@ -62,6 +62,7 @@ Progress: [█░░░░░░░░░] 13%
 | Phase 2 P02 | 25min | 3 tasks | 8 files |
 | Phase 2 P03 | 20min | 3 tasks | 8 files |
 | Phase 2 P04 | 30min | 2 tasks | 13 files |
+| Phase 2 P05 | 30min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -84,6 +85,7 @@ Recent decisions affecting current work:
 - [Phase 02-02]: LZO1X and RIPEMD-128 are pure stdlib Python, no python-lzo package (Phase 7 PKGBUILD gets no new dependency); dictzip reader requires exact chunk lengths including the last chunk
 - [Phase 02-03]: index cache tag validated; irregular.txt generated from WordNet 3.1 exception lists (5814 forms) with Princeton notice
 - [Phase 02-04]: word without dictionary block is not_found; not_found from any provider ends the chain; failure reasons ranked blocked > bad_response > timeout > no_network
+- [Phase 02-05]: StarDict entries failing validation become None slots so .syn numbering counts them; POS tokens right after '(' are usage notes; pointer_only requires a single m field
 
 ### Pending Todos
 
@@ -113,6 +115,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-10-24T14:45:32.585Z
-Stopped at: Completed 02-03-PLAN.md
-Resume file: .planning/phases/02-offline-dicts-translate/02-CONTEXT.md
+Last session: 2026-10-24T14:53:14.231Z
+Stopped at: Completed 02-05-PLAN.md
+Resume file: None
