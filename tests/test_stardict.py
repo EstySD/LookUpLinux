@@ -330,5 +330,124 @@ class FieldTypeTests(_Base):
         self.assertNotIn("\x00", a.text)
 
 
+class MuellerParseTests(_Base):
+    def parse(self, text):
+        return stardict.parse_mueller(text)
+
+    def test_numbered_pos_blocks_with_sense_markers(self):
+        r = self.parse("[rʌn] 1. _n. 1> бег 2> ход 2. _v. 1> бежать 2> управлять")
+        self.assertEqual(r.transcription, "rʌn")
+        self.assertEqual(r.senses, (("n", ("бег", "ход")), ("v", ("бежать", "управлять"))))
+        self.assertIsNone(r.form_of)
+        self.assertFalse(r.pointer_only)
+
+    def test_segment_without_markers_is_one_value_cut_at_80(self):
+        r = self.parse("[ˈbetə] _n. держащий пари")
+        self.assertEqual(r.transcription, "ˈbetə")
+        self.assertEqual(r.senses, (("n", ("держащий пари",)),))
+        long = self.parse("[x] _n. " + "ы" * 200)
+        self.assertEqual(long.senses, (("n", ("ы" * 80,)),))
+
+    def test_at_most_five_values_per_pos(self):
+        r = self.parse("[x] _n. " + " ".join("%d> v%d" % (i, i) for i in range(1, 10)))
+        self.assertEqual(r.senses, (("n", ("v1", "v2", "v3", "v4", "v5")),))
+
+    def test_letter_sense_markers(self):
+        r = self.parse("[x] _v. а> выламывать; б> убежать")
+        self.assertEqual(r.senses, (("v", ("выламывать", "убежать")),))
+
+    def test_pure_pointers(self):
+        cases = {
+            "[ræn] _p. от run 2": "run",
+            "[men] _pl. от man 1": "man",
+            "[went] _p. от go 1": "go",
+            "[tiːθ] _pl. от tooth 1": "tooth",
+            "_pl. от man 1": "man",
+            "[ræn] _p. от run": "run",
+            "[x] _p. от run 2;": "run",
+        }
+        for text, lemma in cases.items():
+            with self.subTest(text):
+                r = self.parse(text)
+                self.assertEqual(r.form_of, lemma)
+                self.assertTrue(r.pointer_only)
+                self.assertEqual(r.senses, ())
+        self.assertEqual(self.parse("[ræn] _p. от run 2").transcription, "ræn")
+        self.assertIsNone(self.parse("_pl. от man 1").transcription)
+
+    def test_mixed_articles(self):
+        r = self.parse("[ˈrʌnıŋ] 1. _pres-p. от run 2 2. _n. бег")
+        self.assertEqual((r.form_of, r.pointer_only), ("run", False))
+        self.assertEqual(r.senses, (("n", ("бег",)),))
+        r = self.parse("[gɔn] 1. _p-p. от go 1; 2. _a. ушедший")
+        self.assertEqual((r.form_of, r.pointer_only), ("go", False))
+        self.assertEqual(r.senses, (("a", ("ушедший",)),))
+
+    def test_ordinary_articles_are_not_pointers(self):
+        cases = [
+            "[ˈbetə] _n. держащий пари _II [ˈbetə] 1. _a. (_comp. от good 1) лучший",
+            "[wəːs] 1. _a. (_comp. от bad 1) худший",
+            "[ˈdeıtə] _n. _pl. 1> _pl. от datum",
+            "[njuːz] _n. _pl. (употр. как sing) 1> новости",
+        ]
+        for text in cases:
+            with self.subTest(text):
+                r = self.parse(text)
+                self.assertIsNone(r.form_of)
+                self.assertFalse(r.pointer_only)
+
+    def test_homograph_blocks_become_separate_senses(self):
+        r = self.parse("[ˈbetə] _n. держащий пари _II [ˈbetə] 1. _a. (_comp. от good 1) лучший")
+        self.assertEqual(r.transcription, "ˈbetə")
+        self.assertEqual(r.senses, (("n", ("держащий пари",)), ("a", ("лучший",))))
+
+    def test_usage_labels_and_homograph_markers_are_not_senses(self):
+        r = self.parse("[x] _I _n. _разг. слово _ам. тоже _лат. verbum")
+        self.assertEqual([pos for pos, _ in r.senses], ["n"])
+        self.assertNotIn("_I", " ".join(v for _, vals in r.senses for v in vals))
+
+    def test_unstructured_text(self):
+        r = self.parse("just a word")
+        self.assertEqual(r, stardict.MuellerParts(None, (), None, False))
+        self.assertEqual(self.parse(""), stardict.MuellerParts(None, (), None, False))
+
+    def test_pathological_input_is_bounded(self):
+        import time
+
+        for text in ("_n. от [" * 150000, "[" * 1_000_000, "_n. от " * 150000, " " * 1_000_000 + "x"):
+            with self.subTest(text[:12]):
+                t0 = time.perf_counter()
+                r = self.parse(text)
+                self.assertLess(time.perf_counter() - t0, 1.0)
+                self.assertIsInstance(r, stardict.MuellerParts)
+
+    def test_integration_through_open_stardict(self):
+        entries = [
+            ("ran", "[ræn] _p. от run 2"),
+            ("run", "[rʌn] 1. _n. 1> бег 2. _v. 1> бежать"),
+            ("plain", "just a word"),
+        ]
+        d = self.open(write_stardict(self.dir, "mu", entries, bookname="Mu"))
+        ran = d.lookup("ran")[0]
+        self.assertEqual((ran.transcription, ran.form_of, ran.pointer_only), ("ræn", "run", True))
+        self.assertEqual(ran.text, "[ræn] _p. от run 2")
+        run = d.lookup("run")[0]
+        self.assertEqual(run.transcription, "rʌn")
+        self.assertEqual(run.senses, (("n", ("бег",)), ("v", ("бежать",))))
+        self.assertFalse(run.pointer_only)
+        self.assertIn("бег", run.text)
+        plain = d.lookup("plain")[0]
+        self.assertIsNone(plain.transcription)
+        self.assertEqual((plain.senses, plain.form_of, plain.pointer_only), ((), None, False))
+
+    def test_t_field_wins_and_multi_field_entry_is_not_pointer_only(self):
+        data = "TT\0".encode() + "[ræn] _p. от run 2".encode()
+        d = self.open(write_stardict(self.dir, "mt", [("ran", data)], sametypesequence="tm"))
+        a = d.lookup("ran")[0]
+        self.assertEqual(a.transcription, "TT")
+        self.assertEqual(a.form_of, "run")
+        self.assertFalse(a.pointer_only)
+
+
 if __name__ == "__main__":
     unittest.main()
