@@ -5,15 +5,15 @@ milestone_name: milestone
 current_phase: 2
 current_phase_name: Офлайн-словари и перевод
 status: executing
-stopped_at: Phase 2 context gathered
-last_updated: "2026-10-24T14:32:37.922Z"
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-10-24T14:36:51.149Z"
 last_activity: 2026-10-24
 last_activity_desc: Phase 2 execution started
 progress:
   total_phases: 8
   completed_phases: 1
   total_plans: 14
-  completed_plans: 4
+  completed_plans: 5
   percent: 13
 ---
 
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-10-24)
 ## Current Position
 
 Phase: 2 (Офлайн-словари и перевод) — EXECUTING
-Plan: 2 of 11
+Plan: 3 of 11
 Status: Ready to execute
 Last activity: 2026-10-24 — Phase 2 execution started
 
@@ -59,6 +59,7 @@ Progress: [█░░░░░░░░░] 13%
 | Phase 01 P02 | 20min | 4 tasks | 5 files |
 | Phase 01 P03 | 8min | 2 tasks | 3 files |
 | Phase 2 P01 | 25min | 2 tasks | 6 files |
+| Phase 2 P02 | 25min | 3 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -78,6 +79,7 @@ Recent decisions affecting current work:
 - [Phase 01]: IN-02: правило D-04 (длина < 2, кроме a/i) действует на весь ключ фразы, не на токен ("plan b" допустим); токен из одной пунктуации отклоняет всю фразу, а не выбрасывается ("rock & roll" не превращается в "rock roll")
 - [Phase 01]: Тестовая VM — VirtualBox `arch-kde` (Windows-хост, QEMU/KVM недоступен), `ssh archvm`
 - [Phase 02-01]: assert_untouched in StepTransactionGuardTests reopens a copy of the V1 fixture with the real tuple, since the real tuple now upgrades V1 to v2
+- [Phase 02-02]: LZO1X and RIPEMD-128 are pure stdlib Python, no python-lzo package (Phase 7 PKGBUILD gets no new dependency); dictzip reader requires exact chunk lengths including the last chunk
 
 ### Pending Todos
 
@@ -85,7 +87,7 @@ None yet.
 
 ### Blockers/Concerns
 
-- [Phase 2]: MDX сжимается через LZO, которого нет в stdlib; нужен пакет из pacman или чистая реализация, иначе только zlib-словари
+- [Phase 2]: LZO для MDX решён в 02-02 чистой реализацией на stdlib; настоящий MDX-файл с LZO-блоками ещё не проверен (UAT)
 - [Phase 2]: Google gtx блокируется с 09.2026; проверить доступность из VM, решить про второй провайдер
 - [Phase 3]: Точность tesseract на мелком тексте интерфейса при 125–200% не измерена (PSM 11 или 6, увеличение, инверсия)
 - [Phase 4]: Цепочка kdotool (cursor, windowmove, windowactivate) на Plasma 6.8.1 не запускалась; регистрация хоткея без перелогина не проверена
@@ -107,6 +109,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-10-24T14:32:34.418Z
+Last session: 2026-10-24T14:36:46.649Z
 Stopped at: Phase 2 context gathered
 Resume file: .planning/phases/02-offline-dicts-translate/02-CONTEXT.md
