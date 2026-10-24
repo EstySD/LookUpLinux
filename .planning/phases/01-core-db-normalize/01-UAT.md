@@ -3,7 +3,7 @@ status: complete
 phase: 01-core-db-normalize
 source: [01-VERIFICATION.md]
 started: 2026-10-23T21:34:07Z
-updated: 2026-10-24T05:03:18Z
+updated: 2026-10-24T05:09:40Z
 ---
 
 ## Current Test
@@ -12,7 +12,14 @@ updated: 2026-10-24T05:03:18Z
 
 ## Environment
 
-Arch VM недоступна с машины разработки, поэтому оба теста прогнаны Claude в Docker-контейнере `archlinux:latest` (Python 3.14.8, SQLite 3.54.0), под обычным пользователем `tester` с настоящим HOME `/home/tester`. Это тот же Arch и тот же Python, что в VM, но не сама VM: задержку хоткея (PERF-01) по-прежнему мерить в VM в фазе 8. Полный набор `python -m unittest` в контейнере: 63 теста, OK.
+Первый прогон — Docker-контейнер `archlinux:latest` (Python 3.14.8, SQLite 3.54.0, пользователь `tester`, HOME `/home/tester`): VM тогда ещё не было. Полный набор: 63 теста, OK.
+
+Повторный прогон после исправления — Arch VM (VirtualBox `arch-kde`, Plasma 6.8.1 Wayland, KWin 6.8.1, Python 3.14.8, коммит be017e8), пользователь `arch`, без LOOKUP_DB и XDG_DATA_HOME:
+- тест 1: `/home/arch/.local/share/lookup/lookup.db`, каталог `~/.local/share/lookup` не создан;
+- тест 2: SHARED 2.00 с, RESERVED 2.42 с ('could not switch database to WAL: database is locked'), EXCLUSIVE 2.25 с ('could not read the schema version: database is locked');
+- полный набор: 65 тестов, OK.
+
+Задержку хоткея (PERF-01) мерить в фазе 8.
 
 ## Tests
 
