@@ -17,6 +17,7 @@ import re
 import struct
 import zlib
 from pathlib import Path
+from typing import NamedTuple
 
 from lookup.dictzip import DictzipError, DictzipFile
 from lookup.dicts import (
@@ -123,6 +124,94 @@ def _parse_idx(idx: bytes, data_len: int, offset_bytes: int):
     return entries, skipped
 
 
+# ---------------------------------------------------------------- Mueller articles
+
+_SCAN_CHARS = 20000  # parse_mueller looks at no more than this (T-02-20)
+_POINTER_CHARS = 600  # and the "от X" pointer test at no more than this
+_MAX_VALUES = 5
+_MAX_VALUE_CHARS = 80
+_MAX_SENSES = 64
+
+_TRANS_RE = re.compile(r"\s*\[([^\[\]]{1,200})\]")
+_POS_NAMES = (
+    "n|a|v|adv|pl|p-p|pres-p|p|attr|comp|sup|pred|predic|prep|conj|pron|num|interj|int|art|aux"
+)
+_TOKEN_RE = re.compile(
+    r"(?<![\w(])_(?P<pos>" + _POS_NAMES + r")\."
+    r"|(?P<brk>(?<!\w)_(?:I{1,3}|IV|VI{0,3}|IX|X)(?![\w.])(?:\s*\[[^\[\]]{0,200}\])?)"
+)
+_SPLIT_RE = re.compile(r"(?<!\w)(?:\d{1,2}|[^\W\d_])>|(?<![\w.,])\d{1,2}\.(?=\s|$)")
+_PAREN_POINTER_RE = re.compile(r"\(\s*_[\w-]{1,12}\.\s+от\s+[^()]{0,60}\)")
+_POINTER_VALUE_RE = re.compile(r"от\s+[A-Za-z'’ \-]{1,60}(?:\s+\d{1,2})?\s*[;.]?")
+_PAREN_ONLY_RE = re.compile(r"\([^()]*\)")
+_POINTER_RE = re.compile(
+    r"\s*(?:\d{1,2}\.\s*)?_[\w-]{1,12}\.\s+от\s+"
+    r"([A-Za-z][A-Za-z'’-]*(?:\s+[A-Za-z][A-Za-z'’-]*){0,2})"
+)
+_HOMOGRAPH_NUMBER_RE = re.compile(r"\d{1,2}")
+
+
+class MuellerParts(NamedTuple):
+    transcription: str | None
+    senses: tuple
+    form_of: str | None
+    pointer_only: bool
+
+
+def _values(segment: str) -> tuple:
+    values = []
+    for piece in _SPLIT_RE.split(_PAREN_POINTER_RE.sub(" ", segment)):
+        v = " ".join(piece.split()).strip(" ;,")
+        if not v or _POINTER_VALUE_RE.fullmatch(v) or _PAREN_ONLY_RE.fullmatch(v):
+            continue
+        values.append(v[:_MAX_VALUE_CHARS].rstrip())
+        if len(values) == _MAX_VALUES:
+            break
+    return tuple(values)
+
+
+def parse_mueller(text: str) -> MuellerParts:
+    """Best-effort parse of a Mueller 7 style article; the full text always stays in Article.text.
+
+    Pure and bounded: only the first _SCAN_CHARS characters are read, the pointer
+    test sees _POINTER_CHARS, and no pattern nests unbounded quantifiers (T-02-20).
+    """
+    whole = len(text) <= _SCAN_CHARS
+    text = text[:_SCAN_CHARS]
+
+    transcription = None
+    start = 0
+    m = _TRANS_RE.match(text)
+    if m:
+        transcription = m.group(1).strip() or None
+        start = m.end()
+
+    senses = []
+    matches = list(_TOKEN_RE.finditer(text))
+    for i, tok in enumerate(matches):
+        pos = tok.group("pos")
+        if pos is None:  # homograph marker: only ends the previous segment
+            continue
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
+        values = _values(text[tok.end():end])
+        if values:
+            senses.append((pos, values))
+            if len(senses) == _MAX_SENSES:
+                break
+
+    form_of = None
+    pointer_only = False
+    p = _POINTER_RE.match(text, start, min(len(text), start + _POINTER_CHARS))
+    if p:
+        form_of = p.group(1)
+        tail = text[p.end():].strip()
+        number = _HOMOGRAPH_NUMBER_RE.match(tail)
+        if number:
+            tail = tail[number.end():]
+        pointer_only = whole and all(c.isspace() or c in ";." for c in tail)
+    return MuellerParts(transcription, tuple(senses), form_of, pointer_only)
+
+
 # ------------------------------------------------------------------ field decoding
 
 
@@ -176,11 +265,15 @@ def _decode_entry(dict_name: str, headword: str, raw: bytes, seq) -> Article:
         return Article(dict_name, headword, None, (), clean_text(raw.decode("utf-8", "replace")))
     transcription = None
     xdxf_tr = None
+    mueller = None
     texts = []
     for t, chunk in fields:
         s = chunk.decode("utf-8", "replace")
         if t in ("m", "l", "w"):
-            texts.append(clean_text(s))
+            piece = clean_text(s)
+            texts.append(piece)
+            if t == "m" and mueller is None:
+                mueller = parse_mueller(piece)
         elif t in ("t", "y"):
             if transcription is None:
                 transcription = " ".join(clean_text(s).split()) or None
@@ -191,10 +284,15 @@ def _decode_entry(dict_name: str, headword: str, raw: bytes, seq) -> Article:
                 if m:
                     xdxf_tr = " ".join(html_to_text(m.group(1)).split()) or None
         # r, W, P and unknown types carry no text (D-05)
+    text = clean_text("\n".join(x for x in texts if x))
     if transcription is None:
         transcription = xdxf_tr
-    text = clean_text("\n".join(x for x in texts if x))
-    return Article(dict_name, headword, transcription, (), text)
+    if mueller is None:
+        return Article(dict_name, headword, transcription, (), text)
+    if transcription is None:
+        transcription = mueller.transcription
+    only = len(fields) == 1 and fields[0][0] == "m" and mueller.pointer_only
+    return Article(dict_name, headword, transcription, mueller.senses, text, None, mueller.form_of, only)
 
 
 # -------------------------------------------------------------------- dictionary
