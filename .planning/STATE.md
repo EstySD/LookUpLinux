@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_phase: 1
-current_phase_name: "Ядро: база и нормализация"
-status: verifying
-stopped_at: Completed 01-03-PLAN.md
-last_updated: "2026-10-23T21:14:44.297Z"
-last_activity: 2026-10-23
-last_activity_desc: Phase 1 execution started
+current_phase: 2
+current_phase_name: Офлайн-словари и перевод
+status: ready_to_plan
+stopped_at: Phase 1 complete (UAT and review debt closed)
+last_updated: "2026-10-24T05:17:16.604Z"
+last_activity: 2026-10-24
+last_activity_desc: Phase 1 complete, transitioned to Phase 2
 progress:
   total_phases: 8
   completed_phases: 1
@@ -28,18 +28,18 @@ See: .planning/PROJECT.md (updated 2026-10-24)
 
 ## Current Position
 
-Phase: 1 (Ядро: база и нормализация) — EXECUTING
-Plan: 3 of 3
-Status: Phase complete — ready for verification
-Last activity: 2026-10-23 — Phase 1 execution started
+Phase: 2 — Офлайн-словари и перевод
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-10-24 — Phase 1 complete, transitioned to Phase 2
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█░░░░░░░░░] 13%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 0
+- Total plans completed: 3
 - Average duration: -
 - Total execution time: 0.0 hours
 
@@ -47,7 +47,7 @@ Progress: [░░░░░░░░░░] 0%
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 1 | 3 | - | - |
 
 **Recent Trend:**
 
@@ -74,6 +74,8 @@ Recent decisions affecting current work:
 - [Phase 01-01]: Digit check (D-17) runs on raw token before edge trimming; possessive loop stops at D-16 contractions
 - [Phase 01]: Snapshot taken before BEGIN IMMEDIATE and published only if user_version unchanged under the lock — Connection.backup inside the write lock hangs on WAL
 - [Phase 01]: 01-03: store.py needed no change; 10-process spawn tests pass on pre-created and fresh DBs
+- [Phase 01]: IN-02: правило D-04 (длина < 2, кроме a/i) действует на весь ключ фразы, не на токен ("plan b" допустим); токен из одной пунктуации отклоняет всю фразу, а не выбрасывается ("rock & roll" не превращается в "rock roll")
+- [Phase 01]: Тестовая VM — VirtualBox `arch-kde` (Windows-хост, QEMU/KVM недоступен), `ssh archvm`
 
 ### Pending Todos
 
@@ -81,11 +83,11 @@ None yet.
 
 ### Blockers/Concerns
 
-- [Phase 2]: Защиту транзакции в миграциях можно обойти через `cursor.connection.commit()` внутри шага (см. 01-VERIFICATION.md W1); закрыть до первой настоящей миграции v1→v2
 - [Phase 2]: MDX сжимается через LZO, которого нет в stdlib; нужен пакет из pacman или чистая реализация, иначе только zlib-словари
 - [Phase 2]: Google gtx блокируется с 09.2026; проверить доступность из VM, решить про второй провайдер
 - [Phase 3]: Точность tesseract на мелком тексте интерфейса при 125–200% не измерена (PSM 11 или 6, увеличение, инверсия)
 - [Phase 4]: Цепочка kdotool (cursor, windowmove, windowactivate) на Plasma 6.8.1 не запускалась; регистрация хоткея без перелогина не проверена
+- [Phase 4]: Демон в трее держит долгое соединение и не перечитывает `user_version`: после обновления программы (миграции) он должен переоткрыть базу (01-REVIEW IN-06, docstring `open_store`)
 - [Phase 4]: Фокус окна, созданного фоновым процессом, под защитой KWin от кражи фокуса; нужна передача activation token от команды хоткея
 - [Phase 4]: Задержка spectacle (оценка 300–800 мс) может съесть бюджет 1,5 с; запасной путь ScreenShot2; поведение `wl-paste --primary` замерить
 - [Phase 5]: Esc и потеря фокуса под активацией KWin; клик и таймаут должны закрывать всегда
@@ -103,6 +105,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-10-23T21:14:44.290Z
-Stopped at: Completed 01-03-PLAN.md
-Resume file: .planning/phases/01-core-db-normalize/01-CONTEXT.md
+Last session: 2026-10-24
+Stopped at: Phase 1 complete; next: /gsd-discuss-phase 2 or /gsd-plan-phase 2
+Resume file: None

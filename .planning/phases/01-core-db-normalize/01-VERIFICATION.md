@@ -1,7 +1,8 @@
 ---
 phase: 01-core-db-normalize
 verified: 2026-10-23T21:32:57Z
-status: human_needed
+re_verified: 2026-10-24T05:16:44Z
+status: passed
 score: 16/16 truths verified
 behavior_unverified: 0
 overrides_applied: 0
@@ -12,16 +13,27 @@ human_verification:
   - test: "On the Arch VM, hold an exclusive lock on a lookup.db from another process and call open_store() on a file that is not yet in WAL mode"
     expected: "Fails with sqlite3.OperationalError 'could not switch database to WAL: database is locked' within about 2 s (default timeout 5 s), not minutes"
     why_human: "The 2 s bound (_WAL_MAX_WAIT) was measured by the review-fix pass on Windows only. The hotkey latency budget (PERF-01) is measured in the VM in Phase 8."
+human_verification_result: "Both items passed on the Arch VM (VirtualBox arch-kde, Plasma 6.8.1, Python 3.14.8); see 01-UAT.md. Item 2 first failed under EXCLUSIVE (5 s) and was fixed in be017e8."
 ---
 
 # Phase 1: Ядро: база и нормализация — Verification Report
 
 **Phase Goal:** Слово нормализуется и записывается в SQLite со счётчиком поисков, контекстом, переводом и временами первого и последнего поиска. Схема версионируется, чтобы дальше добавлять кэш, карточки и настройки без потери данных. Всё проверяется набором unittest без Qt и без рабочего стола.
 **Verified:** 2026-10-23T21:32:57Z (UTC)
-**Status:** human_needed
+**Status:** passed (re-verified 2026-10-24T05:16:44Z)
 **Re-verification:** No — initial verification (no prior VERIFICATION.md in the phase directory)
 
 **Verified at commit:** ef5b5d6 (includes the six review-fix commits 29da8ac..38ec335)
+
+## Re-verification (2026-10-24T05:16:44Z)
+
+**Re-verified at commit:** 325c83f. Status moves from `human_needed` to `passed`.
+
+- **Human items:** both passed on the Arch VM (VirtualBox `arch-kde`, Plasma 6.8.1 Wayland, Python 3.14.8); details in `01-UAT.md`. Item 2 first took 5 s under an EXCLUSIVE lock, because the step-3 version read used the full busy_timeout. Fixed in be017e8: steps 3-4 share the `min(timeout, _WAL_MAX_WAIT)` deadline. All lock kinds now give up in 2.0-2.4 s.
+- **W1 resolved (325c83f):** while steps run, an SQLite authorizer denies `SQLITE_TRANSACTION` (BEGIN/COMMIT/END/ROLLBACK). The routes `cursor.connection.commit()`, `_StepConnection._conn` and raw `executescript()` are now denied before anything is committed. Tests `test_commit_through_cursor_connection_denied`, `test_commit_through_guard_slot_denied` and `test_raw_executescript_denied` fail on the old code and pass now.
+- **Info items closed (325c83f):** IN-01 (tables re-run after NFKC, plus U+02BB and U+02B9), IN-02 (decided: D-04 stays per key; a punctuation-only token still rejects the phrase; pinned by a test), IN-03 (runs of inner `'`/`-` collapsed), IN-04 (MigrationError text only for sqlite3.Error), IN-05 (new db and backup files 0600; `-wal`/`-shm` follow, checked in the VM), IN-06 (temp snapshots older than 10 min removed; pre-lock window and daemon reopen rule documented in `open_store`), IN-07 (`_too_new`; redundant NULLIF and PRAGMA removed), IN-08 (per-test watchdog; step-7 SchemaTooNewError test; 10-process v1 to v2 migration test), I1 (reader must collect samples).
+- **Accepted, no change:** the version dropping to 0 between the read and the lock. Version 0 means no schema, so there is nothing to back up.
+- **Gate:** 78 tests OK on Python 3.14.3 and 3.12.0 (Windows, 2 POSIX-only skips) and in the Arch VM (78/78); the concurrency module ran 3 times in a row in the VM, OK each time.
 
 ## Goal Achievement
 
