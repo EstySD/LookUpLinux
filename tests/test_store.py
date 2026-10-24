@@ -1,3 +1,4 @@
+import sqlite3
 import time
 import unittest
 from unittest import mock
@@ -5,7 +6,7 @@ from unittest import mock
 from lookup import store
 from lookup.normalize import normalize
 from lookup.store import CONTEXT_MAX_CHARS, CURRENT_VERSION, open_store, upsert_word
-from tests._support import make_tempdir
+from tests._support import V1, make_tempdir
 
 
 class UpsertTests(unittest.TestCase):
@@ -24,7 +25,7 @@ class UpsertTests(unittest.TestCase):
     def count_rows(self):
         return self.conn.execute("SELECT COUNT(*) FROM words").fetchone()[0]
 
-    def test_schema_v1_columns_and_only_words_table(self):
+    def test_schema_v2_tables_and_columns(self):
         info = self.conn.execute("PRAGMA table_info(words)").fetchall()
         self.assertEqual(
             [r[1] for r in info],
@@ -37,10 +38,68 @@ class UpsertTests(unittest.TestCase):
                 "SELECT name FROM sqlite_master WHERE type = 'table'"
             )
         ]
-        self.assertEqual(tables, ["words"])
+        self.assertEqual(sorted(tables), ["meta", "translations", "words"])
         self.assertEqual(self.conn.execute("PRAGMA user_version").fetchone()[0], CURRENT_VERSION)
-        self.assertEqual(CURRENT_VERSION, 1)
+        self.assertEqual(CURRENT_VERSION, 2)
+        tr = self.conn.execute("PRAGMA table_info(translations)").fetchall()
+        self.assertEqual(
+            [r[1] for r in tr], ["text", "kind", "provider", "payload", "fetched_at"]
+        )
+        self.assertEqual(sorted(r[1] for r in tr if r[5]), ["kind", "text"])
+        meta = self.conn.execute("PRAGMA table_info(meta)").fetchall()
+        self.assertEqual([r[1] for r in meta], ["key", "value"])
+        self.assertEqual([r[1] for r in meta if r[5]], ["key"])
         upsert_word(self.conn, "run", now=1)
+        self.assertIsNone(self.row("run")[6])
+
+    def test_translations_kind_check(self):
+        insert = (
+            "INSERT INTO translations (text, kind, provider, payload, fetched_at) "
+            "VALUES (?, ?, 'p', '{}', 1)"
+        )
+        for kind in ("word", "phrase", "sentence"):
+            self.conn.execute(insert, ("run", kind))
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.conn.execute(insert, ("run", "paragraph"))
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.conn.execute(insert, ("run", "word"))  # same (text, kind)
+        self.conn.execute(
+            insert + " ON CONFLICT(text, kind) DO UPDATE SET provider = 'q'",
+            ("run", "word"),
+        )
+        self.assertEqual(
+            self.conn.execute(
+                "SELECT provider FROM translations WHERE text='run' AND kind='word'"
+            ).fetchone()[0],
+            "q",
+        )
+
+    def test_lemma_stored_and_coalesced(self):
+        upsert_word(self.conn, "running", lemma="run", now=1)
+        self.assertEqual(self.row("running")[6], "run")
+        upsert_word(self.conn, "running", lemma=None, now=2)
+        self.assertEqual(self.row("running")[6], "run")
+        upsert_word(self.conn, "running", lemma="  ", now=3)
+        self.assertEqual(self.row("running")[6], "run")
+        upsert_word(self.conn, "running", lemma="jog", now=4)
+        self.assertEqual(self.row("running")[6], "jog")
+        self.assertEqual(self.row("running")[3], 4)  # key stays the surface form (D-12)
+        self.assertIsNone(self.row("run"))
+
+    def test_lemma_bound_not_interpolated(self):
+        evil = "o'neil'; DROP TABLE words; --"
+        upsert_word(self.conn, "x", lemma=evil, now=1)
+        self.assertEqual(self.row("x")[6], evil)
+        self.assertEqual(self.count_rows(), 1)
+
+    def test_lemma_type_checked(self):
+        with self.assertRaises(TypeError):
+            upsert_word(self.conn, "running", lemma=5)
+        self.assertEqual(self.count_rows(), 0)
+
+    def test_positional_callers_unchanged(self):
+        self.assertEqual(upsert_word(self.conn, "run", "bezhat", "ctx", 7), 1)
+        self.assertEqual(self.row("run")[:6], ("run", "bezhat", "ctx", 1, 7, 7))
         self.assertIsNone(self.row("run")[6])
 
     def test_connection_pragmas(self):
@@ -146,6 +205,40 @@ class UpsertTests(unittest.TestCase):
             with self.assertRaises(RuntimeError):
                 open_store(target)
         self.assertFalse(target.exists())
+
+
+class SchemaV2Tests(unittest.TestCase):
+    def setUp(self):
+        self.root = make_tempdir(self)
+
+    def test_phase1_database_migrates_to_v2_keeping_words(self):
+        path = self.root / "t.db"
+        old = open_store(path, migrations=V1)
+        upsert_word(old, "run", "bezhat", "I run", now=1)
+        upsert_word(old, "run", None, None, now=2)
+        old.close()
+
+        conn = open_store(path)
+        self.addCleanup(conn.close)
+        self.assertEqual(conn.execute("PRAGMA user_version").fetchone()[0], 2)
+        self.assertEqual(
+            conn.execute(
+                "SELECT word, translation, context, count, first_seen, last_seen, lemma "
+                "FROM words"
+            ).fetchall(),
+            [("run", "bezhat", "I run", 2, 1, 2, None)],
+        )
+        tables = sorted(
+            r[0]
+            for r in conn.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
+        )
+        self.assertEqual(tables, ["meta", "translations", "words"])
+        backup = self.root / "t.db.bak-v1"
+        self.assertTrue(backup.is_file())
+        b = sqlite3.connect(backup)
+        self.addCleanup(b.close)
+        self.assertEqual(b.execute("PRAGMA user_version").fetchone()[0], 1)
+        self.assertEqual(b.execute("SELECT count FROM words").fetchone()[0], 2)
 
 
 if __name__ == "__main__":
