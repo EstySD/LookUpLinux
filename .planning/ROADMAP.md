@@ -112,9 +112,9 @@ Plans:
 
 **Plans**: 3; sequential waves, shared lookup/ocr.py contracts.
 
-- [ ] 03-01-PLAN.md — stdlib TSV/geometry, bounded lexical selection, offline compound probes
-- [ ] 03-02-PLAN.md — in-memory Qt/tesseract, 16 Breeze fixture combinations, measured calibration
-- [ ] 03-03-PLAN.md — CLI image/point route, context, privacy and final-query-only persistence
+- [x] 03-01-PLAN.md — stdlib TSV/geometry, bounded lexical selection, offline compound probes
+- [x] 03-02-PLAN.md — in-memory Qt/tesseract, 16 Breeze fixture combinations, measured calibration
+- [x] 03-03-PLAN.md — CLI image/point route, context, privacy and final-query-only persistence
 
 ### Phase 4: Спайк в VM: хоткей, курсор, скриншот, фон
 
