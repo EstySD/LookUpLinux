@@ -22,14 +22,16 @@ requirements-completed: [TRAN-01, TRAN-04]
 duration: 20min
 completed: 2026-10-25
 coverage:
-  - deliverable: Discovery, ordering and failure isolation
+  - id: D1
+    description: Discovery, ordering and failure isolation
     verification:
-      - {kind: command, ref: 'python -m unittest tests.test_dicts', status: pass}
+      - {kind: unit, ref: 'python -m unittest tests.test_dicts', status: pass}
     human_judgment: false
-  - deliverable: Base-form candidates and pointer resolution
+  - id: D2
+    description: Base-form candidates and pointer resolution
     verification:
-      - {kind: command, ref: 'python -m unittest tests.test_lemma', status: pass}
-      - {kind: command, ref: 'LOOKUP_TEST_DICTS=<Mueller directory> python -m unittest tests.test_mueller_sample -v', status: pass}
+      - {kind: unit, ref: 'python -m unittest tests.test_lemma', status: pass}
+      - {kind: integration, ref: 'LOOKUP_TEST_DICTS=<Mueller directory> python -m unittest tests.test_mueller_sample -v', status: pass}
     human_judgment: false
 ---
 
