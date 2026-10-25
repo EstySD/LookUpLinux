@@ -345,5 +345,5 @@ def translate_online(
                 failures.add(e.reason)
     for reason in _PRIORITY:
         if reason in failures:
-            raise TranslateError(reason)
-    raise TranslateError("bad_response")
+            raise TranslateError(reason) from None
+    raise TranslateError("bad_response") from None
