@@ -9,7 +9,7 @@ from tests._support import make_tempdir
 
 ROOT = Path(__file__).resolve().parents[1]
 
-_IMPORTS = "import lookup, lookup.normalize, lookup.store, lookup.stardict, lookup.dsl, lookup.mdx, lookup.lzo, lookup.ripemd128, lookup.dictzip, lookup.dicts, lookup.config, lookup.online, lookup.translate\n"
+_IMPORTS = "import lookup, lookup.normalize, lookup.store, lookup.stardict, lookup.dsl, lookup.mdx, lookup.lzo, lookup.ripemd128, lookup.dictzip, lookup.dicts, lookup.config, lookup.online, lookup.translate, lookup.ocr\n"
 _STDLIB_CODE = (
     "import json, sys\n"
     + _IMPORTS
@@ -66,6 +66,7 @@ class CoreImportTests(unittest.TestCase):
             'config': 'load Config config_path cache_dir',
             'online': 'translate_online TranslateError OnlineResult REASONS DEFAULT_CLIENTS',
             'translate': 'lookup classify Result',
+            'ocr': 'OcrError Word Transform Selection parse_tsv select_word choose_query',
             'stardict': 'open_stardict', 'dsl': 'open_dsl', 'mdx': 'open_mdx',
             'lzo': 'decompress LzoError', 'ripemd128': 'digest', 'dictzip': 'DictzipFile DictzipError',
         }
