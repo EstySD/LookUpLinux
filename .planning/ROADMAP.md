@@ -110,7 +110,11 @@ Plans:
   3. Точка над пустым местом, значком или мусором и низкая уверенность OCR дают «не найдено», и в базу ничего не пишется (CAPT-03).
   4. Над «break» в «break out» сначала ищется «break out», потом «break»; слова через дефис («well-known») склеиваются в одно (CAPT-04).
 
-**Plans**: TBD
+**Plans**: 3; sequential waves, shared lookup/ocr.py contracts.
+
+- [ ] 03-01-PLAN.md — stdlib TSV/geometry, bounded lexical selection, offline compound probes
+- [ ] 03-02-PLAN.md — in-memory Qt/tesseract, 16 Breeze fixture combinations, measured calibration
+- [ ] 03-03-PLAN.md — CLI image/point route, context, privacy and final-query-only persistence
 
 ### Phase 4: Спайк в VM: хоткей, курсор, скриншот, фон
 
