@@ -4,12 +4,13 @@ Only this module prints. stderr contains timings and fixed warnings with
 exception type names, never exception messages or query text.
 """
 import argparse
+import math
 import os
 import sqlite3
 import sys
 import time
 
-from lookup import config, dicts, translate
+from lookup import config, dicts, translate, ocr
 from lookup.store import open_store, SchemaTooNewError, MigrationError
 
 ONLINE_REASONS = {
@@ -28,6 +29,32 @@ DICT_REASONS = {
     'empty': 'пустой',
     'checksum': 'ошибка контрольной суммы',
 }
+OCR_REASONS = {
+    'missing_pyqt6': 'не установлен пакет python-pyqt6',
+    'missing_tesseract': 'не установлен пакет tesseract',
+    'missing_eng': 'не установлен пакет tesseract-data-eng',
+    'invalid_image': 'не удалось прочитать изображение',
+    'invalid_point': 'точка должна находиться внутри изображения',
+    'too_large': 'изображение слишком большое',
+    'timeout': 'распознавание не ответило вовремя',
+    'bad_output': 'распознавание вернуло непонятный ответ',
+    'process_failed': 'не удалось выполнить распознавание',
+}
+
+
+def _image_point(value):
+    try:
+        x, y = (float(v) for v in value.split(','))
+        if not math.isfinite(x) or not math.isfinite(y):
+            raise ValueError
+        return x, y
+    except ValueError:
+        raise argparse.ArgumentTypeError('нужна конечная точка X,Y') from None
+
+
+def _print_timing(timings):
+    if os.environ.get('LOOKUP_TIMING') == '1':
+        print('timing: ' + ' '.join(f'{key}={value:.3f}ms' for key, value in timings.items()), file=sys.stderr)
 
 
 def format_result(result) -> str:
@@ -85,19 +112,36 @@ def main(argv=None) -> int:
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('--word')
     group.add_argument('--text')
+    group.add_argument('--image')
     group.add_argument('--list-dicts', action='store_true')
     parser.add_argument('--context')
+    parser.add_argument('--at', type=_image_point)
     parser.add_argument('--offline', action='store_true')
     parser.add_argument('--no-save', action='store_true')
     try:
         args = parser.parse_args(argv)
         if args.word is not None and len(args.word.split()) > translate.MAX_PHRASE_WORDS:
             parser.error('для предложения используйте --text')
+        if bool(args.image) != (args.at is not None):
+            parser.error('--image требует --at X,Y; --at используется только с --image')
+        if args.image and args.context is not None:
+            parser.error('для изображения контекст берётся из распознанной строки')
     except SystemExit as exc:
         return exc.code
     dictionaries = None
     conn = None
+    recognition = None
     try:
+        if args.image:
+            try:
+                recognition = ocr.recognize_image(args.image, args.at)
+            except ocr.OcrError as exc:
+                print('OCR: ' + OCR_REASONS[exc.reason], file=sys.stderr)
+                return 2 if exc.reason == 'invalid_point' else 1
+            if recognition.selection is None:
+                print('Не найдено.')
+                _print_timing(recognition.timings)
+                return 1
         cfg = config.load()
         roots = dicts.dict_roots()
         started = time.perf_counter()
@@ -111,6 +155,14 @@ def main(argv=None) -> int:
                 return 1
             print(format_dict_list(dictionaries, roots))
             return 0
+        query = args.word if args.word is not None else args.text
+        context = args.context
+        compound = 0
+        if recognition is not None:
+            started = time.perf_counter()
+            query = ocr.choose_query(recognition.selection, dictionaries)
+            compound = (time.perf_counter() - started) * 1000
+            context = recognition.selection.line
         started = time.perf_counter()
         try:
             conn = open_store()
@@ -119,17 +171,24 @@ def main(argv=None) -> int:
         except (MigrationError, sqlite3.Error, OSError) as exc:
             print(f'База недоступна: {type(exc).__name__}', file=sys.stderr)
         open_db = (time.perf_counter() - started) * 1000
-        result = translate.lookup(args.word if args.word is not None else args.text,
-                                  dictset=dictionaries, conn=conn, context=args.context,
+        result = translate.lookup(query,
+                                  dictset=dictionaries, conn=conn, context=context,
                                   online=cfg.online and not args.offline,
                                   save=not args.no_save, clients=cfg.clients)
+        if recognition is not None:
+            print('Слово: ' + query)
+            print('Строка: ' + context)
         print(format_result(result))
-        if args.context and not result.online_enabled:
+        if context and not result.online_enabled:
             print('Предложение: перевод выключен.')
         if os.environ.get('LOOKUP_TIMING') == '1':
             timings = dict(result.timings, open_dicts=open_dicts, open_db=open_db)
             timings['total'] += open_dicts + open_db
-            print('timing: ' + ' '.join(f'{key}={value:.3f}ms' for key, value in timings.items()), file=sys.stderr)
+            if recognition is not None:
+                timings.update({k: v for k, v in recognition.timings.items() if k != 'total'})
+                timings['compound'] = compound
+                timings['total'] += recognition.timings['total'] + compound
+            _print_timing(timings)
         return 0 if result.articles or result.online else 1
     except Exception as exc:
         print(f'внутренняя ошибка: {type(exc).__name__}', file=sys.stderr)
