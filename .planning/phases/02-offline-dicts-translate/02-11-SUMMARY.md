@@ -28,13 +28,19 @@ coverage:
   - id: D1
     description: Windows 3.14/3.12 and Arch 3.14.8 full suites
     verification:
-      - {kind: integration, ref: '02-VM-RESULTS.md#test-suites', status: pass}
+      - kind: integration
+        ref: 02-VM-RESULTS.md#test-suites
+        status: pass
     human_judgment: false
   - id: D2
     description: Real Mueller lookup, timing, network/cache/phrase behavior and failure deadlines
     verification:
-      - {kind: integration, ref: '02-VM-RESULTS.md#mueller-7-checks', status: pass}
-      - {kind: integration, ref: '02-VM-RESULTS.md#online-from-the-vm-sc4', status: pass}
+      - kind: integration
+        ref: 02-VM-RESULTS.md#mueller-7-checks
+        status: pass
+      - kind: integration
+        ref: 02-VM-RESULTS.md#online-from-the-vm-sc4
+        status: pass
     human_judgment: false
 ---
 

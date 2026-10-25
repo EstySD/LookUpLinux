@@ -4,17 +4,17 @@ milestone: v1.0
 milestone_name: milestone
 current_phase: 2
 current_phase_name: Офлайн-словари и перевод
-status: executing
-stopped_at: Completed 02-07-PLAN.md
-last_updated: "2026-10-25T06:04:15.568Z"
-last_activity: 2026-10-24
-last_activity_desc: Phase 2 execution started
+status: verifying
+stopped_at: Phase 02 UAT confirmation pending
+last_updated: "2026-10-25T12:17:04.262Z"
+last_activity: 2026-10-25
+last_activity_desc: All Phase 02 plans implemented; 482 tests pass on three interpreters; VM Mueller/network checks pass
 progress:
   total_phases: 8
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 14
-  completed_plans: 10
-  percent: 13
+  completed_plans: 14
+  percent: 25
 ---
 
 # Project State
@@ -28,10 +28,10 @@ See: .planning/PROJECT.md (updated 2026-10-24)
 
 ## Current Position
 
-Phase: 2 (Офлайн-словари и перевод) — EXECUTING
-Plan: 8 of 11
-Status: Ready to execute
-Last activity: 2026-10-24 — Phase 2 execution started
+Phase: 2 (Офлайн-словари и перевод) — VERIFYING
+Plan: 11 of 11
+Status: Awaiting UAT confirmation (02-UAT.md)
+Last activity: 2026-10-25 — All Phase 02 plans implemented; 482 tests pass on three interpreters; VM Mueller/network checks pass
 
 Progress: [█░░░░░░░░░] 13%
 
@@ -99,7 +99,7 @@ None yet.
 ### Blockers/Concerns
 
 - [Phase 2]: LZO для MDX решён в 02-02 чистой реализацией на stdlib; настоящий MDX-файл с LZO-блоками ещё не проверен (UAT)
-- [Phase 2]: Google gtx блокируется с 09.2026; проверить доступность из VM, решить про второй провайдер
+- [Phase 2]: VM probes 2026-10-25: all Google clients and MyMemory work via urllib; keep MyMemory for phrases/sentences. Real MDX/DSL remain unverified (no files supplied).
 - [Phase 3]: Точность tesseract на мелком тексте интерфейса при 125–200% не измерена (PSM 11 или 6, увеличение, инверсия)
 - [Phase 4]: Цепочка kdotool (cursor, windowmove, windowactivate) на Plasma 6.8.1 не запускалась; регистрация хоткея без перелогина не проверена
 - [Phase 4]: Демон в трее держит долгое соединение и не перечитывает `user_version`: после обновления программы (миграции) он должен переоткрыть базу (01-REVIEW IN-06, docstring `open_store`)
@@ -120,6 +120,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-10-25T06:04:11.386Z
-Stopped at: Completed 02-07-PLAN.md
-Resume file: None
+Last session: 2026-10-25T12:17:04.254Z
+Stopped at: Phase 02 UAT confirmation pending
+Resume file: .planning/phases/02-offline-dicts-translate/02-UAT.md

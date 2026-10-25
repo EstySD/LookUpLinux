@@ -25,13 +25,19 @@ coverage:
   - id: D1
     description: Discovery, ordering and failure isolation
     verification:
-      - {kind: unit, ref: 'python -m unittest tests.test_dicts', status: pass}
+      - kind: unit
+        ref: python -m unittest tests.test_dicts
+        status: pass
     human_judgment: false
   - id: D2
     description: Base-form candidates and pointer resolution
     verification:
-      - {kind: unit, ref: 'python -m unittest tests.test_lemma', status: pass}
-      - {kind: integration, ref: 'LOOKUP_TEST_DICTS=<Mueller directory> python -m unittest tests.test_mueller_sample -v', status: pass}
+      - kind: unit
+        ref: python -m unittest tests.test_lemma
+        status: pass
+      - kind: integration
+        ref: LOOKUP_TEST_DICTS=<Mueller directory> python -m unittest tests.test_mueller_sample -v
+        status: pass
     human_judgment: false
 ---
 

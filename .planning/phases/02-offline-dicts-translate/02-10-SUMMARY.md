@@ -26,13 +26,19 @@ coverage:
   - id: D1
     description: CLI rendering, exit codes, cache, contexts and degraded database behavior
     verification:
-      - {kind: unit, ref: 'python -m unittest tests.test_cli', status: pass}
-      - {kind: integration, ref: 'tests.test_cli.CliSubprocessTests.test_utf8_and_stdlib_entrypoint', status: pass}
+      - kind: unit
+        ref: python -m unittest tests.test_cli
+        status: pass
+      - kind: integration
+        ref: tests.test_cli.CliSubprocessTests.test_utf8_and_stdlib_entrypoint
+        status: pass
     human_judgment: false
   - id: D2
     description: Privacy and side-effect-free stdlib-only library imports
     verification:
-      - {kind: unit, ref: 'python -m unittest tests.test_privacy tests.test_core_imports', status: pass}
+      - kind: unit
+        ref: python -m unittest tests.test_privacy tests.test_core_imports
+        status: pass
     human_judgment: false
 ---
 
