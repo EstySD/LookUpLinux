@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_phase: 3
-current_phase_name: OCR слова на готовых скриншотах
-status: verifying
-stopped_at: Phase 3 implementation verified; independent phase review
-last_updated: "2026-10-25T12:29:31.545Z"
+current_phase: 4
+current_phase_name: "Спайк в VM: хоткей, курсор, скриншот, фон"
+status: planning
+stopped_at: Phase 4 autonomous VM spike planning
+last_updated: "2026-10-25T17:31:22.485Z"
 last_activity: 2026-10-25
-last_activity_desc: Phase 02 complete, transitioned to Phase 3
+last_activity_desc: Phase 03 complete, transitioned to Phase 4
 progress:
   total_phases: 8
-  completed_phases: 2
-  total_plans: 14
-  completed_plans: 14
-  percent: 25
+  completed_phases: 3
+  total_plans: 17
+  completed_plans: 17
+  percent: 38
 ---
 
 # Project State
@@ -24,22 +24,22 @@ progress:
 See: .planning/PROJECT.md (updated 2026-10-25)
 
 **Core value:** Хоткей над английским словом даёт перевод в оверлее у курсора примерно за 1–2 секунды, и слово попадает в базу со счётчиком.
-**Current focus:** Phase 3 — OCR слова на готовых скриншотах
+**Current focus:** Phase 4 — VM hotkey, cursor, capture and popup spike
 
 ## Current Position
 
-Phase: 3 — OCR слова на готовых скриншотах
-Plan: 3 of 3
-Status: Phase 3 verification and review
-Last activity: 2026-10-25 — Phase 02 complete, transitioned to Phase 3
+Phase: 4 — Спайк в VM: хоткей, курсор, скриншот, фон
+Plan: Not started
+Status: Ready for Phase 4 planning
+Last activity: 2026-10-25 — Phase 03 complete, transitioned to Phase 4
 
-Progress: [██░░░░░░░░] 25%
+Progress: [████░░░░░░] 38%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 14
+- Total plans completed: 17
 - Average duration: -
 - Total execution time: 0.0 hours
 
@@ -49,6 +49,7 @@ Progress: [██░░░░░░░░] 25%
 |-------|-------|-------|----------|
 | 1 | 3 | - | - |
 | 02 | 11 | - | - |
+| 03 | 3 | - | - |
 
 **Recent Trend:**
 
