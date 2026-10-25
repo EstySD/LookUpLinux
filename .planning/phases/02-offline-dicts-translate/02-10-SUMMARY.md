@@ -47,7 +47,7 @@ is optional on stderr, and the module entrypoint explicitly emits UTF-8.
 ## Verification
 
 - Python 3.14 full suite: 482 tests passed in 20.583 s, 6 skipped.
-- Python 3.12 full suite: 482 tests passed (6 skipped; see plan 11 for timing).
+- Python 3.12 full suite: 482 tests passed in 20.045 s, 6 skipped.
 - Focused CLI/privacy/import/online gate: 67 tests passed in 2.017 s.
 - Python 3.12 CLI/privacy/import gate: 13 tests passed in 1.924 s.
 - `python -S -m lookup --help` exposes all planned flags; subprocess tests
