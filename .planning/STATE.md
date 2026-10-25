@@ -5,15 +5,15 @@ milestone_name: milestone
 current_phase: 2
 current_phase_name: Офлайн-словари и перевод
 status: executing
-stopped_at: Completed 02-06-PLAN.md
-last_updated: "2026-10-25T05:53:54.284Z"
+stopped_at: Completed 02-07-PLAN.md
+last_updated: "2026-10-25T06:04:15.568Z"
 last_activity: 2026-10-24
 last_activity_desc: Phase 2 execution started
 progress:
   total_phases: 8
   completed_phases: 1
   total_plans: 14
-  completed_plans: 9
+  completed_plans: 10
   percent: 13
 ---
 
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-10-24)
 ## Current Position
 
 Phase: 2 (Офлайн-словари и перевод) — EXECUTING
-Plan: 7 of 11
+Plan: 8 of 11
 Status: Ready to execute
 Last activity: 2026-10-24 — Phase 2 execution started
 
@@ -64,6 +64,7 @@ Progress: [█░░░░░░░░░] 13%
 | Phase 2 P04 | 30min | 2 tasks | 13 files |
 | Phase 2 P05 | 30min | 2 tasks | 3 files |
 | Phase 02 P06 | 50min | 2 tasks | 3 files |
+| Phase 02 P07 | 35min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -89,6 +90,7 @@ Recent decisions affecting current work:
 - [Phase 02-05]: StarDict entries failing validation become None slots so .syn numbering counts them; POS tokens right after '(' are usage notes; pointer_only requires a single m field
 - [Phase 02-06]: [!trs] keeps its text in DSL articles; only [s]/[video] and {{..}} are dropped; a DSL cache payload with any out-of-range offset, key target, encoding or BOM length is rebuilt
 - [Phase 02-06]: warm open of one 200000-article DSL dictionary is 0.28 s (JSON load); the D-09 budget of 0.3 s for all dictionaries must be measured in the VM
+- [Phase 02-07]: MDX key info failures under Encrypted=2 report reason checksum; extra caps MAX_ENTRIES 8M and MAX_KEY_TOTAL 512 MiB; real-file MDX check (LZO, Encrypted=2) remains a UAT item in plan 11
 
 ### Pending Todos
 
@@ -118,6 +120,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-10-25T05:53:44.383Z
-Stopped at: Completed 02-06-PLAN.md
+Last session: 2026-10-25T06:04:11.386Z
+Stopped at: Completed 02-07-PLAN.md
 Resume file: None
