@@ -5,7 +5,9 @@ exposed as plain text only (D-06): control and format characters removed,
 markup flattened. Nothing here prints or logs (V7), and no error message
 carries file content.
 
-Later plans append dictionary discovery, ordering and search to this module.
+Open failures use stable reason codes: corrupt, unsupported,
+encrypted_registration, missing_files, too_large, empty and checksum.
+One failing dictionary never prevents searches in the others.
 """
 import hashlib
 import html.parser
@@ -13,8 +15,10 @@ import json
 import os
 import re
 import tempfile
+import time
 import unicodedata as ud
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
+from functools import lru_cache
 from pathlib import Path
 
 from lookup import config
@@ -226,3 +230,291 @@ def index_cache_load(src, tag: str):
     ):
         return wrapper["data"]
     return None
+
+
+# -------------------------------------------------------- discovery and search
+
+DICTS_ENV = "LOOKUP_DICTS"
+SYSTEM_DICT_ROOT = Path("/usr/share/lookup/dicts")
+MAX_DISCOVERED = 200
+MAX_WALK_DEPTH = 6
+
+
+@dataclass(frozen=True)
+class Found:
+    id: str
+    path: Path
+    fmt: str
+    root_index: int
+
+
+@dataclass(frozen=True)
+class DictInfo:
+    order: int | None
+    id: str
+    name: str
+    fmt: str
+    entries: int
+    skipped: int
+    status: str
+    reason: str | None
+
+
+def dict_roots() -> list[Path]:
+    explicit = os.environ.get(DICTS_ENV)
+    if explicit:
+        return [Path(part) for part in explicit.split(os.pathsep) if part]
+    xdg = os.environ.get("XDG_DATA_HOME")
+    user = Path(xdg) if xdg and os.path.isabs(xdg) else Path.home() / ".local/share"
+    return [user / "lookup/dicts", SYSTEM_DICT_ROOT]
+
+
+def discover(roots=None) -> list[Found]:
+    found = []
+    seen = set()
+    for root_index, root in enumerate(dict_roots() if roots is None else roots):
+        root = Path(root)
+        try:
+            for directory, dirs, files in os.walk(root, followlinks=False):
+                directory = Path(directory)
+                depth = len(directory.relative_to(root).parts)
+                dirs[:] = sorted(d for d in dirs if not d.startswith('.') and
+                                 depth < MAX_WALK_DEPTH and not (directory / d).is_symlink())
+                plain_dsl = {f.casefold() for f in files if f.casefold().endswith('.dsl')}
+                for name in sorted(files):
+                    path = directory / name
+                    if name.startswith('.') or path.is_symlink():
+                        continue
+                    lower = name.casefold()
+                    if lower.endswith('.ifo'):
+                        fmt = 'stardict'
+                    elif lower.endswith(('.dsl', '.dsl.dz')):
+                        if lower.endswith('.dz') and lower[:-3] in plain_dsl:
+                            continue
+                        fmt = 'dsl'
+                    elif lower.endswith('.mdx'):
+                        fmt = 'mdx'
+                    else:
+                        continue
+                    ident = path.relative_to(root).as_posix()
+                    if ident in seen:
+                        continue
+                    seen.add(ident)
+                    found.append(Found(ident, path, fmt, root_index))
+                    if len(found) >= MAX_DISCOVERED:
+                        return found
+        except OSError:
+            continue
+    return found
+
+
+class DictSet:
+    def __init__(self):
+        self.dicts = []
+        self.problems = []
+        self.disabled = []
+        self.open_ms = 0.0
+        self._info = []
+        self._closed = False
+
+    def info(self) -> list[DictInfo]:
+        return list(self._info)
+
+    def lookup_exact(self, key) -> list[Article]:
+        key = fold_key(key)
+        articles = []
+        for reader in self.dicts:
+            try:
+                articles.extend(reader.lookup(key))
+            except MemoryError:
+                raise
+            except Exception:
+                continue
+        return articles
+
+    def has(self, key) -> bool:
+        key = fold_key(key)
+        for reader in self.dicts:
+            try:
+                if reader.has(key):
+                    return True
+            except MemoryError:
+                raise
+            except Exception:
+                continue
+        return False
+
+    def find(self, text) -> SearchResult:
+        key = fold_key(text)
+        if not key:
+            return SearchResult()
+        articles = self.lookup_exact(key)
+        if articles:
+            return self._resolve(articles, key)
+        if ' ' not in key:
+            for candidate in form_candidates(key):
+                articles = self.lookup_exact(candidate)
+                if articles:
+                    result = self._resolve(articles, candidate)
+                    return SearchResult(tuple(replace(a, lemma_of=a.lemma_of or candidate)
+                                              for a in result.articles), result.lemma or candidate)
+        return SearchResult()
+
+    def _resolve(self, articles, key):
+        out = []
+        seen = set()
+        lemma = None
+        for article in articles:
+            resolved = [article]
+            base = fold_key(article.form_of) if article.form_of else None
+            if base and article.pointer_only:
+                targets = [a for a in self.lookup_exact(base) if not a.pointer_only]
+                if targets:
+                    resolved = [replace(a, lemma_of=base) for a in targets]
+            elif base and base != key and self.has(base):
+                resolved = [replace(article, lemma_of=base)]
+            for item in resolved:
+                ident = (item.dict_name, item.headword, item.text)
+                if ident not in seen:
+                    seen.add(ident)
+                    out.append(item)
+                    lemma = lemma or item.lemma_of
+        return SearchResult(tuple(out), lemma)
+
+    def close(self):
+        if self._closed:
+            return
+        self._closed = True
+        for reader in self.dicts:
+            try:
+                reader.close()
+            except MemoryError:
+                raise
+            except Exception:
+                continue
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        self.close()
+
+
+def open_all(config=None, roots=None) -> DictSet:
+    from lookup.config import load
+    from lookup.stardict import open_stardict
+    from lookup.dsl import open_dsl
+    from lookup.mdx import open_mdx
+
+    started = time.perf_counter()
+    settings = load() if config is None else config
+    result = DictSet()
+    candidates = discover(roots)
+    by_id = {f.id: f for f in candidates}
+    enabled = {}
+    for ident, on in settings.dictionaries:
+        if ident in by_id and ident not in enabled:
+            enabled[ident] = on
+    records = []
+    openers = {'stardict': open_stardict, 'dsl': open_dsl, 'mdx': open_mdx}
+    try:
+        for candidate in candidates:
+            name = candidate.path.name
+            name = name[:-7] if name.casefold().endswith('.dsl.dz') else candidate.path.stem
+            reader = None
+            reason = None
+            status = 'ok'
+            if enabled.get(candidate.id, True) is False:
+                status = 'disabled'
+            else:
+                try:
+                    reader = openers[candidate.fmt](candidate.path)
+                    name = reader.name
+                    # Track immediately so exceptional termination closes earlier readers.
+                    result.dicts.append(reader)
+                except MemoryError:
+                    raise
+                except DictError as exc:
+                    status, reason = 'error', exc.reason
+                except Exception:
+                    status, reason = 'error', 'corrupt'
+            records.append((candidate, name, reader, status, reason))
+        ranks = {ident: n for n, ident in enumerate(enabled)}
+        records.sort(key=lambda r: (0, ranks[r[0].id]) if r[0].id in ranks else
+                     (1, r[0].root_index, r[1].casefold(), r[0].id))
+        result.dicts = []
+        for candidate, name, reader, status, reason in records:
+            order = None
+            if reader is not None:
+                result.dicts.append(reader)
+                order = len(result.dicts)
+            elif status == 'disabled':
+                result.disabled.append(candidate.id)
+            else:
+                result.problems.append((candidate.id, reason))
+            result._info.append(DictInfo(order, candidate.id, name, candidate.fmt,
+                                        reader.entry_count if reader else 0,
+                                        reader.skipped_entries if reader else 0, status, reason))
+    except BaseException:
+        result.close()
+        raise
+    result.open_ms = (time.perf_counter() - started) * 1000
+    return result
+
+
+_IRREGULAR_PATH = Path(__file__).with_name('data') / 'irregular.txt'
+_FORM_RE = re.compile(r"[a-z][a-z'-]*\Z")
+
+
+@lru_cache(maxsize=1)
+def load_irregular() -> dict[str, tuple[str, ...]]:
+    try:
+        with open(_IRREGULAR_PATH, 'rb') as fh:
+            raw = fh.read((4 << 20) + 1)
+        if len(raw) > 4 << 20:
+            return {}
+        forms = {}
+        for line in raw.decode('utf-8').splitlines():
+            if not line.strip() or line.lstrip().startswith('#'):
+                continue
+            fields = line.split()
+            if len(fields) >= 2 and all(_FORM_RE.fullmatch(f) for f in fields):
+                forms[fields[0]] = tuple(fields[1:])
+        return forms
+    except (OSError, UnicodeError):
+        return {}
+
+
+def form_candidates(word) -> list[str]:
+    if not isinstance(word, str):
+        raise TypeError('word must be str')
+    word = word.lower()
+    if not word or any(c.isspace() for c in word):
+        return []
+    candidates = list(load_irregular().get(word, ()))
+
+    def undouble(stem):
+        if len(stem) > 1 and stem[-1] == stem[-2] and stem[-1].isalpha() and stem[-1] not in 'aeiou':
+            candidates.append(stem[:-1])
+
+    for suffix in ('ies', 'ied', 'ier', 'iest'):
+        if word.endswith(suffix):
+            candidates.append(word[:-len(suffix)] + 'y')
+    if word.endswith('ing') and len(word) > 4:
+        stem = word[:-3]
+        candidates.extend((stem + 'e', stem))
+        undouble(stem)
+    if word.endswith('ed') and len(word) > 3:
+        candidates.extend((word[:-1], word[:-2]))
+        undouble(word[:-2])
+    if word.endswith('es'):
+        candidates.extend((word[:-1], word[:-2]))
+    elif word.endswith('s') and not word.endswith(('ss', 'us')):
+        candidates.append(word[:-1])
+    if word.endswith('est'):
+        candidates.extend((word[:-2], word[:-3]))
+        undouble(word[:-3])
+    elif word.endswith('er'):
+        candidates.extend((word[:-1], word[:-2]))
+        undouble(word[:-2])
+    return list(dict.fromkeys(c for c in candidates if len(c) >= 2 and c != word))
