@@ -240,11 +240,211 @@ def _valid_payload(p, data_len: int) -> bool:
 
 # ------------------------------------------------------------ article markup
 
+_MAX_MARKUP_CHARS = 1_200_000  # the converter reads no more of one article (T-02-23)
+_MAX_TEXT_CHARS = 250_000  # clean_text trims to its own limit after this
+_MAX_VALUES = 5
+_MAX_VALUE_CHARS = 80
+_MAX_POS_CHARS = 40
+
+# Characters that matter to the converter are swapped for private-use ones while a
+# backslash protects them, and swapped back at the end.
+_PROTECTED = "[]{}<>\\"
+_PROTECT = {c: chr(0xE000 + i) for i, c in enumerate(_PROTECTED)}
+_RESTORE = {ord(v): k for k, v in _PROTECT.items()}
+_DROP_PRIVATE = {ord(v): None for v in _PROTECT.values()}
+_ESCAPE_RE = re.compile(r"\\(.)", re.S)
+_TAG_RE = re.compile(r"\[(/?)([A-Za-z!*][^\[\]]{0,100})\]")
+_MEDIA_RE = re.compile(r"\[(s|video)\b[^\[\]]{0,100}\][^\[\]]{0,300}\[/\1\]", re.I)
+_BRACKETS_RE = re.compile(r"\[[^\[\]]{0,100}\]")
+
+
+def _protect(m) -> str:
+    c = m.group(1)
+    return _PROTECT.get(c, c)
+
+
+def _strip_comments(text: str) -> str:
+    """Remove {{...}} comments in one linear pass; an unclosed {{ stays as text."""
+    if "{{" not in text:
+        return text
+    out = []
+    i = 0
+    while True:
+        start = text.find("{{", i)
+        if start < 0:
+            break
+        end = text.find("}}", start + 2)
+        if end < 0:
+            break
+        out.append(text[i:start])
+        i = end + 2
+    out.append(text[i:])
+    return "".join(out)
+
+
+def _collapse(parts) -> str:
+    return " ".join("".join(parts).split())
+
+
+class _Converter:
+    """One pass over the tags of an article; keeps flags, never recurses (T-02-23)."""
+
+    def __init__(self):
+        self.lines = []  # (full text, value text, part of speech at line end)
+        self.full = []
+        self.val = []
+        self.t_buf = None
+        self.p_buf = None
+        self.trn_buf = None
+        self.ex = 0
+        self.transcription = None
+        self.cur_pos = None
+        self.group = None
+        self.groups = []
+        self.trn_seen = 0
+
+    def add(self, part: str) -> None:
+        if not part:
+            return
+        if self.t_buf is not None:
+            self.t_buf.append(part)
+            return
+        self.full.append(part)
+        if self.p_buf is not None:
+            self.p_buf.append(part)
+        elif not self.ex:
+            self.val.append(part)
+        if self.trn_buf is not None:
+            self.trn_buf.append(part)
+
+    def feed(self, seg: str) -> None:
+        if "\n" not in seg:
+            self.add(seg)
+            return
+        pieces = seg.split("\n")
+        self.add(pieces[0])
+        for piece in pieces[1:]:
+            self.newline()
+            self.add(piece)
+
+    def newline(self) -> None:
+        self.end_t()  # transcription and part of speech never span lines
+        self.end_p()
+        if self.trn_buf is not None:
+            self.trn_buf.append(" ")
+        full = "".join(self.full).strip()
+        if full:
+            self.lines.append((full, _collapse(self.val), self.cur_pos))
+        self.full = []
+        self.val = []
+
+    def end_t(self) -> None:
+        if self.t_buf is not None:
+            tr = _collapse(self.t_buf)
+            self.t_buf = None
+            if tr and self.transcription is None:
+                self.transcription = tr
+
+    def end_p(self) -> None:
+        if self.p_buf is not None:
+            pos = _collapse(self.p_buf)[:_MAX_POS_CHARS].strip()
+            self.p_buf = None
+            if pos:
+                self.cur_pos = pos
+                self.group = [pos, []]
+                self.groups.append(self.group)
+
+    def end_trn(self) -> None:
+        if self.trn_buf is not None:
+            value = _collapse(self.trn_buf).strip(" ;,")
+            self.trn_buf = None
+            self.trn_seen += 1
+            if value:
+                if self.group is None:
+                    self.group = [None, []]
+                    self.groups.append(self.group)
+                if len(self.group[1]) < _MAX_VALUES:
+                    self.group[1].append(value[:_MAX_VALUE_CHARS].rstrip())
+
+    def tag(self, closing: bool, name: str) -> None:
+        if name == "t":
+            if closing:
+                self.end_t()
+            elif self.t_buf is None:
+                self.t_buf = []
+        elif name == "p":
+            if closing:
+                self.end_p()
+            elif self.p_buf is None:
+                self.p_buf = []
+        elif name == "trn":
+            if closing:
+                self.end_trn()
+            elif self.trn_buf is None:
+                self.trn_buf = []
+        elif name == "ex" or name == "com":
+            self.ex = max(0, self.ex - 1) if closing else self.ex + 1
+        elif not closing and name[0] == "m" and (len(name) == 1 or name[1:].isdigit()):
+            self.newline()
+        # every other tag is stripped, its text stays
+
+    def fallback_groups(self) -> list:
+        groups = []
+        for _full, val, pos in self.lines:
+            val = val.strip(" ;,")
+            if not any(c.isalnum() for c in val):
+                continue
+            if not groups or groups[-1][0] != pos:
+                groups.append([pos, []])
+            if len(groups[-1][1]) < _MAX_VALUES:
+                groups[-1][1].append(val[:_MAX_VALUE_CHARS].rstrip())
+        return groups
+
+
+def _restore(text: str) -> str:
+    return text.translate(_RESTORE)
+
+
+def _convert_markup(text: str):
+    """Return (transcription, senses, plain_text) for one decoded DSL article body."""
+    text = text[:_MAX_MARKUP_CHARS].translate(_DROP_PRIVATE)
+    text = _ESCAPE_RE.sub(_protect, text)
+    text = _strip_comments(text)
+    text = _MEDIA_RE.sub("", text).replace("<<", "").replace(">>", "")
+    conv = _Converter()
+    pos = 0
+    for m in _TAG_RE.finditer(text):
+        conv.feed(text[pos:m.start()])
+        pos = m.end()
+        conv.tag(m.group(1) == "/", m.group(2).split(None, 1)[0].lower())
+    conv.feed(text[pos:])
+    conv.newline()
+    conv.end_trn()
+    groups = conv.groups if conv.trn_seen else conv.fallback_groups()
+    senses = tuple(
+        (_restore(pos) if pos else None, tuple(_restore(v) for v in values))
+        for pos, values in groups
+        if values
+    )
+    body = [full for full, _val, _pos in conv.lines]
+    transcription = _restore(conv.transcription) if conv.transcription else None
+    if transcription:
+        body.insert(0, "[" + transcription + "]")
+    plain = clean_text(_restore("\n".join(body))[:_MAX_TEXT_CHARS])
+    return transcription, senses, plain
+
 
 def _convert(dict_name: str, headword: str, text: str) -> Article:
-    """Minimal converter: the decoded lines as text (replaced by the markup converter)."""
-    lines = [line.strip() for line in text.replace("\r", "").split("\n")]
-    return Article(dict_name, headword, None, (), clean_text("\n".join(lines)))
+    """Decoded article body to an Article of plain text; never raises (D-05, D-06)."""
+    try:
+        transcription, senses, plain = _convert_markup(text)
+        return Article(dict_name, headword, transcription, senses, plain)
+    except Exception:
+        try:
+            plain = clean_text(_BRACKETS_RE.sub("", text[:_MAX_MARKUP_CHARS])[:_MAX_TEXT_CHARS])
+        except Exception:
+            plain = ""
+        return Article(dict_name, headword, None, (), plain)
 
 
 # ---------------------------------------------------------------- dictionary
