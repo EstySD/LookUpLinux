@@ -1,0 +1,1272 @@
+{
+  "python": "3.14.8",
+  "platform": "Linux-7.2.11-arch1-1-x86_64-with-glibc2.44",
+  "tesseract": "tesseract 5.5.3",
+  "origin": "Qt widget grabs of fixed public text; not live desktop captures",
+  "settings": [
+    {
+      "psm": 6,
+      "enlarge": 2,
+      "invert": "auto",
+      "passed": 96,
+      "total": 96,
+      "median_ms": 234.72692600000755,
+      "cases": [
+        {
+          "image": "images/light-1-9.png",
+          "case": "word",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 215.75959199981298
+        },
+        {
+          "image": "images/light-1-9.png",
+          "case": "between",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 183.40515299996696
+        },
+        {
+          "image": "images/light-1-9.png",
+          "case": "compound",
+          "expected": "break",
+          "actual": "break",
+          "line": "We break out together.",
+          "candidates": [
+            "break out",
+            "we break"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 181.45225500006745
+        },
+        {
+          "image": "images/light-1-9.png",
+          "case": "hyphen",
+          "expected": "well-known",
+          "actual": "well-known",
+          "line": "A well-known word appears.",
+          "candidates": [
+            "well-known word",
+            "a well-known"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 179.90642099994147
+        },
+        {
+          "image": "images/light-1-9.png",
+          "case": "blank",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 188.83607299994765
+        },
+        {
+          "image": "images/light-1-9.png",
+          "case": "icon",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 206.48183999992398
+        },
+        {
+          "image": "images/light-1-16.png",
+          "case": "word",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 206.06995699995423
+        },
+        {
+          "image": "images/light-1-16.png",
+          "case": "between",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 199.5004059999701
+        },
+        {
+          "image": "images/light-1-16.png",
+          "case": "compound",
+          "expected": "break",
+          "actual": "break",
+          "line": "We break out together.",
+          "candidates": [
+            "break out",
+            "we break"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 199.08065300001
+        },
+        {
+          "image": "images/light-1-16.png",
+          "case": "hyphen",
+          "expected": "well-known",
+          "actual": "well-known",
+          "line": "A well-known word appears.",
+          "candidates": [
+            "well-known word",
+            "a well-known"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 195.86800700017193
+        },
+        {
+          "image": "images/light-1-16.png",
+          "case": "blank",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 196.71919899997192
+        },
+        {
+          "image": "images/light-1-16.png",
+          "case": "icon",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 197.22034300002633
+        },
+        {
+          "image": "images/light-1.25-9.png",
+          "case": "word",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 195.85065599994778
+        },
+        {
+          "image": "images/light-1.25-9.png",
+          "case": "between",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 197.15853399998196
+        },
+        {
+          "image": "images/light-1.25-9.png",
+          "case": "compound",
+          "expected": "break",
+          "actual": "break",
+          "line": "We break out together.",
+          "candidates": [
+            "break out",
+            "we break"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 196.25755400011258
+        },
+        {
+          "image": "images/light-1.25-9.png",
+          "case": "hyphen",
+          "expected": "well-known",
+          "actual": "well-known",
+          "line": "A well-known word appears.",
+          "candidates": [
+            "well-known word",
+            "a well-known"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 176.1716900000465
+        },
+        {
+          "image": "images/light-1.25-9.png",
+          "case": "blank",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 180.8779149998827
+        },
+        {
+          "image": "images/light-1.25-9.png",
+          "case": "icon",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 179.47077999997418
+        },
+        {
+          "image": "images/light-1.25-16.png",
+          "case": "word",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 231.5239740000834
+        },
+        {
+          "image": "images/light-1.25-16.png",
+          "case": "between",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 250.08309100007864
+        },
+        {
+          "image": "images/light-1.25-16.png",
+          "case": "compound",
+          "expected": "break",
+          "actual": "break",
+          "line": "We break out together.",
+          "candidates": [
+            "break out",
+            "we break"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 230.86195200016846
+        },
+        {
+          "image": "images/light-1.25-16.png",
+          "case": "hyphen",
+          "expected": "well-known",
+          "actual": "well-known",
+          "line": "A well-known word appears.",
+          "candidates": [
+            "well-known word",
+            "a well-known"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 272.0437509999556
+        },
+        {
+          "image": "images/light-1.25-16.png",
+          "case": "blank",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 259.0533309999046
+        },
+        {
+          "image": "images/light-1.25-16.png",
+          "case": "icon",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 266.2265159999606
+        },
+        {
+          "image": "images/light-1.5-9.png",
+          "case": "word",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 221.7755770000167
+        },
+        {
+          "image": "images/light-1.5-9.png",
+          "case": "between",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 225.32903300020735
+        },
+        {
+          "image": "images/light-1.5-9.png",
+          "case": "compound",
+          "expected": "break",
+          "actual": "break",
+          "line": "We break out together.",
+          "candidates": [
+            "break out",
+            "we break"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 234.508526999889
+        },
+        {
+          "image": "images/light-1.5-9.png",
+          "case": "hyphen",
+          "expected": "well-known",
+          "actual": "well-known",
+          "line": "A well-known word appears.",
+          "candidates": [
+            "well-known word",
+            "a well-known"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 199.56992999982504
+        },
+        {
+          "image": "images/light-1.5-9.png",
+          "case": "blank",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 214.99703199992837
+        },
+        {
+          "image": "images/light-1.5-9.png",
+          "case": "icon",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 199.11081600002944
+        },
+        {
+          "image": "images/light-1.5-16.png",
+          "case": "word",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 233.2002239998019
+        },
+        {
+          "image": "images/light-1.5-16.png",
+          "case": "between",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 239.5601819998774
+        },
+        {
+          "image": "images/light-1.5-16.png",
+          "case": "compound",
+          "expected": "break",
+          "actual": "break",
+          "line": "We break out together.",
+          "candidates": [
+            "break out",
+            "we break"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 242.66670699989845
+        },
+        {
+          "image": "images/light-1.5-16.png",
+          "case": "hyphen",
+          "expected": "well-known",
+          "actual": "well-known",
+          "line": "A well-known word appears.",
+          "candidates": [
+            "well-known word",
+            "a well-known"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 205.98401100005503
+        },
+        {
+          "image": "images/light-1.5-16.png",
+          "case": "blank",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 213.70838699999695
+        },
+        {
+          "image": "images/light-1.5-16.png",
+          "case": "icon",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 199.3318410000029
+        },
+        {
+          "image": "images/light-2-9.png",
+          "case": "word",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 227.2611030000462
+        },
+        {
+          "image": "images/light-2-9.png",
+          "case": "between",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 204.74632599984943
+        },
+        {
+          "image": "images/light-2-9.png",
+          "case": "compound",
+          "expected": "break",
+          "actual": "break",
+          "line": "We break out together.",
+          "candidates": [
+            "break out",
+            "we break"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 245.2799140000934
+        },
+        {
+          "image": "images/light-2-9.png",
+          "case": "hyphen",
+          "expected": "well-known",
+          "actual": "well-known",
+          "line": "A well-known word appears.",
+          "candidates": [
+            "well-known word",
+            "a well-known"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 223.48709100015185
+        },
+        {
+          "image": "images/light-2-9.png",
+          "case": "blank",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 214.58583099979478
+        },
+        {
+          "image": "images/light-2-9.png",
+          "case": "icon",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 205.84876800012353
+        },
+        {
+          "image": "images/light-2-16.png",
+          "case": "word",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 251.32578299985653
+        },
+        {
+          "image": "images/light-2-16.png",
+          "case": "between",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 251.96249500004342
+        },
+        {
+          "image": "images/light-2-16.png",
+          "case": "compound",
+          "expected": "break",
+          "actual": "break",
+          "line": "We break out together.",
+          "candidates": [
+            "break out",
+            "we break"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 274.361257999999
+        },
+        {
+          "image": "images/light-2-16.png",
+          "case": "hyphen",
+          "expected": "well-known",
+          "actual": "well-known",
+          "line": "A well-known word appears.",
+          "candidates": [
+            "well-known word",
+            "a well-known"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 268.7210750000304
+        },
+        {
+          "image": "images/light-2-16.png",
+          "case": "blank",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 264.3995830001131
+        },
+        {
+          "image": "images/light-2-16.png",
+          "case": "icon",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 282.1254109999245
+        },
+        {
+          "image": "images/dark-1-9.png",
+          "case": "word",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 225.21112199979143
+        },
+        {
+          "image": "images/dark-1-9.png",
+          "case": "between",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 250.03244300000915
+        },
+        {
+          "image": "images/dark-1-9.png",
+          "case": "compound",
+          "expected": "break",
+          "actual": "break",
+          "line": "We break out together.",
+          "candidates": [
+            "break out",
+            "we break"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 254.69905799991466
+        },
+        {
+          "image": "images/dark-1-9.png",
+          "case": "hyphen",
+          "expected": "well-known",
+          "actual": "well-known",
+          "line": "A well-known word appears.",
+          "candidates": [
+            "well-known word",
+            "a well-known"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 212.68957500001306
+        },
+        {
+          "image": "images/dark-1-9.png",
+          "case": "blank",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 230.08887600008165
+        },
+        {
+          "image": "images/dark-1-9.png",
+          "case": "icon",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 229.13673800007928
+        },
+        {
+          "image": "images/dark-1-16.png",
+          "case": "word",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 363.71282899995094
+        },
+        {
+          "image": "images/dark-1-16.png",
+          "case": "between",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 389.1969359999621
+        },
+        {
+          "image": "images/dark-1-16.png",
+          "case": "compound",
+          "expected": "break",
+          "actual": "break",
+          "line": "We break out together.",
+          "candidates": [
+            "break out",
+            "we break"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 370.57091500014394
+        },
+        {
+          "image": "images/dark-1-16.png",
+          "case": "hyphen",
+          "expected": "well-known",
+          "actual": "well-known",
+          "line": "A well-known word appears.",
+          "candidates": [
+            "well-known word",
+            "a well-known"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 355.56509799994274
+        },
+        {
+          "image": "images/dark-1-16.png",
+          "case": "blank",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 365.9041260000322
+        },
+        {
+          "image": "images/dark-1-16.png",
+          "case": "icon",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 429.40177599984963
+        },
+        {
+          "image": "images/dark-1.25-9.png",
+          "case": "word",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 259.2573510000875
+        },
+        {
+          "image": "images/dark-1.25-9.png",
+          "case": "between",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 263.7301539998589
+        },
+        {
+          "image": "images/dark-1.25-9.png",
+          "case": "compound",
+          "expected": "break",
+          "actual": "break",
+          "line": "We break out together.",
+          "candidates": [
+            "break out",
+            "we break"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 234.9453250001261
+        },
+        {
+          "image": "images/dark-1.25-9.png",
+          "case": "hyphen",
+          "expected": "well-known",
+          "actual": "well-known",
+          "line": "A well-known word appears.",
+          "candidates": [
+            "well-known word",
+            "a well-known"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 220.3817300000992
+        },
+        {
+          "image": "images/dark-1.25-9.png",
+          "case": "blank",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 218.49453100003302
+        },
+        {
+          "image": "images/dark-1.25-9.png",
+          "case": "icon",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 266.8683399999736
+        },
+        {
+          "image": "images/dark-1.25-16.png",
+          "case": "word",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 270.3593749999982
+        },
+        {
+          "image": "images/dark-1.25-16.png",
+          "case": "between",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 269.87865699993563
+        },
+        {
+          "image": "images/dark-1.25-16.png",
+          "case": "compound",
+          "expected": "break",
+          "actual": "break",
+          "line": "We break out together.",
+          "candidates": [
+            "break out",
+            "we break"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 289.98103599997194
+        },
+        {
+          "image": "images/dark-1.25-16.png",
+          "case": "hyphen",
+          "expected": "well-known",
+          "actual": "well-known",
+          "line": "A well-known word appears.",
+          "candidates": [
+            "well-known word",
+            "a well-known"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 285.9952260000682
+        },
+        {
+          "image": "images/dark-1.25-16.png",
+          "case": "blank",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 305.3108599999632
+        },
+        {
+          "image": "images/dark-1.25-16.png",
+          "case": "icon",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 284.51963099996647
+        },
+        {
+          "image": "images/dark-1.5-9.png",
+          "case": "word",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 264.4346899999164
+        },
+        {
+          "image": "images/dark-1.5-9.png",
+          "case": "between",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 257.4596700001166
+        },
+        {
+          "image": "images/dark-1.5-9.png",
+          "case": "compound",
+          "expected": "break",
+          "actual": "break",
+          "line": "We break out together.",
+          "candidates": [
+            "break out",
+            "we break"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 272.17909499995585
+        },
+        {
+          "image": "images/dark-1.5-9.png",
+          "case": "hyphen",
+          "expected": "well-known",
+          "actual": "well-known",
+          "line": "A well-known word appears.",
+          "candidates": [
+            "well-known word",
+            "a well-known"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 258.2391420000931
+        },
+        {
+          "image": "images/dark-1.5-9.png",
+          "case": "blank",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 230.8074800000668
+        },
+        {
+          "image": "images/dark-1.5-9.png",
+          "case": "icon",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 229.99195099987446
+        },
+        {
+          "image": "images/dark-1.5-16.png",
+          "case": "word",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 300.9736400001657
+        },
+        {
+          "image": "images/dark-1.5-16.png",
+          "case": "between",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 289.12710200006586
+        },
+        {
+          "image": "images/dark-1.5-16.png",
+          "case": "compound",
+          "expected": "break",
+          "actual": "break",
+          "line": "We break out together.",
+          "candidates": [
+            "break out",
+            "we break"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 246.85613199994805
+        },
+        {
+          "image": "images/dark-1.5-16.png",
+          "case": "hyphen",
+          "expected": "well-known",
+          "actual": "well-known",
+          "line": "A well-known word appears.",
+          "candidates": [
+            "well-known word",
+            "a well-known"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 233.10036800012313
+        },
+        {
+          "image": "images/dark-1.5-16.png",
+          "case": "blank",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 254.6943980000833
+        },
+        {
+          "image": "images/dark-1.5-16.png",
+          "case": "icon",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 274.80897899999945
+        },
+        {
+          "image": "images/dark-2-9.png",
+          "case": "word",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 274.17946300010954
+        },
+        {
+          "image": "images/dark-2-9.png",
+          "case": "between",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 272.62534999999843
+        },
+        {
+          "image": "images/dark-2-9.png",
+          "case": "compound",
+          "expected": "break",
+          "actual": "break",
+          "line": "We break out together.",
+          "candidates": [
+            "break out",
+            "we break"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 328.9368739999645
+        },
+        {
+          "image": "images/dark-2-9.png",
+          "case": "hyphen",
+          "expected": "well-known",
+          "actual": "well-known",
+          "line": "A well-known word appears.",
+          "candidates": [
+            "well-known word",
+            "a well-known"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 277.7309229998082
+        },
+        {
+          "image": "images/dark-2-9.png",
+          "case": "blank",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 228.7897429998793
+        },
+        {
+          "image": "images/dark-2-9.png",
+          "case": "icon",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 215.34731099995952
+        },
+        {
+          "image": "images/dark-2-16.png",
+          "case": "word",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 255.3797730001861
+        },
+        {
+          "image": "images/dark-2-16.png",
+          "case": "between",
+          "expected": "english",
+          "actual": "english",
+          "line": "We read clear English words.",
+          "candidates": [
+            "english words",
+            "clear english"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 250.145411999938
+        },
+        {
+          "image": "images/dark-2-16.png",
+          "case": "compound",
+          "expected": "break",
+          "actual": "break",
+          "line": "We break out together.",
+          "candidates": [
+            "break out",
+            "we break"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 269.16029099993466
+        },
+        {
+          "image": "images/dark-2-16.png",
+          "case": "hyphen",
+          "expected": "well-known",
+          "actual": "well-known",
+          "line": "A well-known word appears.",
+          "candidates": [
+            "well-known word",
+            "a well-known"
+          ],
+          "line_ok": true,
+          "passed": true,
+          "ms": 248.7316459998965
+        },
+        {
+          "image": "images/dark-2-16.png",
+          "case": "blank",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 212.87267499997142
+        },
+        {
+          "image": "images/dark-2-16.png",
+          "case": "icon",
+          "expected": null,
+          "actual": null,
+          "line": null,
+          "candidates": [],
+          "line_ok": true,
+          "passed": true,
+          "ms": 226.05153499989683
+        }
+      ]
+    }
+  ],
+  "chosen": {
+    "psm": 6,
+    "enlarge": 2,
+    "invert": "auto",
+    "median_ms": 234.72692600000755
+  }
+}

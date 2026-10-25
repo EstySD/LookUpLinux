@@ -1,6 +1,12 @@
 """Quiet offline OCR core; optional Qt and tesseract are loaded only on use."""
 import math
+import os
+import stat
+import subprocess
+import time
+import unicodedata
 from dataclasses import dataclass
+from pathlib import Path
 
 from lookup.normalize import normalize
 from lookup.dicts import DictError
@@ -14,7 +20,7 @@ NEAR_Y = 0.25
 HYPHEN_GAP = 0.5
 PAIR_GAP = 1.5
 _HEADER = 'level page_num block_num par_num line_num word_num left top width height conf text'.split()
-_REASONS = frozenset(('bad_output', 'invalid_point', 'missing_qt', 'missing_tesseract',
+_REASONS = frozenset(('bad_output', 'invalid_point', 'missing_pyqt6', 'missing_tesseract',
                       'missing_eng', 'invalid_image', 'too_large', 'timeout', 'process_failed'))
 
 
@@ -93,6 +99,8 @@ def parse_tsv(data: bytes, transform: Transform | None = None) -> tuple[Word, ..
             _fail('bad_output')
         words = []
         for row in rows[1:]:
+            if not row:
+                continue
             values = row.split('\t')
             if len(values) != 12:
                 _fail('bad_output')
@@ -107,7 +115,8 @@ def parse_tsv(data: bytes, transform: Transform | None = None) -> tuple[Word, ..
             text = values[11]
             if (min(ids) <= 0 or not all(math.isfinite(v) for v in (*box, confidence))
                     or min(box[:2]) < 0 or min(box[2:]) <= 0 or not 0 <= confidence <= 100
-                    or len(text) > MAX_TEXT or not text or any(ord(c) < 32 for c in text)):
+                    or len(text) > MAX_TEXT or not text
+                    or any(unicodedata.category(c) in ('Cc', 'Cf', 'Cs') for c in text)):
                 _fail('bad_output')
             words.append(Word(text, transform.original_box(box), confidence, ids[:4], ids[4]))
         return tuple(words)
@@ -215,3 +224,117 @@ def choose_query(selection: Selection, dictset=None) -> str:
             except (DictError, OSError, ValueError):
                 break
     return selection.word
+
+
+DEFAULT_PSM = 6
+DEFAULT_ENLARGE = 2
+DEFAULT_INVERT = 'auto'
+MAX_SOURCE_BYTES = 64 << 20
+MAX_SOURCE_DIMENSION = 16384
+MAX_SOURCE_PIXELS = 64_000_000
+MAX_PREPARED_PIXELS = 8_000_000
+OCR_TIMEOUT = 3
+
+
+@dataclass(frozen=True)
+class Recognition:
+    selection: Selection | None
+    timings: dict[str, float]
+
+
+def _prepare_image(path, point, enlarge, invert):
+    x, y = _point(point)
+    try:
+        from PyQt6.QtCore import QBuffer, QIODevice, Qt
+        from PyQt6.QtGui import QImage, QImageReader, QPainter, QColor
+    except ImportError:
+        _fail('missing_pyqt6')
+    try:
+        info = Path(path).stat()
+        if not stat.S_ISREG(info.st_mode):
+            _fail('invalid_image')
+        if info.st_size > MAX_SOURCE_BYTES:
+            _fail('too_large')
+        reader = QImageReader(str(path))
+        reader.setAutoTransform(False)
+        size = reader.size()
+        width, height = size.width(), size.height()
+        if width <= 0 or height <= 0:
+            _fail('invalid_image')
+        if max(width, height) > MAX_SOURCE_DIMENSION or width*height > MAX_SOURCE_PIXELS:
+            _fail('too_large')
+        if not 0 <= x < width or not 0 <= y < height:
+            _fail('invalid_point')
+        image = reader.read()
+        if image.isNull():
+            _fail('invalid_image')
+        crop_w, crop_h = min(width, 4096), min(height, 256)
+        left = min(max(int(x)-crop_w//2, 0), width-crop_w)
+        top = min(max(int(y)-crop_h//2, 0), height-crop_h)
+        image = image.copy(left, top, crop_w, crop_h)
+        # Sample the background without importing numpy or reading individual glyphs.
+        samples = [image.pixelColor(px, py) for px in range(0, crop_w, max(1, crop_w//16))
+                   for py in range(0, crop_h, max(1, crop_h//8))]
+        background = sorted(samples, key=lambda c: c.lightness())[len(samples)//2]
+        if background.alpha() < 128:
+            background = QColor('white')
+        flattened = QImage(crop_w, crop_h, QImage.Format.Format_RGB32)
+        flattened.fill(background)
+        painter = QPainter(flattened)
+        painter.drawImage(0, 0, image)
+        painter.end()
+        if invert == 'auto' and background.lightness() < 128:
+            flattened.invertPixels()
+        scaled_w, scaled_h = round(crop_w*enlarge), round(crop_h*enlarge)
+        border = 8
+        if (scaled_w+2*border)*(scaled_h+2*border) > MAX_PREPARED_PIXELS:
+            _fail('too_large')
+        scaled = flattened.scaled(scaled_w, scaled_h, Qt.AspectRatioMode.IgnoreAspectRatio,
+                                  Qt.TransformationMode.SmoothTransformation)
+        prepared = QImage(scaled_w+2*border, scaled_h+2*border, QImage.Format.Format_RGB32)
+        prepared.fill(QColor('white'))
+        painter = QPainter(prepared)
+        painter.drawImage(border, border, scaled)
+        painter.end()
+        if scaled.isNull() or prepared.isNull():
+            _fail('too_large')
+        buffer = QBuffer()
+        buffer.open(QIODevice.OpenModeFlag.WriteOnly)
+        if not prepared.save(buffer, 'PNG'):
+            _fail('invalid_image')
+        png = bytes(buffer.data())
+        buffer.close()
+        return png, Transform(left, top, scaled_w/crop_w, scaled_h/crop_h, border)
+    except (OSError, TypeError, ValueError):
+        _fail('invalid_image')
+
+
+def recognize_image(path, point, *, psm=DEFAULT_PSM, enlarge=DEFAULT_ENLARGE,
+                    invert=DEFAULT_INVERT) -> Recognition:
+    if psm not in (6, 11) or enlarge not in (1, 2) or invert not in ('never', 'auto'):
+        _fail('invalid_image')
+    start = time.perf_counter()
+    png, transform = _prepare_image(path, point, enlarge, invert)
+    prepared_at = time.perf_counter()
+    try:
+        process = subprocess.run(['tesseract', 'stdin', 'stdout', '-l', 'eng', '--psm', str(psm), 'tsv'],
+                                 input=png, capture_output=True, timeout=OCR_TIMEOUT,
+                                 shell=False, check=False, env=dict(os.environ, OMP_THREAD_LIMIT='1'))
+    except FileNotFoundError:
+        _fail('missing_tesseract')
+    except subprocess.TimeoutExpired:
+        _fail('timeout')
+    except OSError:
+        _fail('process_failed')
+    recognized_at = time.perf_counter()
+    if process.returncode:
+        if b'eng.traineddata' in process.stderr or b"Failed loading language 'eng'" in process.stderr:
+            _fail('missing_eng')
+        _fail('process_failed')
+    words = parse_tsv(process.stdout, transform)
+    selection = select_word(words, point)
+    finished = time.perf_counter()
+    return Recognition(selection, {'prepare_image': (prepared_at-start)*1000,
+                                   'ocr': (recognized_at-prepared_at)*1000,
+                                   'select': (finished-recognized_at)*1000,
+                                   'total': (finished-start)*1000})

@@ -1,0 +1,1609 @@
+{
+  "version": 1,
+  "source": "rendered-widget",
+  "style": "Breeze",
+  "palette": "explicit Breeze light/dark colors",
+  "provenance": "Qt widget grabs of fixed public text; not live desktop captures",
+  "images": [
+    {
+      "path": "images/light-1-9.png",
+      "theme": "light",
+      "scale": 1.0,
+      "font_size": 9,
+      "font_family": "Noto Sans",
+      "qt": "6.12.0",
+      "size": [
+        640,
+        250
+      ],
+      "cases": [
+        {
+          "name": "word",
+          "point": [
+            132.265625,
+            40.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null
+        },
+        {
+          "name": "between",
+          "point": [
+            112.36640625,
+            40.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null,
+          "layout_gap": [
+            109.484375,
+            112.875
+          ]
+        },
+        {
+          "name": "compound",
+          "point": [
+            68.7890625,
+            96.0
+          ],
+          "word": "break",
+          "line_tokens": [
+            "We",
+            "break",
+            "out",
+            "together."
+          ],
+          "compound": "break out"
+        },
+        {
+          "name": "hyphen",
+          "point": [
+            74.7109375,
+            152.0
+          ],
+          "word": "well-known",
+          "line_tokens": [
+            "A",
+            "well-known",
+            "word",
+            "appears."
+          ],
+          "compound": null
+        },
+        {
+          "name": "blank",
+          "point": [
+            600.0,
+            220.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        },
+        {
+          "name": "icon",
+          "point": [
+            46.0,
+            214.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        }
+      ]
+    },
+    {
+      "path": "images/light-1-16.png",
+      "theme": "light",
+      "scale": 1.0,
+      "font_size": 16,
+      "font_family": "Noto Sans",
+      "qt": "6.12.0",
+      "size": [
+        640,
+        250
+      ],
+      "cases": [
+        {
+          "name": "word",
+          "point": [
+            207.515625,
+            40.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null
+        },
+        {
+          "name": "between",
+          "point": [
+            172.8953125,
+            40.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null,
+          "layout_gap": [
+            167.609375,
+            173.828125
+          ]
+        },
+        {
+          "name": "compound",
+          "point": [
+            96.375,
+            96.0
+          ],
+          "word": "break",
+          "line_tokens": [
+            "We",
+            "break",
+            "out",
+            "together."
+          ],
+          "compound": "break out"
+        },
+        {
+          "name": "hyphen",
+          "point": [
+            106.7734375,
+            152.0
+          ],
+          "word": "well-known",
+          "line_tokens": [
+            "A",
+            "well-known",
+            "word",
+            "appears."
+          ],
+          "compound": null
+        },
+        {
+          "name": "blank",
+          "point": [
+            600.0,
+            220.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        },
+        {
+          "name": "icon",
+          "point": [
+            46.0,
+            214.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        }
+      ]
+    },
+    {
+      "path": "images/light-1.25-9.png",
+      "theme": "light",
+      "scale": 1.25,
+      "font_size": 9,
+      "font_family": "Noto Sans",
+      "qt": "6.12.0",
+      "size": [
+        800,
+        313
+      ],
+      "cases": [
+        {
+          "name": "word",
+          "point": [
+            165.33203125,
+            50.08
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null
+        },
+        {
+          "name": "between",
+          "point": [
+            140.4580078125,
+            50.08
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null,
+          "layout_gap": [
+            136.85546875,
+            141.09375
+          ]
+        },
+        {
+          "name": "compound",
+          "point": [
+            85.986328125,
+            120.19200000000001
+          ],
+          "word": "break",
+          "line_tokens": [
+            "We",
+            "break",
+            "out",
+            "together."
+          ],
+          "compound": "break out"
+        },
+        {
+          "name": "hyphen",
+          "point": [
+            93.388671875,
+            190.304
+          ],
+          "word": "well-known",
+          "line_tokens": [
+            "A",
+            "well-known",
+            "word",
+            "appears."
+          ],
+          "compound": null
+        },
+        {
+          "name": "blank",
+          "point": [
+            750.0,
+            275.44
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        },
+        {
+          "name": "icon",
+          "point": [
+            57.5,
+            267.928
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        }
+      ]
+    },
+    {
+      "path": "images/light-1.25-16.png",
+      "theme": "light",
+      "scale": 1.25,
+      "font_size": 16,
+      "font_family": "Noto Sans",
+      "qt": "6.12.0",
+      "size": [
+        800,
+        313
+      ],
+      "cases": [
+        {
+          "name": "word",
+          "point": [
+            259.39453125,
+            50.08
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null
+        },
+        {
+          "name": "between",
+          "point": [
+            216.119140625,
+            50.08
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null,
+          "layout_gap": [
+            209.51171875,
+            217.28515625
+          ]
+        },
+        {
+          "name": "compound",
+          "point": [
+            120.46875,
+            120.19200000000001
+          ],
+          "word": "break",
+          "line_tokens": [
+            "We",
+            "break",
+            "out",
+            "together."
+          ],
+          "compound": "break out"
+        },
+        {
+          "name": "hyphen",
+          "point": [
+            133.466796875,
+            190.304
+          ],
+          "word": "well-known",
+          "line_tokens": [
+            "A",
+            "well-known",
+            "word",
+            "appears."
+          ],
+          "compound": null
+        },
+        {
+          "name": "blank",
+          "point": [
+            750.0,
+            275.44
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        },
+        {
+          "name": "icon",
+          "point": [
+            57.5,
+            267.928
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        }
+      ]
+    },
+    {
+      "path": "images/light-1.5-9.png",
+      "theme": "light",
+      "scale": 1.5,
+      "font_size": 9,
+      "font_family": "Noto Sans",
+      "qt": "6.12.0",
+      "size": [
+        960,
+        375
+      ],
+      "cases": [
+        {
+          "name": "word",
+          "point": [
+            198.3984375,
+            60.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null
+        },
+        {
+          "name": "between",
+          "point": [
+            168.549609375,
+            60.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null,
+          "layout_gap": [
+            164.2265625,
+            169.3125
+          ]
+        },
+        {
+          "name": "compound",
+          "point": [
+            103.18359375,
+            144.0
+          ],
+          "word": "break",
+          "line_tokens": [
+            "We",
+            "break",
+            "out",
+            "together."
+          ],
+          "compound": "break out"
+        },
+        {
+          "name": "hyphen",
+          "point": [
+            112.06640625,
+            228.0
+          ],
+          "word": "well-known",
+          "line_tokens": [
+            "A",
+            "well-known",
+            "word",
+            "appears."
+          ],
+          "compound": null
+        },
+        {
+          "name": "blank",
+          "point": [
+            900.0,
+            330.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        },
+        {
+          "name": "icon",
+          "point": [
+            69.0,
+            321.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        }
+      ]
+    },
+    {
+      "path": "images/light-1.5-16.png",
+      "theme": "light",
+      "scale": 1.5,
+      "font_size": 16,
+      "font_family": "Noto Sans",
+      "qt": "6.12.0",
+      "size": [
+        960,
+        375
+      ],
+      "cases": [
+        {
+          "name": "word",
+          "point": [
+            311.2734375,
+            60.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null
+        },
+        {
+          "name": "between",
+          "point": [
+            259.34296874999995,
+            60.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null,
+          "layout_gap": [
+            251.4140625,
+            260.7421875
+          ]
+        },
+        {
+          "name": "compound",
+          "point": [
+            144.5625,
+            144.0
+          ],
+          "word": "break",
+          "line_tokens": [
+            "We",
+            "break",
+            "out",
+            "together."
+          ],
+          "compound": "break out"
+        },
+        {
+          "name": "hyphen",
+          "point": [
+            160.16015625,
+            228.0
+          ],
+          "word": "well-known",
+          "line_tokens": [
+            "A",
+            "well-known",
+            "word",
+            "appears."
+          ],
+          "compound": null
+        },
+        {
+          "name": "blank",
+          "point": [
+            900.0,
+            330.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        },
+        {
+          "name": "icon",
+          "point": [
+            69.0,
+            321.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        }
+      ]
+    },
+    {
+      "path": "images/light-2-9.png",
+      "theme": "light",
+      "scale": 2.0,
+      "font_size": 9,
+      "font_family": "Noto Sans",
+      "qt": "6.12.0",
+      "size": [
+        1280,
+        500
+      ],
+      "cases": [
+        {
+          "name": "word",
+          "point": [
+            264.53125,
+            80.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null
+        },
+        {
+          "name": "between",
+          "point": [
+            224.7328125,
+            80.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null,
+          "layout_gap": [
+            218.96875,
+            225.75
+          ]
+        },
+        {
+          "name": "compound",
+          "point": [
+            137.578125,
+            192.0
+          ],
+          "word": "break",
+          "line_tokens": [
+            "We",
+            "break",
+            "out",
+            "together."
+          ],
+          "compound": "break out"
+        },
+        {
+          "name": "hyphen",
+          "point": [
+            149.421875,
+            304.0
+          ],
+          "word": "well-known",
+          "line_tokens": [
+            "A",
+            "well-known",
+            "word",
+            "appears."
+          ],
+          "compound": null
+        },
+        {
+          "name": "blank",
+          "point": [
+            1200.0,
+            440.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        },
+        {
+          "name": "icon",
+          "point": [
+            92.0,
+            428.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        }
+      ]
+    },
+    {
+      "path": "images/light-2-16.png",
+      "theme": "light",
+      "scale": 2.0,
+      "font_size": 16,
+      "font_family": "Noto Sans",
+      "qt": "6.12.0",
+      "size": [
+        1280,
+        500
+      ],
+      "cases": [
+        {
+          "name": "word",
+          "point": [
+            415.03125,
+            80.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null
+        },
+        {
+          "name": "between",
+          "point": [
+            345.790625,
+            80.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null,
+          "layout_gap": [
+            335.21875,
+            347.65625
+          ]
+        },
+        {
+          "name": "compound",
+          "point": [
+            192.75,
+            192.0
+          ],
+          "word": "break",
+          "line_tokens": [
+            "We",
+            "break",
+            "out",
+            "together."
+          ],
+          "compound": "break out"
+        },
+        {
+          "name": "hyphen",
+          "point": [
+            213.546875,
+            304.0
+          ],
+          "word": "well-known",
+          "line_tokens": [
+            "A",
+            "well-known",
+            "word",
+            "appears."
+          ],
+          "compound": null
+        },
+        {
+          "name": "blank",
+          "point": [
+            1200.0,
+            440.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        },
+        {
+          "name": "icon",
+          "point": [
+            92.0,
+            428.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        }
+      ]
+    },
+    {
+      "path": "images/dark-1-9.png",
+      "theme": "dark",
+      "scale": 1.0,
+      "font_size": 9,
+      "font_family": "Noto Sans",
+      "qt": "6.12.0",
+      "size": [
+        640,
+        250
+      ],
+      "cases": [
+        {
+          "name": "word",
+          "point": [
+            132.265625,
+            40.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null
+        },
+        {
+          "name": "between",
+          "point": [
+            112.36640625,
+            40.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null,
+          "layout_gap": [
+            109.484375,
+            112.875
+          ]
+        },
+        {
+          "name": "compound",
+          "point": [
+            68.7890625,
+            96.0
+          ],
+          "word": "break",
+          "line_tokens": [
+            "We",
+            "break",
+            "out",
+            "together."
+          ],
+          "compound": "break out"
+        },
+        {
+          "name": "hyphen",
+          "point": [
+            74.7109375,
+            152.0
+          ],
+          "word": "well-known",
+          "line_tokens": [
+            "A",
+            "well-known",
+            "word",
+            "appears."
+          ],
+          "compound": null
+        },
+        {
+          "name": "blank",
+          "point": [
+            600.0,
+            220.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        },
+        {
+          "name": "icon",
+          "point": [
+            46.0,
+            214.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        }
+      ]
+    },
+    {
+      "path": "images/dark-1-16.png",
+      "theme": "dark",
+      "scale": 1.0,
+      "font_size": 16,
+      "font_family": "Noto Sans",
+      "qt": "6.12.0",
+      "size": [
+        640,
+        250
+      ],
+      "cases": [
+        {
+          "name": "word",
+          "point": [
+            207.515625,
+            40.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null
+        },
+        {
+          "name": "between",
+          "point": [
+            172.8953125,
+            40.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null,
+          "layout_gap": [
+            167.609375,
+            173.828125
+          ]
+        },
+        {
+          "name": "compound",
+          "point": [
+            96.375,
+            96.0
+          ],
+          "word": "break",
+          "line_tokens": [
+            "We",
+            "break",
+            "out",
+            "together."
+          ],
+          "compound": "break out"
+        },
+        {
+          "name": "hyphen",
+          "point": [
+            106.7734375,
+            152.0
+          ],
+          "word": "well-known",
+          "line_tokens": [
+            "A",
+            "well-known",
+            "word",
+            "appears."
+          ],
+          "compound": null
+        },
+        {
+          "name": "blank",
+          "point": [
+            600.0,
+            220.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        },
+        {
+          "name": "icon",
+          "point": [
+            46.0,
+            214.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        }
+      ]
+    },
+    {
+      "path": "images/dark-1.25-9.png",
+      "theme": "dark",
+      "scale": 1.25,
+      "font_size": 9,
+      "font_family": "Noto Sans",
+      "qt": "6.12.0",
+      "size": [
+        800,
+        313
+      ],
+      "cases": [
+        {
+          "name": "word",
+          "point": [
+            165.33203125,
+            50.08
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null
+        },
+        {
+          "name": "between",
+          "point": [
+            140.4580078125,
+            50.08
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null,
+          "layout_gap": [
+            136.85546875,
+            141.09375
+          ]
+        },
+        {
+          "name": "compound",
+          "point": [
+            85.986328125,
+            120.19200000000001
+          ],
+          "word": "break",
+          "line_tokens": [
+            "We",
+            "break",
+            "out",
+            "together."
+          ],
+          "compound": "break out"
+        },
+        {
+          "name": "hyphen",
+          "point": [
+            93.388671875,
+            190.304
+          ],
+          "word": "well-known",
+          "line_tokens": [
+            "A",
+            "well-known",
+            "word",
+            "appears."
+          ],
+          "compound": null
+        },
+        {
+          "name": "blank",
+          "point": [
+            750.0,
+            275.44
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        },
+        {
+          "name": "icon",
+          "point": [
+            57.5,
+            267.928
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        }
+      ]
+    },
+    {
+      "path": "images/dark-1.25-16.png",
+      "theme": "dark",
+      "scale": 1.25,
+      "font_size": 16,
+      "font_family": "Noto Sans",
+      "qt": "6.12.0",
+      "size": [
+        800,
+        313
+      ],
+      "cases": [
+        {
+          "name": "word",
+          "point": [
+            259.39453125,
+            50.08
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null
+        },
+        {
+          "name": "between",
+          "point": [
+            216.119140625,
+            50.08
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null,
+          "layout_gap": [
+            209.51171875,
+            217.28515625
+          ]
+        },
+        {
+          "name": "compound",
+          "point": [
+            120.46875,
+            120.19200000000001
+          ],
+          "word": "break",
+          "line_tokens": [
+            "We",
+            "break",
+            "out",
+            "together."
+          ],
+          "compound": "break out"
+        },
+        {
+          "name": "hyphen",
+          "point": [
+            133.466796875,
+            190.304
+          ],
+          "word": "well-known",
+          "line_tokens": [
+            "A",
+            "well-known",
+            "word",
+            "appears."
+          ],
+          "compound": null
+        },
+        {
+          "name": "blank",
+          "point": [
+            750.0,
+            275.44
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        },
+        {
+          "name": "icon",
+          "point": [
+            57.5,
+            267.928
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        }
+      ]
+    },
+    {
+      "path": "images/dark-1.5-9.png",
+      "theme": "dark",
+      "scale": 1.5,
+      "font_size": 9,
+      "font_family": "Noto Sans",
+      "qt": "6.12.0",
+      "size": [
+        960,
+        375
+      ],
+      "cases": [
+        {
+          "name": "word",
+          "point": [
+            198.3984375,
+            60.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null
+        },
+        {
+          "name": "between",
+          "point": [
+            168.549609375,
+            60.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null,
+          "layout_gap": [
+            164.2265625,
+            169.3125
+          ]
+        },
+        {
+          "name": "compound",
+          "point": [
+            103.18359375,
+            144.0
+          ],
+          "word": "break",
+          "line_tokens": [
+            "We",
+            "break",
+            "out",
+            "together."
+          ],
+          "compound": "break out"
+        },
+        {
+          "name": "hyphen",
+          "point": [
+            112.06640625,
+            228.0
+          ],
+          "word": "well-known",
+          "line_tokens": [
+            "A",
+            "well-known",
+            "word",
+            "appears."
+          ],
+          "compound": null
+        },
+        {
+          "name": "blank",
+          "point": [
+            900.0,
+            330.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        },
+        {
+          "name": "icon",
+          "point": [
+            69.0,
+            321.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        }
+      ]
+    },
+    {
+      "path": "images/dark-1.5-16.png",
+      "theme": "dark",
+      "scale": 1.5,
+      "font_size": 16,
+      "font_family": "Noto Sans",
+      "qt": "6.12.0",
+      "size": [
+        960,
+        375
+      ],
+      "cases": [
+        {
+          "name": "word",
+          "point": [
+            311.2734375,
+            60.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null
+        },
+        {
+          "name": "between",
+          "point": [
+            259.34296874999995,
+            60.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null,
+          "layout_gap": [
+            251.4140625,
+            260.7421875
+          ]
+        },
+        {
+          "name": "compound",
+          "point": [
+            144.5625,
+            144.0
+          ],
+          "word": "break",
+          "line_tokens": [
+            "We",
+            "break",
+            "out",
+            "together."
+          ],
+          "compound": "break out"
+        },
+        {
+          "name": "hyphen",
+          "point": [
+            160.16015625,
+            228.0
+          ],
+          "word": "well-known",
+          "line_tokens": [
+            "A",
+            "well-known",
+            "word",
+            "appears."
+          ],
+          "compound": null
+        },
+        {
+          "name": "blank",
+          "point": [
+            900.0,
+            330.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        },
+        {
+          "name": "icon",
+          "point": [
+            69.0,
+            321.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        }
+      ]
+    },
+    {
+      "path": "images/dark-2-9.png",
+      "theme": "dark",
+      "scale": 2.0,
+      "font_size": 9,
+      "font_family": "Noto Sans",
+      "qt": "6.12.0",
+      "size": [
+        1280,
+        500
+      ],
+      "cases": [
+        {
+          "name": "word",
+          "point": [
+            264.53125,
+            80.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null
+        },
+        {
+          "name": "between",
+          "point": [
+            224.7328125,
+            80.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null,
+          "layout_gap": [
+            218.96875,
+            225.75
+          ]
+        },
+        {
+          "name": "compound",
+          "point": [
+            137.578125,
+            192.0
+          ],
+          "word": "break",
+          "line_tokens": [
+            "We",
+            "break",
+            "out",
+            "together."
+          ],
+          "compound": "break out"
+        },
+        {
+          "name": "hyphen",
+          "point": [
+            149.421875,
+            304.0
+          ],
+          "word": "well-known",
+          "line_tokens": [
+            "A",
+            "well-known",
+            "word",
+            "appears."
+          ],
+          "compound": null
+        },
+        {
+          "name": "blank",
+          "point": [
+            1200.0,
+            440.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        },
+        {
+          "name": "icon",
+          "point": [
+            92.0,
+            428.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        }
+      ]
+    },
+    {
+      "path": "images/dark-2-16.png",
+      "theme": "dark",
+      "scale": 2.0,
+      "font_size": 16,
+      "font_family": "Noto Sans",
+      "qt": "6.12.0",
+      "size": [
+        1280,
+        500
+      ],
+      "cases": [
+        {
+          "name": "word",
+          "point": [
+            415.03125,
+            80.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null
+        },
+        {
+          "name": "between",
+          "point": [
+            345.790625,
+            80.0
+          ],
+          "word": "english",
+          "line_tokens": [
+            "We",
+            "read",
+            "clear",
+            "English",
+            "words."
+          ],
+          "compound": null,
+          "layout_gap": [
+            335.21875,
+            347.65625
+          ]
+        },
+        {
+          "name": "compound",
+          "point": [
+            192.75,
+            192.0
+          ],
+          "word": "break",
+          "line_tokens": [
+            "We",
+            "break",
+            "out",
+            "together."
+          ],
+          "compound": "break out"
+        },
+        {
+          "name": "hyphen",
+          "point": [
+            213.546875,
+            304.0
+          ],
+          "word": "well-known",
+          "line_tokens": [
+            "A",
+            "well-known",
+            "word",
+            "appears."
+          ],
+          "compound": null
+        },
+        {
+          "name": "blank",
+          "point": [
+            1200.0,
+            440.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        },
+        {
+          "name": "icon",
+          "point": [
+            92.0,
+            428.0
+          ],
+          "word": null,
+          "line_tokens": [],
+          "compound": null
+        }
+      ]
+    }
+  ]
+}

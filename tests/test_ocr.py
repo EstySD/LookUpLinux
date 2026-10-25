@@ -40,6 +40,10 @@ class ParserTests(unittest.TestCase):
             row = good.copy()
             row[index] = value
             cases.append(tsv(row))
+        for text in ('secret\x1b', 'secret\u202e', 'secret\x9b'):
+            row = good.copy()
+            row[11] = text
+            cases.append(tsv(row))
         cases.append(b'x'*(ocr.MAX_TSV_BYTES+1))
         for raw in cases:
             with self.subTest(raw=raw[:30]):
