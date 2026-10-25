@@ -1,10 +1,13 @@
 """DSL reader tests: encodings, headword groups, markup, index cache, hostile input (D-02, D-05, D-06, D-08, D-33)."""
+import json
+import os
+import time
 import unittest
 from unittest import mock
 
 from lookup import dsl
 from lookup.dictzip import DictzipFile
-from lookup.dicts import Article, DictError, fold_key
+from lookup.dicts import Article, DictError, fold_key, index_cache_path
 from lookup.dsl import MAX_VARIANTS, expand_headword, open_dsl
 from tests._dsl_writer import write_dsl
 from tests._support import make_tempdir
@@ -251,6 +254,271 @@ class DslReaderTests(_Base):
         d = self.open(self.write())
         d.close()
         d.close()
+
+
+def convert(*lines, head="run"):
+    """Run the markup converter on body lines the way a reader hands them over."""
+    return dsl._convert("D", head, "\n".join(" " + line for line in lines))
+
+
+class DslMarkupTests(unittest.TestCase):
+    def test_fixture_article(self):
+        a = convert(
+            "[m1][t]rʌn[/t][/m]",
+            "[m1][p]v[/p] [trn]бежать[/trn]; [trn]бегать[/trn][/m]",
+            "[m1][p]n[/p] [trn]бег[/trn][/m]",
+        )
+        self.assertEqual((a.dict_name, a.headword), ("D", "run"))
+        self.assertEqual(a.transcription, "rʌn")
+        self.assertEqual(a.senses, (("v", ("бежать", "бегать")), ("n", ("бег",))))
+        self.assertTrue(a.text.startswith("[rʌn]"))
+        self.assertIn("бежать", a.text)
+        self.assertIn("бег", a.text)
+        self.assertNotRegex(a.text[len("[rʌn]"):], r"[\[\]]")
+        self.assertIsNone(a.form_of)
+        self.assertFalse(a.pointer_only)
+        self.assertIsNone(a.lemma_of)
+
+    def test_examples_and_comments_stay_in_text_but_are_not_values(self):
+        a = convert("[m1][p]n[/p] [trn]бег[/trn][/m]", "[m2][ex]I run daily[/ex][/m]", "[m2][com]rare[/com][/m]")
+        self.assertEqual(a.senses, (("n", ("бег",)),))
+        self.assertIn("I run daily", a.text)
+        self.assertIn("rare", a.text)
+
+    def test_media_and_comments_are_dropped(self):
+        a = convert("[m1]word [s]a.wav[/s][video]x.mp4[/video] more {{secret}}end[/m]")
+        self.assertEqual(a.text, "word more end")
+        self.assertNotIn("a.wav", a.text)
+        self.assertNotIn("secret", a.text)
+
+    def test_multiline_comment_is_dropped(self):
+        a = convert("[m1]before {{a", "comment}} after[/m]")
+        self.assertNotIn("comment", a.text)
+        self.assertIn("before", a.text)
+        self.assertIn("after", a.text)
+
+    def test_references_keep_their_word(self):
+        self.assertEqual(convert("[m1][ref]word[/ref] and <<other>>[/m]").text, "word and other")
+
+    def test_formatting_and_unknown_tags_are_stripped(self):
+        a = convert(
+            "[m1][c]a[/c] [c green]b[/c] [b]c[/b] [i]d[/i] [u]e[/u] [sub]f[/sub] [sup]g[/sup] "
+            "[lang id=1]h[/lang] [*]i[/*] [foo]j[/foo] [!trs]k[/!trs][/m]"
+        )
+        self.assertEqual(a.text, "a b c d e f g h i j k")
+
+    def test_margin_tags_start_new_lines(self):
+        self.assertEqual(convert("[m1]one[/m][m2]two[/m][m]three[/m]").text, "one\ntwo\nthree")
+        self.assertEqual(convert("[m1]one", "[m1]two").text, "one\ntwo")
+
+    def test_escaped_characters_are_literal(self):
+        self.assertEqual(convert("[m1]\\[not a tag\\] ok[/m]").text, "[not a tag] ok")
+        self.assertEqual(convert("[m1]\\{x\\} and a\\\\b[/m]").text, "{x} and a\\b")
+        self.assertEqual(convert("[m1]\\{\\{x\\}\\}[/m]").text, "{{x}}")
+
+    def test_unclosed_and_stray_tags_keep_the_text(self):
+        self.assertEqual(convert("[m1][b]text").text, "text")
+        self.assertEqual(convert("[/b]stray [/m] text").text, "stray text")
+        self.assertEqual(convert("[m1][trn]open value").senses, ((None, ("open value",)),))
+        self.assertEqual(convert("[m1]a [ b").text, "a [ b")
+
+    def test_plain_brackets_that_are_not_tags_stay(self):
+        self.assertEqual(convert("[m1]see [1] and [2][/m]").text, "see [1] and [2]")
+
+    def test_without_trn_plain_lines_are_values(self):
+        a = convert("[m1][t]rʌn[/t][/m]", "[m1][p]v[/p] бежать[/m]", "[m1]бегать[/m]", "[m2][ex]example[/ex][/m]", "[m2][com]c[/com][/m]")
+        self.assertEqual(a.senses, (("v", ("бежать", "бегать")),))
+
+    def test_without_p_values_go_to_none(self):
+        self.assertEqual(convert("[m1][trn]a[/trn] [trn]b[/trn][/m]").senses, ((None, ("a", "b")),))
+        self.assertEqual(convert("[m1]first[/m]", "[m1]second[/m]").senses, ((None, ("first", "second")),))
+
+    def test_values_are_capped_by_length_and_count(self):
+        many = " ".join("[trn]v%d[/trn]" % i for i in range(9))
+        self.assertEqual(convert("[m1][p]n[/p] " + many + "[/m]").senses, (("n", ("v0", "v1", "v2", "v3", "v4")),))
+        lines = ["[m1]line%d[/m]" % i for i in range(9)]
+        self.assertEqual(convert(*lines).senses, ((None, ("line0", "line1", "line2", "line3", "line4")),))
+        ((pos, values),) = convert("[m1][p]n[/p] [trn]" + "x" * 200 + "[/trn][/m]").senses
+        self.assertEqual(len(values[0]), 80)
+
+    def test_empty_groups_are_dropped(self):
+        a = convert("[m1][p]adj[/p] [p]n[/p] [trn]x[/trn][/m]")
+        self.assertEqual(a.senses, (("n", ("x",)),))
+
+    def test_first_transcription_wins(self):
+        a = convert("[m1][t]one[/t] [t]two[/t][/m]", "[m1]body[/m]")
+        self.assertEqual(a.transcription, "one")
+        self.assertNotIn("two", a.text)
+        self.assertEqual(a.text, "[one]\nbody")
+
+    def test_transcription_inside_other_tags(self):
+        a = convert("[m1][c][t]rʌn[/t][/c][/m]", "[m1]x[/m]")
+        self.assertEqual(a.transcription, "rʌn")
+
+    def test_no_transcription(self):
+        a = convert("[m1]just text[/m]")
+        self.assertIsNone(a.transcription)
+        self.assertEqual(a.text, "just text")
+
+    def test_control_characters_are_removed(self):
+        a = convert("[m1]a\x00b\x07c‮d[/m]")
+        self.assertEqual(a.text, "abcd")
+
+    def test_private_use_characters_from_the_file_do_not_confuse_escapes(self):
+        a = convert("[m1] \\[x\\][/m]")
+        self.assertIn("[x]", a.text)
+
+    def test_lookup_returns_converted_articles(self):
+        root = make_tempdir(self)
+        path = write_dsl(root / "d" / "x.dsl", [(["run"], ["[m1][t]rʌn[/t][/m]", "[m1][p]v[/p] [trn]бежать[/trn][/m]"])])
+        d = open_dsl(path)
+        self.addCleanup(d.close)
+        a = d.lookup("run")[0]
+        self.assertEqual((a.transcription, a.senses), ("rʌn", (("v", ("бежать",)),)))
+
+
+class DslIndexCacheTests(_Base):
+    def cache_file(self, path):
+        return index_cache_path(path, dsl.INDEX_TAG)
+
+    def scanning(self):
+        return mock.patch.object(dsl, "_scan", autospec=True, side_effect=dsl._scan)
+
+    def test_first_open_writes_the_cache_and_the_second_skips_the_scan(self):
+        path = self.write()
+        first = self.open(path)
+        self.assertTrue(self.cache_file(path).is_file())
+        expected = [first.lookup(k) for k in ("run", "сон", "absent")]
+        with mock.patch.object(dsl, "_scan", side_effect=AssertionError("scanner must not run")):
+            second = self.open(path)
+        self.assertEqual([second.lookup(k) for k in ("run", "сон", "absent")], expected)
+        self.assertEqual((second.name, second.entry_count), (first.name, first.entry_count))
+
+    def test_dictzip_cache_skips_decompressing_the_whole_file(self):
+        path = self.write(dz=True)
+        self.open(path)
+        with mock.patch.object(DictzipFile, "read_all", side_effect=AssertionError("cold path")):
+            d = self.open(path)
+        self.assertIn("to move fast", d.lookup("run")[0].text)
+
+    def test_changed_size_rescans(self):
+        path = self.write()
+        self.open(path).close()
+        self.write(TWO + [(["extra"], ["[m1]more[/m]"])])
+        with self.scanning() as scan:
+            d = self.open(path)
+        self.assertEqual(scan.call_count, 1)
+        self.assertTrue(d.has("extra"))
+
+    def test_changed_mtime_rescans(self):
+        path = self.write()
+        self.open(path).close()
+        st = path.stat()
+        os.utime(path, ns=(st.st_atime_ns, st.st_mtime_ns + 5_000_000_000))
+        with self.scanning() as scan:
+            self.open(path)
+        self.assertEqual(scan.call_count, 1)
+
+    def test_damaged_cache_is_rebuilt(self):
+        path = self.write()
+        self.open(path).close()
+        self.cache_file(path).write_bytes(b'{"format": 1, "tag": "dsl-1", "da')
+        with self.scanning() as scan:
+            d = self.open(path)
+        self.assertEqual(scan.call_count, 1)
+        self.assertIn("to move fast", d.lookup("run")[0].text)
+        d.close()
+        with mock.patch.object(dsl, "_scan", side_effect=AssertionError("cache must be healed")):
+            self.open(path)
+
+    def tamper(self, path, edit):
+        target = self.cache_file(path)
+        wrapper = json.loads(target.read_text(encoding="utf-8"))
+        edit(wrapper["data"])
+        target.write_text(json.dumps(wrapper, ensure_ascii=False), encoding="utf-8")
+
+    def test_offsets_outside_the_file_are_ignored(self):
+        path = self.write()
+        self.open(path).close()
+        self.tamper(path, lambda data: data["entries"][0].__setitem__(0, 10**9))
+        with self.scanning() as scan:
+            d = self.open(path)
+        self.assertEqual(scan.call_count, 1)
+        self.assertIn("to move fast", d.lookup("run")[0].text)
+
+    def test_malformed_payloads_are_ignored(self):
+        edits = {
+            "negative offset": lambda data: data["entries"][0].__setitem__(0, -1),
+            "zero size": lambda data: data["entries"][0].__setitem__(1, 0),
+            "huge size": lambda data: data["entries"][0].__setitem__(1, 1 << 40),
+            "string offset": lambda data: data["entries"][0].__setitem__(0, "0"),
+            "key to missing entry": lambda data: data["keys"].__setitem__("run", [99]),
+            "key to bool": lambda data: data["keys"].__setitem__("run", [True]),
+            "bad encoding": lambda data: data.__setitem__("enc", "latin-1"),
+            "bad bom": lambda data: data.__setitem__("bom", 99),
+            "entries not a list": lambda data: data.__setitem__("entries", {}),
+            "no entries": lambda data: data.__setitem__("entries", []),
+            "missing field": lambda data: data.pop("keys"),
+        }
+        for label, edit in edits.items():
+            with self.subTest(label):
+                path = self.write(stem=label.replace(" ", "-") + ".dsl")
+                self.open(path).close()
+                self.tamper(path, edit)
+                with self.scanning() as scan:
+                    d = self.open(path)
+                self.assertEqual(scan.call_count, 1)
+                self.assertIn("to move fast", d.lookup("run")[0].text)
+
+
+class DslHostileInputTests(_Base):
+    def timed(self, fn, limit=1.0):
+        t = time.perf_counter()
+        result = fn()
+        self.assertLess(time.perf_counter() - t, limit)
+        return result
+
+    def test_one_megabyte_line_without_a_newline(self):
+        a = self.timed(lambda: convert("[m1]" + "x" * 1_000_000 + "[/m]"))
+        self.assertTrue(a.text.startswith("xxxx"))
+        self.assertLessEqual(len(a.text), 200_000)
+
+    def test_deeply_nested_tags(self):
+        a = self.timed(lambda: convert("[b]" * 100_000 + "text" + "[/b]" * 100_000))
+        self.assertEqual(a.text, "text")
+
+    def test_pathological_repetitions(self):
+        cases = {
+            "open comments": "{{" * 200_000,
+            "brackets": "[" * 300_000,
+            "closing brackets": "[/" * 150_000,
+            "escapes": "\\" * 300_000,
+            "tag soup": "[trn][p][t][ex][m1]" * 20_000,
+            "unclosed s": "[s]" * 100_000 + "text",
+            "refs": "<<" * 200_000,
+        }
+        for label, body in cases.items():
+            with self.subTest(label):
+                self.timed(lambda: convert(body))
+
+    def test_hostile_article_through_a_real_file(self):
+        path = self.write([(["big"], ["[m1]" + "[b]" * 50_000 + "x" * 500_000 + "[/m]"]), (["small"], ["[m1]ok[/m]"])])
+        d = self.open(path)
+        a = self.timed(lambda: d.lookup("big"))
+        self.assertEqual(len(a), 1)
+        self.assertIn("ok", d.lookup("small")[0].text)
+
+    def test_converter_failure_falls_back_to_stripped_text(self):
+        with mock.patch.object(dsl, "_convert_markup", side_effect=RuntimeError("boom")):
+            a = convert("[m1][b]text[/b] here[/m]")
+        self.assertEqual(a.text, "text here")
+        self.assertEqual((a.transcription, a.senses), (None, ()))
+
+    def test_headword_variant_flood_is_capped_in_the_index(self):
+        head = "".join("x{%d}" % i for i in range(60))
+        d = self.open(self.write([([head], ["[m1]x[/m]"])]))
+        self.assertEqual(d.entry_count, 1)
+        self.assertLessEqual(len(d._keys), MAX_VARIANTS)
 
 
 if __name__ == "__main__":
