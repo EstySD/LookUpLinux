@@ -61,7 +61,7 @@ class PrivacyTests(unittest.TestCase):
             self.addCleanup(http_error.close)
             errors = [urllib.error.URLError(SENTINEL), http_error, TimeoutError(SENTINEL), OSError(SENTINEL)]
             for error in errors:
-                with mock.patch('urllib.request.urlopen', side_effect=error):
+                with mock.patch('urllib.request.OpenerDirector.open', side_effect=error):
                     try:
                         online.translate_online(SENTINEL, 'word')
                     except online.TranslateError as exc:

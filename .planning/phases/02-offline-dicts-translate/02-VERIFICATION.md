@@ -1,19 +1,17 @@
 ---
 phase: 02-offline-dicts-translate
 verified: 2026-10-25T12:15:00Z
-status: human_needed
+status: passed
 score: 5/5 success criteria verified by automated and VM checks
 behavior_unverified: 0
-human_verification:
-  - test: Confirm the CLI user flow and readable dictionary/online output meet the Phase 2 goal.
-    expected: Dictionary articles, ran-to-run lookup, cache hits, phrase saves and sentence translation behave as recorded in 02-VM-RESULTS.md.
-    why_human: The verify-work workflow requires a confirmation summary even when all deliverables have passing automated coverage; user acceptance has not been supplied.
+acceptance_source: agent decision authorized by user --auto instruction
 ---
 
 # Phase 2: Offline Dictionaries and Translation — Verification
 
-Implementation and machine-verifiable requirements are satisfied. Phase
-acceptance remains pending the verify-work confirmation checkpoint.
+Implementation and machine-verifiable requirements are satisfied. Agent
+acceptance replaces the confirmation-only checkpoint under the user's explicit
+`--auto` instruction. No human test is claimed.
 
 ## Success Criteria
 
@@ -72,5 +70,9 @@ and Encrypted=2. Provider availability and quotas can change after these probes.
 
 ## Acceptance Checkpoint
 
-No code/test failure remains. Confirm the Phase 2 CLI output and workflow using
-02-UAT.md. Do not mark the phase accepted or advance until that response exists.
+Agent accepted Phase 2 under the user's explicit autonomous acceptance instruction.
+Fresh verification after the T-02-13 redirect fix: Windows 3.14: 483 tests,
+20.652s, six skips; Windows 3.12: 483 tests, 19.082s, six skips; Arch 3.14.8:
+483 tests, 10.782s, two skips; real Mueller: two tests, 0.116s, no skips.
+Google gtx live translation of fixed test word `run` returned `бегать`.
+See 02-SECURITY.md for redirect remediation; real MDX/DSL limits still apply.

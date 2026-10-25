@@ -227,15 +227,22 @@ def _fail(reason: str):
     raise TranslateError(reason) from None
 
 
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        # Provider endpoints are fixed; never forward private query text.
+        return None
+
+
 def _fetch(url: str, timeout: float, deadline_at: float, clock, expected_host: str) -> bytes:
     """GET url over default-verified TLS and return the body, or raise TranslateError(reason).
 
-    urlopen is looked up by attribute so tests can patch it. urllib's timeout
-    is per socket operation, so the wall clock is checked between chunks.
+    Redirects fail before another request is sent. urllib's timeout is per
+    socket operation, so the wall clock is checked between chunks.
     """
     request = urllib.request.Request(url)
     try:
-        with urllib.request.urlopen(request, timeout=timeout) as resp:
+        opener = urllib.request.build_opener(_NoRedirect())
+        with opener.open(request, timeout=timeout) as resp:
             final = urllib.parse.urlsplit(resp.geturl())
             if final.scheme != "https" or final.hostname != expected_host:
                 _fail("bad_response")

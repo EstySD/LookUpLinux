@@ -38,7 +38,7 @@ def make_tempdir(testcase) -> Path:
 
 
 def forbid_network(testcase):
-    """Make any urllib.request.urlopen call fail the test; return the mock.
+    """Make urllib convenience and custom-opener calls fail; return their shared mock.
 
     Tests assert `call_count == 0` on the result to prove a cache hit (D-20).
     """
@@ -47,4 +47,7 @@ def forbid_network(testcase):
     )
     started = patcher.start()
     testcase.addCleanup(patcher.stop)
+    opener_patcher = mock.patch("urllib.request.OpenerDirector.open", new=started)
+    opener_patcher.start()
+    testcase.addCleanup(opener_patcher.stop)
     return started

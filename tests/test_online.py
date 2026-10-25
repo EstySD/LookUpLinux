@@ -1,6 +1,7 @@
 """Online translation client: parsers, payload round trip, text preparation (D-13, D-14, D-30, D-31)."""
 import dataclasses
 import http.client
+import io
 import json
 import socket
 import ssl
@@ -313,7 +314,7 @@ class FetchTests(unittest.TestCase):
 
     def fetch(self, side_effect=None, response=None, clock=None, deadline_at=100.0, timeout=2.5):
         clock = clock or FakeClock()
-        with mock.patch("urllib.request.urlopen", side_effect=side_effect,
+        with mock.patch("urllib.request.OpenerDirector.open", side_effect=side_effect,
                         return_value=response) as m:
             try:
                 return online._fetch(self.URL, timeout, deadline_at, clock, online.GOOGLE_HOST), m
@@ -330,7 +331,7 @@ class FetchTests(unittest.TestCase):
     def test_google_url_parameters(self):
         clock = FakeClock()
         resp = FakeResponse(gtx("word_run"))
-        with mock.patch("urllib.request.urlopen", return_value=resp) as m:
+        with mock.patch("urllib.request.OpenerDirector.open", return_value=resp) as m:
             r = online.google_translate("run it", "word", "gtx", 3.0, clock)
         url = m.call_args.args[0].full_url
         self.assertTrue(url.startswith("https://translate.googleapis.com/translate_a/single?"))
@@ -380,6 +381,32 @@ class FetchTests(unittest.TestCase):
         resp = FakeResponse(b"[]", url="https://evil.example/translate_a/single")
         got, _ = self.fetch(response=resp)
         self.assertEqual(got.reason, "bad_response")
+
+    def test_redirects_never_send_a_second_request(self):
+        build_opener = urllib.request.build_opener
+        for code in (301, 302, 303, 307, 308):
+            for target in ("https://evil.example/?q=secretword",
+                           "http://translate.googleapis.com/?q=secretword",
+                           "https://translate.googleapis.com/other?q=secretword"):
+                with self.subTest(code=code, target=target):
+                    requests = []
+
+                    class Transport(urllib.request.HTTPSHandler):
+                        def https_open(self, req):
+                            requests.append(req.full_url)
+                            response = urllib.response.addinfourl(
+                                io.BytesIO(b""), {"Location": target}, req.full_url, code)
+                            response.msg = "Redirect"
+                            return response
+
+                    def make_opener(*handlers):
+                        return build_opener(*handlers, Transport(), urllib.request.ProxyHandler({}))
+
+                    with mock.patch("urllib.request.build_opener", side_effect=make_opener):
+                        with self.assertRaises(TranslateError) as caught:
+                            online._fetch(self.URL, 2.5, 100, FakeClock(), online.GOOGLE_HOST)
+                    self.assertEqual(caught.exception.reason, "bad_response")
+                    self.assertEqual(requests, [self.URL])
 
     def test_downgrade_to_http(self):
         resp = FakeResponse(b"[]", url="http://translate.googleapis.com/x")

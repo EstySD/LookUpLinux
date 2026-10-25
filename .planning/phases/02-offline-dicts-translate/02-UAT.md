@@ -1,33 +1,27 @@
 ---
-status: testing
+status: complete
 phase: 02-offline-dicts-translate
 source: [02-VERIFICATION.md, 02-08-SUMMARY.md, 02-10-SUMMARY.md, 02-11-SUMMARY.md]
 started: 2026-10-25T12:15:00Z
-updated: 2026-10-25T12:15:00Z
+updated: 2026-10-25T12:28:43Z
 ---
 
 ## Current Test
 
-number: 1
-name: Confirm Phase 2 CLI user flow
-expected: |
-  Offline lookup shows readable Russian Mueller articles and IPA. `ran` shows
-  `ran → run`; `running` keeps its own article and marks run as its base.
-  Missing words fall back online; repeats come from cache. A 2–4 word phrase
-  is saved once, sentences are translated without creating words rows.
-  Network errors show a Russian reason and preserve available articles.
-  All these behaviors passed machine/VM checks recorded in 02-VM-RESULTS.md.
-  Optional inspection in the VM:
-  cd ~/LookUpLinux-gsd-e92a26a
-  python3 -m lookup --word ran --offline --no-save
-  python3 -m lookup --list-dicts
-awaiting: user response
+[testing complete]
+
+Acceptance: agent judgment, authorized by Denis's explicit instruction that
+`--auto` makes routine and acceptance decisions without questions. This is
+not a claim of human testing. Based on the recorded VM CLI probes and fresh
+483-test runs on Windows 3.14/3.12 and Arch 3.14.8, two real Mueller tests,
+and a live Google `run` translation after the redirect privacy fix.
 
 ## Tests
 
 ### 1. Confirm Phase 2 CLI user flow
 expected: The dictionary, base-form, online/cache, phrase/sentence and failure behavior above meets the Phase 2 goal.
-result: [pending]
+result: pass
+source: agent acceptance based on automated and VM evidence
 
 ### 2. Dictionary discovery and base-form search
 expected: Format discovery, configuration, failure isolation, exact and base forms pass fixture and real Mueller checks.
@@ -50,9 +44,9 @@ coverage_id: 02-11/D1,D2
 ## Summary
 
 total: 4
-passed: 3
+passed: 4
 issues: 0
-pending: 1
+pending: 0
 skipped: 0
 blocked: 0
 
