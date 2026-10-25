@@ -111,3 +111,14 @@ class SelectionTests(unittest.TestCase):
         for point in ((math.nan, 1), (1, math.inf), ('x', 1), (1,)):
             with self.assertRaises(ocr.OcrError):
                 ocr.select_word((word('run'),), point)
+
+    def test_single_letter_and_multisegment_hyphen_fragments(self):
+        variants = [('e-mail', ('e-', 'mail')), ('x-ray', ('x', '-', 'ray')),
+                    ('state-of-the-art', ('state-', 'of-', 'the-', 'art'))]
+        for expected, parts in variants:
+            words = tuple(word(part, 10+i*22, width=20, order=i+1) for i, part in enumerate(parts))
+            with self.subTest(parts=parts):
+                selected = ocr.select_word(words, (15, 15))
+                self.assertIsNotNone(selected)
+                self.assertEqual(selected.word, expected)
+                self.assertEqual(selected.candidates, ())

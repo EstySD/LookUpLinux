@@ -24,7 +24,7 @@ def evaluate(root, images, psm, enlarge, invert):
                 word = found.word if found else None
                 tokens = [normalize(w) for w in found.line.split()] if found else []
                 expected_tokens = [normalize(w) for w in case['line_tokens']]
-                line_ok = all(t in tokens for t in expected_tokens)
+                line_ok = tokens == expected_tokens
                 compound_ok = not case['compound'] or (found and found.candidates and
                                                        found.candidates[0] == case['compound'])
                 passed = word == case['word'] and line_ok and bool(compound_ok)

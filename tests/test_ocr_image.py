@@ -110,6 +110,34 @@ class ImageTests(unittest.TestCase):
         self.assertEqual((color.red(), color.alpha()), (255, 255))
         self.assertEqual(transform.original_xy(58, 58), (25, 25))
 
+    def test_at_2x_filename_keeps_physical_pixels(self):
+        from PyQt6.QtGui import QPainter
+        source = QImage(200, 80, QImage.Format.Format_RGB32)
+        source.fill(QColor('white'))
+        painter = QPainter(source)
+        painter.fillRect(100, 20, 20, 20, QColor('black'))
+        painter.end()
+        path = self.root/'sample@2x.png'
+        source.save(str(path))
+        png, transform = ocr._prepare_image(path, (110, 30), 1, 'never')
+        prepared = QImage.fromData(png)
+        self.assertEqual(prepared.pixelColor(118, 38).red(), 0)
+        self.assertEqual(prepared.pixelColor(63, 23).red(), 255)
+        self.assertEqual(transform.original_xy(118, 38), (110, 30))
+
+
+class CalibrationTests(unittest.TestCase):
+    def test_line_check_preserves_order_and_repeated_words(self):
+        from tools.calibrate_ocr import evaluate
+        image = {'path': 'public.png', 'cases': [
+            {'name': 'repeated', 'point': [1, 1], 'word': 'go',
+             'line_tokens': ['go', 'go', 'now'], 'compound': None}]}
+        for actual in ('go now', 'now go go'):
+            recognition = ocr.Recognition(ocr.Selection('go', actual, (), (0, 0, 2, 2), 90), {'total': 1})
+            with mock.patch('lookup.ocr.recognize_image', return_value=recognition):
+                result = evaluate(Path('.'), [image], 6, 2, 'auto')
+            self.assertEqual(result['passed'], 0)
+
 
 class FixtureManifestTests(unittest.TestCase):
     def test_manifest_integrity(self):

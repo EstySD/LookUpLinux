@@ -129,6 +129,19 @@ def _key(word):
     return key if key and ' ' not in key and word.confidence >= MIN_CONFIDENCE else None
 
 
+def _fragment(word):
+    if word.confidence < MIN_CONFIDENCE:
+        return None
+    raw = word.text.replace('‐', '-').replace('‑', '-')
+    if not all(c in "'-" or (c.isalpha() and unicodedata.name(c, '').startswith('LATIN')) for c in raw):
+        return None
+    key = normalize(raw)
+    if key and ' ' not in key:
+        return key
+    stem = raw.rstrip('-')
+    return stem.casefold() if len(stem) == 1 and stem.isalpha() else None
+
+
 def _gap(a, b):
     return b.box[0] - (a.box[0] + a.box[2])
 
@@ -147,14 +160,14 @@ def _units(line):
     i = 0
     while i < len(line):
         current = line[i]
-        if _key(current):
+        if _fragment(current):
             while i + 1 < len(line):
                 end = i + 1
                 if line[end].text in ('-', '‐', '‑'):
                     end += 1
                 elif not current.text.endswith(('-', '‐', '‑')):
                     break
-                if end >= len(line) or not _key(line[end]):
+                if end >= len(line) or not _fragment(line[end]):
                     break
                 parts = [current, *line[i+1:end+1]]
                 height = min(w.box[3] for w in (current, line[end]))
@@ -162,7 +175,9 @@ def _units(line):
                         or any(not -height * 0.25 <= _gap(a, b) <= height * HYPHEN_GAP
                                for a, b in zip(parts, parts[1:]))):
                     break
-                joined = _key(current).rstrip('-') + '-' + _key(line[end])
+                joined = _fragment(current).rstrip('-') + '-' + _fragment(line[end])
+                if line[end].text.endswith(('-', '‐', '‑')):
+                    joined += '-'
                 current = _union(parts, joined)
                 i = end
         units.append(current)
@@ -268,6 +283,8 @@ def _prepare_image(path, point, enlarge, invert):
         image = reader.read()
         if image.isNull():
             _fail('invalid_image')
+        # QImageReader interprets @2x filenames; this API always uses physical pixels.
+        image.setDevicePixelRatio(1.0)
         crop_w, crop_h = min(width, 4096), min(height, 256)
         left = min(max(int(x)-crop_w//2, 0), width-crop_w)
         top = min(max(int(y)-crop_h//2, 0), height-crop_h)

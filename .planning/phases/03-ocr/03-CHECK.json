@@ -10,7 +10,7 @@
       "invert": "auto",
       "passed": 96,
       "total": 96,
-      "median_ms": 234.72692600000755,
+      "median_ms": 218.12296500002049,
       "cases": [
         {
           "image": "images/light-1-9.png",
@@ -24,7 +24,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 215.75959199981298
+          "ms": 220.9503719998338
         },
         {
           "image": "images/light-1-9.png",
@@ -38,7 +38,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 183.40515299996696
+          "ms": 188.5068770000089
         },
         {
           "image": "images/light-1-9.png",
@@ -52,7 +52,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 181.45225500006745
+          "ms": 185.02540000008594
         },
         {
           "image": "images/light-1-9.png",
@@ -66,7 +66,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 179.90642099994147
+          "ms": 187.91048499997487
         },
         {
           "image": "images/light-1-9.png",
@@ -77,7 +77,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 188.83607299994765
+          "ms": 195.3070839999782
         },
         {
           "image": "images/light-1-9.png",
@@ -88,7 +88,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 206.48183999992398
+          "ms": 189.46730900006514
         },
         {
           "image": "images/light-1-16.png",
@@ -102,7 +102,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 206.06995699995423
+          "ms": 205.13036300008025
         },
         {
           "image": "images/light-1-16.png",
@@ -116,7 +116,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 199.5004059999701
+          "ms": 202.40195699989272
         },
         {
           "image": "images/light-1-16.png",
@@ -130,7 +130,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 199.08065300001
+          "ms": 200.27008400006707
         },
         {
           "image": "images/light-1-16.png",
@@ -144,7 +144,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 195.86800700017193
+          "ms": 199.78944200011028
         },
         {
           "image": "images/light-1-16.png",
@@ -155,7 +155,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 196.71919899997192
+          "ms": 197.36990100000185
         },
         {
           "image": "images/light-1-16.png",
@@ -166,7 +166,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 197.22034300002633
+          "ms": 202.2590910000872
         },
         {
           "image": "images/light-1.25-9.png",
@@ -180,7 +180,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 195.85065599994778
+          "ms": 193.08669699989878
         },
         {
           "image": "images/light-1.25-9.png",
@@ -194,7 +194,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 197.15853399998196
+          "ms": 192.79970200000207
         },
         {
           "image": "images/light-1.25-9.png",
@@ -208,7 +208,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 196.25755400011258
+          "ms": 201.78573099997266
         },
         {
           "image": "images/light-1.25-9.png",
@@ -222,7 +222,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 176.1716900000465
+          "ms": 177.9769849999866
         },
         {
           "image": "images/light-1.25-9.png",
@@ -233,7 +233,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 180.8779149998827
+          "ms": 196.3765919999787
         },
         {
           "image": "images/light-1.25-9.png",
@@ -244,7 +244,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 179.47077999997418
+          "ms": 186.84755200001746
         },
         {
           "image": "images/light-1.25-16.png",
@@ -258,7 +258,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 231.5239740000834
+          "ms": 211.3894760000221
         },
         {
           "image": "images/light-1.25-16.png",
@@ -272,7 +272,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 250.08309100007864
+          "ms": 211.93608299995503
         },
         {
           "image": "images/light-1.25-16.png",
@@ -286,7 +286,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 230.86195200016846
+          "ms": 223.73914800004968
         },
         {
           "image": "images/light-1.25-16.png",
@@ -300,7 +300,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 272.0437509999556
+          "ms": 249.91233700006887
         },
         {
           "image": "images/light-1.25-16.png",
@@ -311,7 +311,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 259.0533309999046
+          "ms": 234.68501000002107
         },
         {
           "image": "images/light-1.25-16.png",
@@ -322,7 +322,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 266.2265159999606
+          "ms": 238.47252700011268
         },
         {
           "image": "images/light-1.5-9.png",
@@ -336,7 +336,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 221.7755770000167
+          "ms": 215.03695899991726
         },
         {
           "image": "images/light-1.5-9.png",
@@ -350,7 +350,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 225.32903300020735
+          "ms": 208.2736219999788
         },
         {
           "image": "images/light-1.5-9.png",
@@ -364,7 +364,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 234.508526999889
+          "ms": 212.91210300000785
         },
         {
           "image": "images/light-1.5-9.png",
@@ -378,7 +378,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 199.56992999982504
+          "ms": 192.82468500000505
         },
         {
           "image": "images/light-1.5-9.png",
@@ -389,7 +389,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 214.99703199992837
+          "ms": 190.27761799998189
         },
         {
           "image": "images/light-1.5-9.png",
@@ -400,7 +400,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 199.11081600002944
+          "ms": 194.32271200003015
         },
         {
           "image": "images/light-1.5-16.png",
@@ -414,7 +414,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 233.2002239998019
+          "ms": 235.05815200019242
         },
         {
           "image": "images/light-1.5-16.png",
@@ -428,7 +428,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 239.5601819998774
+          "ms": 224.63175200005026
         },
         {
           "image": "images/light-1.5-16.png",
@@ -442,7 +442,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 242.66670699989845
+          "ms": 218.0802870000207
         },
         {
           "image": "images/light-1.5-16.png",
@@ -456,7 +456,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 205.98401100005503
+          "ms": 202.35795799999323
         },
         {
           "image": "images/light-1.5-16.png",
@@ -467,7 +467,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 213.70838699999695
+          "ms": 202.16283500008103
         },
         {
           "image": "images/light-1.5-16.png",
@@ -478,7 +478,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 199.3318410000029
+          "ms": 201.00819300000694
         },
         {
           "image": "images/light-2-9.png",
@@ -492,7 +492,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 227.2611030000462
+          "ms": 217.9161970000223
         },
         {
           "image": "images/light-2-9.png",
@@ -506,7 +506,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 204.74632599984943
+          "ms": 212.14421199988465
         },
         {
           "image": "images/light-2-9.png",
@@ -520,7 +520,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 245.2799140000934
+          "ms": 235.96498200004135
         },
         {
           "image": "images/light-2-9.png",
@@ -534,7 +534,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 223.48709100015185
+          "ms": 221.00502800003596
         },
         {
           "image": "images/light-2-9.png",
@@ -545,7 +545,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 214.58583099979478
+          "ms": 208.48325500014653
         },
         {
           "image": "images/light-2-9.png",
@@ -556,7 +556,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 205.84876800012353
+          "ms": 193.95689299994956
         },
         {
           "image": "images/light-2-16.png",
@@ -570,7 +570,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 251.32578299985653
+          "ms": 232.18995000001996
         },
         {
           "image": "images/light-2-16.png",
@@ -584,7 +584,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 251.96249500004342
+          "ms": 217.94774599993616
         },
         {
           "image": "images/light-2-16.png",
@@ -598,7 +598,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 274.361257999999
+          "ms": 268.86809799998446
         },
         {
           "image": "images/light-2-16.png",
@@ -612,7 +612,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 268.7210750000304
+          "ms": 237.02627200009374
         },
         {
           "image": "images/light-2-16.png",
@@ -623,7 +623,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 264.3995830001131
+          "ms": 234.88832099997126
         },
         {
           "image": "images/light-2-16.png",
@@ -634,7 +634,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 282.1254109999245
+          "ms": 237.22272100008013
         },
         {
           "image": "images/dark-1-9.png",
@@ -648,7 +648,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 225.21112199979143
+          "ms": 243.35491400006504
         },
         {
           "image": "images/dark-1-9.png",
@@ -662,7 +662,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 250.03244300000915
+          "ms": 213.694058000101
         },
         {
           "image": "images/dark-1-9.png",
@@ -676,7 +676,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 254.69905799991466
+          "ms": 266.920804999927
         },
         {
           "image": "images/dark-1-9.png",
@@ -690,7 +690,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 212.68957500001306
+          "ms": 269.44903999992675
         },
         {
           "image": "images/dark-1-9.png",
@@ -701,7 +701,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 230.08887600008165
+          "ms": 215.19577100002607
         },
         {
           "image": "images/dark-1-9.png",
@@ -712,7 +712,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 229.13673800007928
+          "ms": 197.332526000082
         },
         {
           "image": "images/dark-1-16.png",
@@ -726,7 +726,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 363.71282899995094
+          "ms": 217.93947800006208
         },
         {
           "image": "images/dark-1-16.png",
@@ -740,7 +740,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 389.1969359999621
+          "ms": 294.3942040001275
         },
         {
           "image": "images/dark-1-16.png",
@@ -754,7 +754,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 370.57091500014394
+          "ms": 292.57654899993213
         },
         {
           "image": "images/dark-1-16.png",
@@ -768,7 +768,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 355.56509799994274
+          "ms": 332.3422290000053
         },
         {
           "image": "images/dark-1-16.png",
@@ -779,7 +779,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 365.9041260000322
+          "ms": 337.73812599997655
         },
         {
           "image": "images/dark-1-16.png",
@@ -790,7 +790,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 429.40177599984963
+          "ms": 280.20346199991764
         },
         {
           "image": "images/dark-1.25-9.png",
@@ -804,7 +804,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 259.2573510000875
+          "ms": 328.2026570000198
         },
         {
           "image": "images/dark-1.25-9.png",
@@ -818,7 +818,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 263.7301539998589
+          "ms": 342.6940700001069
         },
         {
           "image": "images/dark-1.25-9.png",
@@ -832,7 +832,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 234.9453250001261
+          "ms": 217.49414400005662
         },
         {
           "image": "images/dark-1.25-9.png",
@@ -846,7 +846,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 220.3817300000992
+          "ms": 218.73317699987638
         },
         {
           "image": "images/dark-1.25-9.png",
@@ -857,7 +857,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 218.49453100003302
+          "ms": 213.61834599997565
         },
         {
           "image": "images/dark-1.25-9.png",
@@ -868,7 +868,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 266.8683399999736
+          "ms": 225.6843499999377
         },
         {
           "image": "images/dark-1.25-16.png",
@@ -882,7 +882,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 270.3593749999982
+          "ms": 270.96440099990104
         },
         {
           "image": "images/dark-1.25-16.png",
@@ -896,7 +896,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 269.87865699993563
+          "ms": 278.12712500008274
         },
         {
           "image": "images/dark-1.25-16.png",
@@ -910,7 +910,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 289.98103599997194
+          "ms": 271.4314259999355
         },
         {
           "image": "images/dark-1.25-16.png",
@@ -924,7 +924,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 285.9952260000682
+          "ms": 274.19474399994215
         },
         {
           "image": "images/dark-1.25-16.png",
@@ -935,7 +935,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 305.3108599999632
+          "ms": 256.02726200008874
         },
         {
           "image": "images/dark-1.25-16.png",
@@ -946,7 +946,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 284.51963099996647
+          "ms": 283.5404170000402
         },
         {
           "image": "images/dark-1.5-9.png",
@@ -960,7 +960,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 264.4346899999164
+          "ms": 202.38815199991222
         },
         {
           "image": "images/dark-1.5-9.png",
@@ -974,7 +974,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 257.4596700001166
+          "ms": 197.9740500000844
         },
         {
           "image": "images/dark-1.5-9.png",
@@ -988,7 +988,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 272.17909499995585
+          "ms": 211.0576510001465
         },
         {
           "image": "images/dark-1.5-9.png",
@@ -1002,7 +1002,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 258.2391420000931
+          "ms": 218.03125900009945
         },
         {
           "image": "images/dark-1.5-9.png",
@@ -1013,7 +1013,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 230.8074800000668
+          "ms": 270.45177599984527
         },
         {
           "image": "images/dark-1.5-9.png",
@@ -1024,7 +1024,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 229.99195099987446
+          "ms": 226.0057340001822
         },
         {
           "image": "images/dark-1.5-16.png",
@@ -1038,7 +1038,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 300.9736400001657
+          "ms": 247.77089799999885
         },
         {
           "image": "images/dark-1.5-16.png",
@@ -1052,7 +1052,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 289.12710200006586
+          "ms": 258.3296150000933
         },
         {
           "image": "images/dark-1.5-16.png",
@@ -1066,7 +1066,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 246.85613199994805
+          "ms": 306.96580299991183
         },
         {
           "image": "images/dark-1.5-16.png",
@@ -1080,7 +1080,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 233.10036800012313
+          "ms": 239.5253650001905
         },
         {
           "image": "images/dark-1.5-16.png",
@@ -1091,7 +1091,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 254.6943980000833
+          "ms": 198.8736340001651
         },
         {
           "image": "images/dark-1.5-16.png",
@@ -1102,7 +1102,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 274.80897899999945
+          "ms": 218.16564300002028
         },
         {
           "image": "images/dark-2-9.png",
@@ -1116,7 +1116,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 274.17946300010954
+          "ms": 256.74705799997355
         },
         {
           "image": "images/dark-2-9.png",
@@ -1130,7 +1130,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 272.62534999999843
+          "ms": 284.1662189998715
         },
         {
           "image": "images/dark-2-9.png",
@@ -1144,7 +1144,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 328.9368739999645
+          "ms": 284.27516000010655
         },
         {
           "image": "images/dark-2-9.png",
@@ -1158,7 +1158,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 277.7309229998082
+          "ms": 302.59005700008856
         },
         {
           "image": "images/dark-2-9.png",
@@ -1169,7 +1169,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 228.7897429998793
+          "ms": 234.10201900014727
         },
         {
           "image": "images/dark-2-9.png",
@@ -1180,7 +1180,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 215.34731099995952
+          "ms": 216.83313400012594
         },
         {
           "image": "images/dark-2-16.png",
@@ -1194,7 +1194,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 255.3797730001861
+          "ms": 256.0626990000401
         },
         {
           "image": "images/dark-2-16.png",
@@ -1208,7 +1208,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 250.145411999938
+          "ms": 240.4245360000914
         },
         {
           "image": "images/dark-2-16.png",
@@ -1222,7 +1222,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 269.16029099993466
+          "ms": 254.12904400013758
         },
         {
           "image": "images/dark-2-16.png",
@@ -1236,7 +1236,7 @@
           ],
           "line_ok": true,
           "passed": true,
-          "ms": 248.7316459998965
+          "ms": 245.09788900013518
         },
         {
           "image": "images/dark-2-16.png",
@@ -1247,7 +1247,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 212.87267499997142
+          "ms": 209.0645130001576
         },
         {
           "image": "images/dark-2-16.png",
@@ -1258,7 +1258,7 @@
           "candidates": [],
           "line_ok": true,
           "passed": true,
-          "ms": 226.05153499989683
+          "ms": 217.34499300009702
         }
       ]
     }
@@ -1267,6 +1267,6 @@
     "psm": 6,
     "enlarge": 2,
     "invert": "auto",
-    "median_ms": 234.72692600000755
+    "median_ms": 218.12296500002049
   }
 }
