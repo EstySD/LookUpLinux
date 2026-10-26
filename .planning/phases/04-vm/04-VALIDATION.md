@@ -32,6 +32,28 @@ window and desktop entry, public controlled test text, and bounded harness.
 
 ## Measured Research Baseline
 
+## Executable Task / Source Coverage
+
+| Task | Required coverage | Automated command |
+|---|---|---|
+| 04-01/T1 | CAPT-01; D-01/D-02/D-03/D-07; geometry/parser/primary/owned window boundary | python -m unittest tests.test_platform tests.test_core_imports |
+| 04-01/T2 | CAPT-01; D-02/D-04; raw FD, finite cleanup, compatible memory OCR | python -m unittest tests.test_platform tests.test_ocr_image tests.test_core_imports |
+| 04-02/T1 | TRIG-01/CAPT-01; D-01/D-03/D-04/D-05; one owner/worker and timed pipeline | python -m unittest tests.test_vm_spike tests.test_platform |
+| 04-02/T2 | TRIG-01; D-03/D-05/D-06; owned shortcut, popup events, token/tray lifetimes | python -m unittest tests.test_vm_spike tests.test_platform tests.test_core_imports |
+| 04-03/T1 | All four SCs; D-01..D-08; host handshake, observed gate decisions and tested rollback | python -m unittest tests.test_vm_spike tests.test_platform |
+| 04-03/T2 | TRIG-01/CAPT-01; all four actual SCs, measured gates and PROJECT decisions | python3 tools/check_vm_spike.py --output /tmp/lookup-vm-spike-results (target with autonomous host input) |
+
+Multi-source audit: GOAL/SC1..SC4, REQ TRIG-01/CAPT-01, every CONTEXT
+D-01..D-08, and RESEARCH constraints are covered by the task map. In
+particular, raw QImage format/stride/exact bytes/concurrent pipe drain are
+04-01/T2; actual physical keys, focus and tray action evidence are 04-03/T2;
+both platform decisions and restoration are 04-03/T1/T2. Phase5 production
+UI/daemon and other explicitly deferred features remain excluded. No required
+source item is missing. Sequential waves 1/2/3 respect shared adapter/spike
+contracts. Test files are created by their owning task before verification.
+
+## Historical Research Baseline
+
 - kdotool0.3.0 getmouselocation works with KDE_SESSION_VERSION=6.
 - Current output: Virtual-1,1920x1080,origin0,0,scale1; only one monitor exposed.
 - ScreenShot2 version5 exposes FD-based CaptureScreen/CaptureArea; UnixFD
