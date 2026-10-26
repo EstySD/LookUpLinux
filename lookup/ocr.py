@@ -265,12 +265,21 @@ def _prepare_image(path, point, enlarge, invert):
     except ImportError:
         _fail('missing_pyqt6')
     try:
-        info = Path(path).stat()
-        if not stat.S_ISREG(info.st_mode):
-            _fail('invalid_image')
-        if info.st_size > MAX_SOURCE_BYTES:
-            _fail('too_large')
-        reader = QImageReader(str(path))
+        source_buffer = None
+        if isinstance(path, bytes):
+            if len(path) > MAX_SOURCE_BYTES:
+                _fail('too_large')
+            source_buffer = QBuffer()
+            source_buffer.setData(path)
+            source_buffer.open(QIODevice.OpenModeFlag.ReadOnly)
+            reader = QImageReader(source_buffer)
+        else:
+            info = Path(path).stat()
+            if not stat.S_ISREG(info.st_mode):
+                _fail('invalid_image')
+            if info.st_size > MAX_SOURCE_BYTES:
+                _fail('too_large')
+            reader = QImageReader(str(path))
         reader.setAutoTransform(False)
         size = reader.size()
         width, height = size.width(), size.height()
