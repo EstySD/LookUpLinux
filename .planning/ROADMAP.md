@@ -148,8 +148,12 @@ Plans:
   4. Карточка закрывается по клику вне неё, Esc, потере фокуса или таймауту; повторное нажатие заменяет текущую карточку, а быстрые нажатия подряд не портят базу (POP-02, TRIG-02).
   5. Пустое место, нет сети, блокировка онлайн-перевода или отсутствие пакета дают в карточке «не найдено», «нет сети» или «не установлен пакет X»; карточка оформлена в теме KDE Breeze и меняет вид при переключении светлой и тёмной темы (POP-03, POP-05).
 
-**Plans**: TBD
+**Plans**: 3 plans
 **UI hint**: yes
+
+- [x] 05-01 — Request engine, bounded context admission and guarded persistence
+- [ ] 05-02 — Native Breeze popup, tray, owner/client and lazy CLI
+- [ ] 05-03 — Production selection/hotkey/theme/race VM validation
 
 ### Phase 6: Список слов и карточки
 

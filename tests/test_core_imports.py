@@ -9,7 +9,7 @@ from tests._support import make_tempdir
 
 ROOT = Path(__file__).resolve().parents[1]
 
-_IMPORTS = "import lookup, lookup.normalize, lookup.store, lookup.stardict, lookup.dsl, lookup.mdx, lookup.lzo, lookup.ripemd128, lookup.dictzip, lookup.dicts, lookup.config, lookup.online, lookup.translate, lookup.ocr, lookup.platform, lookup.capture\n"
+_IMPORTS = "import lookup, lookup.normalize, lookup.store, lookup.stardict, lookup.dsl, lookup.mdx, lookup.lzo, lookup.ripemd128, lookup.dictzip, lookup.dicts, lookup.config, lookup.online, lookup.translate, lookup.ocr, lookup.platform, lookup.capture, lookup.app\n"
 _STDLIB_CODE = (
     "import json, sys\n"
     + _IMPORTS

@@ -4,9 +4,10 @@ Dictionary first, then validated cache and online translation. Nothing prints
 or logs; online failures are returned as fixed reason codes only.
 """
 import json
+import sqlite3
 import threading
 import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from itertools import islice
 
 from lookup import online as _online
@@ -121,11 +122,13 @@ class Result:
     translation: str | None = None
     saved: bool = False
     count: int | None = None
+    context_pending: bool = False
+    cache_error: str | None = None
     timings: dict = field(default_factory=lambda: dict.fromkeys(
         ("classify", "dicts", "cache", "online", "context", "db", "total"), 0.0))
 
 
-def _context_request(holder, key, clients, first_client):
+def _context_request(holder, key, clients, first_client, gate=None):
     # Only this holder crosses the thread boundary; the connection stays local.
     try:
         holder["result"] = _online.translate_online(
@@ -134,10 +137,13 @@ def _context_request(holder, key, clients, first_client):
         holder["error"] = error.reason
     except Exception:
         holder["error"] = "bad_response"
+    finally:
+        if gate is not None:
+            gate.release()
 
 
 def lookup(text, *, dictset=None, conn=None, context=None, online=True,
-           save=True, clients=None, now=None) -> Result:
+           save=True, clients=None, now=None, on_ready=None, context_gate=None) -> Result:
     start = time.perf_counter()
     query = classify(text)
     result = Result(query.kind, query.key, online_enabled=online)
@@ -148,19 +154,30 @@ def lookup(text, *, dictset=None, conn=None, context=None, online=True,
 
     def cached(key, kind):
         began = time.perf_counter()
-        value = cache_get(conn, key, kind) if conn is not None else None
+        try:
+            value = cache_get(conn, key, kind) if conn is not None else None
+        except sqlite3.Error:
+            result.cache_error = 'unavailable'
+            value = None
         result.timings["cache"] += (time.perf_counter() - began) * 1000
         return value
 
     def remember(key, kind, value):
         if conn is not None:
             began = time.perf_counter()
-            cache_put(conn, key, kind, value, now=now)
-            if value.client:
-                set_meta(conn, META_GOOGLE_CLIENT, value.client)
+            try:
+                cache_put(conn, key, kind, value, now=now)
+                if value.client:
+                    set_meta(conn, META_GOOGLE_CLIENT, value.client)
+            except sqlite3.Error:
+                result.cache_error = 'unavailable'
             result.timings["db"] += (time.perf_counter() - began) * 1000
 
-    first_client = get_meta(conn, META_GOOGLE_CLIENT) if conn is not None and online else None
+    try:
+        first_client = get_meta(conn, META_GOOGLE_CLIENT) if conn is not None and online else None
+    except sqlite3.Error:
+        result.cache_error = 'unavailable'
+        first_client = None
     thread = None
     holder = {}
     if context and online and query.kind != "sentence":
@@ -170,11 +187,19 @@ def lookup(text, *, dictset=None, conn=None, context=None, online=True,
             if value is not None:
                 result.context_translation = value.main
                 result.context_from_cache = True
+            elif context_gate is not None and not context_gate.acquire(blocking=False):
+                result.context_error = 'busy'
             else:
                 context_start = time.perf_counter()
                 thread = threading.Thread(target=_context_request,
-                                          args=(holder, ctx_key, clients, first_client), daemon=True)
-                thread.start()
+                                          args=(holder, ctx_key, clients, first_client, context_gate), daemon=True)
+                try:
+                    thread.start()
+                except (RuntimeError, OSError):
+                    if context_gate is not None:
+                        context_gate.release()
+                    thread = None
+                    result.context_error = 'bad_response'
 
     began = time.perf_counter()
     search = SearchResult()
@@ -213,6 +238,10 @@ def lookup(text, *, dictset=None, conn=None, context=None, online=True,
         result.saved = True
         result.timings["db"] += (time.perf_counter() - began) * 1000
 
+    result.context_pending = thread is not None and thread.is_alive()
+    if on_ready is not None:
+        result.timings['total'] = (time.perf_counter()-start)*1000
+        on_ready(replace(result, timings=dict(result.timings)))
     if thread is not None:
         began = time.perf_counter()
         thread.join(timeout=max(0.0, CONTEXT_JOIN_S - (began - context_start)))
@@ -225,5 +254,6 @@ def lookup(text, *, dictset=None, conn=None, context=None, online=True,
             remember(ctx_key, "sentence", value)
         else:
             result.context_error = holder["error"]
+    result.context_pending = False
     result.timings["total"] = (time.perf_counter() - start) * 1000
     return result
