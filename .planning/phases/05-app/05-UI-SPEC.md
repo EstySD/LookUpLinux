@@ -94,6 +94,8 @@ Percentages describe attention hierarchy, not hardcoded fills. No custom hex pal
 | Partial context failure | “Перевод контекста недоступен: {fixed_reason}.” Preserve the complete useful main result |
 | Confirmed history | “Искали {N} раз”; show only the actual returned count after one successful guarded write |
 | Save failure | “Не удалось сохранить поиск. Перевод доступен; повторите поиск позже.” Never show false saved/count success |
+| Cache persistence failure | “Не удалось обновить кэш перевода.” Preserve the useful result and any genuinely confirmed history count |
+| Busy context slot | “Перевод контекста пока недоступен.” Preserve the main card; do not describe an unstarted request as a network failure |
 | Sentence history status | “Текст не добавлен в историю слов.” No invented word counter |
 | Destructive confirmation | Not applicable; no destructive action in Phase5; Quit needs no confirmation |
 

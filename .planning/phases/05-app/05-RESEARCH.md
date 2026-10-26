@@ -2,6 +2,23 @@
 Researched:2026-10-26. Confidence:HIGH for inspected contracts; GUI end-to-end
 latency/focus remain execution measurements.
 
+## Planning-check corrections (authoritative for implementation)
+
+The existing finite context join can return while its thread is still alive.
+It therefore does not establish a single live context job. The production engine
+must own one nonblocking context admission slot passed through an optional
+context_gate keyword; release only when actual network work exits, including
+exception/failure-to-start cleanup. Busy context yields a fixed busy state,
+preserving the useful main result. Test a held job beyond the join timeout
+across repeated requests and bounded Quit. Default CLI admission stays unchanged.
+
+Also, save=False does not make cache/meta failures harmless: reads/writes can
+raise and discard valid main/context answers. Guard those persistence operations,
+preserve their answers, and expose fixed cache_error distinct from history
+save_error. Test read-only/full/contended cache storage without duplicate network
+translation or history events. These corrections supersede any claim below
+that the finite join alone bounds live context work.
+
 ## User Constraints (from CONTEXT.md)
 ### Locked Decisions
 - D-01: Preserve current CLI and stdlib-only core imports. Add lazy GUI entry

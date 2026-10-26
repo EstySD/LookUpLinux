@@ -22,6 +22,10 @@ Full:python -m unittest;py -3.12 -m unittest;target python3 -m unittest.
 | POP-05 | Plain selectable text,scroll bound,accessible names,palette events | Real Breeze light/dark,four scales,monitor edges |
 
 Additional proofs:translate on_ready snapshot independent from later mutation;
+hold one context response beyond finite join, issue many later requests, require
+one live context job and explicit busy context with bounded Quit. Exercise
+cache/meta read/write failure with successful online/main/context results;
+preserve content and fixed cache_error without retrying network or history.
 save=False caches/meta allowed but no history;ready/final exactly one commit;
 competing SQLite writer bounds guard wait and reports save_error;all connection
 and DictSet access occurs in worker thread. Core -S imports and CLI unchanged.
@@ -36,3 +40,23 @@ remove after bounded review. No human-testing claim under agent --auto acceptanc
 
 Gate:all requirement checks,full regressions,actual production VM route,security
 and UI evidence. No skipped integration test substitutes for observed behavior.
+
+## Executable Task / Multi-Source Coverage
+
+| Task | Required coverage | Automated verification |
+|---|---|---|
+| 05-01/T1 | CAPT-02/POP-01/POP-03; D-01/D-02/D-04/D-08; detached early callback and source freeze | python -m unittest tests.test_translate tests.test_app tests.test_core_imports |
+| 05-01/T2 | TRIG-02/POP-02/POP-01; D-03/D-04/D-07/D-08; linearized history, coalescing, ownership, busyDB | python -m unittest tests.test_app tests.test_translate tests.test_core_imports |
+| 05-02/T1 | POP-01/02/03/05/TRIG-02; D-03/D-05/D-06/D-08; all approved UI-SPEC states/fields/timer/theme/plaintext rules | python -m unittest tests.test_app_gui tests.test_app |
+| 05-02/T2 | TRIG-03/CAPT-02; D-01/D-07/D-09; atomic owner/warm QCore client/tray/lazy CLI/quit | python -m unittest tests.test_app_gui tests.test_cli tests.test_core_imports tests.test_app |
+| 05-03/T1 | D-03/D-04/D-09/D-10; deterministic race/error/rollback completion and production harness | python -m unittest tests.test_app tests.test_app_gui tests.test_translate |
+| 05-03/T2 | All seven requirements, all five roadmap criteria, D-01..D-10; actual production/primary/keys/theme/scales/errors/restoration | python3 tools/check_app.py --output /tmp/lookup-phase05-results (target with host input) |
+
+GOAL/ROADMAP, REQ TRIG-02/TRIG-03/CAPT-02/POP-01/POP-02/POP-03/POP-05,
+RESEARCH ownership/cache/finite-context/guard/source-order/privacy constraints,
+CONTEXT D-01..D-10 and approved UI-SPEC/PRODUCT/DESIGN/Linux evidence contracts
+are all covered by the map. Original Lookupper freshness/cancellation remain
+unverified evidence Q04–Q06; these plans implement the accepted Linux contract,
+not a fabricated original behavior. Phase6/7 surfaces, packaging and settings
+remain excluded. No required source item is missing. Waves1/2/3 are sequential
+because the UI consumes the engine and actual integration consumes both.
