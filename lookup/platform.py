@@ -5,6 +5,7 @@ import math
 import os
 from pathlib import Path
 import re
+import signal
 import subprocess
 import threading
 import time
@@ -20,16 +21,25 @@ def run(argv, env=None, timeout=2, limit=1 << 20):
     """Bound both a child's lifetime and bytes retained from stdout."""
     try:
         child = subprocess.Popen(argv, env=env, stdout=subprocess.PIPE,
-                                 stderr=subprocess.DEVNULL, shell=False)
+                                 stderr=subprocess.DEVNULL, shell=False, bufsize=0,
+                                 start_new_session=os.name == 'posix',
+                                 creationflags=subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0)
     except FileNotFoundError:
         raise PlatformError('missing_command') from None
     except OSError:
         raise PlatformError('process_failed') from None
     deadline = time.monotonic()+timeout
-    chunks = []
+    data = bytearray()
+    stop = threading.Event()
     def read():
         try:
-            chunks.append(child.stdout.read(limit + 1))
+            while not stop.is_set():
+                chunk = os.read(child.stdout.fileno(), min(65536, limit+1-len(data)))
+                if not chunk:
+                    return
+                data.extend(chunk)
+                if len(data) > limit:
+                    return
         except OSError:
             pass
     reader = threading.Thread(target=read, daemon=True)
@@ -38,7 +48,6 @@ def run(argv, env=None, timeout=2, limit=1 << 20):
         reader.join(timeout)
         if reader.is_alive():
             raise PlatformError('timeout')
-        data = chunks[0] if chunks else b''
         if len(data) > limit:
             raise PlatformError('too_large')
         try:
@@ -47,13 +56,27 @@ def run(argv, env=None, timeout=2, limit=1 << 20):
             raise PlatformError('timeout') from None
         if code:
             raise PlatformError('process_failed')
-        return data
+        return bytes(data)
     finally:
+        stop.set()
+        if os.name == 'posix':
+            try:
+                os.killpg(child.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+        elif child.poll() is None or reader.is_alive():
+            try:
+                subprocess.run(['taskkill', '/PID', str(child.pid), '/T', '/F'],
+                               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                               timeout=1, creationflags=subprocess.CREATE_NO_WINDOW)
+            except (OSError, subprocess.TimeoutExpired):
+                pass
         if child.poll() is None:
             child.kill()
         child.wait()
-        reader.join(1)
+        # Unbuffered FileIO has no BufferedReader lock held by a blocked read.
         child.stdout.close()
+        reader.join(.2)
 
 
 def _numbers(values):
@@ -123,7 +146,8 @@ def session_env():
         raise PlatformError('unsupported_session')
     env = dict(os.environ, XDG_RUNTIME_DIR=str(runtime), WAYLAND_DISPLAY=display,
                DBUS_SESSION_BUS_ADDRESS='unix:path=' + str(runtime / 'bus'),
-               KDE_SESSION_VERSION='6', XDG_SESSION_TYPE='wayland', QT_QPA_PLATFORM='wayland')
+               KDE_SESSION_VERSION='6', XDG_SESSION_TYPE='wayland', QT_QPA_PLATFORM='wayland',
+               QT_QPA_PLATFORMTHEME='kde')
     env.pop('XDG_ACTIVATION_TOKEN', None)
     env.pop('DESKTOP_STARTUP_ID', None)
     return env
@@ -183,6 +207,14 @@ def window_action(env, pid, uuid, action, *args):
     elif args:
         raise PlatformError('invalid_geometry')
     return run(['kdotool', action, uuid, *map(str, args)], env, limit=4096)
+
+
+def window_geometry(env, pid, uuid):
+    text = window_action(env, pid, uuid, 'getwindowgeometry').decode('ascii')
+    match = re.search(r'Position: (-?\d+),(-?\d+)\s+Geometry: (\d+)x(\d+)\s*$', text)
+    if not match:
+        raise PlatformError('bad_output')
+    return tuple(map(int, match.groups()))
 
 
 def read_primary(env):

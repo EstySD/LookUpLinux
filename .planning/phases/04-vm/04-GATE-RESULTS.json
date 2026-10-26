@@ -1,0 +1,513 @@
+{
+  "acceptance": "agent",
+  "physical_input": "VirtualBox keyboard scancodes and COM absolute mouse",
+  "scales": [
+    {
+      "scale": 1,
+      "fixture_point": [
+        960.6171875,
+        510.0
+      ],
+      "input_route": "absolute",
+      "observed": {
+        "pid": 13605,
+        "sequence": 1,
+        "busy": false,
+        "backend": "screenshot2",
+        "events": [],
+        "result": {
+          "point": [
+            961,
+            510
+          ],
+          "monitor": "Virtual-1",
+          "pixels": [
+            1920,
+            1080
+          ],
+          "probe_ms": 83.8776329983375,
+          "capture_ms": 102.7158889992279,
+          "ocr_ms": 239.0110319975065,
+          "total_ms": 425.64412799765705,
+          "word": "english",
+          "found": true,
+          "popup_target": [
+            973,
+            522,
+            280,
+            100
+          ],
+          "popup_uuid": "{8af5afb9-0671-422e-8532-09153e8ad3bb}",
+          "focus_ready": true
+        },
+        "popup_visible": true,
+        "popup_active": true,
+        "popup_rect": [
+          0,
+          0,
+          280,
+          100
+        ],
+        "tray_visible": true,
+        "tray_available": true,
+        "active_uuid": "{8af5afb9-0671-422e-8532-09153e8ad3bb}",
+        "compositor_geometry": [
+          973,
+          522,
+          280,
+          100
+        ]
+      },
+      "escape": [
+        "escape",
+        "deactivate"
+      ]
+    },
+    {
+      "scale": 1.25,
+      "fixture_point": [
+        768.6171875,
+        402.0
+      ],
+      "input_route": "absolute",
+      "observed": {
+        "pid": 13605,
+        "sequence": 2,
+        "busy": false,
+        "backend": "screenshot2",
+        "events": [
+          "escape",
+          "deactivate"
+        ],
+        "result": {
+          "point": [
+            769,
+            402
+          ],
+          "monitor": "Virtual-1",
+          "pixels": [
+            1920,
+            1080
+          ],
+          "probe_ms": 77.6926380021905,
+          "capture_ms": 76.15528099995572,
+          "ocr_ms": 229.42824799974915,
+          "total_ms": 383.5649180000473,
+          "word": "english",
+          "found": true,
+          "popup_target": [
+            781,
+            414,
+            280,
+            100
+          ],
+          "popup_uuid": "{22f234de-ddf3-48b2-a279-6fef21dbafec}",
+          "focus_ready": true
+        },
+        "popup_visible": true,
+        "popup_active": true,
+        "popup_rect": [
+          781,
+          414,
+          280,
+          100
+        ],
+        "tray_visible": true,
+        "tray_available": true,
+        "active_uuid": "{22f234de-ddf3-48b2-a279-6fef21dbafec}",
+        "compositor_geometry": [
+          781,
+          414,
+          280,
+          100
+        ]
+      },
+      "escape": [
+        "escape",
+        "deactivate",
+        "escape",
+        "deactivate"
+      ]
+    },
+    {
+      "scale": 1.5,
+      "fixture_point": [
+        640.6171875,
+        330.0
+      ],
+      "input_route": "absolute",
+      "observed": {
+        "pid": 13605,
+        "sequence": 3,
+        "busy": false,
+        "backend": "screenshot2",
+        "events": [
+          "escape",
+          "deactivate",
+          "escape",
+          "deactivate"
+        ],
+        "result": {
+          "point": [
+            641,
+            330
+          ],
+          "monitor": "Virtual-1",
+          "pixels": [
+            1920,
+            1080
+          ],
+          "probe_ms": 72.2794450011861,
+          "capture_ms": 89.74465900246287,
+          "ocr_ms": 229.64391000277828,
+          "total_ms": 391.6976900000009,
+          "word": "english",
+          "found": true,
+          "popup_target": [
+            653,
+            342,
+            280,
+            100
+          ],
+          "popup_uuid": "{5298867c-1f56-40de-b699-4af3b6ded6b4}",
+          "focus_ready": true
+        },
+        "popup_visible": true,
+        "popup_active": true,
+        "popup_rect": [
+          653,
+          342,
+          280,
+          100
+        ],
+        "tray_visible": true,
+        "tray_available": true,
+        "active_uuid": "{5298867c-1f56-40de-b699-4af3b6ded6b4}",
+        "compositor_geometry": [
+          653,
+          342,
+          280,
+          100
+        ]
+      },
+      "escape": [
+        "escape",
+        "deactivate",
+        "escape",
+        "deactivate",
+        "escape",
+        "deactivate"
+      ]
+    },
+    {
+      "scale": 2,
+      "fixture_point": [
+        480.6171875,
+        240.0
+      ],
+      "input_route": "absolute",
+      "observed": {
+        "pid": 13605,
+        "sequence": 4,
+        "busy": false,
+        "backend": "screenshot2",
+        "events": [
+          "escape",
+          "deactivate",
+          "escape",
+          "deactivate",
+          "escape",
+          "deactivate"
+        ],
+        "result": {
+          "point": [
+            481,
+            240
+          ],
+          "monitor": "Virtual-1",
+          "pixels": [
+            1920,
+            1080
+          ],
+          "probe_ms": 81.2042420002399,
+          "capture_ms": 89.65031299885595,
+          "ocr_ms": 230.91555100108963,
+          "total_ms": 401.79699700092897,
+          "word": "english",
+          "found": true,
+          "popup_target": [
+            493,
+            252,
+            280,
+            100
+          ],
+          "popup_uuid": "{89056427-8a28-4f7d-839e-8f8d1552dd86}",
+          "focus_ready": true
+        },
+        "popup_visible": true,
+        "popup_active": true,
+        "popup_rect": [
+          493,
+          252,
+          280,
+          100
+        ],
+        "tray_visible": true,
+        "tray_available": true,
+        "active_uuid": "{89056427-8a28-4f7d-839e-8f8d1552dd86}",
+        "compositor_geometry": [
+          493,
+          252,
+          280,
+          100
+        ]
+      },
+      "escape": [
+        "escape",
+        "deactivate",
+        "escape",
+        "deactivate",
+        "escape",
+        "deactivate",
+        "escape",
+        "deactivate"
+      ]
+    }
+  ],
+  "samples": {
+    "spectacle": [
+      {
+        "capture_ms": 382.83737899837433,
+        "ocr_ms": 222.75306899973657,
+        "word": "english"
+      },
+      {
+        "capture_ms": 370.1464080004371,
+        "ocr_ms": 215.27194699956453,
+        "word": "english"
+      },
+      {
+        "capture_ms": 363.6465009985841,
+        "ocr_ms": 220.3837340020982,
+        "word": "english"
+      },
+      {
+        "capture_ms": 371.1243639991153,
+        "ocr_ms": 222.9873550022603,
+        "word": "english"
+      },
+      {
+        "capture_ms": 352.24909799944726,
+        "ocr_ms": 222.34730399941327,
+        "word": "english"
+      }
+    ],
+    "screenshot2": [
+      {
+        "capture_ms": 88.48696999848471,
+        "ocr_ms": 240.35752700001467,
+        "word": "english"
+      },
+      {
+        "capture_ms": 82.12624999941909,
+        "ocr_ms": 203.15850699989824,
+        "word": "english"
+      },
+      {
+        "capture_ms": 68.76492999799666,
+        "ocr_ms": 206.20770700043067,
+        "word": "english"
+      },
+      {
+        "capture_ms": 80.51107199935359,
+        "ocr_ms": 211.2487099984719,
+        "word": "english"
+      },
+      {
+        "capture_ms": 85.10386000125436,
+        "ocr_ms": 203.86288200097624,
+        "word": "english"
+      }
+    ]
+  },
+  "limits": [
+    "Only one VM output is exposed; negative origins use portable tests."
+  ],
+  "setup": {
+    "fixture_pid": 13604,
+    "owner_pid": 13605,
+    "shortcut_available": true,
+    "normal_unlock_needed": false
+  },
+  "conflict": {
+    "other_available": false
+  },
+  "stage": "tray_menu",
+  "cold": {
+    "pid": 14375,
+    "sequence": 1,
+    "busy": false,
+    "backend": "screenshot2",
+    "events": [],
+    "result": {
+      "point": [
+        481,
+        240
+      ],
+      "monitor": "Virtual-1",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "probe_ms": 89.08963999783737,
+      "capture_ms": 101.16885699972045,
+      "ocr_ms": 262.4233260030451,
+      "total_ms": 452.72476299942355,
+      "word": "english",
+      "found": true,
+      "popup_target": [
+        493,
+        252,
+        280,
+        100
+      ],
+      "popup_uuid": "{e6afccb6-b2ec-4f76-a247-802e9ab5f530}",
+      "focus_ready": true
+    },
+    "popup_visible": true,
+    "popup_active": true,
+    "popup_rect": [
+      0,
+      0,
+      280,
+      100
+    ],
+    "tray_visible": true,
+    "tray_available": true,
+    "active_uuid": "{e6afccb6-b2ec-4f76-a247-802e9ab5f530}",
+    "compositor_geometry": [
+      493,
+      252,
+      280,
+      100
+    ]
+  },
+  "deactivate": {
+    "pid": 14375,
+    "sequence": 1,
+    "busy": false,
+    "backend": "screenshot2",
+    "events": [
+      "deactivate"
+    ],
+    "result": {
+      "point": [
+        481,
+        240
+      ],
+      "monitor": "Virtual-1",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "probe_ms": 89.08963999783737,
+      "capture_ms": 101.16885699972045,
+      "ocr_ms": 262.4233260030451,
+      "total_ms": 452.72476299942355,
+      "word": "english",
+      "found": true,
+      "popup_target": [
+        493,
+        252,
+        280,
+        100
+      ],
+      "popup_uuid": "{e6afccb6-b2ec-4f76-a247-802e9ab5f530}",
+      "focus_ready": true
+    },
+    "popup_visible": false,
+    "popup_active": false,
+    "popup_rect": [
+      0,
+      0,
+      280,
+      100
+    ],
+    "tray_visible": true,
+    "tray_available": true,
+    "active_uuid": "{dfa56a3a-6e90-426a-b7c8-6c11f27e166f}"
+  },
+  "primary": {
+    "elapsed_ms": 3.9424850001523737,
+    "offered": true
+  },
+  "tray_input_route": "absolute",
+  "tray": {
+    "pid": 14375,
+    "sequence": 1,
+    "busy": false,
+    "backend": "screenshot2",
+    "events": [
+      "deactivate",
+      "tray-menu",
+      "tray-action"
+    ],
+    "result": {
+      "point": [
+        481,
+        240
+      ],
+      "monitor": "Virtual-1",
+      "pixels": [
+        1920,
+        1080
+      ],
+      "probe_ms": 89.08963999783737,
+      "capture_ms": 101.16885699972045,
+      "ocr_ms": 262.4233260030451,
+      "total_ms": 452.72476299942355,
+      "word": "english",
+      "found": true,
+      "popup_target": [
+        493,
+        252,
+        280,
+        100
+      ],
+      "popup_uuid": "{e6afccb6-b2ec-4f76-a247-802e9ab5f530}",
+      "focus_ready": true
+    },
+    "popup_visible": false,
+    "popup_active": false,
+    "popup_rect": [
+      0,
+      0,
+      280,
+      100
+    ],
+    "tray_visible": true,
+    "tray_available": true,
+    "active_uuid": "{dfa56a3a-6e90-426a-b7c8-6c11f27e166f}",
+    "physical_icon_point": [
+      1630,
+      1057
+    ],
+    "physical_action_point": [
+      1680,
+      986
+    ]
+  },
+  "gates": {
+    "SC1": true,
+    "SC2": true,
+    "SC3": true,
+    "SC4": true
+  },
+  "required_remaining": [],
+  "restoration": {
+    "display_restored": true,
+    "desktop_restored": true,
+    "processes_stopped": true,
+    "shortcut_restored": true
+  }
+}

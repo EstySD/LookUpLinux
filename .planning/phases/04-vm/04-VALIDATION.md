@@ -1,15 +1,16 @@
 ---
 phase: 4
 slug: vm
-status: draft
-nyquist_compliant: false
-wave_0_complete: false
+status: complete
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-10-25
 ---
 
 # Phase 4 — Validation Strategy
 
-This is a verification plan, not evidence of a completed platform spike.
+Execution evidence is recorded in 04-GATE-RESULTS.json, 04-VM-RESULTS.md and
+04-REVIEW-FIX.md; the portable and live checks below have been exercised.
 
 ## Infrastructure
 
@@ -41,7 +42,7 @@ window and desktop entry, public controlled test text, and bounded harness.
 | 04-02/T1 | TRIG-01/CAPT-01; D-01/D-03/D-04/D-05; one owner/worker and timed pipeline | python -m unittest tests.test_vm_spike tests.test_platform |
 | 04-02/T2 | TRIG-01; D-03/D-05/D-06; owned shortcut, popup events, token/tray lifetimes | python -m unittest tests.test_vm_spike tests.test_platform tests.test_core_imports |
 | 04-03/T1 | All four SCs; D-01..D-08; host handshake, observed gate decisions and tested rollback | python -m unittest tests.test_vm_spike tests.test_platform |
-| 04-03/T2 | TRIG-01/CAPT-01; all four actual SCs, measured gates and PROJECT decisions | python3 tools/check_vm_spike.py --output /tmp/lookup-vm-spike-results (target with autonomous host input) |
+| 04-03/T2 | TRIG-01/CAPT-01; all four actual SCs, measured gates and PROJECT decisions | Windows host: python tools/check_vm_spike.py --output .planning/phases/04-vm/04-GATE-RESULTS.json; target actions driven over SSH |
 
 Multi-source audit: GOAL/SC1..SC4, REQ TRIG-01/CAPT-01, every CONTEXT
 D-01..D-08, and RESEARCH constraints are covered by the task map. In
@@ -83,14 +84,15 @@ evidence under --auto, never mislabeled human testing.
 
 ## Sign-Off
 
-- [ ] Pure geometry/parsing/failure tests exist and pass.
-- [ ] kdotool versus fallback gate resolved by observed window operations.
-- [ ] Spectacle versus ScreenShot2 gate resolved by measurement.
-- [ ] Actual shortcut/same-process/cold-start/conflict behavior recorded.
-- [ ] Four-scale capture/OCR checks pass; optional hardware classified.
-- [ ] Popup focus/placement/Escape/focus-loss and tray interaction proven.
-- [ ] Primary read is bounded; screenshot/FD/child/settings cleanup verified.
-- [ ] Full host/VM suites and security check pass.
-- [ ] Decisions persisted and agent acceptance recorded.
+- [x] Pure geometry/parsing/failure tests exist and pass.
+- [x] kdotool versus fallback gate resolved by observed window operations.
+- [x] Spectacle versus ScreenShot2 gate resolved by measurement.
+- [x] Actual shortcut/same-process/cold-start/conflict behavior recorded.
+- [x] Four-scale capture/OCR checks pass; optional hardware classified.
+- [x] Popup focus/placement/Escape/focus-loss and tray interaction proven.
+- [x] Primary read is bounded; screenshot/FD/child/settings cleanup verified.
+- [x] Full host/VM suites and security check pass.
+- [x] Decisions persisted and agent acceptance recorded.
 
-Approval: pending execution evidence.
+Approval: agent acceptance authorized by --auto; all four final JSON gates
+and all four restoration flags are true. No human test is claimed.

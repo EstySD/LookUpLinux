@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=LookUp VM Spike
+Comment=Owned temporary LookUp platform experiment
+Exec=@PYTHON@ @SCRIPT@ --trigger --controlled
+Icon=accessories-dictionary
+Terminal=false
+StartupNotify=true
+X-KDE-Shortcuts=Meta+Shift+D

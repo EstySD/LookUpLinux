@@ -52,6 +52,18 @@ class BoundaryTests(unittest.TestCase):
             self.assertLess(time.monotonic()-start, 2)
         self.assertEqual(run([sys.executable, '-c', "print('ok')"]), b'ok\r\n' if os.name == 'nt' else b'ok\n')
 
+    def test_inherited_stdout_cannot_block_cleanup(self):
+        import subprocess
+        child = "import subprocess,sys,time; subprocess.Popen([sys.executable,'-c','import time; time.sleep(4)']); time.sleep(4)"
+        outer = ('from lookup.platform import run,PlatformError; import sys; '
+                 f'\ntry: run([sys.executable,"-c",{child!r}],timeout=.05)'
+                 '\nexcept PlatformError as e: print(e.reason)')
+        started=time.monotonic()
+        result=subprocess.run([sys.executable,'-c',outer],capture_output=True,text=True,timeout=3)
+        self.assertEqual(result.returncode,0,result.stderr)
+        self.assertEqual(result.stdout.strip(),'timeout')
+        self.assertLess(time.monotonic()-started,2)
+
     def test_cursor_primary_and_ownership(self):
         with patch('lookup.platform.run', return_value=b'x:-12 y:30 screen:0 window:{01234567-89ab-cdef-0123-456789abcdef}\n'):
             self.assertEqual(cursor_position({}), (-12, 30))
@@ -66,6 +78,14 @@ class BoundaryTests(unittest.TestCase):
             with self.assertRaises(PlatformError):
                 window_action({}, 1, 'someone-else', 'windowactivate')
             command.assert_not_called()
+
+    def test_compositor_geometry_parser(self):
+        from lookup.platform import window_geometry
+        with patch('lookup.platform.window_action',return_value=b'Window {owned}\n  Position: -200,40\n  Geometry: 280x100\n'):
+            self.assertEqual(window_geometry({},1,'owned'),(-200,40,280,100))
+        with patch('lookup.platform.window_action',return_value=b'wrong'):
+            with self.assertRaises(PlatformError):
+                window_geometry({},1,'owned')
 
     def test_raw_metadata_rejections(self):
         valid = dict(type='raw', format=4, width=4, height=3, stride=16, scale=1.25)
