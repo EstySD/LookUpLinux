@@ -152,7 +152,7 @@ Plans:
 **UI hint**: yes
 
 - [x] 05-01 — Request engine, bounded context admission and guarded persistence
-- [ ] 05-02 — Native Breeze popup, tray, owner/client and lazy CLI
+- [x] 05-02 — Native Breeze popup, tray, owner/client and lazy CLI
 - [ ] 05-03 — Production selection/hotkey/theme/race VM validation
 
 ### Phase 6: Список слов и карточки

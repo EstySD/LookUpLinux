@@ -68,6 +68,7 @@ Percentages describe attention hierarchy, not hardcoded fills. No custom hex pal
 - Top row: searched surface form (or state heading), optional lemma/IPA directly below, Close tool button at top right. Body: ordered dictionary sources → POS/value groups → full article → original context → context translation/status. Footer: confirmed count or distinct save warning. No guessed transcription/POS and no empty metadata placeholders.
 - Exactly one vertical QScrollArea; horizontal scrolling disabled. Word-wrap body, context and long unbroken tokens; full text remains selectable. Keep Close outside scrolling; place long headings/content inside the scroll surface if needed to preserve the outer height cap.
 - Every source/provider/user string uses explicit PlainText or setPlainText, never AutoText/rich HTML. No article hyperlinks, images, file resources or remote document loading.
+- Read-only plain text blocks use anywhere wrapping, automatic document height and no inner scrollbars; the one outer scroll area owns wheel scrolling. Bound rendered body to 32000 characters/128 blocks and individual context sections to 8000 characters, showing “Показана часть слишком длинного текста.” when exceeded. Normal articles remain complete; no invisible wrapping characters are inserted into copied text.
 
 ## Interaction and Async States
 

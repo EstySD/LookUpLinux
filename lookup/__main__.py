@@ -114,12 +114,16 @@ def main(argv=None) -> int:
     group.add_argument('--text')
     group.add_argument('--image')
     group.add_argument('--list-dicts', action='store_true')
+    group.add_argument('--app', action='store_true')
+    group.add_argument('--trigger', action='store_true')
     parser.add_argument('--context')
     parser.add_argument('--at', type=_image_point)
     parser.add_argument('--offline', action='store_true')
     parser.add_argument('--no-save', action='store_true')
     try:
         args = parser.parse_args(argv)
+        if (args.app or args.trigger) and any((args.context is not None,args.at is not None,args.offline,args.no_save)):
+            parser.error('--app и --trigger не принимают параметры разового поиска')
         if args.word is not None and len(args.word.split()) > translate.MAX_PHRASE_WORDS:
             parser.error('для предложения используйте --text')
         if bool(args.image) != (args.at is not None):
@@ -128,6 +132,19 @@ def main(argv=None) -> int:
             parser.error('для изображения контекст берётся из распознанной строки')
     except SystemExit as exc:
         return exc.code
+    if args.app or args.trigger:
+        try:
+            from lookup.gui import run
+            code=run(trigger=args.trigger)
+            if code:
+                print('Не удалось запустить LookUp Linux. Повторите запуск.',file=sys.stderr)
+            return code
+        except ImportError:
+            print('Не установлен пакет python-pyqt6.',file=sys.stderr)
+            return 1
+        except Exception:
+            print('Не удалось запустить LookUp Linux в сеансе KDE Wayland.',file=sys.stderr)
+            return 1
     dictionaries = None
     conn = None
     recognition = None

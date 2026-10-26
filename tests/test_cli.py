@@ -42,6 +42,28 @@ class CliCase(unittest.TestCase):
 
 
 class CliLookupTests(CliCase):
+    def test_gui_actions_dispatch_before_dictionary_database_work(self):
+        for action in ('--app','--trigger'):
+            with mock.patch('lookup.gui.run',return_value=0) as gui, \
+                 mock.patch('lookup.__main__.dicts.open_all') as dictionaries, \
+                 mock.patch('lookup.__main__.open_store') as database:
+                self.assertEqual(self.call(action),(0,'',''))
+                gui.assert_called_once_with(trigger=action=='--trigger')
+                dictionaries.assert_not_called()
+                database.assert_not_called()
+        for extra in (('--offline',),('--no-save',),('--context','private'),('--at','1,2')):
+            with mock.patch('lookup.gui.run') as gui:
+                self.assertEqual(self.call('--trigger',*extra)[0],2)
+                gui.assert_not_called()
+
+    def test_gui_startup_errors_are_fixed_and_private(self):
+        for error,expected in ((ImportError('private path'),'python-pyqt6'),(RuntimeError('private token'),'KDE Wayland')):
+            with mock.patch('lookup.gui.run',side_effect=error):
+                code,out,err=self.call('--trigger')
+            self.assertEqual((code,out),(1,''))
+            self.assertIn(expected,err)
+            self.assertNotIn('private',err)
+
     def test_offline_article_lemma_count_and_no_save(self):
         code, out, err = self.call('--word', 'run', '--offline')
         self.assertEqual((code, err), (0, ''))
