@@ -1,0 +1,5 @@
+#separator:Tab
+#html:true
+#columns:Front	Back
+apple	яблоко<hr>Public history context.
+bank	берег, &quot;крутой&quot; &lt;b&gt;буквально&lt;/b&gt;<hr>They waited on the bank.<br>A public &lt;sign&gt; &amp; quoted &quot;scene&quot;.

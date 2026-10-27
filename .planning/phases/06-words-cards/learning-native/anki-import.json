@@ -1,0 +1,21 @@
+{
+  "verified": true,
+  "backend": "official anki Python/Rust core",
+  "version": "26.9.3",
+  "notes": 2,
+  "fields": [
+    [
+      "apple",
+      "яблоко<hr>Public history context."
+    ],
+    [
+      "bank",
+      "берег, &quot;крутой&quot; &lt;b&gt;буквально&lt;/b&gt;<hr>They waited on the bank.<br>A public &lt;sign&gt; &amp; quoted &quot;scene&quot;."
+    ]
+  ],
+  "ordinary_two_field_notetype": true,
+  "unicode_literal_html_multiline": true,
+  "unchanged_file": true,
+  "sha256": "b51e6aa2513fd5a34cfbd94bb12660971dd17959e319400fbaa68db21d4b11f6",
+  "throwaway_collection_removed": true
+}

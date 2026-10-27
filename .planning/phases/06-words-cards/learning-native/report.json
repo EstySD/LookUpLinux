@@ -1,0 +1,120 @@
+{
+  "acceptance": "agent",
+  "gates": {
+    "owner_tray": true,
+    "history_sort_search": true,
+    "history_card_duplicate": true,
+    "history_delete_count_reset": true,
+    "popup_exact_snapshot": true,
+    "review_reveal_intervals": true,
+    "native_light_dark": true,
+    "review_grade_persist_empty": true,
+    "export_roundtrip": true,
+    "dialog_cancel_atomic_failure": true
+  },
+  "cleanup": {
+    "worker_stopped": true,
+    "windows_closed": true,
+    "database_closed": true,
+    "environment_restored": true,
+    "profile_removed": true,
+    "settings_paths_removed": true
+  },
+  "observations": {
+    "interval_seconds": {
+      "Again": 600,
+      "Hard": 86400,
+      "Good": 86400,
+      "Easy": 86400
+    },
+    "default_order": [
+      "river",
+      "apple",
+      "bank"
+    ],
+    "ascending_order": [
+      "apple",
+      "bank",
+      "river"
+    ],
+    "searched": [
+      "bank"
+    ],
+    "history_reset_count": 1,
+    "popup_card_snapshot": {
+      "word": "bank",
+      "translation": "берег, \"крутой\" <b>буквально</b>",
+      "context": "They waited on the bank.\nA public <sign> & quoted \"scene\".",
+      "provider": "google-gtx-marked-v1",
+      "created_at": 1793124994,
+      "due": 1793124994,
+      "repetitions": 0,
+      "interval_days": 0,
+      "ease": 2.5,
+      "review_version": 0,
+      "span": [
+        19,
+        23
+      ]
+    },
+    "graded_bank": {
+      "word": "bank",
+      "translation": "берег, \"крутой\" <b>буквально</b>",
+      "context": "They waited on the bank.\nA public <sign> & quoted \"scene\".",
+      "provider": "google-gtx-marked-v1",
+      "created_at": 1793124994,
+      "due": 1793211454,
+      "repetitions": 1,
+      "interval_days": 1,
+      "ease": 2.5,
+      "review_version": 1,
+      "span": [
+        19,
+        23
+      ]
+    },
+    "exports": {
+      "csv_sha256": "54aa08438eeae647958215df6d0a3e065b39bd69802fe3bf1c40c6877645a632",
+      "anki_sha256": "b51e6aa2513fd5a34cfbd94bb12660971dd17959e319400fbaa68db21d4b11f6",
+      "cards": 2
+    },
+    "dialogs": "Actual QFileDialog observed and selected/canceled; os.replace fault injected only for atomic-failure gate."
+  },
+  "limits": [
+    "Controlled public displayed events; capture/hotkey/provider are previous-phase acceptance.",
+    "Actual Qt file dialogs use the in-process Qt dialog backend for deterministic selection.",
+    "No human acceptance, personal Anki profile, external sync or Phase8 acceptance."
+  ],
+  "settings_isolation": {
+    "owned_xdg_paths": [
+      "config",
+      "cache",
+      "data"
+    ],
+    "runtime_bus_unchanged": true
+  },
+  "platform": "wayland",
+  "anki_import": {
+    "verified": true,
+    "backend": "official anki Python/Rust core",
+    "version": "26.9.3",
+    "notes": 2,
+    "fields": [
+      [
+        "apple",
+        "яблоко<hr>Public history context."
+      ],
+      [
+        "bank",
+        "берег, &quot;крутой&quot; &lt;b&gt;буквально&lt;/b&gt;<hr>They waited on the bank.<br>A public &lt;sign&gt; &amp; quoted &quot;scene&quot;."
+      ]
+    ],
+    "ordinary_two_field_notetype": true,
+    "unicode_literal_html_multiline": true,
+    "unchanged_file": true,
+    "sha256": "b51e6aa2513fd5a34cfbd94bb12660971dd17959e319400fbaa68db21d4b11f6",
+    "throwaway_collection_removed": true,
+    "status": "verified"
+  },
+  "passed": true
+}
