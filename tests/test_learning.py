@@ -1,6 +1,10 @@
 """Learning operates on frozen cards, never mutable history or the network."""
-import sqlite3
+import csv
+import html
+import math
+import os
 import unittest
+from unittest import mock
 
 from lookup import learning, store
 from tests._support import make_tempdir, forbid_network
@@ -10,13 +14,15 @@ def snapshot(word='bank', translation='банк', context='The bank approved the
     return dict(word=word,translation=translation,context=context,meaning=None,span=None,provider=None)
 
 
-class CardTests(unittest.TestCase):
+class LearningCase(unittest.TestCase):
     def setUp(self):
         self.root = make_tempdir(self)
         self.conn = store.open_store(self.root/'cards.db')
         self.addCleanup(self.conn.close)
         self.network = forbid_network(self)
 
+
+class CardTests(LearningCase):
     def test_numeric_stable_history_sort_search_never_counts(self):
         for word,count in (('bank',2),('river',10),('apple',2)):
             for _ in range(count):
@@ -99,3 +105,115 @@ class CardTests(unittest.TestCase):
         self.addCleanup(reopened.close)
         self.assertEqual(learning.get_card(reopened,'bank'),card)
         self.assertIsNone(learning.get_card(reopened,'absent'))
+
+
+class ReviewTests(LearningCase):
+    def test_all_ratings_preview_equal_applied_and_no_recount(self):
+        for rating in ('Again','Hard','Good','Easy'):
+            with self.subTest(rating=rating):
+                self.conn.execute('DELETE FROM cards')
+                learning.add_card(self.conn,snapshot(),now=100)
+                state = learning.get_card(self.conn,'bank')
+                expected = learning.preview(state,rating)
+                self.assertEqual(learning.grade_card(self.conn,'bank',0,rating,now=150),'applied')
+                actual = learning.get_card(self.conn,'bank')
+                for key in ('repetitions','interval_days','ease'):
+                    self.assertEqual(actual[key],expected[key])
+                self.assertEqual(actual['due'],150+expected['delay'])
+                self.assertEqual(actual['review_version'],1)
+                self.assertEqual(self.conn.execute('SELECT count(*) FROM words').fetchone()[0],0)
+        self.network.assert_not_called()
+
+    def test_selected_transition_uses_old_ease_and_restart(self):
+        state = dict(repetitions=0,interval_days=0,ease=2.5)
+        first = learning.preview(state,'Good')
+        self.assertEqual((first['repetitions'],first['interval_days'],first['delay']),(1,1,86400))
+        second = learning.preview(first,'Good')
+        self.assertEqual(second['interval_days'],6)
+        hard = learning.preview(second,'Hard')
+        self.assertEqual(hard['interval_days'],15)
+        self.assertAlmostEqual(hard['ease'],2.36)
+        easy = learning.preview(dict(repetitions=2,interval_days=6,ease=2.36),'Easy')
+        self.assertEqual(easy['interval_days'],math.ceil(6*2.36))
+        self.assertAlmostEqual(easy['ease'],2.46)
+        again = learning.preview(hard,'Again')
+        self.assertEqual((again['repetitions'],again['interval_days'],again['delay'],again['ease']),(0,0,600,hard['ease']))
+        self.assertEqual(learning.preview(again,'Good')['interval_days'],1)
+        floor = learning.preview(dict(repetitions=2,interval_days=6,ease=1.3),'Hard')
+        self.assertEqual(floor['ease'],1.3)
+
+    def test_due_boundary_order_and_stale_duplicate_grading(self):
+        learning.add_card(self.conn,snapshot(word='river'),now=100)
+        learning.add_card(self.conn,snapshot(),now=100)
+        self.assertEqual(learning.due_cards(self.conn,now=99),[])
+        self.assertEqual([r['word'] for r in learning.due_cards(self.conn,now=100)],['bank','river'])
+        self.assertEqual(learning.grade_card(self.conn,'bank',0,'Again',now=99),'stale')
+        self.assertEqual(learning.grade_card(self.conn,'bank',0,'Again',now=100),'applied')
+        self.assertEqual(learning.grade_card(self.conn,'bank',0,'Good',now=100),'stale')
+        self.assertEqual(learning.grade_card(self.conn,'bank',1,'Good',now=699),'stale')
+        self.assertEqual(learning.grade_card(self.conn,'bank',1,'Good',now=700),'applied')
+        reopened = store.open_store(self.root/'cards.db')
+        self.addCleanup(reopened.close)
+        self.assertEqual(learning.get_card(reopened,'bank')['due'],87100)
+
+    def test_invalid_ratings_state_versions_and_time_are_refused(self):
+        state = dict(repetitions=2,interval_days=6,ease=2.5)
+        for rating in ('good','Other',None,3):
+            with self.assertRaises(learning.LearningError):
+                learning.preview(state,rating)
+        for changed in (dict(repetitions=-1),dict(repetitions=True),dict(interval_days=0),
+                        dict(interval_days=1.5),dict(ease=1.2),dict(ease=float('nan')),
+                        dict(ease=float('inf'))):
+            with self.subTest(changed=changed):
+                with self.assertRaises(learning.LearningError):
+                    learning.preview(dict(state,**changed),'Good')
+        learning.add_card(self.conn,snapshot(),now=0)
+        for version in (True,-1,'0'):
+            with self.assertRaises(learning.LearningError):
+                learning.grade_card(self.conn,'bank',version,'Good',now=0)
+        for now in (True,-1,float('nan'),float('inf'),'today'):
+            with self.assertRaises(learning.LearningError):
+                learning.due_cards(self.conn,now=now)
+
+
+class ExportTests(LearningCase):
+    def test_csv_exact_unicode_quotes_newlines_tabs_and_saved_pair(self):
+        value = snapshot(translation='=Значение, "банк"\nстрока\tдва',context='<script>x</script>\n& "контекст"\tвкладка')
+        learning.add_card(self.conn,value,now=1)
+        store.upsert_word(self.conn,'bank','совсем другое','новый контекст',now=2)
+        output = self.root/'cards.csv'
+        learning.export_csv(self.conn,output)
+        with output.open(encoding='utf-8',newline='') as stream:
+            rows = list(csv.reader(stream))
+        self.assertEqual(rows,[['word','translation','context'],[value['word'],value['translation'],value['context']]])
+        self.network.assert_not_called()
+
+    def test_anki_has_two_escaped_fields_and_recoverable_text(self):
+        value = snapshot(translation='"берег" & <img src=x>',context='Строка 1\nСтрока 2\tконец')
+        learning.add_card(self.conn,value,now=1)
+        output = self.root/'cards.tsv'
+        learning.export_anki(self.conn,output)
+        text = output.read_text(encoding='utf-8')
+        lines = text.splitlines()
+        self.assertEqual(lines[:3],['#separator:Tab','#html:true','#columns:Front\tBack'])
+        self.assertNotIn('#notetype:',text)
+        fields = next(csv.reader(lines[3:],delimiter='\t'))
+        self.assertEqual(len(fields),2)
+        self.assertEqual(html.unescape(fields[0]),'bank')
+        before,after = fields[1].split('<hr>')
+        self.assertEqual(html.unescape(before),value['translation'])
+        self.assertEqual(html.unescape(after.replace('<br>','\n')),value['context'])
+        self.assertNotIn('<img',fields[1])
+
+    def test_export_failure_keeps_old_destination_and_cleans_temp(self):
+        learning.add_card(self.conn,snapshot(),now=1)
+        for exporter in (learning.export_csv,learning.export_anki):
+            output = self.root/'old.txt'
+            output.write_bytes(b'old exact bytes')
+            before = set(self.root.iterdir())
+            with mock.patch.object(os,'replace',side_effect=OSError('private destination')):
+                with self.assertRaises(learning.LearningError) as raised:
+                    exporter(self.conn,output)
+            self.assertEqual(str(raised.exception),'export_failed')
+            self.assertEqual(output.read_bytes(),b'old exact bytes')
+            self.assertEqual(set(self.root.iterdir()),before)
