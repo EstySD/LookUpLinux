@@ -322,7 +322,21 @@ def lookup(text, *, dictset=None, conn=None, context=None, online=True,
         result.saved = True
         result.timings["db"] += (time.perf_counter() - began) * 1000
 
+    meaning_save_attempted = False
+    def persist_meaning():
+        nonlocal meaning_save_attempted
+        if meaning_save_attempted or not result.saved or request is None or result.context_meaning is None:
+            return
+        meaning_save_attempted = True
+        try:
+            matched = enrich_word_context(conn, query.key, token, request.context, (request.start, request.end),
+                                          _contextual.ContextResult(result.context_meaning, result.meaning_provider))
+            result.meaning_save_error = not matched
+        except (sqlite3.Error, OSError):
+            result.meaning_save_error = True
+
     collect_meaning()
+    persist_meaning()
     result.meaning_pending = meaning_thread is not None and not meaning_collected
     result.context_pending = thread is not None and thread.is_alive()
     if result.articles or result.online is not None:
@@ -349,13 +363,7 @@ def lookup(text, *, dictset=None, conn=None, context=None, online=True,
         else:
             collect_meaning()
     result.meaning_pending = False
-    if result.saved and request is not None and result.context_meaning is not None:
-        try:
-            matched = enrich_word_context(conn, query.key, token, request.context, (request.start, request.end),
-                                          _contextual.ContextResult(result.context_meaning, result.meaning_provider))
-            result.meaning_save_error = not matched
-        except (sqlite3.Error, OSError):
-            result.meaning_save_error = True
+    persist_meaning()
     result.context_pending = False
     result.timings["total"] = (time.perf_counter() - start) * 1000
     return result

@@ -234,12 +234,26 @@ class Engine:
                 return
             history=None
             token=uuid.uuid4().hex
+            enrichment_attempted=False
+            enrichment_error=False
             def snapshot(result):
                 timings=dict(result.timings,**query.timings)
                 for key in ('first_useful','meaning_ready'):
                     if timings.get(key,0)>0:
                         timings[key]+=lookup_offset
                 return replace(result,timings=timings)
+            def enrich(result):
+                nonlocal enrichment_attempted,enrichment_error
+                if history[0] and query.span is not None and result.context_meaning is not None:
+                    if not enrichment_attempted:
+                        enrichment_attempted=True
+                        try:
+                            matched=enrich_word_context(resources.conn,result.key,token,query.context,query.span,
+                                                        contextual.ContextResult(result.context_meaning,result.meaning_provider))
+                            enrichment_error=not matched
+                        except (sqlite3.Error,OSError,ValueError):
+                            enrichment_error=True
+                    result.meaning_save_error=enrichment_error
             def ready(result):
                 nonlocal history
                 with self._condition:
@@ -261,6 +275,7 @@ class Engine:
                                 except (sqlite3.Error,OSError,ValueError):
                                     error='unavailable'
                         history=(saved,count,error)
+                    enrich(result)
                     value=snapshot(result)
                     value.saved,value.count=history[:2]
                 self._emit(Event(identity,'ready',result=value,context=query.context,**origin,
@@ -278,13 +293,7 @@ class Engine:
             with self._condition:
                 if not self.current(identity):
                     return
-                if history[0] and query.span is not None and result.context_meaning is not None:
-                    try:
-                        matched=enrich_word_context(resources.conn,result.key,token,query.context,query.span,
-                                                    contextual.ContextResult(result.context_meaning,result.meaning_provider))
-                        result.meaning_save_error=not matched
-                    except (sqlite3.Error,OSError,ValueError):
-                        result.meaning_save_error=True
+                enrich(result)
             value=snapshot(result)
             value.saved,value.count=history[:2]
             self._emit(Event(identity,'context',result=value,context=query.context,**origin,
