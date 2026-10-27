@@ -1,6 +1,7 @@
 """Quiet offline OCR core; optional Qt and tesseract are loaded only on use."""
 import math
 import os
+import re
 import stat
 import subprocess
 import time
@@ -87,6 +88,10 @@ class Selection:
     candidates: tuple[str, ...]
     box: tuple[float, float, float, float]
     confidence: float
+    context: str | None = None
+    span: tuple[int, int] | None = None
+    context_complete: bool = False
+    candidate_spans: tuple = ()
 
 
 def parse_tsv(data: bytes, transform: Transform | None = None) -> tuple[Word, ...]:
@@ -190,6 +195,100 @@ def _distance(word, x, y):
     return max(left-x, 0, x-left-width), max(top-y, 0, y-top-height)
 
 
+def _segments(units):
+    """Split even a misclassified TSV line at a visual column boundary."""
+    result = []
+    for unit in units:
+        if not result or _gap(result[-1][-1], unit) > 3*min(result[-1][-1].box[3], unit.box[3]):
+            result.append([])
+        result[-1].append(unit)
+    return result
+
+
+def _continues(first, second):
+    a, b = first[0], second[0]
+    if a.line_id[:3] != b.line_id[:3]:
+        return False
+    height = min(a.box[3], b.box[3])
+    gap = b.box[1] - max(w.box[1]+w.box[3] for w in first)
+    # A new speaker or a separate label is a boundary even in one TSV block.
+    starts = ' '.join(w.text for w in second[:2])
+    if re.match(r'^(?:[-—–]|["“]|[A-Z][a-z]+:)', starts):
+        return False
+    return (-0.25*height <= gap <= 1.2*height and
+            max(a.box[3], b.box[3]) <= 1.4*height and
+            abs(a.box[0]-b.box[0]) <= 2*height)
+
+
+def _context(all_units, selected, candidates):
+    lines = {}
+    for unit in all_units:
+        lines.setdefault(unit.line_id, []).append(unit)
+    segments = [segment for line in lines.values() for segment in _segments(line)]
+    chosen = next(segment for segment in segments if selected in segment)
+    chain = [chosen]
+    # An ambiguous predecessor/successor is never guessed. Limit work and text.
+    before = after = False
+    while len(chain) < 4:
+        previous = [s for s in segments if s not in chain and _continues(s, chain[0])]
+        following = [s for s in segments if s not in chain and _continues(chain[-1], s)]
+        if len(previous) == 1:
+            chain.insert(0, previous[0])
+        elif len(following) == 1:
+            chain.append(following[0])
+        else:
+            before, after = bool(previous), bool(following)
+            break
+    before |= any(s not in chain and _continues(s, chain[0]) for s in segments)
+    after |= any(s not in chain and _continues(chain[-1], s) for s in segments)
+    text, positions, wrapped = '', {}, {}
+    for row, segment in enumerate(chain):
+        for column, unit in enumerate(segment):
+            join = (row > 0 and column == 0 and text.endswith(('-', '‐', '‑')) and
+                    _fragment(chain[row-1][-1]) and _fragment(unit) and
+                    unit.text[0].islower() and chain[row-1][-1].text[-2:-1].isalpha())
+            if join:
+                previous = chain[row-1][-1]
+                start = positions[id(previous)][0]
+                text = text[:-1] + unit.text
+                end = len(text)
+                positions[id(previous)] = positions[id(unit)] = (start, end)
+                joined = normalize(text[start:end])
+                wrapped[id(previous)] = wrapped[id(unit)] = joined
+            else:
+                if text:
+                    text += '\n' if column == 0 else ' '
+                start = len(text)
+                text += unit.text
+                positions[id(unit)] = (start, len(text))
+    span = positions[id(selected)]
+    # Sentence delimiters are accepted only outside the actual selected source.
+    ends = list(re.finditer(r'[.!?]["”\u2019\']?(?=\s|$)', text))
+    left = max((m.end() for m in ends if m.end() <= span[0]), default=0)
+    right = next((m.end() for m in ends if m.start() >= span[1]-1), len(text))
+    while left < span[0] and text[left].isspace():
+        left += 1
+    complete = (any(m.end() == right for m in ends) and
+                (left > 0 or (not before and text[:1].isupper())) and
+                not any(w.confidence < MIN_CONFIDENCE for s in chain for w in s))
+    if right == len(text) and after and not any(m.end() == right for m in ends):
+        complete = False
+    if right-left > 500:
+        complete = False
+        left = max(left, span[0]-max(0, (500-(span[1]-span[0]))//2))
+        right = min(right, left+500)
+        left = max(left, right-500)
+    if span[0] < left or span[1] > right:
+        return text[left:right], None, False, (), None
+    candidate_spans = []
+    for candidate, first, second in candidates:
+        a, b = positions.get(id(first)), positions.get(id(second))
+        if a and b and left <= a[0] < b[1] <= right and normalize(text[a[0]:b[1]]) == candidate:
+            candidate_spans.append((candidate, (a[0]-left, b[1]-left)))
+    return (text[left:right], (span[0]-left, span[1]-left), complete,
+            tuple(candidate_spans), wrapped.get(id(selected)))
+
+
 def select_word(words, point) -> Selection | None:
     x, y = _point(point)
     lines = {}
@@ -217,6 +316,7 @@ def select_word(words, point) -> Selection | None:
     units = [w for w in all_units if w.line_id == selected.line_id]
     index = units.index(selected)
     candidates = []
+    candidate_units = []
     for a, b in ((index, index+1), (index-1, index)):
         if a < 0 or b >= len(units):
             continue
@@ -226,8 +326,12 @@ def select_word(words, point) -> Selection | None:
                 or not 0 <= _gap(first, second) <= PAIR_GAP*min(first.box[3], second.box[3])):
             continue
         candidates.append(_key(first) + ' ' + _key(second))
+        candidate_units.append((candidates[-1], first, second))
     line = ' '.join(w.text for w in lines[selected.line_id])
-    return Selection(_key(selected), line, tuple(candidates), selected.box, selected.confidence)
+    context, span, complete, candidate_spans, wrapped = _context(all_units, selected, candidate_units)
+    return Selection(wrapped or _key(selected), line, () if wrapped else tuple(candidates),
+                     selected.box, selected.confidence, context, span, complete,
+                     () if wrapped else candidate_spans)
 
 
 def choose_query(selection: Selection, dictset=None) -> str:
