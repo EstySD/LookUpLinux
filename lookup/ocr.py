@@ -21,6 +21,7 @@ NEAR_Y = 0.25
 HYPHEN_GAP = 0.5
 PAIR_GAP = 1.5
 _HEADER = 'level page_num block_num par_num line_num word_num left top width height conf text'.split()
+_ABBREVIATIONS = re.compile(r'\b(?:Mr|Mrs|Ms|Dr|Prof|St|vs|etc|[A-Z])\.')
 _REASONS = frozenset(('bad_output', 'invalid_point', 'missing_pyqt6', 'missing_tesseract',
                       'missing_eng', 'invalid_image', 'too_large', 'timeout', 'process_failed'))
 
@@ -209,6 +210,10 @@ def _continues(first, second):
     a, b = first[0], second[0]
     if a.line_id[:2] != b.line_id[:2]:
         return False
+    # A preceding completed sentence must not spend the selected sentence's line budget.
+    if (re.search(r'[.!?]["”\u2019\']?$',first[-1].text)
+            and not _ABBREVIATIONS.search(first[-1].text)):
+        return False
     # Tesseract can split a wrapped sentence into paragraphs inside one block.
     # Bridge only an aligned lowercase continuation after an unfinished line.
     if a.line_id[:3] != b.line_id[:3] and (not b.text[:1].islower() or
@@ -250,7 +255,7 @@ def _context(all_units, selected, candidates):
     for row, segment in enumerate(chain):
         for column, unit in enumerate(segment):
             join = (row > 0 and column == 0 and text.endswith(('-', '‐', '‑')) and
-                    _fragment(chain[row-1][-1]) and _fragment(unit) and
+                    _fragment(chain[row-1][-1]) and _key(unit) and
                     unit.text[0].islower() and chain[row-1][-1].text[-2:-1].isalpha())
             if join:
                 previous = chain[row-1][-1]
@@ -268,11 +273,11 @@ def _context(all_units, selected, candidates):
                 positions[id(unit)] = (start, len(text))
     span = positions[id(selected)]
     # Sentence delimiters are accepted only outside the actual selected source.
-    abbreviations = list(re.finditer(r'\b(?:Mr|Mrs|Ms|Dr|Prof|St|vs|etc|[A-Z])\.', text))
+    abbreviations = list(_ABBREVIATIONS.finditer(text))
     ends = [m for m in re.finditer(r'[.!?]["”\u2019\']?(?=\s|$)', text)
             if not any(a.start() <= m.start() < a.end() for a in abbreviations)]
     left = max((m.end() for m in ends if m.end() <= span[0]), default=0)
-    right = next((m.end() for m in ends if m.start() >= span[1]-1), len(text))
+    right = next((m.end() for m in ends if m.end() >= span[1]), len(text))
     while left < span[0] and text[left].isspace():
         left += 1
     complete = (any(m.end() == right for m in ends) and

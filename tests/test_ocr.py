@@ -198,6 +198,25 @@ class ContextTests(unittest.TestCase):
             self.assert_span(selected, 'translation')
             self.assertEqual(selected.candidates, ())
 
+    def test_hyphen_wrap_with_final_punctuation_maps_both_halves(self):
+        for ending in ('lation.', 'lation."'):
+            words=paragraph('They showed the trans-',ending,'Another sentence follows.')
+            for token in ('trans-',ending):
+                selected=self.select(words,token)
+                self.assertEqual(selected.word,'translation')
+                self.assertEqual(selected.context,'They showed the trans'+ending)
+                self.assertTrue(selected.context_complete)
+                self.assert_span(selected,'trans'+ending)
+
+    def test_completed_previous_sentence_does_not_consume_four_line_budget(self):
+        lines=('They sat on the bank','of the river and watched',
+               'the ducks swim past','until the sun set.')
+        words=paragraph('We slept.',*lines)
+        for token in ('bank','ducks','set.'):
+            selected=self.select(words,token)
+            self.assertEqual(selected.context,'\n'.join(lines))
+            self.assertTrue(selected.context_complete)
+
     def test_phrase_spans_and_context_bound(self):
         selected = self.select(paragraph('We break out together.'), 'break')
         spans = dict(selected.candidate_spans)
