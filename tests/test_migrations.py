@@ -54,6 +54,28 @@ def _columns(conn):
 M2 = V1 + (_add_probe,)  # synthetic second schema version (D-19)
 
 
+class ContextMigrationTests(_Watchdog):
+    def test_v2_cache_and_words_survive_additive_v3_migration(self):
+        root = make_tempdir(self)
+        path = root/'old.db'
+        old = open_store(path,migrations=store.MIGRATIONS[:2])
+        upsert_word(old,'bank','банк','The bank.',now=1)
+        upsert_word(old,'bank',now=2)
+        old.execute("INSERT INTO translations VALUES ('bank','word','google','{}',3)")
+        old.execute("INSERT INTO meta VALUES ('google_client','gtx')")
+        old.close()
+        conn = open_store(path)
+        self.addCleanup(conn.close)
+        self.assertEqual(conn.execute('PRAGMA user_version').fetchone()[0],3)
+        self.assertEqual(conn.execute('SELECT word,translation,context,count,first_seen,last_seen FROM words').fetchone(),
+                         ('bank','банк','The bank.',2,1,2))
+        self.assertEqual(conn.execute('SELECT * FROM translations').fetchone(),('bank','word','google','{}',3))
+        self.assertEqual(conn.execute('SELECT * FROM meta').fetchone(),('google_client','gtx'))
+        self.assertIsNone(conn.execute('SELECT context_meaning FROM words').fetchone()[0])
+        self.assertEqual(conn.execute('SELECT count(*) FROM contextual_translations').fetchone()[0],0)
+        self.assertTrue((root/'old.db.bak-v2').is_file())
+
+
 class SchemaLifecycleTests(_Watchdog):
     def setUp(self):
         super().setUp()

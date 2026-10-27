@@ -7,6 +7,8 @@ from unittest import mock
 from urllib.parse import parse_qs, urlsplit
 
 from lookup import context, online
+from lookup.store import open_store
+from tests._support import make_tempdir
 
 
 def request(text='They sat on the bank of the river.', selected='bank'):
@@ -70,6 +72,57 @@ class ProviderTests(unittest.TestCase):
                         replace(valid, **fields)
                     self.assertEqual(str(raised.exception), 'bad_response')
             fetch.assert_not_called()
+
+
+class CacheTests(unittest.TestCase):
+    def setUp(self):
+        self.root = make_tempdir(self)
+        self.conn = open_store(self.root/'cache.db')
+        self.addCleanup(self.conn.close)
+
+    def test_cache_separates_all_identity_dimensions(self):
+        text = 'The bank is next to the bank.'
+        original = request(text)
+        second = replace(original,start=text.rindex('bank'),end=text.rindex('bank')+4)
+        alternate = request('The bank approved the loan.')
+        method = replace(original,provider='other-v1')
+        target = replace(original,target='en')
+        selected = replace(original,start=text.index('next'),end=text.index('next')+4,word='next')
+        for i, req in enumerate((original,second,alternate,method,target,selected)):
+            value = context.ContextResult('берег' if i%2 else 'банк',req.provider)
+            context.cache_put(self.conn,req,value,now=i)
+            self.assertEqual(context.cache_get(self.conn,req),value)
+        self.assertEqual(self.conn.execute('SELECT count(*) FROM contextual_translations').fetchone()[0],6)
+        self.assertEqual(context.cache_get(self.conn,original).meaning,'банк')
+
+    def test_corrupt_payload_and_provider_mismatch_miss(self):
+        req = request()
+        for payload in ('not json','[]','{}','{"meaning":"bank","provider":"google-gtx-marked-v1"}',
+                        '{"meaning":"берег","provider":"other-v1"}'):
+            context.cache_put(self.conn,req,context.ContextResult('берег',req.provider))
+            self.conn.execute('UPDATE contextual_translations SET payload=?',(payload,))
+            self.assertIsNone(context.cache_get(self.conn,req))
+
+    def test_cache_validation_precedes_database_access(self):
+        conn = mock.Mock()
+        for operation in (context.cache_get,context.cache_put):
+            with self.assertRaises(online.TranslateError):
+                if operation is context.cache_get:
+                    operation(conn,None)
+                else:
+                    operation(conn,request(),context.ContextResult('bank',request().provider))
+        conn.execute.assert_not_called()
+
+    def test_bound_and_refresh(self):
+        with mock.patch.object(context,'CACHE_LIMIT',3):
+            for i in range(5):
+                req = request('The bank '+str(i)+' approved the loan.')
+                context.cache_put(self.conn,req,context.ContextResult('банк',req.provider),now=i)
+        self.assertEqual(self.conn.execute('SELECT count(*) FROM contextual_translations').fetchone()[0],3)
+        self.assertIsNone(context.cache_get(self.conn,request('The bank 0 approved the loan.')))
+
+class RejectionTests(unittest.TestCase):
+    translated = ProviderTests.translated
 
     def test_malformed_or_unsuitable_spans_are_private_errors(self):
         invalid = ['Перевод без метки.', '<b>берег</b><b>банк</b>', '<b>берег',

@@ -25,11 +25,12 @@ class UpsertTests(unittest.TestCase):
     def count_rows(self):
         return self.conn.execute("SELECT COUNT(*) FROM words").fetchone()[0]
 
-    def test_schema_v2_tables_and_columns(self):
+    def test_schema_v3_tables_and_columns(self):
         info = self.conn.execute("PRAGMA table_info(words)").fetchall()
         self.assertEqual(
             [r[1] for r in info],
-            ["word", "translation", "context", "count", "first_seen", "last_seen", "lemma"],
+            ["word", "translation", "context", "count", "first_seen", "last_seen", "lemma",
+             "context_start", "context_end", "context_token", "context_meaning", "context_provider"],
         )
         self.assertEqual([r[1] for r in info if r[5]], ["word"])
         tables = [
@@ -38,9 +39,9 @@ class UpsertTests(unittest.TestCase):
                 "SELECT name FROM sqlite_master WHERE type = 'table'"
             )
         ]
-        self.assertEqual(sorted(tables), ["meta", "translations", "words"])
+        self.assertEqual(sorted(tables), ["contextual_translations", "meta", "translations", "words"])
         self.assertEqual(self.conn.execute("PRAGMA user_version").fetchone()[0], CURRENT_VERSION)
-        self.assertEqual(CURRENT_VERSION, 2)
+        self.assertEqual(CURRENT_VERSION, 3)
         tr = self.conn.execute("PRAGMA table_info(translations)").fetchall()
         self.assertEqual(
             [r[1] for r in tr], ["text", "kind", "provider", "payload", "fetched_at"]
@@ -218,7 +219,7 @@ class SchemaV2Tests(unittest.TestCase):
         upsert_word(old, "run", None, None, now=2)
         old.close()
 
-        conn = open_store(path)
+        conn = open_store(path, migrations=store.MIGRATIONS[:2])
         self.addCleanup(conn.close)
         self.assertEqual(conn.execute("PRAGMA user_version").fetchone()[0], 2)
         self.assertEqual(
@@ -239,6 +240,83 @@ class SchemaV2Tests(unittest.TestCase):
         self.addCleanup(b.close)
         self.assertEqual(b.execute("PRAGMA user_version").fetchone()[0], 1)
         self.assertEqual(b.execute("SELECT count FROM words").fetchone()[0], 2)
+
+
+class ContextPairTests(unittest.TestCase):
+    def setUp(self):
+        self.root = make_tempdir(self)
+        self.conn = open_store(self.root/'pair.db')
+        self.addCleanup(self.conn.close)
+        self.context = '  They sat on the bank\nof the river.  '
+        start = self.context.index('bank')
+        self.span = (start,start+4)
+
+    def save(self, token='event-one', **kwargs):
+        return upsert_word(self.conn,'bank','словарь',self.context,now=10,
+                           context_span=self.span,context_token=token,**kwargs)
+
+    def enrich(self, token='event-one', text=None, span=None):
+        from lookup.context import ContextResult, PROVIDER
+        return store.enrich_word_context(self.conn,'bank',token,
+                                         self.context if text is None else text,
+                                         self.span if span is None else span,
+                                         ContextResult('берег',PROVIDER))
+
+    def test_exact_source_pair_and_snapshot_without_recount(self):
+        self.assertEqual(self.save(),1)
+        self.assertTrue(self.enrich())
+        self.assertTrue(self.enrich())
+        row = store.get_word_context(self.conn,'bank')
+        self.assertEqual(row['context'],self.context)
+        self.assertEqual(row['span'],self.span)
+        self.assertEqual(row['meaning'],'берег')
+        self.assertEqual(row['translation'],'словарь')
+        self.assertEqual(self.conn.execute('SELECT count,first_seen,last_seen FROM words').fetchone(),(1,10,10))
+        self.assertIsNone(store.get_word_context(self.conn,'absent'))
+
+    def test_new_event_clears_old_meaning_and_refuses_old_token(self):
+        self.save()
+        self.enrich()
+        self.assertEqual(self.save('event-two'),2)
+        self.assertFalse(self.enrich())
+        self.assertIsNone(store.get_word_context(self.conn,'bank')['meaning'])
+        self.assertTrue(self.enrich('event-two'))
+
+    def test_exact_context_span_and_recreated_record_are_guarded(self):
+        self.save()
+        self.assertFalse(self.enrich(text=self.context.strip()))
+        self.assertFalse(self.enrich(span=(self.span[0]-1,self.span[1])))
+        self.conn.execute('DELETE FROM words')
+        self.save('recreated-event')
+        self.assertFalse(self.enrich())
+        self.assertEqual(self.conn.execute('SELECT count FROM words').fetchone()[0],1)
+
+    def test_lookup_without_span_keeps_legacy_context_but_clears_sense(self):
+        self.save()
+        self.enrich()
+        upsert_word(self.conn,'bank',context=None,now=11)
+        row = store.get_word_context(self.conn,'bank')
+        self.assertEqual(row['context'],self.context)
+        self.assertIsNone(row['meaning'])
+        self.assertIsNone(row['span'])
+        self.assertFalse(self.enrich())
+
+    def test_invalid_exact_pair_does_not_count_or_truncate(self):
+        for text, span, token in ((self.context,(True,5),'x'),(self.context,(-1,5),'x'),
+                                  (self.context,(0,500),'x'),('x'*501,(0,4),'x'),
+                                  (self.context,self.span,None)):
+            with self.subTest(span=span,token=token):
+                with self.assertRaises((ValueError,TypeError)):
+                    upsert_word(self.conn,'bank',context=text,context_span=span,context_token=token)
+        self.assertEqual(self.conn.execute('SELECT count(*) FROM words').fetchone()[0],0)
+
+    def test_legacy_schema_writes_still_work_but_cannot_claim_enrichment(self):
+        old = open_store(self.root/'v1.db',migrations=V1)
+        self.addCleanup(old.close)
+        self.assertEqual(upsert_word(old,'bank','банк','The bank.',now=1),1)
+        with self.assertRaises(sqlite3.OperationalError):
+            upsert_word(old,'bank',context=self.context,context_span=self.span,context_token='x')
+        self.assertEqual(old.execute('SELECT count FROM words').fetchone()[0],1)
 
 
 if __name__ == "__main__":
