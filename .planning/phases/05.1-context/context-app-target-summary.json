@@ -9,13 +9,23 @@
   "pyqt": "6.11.0",
   "full_suite": {
     "command": "QT_QPA_PLATFORM=offscreen LOOKUP_TEST_OCR=1 LOOKUP_TEST_DICTS=/home/arch/.local/share/lookup/dicts python -m unittest discover -s tests",
-    "tests": 606,
+    "tests": 607,
     "skipped": 0,
     "failures": 0,
     "errors": 0,
-    "seconds": 35.256,
+    "seconds": 33.479,
     "result": "OK",
-    "log": "context-app-target-tests.txt",
+    "log": "context-app-final-target-tests.txt",
+    "previous_successful_run": "context-app-target-tests.txt (606 tests, zero skips, 35.256s)",
+    "transient_timing_failure": {
+      "initial_latest_suite": "607 tests, 1 failure, 35.172s; preserved before repeat in the same final log.",
+      "test": "test_translate.SentenceTests.test_timeout_is_bounded_and_does_not_write_late",
+      "observed_elapsed_seconds": 1.4332878299974254,
+      "assertion": "elapsed < 1 second with CONTEXT_JOIN_S mocked to 0.2 seconds",
+      "focused_followup": "1 test OK in 0.438s",
+      "full_followup": "607 tests OK, zero skips, 33.479s, without source changes or assertion relaxation",
+      "limit": "One wall-clock timing failure was not reproduced in focused/full followups; transient scheduling/load is a possibility, not proven."
+    },
     "previous_host_skips_executed": {
       "posix_modes_and_symlinks": 4,
       "real_mueller_dictionary": 2,
@@ -32,11 +42,15 @@
     }
   },
   "updated_ocr_image_matrix": {
-    "passed": 104,
+    "passed": 144,
     "failed": 0,
     "scales": [1, 1.25, 1.5, 2],
     "themes": ["light", "dark"],
-    "report": "context-app-updated-image-report.json"
+    "report": "context-app-final-image-report.json",
+    "scenes": 18,
+    "additional_regressions": ["four lines after a completed sentence", "terminal punctuation on both wrapped-word halves", "single-letter dialogue speakers", "uppercase dialogue speakers"],
+    "previous_report": "context-app-updated-image-report.json (104/104)",
+    "native_followup": "The eight native UI gates were not repeated: the final source change is confined to OCR boundaries; the expanded real-image matrix and full target suite cover it."
   },
   "native_flow": {
     "passed_gates": 8,

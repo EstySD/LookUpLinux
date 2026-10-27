@@ -1,0 +1,119 @@
+..........................................{"stage": "prepare", "error": "controlled_setup_failure", "restoration": {"display_restored": true, "theme_unchanged": true, "desktop_restored": true, "processes_stopped": true, "shortcut_restored": true, "errors": []}}
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=13, pipe_handle=27)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/usr/lib/python3.14/multiprocessing/spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+  File "/usr/lib/python3.14/multiprocessing/synchronize.py", line 117, in __setstate__
+    self._semlock = _multiprocessing.SemLock._rebuild(*state)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=13, pipe_handle=31)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/usr/lib/python3.14/multiprocessing/spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+  File "/usr/lib/python3.14/multiprocessing/synchronize.py", line 117, in __setstate__
+    self._semlock = _multiprocessing.SemLock._rebuild(*state)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=13, pipe_handle=29)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/usr/lib/python3.14/multiprocessing/spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+  File "/usr/lib/python3.14/multiprocessing/synchronize.py", line 117, in __setstate__
+    self._semlock = _multiprocessing.SemLock._rebuild(*state)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory
+............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................F........................
+======================================================================
+FAIL: test_timeout_is_bounded_and_does_not_write_late (test_translate.SentenceTests.test_timeout_is_bounded_and_does_not_write_late)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/arch/LookUpLinux-gsd-context-051/tests/test_translate.py", line 282, in test_timeout_is_bounded_and_does_not_write_late
+    self.assertLess(elapsed, 1)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: 1.4332878299974254 not less than 1
+
+----------------------------------------------------------------------
+Ran 607 tests in 35.172s
+
+FAILED (failures=1)
+
+REPEAT FULL SUITE: no source changes; focused timeout test passed (1 test, 0.438s).
+..........................................{"stage": "prepare", "error": "controlled_setup_failure", "restoration": {"display_restored": true, "theme_unchanged": true, "desktop_restored": true, "processes_stopped": true, "shortcut_restored": true, "errors": []}}
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=13, pipe_handle=31)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/usr/lib/python3.14/multiprocessing/spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+  File "/usr/lib/python3.14/multiprocessing/synchronize.py", line 117, in __setstate__
+    self._semlock = _multiprocessing.SemLock._rebuild(*state)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=13, pipe_handle=23)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/usr/lib/python3.14/multiprocessing/spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+  File "/usr/lib/python3.14/multiprocessing/synchronize.py", line 117, in __setstate__
+    self._semlock = _multiprocessing.SemLock._rebuild(*state)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=13, pipe_handle=29)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/usr/lib/python3.14/multiprocessing/spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+  File "/usr/lib/python3.14/multiprocessing/synchronize.py", line 117, in __setstate__
+    self._semlock = _multiprocessing.SemLock._rebuild(*state)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=13, pipe_handle=27)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/usr/lib/python3.14/multiprocessing/spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+  File "/usr/lib/python3.14/multiprocessing/synchronize.py", line 117, in __setstate__
+    self._semlock = _multiprocessing.SemLock._rebuild(*state)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=13, pipe_handle=33)
+                                                  ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/multiprocessing/spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "/usr/lib/python3.14/multiprocessing/spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+  File "/usr/lib/python3.14/multiprocessing/synchronize.py", line 117, in __setstate__
+    self._semlock = _multiprocessing.SemLock._rebuild(*state)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory
+.....................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+----------------------------------------------------------------------
+Ran 607 tests in 33.479s
+
+OK
