@@ -1,5 +1,10 @@
 """Acceptance cannot pass with missing gates or incomplete cleanup."""
+import json
+from pathlib import Path
+import subprocess
+import tempfile
 import unittest
+from unittest import mock
 
 from tools import check_learning_app as check
 
@@ -32,3 +37,22 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(report['status'],'unverified')
         report=check.import_status(dict(verified=True,unchanged_file=True))
         self.assertTrue(report['verified'])
+
+    def test_available_import_failure_fails_run_without_losing_cleanup(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output=Path(directory)
+            for failure in ('timeout','invalid_json','failed_import'):
+                report=self.evidence()
+                def run(*args,**kwargs):
+                    if failure=='timeout':raise subprocess.TimeoutExpired('anki',1)
+                    (output/'anki-import.json').write_text('invalid' if failure=='invalid_json' else json.dumps(dict(verified=False)))
+                    return subprocess.CompletedProcess([],0,'','')
+                with mock.patch.object(check.subprocess,'run',side_effect=run):
+                    check.finish_import(report,output,Path('isolated-anki-python'))
+                self.assertFalse(report['passed'],failure)
+                self.assertFalse(report['anki_import']['verified'],failure)
+                self.assertEqual(report['cleanup'],self.evidence()['cleanup'])
+            report=self.evidence()
+            check.finish_import(report,output,None)
+            self.assertTrue(report['passed'])
+            self.assertFalse(report['anki_import']['verified'])
