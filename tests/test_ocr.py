@@ -178,6 +178,14 @@ class ContextTests(unittest.TestCase):
         selected = self.select(words, 'bank.')
         self.assertNotIn('Bob', selected.context)
 
+    def test_initial_uppercase_and_multiword_speaker_labels_are_boundaries(self):
+        for first,second in (('A','B'),('GUARD','MERCHANT'),('Old Guard','Young Merchant'),
+                             ('NPC_1','NPC_2'),('alice','bob')):
+            words=paragraph(first+': They stood on the bank',second+': She deposited money.')
+            selected=self.select(words,'bank')
+            self.assertEqual(selected.context,first+': They stood on the bank')
+            self.assertFalse(selected.context_complete)
+
     def test_fragment_low_confidence_and_four_line_limit(self):
         words = paragraph('walking near the bank', 'of the river without an end')
         selected = self.select(words, 'bank')

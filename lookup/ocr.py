@@ -223,7 +223,7 @@ def _continues(first, second):
     gap = b.box[1] - max(w.box[1]+w.box[3] for w in first)
     # A new speaker or a separate label is a boundary even in one TSV block.
     starts = ' '.join(w.text for w in second[:2])
-    if re.match(r'^(?:[-—–]|["“]|[A-Z][a-z]+:)', starts):
+    if re.match(r'^(?:[-—–]|["“]|[A-Za-z][A-Za-z0-9_ -]{0,63}:)', starts):
         return False
     return (-0.25*height <= gap <= 1.2*height and
             max(a.box[3], b.box[3]) <= 1.4*height and

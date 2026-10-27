@@ -26,6 +26,9 @@ def scenes():
                                       'the ducks swim past.'], target=(0, 'bank')),
         dict(name='four-lines', lines=['They sat on the bank', 'of the river and watched',
                                      'the ducks swim past', 'until the sun set.'], target=(1, 'river')),
+        dict(name='four-lines-after-sentence', lines=['We slept.', 'They sat on the bank',
+             'of the river and watched', 'the ducks swim past', 'until the sun set.'], target=(1, 'bank'),
+             context='They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.'),
         dict(name='repeated-first', lines=['The bank of the river', 'stands next to the bank with money.'], target=(0, 'bank')),
         dict(name='repeated-second', lines=['The bank of the river', 'stands next to the bank with money.'], target=(1, 'bank')),
         dict(name='two-sentences', lines=['The bank approved a loan.', 'They sat by the bank of the river.'],
@@ -34,11 +37,19 @@ def scenes():
              target=(0, 'trans-'), context='They showed the translation of this word.', word='translation'),
         dict(name='hyphen-second', lines=['They showed the trans-', 'lation of this word.'],
              target=(1, 'lation'), context='They showed the translation of this word.', word='translation'),
+        dict(name='hyphen-terminal-first', lines=['They showed the trans-', 'lation.'],
+             target=(0, 'trans-'), context='They showed the translation.', word='translation',span_text='translation.'),
+        dict(name='hyphen-terminal-second', lines=['They showed the trans-', 'lation.'],
+             target=(1, 'lation.'), context='They showed the translation.', word='translation',span_text='translation.'),
         dict(name='columns', lines=two, target=(0, 'bank'),
              extras=[('Unrelated nearby column.', 700, 20, 18), ('Other unrelated words.', 700, 45, 18)]),
         dict(name='caption', lines=two, target=(0, 'bank'), extras=[('Caption below the scene.', 20, 95, 12)]),
         dict(name='dialogue', lines=['Alice: They reached the bank.', 'Bob: I saw the river.'],
              target=(0, 'bank.'), context='Alice: They reached the bank.', span_text='bank.'),
+        dict(name='dialogue-initial', lines=['A: They stood on the bank', 'B: She deposited money.'],
+             target=(0, 'bank'),context='A: They stood on the bank',complete=False),
+        dict(name='dialogue-uppercase', lines=['GUARD: They stood on the bank', 'MERCHANT: She deposited money.'],
+             target=(0, 'bank'),context='GUARD: They stood on the bank',complete=False),
         dict(name='fragment', lines=['walking near the bank', 'of the river without an end'],
              target=(0, 'bank'), complete=False),
         dict(name='ambiguous-boundary', lines=['They waited near the bank', 'another unrelated fragment'],
@@ -50,7 +61,7 @@ def render(scene, path, scale, dark):
     from PyQt6.QtCore import QPointF
     from PyQt6.QtGui import QColor, QFont, QFontMetricsF, QImage, QPainter
 
-    image = QImage(round(1100*scale), round(124*scale), QImage.Format.Format_RGB32)
+    image = QImage(round(1100*scale), round(max(124,24+25*len(scene['lines']))*scale), QImage.Format.Format_RGB32)
     image.fill(QColor('#232629' if dark else '#ffffff'))
     painter = QPainter(image)
     painter.scale(scale, scale)
