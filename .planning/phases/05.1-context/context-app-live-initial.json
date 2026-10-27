@@ -1,0 +1,73 @@
+{
+  "acceptance": "agent",
+  "provider": "google-gtx-marked-v1",
+  "cases": [
+    {
+      "name": "river",
+      "passed": false,
+      "meaning": null,
+      "meaning_error": "blocked",
+      "matching_pair": true,
+      "count": 1,
+      "first_useful_ms": 3.4994650013686623,
+      "meaning_ready_ms": 426.2891140024294
+    },
+    {
+      "name": "finance",
+      "passed": false,
+      "meaning": null,
+      "meaning_error": "blocked",
+      "matching_pair": true,
+      "count": 2,
+      "first_useful_ms": 1.7484739983046893,
+      "meaning_ready_ms": 607.1492989976832
+    },
+    {
+      "name": "repeat-river",
+      "passed": false,
+      "meaning": null,
+      "meaning_error": "blocked",
+      "matching_pair": true,
+      "count": 3,
+      "first_useful_ms": 2.338723999855574,
+      "meaning_ready_ms": 600.216579001426
+    },
+    {
+      "name": "repeat-finance",
+      "passed": false,
+      "meaning": null,
+      "meaning_error": "blocked",
+      "matching_pair": true,
+      "count": 4,
+      "first_useful_ms": 1.3567519999924116,
+      "meaning_ready_ms": 466.64567200059537
+    },
+    {
+      "name": "multiline",
+      "passed": false,
+      "meaning": null,
+      "meaning_error": "blocked",
+      "matching_pair": true,
+      "count": 5,
+      "first_useful_ms": 2.1268700002110563,
+      "meaning_ready_ms": 391.0063059993263
+    },
+    {
+      "name": "phrase",
+      "passed": false,
+      "meaning": null,
+      "meaning_error": "blocked",
+      "matching_pair": true,
+      "count": 1,
+      "first_useful_ms": 1.979051001399057,
+      "meaning_ready_ms": 433.44872200032114
+    }
+  ],
+  "limits": [
+    "Finite synthetic live corpus; public endpoint is undocumented.",
+    "No human or Phase8 game/performance acceptance."
+  ],
+  "cache_reused": false,
+  "offline_article_retained": true,
+  "passed": false
+}

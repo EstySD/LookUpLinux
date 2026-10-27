@@ -1,0 +1,61 @@
+{
+  "acceptance": "agent",
+  "date": "2026-10-27",
+  "target": "archvm",
+  "repository": "/home/arch/LookUpLinux-gsd-context-051",
+  "python": "3.14.8",
+  "tesseract": "5.5.3",
+  "qt": "6.12.0",
+  "pyqt": "6.11.0",
+  "full_suite": {
+    "command": "QT_QPA_PLATFORM=offscreen LOOKUP_TEST_OCR=1 LOOKUP_TEST_DICTS=/home/arch/.local/share/lookup/dicts python -m unittest discover -s tests",
+    "tests": 606,
+    "skipped": 0,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 35.256,
+    "result": "OK",
+    "log": "context-app-target-tests.txt",
+    "previous_host_skips_executed": {
+      "posix_modes_and_symlinks": 4,
+      "real_mueller_dictionary": 2,
+      "context_image_matrix_at_1x": 1,
+      "opt_in_breeze_ocr_cli": 1
+    },
+    "diagnostic_limit": "Multiprocessing child cancellation/spawn diagnostics appeared in the log; the unittest runner reported zero errors/failures."
+  },
+  "updated_ocr_image_matrix": {
+    "passed": 104,
+    "failed": 0,
+    "scales": [1, 1.25, 1.5, 2],
+    "themes": ["light", "dark"],
+    "report": "context-app-updated-image-report.json"
+  },
+  "native_flow": {
+    "passed_gates": 8,
+    "failed_gates": 0,
+    "physical_hotkey_capture_ocr": true,
+    "network_replies": "Controlled finite synthetic oracle; no public provider request in native UI harness.",
+    "restoration": "Display, theme, desktop shortcut and owned processes restored.",
+    "report": "context-app-native/report.json",
+    "screenshots": ["context-app-native/native-light.png", "context-app-native/native-dark-fragment-125.png"],
+    "visual_review": "Both synthetic popup images inspected; separate meaning/article/source/fragment/footer are legible."
+  },
+  "live_production_provider": {
+    "host": "Windows host production lookup/context transport",
+    "passed": 6,
+    "failed": 0,
+    "cache_reused": true,
+    "offline_article_retained": true,
+    "report": "context-app-live-host/report.json",
+    "vm": "All six public examples returned blocked; one scoped same-URL comparison returned HTTP429 with both default urllib and Mozilla/5.0 user agents.",
+    "vm_report": "context-app-live-initial.json"
+  },
+  "limits": [
+    "No human acceptance or Phase8 PERF-01/GAME-01 acceptance claimed.",
+    "Public contextual endpoint is undocumented and rate limited from this VM.",
+    "Native timing values include an explicitly held contextual reply and are separate from live host timings.",
+    "Existing PRIMARY reads are bypassed only inside owned OCR test instrumentation; clipboard contents/history are never written.",
+    "Single VM monitor; screenshots contain only the owned synthetic popup."
+  ]
+}

@@ -1,0 +1,3440 @@
+{
+  "acceptance": "agent",
+  "total": 104,
+  "passed": 104,
+  "failed": 0,
+  "cases": [
+    {
+      "name": "two-lines",
+      "scale": 1,
+      "theme": "light",
+      "path": "two-lines-light-1.png",
+      "point": [
+        188.4609375,
+        11.6484375
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 20.298764000472147,
+        "ocr": 143.40427400020417,
+        "select": 0.7598470001539681,
+        "total": 164.46288500083028
+      }
+    },
+    {
+      "name": "three-lines",
+      "scale": 1,
+      "theme": "light",
+      "path": "three-lines-light-1.png",
+      "point": [
+        188.4609375,
+        11.6484375
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 20.626622001145734,
+        "ocr": 185.00047500128858,
+        "select": 0.4192119995423127,
+        "total": 206.04630900197662
+      }
+    },
+    {
+      "name": "four-lines",
+      "scale": 1,
+      "theme": "light",
+      "path": "four-lines-light-1.png",
+      "point": [
+        99.0234375,
+        36.6484375
+      ],
+      "word": "river",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.",
+      "span": [
+        28,
+        33
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "river",
+        "context": "They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.",
+        "span": [
+          28,
+          33
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 18.719685001997277,
+        "ocr": 183.72955399900093,
+        "select": 0.5292380010359921,
+        "total": 202.9784770020342
+      }
+    },
+    {
+      "name": "repeated-first",
+      "scale": 1,
+      "theme": "light",
+      "path": "repeated-first-light-1.png",
+      "point": [
+        81.3046875,
+        11.6484375
+      ],
+      "word": "bank",
+      "context": "The bank of the river\nstands next to the bank with money.",
+      "span": [
+        4,
+        8
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "The bank of the river\nstands next to the bank with money.",
+        "span": [
+          4,
+          8
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 18.853565998142585,
+        "ocr": 161.51761400033138,
+        "select": 0.38841400237288326,
+        "total": 180.75959400084685
+      }
+    },
+    {
+      "name": "repeated-second",
+      "scale": 1,
+      "theme": "light",
+      "path": "repeated-second-light-1.png",
+      "point": [
+        212.0546875,
+        36.6484375
+      ],
+      "word": "bank",
+      "context": "The bank of the river\nstands next to the bank with money.",
+      "span": [
+        41,
+        45
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "The bank of the river\nstands next to the bank with money.",
+        "span": [
+          41,
+          45
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 18.20439600123791,
+        "ocr": 176.665012997546,
+        "select": 0.3514359996188432,
+        "total": 195.22084499840275
+      }
+    },
+    {
+      "name": "two-sentences",
+      "scale": 1,
+      "theme": "light",
+      "path": "two-sentences-light-1.png",
+      "point": [
+        188.1171875,
+        36.6484375
+      ],
+      "word": "bank",
+      "context": "They sat by the bank of the river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat by the bank of the river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 18.4649700022419,
+        "ocr": 146.18502799930866,
+        "select": 0.39057799949659966,
+        "total": 165.04057600104716
+      }
+    },
+    {
+      "name": "hyphen-first",
+      "scale": 1,
+      "theme": "light",
+      "path": "hyphen-first-light-1.png",
+      "point": [
+        206.109375,
+        11.6484375
+      ],
+      "word": "translation",
+      "context": "They showed the translation of this word.",
+      "span": [
+        16,
+        27
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "translation",
+        "context": "They showed the translation of this word.",
+        "span": [
+          16,
+          27
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 17.790721998608205,
+        "ocr": 133.33865000095102,
+        "select": 0.37240500023472123,
+        "total": 151.50177699979395
+      }
+    },
+    {
+      "name": "hyphen-second",
+      "scale": 1,
+      "theme": "light",
+      "path": "hyphen-second-light-1.png",
+      "point": [
+        45.234375,
+        36.6484375
+      ],
+      "word": "translation",
+      "context": "They showed the translation of this word.",
+      "span": [
+        16,
+        27
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "translation",
+        "context": "They showed the translation of this word.",
+        "span": [
+          16,
+          27
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 18.58787899982417,
+        "ocr": 136.12630200077547,
+        "select": 0.2911829978984315,
+        "total": 155.00536399849807
+      }
+    },
+    {
+      "name": "columns",
+      "scale": 1,
+      "theme": "light",
+      "path": "columns-light-1.png",
+      "point": [
+        188.4609375,
+        11.6484375
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 19.437645001744386,
+        "ocr": 185.2269779992639,
+        "select": 0.4370850001578219,
+        "total": 205.10170800116612
+      }
+    },
+    {
+      "name": "caption",
+      "scale": 1,
+      "theme": "light",
+      "path": "caption-light-1.png",
+      "point": [
+        188.4609375,
+        11.6484375
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 20.181251999019878,
+        "ocr": 151.36527299910085,
+        "select": 0.3143659996567294,
+        "total": 171.86089099777746
+      }
+    },
+    {
+      "name": "dialogue",
+      "scale": 1,
+      "theme": "light",
+      "path": "dialogue-light-1.png",
+      "point": [
+        263.6640625,
+        11.6484375
+      ],
+      "word": "bank",
+      "context": "Alice: They reached the bank.",
+      "span": [
+        24,
+        29
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "Alice: They reached the bank.",
+        "span": [
+          24,
+          29
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 18.013488999713445,
+        "ocr": 165.89085300074657,
+        "select": 0.29932899997220375,
+        "total": 184.20367100043222
+      }
+    },
+    {
+      "name": "fragment",
+      "scale": 1,
+      "theme": "light",
+      "path": "fragment-light-1.png",
+      "point": [
+        198.6640625,
+        11.6484375
+      ],
+      "word": "bank",
+      "context": "walking near the bank\nof the river without an end",
+      "span": [
+        17,
+        21
+      ],
+      "complete": false,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "walking near the bank\nof the river without an end",
+        "span": [
+          17,
+          21
+        ],
+        "complete": false
+      },
+      "timings": {
+        "prepare_image": 17.86817599713686,
+        "ocr": 160.900095001125,
+        "select": 0.38666099862894043,
+        "total": 179.1549319968908
+      }
+    },
+    {
+      "name": "ambiguous-boundary",
+      "scale": 1,
+      "theme": "light",
+      "path": "ambiguous-boundary-light-1.png",
+      "point": [
+        239.7578125,
+        11.6484375
+      ],
+      "word": "bank",
+      "context": "They waited near the bank",
+      "span": [
+        21,
+        25
+      ],
+      "complete": false,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They waited near the bank",
+        "span": [
+          21,
+          25
+        ],
+        "complete": false
+      },
+      "timings": {
+        "prepare_image": 22.355734003213,
+        "ocr": 153.0037819975405,
+        "select": 0.2750429994193837,
+        "total": 175.63455900017289
+      }
+    },
+    {
+      "name": "two-lines",
+      "scale": 1.25,
+      "theme": "light",
+      "path": "two-lines-light-1.25.png",
+      "point": [
+        235.576171875,
+        14.560546875
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 31.91434499967727,
+        "ocr": 160.0549070026318,
+        "select": 0.29272599931573495,
+        "total": 192.2619780016248
+      }
+    },
+    {
+      "name": "three-lines",
+      "scale": 1.25,
+      "theme": "light",
+      "path": "three-lines-light-1.25.png",
+      "point": [
+        235.576171875,
+        14.560546875
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 29.538763999880757,
+        "ocr": 166.3022090033337,
+        "select": 0.3463359971647151,
+        "total": 196.18730900037917
+      }
+    },
+    {
+      "name": "four-lines",
+      "scale": 1.25,
+      "theme": "light",
+      "path": "four-lines-light-1.25.png",
+      "point": [
+        123.779296875,
+        45.810546875
+      ],
+      "word": "river",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.",
+      "span": [
+        28,
+        33
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "river",
+        "context": "They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.",
+        "span": [
+          28,
+          33
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 30.647149997093948,
+        "ocr": 182.69373000293854,
+        "select": 0.43719499808503315,
+        "total": 213.77807499811752
+      }
+    },
+    {
+      "name": "repeated-first",
+      "scale": 1.25,
+      "theme": "light",
+      "path": "repeated-first-light-1.25.png",
+      "point": [
+        101.630859375,
+        14.560546875
+      ],
+      "word": "bank",
+      "context": "The bank of the river\nstands next to the bank with money.",
+      "span": [
+        4,
+        8
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "The bank of the river\nstands next to the bank with money.",
+        "span": [
+          4,
+          8
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 27.831655002955813,
+        "ocr": 180.8350449973659,
+        "select": 0.477952002256643,
+        "total": 209.14465200257837
+      }
+    },
+    {
+      "name": "repeated-second",
+      "scale": 1.25,
+      "theme": "light",
+      "path": "repeated-second-light-1.25.png",
+      "point": [
+        265.068359375,
+        45.810546875
+      ],
+      "word": "bank",
+      "context": "The bank of the river\nstands next to the bank with money.",
+      "span": [
+        41,
+        45
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "The bank of the river\nstands next to the bank with money.",
+        "span": [
+          41,
+          45
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 29.96274199904292,
+        "ocr": 172.85621900009573,
+        "select": 0.3756000005523674,
+        "total": 203.19456099969102
+      }
+    },
+    {
+      "name": "two-sentences",
+      "scale": 1.25,
+      "theme": "light",
+      "path": "two-sentences-light-1.25.png",
+      "point": [
+        235.146484375,
+        45.810546875
+      ],
+      "word": "bank",
+      "context": "They sat by the bank of the river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat by the bank of the river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 26.826601999346167,
+        "ocr": 158.49291999984416,
+        "select": 0.38284399852273054,
+        "total": 185.70236599771306
+      }
+    },
+    {
+      "name": "hyphen-first",
+      "scale": 1.25,
+      "theme": "light",
+      "path": "hyphen-first-light-1.25.png",
+      "point": [
+        257.63671875,
+        14.560546875
+      ],
+      "word": "translation",
+      "context": "They showed the translation of this word.",
+      "span": [
+        16,
+        27
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "translation",
+        "context": "They showed the translation of this word.",
+        "span": [
+          16,
+          27
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 27.6289680004993,
+        "ocr": 147.1407110002474,
+        "select": 0.35020299765164964,
+        "total": 175.11988199839834
+      }
+    },
+    {
+      "name": "hyphen-second",
+      "scale": 1.25,
+      "theme": "light",
+      "path": "hyphen-second-light-1.25.png",
+      "point": [
+        56.54296875,
+        45.810546875
+      ],
+      "word": "translation",
+      "context": "They showed the translation of this word.",
+      "span": [
+        16,
+        27
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "translation",
+        "context": "They showed the translation of this word.",
+        "span": [
+          16,
+          27
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 28.222877001098823,
+        "ocr": 157.38181699998677,
+        "select": 0.30643100035376847,
+        "total": 185.91112500143936
+      }
+    },
+    {
+      "name": "columns",
+      "scale": 1.25,
+      "theme": "light",
+      "path": "columns-light-1.25.png",
+      "point": [
+        235.576171875,
+        14.560546875
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 30.484219998470508,
+        "ocr": 185.9976359992288,
+        "select": 0.45105200115358457,
+        "total": 216.9329079988529
+      }
+    },
+    {
+      "name": "caption",
+      "scale": 1.25,
+      "theme": "light",
+      "path": "caption-light-1.25.png",
+      "point": [
+        235.576171875,
+        14.560546875
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 29.01804899738636,
+        "ocr": 200.0750799998059,
+        "select": 0.38904600296518765,
+        "total": 229.48217500015744
+      }
+    },
+    {
+      "name": "dialogue",
+      "scale": 1.25,
+      "theme": "light",
+      "path": "dialogue-light-1.25.png",
+      "point": [
+        329.580078125,
+        14.560546875
+      ],
+      "word": "bank",
+      "context": "Alice: They reached the bank.",
+      "span": [
+        24,
+        29
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "Alice: They reached the bank.",
+        "span": [
+          24,
+          29
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 38.25523499835981,
+        "ocr": 187.9898619990854,
+        "select": 0.2585830006864853,
+        "total": 226.5036799981317
+      }
+    },
+    {
+      "name": "fragment",
+      "scale": 1.25,
+      "theme": "light",
+      "path": "fragment-light-1.25.png",
+      "point": [
+        248.330078125,
+        14.560546875
+      ],
+      "word": "bank",
+      "context": "walking near the bank\nof the river without an end",
+      "span": [
+        17,
+        21
+      ],
+      "complete": false,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "walking near the bank\nof the river without an end",
+        "span": [
+          17,
+          21
+        ],
+        "complete": false
+      },
+      "timings": {
+        "prepare_image": 27.84299999984796,
+        "ocr": 164.1527909996512,
+        "select": 0.3303759986010846,
+        "total": 192.32616699810023
+      }
+    },
+    {
+      "name": "ambiguous-boundary",
+      "scale": 1.25,
+      "theme": "light",
+      "path": "ambiguous-boundary-light-1.25.png",
+      "point": [
+        299.697265625,
+        14.560546875
+      ],
+      "word": "bank",
+      "context": "They waited near the bank",
+      "span": [
+        21,
+        25
+      ],
+      "complete": false,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They waited near the bank",
+        "span": [
+          21,
+          25
+        ],
+        "complete": false
+      },
+      "timings": {
+        "prepare_image": 32.246305996523006,
+        "ocr": 276.0539990013058,
+        "select": 0.3223220010113437,
+        "total": 308.62262699884013
+      }
+    },
+    {
+      "name": "two-lines",
+      "scale": 1.5,
+      "theme": "light",
+      "path": "two-lines-light-1.5.png",
+      "point": [
+        282.69140625,
+        17.47265625
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 50.151027000538306,
+        "ocr": 149.00139199744444,
+        "select": 0.31471700276597403,
+        "total": 199.46713600074872
+      }
+    },
+    {
+      "name": "three-lines",
+      "scale": 1.5,
+      "theme": "light",
+      "path": "three-lines-light-1.5.png",
+      "point": [
+        282.69140625,
+        17.47265625
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 37.340484999731416,
+        "ocr": 167.8990510008589,
+        "select": 0.41408299875911325,
+        "total": 205.65361899934942
+      }
+    },
+    {
+      "name": "four-lines",
+      "scale": 1.5,
+      "theme": "light",
+      "path": "four-lines-light-1.5.png",
+      "point": [
+        148.53515625,
+        54.97265625
+      ],
+      "word": "river",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.",
+      "span": [
+        28,
+        33
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "river",
+        "context": "They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.",
+        "span": [
+          28,
+          33
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 39.75593300128821,
+        "ocr": 185.71855399932247,
+        "select": 0.5278249991533812,
+        "total": 226.00231199976406
+      }
+    },
+    {
+      "name": "repeated-first",
+      "scale": 1.5,
+      "theme": "light",
+      "path": "repeated-first-light-1.5.png",
+      "point": [
+        121.95703125,
+        17.47265625
+      ],
+      "word": "bank",
+      "context": "The bank of the river\nstands next to the bank with money.",
+      "span": [
+        4,
+        8
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "The bank of the river\nstands next to the bank with money.",
+        "span": [
+          4,
+          8
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 41.011605000676354,
+        "ocr": 177.9173559989431,
+        "select": 0.3332919986860361,
+        "total": 219.26225299830548
+      }
+    },
+    {
+      "name": "repeated-second",
+      "scale": 1.5,
+      "theme": "light",
+      "path": "repeated-second-light-1.5.png",
+      "point": [
+        318.08203125,
+        54.97265625
+      ],
+      "word": "bank",
+      "context": "The bank of the river\nstands next to the bank with money.",
+      "span": [
+        41,
+        45
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "The bank of the river\nstands next to the bank with money.",
+        "span": [
+          41,
+          45
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 39.03391100175213,
+        "ocr": 154.34544799791183,
+        "select": 0.32047800050349906,
+        "total": 193.69983700016746
+      }
+    },
+    {
+      "name": "two-sentences",
+      "scale": 1.5,
+      "theme": "light",
+      "path": "two-sentences-light-1.5.png",
+      "point": [
+        282.17578125,
+        54.97265625
+      ],
+      "word": "bank",
+      "context": "They sat by the bank of the river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat by the bank of the river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 37.78676000001724,
+        "ocr": 158.1635250004183,
+        "select": 0.3835560019069817,
+        "total": 196.33384100234252
+      }
+    },
+    {
+      "name": "hyphen-first",
+      "scale": 1.5,
+      "theme": "light",
+      "path": "hyphen-first-light-1.5.png",
+      "point": [
+        309.1640625,
+        17.47265625
+      ],
+      "word": "translation",
+      "context": "They showed the translation of this word.",
+      "span": [
+        16,
+        27
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "translation",
+        "context": "They showed the translation of this word.",
+        "span": [
+          16,
+          27
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 36.00687600192032,
+        "ocr": 158.0031589983264,
+        "select": 0.2908420028688852,
+        "total": 194.3008770031156
+      }
+    },
+    {
+      "name": "hyphen-second",
+      "scale": 1.5,
+      "theme": "light",
+      "path": "hyphen-second-light-1.5.png",
+      "point": [
+        67.8515625,
+        54.97265625
+      ],
+      "word": "translation",
+      "context": "They showed the translation of this word.",
+      "span": [
+        16,
+        27
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "translation",
+        "context": "They showed the translation of this word.",
+        "span": [
+          16,
+          27
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 47.89048399834428,
+        "ocr": 143.56959799988545,
+        "select": 0.38578000021516345,
+        "total": 191.8458619984449
+      }
+    },
+    {
+      "name": "columns",
+      "scale": 1.5,
+      "theme": "light",
+      "path": "columns-light-1.5.png",
+      "point": [
+        282.69140625,
+        17.47265625
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 40.553871000156505,
+        "ocr": 176.1399649985833,
+        "select": 0.3596110000216868,
+        "total": 217.0534469987615
+      }
+    },
+    {
+      "name": "caption",
+      "scale": 1.5,
+      "theme": "light",
+      "path": "caption-light-1.5.png",
+      "point": [
+        282.69140625,
+        17.47265625
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 38.24689600151032,
+        "ocr": 156.12482199867372,
+        "select": 0.36560200169333257,
+        "total": 194.73732000187738
+      }
+    },
+    {
+      "name": "dialogue",
+      "scale": 1.5,
+      "theme": "light",
+      "path": "dialogue-light-1.5.png",
+      "point": [
+        395.49609375,
+        17.47265625
+      ],
+      "word": "bank",
+      "context": "Alice: They reached the bank.",
+      "span": [
+        24,
+        29
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "Alice: They reached the bank.",
+        "span": [
+          24,
+          29
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 36.914980999426916,
+        "ocr": 147.3220299994864,
+        "select": 0.24622000273666345,
+        "total": 184.48323100164998
+      }
+    },
+    {
+      "name": "fragment",
+      "scale": 1.5,
+      "theme": "light",
+      "path": "fragment-light-1.5.png",
+      "point": [
+        297.99609375,
+        17.47265625
+      ],
+      "word": "bank",
+      "context": "walking near the bank\nof the river without an end",
+      "span": [
+        17,
+        21
+      ],
+      "complete": false,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "walking near the bank\nof the river without an end",
+        "span": [
+          17,
+          21
+        ],
+        "complete": false
+      },
+      "timings": {
+        "prepare_image": 37.75228500308003,
+        "ocr": 163.25461399901542,
+        "select": 0.44045100003131665,
+        "total": 201.44735000212677
+      }
+    },
+    {
+      "name": "ambiguous-boundary",
+      "scale": 1.5,
+      "theme": "light",
+      "path": "ambiguous-boundary-light-1.5.png",
+      "point": [
+        359.63671875,
+        17.47265625
+      ],
+      "word": "bank",
+      "context": "They waited near the bank",
+      "span": [
+        21,
+        25
+      ],
+      "complete": false,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They waited near the bank",
+        "span": [
+          21,
+          25
+        ],
+        "complete": false
+      },
+      "timings": {
+        "prepare_image": 40.314367000974016,
+        "ocr": 156.11393899962422,
+        "select": 0.26560599872027524,
+        "total": 196.69391199931852
+      }
+    },
+    {
+      "name": "two-lines",
+      "scale": 2,
+      "theme": "light",
+      "path": "two-lines-light-2.png",
+      "point": [
+        376.921875,
+        23.296875
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 62.32531199930236,
+        "ocr": 169.23181100355578,
+        "select": 0.26308999804314226,
+        "total": 231.82021300090128
+      }
+    },
+    {
+      "name": "three-lines",
+      "scale": 2,
+      "theme": "light",
+      "path": "three-lines-light-2.png",
+      "point": [
+        376.921875,
+        23.296875
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 64.87059299979592,
+        "ocr": 197.80026800071937,
+        "select": 0.5291569977998734,
+        "total": 263.20001799831516
+      }
+    },
+    {
+      "name": "four-lines",
+      "scale": 2,
+      "theme": "light",
+      "path": "four-lines-light-2.png",
+      "point": [
+        198.046875,
+        73.296875
+      ],
+      "word": "river",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.",
+      "span": [
+        28,
+        33
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "river",
+        "context": "They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.",
+        "span": [
+          28,
+          33
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 78.51451399983489,
+        "ocr": 228.8593929988565,
+        "select": 0.6365180015563965,
+        "total": 308.0104250002478
+      }
+    },
+    {
+      "name": "repeated-first",
+      "scale": 2,
+      "theme": "light",
+      "path": "repeated-first-light-2.png",
+      "point": [
+        162.609375,
+        23.296875
+      ],
+      "word": "bank",
+      "context": "The bank of the river\nstands next to the bank with money.",
+      "span": [
+        4,
+        8
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "The bank of the river\nstands next to the bank with money.",
+        "span": [
+          4,
+          8
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 64.4628490008472,
+        "ocr": 188.5359609987063,
+        "select": 0.40233099934994243,
+        "total": 253.40114099890343
+      }
+    },
+    {
+      "name": "repeated-second",
+      "scale": 2,
+      "theme": "light",
+      "path": "repeated-second-light-2.png",
+      "point": [
+        424.109375,
+        73.296875
+      ],
+      "word": "bank",
+      "context": "The bank of the river\nstands next to the bank with money.",
+      "span": [
+        41,
+        45
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "The bank of the river\nstands next to the bank with money.",
+        "span": [
+          41,
+          45
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 75.58910900115734,
+        "ocr": 198.16696099951514,
+        "select": 0.3277510004409123,
+        "total": 274.0838210011134
+      }
+    },
+    {
+      "name": "two-sentences",
+      "scale": 2,
+      "theme": "light",
+      "path": "two-sentences-light-2.png",
+      "point": [
+        376.234375,
+        73.296875
+      ],
+      "word": "bank",
+      "context": "They sat by the bank of the river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat by the bank of the river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 62.66424199930043,
+        "ocr": 202.26688399998238,
+        "select": 0.4040540006826632,
+        "total": 265.3351799999655
+      }
+    },
+    {
+      "name": "hyphen-first",
+      "scale": 2,
+      "theme": "light",
+      "path": "hyphen-first-light-2.png",
+      "point": [
+        412.21875,
+        23.296875
+      ],
+      "word": "translation",
+      "context": "They showed the translation of this word.",
+      "span": [
+        16,
+        27
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "translation",
+        "context": "They showed the translation of this word.",
+        "span": [
+          16,
+          27
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 68.5024060003343,
+        "ocr": 181.7203860009613,
+        "select": 0.35695599945029244,
+        "total": 250.5797480007459
+      }
+    },
+    {
+      "name": "hyphen-second",
+      "scale": 2,
+      "theme": "light",
+      "path": "hyphen-second-light-2.png",
+      "point": [
+        90.46875,
+        73.296875
+      ],
+      "word": "translation",
+      "context": "They showed the translation of this word.",
+      "span": [
+        16,
+        27
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "translation",
+        "context": "They showed the translation of this word.",
+        "span": [
+          16,
+          27
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 83.243899000081,
+        "ocr": 175.4829659985262,
+        "select": 0.2888590024667792,
+        "total": 259.015724001074
+      }
+    },
+    {
+      "name": "columns",
+      "scale": 2,
+      "theme": "light",
+      "path": "columns-light-2.png",
+      "point": [
+        376.921875,
+        23.296875
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 70.10889899902395,
+        "ocr": 205.04763200005982,
+        "select": 0.36329800059320405,
+        "total": 275.519828999677
+      }
+    },
+    {
+      "name": "caption",
+      "scale": 2,
+      "theme": "light",
+      "path": "caption-light-2.png",
+      "point": [
+        376.921875,
+        23.296875
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 63.90406699938467,
+        "ocr": 185.71633000101428,
+        "select": 0.31110100098885596,
+        "total": 249.9314980013878
+      }
+    },
+    {
+      "name": "dialogue",
+      "scale": 2,
+      "theme": "light",
+      "path": "dialogue-light-2.png",
+      "point": [
+        527.328125,
+        23.296875
+      ],
+      "word": "bank",
+      "context": "Alice: They reached the bank.",
+      "span": [
+        24,
+        29
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "Alice: They reached the bank.",
+        "span": [
+          24,
+          29
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 73.56405699829338,
+        "ocr": 201.31853999919258,
+        "select": 0.8612970013928134,
+        "total": 275.7438939988788
+      }
+    },
+    {
+      "name": "fragment",
+      "scale": 2,
+      "theme": "light",
+      "path": "fragment-light-2.png",
+      "point": [
+        397.328125,
+        23.296875
+      ],
+      "word": "bank",
+      "context": "walking near the bank\nof the river without an end",
+      "span": [
+        17,
+        21
+      ],
+      "complete": false,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "walking near the bank\nof the river without an end",
+        "span": [
+          17,
+          21
+        ],
+        "complete": false
+      },
+      "timings": {
+        "prepare_image": 64.03887499982375,
+        "ocr": 181.97141800192185,
+        "select": 0.28162499802419916,
+        "total": 246.2919179997698
+      }
+    },
+    {
+      "name": "ambiguous-boundary",
+      "scale": 2,
+      "theme": "light",
+      "path": "ambiguous-boundary-light-2.png",
+      "point": [
+        479.515625,
+        23.296875
+      ],
+      "word": "bank",
+      "context": "They waited near the bank",
+      "span": [
+        21,
+        25
+      ],
+      "complete": false,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They waited near the bank",
+        "span": [
+          21,
+          25
+        ],
+        "complete": false
+      },
+      "timings": {
+        "prepare_image": 62.11394599813502,
+        "ocr": 183.27443599991966,
+        "select": 0.4005980008514598,
+        "total": 245.78897999890614
+      }
+    },
+    {
+      "name": "two-lines",
+      "scale": 1,
+      "theme": "dark",
+      "path": "two-lines-dark-1.png",
+      "point": [
+        188.4609375,
+        11.6484375
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 19.081033999100327,
+        "ocr": 134.96205500268843,
+        "select": 0.2611979980429169,
+        "total": 154.30428699983167
+      }
+    },
+    {
+      "name": "three-lines",
+      "scale": 1,
+      "theme": "dark",
+      "path": "three-lines-dark-1.png",
+      "point": [
+        188.4609375,
+        11.6484375
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 16.740031001972966,
+        "ocr": 150.64096200148924,
+        "select": 0.33266099853790365,
+        "total": 167.7136540020001
+      }
+    },
+    {
+      "name": "four-lines",
+      "scale": 1,
+      "theme": "dark",
+      "path": "four-lines-dark-1.png",
+      "point": [
+        99.0234375,
+        36.6484375
+      ],
+      "word": "river",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.",
+      "span": [
+        28,
+        33
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "river",
+        "context": "They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.",
+        "span": [
+          28,
+          33
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 18.283590998180443,
+        "ocr": 150.17262599940295,
+        "select": 0.7285989995580167,
+        "total": 169.1848159971414
+      }
+    },
+    {
+      "name": "repeated-first",
+      "scale": 1,
+      "theme": "dark",
+      "path": "repeated-first-dark-1.png",
+      "point": [
+        81.3046875,
+        11.6484375
+      ],
+      "word": "bank",
+      "context": "The bank of the river\nstands next to the bank with money.",
+      "span": [
+        4,
+        8
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "The bank of the river\nstands next to the bank with money.",
+        "span": [
+          4,
+          8
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 18.91479899859405,
+        "ocr": 142.40424500167137,
+        "select": 0.414893998822663,
+        "total": 161.73393799908808
+      }
+    },
+    {
+      "name": "repeated-second",
+      "scale": 1,
+      "theme": "dark",
+      "path": "repeated-second-dark-1.png",
+      "point": [
+        212.0546875,
+        36.6484375
+      ],
+      "word": "bank",
+      "context": "The bank of the river\nstands next to the bank with money.",
+      "span": [
+        41,
+        45
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "The bank of the river\nstands next to the bank with money.",
+        "span": [
+          41,
+          45
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 18.30562399845803,
+        "ocr": 144.72837799985427,
+        "select": 0.33497500044177286,
+        "total": 163.36897699875408
+      }
+    },
+    {
+      "name": "two-sentences",
+      "scale": 1,
+      "theme": "dark",
+      "path": "two-sentences-dark-1.png",
+      "point": [
+        188.1171875,
+        36.6484375
+      ],
+      "word": "bank",
+      "context": "They sat by the bank of the river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat by the bank of the river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 19.152352000674,
+        "ocr": 148.54023299994878,
+        "select": 0.4285790018911939,
+        "total": 168.12116400251398
+      }
+    },
+    {
+      "name": "hyphen-first",
+      "scale": 1,
+      "theme": "dark",
+      "path": "hyphen-first-dark-1.png",
+      "point": [
+        206.109375,
+        11.6484375
+      ],
+      "word": "translation",
+      "context": "They showed the translation of this word.",
+      "span": [
+        16,
+        27
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "translation",
+        "context": "They showed the translation of this word.",
+        "span": [
+          16,
+          27
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 18.90118599840207,
+        "ocr": 145.0062469994009,
+        "select": 0.6565340008819476,
+        "total": 164.56396699868492
+      }
+    },
+    {
+      "name": "hyphen-second",
+      "scale": 1,
+      "theme": "dark",
+      "path": "hyphen-second-dark-1.png",
+      "point": [
+        45.234375,
+        36.6484375
+      ],
+      "word": "translation",
+      "context": "They showed the translation of this word.",
+      "span": [
+        16,
+        27
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "translation",
+        "context": "They showed the translation of this word.",
+        "span": [
+          16,
+          27
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 23.518347999925027,
+        "ocr": 152.40867900138255,
+        "select": 0.3427299998293165,
+        "total": 176.2697570011369
+      }
+    },
+    {
+      "name": "columns",
+      "scale": 1,
+      "theme": "dark",
+      "path": "columns-dark-1.png",
+      "point": [
+        188.4609375,
+        11.6484375
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 18.224540999653982,
+        "ocr": 160.13264000139316,
+        "select": 0.44355699719744734,
+        "total": 178.80073799824459
+      }
+    },
+    {
+      "name": "caption",
+      "scale": 1,
+      "theme": "dark",
+      "path": "caption-dark-1.png",
+      "point": [
+        188.4609375,
+        11.6484375
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 17.297942998993676,
+        "ocr": 144.63330500075244,
+        "select": 0.3836149990092963,
+        "total": 162.31486299875542
+      }
+    },
+    {
+      "name": "dialogue",
+      "scale": 1,
+      "theme": "dark",
+      "path": "dialogue-dark-1.png",
+      "point": [
+        263.6640625,
+        11.6484375
+      ],
+      "word": "bank",
+      "context": "Alice: They reached the bank.",
+      "span": [
+        24,
+        29
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "Alice: They reached the bank.",
+        "span": [
+          24,
+          29
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 20.351145998574793,
+        "ocr": 131.50352899901918,
+        "select": 0.2598550017864909,
+        "total": 152.11452999938047
+      }
+    },
+    {
+      "name": "fragment",
+      "scale": 1,
+      "theme": "dark",
+      "path": "fragment-dark-1.png",
+      "point": [
+        198.6640625,
+        11.6484375
+      ],
+      "word": "bank",
+      "context": "walking near the bank\nof the river without an end",
+      "span": [
+        17,
+        21
+      ],
+      "complete": false,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "walking near the bank\nof the river without an end",
+        "span": [
+          17,
+          21
+        ],
+        "complete": false
+      },
+      "timings": {
+        "prepare_image": 18.899080001574475,
+        "ocr": 148.6891899985494,
+        "select": 0.26753899874165654,
+        "total": 167.85580899886554
+      }
+    },
+    {
+      "name": "ambiguous-boundary",
+      "scale": 1,
+      "theme": "dark",
+      "path": "ambiguous-boundary-dark-1.png",
+      "point": [
+        239.7578125,
+        11.6484375
+      ],
+      "word": "bank",
+      "context": "They waited near the bank",
+      "span": [
+        21,
+        25
+      ],
+      "complete": false,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They waited near the bank",
+        "span": [
+          21,
+          25
+        ],
+        "complete": false
+      },
+      "timings": {
+        "prepare_image": 18.206698998255888,
+        "ocr": 143.86470700264908,
+        "select": 0.27905999741051346,
+        "total": 162.35046599831549
+      }
+    },
+    {
+      "name": "two-lines",
+      "scale": 1.25,
+      "theme": "dark",
+      "path": "two-lines-dark-1.25.png",
+      "point": [
+        235.576171875,
+        14.560546875
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 27.571310001803795,
+        "ocr": 141.24187599736615,
+        "select": 0.2598950013634749,
+        "total": 169.07308100053342
+      }
+    },
+    {
+      "name": "three-lines",
+      "scale": 1.25,
+      "theme": "dark",
+      "path": "three-lines-dark-1.25.png",
+      "point": [
+        235.576171875,
+        14.560546875
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 28.45612100281869,
+        "ocr": 162.15401099907467,
+        "select": 0.33899299887707457,
+        "total": 190.94912500077044
+      }
+    },
+    {
+      "name": "four-lines",
+      "scale": 1.25,
+      "theme": "dark",
+      "path": "four-lines-dark-1.25.png",
+      "point": [
+        123.779296875,
+        45.810546875
+      ],
+      "word": "river",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.",
+      "span": [
+        28,
+        33
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "river",
+        "context": "They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.",
+        "span": [
+          28,
+          33
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 26.292636001016945,
+        "ocr": 202.3979280020285,
+        "select": 0.6985029976931401,
+        "total": 229.38906700073858
+      }
+    },
+    {
+      "name": "repeated-first",
+      "scale": 1.25,
+      "theme": "dark",
+      "path": "repeated-first-dark-1.25.png",
+      "point": [
+        101.630859375,
+        14.560546875
+      ],
+      "word": "bank",
+      "context": "The bank of the river\nstands next to the bank with money.",
+      "span": [
+        4,
+        8
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "The bank of the river\nstands next to the bank with money.",
+        "span": [
+          4,
+          8
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 29.06193099988741,
+        "ocr": 153.76334699976724,
+        "select": 0.3529390014591627,
+        "total": 183.1782170011138
+      }
+    },
+    {
+      "name": "repeated-second",
+      "scale": 1.25,
+      "theme": "dark",
+      "path": "repeated-second-dark-1.25.png",
+      "point": [
+        265.068359375,
+        45.810546875
+      ],
+      "word": "bank",
+      "context": "The bank of the river\nstands next to the bank with money.",
+      "span": [
+        41,
+        45
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "The bank of the river\nstands next to the bank with money.",
+        "span": [
+          41,
+          45
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 27.695019998645876,
+        "ocr": 168.57021299802,
+        "select": 0.5275540024740621,
+        "total": 196.79278699913993
+      }
+    },
+    {
+      "name": "two-sentences",
+      "scale": 1.25,
+      "theme": "dark",
+      "path": "two-sentences-dark-1.25.png",
+      "point": [
+        235.146484375,
+        45.810546875
+      ],
+      "word": "bank",
+      "context": "They sat by the bank of the river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat by the bank of the river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 26.5442140007508,
+        "ocr": 221.63631699731923,
+        "select": 1.0897020001721103,
+        "total": 249.27023299824214
+      }
+    },
+    {
+      "name": "hyphen-first",
+      "scale": 1.25,
+      "theme": "dark",
+      "path": "hyphen-first-dark-1.25.png",
+      "point": [
+        257.63671875,
+        14.560546875
+      ],
+      "word": "translation",
+      "context": "They showed the translation of this word.",
+      "span": [
+        16,
+        27
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "translation",
+        "context": "They showed the translation of this word.",
+        "span": [
+          16,
+          27
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 29.9464009985968,
+        "ocr": 166.23424400313525,
+        "select": 0.29135399745428003,
+        "total": 196.47199899918633
+      }
+    },
+    {
+      "name": "hyphen-second",
+      "scale": 1.25,
+      "theme": "dark",
+      "path": "hyphen-second-dark-1.25.png",
+      "point": [
+        56.54296875,
+        45.810546875
+      ],
+      "word": "translation",
+      "context": "They showed the translation of this word.",
+      "span": [
+        16,
+        27
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "translation",
+        "context": "They showed the translation of this word.",
+        "span": [
+          16,
+          27
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 29.66445600031875,
+        "ocr": 168.38796299998648,
+        "select": 0.28974100132472813,
+        "total": 198.34216000162996
+      }
+    },
+    {
+      "name": "columns",
+      "scale": 1.25,
+      "theme": "dark",
+      "path": "columns-dark-1.25.png",
+      "point": [
+        235.576171875,
+        14.560546875
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 30.60778399958508,
+        "ocr": 195.0434230020619,
+        "select": 1.4780759993300308,
+        "total": 227.129283000977
+      }
+    },
+    {
+      "name": "caption",
+      "scale": 1.25,
+      "theme": "dark",
+      "path": "caption-dark-1.25.png",
+      "point": [
+        235.576171875,
+        14.560546875
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 32.059467001090525,
+        "ocr": 183.81311599659966,
+        "select": 0.44122300096205436,
+        "total": 216.31380599865224
+      }
+    },
+    {
+      "name": "dialogue",
+      "scale": 1.25,
+      "theme": "dark",
+      "path": "dialogue-dark-1.25.png",
+      "point": [
+        329.580078125,
+        14.560546875
+      ],
+      "word": "bank",
+      "context": "Alice: They reached the bank.",
+      "span": [
+        24,
+        29
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "Alice: They reached the bank.",
+        "span": [
+          24,
+          29
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 34.966846000315854,
+        "ocr": 171.77082499983953,
+        "select": 0.30732400045963004,
+        "total": 207.04499500061502
+      }
+    },
+    {
+      "name": "fragment",
+      "scale": 1.25,
+      "theme": "dark",
+      "path": "fragment-dark-1.25.png",
+      "point": [
+        248.330078125,
+        14.560546875
+      ],
+      "word": "bank",
+      "context": "walking near the bank\nof the river without an end",
+      "span": [
+        17,
+        21
+      ],
+      "complete": false,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "walking near the bank\nof the river without an end",
+        "span": [
+          17,
+          21
+        ],
+        "complete": false
+      },
+      "timings": {
+        "prepare_image": 26.683189000323182,
+        "ocr": 149.58768100041198,
+        "select": 0.27890999990631826,
+        "total": 176.54978000064148
+      }
+    },
+    {
+      "name": "ambiguous-boundary",
+      "scale": 1.25,
+      "theme": "dark",
+      "path": "ambiguous-boundary-dark-1.25.png",
+      "point": [
+        299.697265625,
+        14.560546875
+      ],
+      "word": "bank",
+      "context": "They waited near the bank",
+      "span": [
+        21,
+        25
+      ],
+      "complete": false,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They waited near the bank",
+        "span": [
+          21,
+          25
+        ],
+        "complete": false
+      },
+      "timings": {
+        "prepare_image": 33.57540999786579,
+        "ocr": 164.60643500249716,
+        "select": 0.4798559966729954,
+        "total": 198.66170099703595
+      }
+    },
+    {
+      "name": "two-lines",
+      "scale": 1.5,
+      "theme": "dark",
+      "path": "two-lines-dark-1.5.png",
+      "point": [
+        282.69140625,
+        17.47265625
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 37.67113400317612,
+        "ocr": 160.18578899820568,
+        "select": 0.25849200028460473,
+        "total": 198.1154150016664
+      }
+    },
+    {
+      "name": "three-lines",
+      "scale": 1.5,
+      "theme": "dark",
+      "path": "three-lines-dark-1.5.png",
+      "point": [
+        282.69140625,
+        17.47265625
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 37.73979999823496,
+        "ocr": 199.90946300094947,
+        "select": 0.3476589990896173,
+        "total": 237.99692199827405
+      }
+    },
+    {
+      "name": "four-lines",
+      "scale": 1.5,
+      "theme": "dark",
+      "path": "four-lines-dark-1.5.png",
+      "point": [
+        148.53515625,
+        54.97265625
+      ],
+      "word": "river",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.",
+      "span": [
+        28,
+        33
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "river",
+        "context": "They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.",
+        "span": [
+          28,
+          33
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 37.191067000094336,
+        "ocr": 190.7423779994133,
+        "select": 0.4355019991635345,
+        "total": 228.36894699867116
+      }
+    },
+    {
+      "name": "repeated-first",
+      "scale": 1.5,
+      "theme": "dark",
+      "path": "repeated-first-dark-1.5.png",
+      "point": [
+        121.95703125,
+        17.47265625
+      ],
+      "word": "bank",
+      "context": "The bank of the river\nstands next to the bank with money.",
+      "span": [
+        4,
+        8
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "The bank of the river\nstands next to the bank with money.",
+        "span": [
+          4,
+          8
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 42.03324199988856,
+        "ocr": 165.83134200118366,
+        "select": 0.38471799780381843,
+        "total": 208.24930199887604
+      }
+    },
+    {
+      "name": "repeated-second",
+      "scale": 1.5,
+      "theme": "dark",
+      "path": "repeated-second-dark-1.5.png",
+      "point": [
+        318.08203125,
+        54.97265625
+      ],
+      "word": "bank",
+      "context": "The bank of the river\nstands next to the bank with money.",
+      "span": [
+        41,
+        45
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "The bank of the river\nstands next to the bank with money.",
+        "span": [
+          41,
+          45
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 38.06911500214483,
+        "ocr": 152.8374879999319,
+        "select": 0.3820729980361648,
+        "total": 191.2886760001129
+      }
+    },
+    {
+      "name": "two-sentences",
+      "scale": 1.5,
+      "theme": "dark",
+      "path": "two-sentences-dark-1.5.png",
+      "point": [
+        282.17578125,
+        54.97265625
+      ],
+      "word": "bank",
+      "context": "They sat by the bank of the river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat by the bank of the river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 35.45088299870258,
+        "ocr": 161.74469600082375,
+        "select": 0.3248959983466193,
+        "total": 197.52047499787295
+      }
+    },
+    {
+      "name": "hyphen-first",
+      "scale": 1.5,
+      "theme": "dark",
+      "path": "hyphen-first-dark-1.5.png",
+      "point": [
+        309.1640625,
+        17.47265625
+      ],
+      "word": "translation",
+      "context": "They showed the translation of this word.",
+      "span": [
+        16,
+        27
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "translation",
+        "context": "They showed the translation of this word.",
+        "span": [
+          16,
+          27
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 39.07163599797059,
+        "ocr": 174.67027200109442,
+        "select": 0.48687799790059216,
+        "total": 214.2287859969656
+      }
+    },
+    {
+      "name": "hyphen-second",
+      "scale": 1.5,
+      "theme": "dark",
+      "path": "hyphen-second-dark-1.5.png",
+      "point": [
+        67.8515625,
+        54.97265625
+      ],
+      "word": "translation",
+      "context": "They showed the translation of this word.",
+      "span": [
+        16,
+        27
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "translation",
+        "context": "They showed the translation of this word.",
+        "span": [
+          16,
+          27
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 35.59635399869876,
+        "ocr": 151.5411590007716,
+        "select": 0.35288800063426606,
+        "total": 187.4904010001046
+      }
+    },
+    {
+      "name": "columns",
+      "scale": 1.5,
+      "theme": "dark",
+      "path": "columns-dark-1.5.png",
+      "point": [
+        282.69140625,
+        17.47265625
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 37.21574500013958,
+        "ocr": 183.1189139993512,
+        "select": 0.4385879983601626,
+        "total": 220.77324699785095
+      }
+    },
+    {
+      "name": "caption",
+      "scale": 1.5,
+      "theme": "dark",
+      "path": "caption-dark-1.5.png",
+      "point": [
+        282.69140625,
+        17.47265625
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 35.40404600062175,
+        "ocr": 156.17130600003293,
+        "select": 0.32236200058832765,
+        "total": 191.897714001243
+      }
+    },
+    {
+      "name": "dialogue",
+      "scale": 1.5,
+      "theme": "dark",
+      "path": "dialogue-dark-1.5.png",
+      "point": [
+        395.49609375,
+        17.47265625
+      ],
+      "word": "bank",
+      "context": "Alice: They reached the bank.",
+      "span": [
+        24,
+        29
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "Alice: They reached the bank.",
+        "span": [
+          24,
+          29
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 34.01220799787552,
+        "ocr": 149.72575300271274,
+        "select": 0.30288499692687765,
+        "total": 184.04084599751513
+      }
+    },
+    {
+      "name": "fragment",
+      "scale": 1.5,
+      "theme": "dark",
+      "path": "fragment-dark-1.5.png",
+      "point": [
+        297.99609375,
+        17.47265625
+      ],
+      "word": "bank",
+      "context": "walking near the bank\nof the river without an end",
+      "span": [
+        17,
+        21
+      ],
+      "complete": false,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "walking near the bank\nof the river without an end",
+        "span": [
+          17,
+          21
+        ],
+        "complete": false
+      },
+      "timings": {
+        "prepare_image": 37.277999999787426,
+        "ocr": 145.04184600082226,
+        "select": 0.27333999969414435,
+        "total": 182.59318600030383
+      }
+    },
+    {
+      "name": "ambiguous-boundary",
+      "scale": 1.5,
+      "theme": "dark",
+      "path": "ambiguous-boundary-dark-1.5.png",
+      "point": [
+        359.63671875,
+        17.47265625
+      ],
+      "word": "bank",
+      "context": "They waited near the bank",
+      "span": [
+        21,
+        25
+      ],
+      "complete": false,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They waited near the bank",
+        "span": [
+          21,
+          25
+        ],
+        "complete": false
+      },
+      "timings": {
+        "prepare_image": 36.38976200090838,
+        "ocr": 170.75107900018338,
+        "select": 0.32286299756378867,
+        "total": 207.46370399865555
+      }
+    },
+    {
+      "name": "two-lines",
+      "scale": 2,
+      "theme": "dark",
+      "path": "two-lines-dark-2.png",
+      "point": [
+        376.921875,
+        23.296875
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 71.24382899928605,
+        "ocr": 172.45717300102115,
+        "select": 0.2655969983607065,
+        "total": 243.9665989986679
+      }
+    },
+    {
+      "name": "three-lines",
+      "scale": 2,
+      "theme": "dark",
+      "path": "three-lines-dark-2.png",
+      "point": [
+        376.921875,
+        23.296875
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 66.42611999996006,
+        "ocr": 212.64782000071136,
+        "select": 0.3481399980955757,
+        "total": 279.422079998767
+      }
+    },
+    {
+      "name": "four-lines",
+      "scale": 2,
+      "theme": "dark",
+      "path": "four-lines-dark-2.png",
+      "point": [
+        198.046875,
+        73.296875
+      ],
+      "word": "river",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.",
+      "span": [
+        28,
+        33
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "river",
+        "context": "They sat on the bank\nof the river and watched\nthe ducks swim past\nuntil the sun set.",
+        "span": [
+          28,
+          33
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 65.94189599854872,
+        "ocr": 227.54853800142882,
+        "select": 0.49526399743626826,
+        "total": 293.9856979974138
+      }
+    },
+    {
+      "name": "repeated-first",
+      "scale": 2,
+      "theme": "dark",
+      "path": "repeated-first-dark-2.png",
+      "point": [
+        162.609375,
+        23.296875
+      ],
+      "word": "bank",
+      "context": "The bank of the river\nstands next to the bank with money.",
+      "span": [
+        4,
+        8
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "The bank of the river\nstands next to the bank with money.",
+        "span": [
+          4,
+          8
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 68.6512939973909,
+        "ocr": 200.54692000121577,
+        "select": 0.31816400223760866,
+        "total": 269.51637800084427
+      }
+    },
+    {
+      "name": "repeated-second",
+      "scale": 2,
+      "theme": "dark",
+      "path": "repeated-second-dark-2.png",
+      "point": [
+        424.109375,
+        73.296875
+      ],
+      "word": "bank",
+      "context": "The bank of the river\nstands next to the bank with money.",
+      "span": [
+        41,
+        45
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "The bank of the river\nstands next to the bank with money.",
+        "span": [
+          41,
+          45
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 63.16678499933914,
+        "ocr": 191.53925600039656,
+        "select": 0.352317001670599,
+        "total": 255.0583580014063
+      }
+    },
+    {
+      "name": "two-sentences",
+      "scale": 2,
+      "theme": "dark",
+      "path": "two-sentences-dark-2.png",
+      "point": [
+        376.234375,
+        73.296875
+      ],
+      "word": "bank",
+      "context": "They sat by the bank of the river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat by the bank of the river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 64.31815700125298,
+        "ocr": 188.37792499834904,
+        "select": 0.32536700018681586,
+        "total": 253.02144899978884
+      }
+    },
+    {
+      "name": "hyphen-first",
+      "scale": 2,
+      "theme": "dark",
+      "path": "hyphen-first-dark-2.png",
+      "point": [
+        412.21875,
+        23.296875
+      ],
+      "word": "translation",
+      "context": "They showed the translation of this word.",
+      "span": [
+        16,
+        27
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "translation",
+        "context": "They showed the translation of this word.",
+        "span": [
+          16,
+          27
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 68.38220600184286,
+        "ocr": 175.01907399855554,
+        "select": 0.2887090013246052,
+        "total": 243.689989001723
+      }
+    },
+    {
+      "name": "hyphen-second",
+      "scale": 2,
+      "theme": "dark",
+      "path": "hyphen-second-dark-2.png",
+      "point": [
+        90.46875,
+        73.296875
+      ],
+      "word": "translation",
+      "context": "They showed the translation of this word.",
+      "span": [
+        16,
+        27
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "translation",
+        "context": "They showed the translation of this word.",
+        "span": [
+          16,
+          27
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 63.286866003181785,
+        "ocr": 171.74382299708668,
+        "select": 0.2912029995059129,
+        "total": 235.32189199977438
+      }
+    },
+    {
+      "name": "columns",
+      "scale": 2,
+      "theme": "dark",
+      "path": "columns-dark-2.png",
+      "point": [
+        376.921875,
+        23.296875
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 68.29085900244536,
+        "ocr": 223.12810699804686,
+        "select": 0.3770440016523935,
+        "total": 291.7960100021446
+      }
+    },
+    {
+      "name": "caption",
+      "scale": 2,
+      "theme": "dark",
+      "path": "caption-dark-2.png",
+      "point": [
+        376.921875,
+        23.296875
+      ],
+      "word": "bank",
+      "context": "They sat on the bank\nof the quiet river.",
+      "span": [
+        16,
+        20
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They sat on the bank\nof the quiet river.",
+        "span": [
+          16,
+          20
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 62.35107900283765,
+        "ocr": 195.35527599873603,
+        "select": 0.3211190014553722,
+        "total": 258.02747400302906
+      }
+    },
+    {
+      "name": "dialogue",
+      "scale": 2,
+      "theme": "dark",
+      "path": "dialogue-dark-2.png",
+      "point": [
+        527.328125,
+        23.296875
+      ],
+      "word": "bank",
+      "context": "Alice: They reached the bank.",
+      "span": [
+        24,
+        29
+      ],
+      "complete": true,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "Alice: They reached the bank.",
+        "span": [
+          24,
+          29
+        ],
+        "complete": true
+      },
+      "timings": {
+        "prepare_image": 62.37528299971018,
+        "ocr": 181.68993000290357,
+        "select": 0.25442399783059955,
+        "total": 244.31963700044435
+      }
+    },
+    {
+      "name": "fragment",
+      "scale": 2,
+      "theme": "dark",
+      "path": "fragment-dark-2.png",
+      "point": [
+        397.328125,
+        23.296875
+      ],
+      "word": "bank",
+      "context": "walking near the bank\nof the river without an end",
+      "span": [
+        17,
+        21
+      ],
+      "complete": false,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "walking near the bank\nof the river without an end",
+        "span": [
+          17,
+          21
+        ],
+        "complete": false
+      },
+      "timings": {
+        "prepare_image": 64.91910999829997,
+        "ocr": 176.39029900237801,
+        "select": 0.38231299913604744,
+        "total": 241.69172199981404
+      }
+    },
+    {
+      "name": "ambiguous-boundary",
+      "scale": 2,
+      "theme": "dark",
+      "path": "ambiguous-boundary-dark-2.png",
+      "point": [
+        479.515625,
+        23.296875
+      ],
+      "word": "bank",
+      "context": "They waited near the bank",
+      "span": [
+        21,
+        25
+      ],
+      "complete": false,
+      "passed": true,
+      "actual": {
+        "word": "bank",
+        "context": "They waited near the bank",
+        "span": [
+          21,
+          25
+        ],
+        "complete": false
+      },
+      "timings": {
+        "prepare_image": 63.65142399954493,
+        "ocr": 188.21463400308858,
+        "select": 0.4274869970686268,
+        "total": 252.29354499970214
+      }
+    }
+  ]
+}

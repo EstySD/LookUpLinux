@@ -1,0 +1,45 @@
+{
+  "acceptance": "agent",
+  "run_id": "6ec336637bfa49eabacdf0fd632cc6a0",
+  "gates": {},
+  "observations": {
+    "owner_ready": {
+      "pid": 4270,
+      "run_id": "6ec336637bfa49eabacdf0fd632cc6a0",
+      "identity": null,
+      "visible": false,
+      "armed": false,
+      "uuid": null,
+      "stage": null,
+      "mode": null,
+      "key": null,
+      "count": null,
+      "meaning": null,
+      "meaning_pending": false,
+      "meaning_error": null,
+      "context": null,
+      "stored": null,
+      "first_useful_ms": null,
+      "meaning_ready_ms": null,
+      "article_visible": false,
+      "error": null,
+      "active_uuid": "{aa5f95ee-7ecc-4abc-9bc7-a8c40bda42c7}"
+    }
+  },
+  "limits": [
+    "Native VM hotkey/capture/OCR, Engine, UI and storage; both network replies controlled.",
+    "Contextual replies held until explicit release; timings measure the controlled scenario.",
+    "Live production provider verified separately on host; VM public endpoint returned429.",
+    "Single monitor; no human, game or Phase8 performance acceptance."
+  ],
+  "error": "GateTimeout:gate_timeout",
+  "restoration": {
+    "display_restored": true,
+    "theme_unchanged": true,
+    "desktop_restored": true,
+    "processes_stopped": true,
+    "shortcut_restored": true,
+    "errors": []
+  },
+  "passed": false
+}

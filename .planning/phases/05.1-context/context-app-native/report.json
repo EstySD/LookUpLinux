@@ -1,0 +1,539 @@
+{
+  "acceptance": "agent",
+  "run_id": "9dcb5efee24042e88f4b2d1ea2d9b527",
+  "gates": {
+    "physical_hotkey_capture_ocr": true,
+    "one_count_matching_pair": true,
+    "independent_timings": true,
+    "closed_reply_ignored": true,
+    "newer_occurrence_wins": true,
+    "disabled_keeps_article": true,
+    "no_network_keeps_article": true,
+    "native_dark_fragment": true
+  },
+  "observations": {
+    "owner_ready": {
+      "pid": 7602,
+      "run_id": "9dcb5efee24042e88f4b2d1ea2d9b527",
+      "identity": null,
+      "event_id": null,
+      "visible": false,
+      "armed": false,
+      "uuid": null,
+      "stage": null,
+      "mode": null,
+      "key": null,
+      "count": null,
+      "meaning": null,
+      "meaning_pending": false,
+      "meaning_error": null,
+      "context_complete": false,
+      "limited_fragment": false,
+      "background": "#eff0f1",
+      "context": null,
+      "stored": null,
+      "first_useful_ms": null,
+      "meaning_ready_ms": null,
+      "article_visible": false,
+      "error": null,
+      "active_uuid": "{54d4e9d1-ef2b-4395-86e1-726171714bf2}"
+    },
+    "offline_early": {
+      "pid": 7602,
+      "run_id": "9dcb5efee24042e88f4b2d1ea2d9b527",
+      "identity": 1,
+      "event_id": 1,
+      "visible": true,
+      "armed": false,
+      "uuid": "{53f32c62-e4fb-421a-81fa-23b9fcb1279d}",
+      "stage": "ready",
+      "mode": "ocr",
+      "key": "bank",
+      "count": 1,
+      "meaning": null,
+      "meaning_pending": true,
+      "meaning_error": null,
+      "context_complete": true,
+      "limited_fragment": false,
+      "background": "#eff0f1",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+      "stored": [
+        "bank",
+        1,
+        "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+        16,
+        20,
+        null,
+        null
+      ],
+      "first_useful_ms": 558.5175539999909,
+      "meaning_ready_ms": 0.0,
+      "article_visible": true,
+      "error": null,
+      "active_uuid": "{53f32c62-e4fb-421a-81fa-23b9fcb1279d}",
+      "compositor_geometry": [
+        376.0,
+        208.0,
+        440.0,
+        328.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "live_multiline": {
+      "pid": 7602,
+      "run_id": "9dcb5efee24042e88f4b2d1ea2d9b527",
+      "identity": 1,
+      "event_id": 1,
+      "visible": true,
+      "armed": true,
+      "uuid": "{53f32c62-e4fb-421a-81fa-23b9fcb1279d}",
+      "stage": "context",
+      "mode": "ocr",
+      "key": "bank",
+      "count": 1,
+      "meaning": "берег",
+      "meaning_pending": false,
+      "meaning_error": null,
+      "context_complete": true,
+      "limited_fragment": false,
+      "background": "#eff0f1",
+      "context": "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+      "stored": [
+        "bank",
+        1,
+        "They sat on the bank\nof the river and watched\nthe ducks swim past.",
+        16,
+        20,
+        "берег",
+        "google-gtx-marked-v1"
+      ],
+      "first_useful_ms": 558.5175539999909,
+      "meaning_ready_ms": 1267.2373820023495,
+      "article_visible": true,
+      "error": null,
+      "active_uuid": "{53f32c62-e4fb-421a-81fa-23b9fcb1279d}",
+      "compositor_geometry": [
+        376.0,
+        208.0,
+        440.0,
+        328.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "delayed_early": {
+      "pid": 7602,
+      "run_id": "9dcb5efee24042e88f4b2d1ea2d9b527",
+      "identity": 3,
+      "event_id": 3,
+      "visible": true,
+      "armed": false,
+      "uuid": "{279c19fc-698a-4b42-b051-87a7cb349ad8}",
+      "stage": "ready",
+      "mode": "ocr",
+      "key": "bank",
+      "count": 2,
+      "meaning": null,
+      "meaning_pending": true,
+      "meaning_error": null,
+      "context_complete": true,
+      "limited_fragment": false,
+      "background": "#eff0f1",
+      "context": "She deposited her money in the bank.",
+      "stored": [
+        "bank",
+        2,
+        "She deposited her money in the bank.",
+        31,
+        36,
+        null,
+        null
+      ],
+      "first_useful_ms": 501.5688420025981,
+      "meaning_ready_ms": 0.0,
+      "article_visible": true,
+      "error": null,
+      "active_uuid": "{279c19fc-698a-4b42-b051-87a7cb349ad8}",
+      "compositor_geometry": [
+        578.0,
+        208.0,
+        440.0,
+        292.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "closed_after_release": {
+      "pid": 7602,
+      "run_id": "9dcb5efee24042e88f4b2d1ea2d9b527",
+      "identity": 3,
+      "event_id": 3,
+      "visible": false,
+      "armed": false,
+      "uuid": "{279c19fc-698a-4b42-b051-87a7cb349ad8}",
+      "stage": "ready",
+      "mode": "ocr",
+      "key": "bank",
+      "count": 2,
+      "meaning": null,
+      "meaning_pending": true,
+      "meaning_error": null,
+      "context_complete": true,
+      "limited_fragment": false,
+      "background": "#eff0f1",
+      "context": "She deposited her money in the bank.",
+      "stored": [
+        "bank",
+        2,
+        "She deposited her money in the bank.",
+        31,
+        36,
+        null,
+        null
+      ],
+      "first_useful_ms": 501.5688420025981,
+      "meaning_ready_ms": 0.0,
+      "article_visible": true,
+      "error": null,
+      "active_uuid": "{54d4e9d1-ef2b-4395-86e1-726171714bf2}"
+    },
+    "older_pending": {
+      "pid": 7602,
+      "run_id": "9dcb5efee24042e88f4b2d1ea2d9b527",
+      "identity": 5,
+      "event_id": 5,
+      "visible": true,
+      "armed": false,
+      "uuid": "{9094b050-80d0-4364-b5a5-89274a3e37e0}",
+      "stage": "ready",
+      "mode": "ocr",
+      "key": "bank",
+      "count": 3,
+      "meaning": null,
+      "meaning_pending": true,
+      "meaning_error": null,
+      "context_complete": true,
+      "limited_fragment": false,
+      "background": "#eff0f1",
+      "context": "The bank of the river is next to the bank that holds my savings.",
+      "stored": [
+        "bank",
+        3,
+        "The bank of the river is next to the bank that holds my savings.",
+        4,
+        8,
+        null,
+        null
+      ],
+      "first_useful_ms": 568.2742059980228,
+      "meaning_ready_ms": 0.0,
+      "article_visible": true,
+      "error": null,
+      "active_uuid": "{9094b050-80d0-4364-b5a5-89274a3e37e0}",
+      "compositor_geometry": [
+        234.0,
+        208.0,
+        440.0,
+        292.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "newer_result": {
+      "pid": 7602,
+      "run_id": "9dcb5efee24042e88f4b2d1ea2d9b527",
+      "identity": 7,
+      "event_id": 7,
+      "visible": true,
+      "armed": false,
+      "uuid": "{d825cc59-35fa-4e7e-8266-22d4ccdd7a48}",
+      "stage": "context",
+      "mode": "ocr",
+      "key": "bank",
+      "count": 4,
+      "meaning": "банк",
+      "meaning_pending": false,
+      "meaning_error": null,
+      "context_complete": true,
+      "limited_fragment": false,
+      "background": "#eff0f1",
+      "context": "The bank of the river is next to the bank that holds my savings.",
+      "stored": [
+        "bank",
+        4,
+        "The bank of the river is next to the bank that holds my savings.",
+        37,
+        41,
+        "банк",
+        "google-gtx-marked-v1"
+      ],
+      "first_useful_ms": 538.5492679997697,
+      "meaning_ready_ms": 538.2220350002171,
+      "article_visible": true,
+      "error": null,
+      "active_uuid": "{d825cc59-35fa-4e7e-8266-22d4ccdd7a48}",
+      "compositor_geometry": [
+        608.0,
+        208.0,
+        440.0,
+        336.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "online_disabled": {
+      "pid": 7602,
+      "run_id": "9dcb5efee24042e88f4b2d1ea2d9b527",
+      "identity": 9,
+      "event_id": 9,
+      "visible": true,
+      "armed": false,
+      "uuid": "{465baba0-4a9a-45ad-9cd2-593cc2424895}",
+      "stage": "context",
+      "mode": "ocr",
+      "key": "bank",
+      "count": 5,
+      "meaning": null,
+      "meaning_pending": false,
+      "meaning_error": "disabled",
+      "context_complete": true,
+      "limited_fragment": false,
+      "background": "#eff0f1",
+      "context": "They sat on the bank of the river.",
+      "stored": [
+        "bank",
+        5,
+        "They sat on the bank of the river.",
+        16,
+        20,
+        null,
+        null
+      ],
+      "first_useful_ms": 549.0574030009157,
+      "meaning_ready_ms": 0.0,
+      "article_visible": true,
+      "error": null,
+      "active_uuid": "{465baba0-4a9a-45ad-9cd2-593cc2424895}",
+      "compositor_geometry": [
+        376.0,
+        208.0,
+        440.0,
+        318.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "no_network": {
+      "pid": 7602,
+      "run_id": "9dcb5efee24042e88f4b2d1ea2d9b527",
+      "identity": 11,
+      "event_id": 11,
+      "visible": true,
+      "armed": false,
+      "uuid": "{2ea5d234-48a7-4ad0-bd9a-9e0ffbe41b36}",
+      "stage": "context",
+      "mode": "ocr",
+      "key": "break out",
+      "count": 1,
+      "meaning": null,
+      "meaning_pending": false,
+      "meaning_error": "no_network",
+      "context_complete": true,
+      "limited_fragment": false,
+      "background": "#eff0f1",
+      "context": "The prisoners managed to break out of jail.",
+      "stored": [
+        "bank",
+        5,
+        "They sat on the bank of the river.",
+        16,
+        20,
+        null,
+        null
+      ],
+      "first_useful_ms": 557.1557990006113,
+      "meaning_ready_ms": 555.0794369992218,
+      "article_visible": true,
+      "error": null,
+      "active_uuid": "{2ea5d234-48a7-4ad0-bd9a-9e0ffbe41b36}",
+      "compositor_geometry": [
+        540.0,
+        208.0,
+        440.0,
+        378.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "dark_fragment_125": {
+      "pid": 7602,
+      "run_id": "9dcb5efee24042e88f4b2d1ea2d9b527",
+      "identity": 13,
+      "event_id": 13,
+      "visible": true,
+      "armed": false,
+      "uuid": "{14e9ad14-5ed2-4be1-ac82-79e085279157}",
+      "stage": "context",
+      "mode": "ocr",
+      "key": "bank",
+      "count": 6,
+      "meaning": null,
+      "meaning_pending": false,
+      "meaning_error": "disabled",
+      "context_complete": false,
+      "limited_fragment": true,
+      "background": "#202326",
+      "context": "walking by the bank",
+      "stored": [
+        "bank",
+        6,
+        "walking by the bank",
+        15,
+        19,
+        null,
+        null
+      ],
+      "first_useful_ms": 553.4824120004487,
+      "meaning_ready_ms": 0.0,
+      "article_visible": true,
+      "error": null,
+      "active_uuid": "{14e9ad14-5ed2-4be1-ac82-79e085279157}",
+      "compositor_geometry": [
+        366.0,
+        208.0,
+        440.0,
+        362.4
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          802.4,
+          1536.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1536.0,
+          864.0
+        ]
+      ]
+    }
+  },
+  "limits": [
+    "Native VM hotkey/capture/OCR, Engine, UI and storage; both network replies controlled.",
+    "Contextual replies held until explicit release; timings measure the controlled scenario.",
+    "Live production provider verified separately on host; VM public endpoint returned429.",
+    "Single monitor; no human, game or Phase8 performance acceptance."
+  ],
+  "restoration": {
+    "display_restored": true,
+    "theme_unchanged": true,
+    "desktop_restored": true,
+    "processes_stopped": true,
+    "shortcut_restored": true,
+    "errors": []
+  },
+  "passed": true
+}
