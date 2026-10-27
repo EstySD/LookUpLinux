@@ -22,7 +22,14 @@
       "context_image_matrix_at_1x": 1,
       "opt_in_breeze_ocr_cli": 1
     },
-    "diagnostic_limit": "Multiprocessing child cancellation/spawn diagnostics appeared in the log; the unittest runner reported zero errors/failures."
+    "diagnostic_limit": "Focused verbose reproduction confirmed SemLock._rebuild FileNotFoundError output comes from existing test_reader_loop_has_deadline fault injection: it forces the deadline to -1 while ten spawn children are starting, releasing barrier locals before some children unpickle. This is test teardown noise, not a positive-writer or production failure. The positive ten-writer test then passed with all required queue results/counts.",
+    "diagnostic_confirmation": {
+      "command": "python -m unittest -v tests.test_concurrency.ConcurrentWriterTests.test_reader_loop_has_deadline tests.test_concurrency.ConcurrentWriterTests.test_ten_writers_on_precreated_db",
+      "tests": 2,
+      "result": "OK",
+      "seconds": 0.539,
+      "log": "context-app-spawn-diagnostic.txt"
+    }
   },
   "updated_ocr_image_matrix": {
     "passed": 104,
