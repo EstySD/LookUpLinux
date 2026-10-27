@@ -64,7 +64,7 @@ class ContextMigrationTests(_Watchdog):
         old.execute("INSERT INTO translations VALUES ('bank','word','google','{}',3)")
         old.execute("INSERT INTO meta VALUES ('google_client','gtx')")
         old.close()
-        conn = open_store(path)
+        conn = open_store(path,migrations=store.MIGRATIONS[:3])
         self.addCleanup(conn.close)
         self.assertEqual(conn.execute('PRAGMA user_version').fetchone()[0],3)
         self.assertEqual(conn.execute('SELECT word,translation,context,count,first_seen,last_seen FROM words').fetchone(),
@@ -74,6 +74,29 @@ class ContextMigrationTests(_Watchdog):
         self.assertIsNone(conn.execute('SELECT context_meaning FROM words').fetchone()[0])
         self.assertEqual(conn.execute('SELECT count(*) FROM contextual_translations').fetchone()[0],0)
         self.assertTrue((root/'old.db.bak-v2').is_file())
+
+
+class CardMigrationTests(_Watchdog):
+    def test_v3_context_pair_and_cache_survive_independent_cards_migration(self):
+        root = make_tempdir(self)
+        path = root/'v3.db'
+        old = open_store(path,migrations=store.MIGRATIONS[:3])
+        from lookup.context import ContextResult, PROVIDER
+        text = 'The bank of the river.'
+        store.upsert_word(old,'bank','банк',text,now=5,context_span=(4,8),context_token='event')
+        store.enrich_word_context(old,'bank','event',text,(4,8),ContextResult('берег',PROVIDER))
+        old.execute("INSERT INTO contextual_translations VALUES (?,?,?,?,?,?,?,?)",
+                    (PROVIDER,'ru','bank',text,4,8,'{}',5))
+        before = old.execute('SELECT * FROM words').fetchall()
+        old.close()
+        conn = open_store(path)
+        self.addCleanup(conn.close)
+        self.assertEqual(conn.execute('PRAGMA user_version').fetchone()[0],4)
+        self.assertEqual(conn.execute('SELECT * FROM words').fetchall(),before)
+        self.assertEqual(conn.execute('SELECT count(*) FROM contextual_translations').fetchone()[0],1)
+        self.assertEqual(conn.execute('SELECT count(*) FROM cards').fetchone()[0],0)
+        self.assertEqual(conn.execute('PRAGMA foreign_key_list(cards)').fetchall(),[])
+        self.assertTrue((root/'v3.db.bak-v3').exists())
 
 
 class SchemaLifecycleTests(_Watchdog):

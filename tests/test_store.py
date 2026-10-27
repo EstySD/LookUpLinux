@@ -26,7 +26,10 @@ class UpsertTests(unittest.TestCase):
         return self.conn.execute("SELECT COUNT(*) FROM words").fetchone()[0]
 
     def test_schema_v3_tables_and_columns(self):
-        info = self.conn.execute("PRAGMA table_info(words)").fetchall()
+        # This historical schema contract stays explicit as later migrations grow.
+        conn = open_store(self.root/'v3-schema.db',migrations=store.MIGRATIONS[:3])
+        self.addCleanup(conn.close)
+        info = conn.execute("PRAGMA table_info(words)").fetchall()
         self.assertEqual(
             [r[1] for r in info],
             ["word", "translation", "context", "count", "first_seen", "last_seen", "lemma",
@@ -35,19 +38,18 @@ class UpsertTests(unittest.TestCase):
         self.assertEqual([r[1] for r in info if r[5]], ["word"])
         tables = [
             r[0]
-            for r in self.conn.execute(
+            for r in conn.execute(
                 "SELECT name FROM sqlite_master WHERE type = 'table'"
             )
         ]
         self.assertEqual(sorted(tables), ["contextual_translations", "meta", "translations", "words"])
-        self.assertEqual(self.conn.execute("PRAGMA user_version").fetchone()[0], CURRENT_VERSION)
-        self.assertEqual(CURRENT_VERSION, 3)
-        tr = self.conn.execute("PRAGMA table_info(translations)").fetchall()
+        self.assertEqual(conn.execute("PRAGMA user_version").fetchone()[0], 3)
+        tr = conn.execute("PRAGMA table_info(translations)").fetchall()
         self.assertEqual(
             [r[1] for r in tr], ["text", "kind", "provider", "payload", "fetched_at"]
         )
         self.assertEqual(sorted(r[1] for r in tr if r[5]), ["kind", "text"])
-        meta = self.conn.execute("PRAGMA table_info(meta)").fetchall()
+        meta = conn.execute("PRAGMA table_info(meta)").fetchall()
         self.assertEqual([r[1] for r in meta], ["key", "value"])
         self.assertEqual([r[1] for r in meta if r[5]], ["key"])
         upsert_word(self.conn, "run", now=1)

@@ -74,7 +74,7 @@ class CoreImportTests(unittest.TestCase):
             loaded = importlib.import_module('lookup.' + module)
             for name in public.split():
                 self.assertTrue(hasattr(loaded, name), f'{module}.{name}')
-        self.assertEqual(store.CURRENT_VERSION, 3)
+        self.assertEqual(store.CURRENT_VERSION, 4)
 
         for name in ("normalize", "CONTRACTIONS"):
             self.assertTrue(hasattr(norm_mod, name), name)
