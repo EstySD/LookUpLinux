@@ -122,3 +122,89 @@ class SelectionTests(unittest.TestCase):
                 self.assertIsNotNone(selected)
                 self.assertEqual(selected.word, expected)
                 self.assertEqual(selected.candidates, ())
+
+
+def paragraph(*texts, block=1, x=10, y=10, height=10, step=16):
+    result = []
+    for row, text in enumerate(texts):
+        left = x
+        for index, token in enumerate(text.split()):
+            width = len(token)*6
+            result.append(word(token, left, y+row*step, width, height,
+                               line=(1, block, 1, row+1), order=index+1))
+            left += width+5
+    return result
+
+
+class ContextTests(unittest.TestCase):
+    def select(self, words, token, occurrence=0):
+        chosen = [w for w in words if w.text == token][occurrence]
+        return ocr.select_word(words, (chosen.box[0]+chosen.box[2]/2, chosen.box[1]+5))
+
+    def assert_span(self, selection, expected):
+        self.assertIsNotNone(selection.span)
+        a, b = selection.span
+        self.assertEqual(selection.context[a:b], expected)
+
+    def test_two_three_and_four_lines(self):
+        for lines in [('They sat on the bank', 'of the quiet river.'),
+                      ('They sat on the bank', 'of the river and watched', 'the ducks swim past.'),
+                      ('They sat on the bank', 'of the river and watched', 'the ducks swim past', 'until the sun set.')]:
+            selected = self.select(paragraph(*lines), 'bank')
+            self.assertEqual(selected.context, '\n'.join(lines))
+            self.assertTrue(selected.context_complete)
+            self.assert_span(selected, 'bank')
+
+    def test_sentence_boundary_and_repeated_occurrence(self):
+        words = paragraph('The bank approved a loan.', 'They sat by the bank of the river.')
+        first, second = (self.select(words, 'bank', n) for n in (0, 1))
+        self.assertEqual(first.context, 'The bank approved a loan.')
+        self.assertEqual(second.context, 'They sat by the bank of the river.')
+        for selected in (first, second):
+            self.assertTrue(selected.context_complete)
+            self.assert_span(selected, 'bank')
+        words = paragraph('The bank of the river', 'is next to the bank with money.')
+        first, second = (self.select(words, 'bank', n) for n in (0, 1))
+        self.assertEqual(first.context, second.context)
+        self.assertLess(first.span[0], second.span[0])
+
+    def test_neighbors_and_dialogue_are_excluded(self):
+        words = paragraph('They sat on the bank', 'of the quiet river.')
+        words += paragraph('Unrelated nearby column.', 'Other unrelated words.', x=350)
+        words += paragraph('Caption below the scene.', y=70, height=7, block=2)
+        selected = self.select(words, 'bank')
+        self.assertEqual(selected.context, 'They sat on the bank\nof the quiet river.')
+        words = paragraph('Alice: They reached the bank.', 'Bob: I saw the river.')
+        selected = self.select(words, 'bank.')
+        self.assertNotIn('Bob', selected.context)
+
+    def test_fragment_low_confidence_and_four_line_limit(self):
+        words = paragraph('walking near the bank', 'of the river without an end')
+        selected = self.select(words, 'bank')
+        self.assertFalse(selected.context_complete)
+        words[0] = word('walking', width=42, confidence=5)
+        selected = self.select(words, 'bank')
+        self.assertFalse(selected.context_complete)
+        selected = self.select(paragraph(*(['Some text near the bank']*6)), 'bank', 3)
+        self.assertLessEqual(len(selected.context.splitlines()), 4)
+        self.assertFalse(selected.context_complete)
+
+    def test_hyphen_wrap_maps_both_halves(self):
+        words = paragraph('They showed the trans-', 'lation of this word.')
+        for token in ('trans-', 'lation'):
+            selected = self.select(words, token)
+            self.assertEqual(selected.word, 'translation')
+            self.assertEqual(selected.context, 'They showed the translation of this word.')
+            self.assert_span(selected, 'translation')
+            self.assertEqual(selected.candidates, ())
+
+    def test_phrase_spans_and_context_bound(self):
+        selected = self.select(paragraph('We break out together.'), 'break')
+        spans = dict(selected.candidate_spans)
+        a, b = spans['break out']
+        self.assertEqual(selected.context[a:b], 'break out')
+        words = paragraph(' '.join(['word']*120) + ' bank ' + ' '.join(['word']*120))
+        selected = self.select(words, 'bank')
+        self.assertLessEqual(len(selected.context), 500)
+        self.assertFalse(selected.context_complete)
+        self.assert_span(selected, 'bank')
