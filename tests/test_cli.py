@@ -13,6 +13,8 @@ from unittest import mock
 from lookup.__main__ import main
 from lookup.online import OnlineResult, TranslateError
 from lookup.store import open_store
+from lookup.context import ContextResult, PROVIDER
+from lookup import ocr
 from tests._stardict_writer import write_stardict
 from tests._support import make_tempdir, forbid_network
 
@@ -42,6 +44,38 @@ class CliCase(unittest.TestCase):
 
 
 class CliLookupTests(CliCase):
+    def test_image_cli_preserves_recovered_second_occurrence(self):
+        context='I run today.\nYou run tomorrow.'
+        selection=ocr.Selection('run','You run tomorrow.',(),(1,1,20,12),95,
+                                context,(17,20),True,())
+        recognition=ocr.Recognition(selection,{'total':1,'ocr':1})
+        with mock.patch('lookup.__main__.ocr.recognize_image',return_value=recognition), \
+             mock.patch('lookup.online.translate_online',return_value=answer('Я бегаю. Ты бегаешь.')), \
+             mock.patch('lookup.context.translate_context',return_value=ContextResult('бежать',PROVIDER)) as contextual:
+            code,out,err=self.call('--image','synthetic.png','--at','1,1')
+        self.assertEqual((code,err),(0,''))
+        request=contextual.call_args.args[0]
+        self.assertEqual((request.context,request.start,request.end),(context,17,20))
+        self.assertEqual(context[request.start:request.end],'run')
+        self.assertIn('Значение в контексте: бежать',out)
+        self.assertNotIn('границы предложения не определены',out)
+
+    def test_explicit_context_has_one_exact_occurrence_and_separate_meaning(self):
+        sentence='I run fast every day.'
+        with mock.patch('lookup.online.translate_online',return_value=answer('Я бегаю быстро.')), \
+             mock.patch('lookup.context.translate_context',return_value=ContextResult('бегать',PROVIDER)) as contextual:
+            code,out,err=self.call('--word','run','--context',sentence)
+        self.assertEqual((code,err),(0,''))
+        request=contextual.call_args.args[0]
+        self.assertEqual((request.context,request.start,request.end),(sentence,2,5))
+        self.assertIn('Значение в контексте: бегать',out)
+        self.assertIn('Предложение: Я бегаю быстро.',out)
+        with mock.patch('lookup.online.translate_online',return_value=answer('Другой перевод.')), \
+             mock.patch('lookup.context.translate_context') as contextual:
+            code,out,err=self.call('--word','run','--context','I run and run every day.')
+        contextual.assert_not_called()
+        self.assertIn('Недостаточно надёжного контекста',out)
+
     def test_gui_actions_dispatch_before_dictionary_database_work(self):
         for action in ('--app','--trigger'):
             with mock.patch('lookup.gui.run',return_value=0) as gui, \

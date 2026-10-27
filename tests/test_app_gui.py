@@ -96,6 +96,52 @@ class GuiTests(unittest.TestCase):
         self.assertIn('Контекст',self.texts())
         self.assertIn('Искали 3 раз',self.texts())
 
+    def test_meaning_and_sentence_update_independently_without_resetting_article(self):
+        value=replace(self.result(),meaning_pending=True,context_complete=True)
+        self.owner.receive(self.event(result=value,context='The bank holds money.'))
+        popup=self.owner.popup
+        self.assertTrue(popup.context_fragment.isHidden())
+        article=popup.body.itemAt(popup.body.count()-1).widget()
+        remaining=popup.timer.remainingTime()
+        presentations=self.owner.presentations
+        self.assertIn('Определяем значение в контексте',self.texts())
+        final=replace(value,meaning_pending=False,context_meaning='банк',meaning_provider='google-gtx-marked-v1',
+                      context_pending=False,context_translation='Банк хранит деньги.')
+        self.owner.receive(self.event('context',result=final))
+        self.assertEqual(popup.meaning_value.text(),'банк')
+        self.assertEqual(popup.meaning_value.accessibleName(),'Значение в контексте')
+        self.assertIn('Банк хранит деньги.',popup.context_value.text())
+        self.assertIs(popup.body.itemAt(popup.body.count()-1).widget(),article)
+        self.assertEqual(self.owner.presentations,presentations)
+        self.assertLessEqual(popup.timer.remainingTime(),remaining)
+        self.assertIn('Искали 3 раз',self.texts())
+
+    def test_meaning_failures_fragment_and_plain_text_remain_readable(self):
+        value=replace(self.result(),context_pending=False,meaning_error='no_context')
+        self.owner.receive(self.event(result=value,context='available source'))
+        self.assertFalse(self.owner.popup.context_fragment.isHidden())
+        self.assertIn('Показан доступный фрагмент',self.texts())
+        self.assertIn('Недостаточно надёжного контекста',self.texts())
+        self.assertIn('Другой словарь',self.texts())
+        for reason,copy in (('disabled','выключен'),('busy','пока недоступно'),
+                            ('timeout','время ожидания'),('no_network','нет сети'),
+                            ('bad_response','надёжно определить')):
+            self.owner.receive(self.event('context',result=replace(value,meaning_error=reason)))
+            self.assertIn(copy,self.owner.popup.meaning_value.text())
+        self.owner.receive(self.event('context',result=replace(value,meaning_error=None,
+                              context_meaning='<b>банк</b>')))
+        self.assertEqual(self.owner.popup.meaning_value.toPlainText(),'<b>банк</b>')
+        self.assertFalse(self.owner.popup.meaning_value.acceptRichText())
+
+    def test_late_meaning_save_warning_keeps_article_and_valid_lookup_count(self):
+        value=replace(self.result(),meaning_pending=True,context_complete=True)
+        self.owner.receive(self.event(result=value,context='The bank holds money.'))
+        self.owner.receive(self.event('context',result=replace(value,meaning_pending=False,
+                           context_meaning='банк',meaning_save_error=True)))
+        self.assertIn('Не удалось сохранить значение в контексте',self.owner.popup.footer.text())
+        self.assertIn('Другой словарь',self.texts())
+        self.assertEqual(self.owner.popup.meaning_value.text(),'банк')
+
     def test_loading_to_result_sizes_new_children_before_next_event_turn(self):
         self.owner.receive(self.event('frozen'))
         self.application.processEvents()

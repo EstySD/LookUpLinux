@@ -31,7 +31,16 @@ REASONS={
 PACKAGES={'missing_tesseract':'tesseract','missing_eng':'tesseract-data-eng',
           'missing_pyqt6':'python-pyqt6','missing_kdotool':'kdotool','missing_kscreen':'libkscreen'}
 SAVE_ERROR='Не удалось сохранить поиск. Перевод доступен; повторите поиск позже.'
+MEANING_SAVE_ERROR='Не удалось сохранить значение в контексте. Перевод доступен.'
 CACHE_ERROR='Не удалось обновить кэш перевода.'
+MEANING_REASONS={
+    'disabled':'Значение в контексте недоступно: онлайн-перевод выключен.',
+    'no_context':'Недостаточно надёжного контекста для определения значения.',
+    'busy':'Значение в контексте пока недоступно.',
+    'timeout':'Не удалось получить значение в контексте: время ожидания истекло.',
+    'bad_response':'Не удалось надёжно определить значение в контексте.',
+    'not_found':'Не удалось надёжно определить значение в контексте.',
+}
 MAX_DISPLAY_CHARS=32_000
 MAX_DISPLAY_BLOCKS=128
 TRUNCATED='Показана часть слишком длинного текста.'
@@ -158,6 +167,12 @@ def components():
             self.content_layout=QVBoxLayout(content)
             self.content_layout.setContentsMargins(0,0,0,0)
             self.content_layout.setSpacing(8)
+            self.meaning_heading=self.label('Значение в контексте',bold=True)
+            self.meaning_value=self.label('',block=True)
+            self.meaning_value.setAccessibleName('Значение в контексте')
+            for widget in (self.meaning_heading,self.meaning_value):
+                self.content_layout.addWidget(widget)
+                widget.hide()
             self.body=QVBoxLayout()
             self.body.setSpacing(8)
             self.content_layout.addLayout(self.body)
@@ -165,10 +180,11 @@ def components():
             self.context_heading=self.label('Исходный текст',bold=True)
             self.context_source=self.label('',block=True)
             self.context_source.setAccessibleName('Исходный текст')
+            self.context_fragment=self.label('Показан доступный фрагмент; границы предложения не определены.')
             self.context_value=self.label('',block=True)
             self.context_value.setAccessibleName('Перевод контекста')
             self.cache_warning=self.label('')
-            for widget in (self.context_heading,self.context_source,self.context_value,self.cache_warning):
+            for widget in (self.context_heading,self.context_source,self.context_fragment,self.context_value,self.cache_warning):
                 self.content_layout.addWidget(widget)
                 widget.hide()
             self.content_layout.addStretch()
@@ -211,7 +227,8 @@ def components():
                 if widget is not None:
                     self._labels.remove(widget)
                     widget.hide();widget.deleteLater()
-            for label in (self.context_heading,self.context_source,self.context_value,self.cache_warning):
+            for label in (self.meaning_heading,self.meaning_value,self.context_heading,self.context_source,
+                          self.context_fragment,self.context_value,self.cache_warning):
                 label.hide()
             self.footer.clear()
             self.state_icon.hide()
@@ -284,14 +301,31 @@ def components():
                 self.context_heading.show()
                 self.context_source.setText(display_text(context,8000))
                 self.context_source.show()
+                self.context_fragment.setVisible(not value.context_complete)
             self.update_context(value)
             if save_error:
                 self.footer.setText(SAVE_ERROR)
+            elif value.meaning_save_error:
+                self.footer.setText(MEANING_SAVE_ERROR)
             elif value.saved and value.count is not None:
                 self.footer.setText(f'Искали {value.count} раз')
             elif value.kind=='sentence':
                 self.footer.setText('Текст не добавлен в историю слов.')
         def update_context(self,value):
+            if value.context_meaning:
+                meaning=value.context_meaning
+            elif value.meaning_pending:
+                meaning='Определяем значение в контексте…'
+            elif value.meaning_error:
+                meaning=MEANING_REASONS.get(value.meaning_error)
+                if meaning is None:
+                    reason=REASONS.get(value.meaning_error,('Перевод недоступен',''))[0].lower()
+                    meaning='Значение в контексте недоступно: '+reason+'.'
+            else:
+                meaning=''
+            self.meaning_value.setText(display_text(meaning,1000))
+            self.meaning_heading.setVisible(bool(meaning))
+            self.meaning_value.setVisible(bool(meaning))
             if value.context_translation:
                 text='Перевод контекста\n'+value.context_translation
             elif value.context_pending:
@@ -413,6 +447,8 @@ def components():
             if event.stage=='context':
                 if self.popup.isVisible():
                     self.popup.update_context(event.result)
+                    if event.result.meaning_save_error:
+                        self.popup.footer.setText(MEANING_SAVE_ERROR)
                 return
             if event.stage=='frozen':
                 self.popup.loading()

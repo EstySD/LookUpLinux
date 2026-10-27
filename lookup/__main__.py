@@ -6,12 +6,14 @@ exception type names, never exception messages or query text.
 import argparse
 import math
 import os
+import re
 import sqlite3
 import sys
 import time
 
 from lookup import config, dicts, translate, ocr
 from lookup.store import open_store, SchemaTooNewError, MigrationError
+from lookup.normalize import normalize
 
 ONLINE_REASONS = {
     'no_network': 'нет сети',
@@ -57,6 +59,21 @@ def _print_timing(timings):
         print('timing: ' + ' '.join(f'{key}={value:.3f}ms' for key, value in timings.items()), file=sys.stderr)
 
 
+def _context_span(text,context):
+    """Manual context has an occurrence only when whole-token matching is unique."""
+    key=normalize(text)
+    if not key or not context:
+        return None
+    tokens=list(re.finditer(r'\S+',context))
+    width=len(text.split())
+    matches=[]
+    for index in range(len(tokens)-width+1):
+        start,end=tokens[index].start(),tokens[index+width-1].end()
+        if normalize(context[start:end])==key:
+            matches.append((start,end))
+    return matches[0] if len(matches)==1 else None
+
+
 def format_result(result) -> str:
     if result.kind == 'invalid':
         return 'Не слово: ввод не подходит для поиска.'
@@ -89,8 +106,20 @@ def format_result(result) -> str:
         lines.append('Предложение: ' + result.context_translation)
     elif result.context_error:
         lines.append('Предложение: перевод недоступен (' + ONLINE_REASONS[result.context_error] + ')')
+    if result.context_meaning:
+        lines.append('Значение в контексте: '+result.context_meaning)
+    elif result.meaning_error:
+        reasons={
+            'disabled':'онлайн-перевод выключен',
+            'no_context':'Недостаточно надёжного контекста для определения значения',
+            'busy':'пока недоступно',
+        }
+        reason=reasons.get(result.meaning_error,ONLINE_REASONS.get(result.meaning_error,'не удалось надёжно определить значение'))
+        lines.append('Значение в контексте недоступно: '+reason+'.')
     if result.saved:
         lines.append(f'Записано: искали {result.count} раз')
+    if result.meaning_save_error:
+        lines.append('Не удалось сохранить значение в контексте. Перевод доступен.')
     return '\n'.join(lines)
 
 
@@ -174,12 +203,17 @@ def main(argv=None) -> int:
             return 0
         query = args.word if args.word is not None else args.text
         context = args.context
+        context_span=_context_span(query,context) if query is not None else None
+        context_complete=context_span is not None
         compound = 0
         if recognition is not None:
             started = time.perf_counter()
             query = ocr.choose_query(recognition.selection, dictionaries)
             compound = (time.perf_counter() - started) * 1000
-            context = recognition.selection.line
+            selection=recognition.selection
+            context = selection.context if selection.context is not None else selection.line
+            context_span=(selection.span if query==selection.word else dict(selection.candidate_spans).get(query))
+            context_complete=selection.context_complete
         started = time.perf_counter()
         try:
             conn = open_store()
@@ -190,11 +224,14 @@ def main(argv=None) -> int:
         open_db = (time.perf_counter() - started) * 1000
         result = translate.lookup(query,
                                   dictset=dictionaries, conn=conn, context=context,
+                                  context_span=context_span,context_complete=context_complete,
                                   online=cfg.online and not args.offline,
                                   save=not args.no_save, clients=cfg.clients)
         if recognition is not None:
             print('Слово: ' + query)
             print('Строка: ' + context)
+            if not context_complete:
+                print('Показан доступный фрагмент; границы предложения не определены.')
         print(format_result(result))
         if context and not result.online_enabled:
             print('Предложение: перевод выключен.')
