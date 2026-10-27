@@ -234,7 +234,7 @@ def components():
                 self.front.setText('Не удалось загрузить карточки.')
                 self.status.setText('Попробуйте обновить список ещё раз.')
                 return
-            self.front.setText(self.current['word'] if self.current else 'На сегодня всё. Нет карточек для повторения.')
+            self.front.setText(self.current['word'] if self.current else 'Нет карточек для повторения. Можно вернуться позже.')
             self.reveal_button.setEnabled(self.current is not None)
             self.status.setText('')
 
