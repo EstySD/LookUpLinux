@@ -208,3 +208,20 @@ class ContextTests(unittest.TestCase):
         self.assertLessEqual(len(selected.context), 500)
         self.assertFalse(selected.context_complete)
         self.assert_span(selected, 'bank')
+
+    def test_abbreviation_is_an_explicitly_uncertain_boundary(self):
+        selected = self.select(paragraph('Dr. Smith sat on the bank.'), 'bank.')
+        self.assertEqual(selected.context, 'Dr. Smith sat on the bank.')
+        self.assertFalse(selected.context_complete)
+        self.assert_span(selected, 'bank.')
+
+    def test_tesseract_paragraph_split_needs_strong_continuation(self):
+        first = paragraph('They sat on the bank')
+        following = paragraph('of the river.', y=26)
+        following = [ocr.Word(w.text, w.box, w.confidence, (1,1,2,1), w.order) for w in following]
+        selected = self.select(first+following, 'bank')
+        self.assertEqual(selected.context, 'They sat on the bank\nof the river.')
+        self.assertTrue(selected.context_complete)
+        other = paragraph('Another unrelated paragraph.', y=26)
+        other = [ocr.Word(w.text, w.box, w.confidence, (1,1,2,1), w.order) for w in other]
+        self.assertNotIn('Another', self.select(first+other, 'bank').context)

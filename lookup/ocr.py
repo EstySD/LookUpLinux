@@ -207,7 +207,12 @@ def _segments(units):
 
 def _continues(first, second):
     a, b = first[0], second[0]
-    if a.line_id[:3] != b.line_id[:3]:
+    if a.line_id[:2] != b.line_id[:2]:
+        return False
+    # Tesseract can split a wrapped sentence into paragraphs inside one block.
+    # Bridge only an aligned lowercase continuation after an unfinished line.
+    if a.line_id[:3] != b.line_id[:3] and (not b.text[:1].islower() or
+                                                   first[-1].text.endswith(('.', '!', '?', ':'))):
         return False
     height = min(a.box[3], b.box[3])
     gap = b.box[1] - max(w.box[1]+w.box[3] for w in first)
@@ -263,13 +268,16 @@ def _context(all_units, selected, candidates):
                 positions[id(unit)] = (start, len(text))
     span = positions[id(selected)]
     # Sentence delimiters are accepted only outside the actual selected source.
-    ends = list(re.finditer(r'[.!?]["”\u2019\']?(?=\s|$)', text))
+    abbreviations = list(re.finditer(r'\b(?:Mr|Mrs|Ms|Dr|Prof|St|vs|etc|[A-Z])\.', text))
+    ends = [m for m in re.finditer(r'[.!?]["”\u2019\']?(?=\s|$)', text)
+            if not any(a.start() <= m.start() < a.end() for a in abbreviations)]
     left = max((m.end() for m in ends if m.end() <= span[0]), default=0)
     right = next((m.end() for m in ends if m.start() >= span[1]-1), len(text))
     while left < span[0] and text[left].isspace():
         left += 1
     complete = (any(m.end() == right for m in ends) and
                 (left > 0 or (not before and text[:1].isupper())) and
+                not abbreviations and
                 not any(w.confidence < MIN_CONFIDENCE for s in chain for w in s))
     if right == len(text) and after and not any(m.end() == right for m in ends):
         complete = False
