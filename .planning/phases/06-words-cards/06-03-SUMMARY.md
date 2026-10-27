@@ -39,13 +39,15 @@ completed: 2026-10-27
 
 **Native Words/Review/popup workflows passed all ten gates, and Anki 26.9.3 imported the unchanged production TSV into two verified notes in a throwaway collection.**
 
-## Verification Results
+Implementation files: `tools/check_learning_app.py` and `tests/test_check_learning_app.py`.
+
+## Validation Results
 
 - Final host: `python -m unittest discover -s tests` — **640 tests OK**, eight known Windows/environment/opt-in skips, **42.708s**. Log: `06-host-tests.txt`.
 - Final target: `QT_QPA_PLATFORM=offscreen LOOKUP_TEST_OCR=1 LOOKUP_TEST_DICTS=/home/arch/.local/share/lookup/dicts python -m unittest discover -s tests` — **640 tests OK, zero skips**, **55.763s**. Log: `06-target-tests.txt`.
 - Focused harness/native-widget/core suite — **27 tests OK**, zero skips, **1.084s**. Harness contracts independently cover missing/false gates, every cleanup flag, unavailable import, available import failure, timeout and invalid JSON.
 - Actual native command on `archvm`, isolated source copy `/home/arch/LookUpLinux-gsd-learning-06`: `python tools/check_learning_app.py --output native-evidence --anki-python /home/arch/lookup-anki-core-06/bin/python` — **10/10 gates**, **6/6 final-run cleanup checks**, `platform: wayland`, actual Anki import `verified`.
-- `git diff --check -- tools/check_learning_app.py tests/test_check_learning_app.py` — exit 0.
+- Whitespace check for tools/check_learning_app.py and tests/test_check_learning_app.py — exit 0.
 
 The target suite executes the four POSIX-only tests, two real Mueller dictionary tests, actual context-image test and opt-in Breeze OCR CLI test skipped on Windows. Phase 5.1 regressions remain in the full suite; its 144-case image matrix was not repeated because this unit changes no OCR code.
 
