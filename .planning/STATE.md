@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_phase: 5
-current_phase_name: "Фоновое приложение: хоткей, попап, выделение"
-status: executing
-stopped_at: Phase 5 independent verification; stop before Phase 6 requested
-last_updated: "2026-10-26T09:24:14.480Z"
-last_activity: 2026-10-26
-last_activity_desc: Phase 04 complete, transitioned to Phase 5
+current_phase: 6
+current_phase_name: Список слов и карточки
+status: ready
+stopped_at: Phase 5 accepted; stopped before Phase 6 at user request
+last_updated: "2026-10-27T03:36:32.872Z"
+last_activity: 2026-10-27
+last_activity_desc: Phase 05 accepted; stopped before Phase 6 at user request
 progress:
   total_phases: 8
-  completed_phases: 4
-  total_plans: 20
-  completed_plans: 20
-  percent: 50
+  completed_phases: 5
+  total_plans: 23
+  completed_plans: 23
+  percent: 63
 ---
 
 # Project State
@@ -24,22 +24,22 @@ progress:
 See: .planning/PROJECT.md (updated 2026-10-25)
 
 **Core value:** Хоткей над английским словом даёт перевод в оверлее у курсора примерно за 1–2 секунды, и слово попадает в базу со счётчиком.
-**Current focus:** Phase 5 — production tray application, popup and selection
+**Current focus:** Phase 5 accepted; Phase 6 ready and not started (user requested stop)
 
 ## Current Position
 
-Phase: 5 — Фоновое приложение: хоткей, попап, выделение
-Plan: 05-03 complete (independent phase verification pending)
-Status: Verifying Phase 5; user requested stopping before Phase 6
-Last activity: 2026-10-26 — Phase 04 complete, transitioned to Phase 5
+Phase: 6 — Список слов и карточки
+Plan: Not started
+Status: Phase 5 accepted; stopped before Phase 6 at user request
+Last activity: 2026-10-27 — Phase 05 accepted with independent verification10/10
 
-Progress: [█████░░░░░] 50%
+Progress: [██████░░░░] 63% (5/8 phases)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 20
+- Total plans completed: 23
 - Average duration: -
 - Total execution time: 0.0 hours
 
@@ -51,6 +51,7 @@ Progress: [█████░░░░░] 50%
 | 02 | 11 | - | - |
 | 03 | 3 | - | - |
 | 04 | 3 | - | - |
+| 05 | 3 | - | - |
 
 **Recent Trend:**
 
