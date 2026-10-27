@@ -67,13 +67,27 @@ def _v2(conn):
     conn.execute("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT)")
 
 
+def _v3(conn):
+    """Contextual cache and the exact accepted history event awaiting enrichment."""
+    for name, kind in (('context_start','INTEGER'),('context_end','INTEGER'),
+                       ('context_token','TEXT'),('context_meaning','TEXT'),('context_provider','TEXT')):
+        conn.execute('ALTER TABLE words ADD COLUMN '+name+' '+kind)
+    conn.execute(
+        'CREATE TABLE contextual_translations ('
+        'provider TEXT NOT NULL, target TEXT NOT NULL, word TEXT NOT NULL, '
+        'context TEXT NOT NULL, start INTEGER NOT NULL, end INTEGER NOT NULL, '
+        'payload TEXT NOT NULL, fetched_at INTEGER NOT NULL, '
+        'PRIMARY KEY(provider,target,word,context,start,end))'
+    )
+
+
 # A step takes a guarded connection (_StepConnection: execute, executemany,
 # executescript) and runs inside the caller's transaction. It must not control
 # that transaction: BEGIN/COMMIT/END/ROLLBACK and commit()/rollback() raise
 # MigrationError. Routes around the guard (cursor.connection.commit()) are
 # denied by an SQLite authorizer, and open_store re-checks after every step
 # that the transaction is still open.
-MIGRATIONS = (_v1, _v2)
+MIGRATIONS = (_v1, _v2, _v3)
 CURRENT_VERSION = len(MIGRATIONS)
 
 
@@ -176,7 +190,8 @@ def _clean_text(value, limit=None):
 
 
 def upsert_word(
-    conn, word, translation=None, context=None, now=None, lemma=None
+    conn, word, translation=None, context=None, now=None, lemma=None, *,
+    context_span=None, context_token=None
 ) -> int:
     """Count one search of `word` and return the new counter value.
 
@@ -184,7 +199,9 @@ def upsert_word(
     normalise. Empty context/translation/lemma never overwrite stored values.
     `lemma` is the base form found by the dictionary layer; the key in `words`
     stays the surface form (D-12). The cache tables (translations, meta) are
-    used by lookup.translate only.
+    used by lookup.translate only. With context_span, source bytes and offsets
+    are preserved exactly; a nonempty event token is required for enrichment.
+    Every accepted search clears the previous contextual meaning.
     """
     if not isinstance(word, str):
         raise TypeError("word must be str, got " + type(word).__name__)
@@ -192,7 +209,19 @@ def upsert_word(
     if not word:
         raise ValueError("word must not be empty")
     translation = _clean_text(translation)
-    context = _clean_text(context, CONTEXT_MAX_CHARS)
+    start = end = None
+    if context_token is not None and (not isinstance(context_token,str) or not 0 < len(context_token) <= 64):
+        raise ValueError('invalid context token')
+    if context_span is not None:
+        if (not isinstance(context,str) or not 0 < len(context) <= CONTEXT_MAX_CHARS
+                or not isinstance(context_span,(tuple,list)) or len(context_span) != 2
+                or any(isinstance(v,bool) or not isinstance(v,int) for v in context_span)
+                or not 0 <= context_span[0] < context_span[1] <= len(context)
+                or not context[context_span[0]:context_span[1]].strip() or context_token is None):
+            raise ValueError('invalid context span')
+        start, end = context_span
+    else:
+        context = _clean_text(context, CONTEXT_MAX_CHARS)
     lemma = _clean_text(lemma)
     if now is None:
         now = int(time.time())
@@ -200,21 +229,61 @@ def upsert_word(
         raise TypeError("now must be int, got " + type(now).__name__)
     else:
         now = int(now)  # D-13: INTEGER Unix seconds, also for now=time.time()
+    # Historical/synthetic migration fixtures still use the original schema.
+    contextual = any(row[1] == 'context_token' for row in conn.execute('PRAGMA table_info(words)'))
+    if not contextual and (context_span is not None or context_token is not None):
+        raise sqlite3.OperationalError('context schema unavailable')
+    columns = ',context_start,context_end,context_token' if contextual else ''
+    values = ',?,?,?' if contextual else ''
+    update = (',context_start=excluded.context_start,context_end=excluded.context_end,'
+              'context_token=excluded.context_token,context_meaning=NULL,context_provider=NULL') if contextual else ''
     cur = conn.execute(
-        "INSERT INTO words (word, translation, context, first_seen, last_seen, lemma) "
-        "VALUES (?, ?, ?, ?, ?, ?) "
+        "INSERT INTO words (word, translation, context, first_seen, last_seen, lemma"+columns+") "
+        "VALUES (?, ?, ?, ?, ?, ?"+values+") "
         "ON CONFLICT(word) DO UPDATE SET "
         "count = words.count + 1, "
         "last_seen = excluded.last_seen, "
         # _clean_text already turned empty text into NULL.
         "translation = COALESCE(excluded.translation, words.translation), "
         "context = COALESCE(excluded.context, words.context), "
-        "lemma = COALESCE(excluded.lemma, words.lemma) "
+        "lemma = COALESCE(excluded.lemma, words.lemma) "+update+' '
         "RETURNING count",
-        (word, translation, context, now, now, lemma),
+        (word, translation, context, now, now, lemma)+((start,end,context_token) if contextual else ()),
     )
     rows = cur.fetchall()
     return int(rows[0][0])
+
+
+def enrich_word_context(conn, word, token, context, span, result) -> bool:
+    """Update only the matching accepted source event; never count or touch times."""
+    from .context import ContextRequest, ContextResult, _meaning
+    from .online import TranslateError
+    if (not isinstance(token,str) or not 0 < len(token) <= 64
+            or not isinstance(span,(tuple,list)) or len(span) != 2
+            or not isinstance(result,ContextResult)):
+        raise ValueError('invalid context enrichment')
+    meaning = _meaning(result.meaning)
+    try:
+        request = ContextRequest(context,span[0],span[1],word,provider=result.provider)
+    except TranslateError:
+        return False
+    cursor = conn.execute(
+        'UPDATE words SET context_meaning=?,context_provider=? '
+        'WHERE word=? AND context_token=? AND context=? AND context_start=? AND context_end=?',
+        (meaning,result.provider,word,token,request.context,request.start,request.end))
+    return cursor.rowcount == 1
+
+
+def get_word_context(conn, word):
+    """One Phase 6 snapshot; meaning is optional, dictionary translation is fallback."""
+    row = conn.execute(
+        'SELECT word,translation,context,context_start,context_end,context_meaning,context_provider '
+        'FROM words WHERE word=?',(word,)).fetchone()
+    if row is None:
+        return None
+    return dict(word=row[0],translation=row[1],context=row[2],
+                span=(row[3],row[4]) if row[3] is not None and row[4] is not None else None,
+                meaning=row[5],provider=row[6])
 
 
 _SQL_LEAD = re.compile(r"(?:\s+|--[^\n]*(?:\n|\Z)|/\*.*?(?:\*/|\Z))*", re.S)

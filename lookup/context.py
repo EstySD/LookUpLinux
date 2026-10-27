@@ -101,3 +101,41 @@ def translate_context(request):
     body = online._fetch('https://'+online.GOOGLE_HOST+'/translate_a/single?'+query,
                          max(0.001,deadline-clock()),deadline,clock,online.GOOGLE_HOST)
     return ContextResult(_parse(body), request.provider)
+
+
+def _identity(request):
+    if not isinstance(request,ContextRequest):
+        _bad()
+    request.__post_init__()
+    return (request.provider,request.target,request.word,request.context,request.start,request.end)
+
+
+def cache_get(conn, request):
+    identity = _identity(request)
+    row = conn.execute(
+        'SELECT payload FROM contextual_translations '
+        'WHERE provider=? AND target=? AND word=? AND context=? AND start=? AND end=?',identity).fetchone()
+    if row is None or not isinstance(row[0],str) or len(row[0]) > 2048:
+        return None
+    try:
+        payload = json.loads(row[0])
+        if not isinstance(payload,dict) or payload.get('provider') != request.provider:
+            return None
+        return ContextResult(_meaning(payload.get('meaning')),request.provider)
+    except (ValueError,TypeError,RecursionError,online.TranslateError):
+        return None
+
+
+def cache_put(conn, request, result, now=None):
+    identity = _identity(request)
+    if not isinstance(result,ContextResult) or result.provider != request.provider:
+        _bad()
+    meaning = _meaning(result.meaning)
+    conn.execute(
+        'INSERT INTO contextual_translations (provider,target,word,context,start,end,payload,fetched_at) '
+        'VALUES (?,?,?,?,?,?,?,?) ON CONFLICT(provider,target,word,context,start,end) '
+        'DO UPDATE SET payload=excluded.payload,fetched_at=excluded.fetched_at',
+        identity+(json.dumps(dict(meaning=meaning,provider=result.provider)),int(time.time() if now is None else now)))
+    conn.execute(
+        'DELETE FROM contextual_translations WHERE rowid NOT IN '
+        '(SELECT rowid FROM contextual_translations ORDER BY fetched_at DESC,rowid DESC LIMIT ?)',(CACHE_LIMIT,))
