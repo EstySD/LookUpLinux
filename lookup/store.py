@@ -87,7 +87,20 @@ def _v3(conn):
 # MigrationError. Routes around the guard (cursor.connection.commit()) are
 # denied by an SQLite authorizer, and open_store re-checks after every step
 # that the transaction is still open.
-MIGRATIONS = (_v1, _v2, _v3)
+def _v4(conn):
+    """Learning snapshots are independent of mutable/deletable lookup history."""
+    conn.execute(
+        'CREATE TABLE cards ('
+        'word TEXT PRIMARY KEY, translation TEXT NOT NULL, context TEXT, '
+        'context_start INTEGER, context_end INTEGER, provider TEXT, '
+        'created_at INTEGER NOT NULL, due INTEGER NOT NULL, '
+        'repetitions INTEGER NOT NULL DEFAULT 0, interval_days INTEGER NOT NULL DEFAULT 0, '
+        'ease REAL NOT NULL DEFAULT 2.5, review_version INTEGER NOT NULL DEFAULT 0)'
+    )
+    conn.execute('CREATE INDEX cards_due ON cards(due,word)')
+
+
+MIGRATIONS = (_v1, _v2, _v3, _v4)
 CURRENT_VERSION = len(MIGRATIONS)
 
 

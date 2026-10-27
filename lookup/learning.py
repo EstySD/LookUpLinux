@@ -1,0 +1,119 @@
+"""Offline card snapshots, history queries, deterministic review and file export.
+
+Connections belong to the calling thread. Errors carry fixed codes, never text
+from a word, context, translation or destination.
+"""
+import math
+import time
+import unicodedata
+
+from .normalize import normalize
+from .store import CONTEXT_MAX_CHARS, get_word_context
+
+REASONS = ('invalid_snapshot','missing_translation','invalid_state','invalid_rating',
+           'invalid_sort','invalid_time','invalid_search','export_failed')
+_WORD_FIELDS = 'word translation context count first_seen last_seen lemma'.split()
+_CARD_FIELDS = ('word translation context context_start context_end provider created_at due '
+                'repetitions interval_days ease review_version').split()
+_SORTS = frozenset(_WORD_FIELDS)
+_MAX_TIME = (1 << 63)-1
+
+
+class LearningError(ValueError):
+    def __init__(self, reason):
+        if reason not in REASONS:
+            reason = 'invalid_state'
+        self.reason = reason
+        super().__init__(reason)
+
+
+def _text(value, limit):
+    return (isinstance(value,str) and len(value) <= limit and
+            not any(unicodedata.category(c).startswith('C') and c not in '\t\r\n' for c in value))
+
+
+def _word(value):
+    if (not _text(value,500) or not value or len(value.split()) > 4 or normalize(value) != value):
+        raise LearningError('invalid_snapshot')
+    return value
+
+
+def _now(value):
+    if value is None:
+        return int(time.time())
+    if (isinstance(value,bool) or not isinstance(value,(int,float)) or
+            not math.isfinite(value) or not 0 <= value <= _MAX_TIME):
+        raise LearningError('invalid_time')
+    return int(value)
+
+
+def list_words(conn, search='', sort='count', descending=True):
+    if not isinstance(sort,str) or sort not in _SORTS or not isinstance(descending,bool):
+        raise LearningError('invalid_sort')
+    if not _text(search,500):
+        raise LearningError('invalid_search')
+    search = search.replace('\\','\\\\').replace('%','\\%').replace('_','\\_')
+    rows = conn.execute(
+        'SELECT '+','.join(_WORD_FIELDS)+' FROM words '
+        "WHERE word LIKE ? ESCAPE '\\' OR translation LIKE ? ESCAPE '\\' "
+        'ORDER BY '+sort+(' DESC' if descending else ' ASC')+',word ASC',
+        ('%'+search+'%','%'+search+'%')).fetchall()
+    return [dict(zip(_WORD_FIELDS,row)) for row in rows]
+
+
+def delete_word(conn, word):
+    if not _text(word,500) or not word:
+        raise LearningError('invalid_snapshot')
+    return conn.execute('DELETE FROM words WHERE word=?',(word,)).rowcount == 1
+
+
+def _card(row):
+    result = dict(zip(_CARD_FIELDS,row))
+    start, end = result.pop('context_start'), result.pop('context_end')
+    result['span'] = (start,end) if start is not None and end is not None else None
+    return result
+
+
+def get_card(conn, word):
+    row = conn.execute('SELECT '+','.join(_CARD_FIELDS)+' FROM cards WHERE word=?',(_word(word),)).fetchone()
+    return _card(row) if row is not None else None
+
+
+def list_cards(conn):
+    return [_card(row) for row in conn.execute('SELECT '+','.join(_CARD_FIELDS)+' FROM cards ORDER BY word').fetchall()]
+
+
+def add_card(conn, snapshot, now=None):
+    if not isinstance(snapshot,dict):
+        raise LearningError('invalid_snapshot')
+    word = _word(snapshot.get('word'))
+    meaning = snapshot.get('meaning')
+    translation = meaning or snapshot.get('translation')
+    if not _text(translation,8000) or not translation.strip():
+        raise LearningError('missing_translation')
+    context = snapshot.get('context')
+    if context is not None and not _text(context,CONTEXT_MAX_CHARS):
+        raise LearningError('invalid_snapshot')
+    span = snapshot.get('span')
+    start = end = provider = None
+    if span is not None:
+        if (not isinstance(span,(tuple,list)) or len(span) != 2 or not isinstance(context,str)
+                or any(isinstance(v,bool) or not isinstance(v,int) for v in span)
+                or not 0 <= span[0] < span[1] <= len(context)
+                or normalize(context[span[0]:span[1]]) != word):
+            raise LearningError('invalid_snapshot')
+        start,end = span
+    if meaning:
+        provider = snapshot.get('provider')
+        if span is None or not _text(provider,64) or not provider:
+            raise LearningError('invalid_snapshot')
+    created = _now(now)
+    cursor = conn.execute(
+        'INSERT INTO cards (word,translation,context,context_start,context_end,provider,created_at,due) '
+        'VALUES (?,?,?,?,?,?,?,?) ON CONFLICT(word) DO NOTHING',
+        (word,translation,context,start,end,provider,created,created))
+    return 'created' if cursor.rowcount == 1 else 'already_present'
+
+
+def add_history_card(conn, word, now=None):
+    return add_card(conn,get_word_context(conn,word),now=now)
