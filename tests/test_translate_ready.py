@@ -4,10 +4,10 @@ import threading
 import unittest
 from unittest.mock import patch
 
-from lookup import translate as t
+from lookup import translate as t, context as contextual
 from lookup.dicts import Article, SearchResult
 from lookup.online import OnlineResult
-from lookup.store import open_store
+from lookup.store import open_store, get_word_context
 from tests._support import make_tempdir, forbid_network
 
 
@@ -122,6 +122,95 @@ class ReadyTests(unittest.TestCase):
             self.assertEqual(result.cache_error,'unavailable')
         finally:
             other.execute('ROLLBACK')
+
+    def test_contextual_meaning_is_late_detached_and_saved_without_recount(self):
+        conn=open_store(self.root/'meaning.db')
+        self.addCleanup(conn.close)
+        entered,release=threading.Event(),threading.Event()
+        self.addCleanup(release.set)
+        source='They sat on the bank of the river.'
+        snapshots=[]
+        def meaning(request):
+            self.assertEqual((request.context,request.start,request.end),(source,16,20))
+            entered.set();self.assertTrue(release.wait(2))
+            return contextual.ContextResult('берегу',contextual.PROVIDER)
+        def ready(value):
+            self.assertTrue(entered.wait(1))
+            self.assertTrue(value.meaning_pending)
+            self.assertEqual(value.articles,(ENTRY,))
+            self.assertIsNone(value.context_meaning)
+            snapshots.append(value)
+            release.set()
+        with patch.object(t._online,'translate_online',return_value=ANSWER), \
+             patch.object(contextual,'translate_context',side_effect=meaning):
+            result=t.lookup('bank',dictset=Dictionary(),conn=conn,context=source,
+                            context_span=(16,20),context_complete=True,on_ready=ready)
+        self.assertEqual(result.context_meaning,'берегу')
+        self.assertEqual(result.context_translation,'translation')
+        self.assertEqual(result.count,1)
+        self.assertFalse(result.meaning_pending)
+        self.assertIsNone(snapshots[0].context_meaning)
+        self.assertGreaterEqual(result.timings['meaning_ready'],result.timings['first_useful'])
+        pair=get_word_context(conn,'bank')
+        self.assertEqual((pair['context'],pair['span'],pair['meaning']),(source,(16,20),'берегу'))
+        self.assertEqual(conn.execute('SELECT count FROM words').fetchone()[0],1)
+
+    def test_cached_meaning_is_immediate_and_occurrence_specific(self):
+        conn=open_store(self.root/'cached-meaning.db')
+        self.addCleanup(conn.close)
+        source='The bank by the bank.'
+        request=contextual.ContextRequest(source,16,20,'bank')
+        contextual.cache_put(conn,request,contextual.ContextResult('банк',contextual.PROVIDER))
+        snapshots=[]
+        with patch.object(t._online,'translate_online',return_value=ANSWER), \
+             patch.object(contextual,'translate_context',side_effect=AssertionError('unexpected meaning network')):
+            result=t.lookup('bank',dictset=Dictionary(),conn=conn,context=source,
+                            context_span=(16,20),context_complete=True,on_ready=snapshots.append)
+        self.assertEqual(snapshots[0].context_meaning,'банк')
+        self.assertTrue(result.meaning_from_cache)
+        self.assertFalse(result.meaning_pending)
+
+    def test_disabled_missing_and_unreliable_context_never_request_meaning(self):
+        source='They sat on the bank of the river.'
+        with patch.object(t._online,'translate_online',return_value=ANSWER), \
+             patch.object(contextual,'translate_context') as network:
+            for options,status in ((dict(online=False,context_complete=True),'disabled'),
+                                   (dict(context_complete=False),'no_context'),
+                                   (dict(context_complete=True,context_span=(0,4)),'no_context')):
+                kwargs=dict(context=source,context_span=(16,20));kwargs.update(options)
+                result=t.lookup('bank',dictset=Dictionary(),**kwargs)
+                self.assertEqual(result.meaning_error,status)
+                self.assertTrue(result.articles)
+            self.assertEqual(network.call_count,0)
+
+    def test_meaning_timeout_keeps_gate_until_background_exit(self):
+        gate=threading.BoundedSemaphore(1)
+        release=threading.Event()
+        self.addCleanup(release.set)
+        def meaning(request):
+            release.wait(2)
+            return contextual.ContextResult('берег',contextual.PROVIDER)
+        kwargs=dict(dictset=Dictionary(),context='The bank by the river.',
+                    context_span=(4,8),context_complete=True,meaning_gate=gate)
+        with patch.object(t._online,'translate_online',return_value=ANSWER), \
+             patch.object(contextual,'translate_context',side_effect=meaning) as network, \
+             patch.object(t,'CONTEXT_JOIN_S',.02):
+            first=t.lookup('bank',**kwargs)
+            self.assertEqual(first.meaning_error,'timeout')
+            for _ in range(3):
+                value=t.lookup('bank',**kwargs)
+                self.assertEqual(value.meaning_error,'busy')
+            self.assertEqual(network.call_count,1)
+            release.set()
+            self.assertTrue(gate.acquire(timeout=1));gate.release()
+
+    def test_meaning_failure_preserves_article_and_private_reason(self):
+        with patch.object(t._online,'translate_online',return_value=ANSWER), \
+             patch.object(contextual,'translate_context',side_effect=RuntimeError('private source')):
+            value=t.lookup('bank',dictset=Dictionary(),context='The bank by the river.',
+                           context_span=(4,8),context_complete=True)
+        self.assertEqual(value.meaning_error,'bad_response')
+        self.assertTrue(value.articles)
 
 
 if __name__=='__main__':

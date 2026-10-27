@@ -6,9 +6,9 @@ import time
 import unittest
 from unittest.mock import patch
 
-from lookup import app, config, translate
+from lookup import app, config, translate, context as contextual, ocr
 from lookup.platform import Monitor
-from lookup.store import open_store
+from lookup.store import open_store, get_word_context
 from tests._support import make_tempdir, forbid_network
 from tests.test_translate_ready import Dictionary, ANSWER
 
@@ -194,8 +194,68 @@ class EngineTests(unittest.TestCase):
             self.assertFalse(release.is_set())
             release.set()
 
+    def test_contextual_enrichment_counts_once_and_stale_reply_cannot_update_pair(self):
+        for stale in ('none','dismiss','replace'):
+            with self.subTest(stale=stale):
+                entered,release,finished=threading.Event(),threading.Event(),threading.Event()
+                self.addCleanup(release.set)
+                source='They sat on the bank of the river.'
+                class ContextSource(FixedSource):
+                    def resolve(self,frozen,dictset):
+                        return app.Query('bank',source,span=(16,20),context_complete=True)
+                @contextlib.contextmanager
+                def resources():
+                    with self.resources() as value:
+                        value.config=config.Config(online=True)
+                        yield value
+                def meaning(request):
+                    entered.set();release.wait(2)
+                    return contextual.ContextResult('берегу',contextual.PROVIDER)
+                original=translate.lookup
+                def lookup(*args,**kwargs):
+                    try:return original(*args,**kwargs)
+                    finally:finished.set()
+                with patch.object(translate._online,'translate_online',return_value=ANSWER), \
+                     patch.object(contextual,'translate_context',side_effect=meaning):
+                    engine=self.engine(source=ContextSource(),resources=resources,lookup=lookup)
+                    identity=engine.begin();engine.enqueue(identity)
+                    self.wait(lambda:any(e.id==identity and e.stage=='ready' for e in self.events))
+                    self.assertTrue(entered.is_set())
+                    ready=next(e for e in self.events if e.id==identity and e.stage=='ready')
+                    self.assertTrue(ready.result.meaning_pending)
+                    if stale=='dismiss':engine.dismiss(identity)
+                    elif stale=='replace':engine.begin()
+                    release.set();self.assertTrue(finished.wait(1))
+                    if stale=='none':
+                        self.wait(lambda:any(e.id==identity and e.stage=='context' for e in self.events))
+                    else:
+                        self.assertFalse(any(e.id==identity and e.stage=='context' for e in self.events))
+                    engine.stop();engine.join(2)
+                with contextlib.closing(open_store(self.path)) as conn:
+                    pair=get_word_context(conn,'bank')
+                    self.assertEqual(pair['context'],source)
+                    self.assertEqual(pair['span'],(16,20))
+                    self.assertEqual(pair['meaning'],'берегу' if stale=='none' else None)
+                    self.assertEqual(conn.execute('SELECT count FROM words WHERE word=?',('bank',)).fetchone()[0],
+                                     ('none','dismiss','replace').index(stale)+1)
+                self.events.clear()
+
 
 class SourceTests(unittest.TestCase):
+    def test_recovered_context_and_selected_phrase_span_are_propagated(self):
+        from types import SimpleNamespace
+        text='The river bank by the bank.'
+        selection=ocr.Selection('bank','original line',('river bank',),(10,10,20,10),90,
+                                text,(10,14),True,(('river bank',(4,14)),))
+        frame=SimpleNamespace(width=1000,height=800,png=b'public',elapsed_ms=1)
+        frozen=app.Frozen('ocr',(20,20),MONITOR,image=frame)
+        with patch.object(ocr,'recognize_image',return_value=SimpleNamespace(selection=selection,timings={})), \
+             patch.object(ocr,'choose_query',return_value='river bank'):
+            query=app.Source({}).resolve(frozen,None)
+        self.assertEqual(query.context,text)
+        self.assertEqual(query.span,(4,14))
+        self.assertTrue(query.context_complete)
+
     def test_fresh_repeated_absent_invalid_primary_transitions(self):
         source=app.Source({})
         frames=object()
