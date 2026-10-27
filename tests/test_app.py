@@ -199,6 +199,8 @@ class EngineTests(unittest.TestCase):
             with self.subTest(stale=stale):
                 entered,release,finished=threading.Event(),threading.Event(),threading.Event()
                 self.addCleanup(release.set)
+                with contextlib.closing(open_store(self.path)) as conn:
+                    conn.execute('DELETE FROM contextual_translations')
                 source='They sat on the bank of the river.'
                 class ContextSource(FixedSource):
                     def resolve(self,frozen,dictset):
@@ -238,6 +240,29 @@ class EngineTests(unittest.TestCase):
                     self.assertEqual(pair['meaning'],'берегу' if stale=='none' else None)
                     self.assertEqual(conn.execute('SELECT count FROM words WHERE word=?',('bank',)).fetchone()[0],
                                      ('none','dismiss','replace').index(stale)+1)
+                self.events.clear()
+
+    def test_late_enrichment_error_or_unmatched_pair_has_separate_warning(self):
+        class ContextSource(FixedSource):
+            def resolve(self,frozen,dictset):
+                return app.Query('bank','The bank by the river.',span=(4,8),context_complete=True)
+        def lookup(text,**kwargs):
+            value=translate.Result('word',text,translation='meaning',context_meaning='берег',
+                                   meaning_provider=contextual.PROVIDER)
+            kwargs['on_ready'](value)
+            return value
+        for error in (sqlite3.OperationalError('private detail'),None):
+            with self.subTest(error=type(error).__name__):
+                with patch.object(app,'enrich_word_context',side_effect=error,return_value=False):
+                    engine=self.engine(source=ContextSource(),lookup=lookup)
+                    identity=engine.begin();engine.enqueue(identity)
+                    self.wait(lambda:any(e.id==identity and e.stage=='context' for e in self.events))
+                    final=next(e for e in self.events if e.id==identity and e.stage=='context')
+                    self.assertTrue(final.result.meaning_save_error)
+                    self.assertTrue(final.result.saved)
+                    self.assertIsNone(final.result.cache_error)
+                    self.assertEqual(final.result.context_meaning,'берег')
+                    engine.stop();engine.join(2)
                 self.events.clear()
 
 

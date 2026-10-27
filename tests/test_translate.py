@@ -139,7 +139,7 @@ class OfflineFirstTests(DatabaseTest):
             self.assertFalse(res.online_attempted)
             self.assertEqual(res.lemma, "run")
             self.assertEqual(res.translation, "бег; ход; пробег")
-            self.assertEqual(set(res.timings), {"classify", "dicts", "cache", "online", "context", "db", "total"})
+            self.assertEqual(set(res.timings), {"classify", "dicts", "cache", "online", "context", "db", "total", "first_useful", "meaning_ready"})
             self.assertTrue(all(ms >= 0 for ms in res.timings.values()))
 
     def test_missing_and_broken_dictionary_fall_back(self):

@@ -7,13 +7,15 @@ import json
 import sqlite3
 import threading
 import time
+import uuid
 from dataclasses import dataclass, field, replace
 from itertools import islice
 
 from lookup import online as _online
+from lookup import context as _contextual
 from lookup.dicts import SearchResult
 from lookup.normalize import normalize
-from lookup.store import upsert_word
+from lookup.store import upsert_word, enrich_word_context
 
 MAX_PHRASE_WORDS = 4
 SENTENCE_CACHE_LIMIT = 1000
@@ -21,6 +23,7 @@ SHORT_MAX_CHARS = 200
 CONTEXT_JOIN_S = _online.DEADLINE_S + 0.5
 META_GOOGLE_CLIENT = "google_client"
 _KINDS = ("word", "phrase", "sentence")
+_MEANING_SLOT = threading.BoundedSemaphore(1)
 
 
 @dataclass(frozen=True)
@@ -125,7 +128,14 @@ class Result:
     context_pending: bool = False
     cache_error: str | None = None
     timings: dict = field(default_factory=lambda: dict.fromkeys(
-        ("classify", "dicts", "cache", "online", "context", "db", "total"), 0.0))
+        ("classify", "dicts", "cache", "online", "context", "db", "total", "first_useful", "meaning_ready"), 0.0))
+    context_meaning: str | None = None
+    meaning_provider: str | None = None
+    meaning_error: str | None = None
+    meaning_pending: bool = False
+    meaning_from_cache: bool = False
+    context_complete: bool = False
+    meaning_save_error: bool = False
 
 
 def _context_request(holder, key, clients, first_client, gate=None):
@@ -142,11 +152,30 @@ def _context_request(holder, key, clients, first_client, gate=None):
             gate.release()
 
 
+def _meaning_request(holder, request, start, gate):
+    try:
+        value = _contextual.translate_context(request)
+        if not isinstance(value, _contextual.ContextResult) or value.provider != request.provider:
+            raise _online.TranslateError('bad_response')
+        holder['result'] = _contextual.ContextResult(_contextual._meaning(value.meaning), value.provider)
+    except _online.TranslateError as error:
+        holder['error'] = error.reason
+    except Exception:
+        holder['error'] = 'bad_response'
+    finally:
+        holder['ready'] = (time.perf_counter()-start)*1000
+        gate.release()
+
+
 def lookup(text, *, dictset=None, conn=None, context=None, online=True,
-           save=True, clients=None, now=None, on_ready=None, context_gate=None) -> Result:
+           save=True, clients=None, now=None, on_ready=None, context_gate=None,
+           context_span=None, context_complete=False, meaning_gate=None) -> Result:
     start = time.perf_counter()
     query = classify(text)
-    result = Result(query.kind, query.key, online_enabled=online)
+    result = Result(query.kind, query.key, online_enabled=online,
+                    context_complete=context_complete is True,
+                    meaning_error=('disabled' if not online else 'no_context')
+                                  if query.kind in ('word','phrase') else None)
     result.timings["classify"] = (time.perf_counter() - start) * 1000
     if query.kind == "invalid":
         result.timings["total"] = (time.perf_counter() - start) * 1000
@@ -201,6 +230,58 @@ def lookup(text, *, dictset=None, conn=None, context=None, online=True,
                     thread = None
                     result.context_error = 'bad_response'
 
+    request = None
+    if query.kind in ('word', 'phrase') and isinstance(context_span, (tuple, list)) and len(context_span) == 2:
+        try:
+            request = _contextual.ContextRequest(context, context_span[0], context_span[1], query.key)
+        except _online.TranslateError:
+            pass
+    meaning_thread = None
+    meaning_holder = {}
+    meaning_collected = False
+    if online and request is not None and result.context_complete and normalize(context) != query.key:
+        result.meaning_error = None
+        try:
+            value = _contextual.cache_get(conn, request) if conn is not None else None
+        except sqlite3.Error:
+            result.cache_error = 'unavailable'
+            value = None
+        if value is not None:
+            result.context_meaning, result.meaning_provider = value.meaning, value.provider
+            result.meaning_from_cache = True
+            result.timings['meaning_ready'] = (time.perf_counter()-start)*1000
+        else:
+            gate = meaning_gate if meaning_gate is not None else _MEANING_SLOT
+            if not gate.acquire(blocking=False):
+                result.meaning_error = 'busy'
+            else:
+                meaning_start = time.perf_counter()
+                meaning_thread = threading.Thread(target=_meaning_request,
+                    args=(meaning_holder, request, start, gate), daemon=True)
+                try:
+                    meaning_thread.start()
+                except (RuntimeError, OSError):
+                    gate.release()
+                    meaning_thread = None
+                    result.meaning_error = 'bad_response'
+
+    def collect_meaning():
+        nonlocal meaning_collected
+        if meaning_collected or meaning_thread is None or meaning_thread.is_alive():
+            return
+        meaning_collected = True
+        result.timings['meaning_ready'] = meaning_holder.get('ready', (time.perf_counter()-start)*1000)
+        value = meaning_holder.get('result')
+        if value is None:
+            result.meaning_error = meaning_holder.get('error', 'bad_response')
+        else:
+            result.context_meaning, result.meaning_provider = value.meaning, value.provider
+            if conn is not None:
+                try:
+                    _contextual.cache_put(conn, request, value, now)
+                except sqlite3.Error:
+                    result.cache_error = 'unavailable'
+
     began = time.perf_counter()
     search = SearchResult()
     if dictset is not None and query.kind != "sentence":
@@ -232,13 +313,20 @@ def lookup(text, *, dictset=None, conn=None, context=None, online=True,
         if lemma and lemma.casefold() != query.key.casefold():
             result.lemma = lemma
     result.translation = short_translation(result.articles, result.online)
+    token = None
     if query.kind in ("word", "phrase") and conn is not None and save and result.online_error != "not_found":
         began = time.perf_counter()
-        result.count = upsert_word(conn, query.key, result.translation, context, now, lemma=result.lemma)
+        token = uuid.uuid4().hex
+        pair = dict(context_span=(request.start, request.end), context_token=token) if request is not None else {}
+        result.count = upsert_word(conn, query.key, result.translation, context, now, lemma=result.lemma, **pair)
         result.saved = True
         result.timings["db"] += (time.perf_counter() - began) * 1000
 
+    collect_meaning()
+    result.meaning_pending = meaning_thread is not None and not meaning_collected
     result.context_pending = thread is not None and thread.is_alive()
+    if result.articles or result.online is not None:
+        result.timings['first_useful'] = (time.perf_counter()-start)*1000
     if on_ready is not None:
         result.timings['total'] = (time.perf_counter()-start)*1000
         on_ready(replace(result, timings=dict(result.timings)))
@@ -254,6 +342,20 @@ def lookup(text, *, dictset=None, conn=None, context=None, online=True,
             remember(ctx_key, "sentence", value)
         else:
             result.context_error = holder["error"]
+    if meaning_thread is not None:
+        meaning_thread.join(timeout=max(0.0, CONTEXT_JOIN_S - (time.perf_counter()-meaning_start)))
+        if meaning_thread.is_alive():
+            result.meaning_error = 'timeout'
+        else:
+            collect_meaning()
+    result.meaning_pending = False
+    if result.saved and request is not None and result.context_meaning is not None:
+        try:
+            matched = enrich_word_context(conn, query.key, token, request.context, (request.start, request.end),
+                                          _contextual.ContextResult(result.context_meaning, result.meaning_provider))
+            result.meaning_save_error = not matched
+        except (sqlite3.Error, OSError):
+            result.meaning_save_error = True
     result.context_pending = False
     result.timings["total"] = (time.perf_counter() - start) * 1000
     return result

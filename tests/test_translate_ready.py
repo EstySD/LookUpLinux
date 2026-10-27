@@ -212,6 +212,21 @@ class ReadyTests(unittest.TestCase):
         self.assertEqual(value.meaning_error,'bad_response')
         self.assertTrue(value.articles)
 
+    def test_late_meaning_persistence_error_retains_successful_answer(self):
+        conn=open_store(self.root/'enrich-error.db')
+        self.addCleanup(conn.close)
+        with patch.object(t._online,'translate_online',return_value=ANSWER), \
+             patch.object(contextual,'translate_context',return_value=contextual.ContextResult('берег',contextual.PROVIDER)), \
+             patch.object(t,'enrich_word_context',side_effect=sqlite3.OperationalError('private write')):
+            value=t.lookup('bank',dictset=Dictionary(),conn=conn,context='The bank by the river.',
+                           context_span=(4,8),context_complete=True)
+        self.assertEqual(value.context_meaning,'берег')
+        self.assertTrue(value.articles)
+        self.assertTrue(value.saved)
+        self.assertTrue(value.meaning_save_error)
+        self.assertIsNone(value.cache_error)
+        self.assertEqual(conn.execute('SELECT count FROM words').fetchone()[0],1)
+
 
 if __name__=='__main__':
     unittest.main()

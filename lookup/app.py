@@ -5,10 +5,11 @@ import sqlite3
 import threading
 import time
 import unicodedata
+import uuid
 
-from . import config, dicts, translate, platform, capture, ocr
+from . import config, dicts, translate, platform, capture, ocr, context as contextual
 from .online import ONLINE_MAX_CHARS
-from .store import open_store, upsert_word
+from .store import open_store, upsert_word, enrich_word_context
 
 
 class AppError(Exception):
@@ -32,6 +33,8 @@ class Query:
     text: str
     context: str | None
     timings: dict = field(default_factory=dict)
+    span: tuple[int, int] | None = None
+    context_complete: bool = False
 
 
 @dataclass
@@ -104,8 +107,11 @@ class Source:
         if result.selection is None:
             raise AppError('not_found')
         timings={key:value for key,value in result.timings.items() if key!='total'}
-        return Query(ocr.choose_query(result.selection,dictset),result.selection.line,
-                     dict(timings,capture=source.image.elapsed_ms))
+        selection=result.selection
+        text=ocr.choose_query(selection,dictset)
+        span=selection.span if text==selection.word else dict(selection.candidate_spans).get(text)
+        return Query(text,selection.context if selection.context is not None else selection.line,
+                     dict(timings,capture=source.image.elapsed_ms),span,selection.context_complete)
 
 
 @contextmanager
@@ -148,6 +154,7 @@ class Engine:
         self._pending=None
         self._stopping=False
         self._context_slot=threading.BoundedSemaphore(1)
+        self._meaning_slot=threading.BoundedSemaphore(1)
         self._worker=threading.Thread(target=self._run,name='lookup-worker',daemon=False)
         self._worker.start()
 
@@ -226,8 +233,13 @@ class Engine:
             if not self.current(identity):
                 return
             history=None
+            token=uuid.uuid4().hex
             def snapshot(result):
-                return replace(result,timings=dict(result.timings,**query.timings))
+                timings=dict(result.timings,**query.timings)
+                for key in ('first_useful','meaning_ready'):
+                    if timings.get(key,0)>0:
+                        timings[key]+=lookup_offset
+                return replace(result,timings=timings)
             def ready(result):
                 nonlocal history
                 with self._condition:
@@ -242,23 +254,37 @@ class Engine:
                                 error=resources.save_error or 'unavailable'
                             else:
                                 try:
-                                    count=upsert_word(resources.conn,result.key,result.translation,query.context,lemma=result.lemma)
+                                    pair=dict(context_span=query.span,context_token=token) if query.span is not None else {}
+                                    count=upsert_word(resources.conn,result.key,result.translation,query.context,
+                                                      lemma=result.lemma,**pair)
                                     saved=True
-                                except (sqlite3.Error,OSError):
+                                except (sqlite3.Error,OSError,ValueError):
                                     error='unavailable'
                         history=(saved,count,error)
                     value=snapshot(result)
                     value.saved,value.count=history[:2]
                 self._emit(Event(identity,'ready',result=value,context=query.context,**origin,
                                  save_error=history[2],elapsed_ms=(time.perf_counter()-started)*1000))
+            lookup_offset=(time.perf_counter()-started)*1000
             result=self._lookup(query.text,dictset=resources.dictset,conn=resources.conn,
                                 context=query.context,online=resources.config.online,
                                 clients=resources.config.clients,save=False,on_ready=ready,
-                                context_gate=self._context_slot)
+                                context_gate=self._context_slot,meaning_gate=self._meaning_slot,
+                                context_span=query.span,context_complete=query.context_complete)
             if not self.current(identity):
                 return
             if history is None:
                 ready(result)
+            with self._condition:
+                if not self.current(identity):
+                    return
+                if history[0] and query.span is not None and result.context_meaning is not None:
+                    try:
+                        matched=enrich_word_context(resources.conn,result.key,token,query.context,query.span,
+                                                    contextual.ContextResult(result.context_meaning,result.meaning_provider))
+                        result.meaning_save_error=not matched
+                    except (sqlite3.Error,OSError,ValueError):
+                        result.meaning_save_error=True
             value=snapshot(result)
             value.saved,value.count=history[:2]
             self._emit(Event(identity,'context',result=value,context=query.context,**origin,
