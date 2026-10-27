@@ -162,10 +162,13 @@ class ReadyTests(unittest.TestCase):
         request=contextual.ContextRequest(source,16,20,'bank')
         contextual.cache_put(conn,request,contextual.ContextResult('банк',contextual.PROVIDER))
         snapshots=[]
+        def ready(value):
+            self.assertEqual(get_word_context(conn,'bank')['meaning'],'банк')
+            snapshots.append(value)
         with patch.object(t._online,'translate_online',return_value=ANSWER), \
              patch.object(contextual,'translate_context',side_effect=AssertionError('unexpected meaning network')):
             result=t.lookup('bank',dictset=Dictionary(),conn=conn,context=source,
-                            context_span=(16,20),context_complete=True,on_ready=snapshots.append)
+                            context_span=(16,20),context_complete=True,on_ready=ready)
         self.assertEqual(snapshots[0].context_meaning,'банк')
         self.assertTrue(result.meaning_from_cache)
         self.assertFalse(result.meaning_pending)

@@ -265,6 +265,45 @@ class EngineTests(unittest.TestCase):
                     engine.stop();engine.join(2)
                 self.events.clear()
 
+    def test_dismiss_after_cached_ready_keeps_the_already_shown_meaning(self):
+        source='The bank by the river.'
+        release,finished=threading.Event(),threading.Event()
+        self.addCleanup(release.set)
+        class ContextSource(FixedSource):
+            def resolve(self,frozen,dictset):
+                return app.Query('bank',source,span=(4,8),context_complete=True)
+        @contextlib.contextmanager
+        def resources():
+            with self.resources() as value:
+                value.config=config.Config(online=True)
+                contextual.cache_put(value.conn,contextual.ContextRequest(source,4,8,'bank'),
+                                     contextual.ContextResult('берег',contextual.PROVIDER))
+                yield value
+        def sentence(*args,**kwargs):
+            release.wait(2)
+            return ANSWER
+        original=translate.lookup
+        def lookup(*args,**kwargs):
+            try:return original(*args,**kwargs)
+            finally:finished.set()
+        with patch.object(translate._online,'translate_online',side_effect=sentence):
+            engine=self.engine(source=ContextSource(),resources=resources,lookup=lookup)
+            self.addCleanup(release.set)
+            identity=engine.begin();engine.enqueue(identity)
+            self.wait(lambda:any(e.id==identity and e.stage=='ready' for e in self.events))
+            ready=next(e for e in self.events if e.id==identity and e.stage=='ready')
+            self.assertEqual(ready.result.context_meaning,'берег')
+            with contextlib.closing(open_store(self.path)) as conn:
+                self.assertEqual(get_word_context(conn,'bank')['meaning'],'берег')
+            engine.dismiss(identity)
+            release.set();self.assertTrue(finished.wait(1))
+            engine.stop();engine.join(2)
+        self.assertFalse(any(e.id==identity and e.stage=='context' for e in self.events))
+        with contextlib.closing(open_store(self.path)) as conn:
+            pair=get_word_context(conn,'bank')
+            self.assertEqual((pair['context'],pair['span'],pair['meaning']),(source,(4,8),'берег'))
+            self.assertEqual(conn.execute('SELECT count FROM words').fetchone()[0],1)
+
 
 class SourceTests(unittest.TestCase):
     def test_recovered_context_and_selected_phrase_span_are_propagated(self):
