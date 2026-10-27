@@ -225,11 +225,14 @@ class EngineTests(unittest.TestCase):
                     self.assertTrue(entered.is_set())
                     ready=next(e for e in self.events if e.id==identity and e.stage=='ready')
                     self.assertTrue(ready.result.meaning_pending)
+                    self.assertEqual(ready.span,(16,20))
                     if stale=='dismiss':engine.dismiss(identity)
                     elif stale=='replace':engine.begin()
                     release.set();self.assertTrue(finished.wait(1))
                     if stale=='none':
                         self.wait(lambda:any(e.id==identity and e.stage=='context' for e in self.events))
+                        final=next(e for e in self.events if e.id==identity and e.stage=='context')
+                        self.assertEqual(final.span,(16,20))
                     else:
                         self.assertFalse(any(e.id==identity and e.stage=='context' for e in self.events))
                     engine.stop();engine.join(2)

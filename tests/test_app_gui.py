@@ -1,7 +1,9 @@
 """Native Qt presentation and queued-generation rules; no desktop required."""
 import os
+import sqlite3
 import unittest
 from dataclasses import replace
+from unittest import mock
 
 os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
 try:
@@ -15,6 +17,9 @@ except ImportError:
 from lookup import app, translate
 from lookup.dicts import Article
 from lookup.platform import Monitor
+from lookup import learning
+from lookup.store import open_store, upsert_word, MigrationError
+from tests._support import make_tempdir
 
 
 class FakeEngine:
@@ -43,6 +48,7 @@ class GuiTests(unittest.TestCase):
     def setUpClass(cls):
         cls.application=QApplication.instance() or QApplication([])
     def setUp(self):
+        self.root=make_tempdir(self)
         from lookup import gui
         self.Popup,self.Owner=gui.components()
         self.owner=self.Owner({},engine_factory=FakeEngine,focus=False,on_quit=lambda:None)
@@ -142,6 +148,87 @@ class GuiTests(unittest.TestCase):
         self.assertIn('Другой словарь',self.texts())
         self.assertEqual(self.owner.popup.meaning_value.text(),'банк')
 
+    def test_popup_add_freezes_displayed_pair_without_reading_newer_history(self):
+        value=replace(self.result(),translation='слово',context_meaning='значение',
+                      meaning_provider='google-gtx-marked-v1',context_complete=True)
+        self.owner.receive(self.event(result=value,context='The word has meaning.',span=(4,8)))
+        conn=open_store()
+        self.addCleanup(conn.close)
+        upsert_word(conn,'word','более новый перевод','Different word context.')
+        self.owner.popup.card_button.click()
+        card=learning.get_card(conn,'word')
+        self.assertEqual((card['translation'],card['context'],card['span']),
+                         ('значение','The word has meaning.',(4,8)))
+        self.assertIn('Добавлено',self.owner.popup.card_status.text())
+        self.assertIn('Искали 3',self.owner.popup.footer.text())
+        self.owner.receive(self.event('context',result=replace(value,context_meaning='другое значение'),
+                                      context='The word has meaning.',span=(4,8)))
+        self.assertEqual(learning.get_card(conn,'word'),card)
+        self.assertFalse(self.owner.popup.card_button.isEnabled())
+        self.owner._known_cards.clear()  # A restarted owner discovers the existing immutable card.
+        self.owner.receive(self.event(result=value,context='The word has meaning.',span=(4,8)))
+        self.owner.popup.card_button.click()
+        self.assertIn('Уже в карточках',self.owner.popup.card_status.text())
+        self.assertEqual(learning.get_card(conn,'word'),card)
+
+    def test_popup_fallback_card_does_not_follow_late_meaning(self):
+        value=replace(self.result(),translation='слово',meaning_pending=True,context_complete=True)
+        self.owner.receive(self.event(result=value,context='The word has meaning.',span=(4,8)))
+        self.owner.popup.card_button.click()
+        conn=open_store()
+        self.addCleanup(conn.close)
+        self.assertEqual(learning.get_card(conn,'word')['translation'],'слово')
+        final=replace(value,meaning_pending=False,context_meaning='значение',meaning_provider='google-gtx-marked-v1')
+        self.owner.receive(self.event('context',result=final,context='The word has meaning.',span=(4,8)))
+        self.assertEqual(learning.get_card(conn,'word')['translation'],'слово')
+        self.assertEqual(conn.execute('SELECT count(*) FROM words').fetchone()[0],0)
+
+    def test_closed_loading_sentence_and_missing_translation_cannot_add(self):
+        value=replace(self.result(),translation='слово')
+        self.owner.receive(self.event(result=value))
+        self.owner.popup.dismiss()
+        self.owner.add_card()
+        self.assertIsNone(self.owner._learning_conn)
+        self.owner.Trigger('')
+        self.identity=self.owner.engine.generation
+        for event in (self.event('frozen'),self.event(result=translate.Result('sentence','A whole sentence.')),
+                      self.event(result=self.result())):
+            self.owner.receive(event)
+            self.assertFalse(self.owner.popup.card_button.isEnabled())
+            self.owner.add_card()
+        self.assertIsNone(self.owner._learning_conn)
+
+    def test_tray_windows_reuse_one_gui_connection_and_close_it_on_quit(self):
+        self.owner.open_words()
+        words=self.owner.words_window
+        self.assertIsNotNone(words)
+        self.assertTrue(words.isVisible())
+        self.owner.open_words()
+        self.assertIs(self.owner.words_window,words)
+        self.owner.open_review()
+        review=self.owner.review_window
+        self.assertTrue(review.isVisible())
+        self.owner.open_review()
+        self.assertIs(self.owner.review_window,review)
+        conn=self.owner._learning_conn
+        self.assertEqual(conn.execute('PRAGMA busy_timeout').fetchone()[0],50)
+        self.owner.quit()
+        with self.assertRaises(sqlite3.ProgrammingError):conn.execute('SELECT 1')
+
+    def test_gui_open_and_card_errors_are_private_and_retryable(self):
+        value=replace(self.result(),translation='слово')
+        self.owner.receive(self.event(result=value))
+        with mock.patch('lookup.store.open_store',side_effect=MigrationError('private sentinel')), \
+             mock.patch('PyQt6.QtWidgets.QMessageBox.warning') as warning:
+            self.owner.add_card()
+            self.assertIn('Не удалось сохранить карточку',self.owner.popup.card_status.text())
+            self.assertNotIn('private sentinel',self.texts())
+            self.owner.open_words()
+            warning.assert_called_once()
+            self.assertNotIn('private sentinel',str(warning.call_args))
+        self.owner.add_card()
+        self.assertIn('Добавлено',self.owner.popup.card_status.text())
+
     def test_loading_to_result_sizes_new_children_before_next_event_turn(self):
         self.owner.receive(self.event('frozen'))
         self.application.processEvents()
@@ -187,7 +274,7 @@ class GuiTests(unittest.TestCase):
         article=next(widget for widget in self.owner.popup.findChildren(QTextEdit) if widget.toPlainText().startswith('unbroken'))
         self.assertGreater(article.height(),article.fontMetrics().lineSpacing()*10)
         self.assertEqual(article.verticalScrollBarPolicy(),Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        self.assertTrue(all(not action.isEnabled() for action in self.owner.future_actions))
+        self.assertEqual([action.isEnabled() for action in self.owner.future_actions],[True,True,False])
         self.assertEqual([a.text() for a in self.owner.future_actions],['Слова','Повторение','Настройки'])
         previous=QFont(self.application.font())
         try:

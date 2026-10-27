@@ -58,6 +58,7 @@ class Event:
     save_error: str | None = None
     elapsed_ms: float = 0
     available: tuple | None = None
+    span: tuple[int, int] | None = None
 
 
 class Source:
@@ -278,7 +279,7 @@ class Engine:
                     enrich(result)
                     value=snapshot(result)
                     value.saved,value.count=history[:2]
-                self._emit(Event(identity,'ready',result=value,context=query.context,**origin,
+                self._emit(Event(identity,'ready',result=value,context=query.context,span=query.span,**origin,
                                  save_error=history[2],elapsed_ms=(time.perf_counter()-started)*1000))
             lookup_offset=(time.perf_counter()-started)*1000
             result=self._lookup(query.text,dictset=resources.dictset,conn=resources.conn,
@@ -296,7 +297,7 @@ class Engine:
                 enrich(result)
             value=snapshot(result)
             value.saved,value.count=history[:2]
-            self._emit(Event(identity,'context',result=value,context=query.context,**origin,
+            self._emit(Event(identity,'context',result=value,context=query.context,span=query.span,**origin,
                              save_error=history[2],elapsed_ms=(time.perf_counter()-started)*1000))
         except (AppError,platform.PlatformError,ocr.OcrError) as error:
             reason=error.reason

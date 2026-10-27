@@ -1,6 +1,7 @@
 """Lazy native KDE owner/client and translation card. No Qt import on import."""
 import os
 import math
+import sqlite3
 from pathlib import Path
 import subprocess
 import sys
@@ -8,6 +9,7 @@ import threading
 import time
 
 from . import app as core, platform
+from .store import MigrationError,SchemaTooNewError
 
 SERVICE='org.lookup.Linux'
 OBJECT='/Lookup'
@@ -85,7 +87,7 @@ def components():
     from PyQt6.QtGui import QFont,QIcon,QKeySequence,QShortcut,QTextOption
     from PyQt6.QtWidgets import (QApplication,QWidget,QLabel,QVBoxLayout,QHBoxLayout,
                                  QScrollArea,QToolButton,QStyle,QFrame,QSizePolicy,
-                                 QSystemTrayIcon,QMenu,QTextEdit)
+                                 QSystemTrayIcon,QMenu,QTextEdit,QPushButton,QMessageBox)
 
     class PlainBlock(QTextEdit):
         """Selectable plain text with anywhere wrapping and no inner scrollbar."""
@@ -192,7 +194,18 @@ def components():
             self.layout_box.addWidget(self.scroll,1)
             self.footer=self.label('')
             self.footer.setAccessibleName('Сохранение поиска')
-            self.layout_box.addWidget(self.footer)
+            footer_row=QHBoxLayout()
+            footer_row.addWidget(self.footer,1)
+            self.card_button=QPushButton('В карточки')
+            self.card_button.setAccessibleName('Добавить слово в карточки')
+            self.card_button.setEnabled(False)
+            self.card_button.hide()
+            footer_row.addWidget(self.card_button)
+            self.layout_box.addLayout(footer_row)
+            self.card_status=self.label('')
+            self.card_status.setAccessibleName('Сохранение учебной карточки')
+            self.card_status.hide()
+            self.layout_box.addWidget(self.card_status)
             self.shortcut=QShortcut(QKeySequence(Qt.Key.Key_Escape),self)
             self.shortcut.activated.connect(self.dismiss)
             QApplication.instance().installEventFilter(self)
@@ -231,6 +244,10 @@ def components():
                           self.context_fragment,self.context_value,self.cache_warning):
                 label.hide()
             self.footer.clear()
+            self.card_button.setEnabled(False)
+            self.card_button.hide()
+            self.card_status.clear()
+            self.card_status.hide()
             self.state_icon.hide()
         def add(self,text,bold=False,factor=1):
             if text:
@@ -404,6 +421,11 @@ def components():
             self._on_quit=on_quit or QApplication.instance().quit
             self._stopping=False
             self._identity=None
+            self._displayed=None
+            self._known_cards=set()
+            self._learning_conn=None
+            self.words_window=None
+            self.review_window=None
             self._focus_thread=None
             self._focus_pending=None
             self.popup_uuid=None
@@ -413,6 +435,7 @@ def components():
             self.bridge.focus_done.connect(self.focus_done,Qt.ConnectionType.QueuedConnection)
             self.popup=Popup()
             self.popup.dismissed.connect(self.dismiss)
+            self.popup.card_button.clicked.connect(self.add_card)
             self.engine=(engine_factory or core.Engine)(self.bridge.event.emit,source=core.Source(env))
             self.tray=QSystemTrayIcon(QIcon.fromTheme('accessories-dictionary',QApplication.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogInfoView)),self)
             self.tray.setToolTip('LookUp Linux')
@@ -422,10 +445,87 @@ def components():
                 action=self.menu.addAction(name)
                 action.setEnabled(False)
                 self.future_actions.append(action)
+            self.future_actions[0].setEnabled(True)
+            self.future_actions[0].triggered.connect(self.open_words)
+            self.future_actions[1].setEnabled(True)
+            self.future_actions[1].triggered.connect(self.open_review)
             self.menu.addSeparator()
             self.menu.addAction('Выход',self.quit)
             self.tray.setContextMenu(self.menu)
             self.tray.show()
+        def _learning_connection(self):
+            if self._learning_conn is None:
+                from .store import open_store
+                conn=open_store(timeout=0.05)
+                try:
+                    conn.execute('PRAGMA busy_timeout=50')
+                except Exception:
+                    conn.close()
+                    raise
+                self._learning_conn=conn
+            return self._learning_conn
+        def _refresh_learning(self):
+            source=self.sender()
+            for window in (self.words_window,self.review_window):
+                if window is not None and window is not source and window.isVisible():
+                    window.refresh()
+        def _open_learning(self,which):
+            if self._stopping:return
+            try:
+                from .learning_gui import components as learning_components
+                classes=learning_components()
+                attribute='words_window' if which==0 else 'review_window'
+                window=getattr(self,attribute)
+                if window is None:
+                    window=classes[which](self._learning_connection())
+                    window.changed.connect(self._refresh_learning)
+                    setattr(self,attribute,window)
+                window.refresh()
+                window.show()
+                window.raise_()
+                window.activateWindow()
+            except (sqlite3.Error,OSError,ValueError,MigrationError,SchemaTooNewError):
+                QMessageBox.warning(None,'LookUp Linux','Не удалось открыть сохранённые данные. Повторите попытку.')
+        def open_words(self):
+            self._open_learning(0)
+        def open_review(self):
+            self._open_learning(1)
+        def _clear_displayed(self):
+            self._displayed=None
+            self.popup.card_button.setEnabled(False)
+            self.popup.card_button.hide()
+        def _bind_displayed(self,event):
+            value=event.result
+            if value.kind not in ('word','phrase') or not value.key or not (value.context_meaning or value.translation):
+                self._clear_displayed()
+                return
+            self._displayed=(event.id,dict(word=value.key,translation=value.translation,
+                meaning=value.context_meaning,provider=value.meaning_provider,
+                context=event.context,span=event.span))
+            known=value.key in self._known_cards
+            self.popup.card_button.setText('В карточках' if known else 'В карточки')
+            self.popup.card_button.setEnabled(not known)
+            self.popup.card_button.show()
+            if known:
+                self.popup.card_status.setText('Уже в карточках.')
+                self.popup.card_status.show()
+        def add_card(self):
+            if self._stopping or self._displayed is None or not self.popup.isVisible():return
+            identity,snapshot=self._displayed
+            if not self.engine.current(identity):return
+            from . import learning
+            try:
+                outcome=learning.add_card(self._learning_connection(),dict(snapshot))
+            except (sqlite3.Error,OSError,ValueError,MigrationError,SchemaTooNewError):
+                self.popup.card_status.setText('Не удалось сохранить карточку. Повторите попытку.')
+                self.popup.card_status.show()
+                return
+            self._known_cards.add(snapshot['word'])
+            self.popup.card_button.setText('В карточках')
+            self.popup.card_button.setEnabled(False)
+            self.popup.card_status.setText('Добавлено в карточки.' if outcome=='created' else 'Уже в карточках.')
+            self.popup.card_status.show()
+            self._refresh_learning()
         @pyqtSlot(str,result=int)
         def Trigger(self,token):
             if not valid_token(token) or self._stopping:
@@ -435,11 +535,13 @@ def components():
             if identity is None:
                 return 0
             self._identity=identity
+            self._clear_displayed()
             self.popup.hide_for_capture()
             QTimer.singleShot(75,lambda:self.engine.enqueue(identity) if self.engine.current(identity) else None)
             return os.getpid()
         def dismiss(self):
             self.engine.dismiss(self._identity)
+            self._clear_displayed()
         def receive(self,event):
             if self._stopping or not self.engine.current(event.id):
                 return
@@ -447,14 +549,18 @@ def components():
             if event.stage=='context':
                 if self.popup.isVisible():
                     self.popup.update_context(event.result)
+                    self._bind_displayed(event)
                     if event.result.meaning_save_error:
                         self.popup.footer.setText(MEANING_SAVE_ERROR)
                 return
             if event.stage=='frozen':
+                self._clear_displayed()
                 self.popup.loading()
             elif event.stage=='ready':
                 self.popup.result(event.result,event.context,event.save_error)
+                self._bind_displayed(event)
             else:
+                self._clear_displayed()
                 self.popup.error(event.error)
             self.present(event)
         def present(self,event):
@@ -512,10 +618,19 @@ def components():
         def quit(self):
             if self._stopping:return
             self._stopping=True
+            self._clear_displayed()
             self.engine.stop()
             self._focus_pending=None
             self.popup.hide_for_capture()
             self.tray.hide()
+            for window in (self.words_window,self.review_window):
+                if window is not None:
+                    window.close()
+                    window.deleteLater()
+            self.words_window=self.review_window=None
+            if self._learning_conn is not None:
+                self._learning_conn.close()
+                self._learning_conn=None
             self.poll_quit()
         def poll_quit(self):
             focus_alive=self._focus_thread is not None and self._focus_thread.is_alive()
