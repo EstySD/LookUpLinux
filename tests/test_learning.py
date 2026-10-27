@@ -171,14 +171,28 @@ class ReviewTests(LearningCase):
         for version in (True,-1,'0'):
             with self.assertRaises(learning.LearningError):
                 learning.grade_card(self.conn,'bank',version,'Good',now=0)
-        for now in (True,-1,float('nan'),float('inf'),'today'):
+        for now in (True,-1,float('nan'),float('inf'),'today',10**1000):
             with self.assertRaises(learning.LearningError):
                 learning.due_cards(self.conn,now=now)
+
+    def test_concurrent_version_change_prevents_stale_write(self):
+        learning.add_card(self.conn,snapshot(),now=100)
+        other = store.open_store(self.root/'cards.db')
+        self.addCleanup(other.close)
+        original_preview = learning.preview
+        def interleave(state,rating):
+            transition = original_preview(state,rating)
+            other.execute('UPDATE cards SET review_version=review_version+1,due=300 WHERE word=?',('bank',))
+            return transition
+        with mock.patch.object(learning,'preview',side_effect=interleave):
+            self.assertEqual(learning.grade_card(self.conn,'bank',0,'Good',now=100),'stale')
+        card = learning.get_card(self.conn,'bank')
+        self.assertEqual((card['review_version'],card['due'],card['repetitions']),(1,300,0))
 
 
 class ExportTests(LearningCase):
     def test_csv_exact_unicode_quotes_newlines_tabs_and_saved_pair(self):
-        value = snapshot(translation='=Значение, "банк"\nстрока\tдва',context='<script>x</script>\n& "контекст"\tвкладка')
+        value = snapshot(translation='=Значение, "банк"\nстрока\tдва',context='<script>x</script>\r\n& "контекст"\rвкладка\tконец')
         learning.add_card(self.conn,value,now=1)
         store.upsert_word(self.conn,'bank','совсем другое','новый контекст',now=2)
         output = self.root/'cards.csv'
