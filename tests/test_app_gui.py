@@ -46,7 +46,15 @@ class GuiTests(unittest.TestCase):
         from lookup import gui
         self.Popup,self.Owner=gui.components()
         self.owner=self.Owner({},engine_factory=FakeEngine,focus=False,on_quit=lambda:None)
-        self.addCleanup(self.owner.quit)
+        owner=self.owner
+        def close():
+            owner.quit()
+            owner.popup.deleteLater()
+            owner.menu.deleteLater()
+            owner.deleteLater()
+            self.application.sendPostedEvents(None,QEvent.Type.DeferredDelete)
+            self.application.processEvents()
+        self.addCleanup(close)
         self.owner.Trigger('')
         self.identity=self.owner.engine.generation
         self.monitor=Monitor('public',0,0,1000,800,1)
@@ -118,6 +126,8 @@ class GuiTests(unittest.TestCase):
         self.assertIn('Не удалось сохранить поиск',self.texts())
         self.assertNotIn('Искали 3',self.texts())
         self.assertIn('значение',self.texts())
+        self.owner.receive(self.event('error',error='ocr_timeout'))
+        self.assertIn('Не удалось распознать текст вовремя',self.texts())
 
     def test_native_palette_font_long_text_and_disabled_future_actions(self):
         value=self.result()
@@ -126,6 +136,7 @@ class GuiTests(unittest.TestCase):
         self.application.processEvents()
         self.assertLessEqual(self.owner.popup.width(),440)
         self.assertLessEqual(self.owner.popup.height(),540)
+        self.assertGreater(self.owner.popup.height(),400)
         self.assertEqual(self.owner.popup.scroll.horizontalScrollBarPolicy(),Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         article=next(widget for widget in self.owner.popup.findChildren(QTextEdit) if widget.toPlainText().startswith('unbroken'))
         self.assertGreater(article.height(),article.fontMetrics().lineSpacing()*10)
@@ -166,6 +177,34 @@ class GuiTests(unittest.TestCase):
         self.owner.receive(self.event(result=value))
         self.assertIn(gui.TRUNCATED,self.texts())
         self.assertLess(sum(len(widget.toPlainText()) for widget in self.owner.popup.findChildren(QTextEdit)),gui.MAX_DISPLAY_CHARS+1000)
+
+    def test_late_multiline_context_grows_outer_scroll_without_focus_or_timer_reset(self):
+        value=self.result()
+        self.owner.receive(self.event(result=value,context='Public source'))
+        self.application.processEvents()
+        widget=self.owner.popup.context_value
+        before_height=widget.height()
+        before_scroll=self.owner.popup.scroll.verticalScrollBar().maximum()
+        remaining=self.owner.popup.timer.remainingTime()
+        presentations=self.owner.presentations
+        self.owner.receive(self.event('context',result=replace(value,context_pending=False,
+            context_translation='long public translated context '*200),context='Public source'))
+        QTest.qWait(30)  # Nested layout and scroll-area requests need event turns.
+        self.assertGreater(widget.height(),before_height+100)
+        self.assertGreater(self.owner.popup.scroll.verticalScrollBar().maximum(),before_scroll)
+        self.assertLessEqual(self.owner.popup.timer.remainingTime(),remaining)
+        self.assertEqual(self.owner.presentations,presentations)
+
+    def test_compositor_work_area_clamps_entire_card_above_panel(self):
+        value=self.result()
+        value.articles=(replace(value.articles[0],text='long article '*1000),)
+        event=replace(self.event(result=value),point=(950,750),available=(0,0,1000,640))
+        self.owner.receive(event)
+        rect=self.owner.popup.geometry()
+        self.assertGreaterEqual(rect.left(),0)
+        self.assertGreaterEqual(rect.top(),0)
+        self.assertLessEqual(rect.x()+rect.width(),1000)
+        self.assertLessEqual(rect.y()+rect.height(),640)
 
 
 if __name__=='__main__':

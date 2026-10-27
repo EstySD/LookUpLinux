@@ -16,6 +16,8 @@ DESKTOP='org.lookup.Linux.desktop'
 _components=None
 
 REASONS={
+    'ocr_timeout':('Не удалось распознать текст вовремя','Наведите курсор на слово или выделите текст и повторите поиск.'),
+    'ocr_failed':('Не удалось распознать текст','Наведите курсор на слово или выделите текст и повторите поиск.'),
     'no_network':('Нет сети','Проверьте подключение и повторите поиск. Офлайн-словари доступны.'),
     'blocked':('Онлайн-перевод заблокирован','Попробуйте позже.'),
     'timeout':('Перевод не ответил вовремя','Повторите поиск.'),
@@ -70,7 +72,7 @@ def components():
     global _components
     if _components is not None:
         return _components
-    from PyQt6.QtCore import QObject,QTimer,Qt,QEvent,QPoint,pyqtSignal,pyqtSlot,pyqtClassInfo
+    from PyQt6.QtCore import QObject,QTimer,Qt,QEvent,QPoint,QRect,pyqtSignal,pyqtSlot,pyqtClassInfo
     from PyQt6.QtGui import QFont,QIcon,QKeySequence,QShortcut,QTextOption
     from PyQt6.QtWidgets import (QApplication,QWidget,QLabel,QVBoxLayout,QHBoxLayout,
                                  QScrollArea,QToolButton,QStyle,QFrame,QSizePolicy,
@@ -83,13 +85,18 @@ def components():
             self.setReadOnly(True)
             self.setAcceptRichText(False)
             self.setFrameShape(QFrame.Shape.NoFrame)
+            self.setAutoFillBackground(False)
+            self.viewport().setAutoFillBackground(False)
             self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
             self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
             self.setWordWrapMode(QTextOption.WrapMode.WrapAtWordBoundaryOrAnywhere)
             self.document().setDocumentMargin(0)
             self.setPlainText(text)
         def text(self):return self.toPlainText()
-        def setText(self,text):self.setPlainText(text)
+        def setText(self,text):
+            self.setPlainText(text)
+            self.fit(self.viewport().width())
+            self.updateGeometry()
         def heightForWidth(self,width):
             self.document().setTextWidth(max(1,width))
             return max(1,math.ceil(self.document().size().height()))
@@ -307,6 +314,8 @@ def components():
             body_width=max(1,width-32)
             for label in self._labels:
                 if isinstance(label,PlainBlock):label.fit(body_width)
+            self.body.invalidate()
+            self.content_layout.invalidate()
             content_height=self.content_layout.heightForWidth(body_width)
             if content_height<0:
                 content_height=self.content_layout.sizeHint().height()
@@ -417,7 +426,7 @@ def components():
             point=event.point
             screen=QApplication.screenAt(QPoint(round(point[0]),round(point[1]))) if point else None
             screen=screen or QApplication.primaryScreen()
-            available=screen.availableGeometry()
+            available=QRect(*event.available) if event.available else screen.availableGeometry()
             point=point or (available.center().x(),available.center().y())
             self.popup.size_for(available)
             target=platform.popup_rect(point,(self.popup.width(),self.popup.height()),

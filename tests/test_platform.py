@@ -83,9 +83,21 @@ class BoundaryTests(unittest.TestCase):
         from lookup.platform import window_geometry
         with patch('lookup.platform.window_action',return_value=b'Window {owned}\n  Position: -200,40\n  Geometry: 280x100\n'):
             self.assertEqual(window_geometry({},1,'owned'),(-200,40,280,100))
+        with patch('lookup.platform.window_action',return_value=b'Window {owned}\n  Position: -200.8,40\n  Geometry: 440x314.4\n'):
+            self.assertEqual(window_geometry({},1,'owned'),(-200.8,40,440,314.4))
         with patch('lookup.platform.window_action',return_value=b'wrong'):
             with self.assertRaises(PlatformError):
                 window_geometry({},1,'owned')
+
+    def test_available_rect_reserves_real_docks_at_fractional_scales(self):
+        from lookup.platform import Monitor,available_rect
+        monitor=Monitor('public',0,0,1280,720,1.5)
+        self.assertEqual(available_rect(monitor,[(0,673.3,1280,46.7)]),(0,0,1280,673))
+        # Floating panel gap and a dock on another output.
+        self.assertEqual(available_rect(monitor,[(200,660,800,48),(1280,0,40,720)]),(0,0,1280,660))
+        negative=Monitor('negative',-1000,-800,1000,800,1)
+        self.assertEqual(available_rect(negative,[(-1000,-800,40,800),(-1000,-800,1000,30)]),(-960,-770,960,770))
+        self.assertEqual(available_rect(monitor,[]),(0,0,1280,720))
 
     def test_raw_metadata_rejections(self):
         valid = dict(type='raw', format=4, width=4, height=3, stride=16, scale=1.25)

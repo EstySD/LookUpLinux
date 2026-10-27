@@ -1,13 +1,14 @@
 ---
 phase: 5
 slug: app
-status: draft
-nyquist_compliant: false
-wave_0_complete: false
+status: complete
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-10-26
 ---
 # Phase5 — Validation Strategy
-Planned checks,not passing evidence. Existing stdlib unittest; proposed quick
+Executed checks are recorded in05-GATE-RESULTS.json,05-EXTRA-GATES.json and
+05-VM-RESULTS.md. Existing stdlib unittest; quick
 python -m unittest tests.test_app tests.test_app_gui tests.test_translate.
 Full:python -m unittest;py -3.12 -m unittest;target python3 -m unittest.
 

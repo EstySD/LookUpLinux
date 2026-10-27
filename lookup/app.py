@@ -24,6 +24,7 @@ class Frozen:
     monitor: platform.Monitor
     text: str | None = None
     image: capture.Capture | None = None
+    available: tuple | None = None
 
 
 @dataclass(frozen=True)
@@ -53,6 +54,7 @@ class Event:
     error: str | None = None
     save_error: str | None = None
     elapsed_ms: float = 0
+    available: tuple | None = None
 
 
 class Source:
@@ -69,6 +71,7 @@ class Source:
             raise AppError('missing_kdotool' if error.reason=='missing_command' else 'cursor_failed') from None
         try:
             monitor=platform.monitor_at(point,platform.monitors(self.env))
+            available=platform.work_area(self.env,monitor)
         except platform.PlatformError as error:
             raise AppError('missing_kscreen' if error.reason=='missing_command' else 'monitor_failed') from None
         text=platform.read_primary(self.env)
@@ -80,14 +83,14 @@ class Source:
         if valid:
             identity=' '.join(text.split())
             if identity!=self.consumed:
-                return Frozen('primary',point,monitor,text=text)
+                return Frozen('primary',point,monitor,text=text,available=available)
         else:
             self.consumed=None
         try:
             frame=capture.capture_monitor(monitor,self.env,'screenshot2')
         except platform.PlatformError as error:
             raise AppError('missing_pyqt6' if error.reason=='missing_pyqt6' else 'capture_failed') from None
-        return Frozen('ocr',point,monitor,image=frame)
+        return Frozen('ocr',point,monitor,image=frame,available=available)
 
     def consume(self,source):
         if source.mode=='primary':
@@ -213,7 +216,7 @@ class Engine:
             if not self.current(identity):
                 return
             source=self._source.freeze()
-            origin=dict(point=source.point,monitor=source.monitor,mode=source.mode)
+            origin=dict(point=source.point,monitor=source.monitor,mode=source.mode,available=source.available)
             if not self.current(identity):
                 return
             self._emit(Event(identity,'frozen',**origin,elapsed_ms=(time.perf_counter()-started)*1000))
@@ -261,6 +264,9 @@ class Engine:
             self._emit(Event(identity,'context',result=value,context=query.context,**origin,
                              save_error=history[2],elapsed_ms=(time.perf_counter()-started)*1000))
         except (AppError,platform.PlatformError,ocr.OcrError) as error:
-            self._emit(Event(identity,'error',**origin,error=error.reason,elapsed_ms=(time.perf_counter()-started)*1000))
+            reason=error.reason
+            if isinstance(error,ocr.OcrError) and reason not in ('missing_tesseract','missing_eng','missing_pyqt6'):
+                reason='ocr_timeout' if reason=='timeout' else 'ocr_failed'
+            self._emit(Event(identity,'error',**origin,error=reason,elapsed_ms=(time.perf_counter()-started)*1000))
         except Exception:
             self._emit(Event(identity,'error',**origin,error='lookup_failed',elapsed_ms=(time.perf_counter()-started)*1000))

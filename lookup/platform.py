@@ -132,6 +132,50 @@ def popup_rect(point, size, available_rect, gap=12):
     return tuple(round(v) for v in (max(ax, min(x, ax+aw-w)), max(ay, min(y, ay+ah-h)), w, h))
 
 
+def available_rect(monitor, docks):
+    """Reserve compositor dock edges, including floating-panel edge gaps."""
+    left,top=monitor.x,monitor.y
+    right,bottom=left+monitor.width,top+monitor.height
+    for x,y,w,h in docks:
+        _numbers((x,y,w,h))
+        if w<=0 or h<=0 or x>=right or x+w<=left or y>=bottom or y+h<=top:continue
+        if w>=h and h<monitor.height/3:
+            if y<=monitor.y+max(16,h):top=max(top,y+h)
+            elif y+h>=monitor.y+monitor.height-max(16,h):bottom=min(bottom,y)
+        elif h>w and w<monitor.width/3:
+            if x<=monitor.x+max(16,w):left=max(left,x+w)
+            elif x+w>=monitor.x+monitor.width-max(16,w):right=min(right,x)
+    left,top=math.ceil(left),math.ceil(top)
+    right,bottom=math.floor(right),math.floor(bottom)
+    if right<=left or bottom<=top:raise PlatformError('invalid_geometry')
+    return left,top,right-left,bottom-top
+
+
+def panel_rects(env):
+    """Read only fixed Plasma dock metadata; never move or activate a panel."""
+    from PyQt6.QtDBus import QDBusConnection,QDBusMessage,QDBus
+    ids=run(['kdotool','search','--class','plasmashell'],env,timeout=1,limit=4096).decode('ascii').split()
+    if len(ids)>16 or any(not re.fullmatch(r'\{[0-9a-fA-F-]{36}\}',value) for value in ids):
+        raise PlatformError('bad_output')
+    bus=QDBusConnection.sessionBus()
+    result=[]
+    for uuid in ids:
+        message=QDBusMessage.createMethodCall('org.kde.KWin','/KWin','org.kde.KWin','getWindowInfo')
+        message.setArguments([uuid])
+        reply=bus.call(message,QDBus.CallMode.Block,150)
+        if reply.type()==QDBusMessage.MessageType.ErrorMessage:raise PlatformError('monitor_failed')
+        values=reply.arguments()
+        info=values[0] if values else {}
+        if info.get('resourceClass')=='plasmashell' and info.get('type')==2:
+            rect=tuple(info.get(key) for key in ('x','y','width','height'))
+            _numbers(rect);result.append(rect)
+    return tuple(result)
+
+
+def work_area(env,monitor):
+    return available_rect(monitor,panel_rects(env))
+
+
 def session_env():
     if os.name != 'posix' or not hasattr(os, 'getuid'):
         raise PlatformError('unsupported_session')
@@ -211,10 +255,10 @@ def window_action(env, pid, uuid, action, *args):
 
 def window_geometry(env, pid, uuid):
     text = window_action(env, pid, uuid, 'getwindowgeometry').decode('ascii')
-    match = re.search(r'Position: (-?\d+),(-?\d+)\s+Geometry: (\d+)x(\d+)\s*$', text)
+    match = re.search(r'Position: (-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)\s+Geometry: (\d+(?:\.\d+)?)x(\d+(?:\.\d+)?)\s*$', text)
     if not match:
         raise PlatformError('bad_output')
-    return tuple(map(int, match.groups()))
+    return tuple(map(float, match.groups()))
 
 
 def read_primary(env):

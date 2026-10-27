@@ -155,6 +155,16 @@ class EngineTests(unittest.TestCase):
         self.assertEqual(self.count(),0)
         self.assertEqual(next(e for e in self.events if e.stage=='ready').result.kind,'sentence')
 
+    def test_ocr_timeout_has_recognition_error_identity(self):
+        from lookup import ocr
+        class FailedSource(FixedSource):
+            def resolve(self,*args):raise ocr.OcrError('timeout')
+        engine=self.engine(source=FailedSource())
+        identity=engine.begin();engine.enqueue(identity)
+        self.wait(lambda:any(e.stage=='error' for e in self.events))
+        self.assertEqual(next(e.error for e in self.events if e.stage=='error'),'ocr_timeout')
+        self.assertEqual(self.count(),0)
+
     def test_quit_closes_owned_resources_while_timed_out_context_is_still_alive(self):
         entered,release=threading.Event(),threading.Event()
         self.addCleanup(release.set)
@@ -191,6 +201,7 @@ class SourceTests(unittest.TestCase):
         frames=object()
         with patch('lookup.app.platform.cursor_position',return_value=(50,50)), \
              patch('lookup.app.platform.monitors',return_value=(MONITOR,)), \
+             patch('lookup.app.platform.work_area',return_value=(0,0,1000,750)), \
              patch('lookup.app.platform.read_primary',side_effect=['Word','Word',None,'Word','\x00bad','word '*251]), \
              patch('lookup.app.capture.capture_monitor',return_value=frames) as screenshot:
             states=[]
@@ -201,11 +212,13 @@ class SourceTests(unittest.TestCase):
         self.assertEqual([s.mode for s in states],['primary','ocr','ocr','primary','ocr','ocr'])
         self.assertEqual(screenshot.call_count,4)
         self.assertEqual(states[0].text,'Word')
+        self.assertEqual(states[0].available,(0,0,1000,750))
 
     def test_unaccepted_source_is_not_marked_already_translated(self):
         source=app.Source({})
         with patch('lookup.app.platform.cursor_position',return_value=(50,50)), \
              patch('lookup.app.platform.monitors',return_value=(MONITOR,)), \
+             patch('lookup.app.platform.work_area',return_value=(0,0,1000,750)), \
              patch('lookup.app.platform.read_primary',return_value='Word'), \
              patch('lookup.app.capture.capture_monitor') as screenshot:
             first=source.freeze()

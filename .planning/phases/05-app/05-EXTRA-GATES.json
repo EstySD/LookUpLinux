@@ -1,0 +1,390 @@
+{
+  "acceptance": "agent",
+  "run_id": "5829115df3584d69bf8856d0eba06387",
+  "gates": {
+    "blank_not_found": true,
+    "physical_outside_click": true,
+    "physical_mouse_primary": true,
+    "offline_preserved": true
+  },
+  "observations": {
+    "blank": {
+      "pid": 1986,
+      "run_id": "5829115df3584d69bf8856d0eba06387",
+      "identity": 1,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{0fd6c3bd-d254-4916-939a-b7be308ed3d1}",
+      "geometry": [
+        912,
+        112,
+        440,
+        181
+      ],
+      "stage": "error",
+      "mode": "ocr",
+      "useful_ms": null,
+      "elapsed_ms": 609.8085699999842,
+      "key": null,
+      "count": null,
+      "saved": false,
+      "error": "not_found",
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19338,
+      "presentations": 2,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        1131,
+        209
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        1321,
+        141
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{0fd6c3bd-d254-4916-939a-b7be308ed3d1}",
+      "compositor_geometry": [
+        912.0,
+        112.0,
+        440.0,
+        181.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "outside": {
+      "pid": 1986,
+      "run_id": "5829115df3584d69bf8856d0eba06387",
+      "identity": 1,
+      "visible": false,
+      "active": false,
+      "armed": false,
+      "uuid": "{0fd6c3bd-d254-4916-939a-b7be308ed3d1}",
+      "geometry": [
+        912,
+        112,
+        440,
+        181
+      ],
+      "stage": "error",
+      "mode": "ocr",
+      "useful_ms": null,
+      "elapsed_ms": 609.8085699999842,
+      "key": null,
+      "count": null,
+      "saved": false,
+      "error": "not_found",
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": -1,
+      "presentations": 2,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        1131,
+        209
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        1321,
+        141
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{683b5c62-89b5-44af-ac2d-33315d7fcf05}"
+    },
+    "mouse_primary": {
+      "pid": 1986,
+      "run_id": "5829115df3584d69bf8856d0eba06387",
+      "identity": 3,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{5b23e63f-df63-4892-b7aa-0f312ea0938d}",
+      "geometry": [
+        172,
+        506,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 188.83814600002324,
+      "elapsed_ms": 173.7231490000113,
+      "key": "english",
+      "count": 1,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19218,
+      "presentations": 4,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        391,
+        703
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        581,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{5b23e63f-df63-4892-b7aa-0f312ea0938d}",
+      "compositor_geometry": [
+        172.0,
+        506.0,
+        440.0,
+        386.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "offline_preserved": {
+      "pid": 1986,
+      "run_id": "5829115df3584d69bf8856d0eba06387",
+      "identity": 5,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{6a8b8ac1-8ae1-41ba-83f2-d75d6f59305a}",
+      "geometry": [
+        124,
+        506,
+        440,
+        360
+      ],
+      "stage": "context",
+      "mode": "ocr",
+      "useful_ms": 548.349514999984,
+      "elapsed_ms": 532.1541029999821,
+      "key": "english",
+      "count": 2,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": "no_network",
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19590,
+      "presentations": 6,
+      "scroll_maximum": 18,
+      "scroll_value": 0,
+      "reading_point": [
+        333,
+        690
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{6a8b8ac1-8ae1-41ba-83f2-d75d6f59305a}",
+      "compositor_geometry": [
+        124.0,
+        506.0,
+        440.0,
+        360.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    }
+  },
+  "restoration": {
+    "display_restored": true,
+    "theme_unchanged": true,
+    "desktop_restored": true,
+    "processes_stopped": true,
+    "shortcut_restored": true,
+    "errors": []
+  }
+}

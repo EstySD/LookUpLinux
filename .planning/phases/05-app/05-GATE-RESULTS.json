@@ -1,0 +1,6094 @@
+{
+  "acceptance": "agent",
+  "run_id": "7af92341505845a9b08cfd6e474f2697",
+  "observations": {
+    "owner": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": null,
+      "visible": false,
+      "active": false,
+      "armed": false,
+      "uuid": null,
+      "geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "stage": null,
+      "mode": null,
+      "useful_ms": null,
+      "elapsed_ms": null,
+      "key": null,
+      "count": null,
+      "saved": false,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": -1,
+      "presentations": 0,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        319,
+        239
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        319,
+        239
+      ],
+      "available": null,
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{3598c80a-ca9c-45b0-b213-daa68ad18a62}"
+    },
+    "new_primary": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 1,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{5faf3cd0-2585-45b2-b158-65c82b340cd7}",
+      "geometry": [
+        124,
+        505,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 201.01697299833177,
+      "elapsed_ms": 180.45726099808235,
+      "key": "english",
+      "count": 1,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 18639,
+      "presentations": 2,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        702
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        534
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{5faf3cd0-2585-45b2-b158-65c82b340cd7}",
+      "compositor_geometry": [
+        124.0,
+        505.0,
+        440.0,
+        386.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "repeated_primary_ocr": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 3,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{23196090-a01d-4bc9-a17e-38a3c7f4e8f8}",
+      "geometry": [
+        125,
+        551,
+        440,
+        352
+      ],
+      "stage": "context",
+      "mode": "ocr",
+      "useful_ms": 782.9541159953806,
+      "elapsed_ms": 766.223494996666,
+      "key": "word",
+      "count": 1,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19425,
+      "presentations": 4,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        344,
+        731
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        534,
+        580
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{23196090-a01d-4bc9-a17e-38a3c7f4e8f8}",
+      "compositor_geometry": [
+        125.0,
+        551.0,
+        440.0,
+        352.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "escape": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 3,
+      "visible": false,
+      "active": false,
+      "armed": false,
+      "uuid": "{23196090-a01d-4bc9-a17e-38a3c7f4e8f8}",
+      "geometry": [
+        125,
+        551,
+        440,
+        352
+      ],
+      "stage": "context",
+      "mode": "ocr",
+      "useful_ms": 782.9541159953806,
+      "elapsed_ms": 766.223494996666,
+      "key": "word",
+      "count": 1,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": -1,
+      "presentations": 4,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        344,
+        731
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        534,
+        580
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{3598c80a-ca9c-45b0-b213-daa68ad18a62}"
+    },
+    "boundary_1": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 5,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{fc17b18d-30cc-40ec-8ca3-b999bdbda75d}",
+      "geometry": [
+        118,
+        506,
+        440,
+        352
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 201.63756799593102,
+      "elapsed_ms": 184.11459599883528,
+      "key": "break out",
+      "count": 1,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19590,
+      "presentations": 6,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        337,
+        686
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        527,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{fc17b18d-30cc-40ec-8ca3-b999bdbda75d}",
+      "compositor_geometry": [
+        118.0,
+        506.0,
+        440.0,
+        352.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "boundary_2": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 7,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{d1603be6-287b-4f87-aaab-d3a1b1f09d17}",
+      "geometry": [
+        124,
+        506,
+        440,
+        236
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 202.16334099677624,
+      "elapsed_ms": 183.88763300026767,
+      "key": "one two three four",
+      "count": 1,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19211,
+      "presentations": 8,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        630
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{d1603be6-287b-4f87-aaab-d3a1b1f09d17}",
+      "compositor_geometry": [
+        124.0,
+        506.0,
+        440.0,
+        236.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "boundary_3": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 9,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{a8a74f49-696e-49b2-a98c-ed149a3ea6c1}",
+      "geometry": [
+        124,
+        506,
+        440,
+        232
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 190.37557399860816,
+      "elapsed_ms": 180.33019900030922,
+      "key": "one two three four five",
+      "count": null,
+      "saved": false,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19402,
+      "presentations": 10,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        626
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{a8a74f49-696e-49b2-a98c-ed149a3ea6c1}",
+      "compositor_geometry": [
+        124.0,
+        506.0,
+        440.0,
+        232.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "focus_loss": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 9,
+      "visible": false,
+      "active": false,
+      "armed": false,
+      "uuid": "{a8a74f49-696e-49b2-a98c-ed149a3ea6c1}",
+      "geometry": [
+        124,
+        506,
+        440,
+        232
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 190.37557399860816,
+      "elapsed_ms": 180.33019900030922,
+      "key": "one two three four five",
+      "count": null,
+      "saved": false,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": -1,
+      "presentations": 10,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        626
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{dfa56a3a-6e90-426a-b7c8-6c11f27e166f}"
+    },
+    "invalid_primary_reset_12": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 11,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{2cabc1be-c412-4c28-990a-d77febbd4447}",
+      "geometry": [
+        125,
+        551,
+        440,
+        352
+      ],
+      "stage": "context",
+      "mode": "ocr",
+      "useful_ms": 707.0069140027044,
+      "elapsed_ms": 673.3352209994337,
+      "key": "word",
+      "count": 2,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19322,
+      "presentations": 12,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        344,
+        731
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        534,
+        580
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{2cabc1be-c412-4c28-990a-d77febbd4447}",
+      "compositor_geometry": [
+        125.0,
+        551.0,
+        440.0,
+        352.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "fresh_after_reset_12": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 13,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{e0f34bae-86fc-425d-b1d8-8387dbae1a44}",
+      "geometry": [
+        124,
+        506,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 273.89526400656905,
+      "elapsed_ms": 248.5708330059424,
+      "key": "english",
+      "count": 2,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19370,
+      "presentations": 14,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        703
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{e0f34bae-86fc-425d-b1d8-8387dbae1a44}",
+      "compositor_geometry": [
+        124.0,
+        506.0,
+        440.0,
+        386.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "reset_separator_12": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 15,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{9b97df40-da16-4d94-a6ae-196ff8583f39}",
+      "geometry": [
+        118,
+        506,
+        440,
+        352
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 283.4969550021924,
+      "elapsed_ms": 252.1192880012677,
+      "key": "break out",
+      "count": 2,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19310,
+      "presentations": 16,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        337,
+        686
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        527,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{9b97df40-da16-4d94-a6ae-196ff8583f39}",
+      "compositor_geometry": [
+        118.0,
+        506.0,
+        440.0,
+        352.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "invalid_primary_reset_13": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 17,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{b4af9754-0f03-403c-ba17-45f8887e30c0}",
+      "geometry": [
+        125,
+        551,
+        440,
+        352
+      ],
+      "stage": "context",
+      "mode": "ocr",
+      "useful_ms": 586.0363619940472,
+      "elapsed_ms": 569.0676949961926,
+      "key": "word",
+      "count": 3,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 18835,
+      "presentations": 18,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        344,
+        731
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        534,
+        580
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{b4af9754-0f03-403c-ba17-45f8887e30c0}",
+      "compositor_geometry": [
+        125.0,
+        551.0,
+        440.0,
+        352.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "fresh_after_reset_13": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 19,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{50b10f94-f48b-4b84-9d44-2f3d21f8c557}",
+      "geometry": [
+        124,
+        506,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 248.94632799987448,
+      "elapsed_ms": 217.54649899958167,
+      "key": "english",
+      "count": 3,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19254,
+      "presentations": 20,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        703
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{50b10f94-f48b-4b84-9d44-2f3d21f8c557}",
+      "compositor_geometry": [
+        124.0,
+        506.0,
+        440.0,
+        386.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "reset_separator_13": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 21,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{0bce90d3-70bd-445d-9c53-ab5cde8e5230}",
+      "geometry": [
+        118,
+        506,
+        440,
+        352
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 276.3583509949967,
+      "elapsed_ms": 243.73166899749776,
+      "key": "break out",
+      "count": 3,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19143,
+      "presentations": 22,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        337,
+        686
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        527,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{0bce90d3-70bd-445d-9c53-ab5cde8e5230}",
+      "compositor_geometry": [
+        118.0,
+        506.0,
+        440.0,
+        352.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "save_failure": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 23,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{bb1c0506-6184-45fa-b802-c5e276995c22}",
+      "geometry": [
+        124,
+        506,
+        440,
+        440
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 213.48239600047236,
+      "elapsed_ms": 183.13055399630684,
+      "key": "english",
+      "count": null,
+      "saved": false,
+      "error": null,
+      "save_error": "unavailable",
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": true,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19209,
+      "presentations": 24,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        721
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{bb1c0506-6184-45fa-b802-c5e276995c22}",
+      "compositor_geometry": [
+        124.0,
+        506.0,
+        440.0,
+        440.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "no_network": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 25,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{e71d041f-32b1-41a6-b6ff-7d9bd0d0c38f}",
+      "geometry": [
+        118,
+        506,
+        440,
+        181
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 223.23024200159125,
+      "elapsed_ms": 208.40855199639918,
+      "key": "networkprobe",
+      "count": 1,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": "no_network",
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19614,
+      "presentations": 26,
+      "scroll_maximum": 21,
+      "scroll_value": 0,
+      "reading_point": [
+        327,
+        603
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        527,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{e71d041f-32b1-41a6-b6ff-7d9bd0d0c38f}",
+      "compositor_geometry": [
+        118.0,
+        506.0,
+        440.0,
+        181.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "blocked": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 27,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{e87a7d33-ebfd-4ffc-b2d8-7d2423a08e92}",
+      "geometry": [
+        116,
+        506,
+        440,
+        192
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 213.03720099967904,
+      "elapsed_ms": 204.55064899579156,
+      "key": "blockedprobe",
+      "count": 1,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": "blocked",
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19934,
+      "presentations": 28,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        335,
+        608
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        525,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{e87a7d33-ebfd-4ffc-b2d8-7d2423a08e92}",
+      "compositor_geometry": [
+        116.0,
+        506.0,
+        440.0,
+        192.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "timeout": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 29,
+      "visible": true,
+      "active": true,
+      "armed": false,
+      "uuid": "{81f2e9d9-8d1d-4677-8788-91c8fd719bcd}",
+      "geometry": [
+        118,
+        506,
+        440,
+        192
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 191.9315170016489,
+      "elapsed_ms": 184.6871910020127,
+      "key": "timeoutprobe",
+      "count": 1,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": "timeout",
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19464,
+      "presentations": 30,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        337,
+        608
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        527,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{81f2e9d9-8d1d-4677-8788-91c8fd719bcd}",
+      "compositor_geometry": [
+        118.0,
+        506.0,
+        440.0,
+        192.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "delayed_loading": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 31,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{d91ed674-6223-4ffb-ac79-2335c32cbd67}",
+      "geometry": [
+        115,
+        506,
+        440,
+        181
+      ],
+      "stage": "frozen",
+      "mode": "primary",
+      "useful_ms": null,
+      "elapsed_ms": 186.8051870042109,
+      "key": null,
+      "count": null,
+      "saved": false,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19635,
+      "presentations": 31,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        334,
+        612
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        524,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{d91ed674-6223-4ffb-ac79-2335c32cbd67}",
+      "compositor_geometry": [
+        115.0,
+        506.0,
+        440.0,
+        181.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "dismiss_pending": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 31,
+      "visible": false,
+      "active": false,
+      "armed": false,
+      "uuid": "{d91ed674-6223-4ffb-ac79-2335c32cbd67}",
+      "geometry": [
+        115,
+        506,
+        440,
+        181
+      ],
+      "stage": "frozen",
+      "mode": "primary",
+      "useful_ms": null,
+      "elapsed_ms": 186.8051870042109,
+      "key": null,
+      "count": null,
+      "saved": false,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": -1,
+      "presentations": 31,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        334,
+        612
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        524,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{3598c80a-ca9c-45b0-b213-daa68ad18a62}"
+    },
+    "slow_A": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 33,
+      "visible": true,
+      "active": true,
+      "armed": false,
+      "uuid": "{85852e72-e833-463d-bbfa-389186aaaa37}",
+      "geometry": [
+        115,
+        506,
+        440,
+        181
+      ],
+      "stage": "frozen",
+      "mode": "primary",
+      "useful_ms": null,
+      "elapsed_ms": 189.42403800610919,
+      "key": null,
+      "count": null,
+      "saved": false,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19996,
+      "presentations": 32,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        334,
+        612
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        524,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{85852e72-e833-463d-bbfa-389186aaaa37}",
+      "compositor_geometry": [
+        115.0,
+        506.0,
+        440.0,
+        181.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "queued_B": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 35,
+      "visible": false,
+      "active": false,
+      "armed": false,
+      "uuid": "{85852e72-e833-463d-bbfa-389186aaaa37}",
+      "geometry": [
+        115,
+        506,
+        440,
+        181
+      ],
+      "stage": "frozen",
+      "mode": "primary",
+      "useful_ms": null,
+      "elapsed_ms": 189.42403800610919,
+      "key": null,
+      "count": null,
+      "saved": false,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": -1,
+      "presentations": 32,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        334,
+        612
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        524,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 1,
+      "worker_alive": true,
+      "active_uuid": "{3598c80a-ca9c-45b0-b213-daa68ad18a62}"
+    },
+    "latest_B": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 35,
+      "visible": true,
+      "active": true,
+      "armed": false,
+      "uuid": "{d6072fb4-a32f-46ea-b418-c4f01c04b615}",
+      "geometry": [
+        124,
+        506,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 585.4121769953053,
+      "elapsed_ms": 563.173167000059,
+      "key": "english",
+      "count": 4,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19389,
+      "presentations": 34,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        703
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{d6072fb4-a32f-46ea-b418-c4f01c04b615}",
+      "compositor_geometry": [
+        124.0,
+        506.0,
+        440.0,
+        386.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "missing_tesseract": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 37,
+      "visible": true,
+      "active": true,
+      "armed": false,
+      "uuid": "{bee8e39d-2009-4a27-8b78-2f20655fd65f}",
+      "geometry": [
+        125,
+        551,
+        440,
+        181
+      ],
+      "stage": "error",
+      "mode": "ocr",
+      "useful_ms": null,
+      "elapsed_ms": 398.52185400377493,
+      "key": null,
+      "count": null,
+      "saved": false,
+      "error": "missing_tesseract",
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 20197,
+      "presentations": 36,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        344,
+        657
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        534,
+        580
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{bee8e39d-2009-4a27-8b78-2f20655fd65f}",
+      "compositor_geometry": [
+        125.0,
+        551.0,
+        440.0,
+        181.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "capture_failure": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 39,
+      "visible": true,
+      "active": true,
+      "armed": false,
+      "uuid": "{df1af14c-72c0-4c55-b071-dc7b6cc7cc3b}",
+      "geometry": [
+        971,
+        551,
+        440,
+        181
+      ],
+      "stage": "error",
+      "mode": null,
+      "useful_ms": null,
+      "elapsed_ms": 200.66665900230873,
+      "key": null,
+      "count": null,
+      "saved": false,
+      "error": "capture_failed",
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19450,
+      "presentations": 37,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        1190,
+        673
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        1380,
+        580
+      ],
+      "available": null,
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{df1af14c-72c0-4c55-b071-dc7b6cc7cc3b}",
+      "compositor_geometry": [
+        971.0,
+        551.0,
+        440.0,
+        181.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "cursor_failure": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 41,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{43c4055b-10c3-4dbb-8a91-a27bf6bfc076}",
+      "geometry": [
+        971,
+        551,
+        440,
+        181
+      ],
+      "stage": "error",
+      "mode": null,
+      "useful_ms": null,
+      "elapsed_ms": 76.71070499782218,
+      "key": null,
+      "count": null,
+      "saved": false,
+      "error": "cursor_failed",
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19709,
+      "presentations": 38,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        1190,
+        673
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        1380,
+        580
+      ],
+      "available": null,
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{43c4055b-10c3-4dbb-8a91-a27bf6bfc076}",
+      "compositor_geometry": [
+        971.0,
+        551.0,
+        440.0,
+        181.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "cache_failure": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 43,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{8765b8ca-fa36-45db-a4ee-1ecb56558999}",
+      "geometry": [
+        117,
+        506,
+        440,
+        214
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 218.93892999651143,
+      "elapsed_ms": 206.52542600146262,
+      "key": "cacheprobe",
+      "count": 1,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": "unavailable",
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": false,
+      "cache_warning": true,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 18672,
+      "presentations": 40,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        336,
+        617
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        526,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{8765b8ca-fa36-45db-a4ee-1ecb56558999}",
+      "compositor_geometry": [
+        117.0,
+        506.0,
+        440.0,
+        214.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "context_preview": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 45,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{82cc91af-f1d2-47f9-86c4-8a4125b833fc}",
+      "geometry": [
+        124,
+        506,
+        440,
+        386
+      ],
+      "stage": "ready",
+      "mode": "ocr",
+      "useful_ms": 606.6254079996725,
+      "elapsed_ms": 589.5129929995164,
+      "key": "english",
+      "count": 5,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": true,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19756,
+      "presentations": 42,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        703
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{82cc91af-f1d2-47f9-86c4-8a4125b833fc}",
+      "compositor_geometry": [
+        124.0,
+        506.0,
+        440.0,
+        386.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "context_complete": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 45,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{82cc91af-f1d2-47f9-86c4-8a4125b833fc}",
+      "geometry": [
+        124,
+        506,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "ocr",
+      "useful_ms": 606.6254079996725,
+      "elapsed_ms": 1604.137381997134,
+      "key": "english",
+      "count": 5,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19200,
+      "presentations": 42,
+      "scroll_maximum": 10,
+      "scroll_value": 0,
+      "reading_point": [
+        333,
+        703
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{82cc91af-f1d2-47f9-86c4-8a4125b833fc}",
+      "compositor_geometry": [
+        124.0,
+        506.0,
+        440.0,
+        386.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "late_context_preview": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 47,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{739a7197-f8a5-4ac0-b6ce-82fef7e5aa52}",
+      "geometry": [
+        124,
+        506,
+        440,
+        386
+      ],
+      "stage": "ready",
+      "mode": "ocr",
+      "useful_ms": 651.8512540060328,
+      "elapsed_ms": 635.7869640050922,
+      "key": "english",
+      "count": 6,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": true,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19463,
+      "presentations": 44,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        703
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{739a7197-f8a5-4ac0-b6ce-82fef7e5aa52}",
+      "compositor_geometry": [
+        124.0,
+        506.0,
+        440.0,
+        386.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "late_context_dismiss": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 47,
+      "visible": false,
+      "active": false,
+      "armed": false,
+      "uuid": "{739a7197-f8a5-4ac0-b6ce-82fef7e5aa52}",
+      "geometry": [
+        124,
+        506,
+        440,
+        386
+      ],
+      "stage": "ready",
+      "mode": "ocr",
+      "useful_ms": 651.8512540060328,
+      "elapsed_ms": 635.7869640050922,
+      "key": "english",
+      "count": 6,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": true,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": -1,
+      "presentations": 44,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        703
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{3598c80a-ca9c-45b0-b213-daa68ad18a62}"
+    },
+    "long_article": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 49,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{69db08e9-d9e8-4850-a4eb-31a4a94235cb}",
+      "geometry": [
+        116,
+        0,
+        440,
+        540
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 259.79175400425447,
+      "elapsed_ms": 202.20002600399312,
+      "key": "longword",
+      "count": 1,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19795,
+      "presentations": 46,
+      "scroll_maximum": 6750,
+      "scroll_value": 0,
+      "reading_point": [
+        325,
+        274
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        525,
+        29
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{69db08e9-d9e8-4850-a4eb-31a4a94235cb}",
+      "compositor_geometry": [
+        116.0,
+        0.0,
+        440.0,
+        540.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "select_article": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 49,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{69db08e9-d9e8-4850-a4eb-31a4a94235cb}",
+      "geometry": [
+        116,
+        0,
+        440,
+        540
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 259.79175400425447,
+      "elapsed_ms": 202.20002600399312,
+      "key": "longword",
+      "count": 1,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19925,
+      "presentations": 46,
+      "scroll_maximum": 6750,
+      "scroll_value": 0,
+      "reading_point": [
+        325,
+        274
+      ],
+      "selected_characters": 10310,
+      "close_point": [
+        525,
+        29
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{69db08e9-d9e8-4850-a4eb-31a4a94235cb}",
+      "compositor_geometry": [
+        116.0,
+        0.0,
+        440.0,
+        540.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "native_close": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 49,
+      "visible": false,
+      "active": false,
+      "armed": false,
+      "uuid": "{69db08e9-d9e8-4850-a4eb-31a4a94235cb}",
+      "geometry": [
+        116,
+        0,
+        440,
+        540
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 259.79175400425447,
+      "elapsed_ms": 202.20002600399312,
+      "key": "longword",
+      "count": 1,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": -1,
+      "presentations": 46,
+      "scroll_maximum": 6750,
+      "scroll_value": 0,
+      "reading_point": [
+        325,
+        274
+      ],
+      "selected_characters": 10310,
+      "close_point": [
+        525,
+        29
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{3598c80a-ca9c-45b0-b213-daa68ad18a62}"
+    },
+    "freshness_BreezeLight_1": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 51,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{4aebbc9d-cbc2-45c8-b4b0-b6026dd05f67}",
+      "geometry": [
+        118,
+        506,
+        440,
+        181
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 210.9330189996399,
+      "elapsed_ms": 167.5888309982838,
+      "key": "break out",
+      "count": 4,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19743,
+      "presentations": 48,
+      "scroll_maximum": 163,
+      "scroll_value": 0,
+      "reading_point": [
+        327,
+        601
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        527,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{4aebbc9d-cbc2-45c8-b4b0-b6026dd05f67}",
+      "compositor_geometry": [
+        118.0,
+        506.0,
+        440.0,
+        181.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "BreezeLight_1": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 53,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{e6c89134-047e-4f38-87e6-002664981754}",
+      "geometry": [
+        124,
+        506,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 225.82365199923515,
+      "elapsed_ms": 204.09745399956591,
+      "key": "english",
+      "count": 7,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 18861,
+      "presentations": 50,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        703
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{e6c89134-047e-4f38-87e6-002664981754}",
+      "compositor_geometry": [
+        124.0,
+        506.0,
+        440.0,
+        386.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ],
+      "visual_file": "C:\\Users\\Denis\\AppData\\Local\\Temp\\lookup-phase05-visual-7af92341505845a9b08cfd6e474f2697\\BreezeLight-1.png"
+    },
+    "freshness_BreezeDark_1": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 55,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{cd575b79-3e6d-47d0-b69b-4d18a74c4805}",
+      "geometry": [
+        118,
+        506,
+        440,
+        352
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 242.42188800417352,
+      "elapsed_ms": 209.48932100145612,
+      "key": "break out",
+      "count": 5,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#202326",
+      "foreground": "#fcfcfc",
+      "disabled_future": true,
+      "timer_remaining_ms": 19388,
+      "presentations": 52,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        337,
+        686
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        527,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{cd575b79-3e6d-47d0-b69b-4d18a74c4805}",
+      "compositor_geometry": [
+        118.0,
+        506.0,
+        440.0,
+        352.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "BreezeDark_1": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 57,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{a0dcaa42-608b-4d1a-9df6-0b0ed1eaf97c}",
+      "geometry": [
+        124,
+        506,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 238.6992250030744,
+      "elapsed_ms": 219.9333070020657,
+      "key": "english",
+      "count": 8,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#202326",
+      "foreground": "#fcfcfc",
+      "disabled_future": true,
+      "timer_remaining_ms": 19505,
+      "presentations": 54,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        703
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{a0dcaa42-608b-4d1a-9df6-0b0ed1eaf97c}",
+      "compositor_geometry": [
+        124.0,
+        506.0,
+        440.0,
+        386.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ],
+      "visual_file": "C:\\Users\\Denis\\AppData\\Local\\Temp\\lookup-phase05-visual-7af92341505845a9b08cfd6e474f2697\\BreezeDark-1.png"
+    },
+    "freshness_BreezeLight_1.25": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 59,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{d7a40b00-3bf9-4f79-b75b-f73f98c77cbf}",
+      "geometry": [
+        118,
+        398,
+        440,
+        352
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 289.71653200278524,
+      "elapsed_ms": 256.2499569976353,
+      "key": "break out",
+      "count": 6,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19627,
+      "presentations": 56,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        337,
+        578
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        527,
+        427
+      ],
+      "available": [
+        0,
+        0,
+        1536,
+        802
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{d7a40b00-3bf9-4f79-b75b-f73f98c77cbf}",
+      "compositor_geometry": [
+        118.0,
+        398.0,
+        440.0,
+        352.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          802.4,
+          1536.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1536.0,
+          864.0
+        ]
+      ]
+    },
+    "BreezeLight_1.25": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 61,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{221432ef-ad3d-493f-9403-955f13cc07e6}",
+      "geometry": [
+        124,
+        398,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 237.37800800154218,
+      "elapsed_ms": 214.0726249999716,
+      "key": "english",
+      "count": 9,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19517,
+      "presentations": 58,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        595
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        427
+      ],
+      "available": [
+        0,
+        0,
+        1536,
+        802
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{221432ef-ad3d-493f-9403-955f13cc07e6}",
+      "compositor_geometry": [
+        124.0,
+        398.0,
+        440.0,
+        386.4
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          802.4,
+          1536.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1536.0,
+          864.0
+        ]
+      ],
+      "visual_file": "C:\\Users\\Denis\\AppData\\Local\\Temp\\lookup-phase05-visual-7af92341505845a9b08cfd6e474f2697\\BreezeLight-1.25.png"
+    },
+    "freshness_BreezeDark_1.25": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 63,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{61df2ece-c3d6-4b4a-87d0-a678947019f1}",
+      "geometry": [
+        118,
+        398,
+        440,
+        352
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 213.17742000246653,
+      "elapsed_ms": 187.45536200003698,
+      "key": "break out",
+      "count": 7,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#202326",
+      "foreground": "#fcfcfc",
+      "disabled_future": true,
+      "timer_remaining_ms": 19172,
+      "presentations": 60,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        337,
+        578
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        527,
+        427
+      ],
+      "available": [
+        0,
+        0,
+        1536,
+        802
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{61df2ece-c3d6-4b4a-87d0-a678947019f1}",
+      "compositor_geometry": [
+        118.0,
+        398.0,
+        440.0,
+        352.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          802.4,
+          1536.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1536.0,
+          864.0
+        ]
+      ]
+    },
+    "BreezeDark_1.25": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 65,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{5b0b1759-765c-4d7f-a736-f36fe556da61}",
+      "geometry": [
+        124,
+        398,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 293.6427700042259,
+      "elapsed_ms": 258.291898004245,
+      "key": "english",
+      "count": 10,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#202326",
+      "foreground": "#fcfcfc",
+      "disabled_future": true,
+      "timer_remaining_ms": 19028,
+      "presentations": 62,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        595
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        427
+      ],
+      "available": [
+        0,
+        0,
+        1536,
+        802
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{5b0b1759-765c-4d7f-a736-f36fe556da61}",
+      "compositor_geometry": [
+        124.0,
+        398.0,
+        440.0,
+        386.4
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          802.4,
+          1536.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1536.0,
+          864.0
+        ]
+      ],
+      "visual_file": "C:\\Users\\Denis\\AppData\\Local\\Temp\\lookup-phase05-visual-7af92341505845a9b08cfd6e474f2697\\BreezeDark-1.25.png"
+    },
+    "freshness_BreezeLight_1.5": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 67,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{451269b9-a5a7-4076-bb5e-5cbcee02b8b0}",
+      "geometry": [
+        118,
+        0,
+        440,
+        352
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 224.5232209970709,
+      "elapsed_ms": 201.37737000186462,
+      "key": "break out",
+      "count": 8,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 18984,
+      "presentations": 64,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        337,
+        180
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        527,
+        29
+      ],
+      "available": [
+        0,
+        0,
+        1280,
+        658
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{451269b9-a5a7-4076-bb5e-5cbcee02b8b0}",
+      "compositor_geometry": [
+        118.0,
+        0.0,
+        440.0,
+        352.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          658.0,
+          1280.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1280.0,
+          720.0
+        ]
+      ]
+    },
+    "BreezeLight_1.5": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 69,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{fc20c40a-9ed9-4308-a52e-f50f3ca95a8b}",
+      "geometry": [
+        124,
+        0,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 216.25809000397567,
+      "elapsed_ms": 187.95186300121713,
+      "key": "english",
+      "count": 11,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19362,
+      "presentations": 66,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        197
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        29
+      ],
+      "available": [
+        0,
+        0,
+        1280,
+        658
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{fc20c40a-9ed9-4308-a52e-f50f3ca95a8b}",
+      "compositor_geometry": [
+        124.0,
+        0.0,
+        440.0,
+        386.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          658.0,
+          1280.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1280.0,
+          720.0
+        ]
+      ],
+      "visual_file": "C:\\Users\\Denis\\AppData\\Local\\Temp\\lookup-phase05-visual-7af92341505845a9b08cfd6e474f2697\\BreezeLight-1.5.png"
+    },
+    "freshness_BreezeDark_1.5": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 71,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{d1d6751a-d3cf-4259-8565-07938496c0fd}",
+      "geometry": [
+        118,
+        0,
+        440,
+        352
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 218.57253900088836,
+      "elapsed_ms": 190.68073899688898,
+      "key": "break out",
+      "count": 9,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#202326",
+      "foreground": "#fcfcfc",
+      "disabled_future": true,
+      "timer_remaining_ms": 19670,
+      "presentations": 68,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        337,
+        180
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        527,
+        29
+      ],
+      "available": [
+        0,
+        0,
+        1280,
+        658
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{d1d6751a-d3cf-4259-8565-07938496c0fd}",
+      "compositor_geometry": [
+        118.0,
+        0.0,
+        440.0,
+        352.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          658.0,
+          1280.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1280.0,
+          720.0
+        ]
+      ]
+    },
+    "BreezeDark_1.5": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 73,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{c7b86bcd-0ba8-48d7-b989-7eac229f0148}",
+      "geometry": [
+        124,
+        0,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 200.19802599563263,
+      "elapsed_ms": 180.01137299870607,
+      "key": "english",
+      "count": 12,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#202326",
+      "foreground": "#fcfcfc",
+      "disabled_future": true,
+      "timer_remaining_ms": 19070,
+      "presentations": 70,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        197
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        29
+      ],
+      "available": [
+        0,
+        0,
+        1280,
+        658
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{c7b86bcd-0ba8-48d7-b989-7eac229f0148}",
+      "compositor_geometry": [
+        124.0,
+        0.0,
+        440.0,
+        386.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          658.0,
+          1280.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1280.0,
+          720.0
+        ]
+      ],
+      "visual_file": "C:\\Users\\Denis\\AppData\\Local\\Temp\\lookup-phase05-visual-7af92341505845a9b08cfd6e474f2697\\BreezeDark-1.5.png"
+    },
+    "freshness_BreezeLight_2": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 75,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{8433a9fa-d834-4d06-b806-f62361d1f9ad}",
+      "geometry": [
+        118,
+        0,
+        440,
+        352
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 202.3893430014141,
+      "elapsed_ms": 178.17898000066634,
+      "key": "break out",
+      "count": 10,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 18878,
+      "presentations": 72,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        337,
+        180
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        527,
+        29
+      ],
+      "available": [
+        0,
+        0,
+        960,
+        478
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{8433a9fa-d834-4d06-b806-f62361d1f9ad}",
+      "compositor_geometry": [
+        118.0,
+        0.0,
+        440.0,
+        352.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          478.0,
+          960.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          960.0,
+          540.0
+        ]
+      ]
+    },
+    "BreezeLight_2": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 77,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{afc93ffc-393e-4fee-9fe2-88e96f9b9a89}",
+      "geometry": [
+        124,
+        0,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 213.07693800190464,
+      "elapsed_ms": 183.64390599890612,
+      "key": "english",
+      "count": 13,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#eff0f1",
+      "foreground": "#232629",
+      "disabled_future": true,
+      "timer_remaining_ms": 19117,
+      "presentations": 74,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        197
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        29
+      ],
+      "available": [
+        0,
+        0,
+        960,
+        478
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{afc93ffc-393e-4fee-9fe2-88e96f9b9a89}",
+      "compositor_geometry": [
+        124.0,
+        0.0,
+        440.0,
+        386.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          478.0,
+          960.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          960.0,
+          540.0
+        ]
+      ],
+      "visual_file": "C:\\Users\\Denis\\AppData\\Local\\Temp\\lookup-phase05-visual-7af92341505845a9b08cfd6e474f2697\\BreezeLight-2.png"
+    },
+    "freshness_BreezeDark_2": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 79,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{a4a8c422-5343-4308-be6a-5e462e07406e}",
+      "geometry": [
+        118,
+        0,
+        440,
+        352
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 197.69824200193398,
+      "elapsed_ms": 175.628349003091,
+      "key": "break out",
+      "count": 11,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#202326",
+      "foreground": "#fcfcfc",
+      "disabled_future": true,
+      "timer_remaining_ms": 19636,
+      "presentations": 76,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        337,
+        180
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        527,
+        29
+      ],
+      "available": [
+        0,
+        0,
+        960,
+        478
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{a4a8c422-5343-4308-be6a-5e462e07406e}",
+      "compositor_geometry": [
+        118.0,
+        0.0,
+        440.0,
+        352.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          478.0,
+          960.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          960.0,
+          540.0
+        ]
+      ]
+    },
+    "BreezeDark_2": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 81,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{1585bc45-1c6c-4a12-a0a9-e1b066f4588f}",
+      "geometry": [
+        124,
+        0,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 207.3691960031283,
+      "elapsed_ms": 181.83510300150374,
+      "key": "english",
+      "count": 14,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#202326",
+      "foreground": "#fcfcfc",
+      "disabled_future": true,
+      "timer_remaining_ms": 19291,
+      "presentations": 78,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        197
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        29
+      ],
+      "available": [
+        0,
+        0,
+        960,
+        478
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{1585bc45-1c6c-4a12-a0a9-e1b066f4588f}",
+      "compositor_geometry": [
+        124.0,
+        0.0,
+        440.0,
+        386.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          478.0,
+          960.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          960.0,
+          540.0
+        ]
+      ],
+      "visual_file": "C:\\Users\\Denis\\AppData\\Local\\Temp\\lookup-phase05-visual-7af92341505845a9b08cfd6e474f2697\\BreezeDark-2.png"
+    },
+    "inactivity_separator": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 83,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{377fe719-6d14-48d7-8b3a-df738bed7c5c}",
+      "geometry": [
+        118,
+        506,
+        440,
+        352
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 249.22522700217087,
+      "elapsed_ms": 222.2593019978376,
+      "key": "break out",
+      "count": 12,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": false,
+      "ipa": false,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#202326",
+      "foreground": "#fcfcfc",
+      "disabled_future": true,
+      "timer_remaining_ms": 19303,
+      "presentations": 80,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        337,
+        686
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        527,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{377fe719-6d14-48d7-8b3a-df738bed7c5c}",
+      "compositor_geometry": [
+        118.0,
+        506.0,
+        440.0,
+        352.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "inactivity_start": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 85,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{f237805c-d888-4849-90d4-2a945ec88768}",
+      "geometry": [
+        124,
+        506,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 204.38843299780274,
+      "elapsed_ms": 182.68597499991301,
+      "key": "english",
+      "count": 15,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#202326",
+      "foreground": "#fcfcfc",
+      "disabled_future": true,
+      "timer_remaining_ms": 18623,
+      "presentations": 82,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        703
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{f237805c-d888-4849-90d4-2a945ec88768}",
+      "compositor_geometry": [
+        124.0,
+        506.0,
+        440.0,
+        386.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "inactivity_20s": {
+      "pid": 92510,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 85,
+      "visible": false,
+      "active": false,
+      "armed": false,
+      "uuid": "{f237805c-d888-4849-90d4-2a945ec88768}",
+      "geometry": [
+        124,
+        506,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 204.38843299780274,
+      "elapsed_ms": 182.68597499991301,
+      "key": "english",
+      "count": 15,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#202326",
+      "foreground": "#fcfcfc",
+      "disabled_future": true,
+      "timer_remaining_ms": -1,
+      "presentations": 82,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        343,
+        703
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        533,
+        535
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{3598c80a-ca9c-45b0-b213-daa68ad18a62}"
+    },
+    "cold": {
+      "pid": 99011,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 1,
+      "visible": true,
+      "active": true,
+      "armed": true,
+      "uuid": "{d5950a91-bafb-463b-97db-5f5e131b4a40}",
+      "geometry": [
+        125,
+        551,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 210.56891800253652,
+      "elapsed_ms": 185.4245409995201,
+      "key": "english",
+      "count": 16,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#202326",
+      "foreground": "#fcfcfc",
+      "disabled_future": true,
+      "timer_remaining_ms": 19282,
+      "presentations": 2,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        344,
+        748
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        534,
+        580
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 0,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{d5950a91-bafb-463b-97db-5f5e131b4a40}",
+      "compositor_geometry": [
+        125.0,
+        551.0,
+        440.0,
+        386.0
+      ],
+      "panel_rects": [
+        [
+          0.0,
+          1018.0,
+          1920.0,
+          62.0
+        ]
+      ],
+      "monitor_rects": [
+        [
+          0,
+          0,
+          1920.0,
+          1080.0
+        ]
+      ]
+    },
+    "tray_menu": {
+      "pid": 99011,
+      "run_id": "7af92341505845a9b08cfd6e474f2697",
+      "identity": 1,
+      "visible": false,
+      "active": false,
+      "armed": false,
+      "uuid": "{d5950a91-bafb-463b-97db-5f5e131b4a40}",
+      "geometry": [
+        125,
+        551,
+        440,
+        386
+      ],
+      "stage": "context",
+      "mode": "primary",
+      "useful_ms": 210.56891800253652,
+      "elapsed_ms": 185.4245409995201,
+      "key": "english",
+      "count": 16,
+      "saved": true,
+      "error": null,
+      "save_error": null,
+      "context_error": null,
+      "cache_error": null,
+      "online_error": null,
+      "context_pending": false,
+      "meaning": true,
+      "ipa": true,
+      "source_order": true,
+      "cache_warning": false,
+      "save_warning": false,
+      "background": "#202326",
+      "foreground": "#fcfcfc",
+      "disabled_future": true,
+      "timer_remaining_ms": -1,
+      "presentations": 2,
+      "scroll_maximum": 0,
+      "scroll_value": 0,
+      "reading_point": [
+        344,
+        748
+      ],
+      "selected_characters": 0,
+      "close_point": [
+        534,
+        580
+      ],
+      "available": [
+        0,
+        0,
+        1920,
+        1018
+      ],
+      "menu_visible": false,
+      "menu_shown": 1,
+      "menu_geometry": [
+        0,
+        0,
+        640,
+        480
+      ],
+      "quit_point": [
+        57,
+        110
+      ],
+      "tray_geometry": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "queue_count": 0,
+      "worker_alive": true,
+      "active_uuid": "{dfa56a3a-6e90-426a-b7c8-6c11f27e166f}"
+    }
+  },
+  "gates": {
+    "warm_primary": true,
+    "repeated_primary_ocr": true,
+    "boundaries": true,
+    "sentence_no_history": true,
+    "focus_loss": true,
+    "escape": true,
+    "save_failure": true,
+    "network_errors": true,
+    "themes_scales": true,
+    "inactivity": true,
+    "cold_owner": true,
+    "duplicate_owner": true,
+    "dismiss_pending": true,
+    "latest_pending": true,
+    "tray_quit": true,
+    "tool_capture_cursor_errors": true,
+    "cache_failure": true,
+    "context_preview": true,
+    "late_context": true,
+    "invalid_absent_primary_reset": true,
+    "long_article_selectable": true,
+    "native_close": true,
+    "deliberate_input_timer": true
+  },
+  "limits": [
+    "Controlled online transport; no live-provider latency claim.",
+    "Single VM monitor; negative origins covered by portable tests."
+  ],
+  "stage": "tray_menu",
+  "setup": {
+    "normal_unlock_needed": true
+  },
+  "duplicate_exit_codes": [
+    0,
+    0
+  ],
+  "boundary_rows": [
+    {
+      "word": "break out",
+      "count": 1,
+      "context_public": true
+    },
+    {
+      "word": "english",
+      "count": 1,
+      "context_public": true
+    },
+    {
+      "word": "one two three four",
+      "count": 1,
+      "context_public": true
+    },
+    {
+      "word": "word",
+      "count": 1,
+      "context_public": true
+    }
+  ],
+  "appearance": [
+    {
+      "scale": 1,
+      "theme": "BreezeLight",
+      "status": {
+        "pid": 92510,
+        "run_id": "7af92341505845a9b08cfd6e474f2697",
+        "identity": 53,
+        "visible": true,
+        "active": true,
+        "armed": true,
+        "uuid": "{e6c89134-047e-4f38-87e6-002664981754}",
+        "geometry": [
+          124,
+          506,
+          440,
+          386
+        ],
+        "stage": "context",
+        "mode": "primary",
+        "useful_ms": 225.82365199923515,
+        "elapsed_ms": 204.09745399956591,
+        "key": "english",
+        "count": 7,
+        "saved": true,
+        "error": null,
+        "save_error": null,
+        "context_error": null,
+        "cache_error": null,
+        "online_error": null,
+        "context_pending": false,
+        "meaning": true,
+        "ipa": true,
+        "source_order": true,
+        "cache_warning": false,
+        "save_warning": false,
+        "background": "#eff0f1",
+        "foreground": "#232629",
+        "disabled_future": true,
+        "timer_remaining_ms": 18861,
+        "presentations": 50,
+        "scroll_maximum": 0,
+        "scroll_value": 0,
+        "reading_point": [
+          343,
+          703
+        ],
+        "selected_characters": 0,
+        "close_point": [
+          533,
+          535
+        ],
+        "available": [
+          0,
+          0,
+          1920,
+          1018
+        ],
+        "menu_visible": false,
+        "menu_shown": 0,
+        "menu_geometry": [
+          0,
+          0,
+          640,
+          480
+        ],
+        "quit_point": [
+          57,
+          110
+        ],
+        "tray_geometry": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "queue_count": 0,
+        "worker_alive": true,
+        "active_uuid": "{e6c89134-047e-4f38-87e6-002664981754}",
+        "compositor_geometry": [
+          124.0,
+          506.0,
+          440.0,
+          386.0
+        ],
+        "panel_rects": [
+          [
+            0.0,
+            1018.0,
+            1920.0,
+            62.0
+          ]
+        ],
+        "monitor_rects": [
+          [
+            0,
+            0,
+            1920.0,
+            1080.0
+          ]
+        ],
+        "visual_file": "C:\\Users\\Denis\\AppData\\Local\\Temp\\lookup-phase05-visual-7af92341505845a9b08cfd6e474f2697\\BreezeLight-1.png"
+      }
+    },
+    {
+      "scale": 1,
+      "theme": "BreezeDark",
+      "status": {
+        "pid": 92510,
+        "run_id": "7af92341505845a9b08cfd6e474f2697",
+        "identity": 57,
+        "visible": true,
+        "active": true,
+        "armed": true,
+        "uuid": "{a0dcaa42-608b-4d1a-9df6-0b0ed1eaf97c}",
+        "geometry": [
+          124,
+          506,
+          440,
+          386
+        ],
+        "stage": "context",
+        "mode": "primary",
+        "useful_ms": 238.6992250030744,
+        "elapsed_ms": 219.9333070020657,
+        "key": "english",
+        "count": 8,
+        "saved": true,
+        "error": null,
+        "save_error": null,
+        "context_error": null,
+        "cache_error": null,
+        "online_error": null,
+        "context_pending": false,
+        "meaning": true,
+        "ipa": true,
+        "source_order": true,
+        "cache_warning": false,
+        "save_warning": false,
+        "background": "#202326",
+        "foreground": "#fcfcfc",
+        "disabled_future": true,
+        "timer_remaining_ms": 19505,
+        "presentations": 54,
+        "scroll_maximum": 0,
+        "scroll_value": 0,
+        "reading_point": [
+          343,
+          703
+        ],
+        "selected_characters": 0,
+        "close_point": [
+          533,
+          535
+        ],
+        "available": [
+          0,
+          0,
+          1920,
+          1018
+        ],
+        "menu_visible": false,
+        "menu_shown": 0,
+        "menu_geometry": [
+          0,
+          0,
+          640,
+          480
+        ],
+        "quit_point": [
+          57,
+          110
+        ],
+        "tray_geometry": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "queue_count": 0,
+        "worker_alive": true,
+        "active_uuid": "{a0dcaa42-608b-4d1a-9df6-0b0ed1eaf97c}",
+        "compositor_geometry": [
+          124.0,
+          506.0,
+          440.0,
+          386.0
+        ],
+        "panel_rects": [
+          [
+            0.0,
+            1018.0,
+            1920.0,
+            62.0
+          ]
+        ],
+        "monitor_rects": [
+          [
+            0,
+            0,
+            1920.0,
+            1080.0
+          ]
+        ],
+        "visual_file": "C:\\Users\\Denis\\AppData\\Local\\Temp\\lookup-phase05-visual-7af92341505845a9b08cfd6e474f2697\\BreezeDark-1.png"
+      }
+    },
+    {
+      "scale": 1.25,
+      "theme": "BreezeLight",
+      "status": {
+        "pid": 92510,
+        "run_id": "7af92341505845a9b08cfd6e474f2697",
+        "identity": 61,
+        "visible": true,
+        "active": true,
+        "armed": true,
+        "uuid": "{221432ef-ad3d-493f-9403-955f13cc07e6}",
+        "geometry": [
+          124,
+          398,
+          440,
+          386
+        ],
+        "stage": "context",
+        "mode": "primary",
+        "useful_ms": 237.37800800154218,
+        "elapsed_ms": 214.0726249999716,
+        "key": "english",
+        "count": 9,
+        "saved": true,
+        "error": null,
+        "save_error": null,
+        "context_error": null,
+        "cache_error": null,
+        "online_error": null,
+        "context_pending": false,
+        "meaning": true,
+        "ipa": true,
+        "source_order": true,
+        "cache_warning": false,
+        "save_warning": false,
+        "background": "#eff0f1",
+        "foreground": "#232629",
+        "disabled_future": true,
+        "timer_remaining_ms": 19517,
+        "presentations": 58,
+        "scroll_maximum": 0,
+        "scroll_value": 0,
+        "reading_point": [
+          343,
+          595
+        ],
+        "selected_characters": 0,
+        "close_point": [
+          533,
+          427
+        ],
+        "available": [
+          0,
+          0,
+          1536,
+          802
+        ],
+        "menu_visible": false,
+        "menu_shown": 0,
+        "menu_geometry": [
+          0,
+          0,
+          640,
+          480
+        ],
+        "quit_point": [
+          57,
+          110
+        ],
+        "tray_geometry": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "queue_count": 0,
+        "worker_alive": true,
+        "active_uuid": "{221432ef-ad3d-493f-9403-955f13cc07e6}",
+        "compositor_geometry": [
+          124.0,
+          398.0,
+          440.0,
+          386.4
+        ],
+        "panel_rects": [
+          [
+            0.0,
+            802.4,
+            1536.0,
+            62.0
+          ]
+        ],
+        "monitor_rects": [
+          [
+            0,
+            0,
+            1536.0,
+            864.0
+          ]
+        ],
+        "visual_file": "C:\\Users\\Denis\\AppData\\Local\\Temp\\lookup-phase05-visual-7af92341505845a9b08cfd6e474f2697\\BreezeLight-1.25.png"
+      }
+    },
+    {
+      "scale": 1.25,
+      "theme": "BreezeDark",
+      "status": {
+        "pid": 92510,
+        "run_id": "7af92341505845a9b08cfd6e474f2697",
+        "identity": 65,
+        "visible": true,
+        "active": true,
+        "armed": true,
+        "uuid": "{5b0b1759-765c-4d7f-a736-f36fe556da61}",
+        "geometry": [
+          124,
+          398,
+          440,
+          386
+        ],
+        "stage": "context",
+        "mode": "primary",
+        "useful_ms": 293.6427700042259,
+        "elapsed_ms": 258.291898004245,
+        "key": "english",
+        "count": 10,
+        "saved": true,
+        "error": null,
+        "save_error": null,
+        "context_error": null,
+        "cache_error": null,
+        "online_error": null,
+        "context_pending": false,
+        "meaning": true,
+        "ipa": true,
+        "source_order": true,
+        "cache_warning": false,
+        "save_warning": false,
+        "background": "#202326",
+        "foreground": "#fcfcfc",
+        "disabled_future": true,
+        "timer_remaining_ms": 19028,
+        "presentations": 62,
+        "scroll_maximum": 0,
+        "scroll_value": 0,
+        "reading_point": [
+          343,
+          595
+        ],
+        "selected_characters": 0,
+        "close_point": [
+          533,
+          427
+        ],
+        "available": [
+          0,
+          0,
+          1536,
+          802
+        ],
+        "menu_visible": false,
+        "menu_shown": 0,
+        "menu_geometry": [
+          0,
+          0,
+          640,
+          480
+        ],
+        "quit_point": [
+          57,
+          110
+        ],
+        "tray_geometry": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "queue_count": 0,
+        "worker_alive": true,
+        "active_uuid": "{5b0b1759-765c-4d7f-a736-f36fe556da61}",
+        "compositor_geometry": [
+          124.0,
+          398.0,
+          440.0,
+          386.4
+        ],
+        "panel_rects": [
+          [
+            0.0,
+            802.4,
+            1536.0,
+            62.0
+          ]
+        ],
+        "monitor_rects": [
+          [
+            0,
+            0,
+            1536.0,
+            864.0
+          ]
+        ],
+        "visual_file": "C:\\Users\\Denis\\AppData\\Local\\Temp\\lookup-phase05-visual-7af92341505845a9b08cfd6e474f2697\\BreezeDark-1.25.png"
+      }
+    },
+    {
+      "scale": 1.5,
+      "theme": "BreezeLight",
+      "status": {
+        "pid": 92510,
+        "run_id": "7af92341505845a9b08cfd6e474f2697",
+        "identity": 69,
+        "visible": true,
+        "active": true,
+        "armed": true,
+        "uuid": "{fc20c40a-9ed9-4308-a52e-f50f3ca95a8b}",
+        "geometry": [
+          124,
+          0,
+          440,
+          386
+        ],
+        "stage": "context",
+        "mode": "primary",
+        "useful_ms": 216.25809000397567,
+        "elapsed_ms": 187.95186300121713,
+        "key": "english",
+        "count": 11,
+        "saved": true,
+        "error": null,
+        "save_error": null,
+        "context_error": null,
+        "cache_error": null,
+        "online_error": null,
+        "context_pending": false,
+        "meaning": true,
+        "ipa": true,
+        "source_order": true,
+        "cache_warning": false,
+        "save_warning": false,
+        "background": "#eff0f1",
+        "foreground": "#232629",
+        "disabled_future": true,
+        "timer_remaining_ms": 19362,
+        "presentations": 66,
+        "scroll_maximum": 0,
+        "scroll_value": 0,
+        "reading_point": [
+          343,
+          197
+        ],
+        "selected_characters": 0,
+        "close_point": [
+          533,
+          29
+        ],
+        "available": [
+          0,
+          0,
+          1280,
+          658
+        ],
+        "menu_visible": false,
+        "menu_shown": 0,
+        "menu_geometry": [
+          0,
+          0,
+          640,
+          480
+        ],
+        "quit_point": [
+          57,
+          110
+        ],
+        "tray_geometry": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "queue_count": 0,
+        "worker_alive": true,
+        "active_uuid": "{fc20c40a-9ed9-4308-a52e-f50f3ca95a8b}",
+        "compositor_geometry": [
+          124.0,
+          0.0,
+          440.0,
+          386.0
+        ],
+        "panel_rects": [
+          [
+            0.0,
+            658.0,
+            1280.0,
+            62.0
+          ]
+        ],
+        "monitor_rects": [
+          [
+            0,
+            0,
+            1280.0,
+            720.0
+          ]
+        ],
+        "visual_file": "C:\\Users\\Denis\\AppData\\Local\\Temp\\lookup-phase05-visual-7af92341505845a9b08cfd6e474f2697\\BreezeLight-1.5.png"
+      }
+    },
+    {
+      "scale": 1.5,
+      "theme": "BreezeDark",
+      "status": {
+        "pid": 92510,
+        "run_id": "7af92341505845a9b08cfd6e474f2697",
+        "identity": 73,
+        "visible": true,
+        "active": true,
+        "armed": true,
+        "uuid": "{c7b86bcd-0ba8-48d7-b989-7eac229f0148}",
+        "geometry": [
+          124,
+          0,
+          440,
+          386
+        ],
+        "stage": "context",
+        "mode": "primary",
+        "useful_ms": 200.19802599563263,
+        "elapsed_ms": 180.01137299870607,
+        "key": "english",
+        "count": 12,
+        "saved": true,
+        "error": null,
+        "save_error": null,
+        "context_error": null,
+        "cache_error": null,
+        "online_error": null,
+        "context_pending": false,
+        "meaning": true,
+        "ipa": true,
+        "source_order": true,
+        "cache_warning": false,
+        "save_warning": false,
+        "background": "#202326",
+        "foreground": "#fcfcfc",
+        "disabled_future": true,
+        "timer_remaining_ms": 19070,
+        "presentations": 70,
+        "scroll_maximum": 0,
+        "scroll_value": 0,
+        "reading_point": [
+          343,
+          197
+        ],
+        "selected_characters": 0,
+        "close_point": [
+          533,
+          29
+        ],
+        "available": [
+          0,
+          0,
+          1280,
+          658
+        ],
+        "menu_visible": false,
+        "menu_shown": 0,
+        "menu_geometry": [
+          0,
+          0,
+          640,
+          480
+        ],
+        "quit_point": [
+          57,
+          110
+        ],
+        "tray_geometry": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "queue_count": 0,
+        "worker_alive": true,
+        "active_uuid": "{c7b86bcd-0ba8-48d7-b989-7eac229f0148}",
+        "compositor_geometry": [
+          124.0,
+          0.0,
+          440.0,
+          386.0
+        ],
+        "panel_rects": [
+          [
+            0.0,
+            658.0,
+            1280.0,
+            62.0
+          ]
+        ],
+        "monitor_rects": [
+          [
+            0,
+            0,
+            1280.0,
+            720.0
+          ]
+        ],
+        "visual_file": "C:\\Users\\Denis\\AppData\\Local\\Temp\\lookup-phase05-visual-7af92341505845a9b08cfd6e474f2697\\BreezeDark-1.5.png"
+      }
+    },
+    {
+      "scale": 2,
+      "theme": "BreezeLight",
+      "status": {
+        "pid": 92510,
+        "run_id": "7af92341505845a9b08cfd6e474f2697",
+        "identity": 77,
+        "visible": true,
+        "active": true,
+        "armed": true,
+        "uuid": "{afc93ffc-393e-4fee-9fe2-88e96f9b9a89}",
+        "geometry": [
+          124,
+          0,
+          440,
+          386
+        ],
+        "stage": "context",
+        "mode": "primary",
+        "useful_ms": 213.07693800190464,
+        "elapsed_ms": 183.64390599890612,
+        "key": "english",
+        "count": 13,
+        "saved": true,
+        "error": null,
+        "save_error": null,
+        "context_error": null,
+        "cache_error": null,
+        "online_error": null,
+        "context_pending": false,
+        "meaning": true,
+        "ipa": true,
+        "source_order": true,
+        "cache_warning": false,
+        "save_warning": false,
+        "background": "#eff0f1",
+        "foreground": "#232629",
+        "disabled_future": true,
+        "timer_remaining_ms": 19117,
+        "presentations": 74,
+        "scroll_maximum": 0,
+        "scroll_value": 0,
+        "reading_point": [
+          343,
+          197
+        ],
+        "selected_characters": 0,
+        "close_point": [
+          533,
+          29
+        ],
+        "available": [
+          0,
+          0,
+          960,
+          478
+        ],
+        "menu_visible": false,
+        "menu_shown": 0,
+        "menu_geometry": [
+          0,
+          0,
+          640,
+          480
+        ],
+        "quit_point": [
+          57,
+          110
+        ],
+        "tray_geometry": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "queue_count": 0,
+        "worker_alive": true,
+        "active_uuid": "{afc93ffc-393e-4fee-9fe2-88e96f9b9a89}",
+        "compositor_geometry": [
+          124.0,
+          0.0,
+          440.0,
+          386.0
+        ],
+        "panel_rects": [
+          [
+            0.0,
+            478.0,
+            960.0,
+            62.0
+          ]
+        ],
+        "monitor_rects": [
+          [
+            0,
+            0,
+            960.0,
+            540.0
+          ]
+        ],
+        "visual_file": "C:\\Users\\Denis\\AppData\\Local\\Temp\\lookup-phase05-visual-7af92341505845a9b08cfd6e474f2697\\BreezeLight-2.png"
+      }
+    },
+    {
+      "scale": 2,
+      "theme": "BreezeDark",
+      "status": {
+        "pid": 92510,
+        "run_id": "7af92341505845a9b08cfd6e474f2697",
+        "identity": 81,
+        "visible": true,
+        "active": true,
+        "armed": true,
+        "uuid": "{1585bc45-1c6c-4a12-a0a9-e1b066f4588f}",
+        "geometry": [
+          124,
+          0,
+          440,
+          386
+        ],
+        "stage": "context",
+        "mode": "primary",
+        "useful_ms": 207.3691960031283,
+        "elapsed_ms": 181.83510300150374,
+        "key": "english",
+        "count": 14,
+        "saved": true,
+        "error": null,
+        "save_error": null,
+        "context_error": null,
+        "cache_error": null,
+        "online_error": null,
+        "context_pending": false,
+        "meaning": true,
+        "ipa": true,
+        "source_order": true,
+        "cache_warning": false,
+        "save_warning": false,
+        "background": "#202326",
+        "foreground": "#fcfcfc",
+        "disabled_future": true,
+        "timer_remaining_ms": 19291,
+        "presentations": 78,
+        "scroll_maximum": 0,
+        "scroll_value": 0,
+        "reading_point": [
+          343,
+          197
+        ],
+        "selected_characters": 0,
+        "close_point": [
+          533,
+          29
+        ],
+        "available": [
+          0,
+          0,
+          960,
+          478
+        ],
+        "menu_visible": false,
+        "menu_shown": 0,
+        "menu_geometry": [
+          0,
+          0,
+          640,
+          480
+        ],
+        "quit_point": [
+          57,
+          110
+        ],
+        "tray_geometry": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "queue_count": 0,
+        "worker_alive": true,
+        "active_uuid": "{1585bc45-1c6c-4a12-a0a9-e1b066f4588f}",
+        "compositor_geometry": [
+          124.0,
+          0.0,
+          440.0,
+          386.0
+        ],
+        "panel_rects": [
+          [
+            0.0,
+            478.0,
+            960.0,
+            62.0
+          ]
+        ],
+        "monitor_rects": [
+          [
+            0,
+            0,
+            960.0,
+            540.0
+          ]
+        ],
+        "visual_file": "C:\\Users\\Denis\\AppData\\Local\\Temp\\lookup-phase05-visual-7af92341505845a9b08cfd6e474f2697\\BreezeDark-2.png"
+      }
+    }
+  ],
+  "after_tray_quit": {
+    "org.lookup.Linux": false,
+    "org.lookup.Linux.AppProbe": false
+  },
+  "restoration": {
+    "display_restored": true,
+    "theme_unchanged": true,
+    "desktop_restored": true,
+    "processes_stopped": true,
+    "shortcut_restored": true,
+    "errors": []
+  },
+  "privacy_cleanup": {
+    "reviewed_final_batch": true,
+    "final_images_absent": true,
+    "owned_transient_images_deleted": 29,
+    "private_query_logs_retained": false
+  }
+}
