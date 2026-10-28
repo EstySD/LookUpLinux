@@ -1,6 +1,7 @@
 """Native Qt presentation and queued-generation rules; no desktop required."""
 import os
 import sqlite3
+import time
 import unittest
 from dataclasses import replace
 from unittest import mock
@@ -28,6 +29,7 @@ class FakeEngine:
         self.generation=0
         self.pending=[]
         self.stopping=False
+        self.reloads=[]
     def begin(self):
         self.generation+=1
         return self.generation
@@ -37,6 +39,12 @@ class FakeEngine:
         return identity==self.generation and not self.stopping
     def dismiss(self,identity):
         if self.current(identity):self.generation+=1
+    def request_reload(self):
+        if self.stopping:return None
+        self.generation+=1
+        revision=len(self.reloads)+1
+        self.reloads.append(revision)
+        return revision
     def stop(self):self.stopping=True
     def is_alive(self):return False
     def join(self,timeout):pass
@@ -55,6 +63,9 @@ class GuiTests(unittest.TestCase):
         owner=self.owner
         def close():
             owner.quit()
+            deadline=time.monotonic()+2
+            while owner.settings_controller.is_alive() and time.monotonic()<deadline:
+                self.application.processEvents();QTest.qWait(5)
             owner.popup.deleteLater()
             owner.menu.deleteLater()
             owner.deleteLater()
@@ -274,8 +285,78 @@ class GuiTests(unittest.TestCase):
         article=next(widget for widget in self.owner.popup.findChildren(QTextEdit) if widget.toPlainText().startswith('unbroken'))
         self.assertGreater(article.height(),article.fontMetrics().lineSpacing()*10)
         self.assertEqual(article.verticalScrollBarPolicy(),Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        self.assertEqual([action.isEnabled() for action in self.owner.future_actions],[True,True,False])
+        self.assertEqual([action.isEnabled() for action in self.owner.future_actions],[True,True,True])
         self.assertEqual([a.text() for a in self.owner.future_actions],['Слова','Повторение','Настройки'])
+
+    def test_settings_reuses_window_ack_is_not_lookup_identity_and_timeout_is_next_popup(self):
+        from tests.test_settings_gui import Registry
+        from lookup import config
+        controller=self.owner.settings_controller
+        controller.registry=Registry()
+        states=[]
+        controller.state.connect(states.append)
+        self.owner.open_settings()
+        window=self.owner.settings_window
+        def wait(predicate):
+            deadline=time.monotonic()+3
+            while time.monotonic()<deadline:
+                self.application.processEvents()
+                if predicate():return
+                QTest.qWait(5)
+            self.fail('settings acknowledgement did not arrive')
+        wait(lambda:not controller.pending)
+        self.assertIsNotNone(window._baseline,[(value.get('kind'),value.get('status')) for value in states])
+        self.owner.receive(self.event(result=self.result(),context='Public source'))
+        self.assertTrue(self.owner.popup.isVisible())
+        old_identity=self.identity
+        window.timeout.setValue(7)
+        self.assertTrue(window.apply_button.isEnabled(),repr(window.snapshot()))
+        QTest.mouseClick(window.apply_button,Qt.MouseButton.LeftButton)
+        wait(lambda:controller.reload_revision is not None)
+        revision=controller.reload_revision
+        self.assertFalse(self.owner.popup.isVisible())
+        self.assertIsNone(self.owner._displayed)
+        self.assertEqual(self.owner._popup_timeout,20)
+        self.owner.receive(app.Event(old_identity,'ready',result=self.result(),context='stale'))
+        self.assertFalse(self.owner.popup.isVisible())
+        self.owner.receive(app.Event(old_identity,'reload',reload_revision=revision+1))
+        self.assertTrue(controller.pending)
+        self.owner.receive(app.Event(-100,'reload',reload_revision=revision))
+        self.assertFalse(controller.pending)
+        self.assertEqual(self.owner._popup_timeout,7)
+        self.identity=self.owner.engine.begin()
+        self.owner.receive(self.event(result=self.result(),context='Public source'))
+        self.assertEqual(self.owner.popup._duration,7000)
+        self.assertEqual(self.owner.popup.timer.interval(),7000)
+        window.close();self.owner.open_settings()
+        wait(lambda:not controller.pending)
+        self.assertIs(self.owner.settings_window,window)
+        self.assertEqual(config.load().popup_timeout,7)
+
+    def test_quit_rolls_back_pending_settings_before_owner_shutdown_finishes(self):
+        from lookup import config
+        from tests.test_settings_gui import Registry
+        controller=self.owner.settings_controller
+        deadline=time.monotonic()+2
+        while controller.pending and time.monotonic()<deadline:
+            self.application.processEvents();QTest.qWait(5)
+        controller.registry=Registry()
+        before=config.load()
+        done=[]
+        self.owner._on_quit=lambda:done.append(True)
+        controller.apply(dict(dictionaries=[],online=False,popup_timeout=4,autostart=False,
+                              shortcut='Meta+Shift+F',shortcut_edited=True))
+        deadline=time.monotonic()+2
+        while controller.reload_revision is None and time.monotonic()<deadline:
+            self.application.processEvents();QTest.qWait(5)
+        self.assertIsNotNone(controller.reload_revision)
+        self.owner.quit()
+        deadline=time.monotonic()+2
+        while not done and time.monotonic()<deadline:
+            self.application.processEvents();QTest.qWait(5)
+        self.assertTrue(done)
+        self.assertFalse(controller.pending)
+        self.assertEqual(config.load(),before)
         previous=QFont(self.application.font())
         try:
             changed=QFont(previous);changed.setPointSizeF(previous.pointSizeF()+2)

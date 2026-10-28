@@ -29,6 +29,7 @@ REASONS={
     'capture_failed':('Не удалось получить снимок экрана','Повторите поиск.'),
     'unsupported_session':('Недоступен сеанс KDE Wayland','Запустите LookUp Linux в сеансе KDE Wayland.'),
     'not_found':('Не найдено','Наведите курсор на английское слово или выделите текст и повторите поиск.'),
+    'reload_failed':('Не удалось применить настройки','Откройте настройки, повторите применение или запустите lookup --doctor.'),
 }
 PACKAGES={'missing_tesseract':'tesseract','missing_eng':'tesseract-data-eng',
           'missing_pyqt6':'python-pyqt6','missing_kdotool':'kdotool','missing_kscreen':'libkscreen'}
@@ -411,6 +412,8 @@ def components():
             self._learning_conn=None
             self.words_window=None
             self.review_window=None
+            self.settings_window=None
+            self._popup_timeout=20
             self._focus_thread=None
             self._focus_pending=None
             self.popup_uuid=None
@@ -422,6 +425,13 @@ def components():
             self.popup.dismissed.connect(self.dismiss)
             self.popup.card_button.clicked.connect(self.add_card)
             self.engine=(engine_factory or core.Engine)(self.bridge.event.emit,source=core.Source(env))
+            from .settings_gui import components as settings_components
+            self._SettingsWindow,ApplyController=settings_components()
+            self.settings_controller=ApplyController(self.engine,self)
+            self.settings_controller.applied.connect(self._settings_applied)
+            self.settings_controller.initialized.connect(self._settings_applied)
+            self.settings_controller.invalidating.connect(self._invalidate_settings)
+            self.settings_controller.initialize()
             self.tray=QSystemTrayIcon(QIcon.fromTheme('accessories-dictionary',QApplication.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogInfoView)),self)
             self.tray.setToolTip('LookUp Linux')
             self.menu=QMenu()
@@ -434,6 +444,8 @@ def components():
             self.future_actions[0].triggered.connect(self.open_words)
             self.future_actions[1].setEnabled(True)
             self.future_actions[1].triggered.connect(self.open_review)
+            self.future_actions[2].setEnabled(True)
+            self.future_actions[2].triggered.connect(self.open_settings)
             self.menu.addSeparator()
             self.menu.addAction('Выход',self.quit)
             self.tray.setContextMenu(self.menu)
@@ -475,6 +487,25 @@ def components():
             self._open_learning(0)
         def open_review(self):
             self._open_learning(1)
+        def _settings_applied(self,value):
+            self._popup_timeout=value.popup_timeout
+        def _invalidate_settings(self):
+            self.engine.dismiss(self._identity)
+            self._identity=None
+            self._focus_pending=None
+            self._clear_displayed()
+            self.popup.hide_for_capture()
+        def open_settings(self):
+            if self._stopping:return
+            if self.settings_window is None:
+                self.settings_window=self._SettingsWindow(self.settings_controller)
+            self.settings_window.refresh()
+            available=QApplication.primaryScreen().availableGeometry()
+            self.settings_window.resize(min(self.settings_window.width(),available.width()),
+                                        min(self.settings_window.height(),available.height()))
+            self.settings_window.show()
+            self.settings_window.raise_()
+            self.settings_window.activateWindow()
         def _clear_displayed(self):
             self._displayed=None
             self.popup.card_button.setEnabled(False)
@@ -528,6 +559,9 @@ def components():
             self.engine.dismiss(self._identity)
             self._clear_displayed()
         def receive(self,event):
+            if event.stage=='reload':
+                self.settings_controller.ack(event)
+                return
             if self._stopping or not self.engine.current(event.id):
                 return
             self._identity=event.id
@@ -559,6 +593,7 @@ def components():
             target=platform.popup_rect(point,(self.popup.width(),self.popup.height()),
                                        (available.x(),available.y(),available.width(),available.height()))
             self.popup._armed=False
+            self.popup._duration=self._popup_timeout*1000
             self.popup.setGeometry(*target)
             self.popup.show()
             self.popup.timer.start(self.popup._duration)
@@ -603,6 +638,11 @@ def components():
         def quit(self):
             if self._stopping:return
             self._stopping=True
+            self.settings_controller.shutdown()
+            if self.settings_window is not None:
+                self.settings_window.close()
+                self.settings_window.deleteLater()
+                self.settings_window=None
             self._clear_displayed()
             self.engine.stop()
             self._focus_pending=None
@@ -619,7 +659,7 @@ def components():
             self.poll_quit()
         def poll_quit(self):
             focus_alive=self._focus_thread is not None and self._focus_thread.is_alive()
-            if self.engine.is_alive() or focus_alive:
+            if self.engine.is_alive() or focus_alive or self.settings_controller.is_alive():
                 QTimer.singleShot(25,self.poll_quit)
             else:
                 self._on_quit()
