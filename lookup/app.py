@@ -1,5 +1,5 @@
 """One thread owns lookup resources; request identities guard history and UI."""
-from contextlib import contextmanager
+from contextlib import contextmanager, ExitStack
 from dataclasses import dataclass, field, replace
 import sqlite3
 import threading
@@ -43,6 +43,7 @@ class Resources:
     dictset: object = None
     conn: object = None
     save_error: str | None = None
+    reload_error: str | None = None
 
 
 @dataclass(frozen=True)
@@ -59,6 +60,7 @@ class Event:
     elapsed_ms: float = 0
     available: tuple | None = None
     span: tuple[int, int] | None = None
+    reload_revision: int | None = None
 
 
 class Source:
@@ -119,12 +121,12 @@ class Source:
 def _resources():
     cfg=config.load()
     dictionaries=conn=None
-    error=None
+    error=dictionary_error=None
     try:
         try:
             dictionaries=dicts.open_all(cfg)
         except Exception:
-            pass
+            dictionary_error='unavailable'
         try:
             conn=open_store()
             conn.execute('PRAGMA busy_timeout=50')
@@ -133,7 +135,7 @@ def _resources():
                 conn.close()
                 conn=None
             error='unavailable'
-        yield Resources(cfg,dictionaries,conn,error)
+        yield Resources(cfg,dictionaries,conn,error,dictionary_error)
     finally:
         try:
             if dictionaries is not None:
@@ -153,6 +155,8 @@ class Engine:
         self._generation=0
         self._started=0
         self._pending=None
+        self._reload_revision=0
+        self._reload_pending=None
         self._stopping=False
         self._context_slot=threading.BoundedSemaphore(1)
         self._meaning_slot=threading.BoundedSemaphore(1)
@@ -178,6 +182,22 @@ class Engine:
         with self._condition:
             return identity is not None and identity==self._generation and not self._stopping
 
+    def request_reload(self):
+        """Invalidate lookup work and asynchronously apply the latest pending revision.
+
+        Acknowledgements use stage='reload' and reload_revision, independently
+        of lookup IDs. A newer pending request may coalesce an unopened one.
+        """
+        with self._condition:
+            if self._stopping:
+                return None
+            self._generation+=1
+            self._pending=None
+            self._reload_revision+=1
+            self._reload_pending=self._reload_revision
+            self._condition.notify()
+            return self._reload_revision
+
     def dismiss(self,identity):
         with self._condition:
             if self.current(identity):
@@ -201,17 +221,50 @@ class Engine:
         if self.current(event.id):
             self._publish(event)
 
+    def _ack_reload(self,revision,error):
+        with self._condition:
+            if not self._stopping:
+                self._publish(Event(self._generation,'reload',error=error,reload_revision=revision))
+
     def _run(self):
         try:
-            with self._resources() as resources:
+            with ExitStack() as owned:
+                resources=None
+                try:
+                    resources=owned.enter_context(self._resources())
+                except Exception:
+                    pass  # Keep the worker available for an explicit reload retry.
                 while True:
                     with self._condition:
-                        self._condition.wait_for(lambda:self._stopping or self._pending is not None)
+                        self._condition.wait_for(lambda:self._stopping or self._pending is not None or self._reload_pending is not None)
                         if self._stopping:
                             return
-                        identity,started=self._pending
-                        self._pending=None
-                    self._process(identity,started,resources)
+                        revision=self._reload_pending
+                        if revision is not None:
+                            self._reload_pending=None
+                        else:
+                            identity,started=self._pending
+                            self._pending=None
+                    if revision is not None:
+                        resources=None
+                        error=None
+                        try:
+                            owned.close()
+                            resources=owned.enter_context(self._resources())
+                            if resources.reload_error or resources.save_error:
+                                raise AppError('reload_failed')
+                        except Exception:
+                            resources=None
+                            error='reload_failed'
+                            try:
+                                owned.close()
+                            except Exception:
+                                pass
+                        self._ack_reload(revision,error)
+                    elif resources is None:
+                        self._emit(Event(identity,'error',error='reload_failed' if self._reload_revision else 'worker_failed'))
+                    else:
+                        self._process(identity,started,resources)
         except Exception:
             # Last-resort boundary: never print a private worker traceback.
             with self._condition:

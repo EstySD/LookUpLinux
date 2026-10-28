@@ -454,6 +454,28 @@ class ReloadTests(EngineCase):
                 self.assertEqual(learning.get_card(conn,'bank'),card)
                 self.assertEqual(conn.execute('SELECT count FROM words').fetchone()[0],1)
 
+    def test_partial_resource_errors_cannot_report_settings_applied(self):
+        for error_field in ('reload_error','save_error'):
+            with self.subTest(error_field=error_field):
+                opened=threading.Event()
+                attempts=[]
+                @contextlib.contextmanager
+                def resources():
+                    attempts.append(1)
+                    with self.resources() as value:
+                        if len(attempts)==2:
+                            setattr(value,error_field,'unavailable')
+                        opened.set()
+                        yield value
+                engine=self.engine(resources=resources)
+                self.assertTrue(opened.wait(1))
+                revision=engine.request_reload()
+                self.wait(lambda:any(e.reload_revision==revision for e in self.events))
+                self.assertEqual(next(e.error for e in self.events if e.reload_revision==revision),'reload_failed')
+                engine.stop();engine.join(2)
+                self.assertFalse(engine.is_alive())
+                self.events.clear()
+
 
 class SourceTests(unittest.TestCase):
     def test_recovered_context_and_selected_phrase_span_are_propagated(self):
