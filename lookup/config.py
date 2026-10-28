@@ -139,9 +139,13 @@ def load(path=None) -> Config:
     return _from_data(_read(target))
 
 
-def save(changes, path=None) -> Config:
-    """Merge explicitly edited JSON-shaped fields without discarding other keys."""
-    if not isinstance(changes,dict):
+def save(changes, path=None, *, retain_missing=True) -> Config:
+    """Merge edited fields; transaction rollback can restore an exact ID set.
+
+    Ordinary edits retain configured-but-missing dictionaries. Unrelated keys
+    and clients remain untouched in both modes.
+    """
+    if not isinstance(changes,dict) or not isinstance(retain_missing,bool):
         raise ConfigError('invalid_value')
     for key,value in changes.items():
         if key == 'dictionaries':
@@ -156,7 +160,7 @@ def save(changes, path=None) -> Config:
     target = Path(path) if path is not None else config_path()
     data = _read(target,strict=True)
     edited = dict(changes)
-    if 'dictionaries' in edited:
+    if 'dictionaries' in edited and retain_missing:
         dictionaries = list(edited['dictionaries'])
         included = {entry['id'] for entry in dictionaries}
         dictionaries.extend(dict(id=ident,enabled=enabled)

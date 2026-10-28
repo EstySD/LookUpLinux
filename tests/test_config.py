@@ -239,6 +239,17 @@ class SettingsTests(unittest.TestCase):
                 self.assertIn(str(raised.exception),('invalid_value','invalid_file','unavailable'))
                 self.assertEqual(self.path.read_bytes(),before)
 
+    def test_exact_dictionary_restore_preserves_unrelated_data(self):
+        self.write(dict(dictionaries=[],extra={'keep':True},clients=['at'],online=True))
+        config.save(dict(dictionaries=[dict(id='new',enabled=True)],online=False),self.path)
+        retained=config.save(dict(dictionaries=[]),self.path)
+        self.assertEqual(retained.dictionaries,(('new',True),))
+        restored=config.save(dict(dictionaries=[],online=True),self.path,retain_missing=False)
+        self.assertEqual(restored.dictionaries,())
+        self.assertTrue(restored.online)
+        self.assertEqual(restored.clients,('at',))
+        self.assertEqual(json.loads(self.path.read_text())['extra'],{'keep':True})
+
     def test_atomic_failure_preserves_bytes_and_cleans_temporary(self):
         self.write(dict(online=True))
         before = self.path.read_bytes()

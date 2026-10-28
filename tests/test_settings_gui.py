@@ -5,6 +5,7 @@ import sys
 import threading
 import time
 import unittest
+from unittest.mock import patch
 from types import SimpleNamespace
 
 os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
@@ -133,13 +134,19 @@ class SettingsTests(unittest.TestCase):
         self.assertEqual(self.registry.changes,[])
         self.assertEqual(states[-1]['status'],'success')
     def test_explicit_key_edit_and_config_write_run_off_gui_thread(self):
-        controller=self.controller()
+        writes=[]
+        def save(changes):
+            writes.append(threading.get_ident())
+            return config.save(changes)
+        controller=self.controller(save=save)
         controller.apply(self.snapshot(shortcut_edited=True))
         self.wait(lambda:controller.reload_revision is not None)
         self.ack(controller)
         self.assertEqual(config.load().shortcut,'Meta+Shift+F')
         self.assertEqual(self.registry.changes,['Meta+Shift+F'])
         self.assertTrue(all(value!=threading.get_ident() for value in self.registry.threads))
+        self.assertTrue(writes)
+        self.assertTrue(all(value!=threading.get_ident() for value in writes))
     def test_conflict_and_save_failure_restore_key_without_worker_ack(self):
         controller=self.controller()
         states=[];controller.state.connect(states.append)
@@ -213,6 +220,17 @@ class SettingsTests(unittest.TestCase):
         self.wait(lambda:not controller.pending)
         self.assertEqual(config.load().online,True)
         self.assertEqual(self.registry.keys,(lifecycle.parse_shortcut('Meta+Shift+E')[1],))
+
+    def test_config_rollback_error_does_not_claim_old_saved_state(self):
+        def fail(changes):raise config.ConfigError('unavailable')
+        controller=self.controller(restore=fail)
+        states=[];controller.state.connect(states.append)
+        controller.apply(self.snapshot())
+        self.wait(lambda:controller.reload_revision is not None)
+        self.ack(controller,error='reload_failed')
+        self.wait(lambda:not controller.pending)
+        self.assertEqual(states[-1]['status'],'rollback_config')
+        self.assertFalse(config.load().online)
     def test_close_reopen_pending_preserves_snapshot_then_unsaved_draft_is_discarded(self):
         entered=threading.Event();release=threading.Event()
         self.addCleanup(release.set)
@@ -246,6 +264,32 @@ class SettingsTests(unittest.TestCase):
         self.assertEqual(value.status.text(),'Укажите одно сочетание клавиш')
         self.assertFalse(value.apply_button.isEnabled())
         self.assertTrue(value.close_button.isEnabled())
+
+    def test_keyboard_controls_and_actual_key_label_after_ack(self):
+        value=self.window()
+        value.online.setFocus()
+        QTest.keyClick(value.online,Qt.Key.Key_Space)
+        self.assertFalse(value.online.isChecked())
+        value.shortcut.setKeySequence(QKeySequence('Meta+Shift+F'))
+        value.apply_button.setFocus()
+        QTest.keyClick(value.apply_button,Qt.Key.Key_Return)
+        self.wait(lambda:value.controller.reload_revision is not None)
+        self.ack(value.controller)
+        self.assertEqual(value.actual_binding.text(),'В KDE: Meta+Shift+F')
+        value.close_button.setFocus();QTest.keyClick(value.close_button,Qt.Key.Key_Return)
+        self.assertFalse(value.isVisible())
+
+    def test_thread_start_failure_is_private_and_retryable(self):
+        controller=self.controller()
+        states=[];controller.state.connect(states.append)
+        with patch.object(threading.Thread,'start',side_effect=RuntimeError('private detail')):
+            controller.apply(self.snapshot())
+        self.assertFalse(controller.pending)
+        self.assertEqual(states[-1]['status'],'runtime_failed')
+        controller.apply(self.snapshot())
+        self.wait(lambda:controller.reload_revision is not None)
+        self.ack(controller)
+        self.assertEqual(states[-1]['status'],'success')
 
 
 class LazyImportTests(unittest.TestCase):
