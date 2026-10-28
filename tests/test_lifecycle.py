@@ -136,3 +136,9 @@ class EntryTests(unittest.TestCase):
     def test_unsafe_desktop_paths_are_refused(self):
         for path in (Path('relative'),Path('/bad\npath')):
             with self.assertRaises(ValueError):lifecycle.desktop_text(python=path)
+
+    def test_symlink_entry_is_not_taken_over(self):
+        with mock.patch.object(lifecycle,'is_installed',return_value=False), \
+             mock.patch.object(Path,'is_symlink',return_value=True):
+            with self.assertRaises(lifecycle.LifecycleError) as raised:lifecycle.ensure_entries()
+        self.assertEqual(raised.exception.reason,'unowned_file')

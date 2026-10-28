@@ -60,23 +60,8 @@ def valid_token(value):
 
 
 def desktop_text(python=None,directory=None):
-    python=Path(python or sys.executable)
-    directory=Path(directory or Path(__file__).resolve().parents[1])
-    def quote(path):
-        value=str(path)
-        if not path.is_absolute() or any(c in value for c in '\r\n\x00'):
-            raise ValueError('invalid_desktop_path')
-        for char in ('\\','"','`','$'):
-            value=value.replace(char,'\\'+char)
-        return '"'+value.replace('%','%%')+'"'
-    executable=quote(python)
-    quote(directory)  # Validate the separate Desktop Entry string field too.
-    workdir=str(directory).replace('\\','\\\\')
-    return ('[Desktop Entry]\nType=Application\nName=LookUp Linux\n'
-            'Comment=LookUp Linux owned application trigger\n'
-            f'Exec={executable} -m lookup --trigger\nPath={workdir}\n'
-            'Icon=accessories-dictionary\nTerminal=false\nStartupNotify=true\n'
-            'X-KDE-Shortcuts=Meta+Shift+D\n')
+    from .lifecycle import desktop_text as build
+    return build(python,directory)
 
 
 def components():
