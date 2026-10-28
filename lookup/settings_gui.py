@@ -1,5 +1,6 @@
 """Lazy native settings with serial off-GUI apply and revision acknowledgements."""
 import threading
+from pathlib import Path
 
 from . import config, dicts, lifecycle
 
@@ -7,6 +8,8 @@ _components=None
 INITIAL='Изменения применяются после нажатия кнопки'
 PENDING='Применяем настройки…'
 SUCCESS='Настройки применены. Автозапуск изменится при следующем входе в KDE'
+FOLDER_HELP='Скопируйте в эту папку словари StarDict, Lingvo DSL или MDX, затем нажмите „Применить настройки“. Для StarDict скопируйте весь комплект файлов. Можно использовать подпапки'
+FOLDER_FAILED='Не удалось открыть папку словарей. Скопируйте указанный путь и откройте его в файловом менеджере. Проверьте доступ к папке'
 MESSAGES={
     'invalid_shortcut':'Укажите одно сочетание клавиш',
     'shortcut_conflict':'Это сочетание занято в KDE. Выберите другое или измените его в системных настройках клавиатуры',
@@ -22,6 +25,10 @@ def _dictionary_rows():
     return [dict(id=value.id,name=value.path.stem) for value in dicts.discover()]
 
 
+def _dictionary_folder():
+    return dicts.dict_roots()[0].absolute()
+
+
 def _fields(value,keys):
     result={key:getattr(value,key) for key in keys}
     if 'dictionaries' in result:
@@ -32,8 +39,8 @@ def _fields(value,keys):
 def components():
     global _components
     if _components is not None:return _components
-    from PyQt6.QtCore import QObject,QTimer,Qt,pyqtSignal
-    from PyQt6.QtGui import QKeySequence,QShortcut
+    from PyQt6.QtCore import QObject,QTimer,Qt,QUrl,pyqtSignal
+    from PyQt6.QtGui import QKeySequence,QShortcut,QDesktopServices
     from PyQt6.QtWidgets import (QWidget,QLabel,QVBoxLayout,QHBoxLayout,QFormLayout,QGroupBox,
         QScrollArea,QKeySequenceEdit,QListWidget,QListWidgetItem,QPushButton,QSpinBox,QCheckBox)
 
@@ -78,7 +85,8 @@ def components():
             self._thread=threading.Thread(target=run,name='lookup-settings',daemon=False)
             try:self._thread.start()
             except (RuntimeError,OSError):
-                self._done((operation,phase,dict(status='rollback_config' if phase=='rollback' else 'runtime_failed')))
+                self._done((operation,phase,dict(status='rollback_config' if phase=='rollback'
+                    else 'folder_failed' if phase=='folder' else 'runtime_failed')))
 
         def load(self):
             if self.pending:
@@ -98,8 +106,22 @@ def components():
                     available=True
                 except lifecycle.LifecycleError:
                     actual=();available=False
-                return dict(config=value,rows=rows,actual=actual,available=available)
+                return dict(config=value,rows=rows,actual=actual,available=available,folder=str(_dictionary_folder()))
             self._start('load',read)
+
+        def open_folder(self,path):
+            if self.pending or self._stopping:return
+            self._operation+=1
+            self.pending=True
+            self.state.emit(dict(kind='pending',loading=True,folder=True))
+            def create():
+                try:
+                    destination=Path(path)
+                    if not destination.is_absolute():raise ValueError
+                    destination.mkdir(parents=True,exist_ok=True)
+                    return dict(status='folder_ready',folder=str(destination))
+                except (OSError,ValueError,TypeError):return dict(status='folder_failed')
+            self._start('folder',create)
 
         def initialize(self):
             if self.pending or self._stopping:return
@@ -128,7 +150,9 @@ def components():
                         transaction=self.registry.change(canonical)
                         changes['shortcut']=canonical
                     saved=self._save(changes)
-                    return dict(prior=prior,saved=saved,changes=changes,transaction=transaction)
+                    try:rows=self._discover()
+                    except Exception:rows=None
+                    return dict(prior=prior,saved=saved,changes=changes,transaction=transaction,rows=rows)
                 except Exception as error:
                     status=('save_failed' if isinstance(error,config.ConfigError) else
                             error.reason if isinstance(error,lifecycle.LifecycleError) and
@@ -162,8 +186,9 @@ def components():
                 transaction=self._prepared['transaction']
                 if transaction is not None:transaction.commit()
                 saved=self._prepared['saved']
+                rows=self._prepared['rows']
                 self.applied.emit(saved)
-                self._finish('success')
+                self._finish('success',config=saved,rows=rows)
 
         def _rollback(self,reason):
             self._timer.stop()
@@ -211,14 +236,16 @@ def components():
                 elif self._stopping:
                     self._finish(self._reason)
                 else:self._request_ack('restore_ack')
+            elif phase=='folder':
+                self._finish(value['status'],folder=value.get('folder'))
 
-        def _finish(self,status):
+        def _finish(self,status,**values):
             self._timer.stop()
             self.pending=False
             self._phase=None
             self.reload_revision=None
             self._prepared=None
-            if not self._stopping:self.state.emit(dict(kind='result',status=status))
+            if not self._stopping:self.state.emit(dict(kind='result',status=status,**values))
 
         def shutdown(self):
             self._stopping=True
@@ -245,6 +272,7 @@ def components():
             self._shortcut_baseline=''
             self._loading=False
             self._submitted_key_edit=False
+            self._needs_rescan=False
             self.setWindowTitle('Настройки')
             self.resize(600,560)
             layout=QVBoxLayout(self)
@@ -274,6 +302,16 @@ def components():
             dictionary_layout.addLayout(reorder)
             self.dictionary_help=label()
             dictionary_layout.addWidget(self.dictionary_help)
+            self.folder_path=label(name='Папка словарей')
+            self.folder_path.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse|
+                                                     Qt.TextInteractionFlag.TextSelectableByKeyboard)
+            self.folder_path.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
+            self.folder_button=QPushButton('Открыть папку словарей')
+            self.folder_button.setAccessibleName('Открыть папку словарей')
+            self.folder_help=label(FOLDER_HELP)
+            dictionary_layout.addWidget(self.folder_path)
+            dictionary_layout.addWidget(self.folder_button)
+            dictionary_layout.addWidget(self.folder_help)
             form.addWidget(dictionaries)
             options=QGroupBox('Перевод и запуск');option_layout=QFormLayout(options)
             self.timeout=QSpinBox();self.timeout.setRange(1,300);self.timeout.setSuffix(' с')
@@ -295,7 +333,7 @@ def components():
             self.close_button=QPushButton('Закрыть')
             actions.addWidget(self.apply_button);actions.addWidget(self.close_button)
             layout.addLayout(actions)
-            for button in (self.apply_button,self.close_button,self.up_button,self.down_button):
+            for button in (self.apply_button,self.close_button,self.up_button,self.down_button,self.folder_button):
                 button.setAutoDefault(True)
             self._editors=(self.shortcut,self.dictionaries,self.timeout,self.online,self.autostart)
             self.shortcut.keySequenceChanged.connect(self._edited)
@@ -305,6 +343,7 @@ def components():
             self.online.toggled.connect(self._edited);self.autostart.toggled.connect(self._edited)
             self.up_button.clicked.connect(lambda:self._move(-1))
             self.down_button.clicked.connect(lambda:self._move(1))
+            self.folder_button.clicked.connect(self.open_folder)
             self.apply_button.clicked.connect(lambda:self.controller.apply(self.snapshot()))
             self.close_button.clicked.connect(self.close)
             QShortcut(QKeySequence(Qt.Key.Key_Escape),self,activated=self.close)
@@ -328,10 +367,32 @@ def components():
                     for i in range(self.dictionaries.count())],popup_timeout=self.timeout.value(),
                 online=self.online.isChecked(),autostart=self.autostart.isChecked())
 
+        def open_folder(self):
+            if self.controller.pending or not self.folder_path.text():return
+            self._needs_rescan=True
+            self.controller.open_folder(self.folder_path.text())
+
+        def _set_dictionaries(self,configured,discovered):
+            selected=self.dictionaries.currentItem()
+            selected=selected.data(Qt.ItemDataRole.UserRole) if selected is not None else None
+            found={row['id']:row['name'] for row in discovered}
+            rows=list(configured)
+            included={ident for ident,_ in rows}
+            rows.extend((ident,True) for ident in found if ident not in included)
+            self.dictionaries.clear()
+            for ident,enabled in rows:
+                item=QListWidgetItem(found.get(ident,ident+' — недоступен'))
+                item.setData(Qt.ItemDataRole.UserRole,ident)
+                item.setFlags(item.flags()|Qt.ItemFlag.ItemIsUserCheckable)
+                item.setCheckState(Qt.CheckState.Checked if enabled else Qt.CheckState.Unchecked)
+                self.dictionaries.addItem(item)
+                if ident==selected:self.dictionaries.setCurrentItem(item)
+
         def _state(self,value):
             if value['kind']=='pending':
                 if not value['loading']:self._submitted_key_edit=self.snapshot()['shortcut_edited']
-                self.status.setText('Загружаем настройки…' if value['loading'] else PENDING)
+                self.status.setText('Открываем папку словарей…' if value.get('folder') else
+                                    'Загружаем настройки…' if value['loading'] else PENDING)
             elif value['kind']=='loaded':
                 self._loading=True
                 saved=value['config']
@@ -341,17 +402,8 @@ def components():
                 self.shortcut.setKeySequence(QKeySequence(shortcut))
                 self.actual_binding.setText('В KDE: '+(', '.join(actual) if actual else 'не назначено')
                                            if value['available'] else 'Сочетание в KDE недоступно для проверки')
-                found={row['id']:row['name'] for row in value['rows']}
-                rows=list(saved.dictionaries)
-                included={ident for ident,_ in rows}
-                rows.extend((ident,True) for ident in found if ident not in included)
-                self.dictionaries.clear()
-                for ident,enabled in rows:
-                    item=QListWidgetItem(found.get(ident,ident+' — недоступен'))
-                    item.setData(Qt.ItemDataRole.UserRole,ident)
-                    item.setFlags(item.flags()|Qt.ItemFlag.ItemIsUserCheckable)
-                    item.setCheckState(Qt.CheckState.Checked if enabled else Qt.CheckState.Unchecked)
-                    self.dictionaries.addItem(item)
+                self._set_dictionaries(saved.dictionaries,value['rows'])
+                self.folder_path.setText(value['folder'])
                 self.timeout.setValue(saved.popup_timeout)
                 self.online.setChecked(saved.online);self.autostart.setChecked(saved.autostart)
                 self._loading=False
@@ -360,17 +412,32 @@ def components():
             else:
                 status=value['status']
                 if status=='success':
+                    self._loading=True
+                    saved=value['config']
+                    if value['rows'] is not None:self._set_dictionaries(saved.dictionaries,value['rows'])
+                    self.timeout.setValue(saved.popup_timeout)
+                    self.online.setChecked(saved.online);self.autostart.setChecked(saved.autostart)
+                    self._loading=False
                     self._shortcut_baseline=self.snapshot()['shortcut']
                     self._baseline=self.snapshot()
+                    self._needs_rescan=False
                     if self._submitted_key_edit:self.actual_binding.setText('В KDE: '+self._shortcut_baseline)
                     self.status.setText(SUCCESS)
+                elif status in ('folder_ready','folder_failed'):
+                    opened=False
+                    if status=='folder_ready':
+                        try:opened=QDesktopServices.openUrl(QUrl.fromLocalFile(value['folder']))
+                        except Exception:pass
+                    self.status.setText(FOLDER_HELP if opened else FOLDER_FAILED)
                 else:self.status.setText(MESSAGES.get(status,MESSAGES['runtime_failed']))
             self._enabled()
 
         def _enabled(self):
             editable=not self.controller.pending and self._baseline is not None
             for editor in self._editors:editor.setEnabled(editable)
-            self.apply_button.setEnabled(editable and self._valid() and self.snapshot()!=self._baseline)
+            self.folder_button.setEnabled(not self.controller.pending and bool(self.folder_path.text()))
+            self.apply_button.setEnabled(editable and self._valid() and
+                                         (self._needs_rescan or self.snapshot()!=self._baseline))
             self._reorder_state()
             self._dictionary_help()
 
@@ -386,7 +453,7 @@ def components():
 
         def _dictionary_help(self):
             if self.dictionaries.count()==0:
-                self.dictionary_help.setText('Локальные словари не найдены\nУстановите Mueller 7 с пакетом или добавьте словари в каталог lookup/dicts. Для проверки запустите lookup --doctor')
+                self.dictionary_help.setText('Локальные словари не найдены\nУстановите Mueller 7 с пакетом или добавьте свои словари через кнопку „Открыть папку словарей“')
             elif not any(self.dictionaries.item(i).checkState()==Qt.CheckState.Checked for i in range(self.dictionaries.count())):
                 self.dictionary_help.setText('Локальные словари отключены. При выключенном онлайн-переводе перевод будет недоступен')
             else:self.dictionary_help.setText('')

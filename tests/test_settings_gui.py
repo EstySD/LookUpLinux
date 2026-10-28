@@ -309,8 +309,11 @@ class SettingsTests(unittest.TestCase):
                 QTest.mouseClick(value.folder_button,Qt.MouseButton.LeftButton)
                 self.wait(lambda:not value.controller.pending)
             self.assertTrue(destination.is_dir())
-            self.assertEqual(opened[0].toLocalFile(),str(destination.absolute()))
+            self.assertEqual(Path(opened[0].toLocalFile()),destination.absolute())
             self.assertEqual(value.snapshot(),before)
+            self.assertTrue(value.apply_button.isEnabled())
+            value.close();value.show()
+            self.wait(lambda:not value.controller.pending)
             self.assertTrue(value.apply_button.isEnabled())
 
     def test_dictionary_folder_empty_xdg_destination_and_private_failures_keep_path(self):
