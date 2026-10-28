@@ -26,7 +26,8 @@ def _dictionary_rows():
 
 
 def _dictionary_folder():
-    return dicts.dict_roots()[0].absolute()
+    roots=dicts.dict_roots()
+    return roots[0].absolute() if roots else None
 
 
 def _fields(value,keys):
@@ -106,7 +107,9 @@ def components():
                     available=True
                 except lifecycle.LifecycleError:
                     actual=();available=False
-                return dict(config=value,rows=rows,actual=actual,available=available,folder=str(_dictionary_folder()))
+                folder=_dictionary_folder()
+                return dict(config=value,rows=rows,actual=actual,available=available,
+                            folder=str(folder) if folder is not None else '')
             self._start('load',read)
 
         def open_folder(self,path):
@@ -404,6 +407,8 @@ def components():
                                            if value['available'] else 'Сочетание в KDE недоступно для проверки')
                 self._set_dictionaries(saved.dictionaries,value['rows'])
                 self.folder_path.setText(value['folder'])
+                self.folder_help.setText(FOLDER_HELP if value['folder'] else
+                    'Поиск словарей отключён переменной LOOKUP_DICTS. Укажите в ней каталог или уберите переменную, затем перезапустите приложение.')
                 self.timeout.setValue(saved.popup_timeout)
                 self.online.setChecked(saved.online);self.autostart.setChecked(saved.autostart)
                 self._loading=False

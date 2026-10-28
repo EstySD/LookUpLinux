@@ -11,7 +11,7 @@ from types import SimpleNamespace
 
 os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
 from tests._support import make_tempdir, forbid_network
-from lookup import config, lifecycle
+from lookup import config, lifecycle, dicts
 
 try:
     from PyQt6.QtCore import Qt, QEvent
@@ -365,6 +365,28 @@ class SettingsTests(unittest.TestCase):
         self.assertEqual(values[:2],draft)
         self.assertEqual(values[2],dict(id='copied',enabled=True))
         self.assertFalse(value.apply_button.isEnabled())
+
+    def test_separator_only_override_keeps_other_settings_usable_without_inventing_folder(self):
+        with patch.dict(os.environ,LOOKUP_DICTS=os.pathsep):
+            controller=self.Controller(self.engine,registry=self.registry)
+            self.controllers.append(controller)
+            value=self.window(controller)
+            self.assertEqual(dicts.dict_roots(),[])
+            self.assertEqual(dicts.discover(),[])
+            self.assertEqual(value.dictionaries.count(),0)
+            self.assertEqual(value.folder_path.text(),'')
+            self.assertTrue(value.folder_button.isVisible())
+            self.assertFalse(value.folder_button.isEnabled())
+            self.assertIn('LOOKUP_DICTS',value.folder_help.text())
+            self.assertTrue(all(widget.isEnabled() for widget in (value.online,value.autostart,value.timeout)))
+            value.online.setChecked(False);value.autostart.setChecked(False);value.timeout.setValue(9)
+            self.assertTrue(value.apply_button.isEnabled())
+            QTest.mouseClick(value.apply_button,Qt.MouseButton.LeftButton)
+            self.wait(lambda:controller.reload_revision is not None)
+            self.ack(controller)
+            saved=config.load()
+            self.assertEqual((saved.online,saved.autostart,saved.popup_timeout),(False,False,9))
+            self.assertEqual(dicts.dict_roots(),[])
 
 
 class LazyImportTests(unittest.TestCase):
