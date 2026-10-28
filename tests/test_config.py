@@ -202,7 +202,7 @@ class SettingsTests(unittest.TestCase):
         value = config.load(self.path)
         self.assertEqual((value.shortcut,value.popup_timeout,value.autostart,value.online),('Alt+Q',7,False,False))
         for fields in (dict(shortcut='bad\nkey'),dict(popup_timeout=True),dict(popup_timeout=301),dict(autostart=1)):
-            self.write(dict(shortcut='Alt+Q',popup_timeout=7,autostart=False,online=False,**{}))
+            self.write(dict(shortcut='Alt+Q',popup_timeout=7,autostart=False,online=False))
             raw = json.loads(self.path.read_text())
             raw.update(fields)
             self.write(raw)
