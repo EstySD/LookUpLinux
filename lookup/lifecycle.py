@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 import os
 from pathlib import Path
+import re
 import sys
 import tempfile
 
@@ -180,6 +181,13 @@ def _quote(path):
     return '"'+value.replace('%','%%')+'"'
 
 
+def _entry_value(value):
+    value=str(value).replace('\\','\\\\')
+    left=len(value)-len(value.lstrip(' '))
+    right=len(value)-len(value.rstrip(' '))
+    return '\\s'*left+value.strip(' ')+'\\s'*right
+
+
 def desktop_text(python=None,directory=None,*,installed=False,autostart=False,shortcut='Meta+Shift+D'):
     if not config._valid_scalar('shortcut',shortcut):raise LifecycleError('invalid_shortcut')
     workdir=''
@@ -190,16 +198,30 @@ def desktop_text(python=None,directory=None,*,installed=False,autostart=False,sh
         executable=_quote(python or sys.executable)
         directory=Path(directory or Path(__file__).resolve().parents[1])
         _quote(directory)
-        workdir='Path='+str(directory).replace('\\','\\\\')+'\n'
+        workdir='Path='+_entry_value(directory)+'\n'
         command=executable+' -m lookup'+(' --autostart' if autostart else ' --trigger')
     text=('[Desktop Entry]\nType=Application\nName=LookUp Linux\n'+
           'Comment=LookUp Linux owned application trigger\n'+MARKER+'\n'+
           'Exec='+command+'\n'+workdir+'Icon=accessories-dictionary\nTerminal=false\n')
     if autostart:
         # TryExec is one Desktop Entry string, not a shell command.
-        attempt='/usr/bin/lookup' if installed else str(python or sys.executable).replace('\\','\\\\')
+        attempt='/usr/bin/lookup' if installed else _entry_value(python or sys.executable)
         return text+'OnlyShowIn=KDE;\nTryExec='+attempt+'\nStartupNotify=false\n'
     return text+'StartupNotify=true\nX-KDE-Shortcuts='+shortcut.replace('\\','\\\\')+'\n'
+
+
+def _legacy_owned(text):
+    lines=text.replace('\r\n','\n').splitlines()
+    if len(lines)!=10 or not lines[4].startswith('Exec="') or not lines[4].endswith('" -m lookup --trigger'):
+        return False
+    executable=lines[4][6:-len('" -m lookup --trigger')]
+    executable=re.sub(r'\\([\\"`$])',lambda match:match[1],executable).replace('%%','%')
+    if not lines[5].startswith('Path='):return False
+    directory=lines[5][5:].replace('\\\\','\\')
+    try:
+        expected=desktop_text(executable,directory).replace(MARKER+'\n','')
+    except (ValueError,OSError):return False
+    return text.replace('\r\n','\n')==expected
 
 
 def _existing(path):
@@ -211,8 +233,7 @@ def _existing(path):
     if len(raw)>65536:raise LifecycleError('unowned_file')
     try:text=raw.decode('utf-8')
     except UnicodeError:raise LifecycleError('unowned_file') from None
-    if (MARKER not in text.splitlines() and
-            'Comment=LookUp Linux owned application trigger' not in text.splitlines()):
+    if MARKER not in text.splitlines() and not _legacy_owned(text):
         raise LifecycleError('unowned_file')
     return raw
 
@@ -235,13 +256,20 @@ def _write_entry(path,text):
 
 
 def ensure_entries(*,python=None,directory=None,shortcut=None):
-    if is_installed():return INSTALLED_DESKTOP,INSTALLED_AUTOSTART
     data=os.environ.get('XDG_DATA_HOME','')
     home=Path(data) if data and Path(data).is_absolute() else Path.home()/'.local/share'
     configuration=os.environ.get('XDG_CONFIG_HOME','')
     settings=Path(configuration) if configuration and Path(configuration).is_absolute() else Path.home()/'.config'
     paths=(home/'applications'/DESKTOP,settings/'autostart'/DESKTOP)
     existing=tuple(_existing(path) for path in paths)  # Refuse collisions before any writes.
+    if is_installed():
+        changed=False
+        try:
+            for path,old in zip(paths,existing):
+                if old is not None:path.unlink();changed=True
+        except OSError:raise LifecycleError('file_failed') from None
+        if changed:_refresh()
+        return INSTALLED_DESKTOP,INSTALLED_AUTOSTART
     key=shortcut or config.load().shortcut
     texts=(desktop_text(python,directory,shortcut=key),desktop_text(python,directory,autostart=True))
     changed=False
@@ -249,6 +277,10 @@ def ensure_entries(*,python=None,directory=None,shortcut=None):
         if old!=text.encode('utf-8'):
             _write_entry(path,text);changed=True
     if changed:
-        try:platform.run(['kbuildsycoca6'],timeout=3,limit=4096)
-        except platform.PlatformError:raise LifecycleError('registration_failed') from None
+        _refresh()
     return paths
+
+
+def _refresh():
+    try:platform.run(['kbuildsycoca6'],timeout=3,limit=4096)
+    except platform.PlatformError:raise LifecycleError('registration_failed') from None

@@ -145,14 +145,15 @@ def main(argv=None) -> int:
     group.add_argument('--list-dicts', action='store_true')
     group.add_argument('--app', action='store_true')
     group.add_argument('--trigger', action='store_true')
+    group.add_argument('--autostart', action='store_true')
     parser.add_argument('--context')
     parser.add_argument('--at', type=_image_point)
     parser.add_argument('--offline', action='store_true')
     parser.add_argument('--no-save', action='store_true')
     try:
         args = parser.parse_args(argv)
-        if (args.app or args.trigger) and any((args.context is not None,args.at is not None,args.offline,args.no_save)):
-            parser.error('--app и --trigger не принимают параметры разового поиска')
+        if (args.app or args.trigger or args.autostart) and any((args.context is not None,args.at is not None,args.offline,args.no_save)):
+            parser.error('--app, --trigger и --autostart не принимают параметры разового поиска')
         if args.word is not None and len(args.word.split()) > translate.MAX_PHRASE_WORDS:
             parser.error('для предложения используйте --text')
         if bool(args.image) != (args.at is not None):
@@ -161,7 +162,9 @@ def main(argv=None) -> int:
             parser.error('для изображения контекст берётся из распознанной строки')
     except SystemExit as exc:
         return exc.code
-    if args.app or args.trigger:
+    if args.autostart and not config.load().autostart:
+        return 0
+    if args.app or args.trigger or args.autostart:
         try:
             from lookup.gui import run
             code=run(trigger=args.trigger)

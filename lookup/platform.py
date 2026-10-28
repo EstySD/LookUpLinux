@@ -10,6 +10,15 @@ import subprocess
 import threading
 import time
 
+PRIVATE_KDOTOOL=Path('/usr/lib/lookup/kdotool')
+
+
+def resolve_command(command):
+    """The package owns a private helper; source runs keep the normal PATH."""
+    if command=='kdotool' and PRIVATE_KDOTOOL.is_file():
+        return str(PRIVATE_KDOTOOL)
+    return command
+
 
 class PlatformError(Exception):
     def __init__(self, reason):
@@ -19,6 +28,7 @@ class PlatformError(Exception):
 
 def run(argv, env=None, timeout=2, limit=1 << 20):
     """Bound both a child's lifetime and bytes retained from stdout."""
+    if argv and argv[0]=='kdotool':argv=[resolve_command(argv[0]),*argv[1:]]
     try:
         child = subprocess.Popen(argv, env=env, stdout=subprocess.PIPE,
                                  stderr=subprocess.DEVNULL, shell=False, bufsize=0,
