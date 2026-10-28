@@ -1,0 +1,8 @@
+#!/usr/bin/python
+"""Installed entrypoint; independent of checkout cwd and PYTHONPATH."""
+import sys
+
+sys.path.insert(0, '/usr/lib/lookup/app')
+from lookup.__main__ import main
+
+raise SystemExit(main())

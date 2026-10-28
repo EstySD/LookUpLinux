@@ -2,6 +2,7 @@
 import hashlib
 import json
 import os
+import shutil
 from pathlib import Path
 import subprocess
 import sys
@@ -17,8 +18,12 @@ ROOT=Path(__file__).resolve().parents[1]
 class PackageTests(unittest.TestCase):
     def test_staging_is_deterministic_and_excludes_private_runtime_files(self):
         with tempfile.TemporaryDirectory() as directory:
+            snapshot=Path(directory)/'source'
+            shutil.copytree(ROOT/'lookup',snapshot/'lookup')
+            shutil.copytree(ROOT/'packaging',snapshot/'packaging')
+            shutil.copyfile(ROOT/'PKGBUILD',snapshot/'PKGBUILD')
             first,second=(Path(directory)/name for name in ('first','second'))
-            a=stage_package.stage(first);b=stage_package.stage(second)
+            a=stage_package.stage(first,root=snapshot);b=stage_package.stage(second,root=snapshot)
             self.assertEqual(a['archive_sha256'],b['archive_sha256'])
             self.assertEqual((first/'lookup-source.tar.gz').read_bytes(),(second/'lookup-source.tar.gz').read_bytes())
             with tarfile.open(first/'lookup-source.tar.gz') as archive:
@@ -47,7 +52,7 @@ class PackageTests(unittest.TestCase):
             root=Path(directory);build=root/'build';stage_package.stage(build)
             with tarfile.open(build/'lookup-source.tar.gz') as archive:archive.extractall(root,filter='data')
             wrapper=root/'run.py'
-            wrapper.write_text((ROOT/'packaging/lookup').read_text().replace('/usr/lib/lookup/app',str(root/'lookup-source')),encoding='utf-8')
+            wrapper.write_text((ROOT/'packaging/lookup').read_text().replace('/usr/lib/lookup/app',(root/'lookup-source').as_posix()),encoding='utf-8')
             cfg=root/'config.json';cfg.write_text('{"autostart":false}')
             result=subprocess.run([sys.executable,str(wrapper),'--autostart'],cwd=root,
                 env=dict(os.environ,PYTHONPATH='',LOOKUP_CONFIG=str(cfg)),capture_output=True,timeout=5)

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=LookUp Linux
+Comment=LookUp Linux owned application trigger
+X-LookUpLinux-Owned=true
+Exec=/usr/bin/lookup --trigger
+Icon=accessories-dictionary
+Terminal=false
+StartupNotify=true
+X-KDE-Shortcuts=Meta+Shift+D
+X-KDE-DBUS-Restricted-Interfaces=org.kde.KWin.ScreenShot2

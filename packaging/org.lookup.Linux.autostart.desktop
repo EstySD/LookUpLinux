@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=LookUp Linux
+Comment=LookUp Linux owned login startup
+X-LookUpLinux-Owned=true
+Exec=/usr/bin/lookup --autostart
+TryExec=/usr/bin/lookup
+Icon=accessories-dictionary
+Terminal=false
+StartupNotify=false
+OnlyShowIn=KDE;
