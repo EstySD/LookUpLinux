@@ -142,3 +142,38 @@ class EntryTests(unittest.TestCase):
              mock.patch.object(Path,'is_symlink',return_value=True):
             with self.assertRaises(lifecycle.LifecycleError) as raised:lifecycle.ensure_entries()
         self.assertEqual(raised.exception.reason,'unowned_file')
+
+    def test_installed_migrates_only_owned_source_shadows(self):
+        desktop=self.root/'data/applications'/lifecycle.DESKTOP
+        autostart=self.root/'config/autostart'/lifecycle.DESKTOP
+        for path,automatic in ((desktop,False),(autostart,True)):
+            path.parent.mkdir(parents=True,exist_ok=True)
+            path.write_text(lifecycle.desktop_text(autostart=automatic))
+        with mock.patch.object(lifecycle,'is_installed',return_value=True), \
+             mock.patch('lookup.platform.run',return_value=b'') as run:
+            lifecycle.ensure_entries()
+        self.assertFalse(desktop.exists())
+        self.assertFalse(autostart.exists())
+        run.assert_called_once()
+
+    def test_installed_preflights_both_shadows_before_removing_either(self):
+        desktop=self.root/'data/applications'/lifecycle.DESKTOP
+        autostart=self.root/'config/autostart'/lifecycle.DESKTOP
+        for path,text in ((desktop,lifecycle.desktop_text()),(autostart,'[Desktop Entry]\nName=Other\n')):
+            path.parent.mkdir(parents=True,exist_ok=True)
+            path.write_text(text)
+        with mock.patch.object(lifecycle,'is_installed',return_value=True):
+            with self.assertRaises(lifecycle.LifecycleError):lifecycle.ensure_entries()
+        self.assertTrue(desktop.exists())
+        self.assertEqual(autostart.read_text(),'[Desktop Entry]\nName=Other\n')
+
+    def test_legacy_generated_entry_is_recognized_but_comment_alone_is_not(self):
+        desktop=self.root/'data/applications'/lifecycle.DESKTOP
+        desktop.parent.mkdir(parents=True)
+        legacy=lifecycle.desktop_text().replace(lifecycle.MARKER+'\n','')
+        desktop.write_text(legacy)
+        with mock.patch.object(lifecycle,'is_installed',return_value=False),mock.patch('lookup.platform.run',return_value=b''):
+            lifecycle.ensure_entries()
+        self.assertIn(lifecycle.MARKER,desktop.read_text())
+        desktop.write_text('[Desktop Entry]\nComment=LookUp Linux owned application trigger\nExec=/other\n')
+        with self.assertRaises(lifecycle.LifecycleError):lifecycle._existing(desktop)

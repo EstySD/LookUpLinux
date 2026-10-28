@@ -42,6 +42,18 @@ class GeometryTests(unittest.TestCase):
 
 
 class BoundaryTests(unittest.TestCase):
+    def test_private_kdotool_resolver_covers_every_run_call(self):
+        from lookup import platform
+        with patch.object(platform.Path,'is_file',return_value=True),patch.object(os,'access',return_value=True):
+            self.assertEqual(platform.resolve_command('kdotool'),str(platform.PRIVATE_KDOTOOL))
+            for action in ('search','getmouselocation','windowactivate'):
+                with patch.object(platform.subprocess,'Popen',side_effect=FileNotFoundError) as child:
+                    with self.assertRaises(PlatformError):run(['kdotool',action])
+                    self.assertEqual(child.call_args.args[0],[str(platform.PRIVATE_KDOTOOL),action])
+        with patch.object(platform.Path,'is_file',return_value=False):
+            self.assertEqual(platform.resolve_command('kdotool'),'kdotool')
+            self.assertEqual(platform.resolve_command('kscreen-doctor'),'kscreen-doctor')
+
     def test_child_deadline_and_output_cap(self):
         for code, reason in (("import time; time.sleep(5)", 'timeout'),
                              ("print('x'*10000)", 'too_large')):

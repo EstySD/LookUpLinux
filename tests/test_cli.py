@@ -203,6 +203,25 @@ class CliListDictsTests(CliCase):
             self.assertIn('не найдены', self.call('--list-dicts')[1])
 
 
+class AutostartTests(CliCase):
+    def test_disabled_login_exits_before_gui_and_never_looks_up(self):
+        from lookup import config
+        config.save(dict(autostart=False))
+        with mock.patch.dict(sys.modules,{'lookup.gui':None}):
+            self.assertEqual(self.call('--autostart'),(0,'',''))
+        proc=subprocess.run([sys.executable,'-S','-m','lookup','--autostart'],capture_output=True,timeout=5)
+        self.assertEqual((proc.returncode,proc.stdout,proc.stderr),(0,b'',b''))
+        self.assertFalse(Path(os.environ['LOOKUP_DB']).exists())
+        self.network.assert_not_called()
+
+    def test_enabled_login_uses_existing_singleton_app_dispatch(self):
+        with mock.patch('lookup.gui.run',return_value=0) as run:
+            self.assertEqual(self.call('--autostart'),(0,'',''))
+        run.assert_called_once_with(trigger=False)
+        self.assertEqual(self.call('--autostart','--offline')[0],2)
+        self.assertEqual(self.call('--app','--autostart')[0],2)
+
+
 class CliSubprocessTests(CliCase):
     def test_utf8_and_stdlib_entrypoint(self):
         for flags in [[], ['-S']]:
