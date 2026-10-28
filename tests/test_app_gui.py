@@ -9,7 +9,7 @@ from unittest import mock
 os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
 try:
     from PyQt6.QtCore import Qt, QEvent
-    from PyQt6.QtGui import QFont, QPalette, QColor
+    from PyQt6.QtGui import QFont, QPalette, QColor,QDesktopServices
     from PyQt6.QtWidgets import QApplication, QLabel, QTextEdit
     from PyQt6.QtTest import QTest
 except ImportError:
@@ -357,6 +357,54 @@ class GuiTests(unittest.TestCase):
         self.assertTrue(done)
         self.assertFalse(controller.pending)
         self.assertEqual(config.load(),before)
+
+    def test_copy_dictionary_then_unchanged_apply_serves_next_lookup_without_restart(self):
+        from lookup import config
+        from tests.test_app import FixedSource
+        from tests.test_settings_gui import Registry
+        from tests._stardict_writer import write_stardict
+        from lookup import gui
+        config.save(dict(online=False))
+        _,Owner=gui.components()
+        owner=Owner({},engine_factory=lambda publish,**kwargs:app.Engine(publish,source=FixedSource('bank')),
+                    focus=False,on_quit=lambda:None)
+        def wait(predicate):
+            deadline=time.monotonic()+3
+            while time.monotonic()<deadline:
+                self.application.processEvents()
+                if predicate():return
+                QTest.qWait(5)
+            self.fail('dictionary rescan did not become observable')
+        def close():
+            owner.quit()
+            wait(lambda:not owner.engine.is_alive() and not owner.settings_controller.is_alive())
+            owner.popup.deleteLater();owner.menu.deleteLater();owner.deleteLater()
+            self.application.sendPostedEvents(None,QEvent.Type.DeferredDelete)
+        self.addCleanup(close)
+        controller=owner.settings_controller
+        controller.registry=Registry()
+        owner.open_settings()
+        window=owner.settings_window
+        wait(lambda:not controller.pending)
+        self.assertEqual(window.dictionaries.count(),0)
+        before=window.snapshot()
+        with mock.patch.object(QDesktopServices,'openUrl',return_value=True):
+            QTest.mouseClick(window.folder_button,Qt.MouseButton.LeftButton)
+            wait(lambda:not controller.pending)
+        destination=self.root/'dicts'
+        self.assertEqual(window.folder_path.text(),str(destination.absolute()))
+        write_stardict(destination,'copied',[('bank','проверенный перевод')])
+        self.assertEqual(window.snapshot(),before)
+        self.assertTrue(window.apply_button.isEnabled())
+        engine=owner.engine
+        QTest.mouseClick(window.apply_button,Qt.MouseButton.LeftButton)
+        wait(lambda:not controller.pending)
+        self.assertIn('Настройки применены',window.status.text())
+        self.assertEqual(window.dictionaries.count(),1)
+        self.assertIs(owner.engine,engine)
+        owner.Trigger('')
+        wait(lambda:owner._displayed is not None)
+        self.assertEqual(owner._displayed[1]['translation'],'проверенный перевод')
         previous=QFont(self.application.font())
         try:
             changed=QFont(previous);changed.setPointSizeF(previous.pointSizeF()+2)

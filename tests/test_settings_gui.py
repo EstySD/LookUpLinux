@@ -1,5 +1,6 @@
 """Native settings controls and acknowledged asynchronous application."""
 import os
+from pathlib import Path
 import subprocess
 import sys
 import threading
@@ -14,7 +15,7 @@ from lookup import config, lifecycle
 
 try:
     from PyQt6.QtCore import Qt, QEvent
-    from PyQt6.QtGui import QKeySequence
+    from PyQt6.QtGui import QKeySequence,QDesktopServices
     from PyQt6.QtWidgets import QApplication
     from PyQt6.QtTest import QTest
 except ImportError:
@@ -290,6 +291,77 @@ class SettingsTests(unittest.TestCase):
         self.wait(lambda:controller.reload_revision is not None)
         self.ack(controller)
         self.assertEqual(states[-1]['status'],'success')
+
+    def test_dictionary_folder_honors_first_override_and_enables_unchanged_apply(self):
+        destination=self.root/'dictionary folder with spaces'
+        other=self.root/'second'
+        with patch.dict(os.environ,LOOKUP_DICTS=str(destination)+os.pathsep+str(other)):
+            value=self.window()
+            before=value.snapshot()
+            self.assertEqual(value.folder_path.text(),str(destination.absolute()))
+            self.assertFalse(destination.exists())
+            self.assertTrue(value.folder_button.isVisible())
+            self.assertTrue(value.folder_button.isEnabled())
+            self.assertIn('StarDict',value.folder_help.text())
+            self.assertIn('весь комплект',value.folder_help.text())
+            opened=[]
+            with patch.object(QDesktopServices,'openUrl',side_effect=lambda url:opened.append(url) or True):
+                QTest.mouseClick(value.folder_button,Qt.MouseButton.LeftButton)
+                self.wait(lambda:not value.controller.pending)
+            self.assertTrue(destination.is_dir())
+            self.assertEqual(opened[0].toLocalFile(),str(destination.absolute()))
+            self.assertEqual(value.snapshot(),before)
+            self.assertTrue(value.apply_button.isEnabled())
+
+    def test_dictionary_folder_empty_xdg_destination_and_private_failures_keep_path(self):
+        data=self.root/'xdg data'
+        with patch.dict(os.environ,XDG_DATA_HOME=str(data)):
+            os.environ.pop('LOOKUP_DICTS',None)
+            controller=self.Controller(self.engine,registry=self.registry,discover=lambda:[])
+            self.controllers.append(controller)
+            value=self.window(controller)
+            destination=data/'lookup'/'dicts'
+            self.assertEqual(value.folder_path.text(),str(destination.absolute()))
+            self.assertFalse(destination.exists())
+            self.assertTrue(value.folder_button.isEnabled())
+            self.assertIn('Локальные словари не найдены',value.dictionary_help.text())
+            with patch.object(Path,'mkdir',side_effect=OSError('private directory')), \
+                 patch.object(QDesktopServices,'openUrl') as opened:
+                QTest.mouseClick(value.folder_button,Qt.MouseButton.LeftButton)
+                self.wait(lambda:not controller.pending)
+            opened.assert_not_called()
+            self.assertIn('Не удалось открыть папку словарей',value.status.text())
+            self.assertNotIn('private',value.status.text())
+            self.assertEqual(value.folder_path.text(),str(destination.absolute()))
+            self.assertTrue(value.folder_path.textInteractionFlags() & Qt.TextInteractionFlag.TextSelectableByKeyboard)
+            with patch.object(QDesktopServices,'openUrl',return_value=False):
+                QTest.mouseClick(value.folder_button,Qt.MouseButton.LeftButton)
+                self.wait(lambda:not controller.pending)
+            self.assertIn('Скопируйте указанный путь',value.status.text())
+            self.assertEqual(value.folder_path.text(),str(destination.absolute()))
+
+    def test_dictionary_rescan_refreshes_rows_after_ack_and_preserves_draft_order(self):
+        rows=[dict(id='found',name='Found')]
+        controller=self.Controller(self.engine,registry=self.registry,discover=lambda:list(rows))
+        self.controllers.append(controller)
+        config.save(dict(dictionaries=[dict(id='missing',enabled=False),dict(id='found',enabled=True)]))
+        value=self.window(controller)
+        value.dictionaries.setCurrentRow(1);QTest.mouseClick(value.up_button,Qt.MouseButton.LeftButton)
+        value.dictionaries.item(0).setCheckState(Qt.CheckState.Unchecked)
+        draft=value.snapshot()['dictionaries']
+        with patch.object(QDesktopServices,'openUrl',return_value=True):
+            QTest.mouseClick(value.folder_button,Qt.MouseButton.LeftButton)
+            self.wait(lambda:not controller.pending)
+        self.assertEqual(value.snapshot()['dictionaries'],draft)
+        rows.append(dict(id='copied',name='Copied dictionary'))
+        QTest.mouseClick(value.apply_button,Qt.MouseButton.LeftButton)
+        self.wait(lambda:controller.reload_revision is not None)
+        self.assertEqual(value.dictionaries.count(),2)
+        self.ack(controller)
+        values=value.snapshot()['dictionaries']
+        self.assertEqual(values[:2],draft)
+        self.assertEqual(values[2],dict(id='copied',enabled=True))
+        self.assertFalse(value.apply_button.isEnabled())
 
 
 class LazyImportTests(unittest.TestCase):
