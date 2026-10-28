@@ -34,7 +34,10 @@ def stage(output,root=ROOT):
     with gzip.GzipFile(filename='',mode='wb',mtime=0,fileobj=buffer) as compressed:
         with tarfile.open(fileobj=compressed,mode='w',format=tarfile.USTAR_FORMAT) as archive:
             for path in sorted(files,key=lambda path:path.relative_to(root).as_posix()):
-                name='lookup-source/'+path.relative_to(root).as_posix();data=path.read_bytes()
+                name='lookup-source/'+path.relative_to(root).as_posix()
+                # Every selected input is text. Preserve executable shebangs
+                # when staging a checkout that uses Windows CRLF endings.
+                data=path.read_bytes().replace(b'\r\n',b'\n')
                 entry=tarfile.TarInfo(name);entry.size=len(data);entry.mode=0o644
                 archive.addfile(entry,io.BytesIO(data));names.append(name)
     data=buffer.getvalue();digest=hashlib.sha256(data).hexdigest()
@@ -44,7 +47,7 @@ def stage(output,root=ROOT):
     (output/'lookup-source.tar.gz').write_bytes(data)
     build=template.replace('@LOCAL_SOURCE_SHA256@',digest)
     (output/'PKGBUILD').write_text(build,encoding='utf-8',newline='\n')
-    record=dict(archive='lookup-source.tar.gz',archive_sha256=digest,
+    record=dict(archive='lookup-source.tar.gz',archive_sha256=digest,text_line_endings='LF',
                 pkgbuild_sha256=hashlib.sha256(build.encode()).hexdigest(),files=names,upstream=ASSETS)
     (output/'SOURCE.json').write_text(json.dumps(record,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
     return record

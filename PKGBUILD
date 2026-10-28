@@ -4,6 +4,7 @@ pkgver=0.1.0
 pkgrel=1
 pkgdesc='English-Russian cursor dictionary and learning cards for KDE Wayland (local build)'
 arch=('x86_64')
+options=('!strip' '!debug') # Pinned upstream helper is already stripped.
 license=('LicenseRef-LookUpLinux-unspecified' 'Apache-2.0' 'LicenseRef-Mueller7-GPL-unspecified')
 depends=('python' 'python-pyqt6' 'qt6-wayland' 'tesseract' 'tesseract-data-eng'
          'wl-clipboard>=2.3.0' 'libkscreen' 'kglobalacceld' 'kservice' 'dbus' 'glibc' 'gcc-libs')

@@ -23,7 +23,12 @@ class PackageTests(unittest.TestCase):
             shutil.copytree(ROOT/'packaging',snapshot/'packaging')
             shutil.copyfile(ROOT/'PKGBUILD',snapshot/'PKGBUILD')
             first,second=(Path(directory)/name for name in ('first','second'))
-            a=stage_package.stage(first,root=snapshot);b=stage_package.stage(second,root=snapshot)
+            a=stage_package.stage(first,root=snapshot)
+            for path in (snapshot/'lookup').rglob('*.py'):
+                path.write_bytes(path.read_bytes().replace(b'\r\n',b'\n').replace(b'\n',b'\r\n'))
+            launcher=snapshot/'packaging/lookup'
+            launcher.write_bytes(launcher.read_bytes().replace(b'\r\n',b'\n').replace(b'\n',b'\r\n'))
+            b=stage_package.stage(second,root=snapshot)
             self.assertEqual(a['archive_sha256'],b['archive_sha256'])
             self.assertEqual((first/'lookup-source.tar.gz').read_bytes(),(second/'lookup-source.tar.gz').read_bytes())
             with tarfile.open(first/'lookup-source.tar.gz') as archive:
