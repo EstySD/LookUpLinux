@@ -187,5 +187,86 @@ class LoadTests(unittest.TestCase):
             Config().online = False
 
 
+class SettingsTests(unittest.TestCase):
+    def setUp(self):
+        self.root = make_tempdir(self)
+        self.path = self.root/'settings'/'config.json'
+
+    def write(self,data):
+        self.path.parent.mkdir(parents=True,exist_ok=True)
+        self.path.write_text(json.dumps(data),encoding='utf-8')
+
+    def test_new_defaults_and_independent_loaded_fallbacks(self):
+        self.assertEqual((Config().shortcut,Config().popup_timeout,Config().autostart),('Meta+Shift+D',20,True))
+        self.write(dict(shortcut='Alt+Q',popup_timeout=7,autostart=False,online=False))
+        value = config.load(self.path)
+        self.assertEqual((value.shortcut,value.popup_timeout,value.autostart,value.online),('Alt+Q',7,False,False))
+        for fields in (dict(shortcut='bad\nkey'),dict(popup_timeout=True),dict(popup_timeout=301),dict(autostart=1)):
+            self.write(dict(shortcut='Alt+Q',popup_timeout=7,autostart=False,online=False,**{}))
+            raw = json.loads(self.path.read_text())
+            raw.update(fields)
+            self.write(raw)
+            value = config.load(self.path)
+            self.assertFalse(value.online)
+            self.assertEqual(value.shortcut,'Meta+Shift+D' if 'shortcut' in fields else 'Alt+Q')
+            self.assertEqual(value.popup_timeout,20 if 'popup_timeout' in fields else 7)
+            self.assertEqual(value.autostart,True if 'autostart' in fields else False)
+
+    def test_save_preserves_unknown_clients_and_configured_missing_ids(self):
+        self.write(dict(extra={'future':'kept'},clients=['at','gtx'],online=True,
+                        dictionaries=[dict(id='missing',enabled=False),dict(id='found',enabled=True)]))
+        value = config.save(dict(online=False,popup_timeout=9,
+                                 dictionaries=[dict(id='found',enabled=False)]),self.path)
+        self.assertFalse(value.online)
+        self.assertEqual(value.popup_timeout,9)
+        self.assertEqual(value.clients,('at','gtx'))
+        self.assertEqual(value.dictionaries,(('found',False),('missing',False)))
+        raw = json.loads(self.path.read_text(encoding='utf-8'))
+        self.assertEqual(raw['extra'],{'future':'kept'})
+        self.assertEqual(raw['clients'],['at','gtx'])
+        self.assertEqual(config.load(self.path),value)
+
+    def test_invalid_edits_never_replace_original(self):
+        self.write(dict(online=False,extra='keep'))
+        before = self.path.read_bytes()
+        for changes in (None,dict(unknown='x'),dict(online=1),dict(autostart=0),dict(shortcut=''),
+                        dict(shortcut='x'*129),dict(shortcut='Alt+\x00Q'),dict(popup_timeout=0),
+                        dict(popup_timeout=2.0),dict(dictionaries=[dict(id='x',enabled='yes')]),
+                        dict(dictionaries=[dict(id='x'),dict(id='x')]),dict(clients=['bad/client'])):
+            with self.subTest(changes=changes):
+                with self.assertRaises(config.ConfigError) as raised:
+                    config.save(changes,self.path)
+                self.assertIn(str(raised.exception),('invalid_value','invalid_file','unavailable'))
+                self.assertEqual(self.path.read_bytes(),before)
+
+    def test_atomic_failure_preserves_bytes_and_cleans_temporary(self):
+        self.write(dict(online=True))
+        before = self.path.read_bytes()
+        files = set(self.path.parent.iterdir())
+        with mock.patch.object(os,'replace',side_effect=OSError('private path')):
+            with self.assertRaises(config.ConfigError) as raised:
+                config.save(dict(online=False),self.path)
+        self.assertEqual(str(raised.exception),'unavailable')
+        self.assertEqual(self.path.read_bytes(),before)
+        self.assertEqual(set(self.path.parent.iterdir()),files)
+
+    def test_save_creates_private_parent_and_default_path_without_import_side_effect(self):
+        with mock.patch.dict(os.environ,{'LOOKUP_CONFIG':str(self.path)}):
+            value = config.save(dict(autostart=False,shortcut='Ctrl+Alt+Q'))
+        self.assertFalse(value.autostart)
+        self.assertTrue(self.path.is_file())
+        if os.name == 'posix':
+            self.assertEqual(self.path.stat().st_mode & 0o777,0o600)
+            self.assertEqual(self.path.parent.stat().st_mode & 0o777,0o700)
+
+    def test_unreadable_or_unmergeable_config_is_not_silently_replaced(self):
+        self.path.parent.mkdir(parents=True)
+        for bad in (b'{bad',b'[]',b'x'*(config.MAX_CONFIG_BYTES+1)):
+            self.path.write_bytes(bad)
+            with self.assertRaises(config.ConfigError):
+                config.save(dict(online=False),self.path)
+            self.assertEqual(self.path.read_bytes(),bad)
+
+
 if __name__ == "__main__":
     unittest.main()
