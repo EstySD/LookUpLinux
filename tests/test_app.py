@@ -26,7 +26,7 @@ class FixedSource:
         pass
 
 
-class EngineTests(unittest.TestCase):
+class EngineCase(unittest.TestCase):
     def setUp(self):
         self.root=make_tempdir(self)
         self.network=forbid_network(self)
@@ -69,6 +69,7 @@ class EngineTests(unittest.TestCase):
         with contextlib.closing(open_store(self.path)) as conn:
             return conn.execute('SELECT coalesce(sum(count),0) FROM words').fetchone()[0]
 
+class EngineTests(EngineCase):
     def test_ready_and_final_count_once_on_worker_thread(self):
         engine=self.engine()
         identity=engine.begin();engine.enqueue(identity)
@@ -306,6 +307,152 @@ class EngineTests(unittest.TestCase):
             pair=get_word_context(conn,'bank')
             self.assertEqual((pair['context'],pair['span'],pair['meaning']),(source,(4,8),'берег'))
             self.assertEqual(conn.execute('SELECT count FROM words').fetchone()[0],1)
+
+
+class ReloadTests(EngineCase):
+    def test_reload_invalidates_old_lookup_and_next_uses_saved_order_online(self):
+        entered,release,opened = threading.Event(),threading.Event(),threading.Event()
+        self.addCleanup(release.set)
+        path = self.root/'settings.json'
+        config.save(dict(dictionaries=[dict(id='a'),dict(id='b')],online=True),path)
+        calls,closed = [],[]
+        @contextlib.contextmanager
+        def resources():
+            cfg = config.load(path)
+            class Dictionaries:
+                order = cfg.dictionaries
+                def close(self):closed.append(threading.get_ident())
+            dictionaries = Dictionaries()
+            with self.resources() as value:
+                value.config,value.dictset = cfg,dictionaries
+                opened.set()
+                try:yield value
+                finally:dictionaries.close()
+        def lookup(text,**kwargs):
+            calls.append((kwargs['dictset'].order,kwargs['online']))
+            if len(calls)==1:
+                entered.set();release.wait(2)
+            value=translate.Result('word',text,translation='meaning')
+            kwargs['on_ready'](value)
+            return value
+        engine=self.engine(resources=resources,lookup=lookup)
+        self.addCleanup(release.set)
+        self.assertTrue(opened.wait(1))
+        first=engine.begin();engine.enqueue(first)
+        self.assertTrue(entered.wait(1))
+        config.save(dict(dictionaries=[dict(id='b'),dict(id='a',enabled=False)],online=False),path)
+        revision=engine.request_reload()
+        latest=engine.begin();engine.enqueue(latest)
+        self.assertGreater(latest,first)
+        self.assertFalse(engine.current(first))
+        release.set()
+        self.wait(lambda:any(e.id==latest and e.stage=='context' for e in self.events))
+        acknowledgement=next(e for e in self.events if e.stage=='reload')
+        self.assertEqual(acknowledgement.reload_revision,revision)
+        self.assertIsNone(acknowledgement.error)
+        self.assertEqual(calls,[((('a',True),('b',True)),True),((('b',True),('a',False)),False)])
+        self.assertEqual([e.id for e in self.events if e.stage=='ready'],[latest])
+        self.assertEqual(self.count(),1)
+        engine.stop();engine.join(2)
+        self.assertEqual(len(closed),2)
+        self.assertEqual(len(set(closed+[owner for _,owner in self.owners])),1)
+        self.assertNotEqual(closed[0],threading.get_ident())
+
+    def test_superseded_acknowledgement_has_its_own_revision_and_reload_priority(self):
+        initial,opening,release=threading.Event(),threading.Event(),threading.Event()
+        self.addCleanup(release.set)
+        attempts=[]
+        @contextlib.contextmanager
+        def resources():
+            attempts.append(threading.get_ident())
+            if len(attempts)==2:
+                opening.set();release.wait(2)
+            with self.resources() as value:
+                initial.set()
+                yield value
+        engine=self.engine(resources=resources)
+        self.assertTrue(initial.wait(1))
+        self.addCleanup(release.set)
+        first=engine.request_reload()
+        self.assertTrue(opening.wait(1))
+        obsolete=engine.begin();engine.enqueue(obsolete)
+        second=engine.request_reload()
+        latest=engine.begin();engine.enqueue(latest)
+        release.set()
+        self.wait(lambda:any(e.id==latest and e.stage=='context' for e in self.events))
+        acknowledgements=[e for e in self.events if e.stage=='reload']
+        self.assertEqual([e.reload_revision for e in acknowledgements],[first,second])
+        self.assertGreater(second,first)
+        self.assertEqual([e.id for e in self.events if e.stage=='ready'],[latest])
+        self.assertLess(self.events.index(acknowledgements[-1]),next(i for i,e in enumerate(self.events) if e.stage=='ready'))
+        self.assertEqual(len(attempts),3)
+
+    def test_failed_reload_is_explicit_keeps_worker_alive_and_can_retry(self):
+        opened=threading.Event()
+        attempts=[]
+        @contextlib.contextmanager
+        def resources():
+            attempts.append(1)
+            if len(attempts)==2:
+                raise RuntimeError('private resource path')
+            with self.resources() as value:
+                opened.set()
+                yield value
+        engine=self.engine(resources=resources)
+        self.assertTrue(opened.wait(1))
+        revision=engine.request_reload()
+        waiting=engine.begin();engine.enqueue(waiting)
+        self.wait(lambda:any(e.id==waiting and e.stage=='error' for e in self.events))
+        ack=next(e for e in self.events if e.stage=='reload')
+        self.assertEqual((ack.reload_revision,ack.error),(revision,'reload_failed'))
+        self.assertEqual(next(e.error for e in self.events if e.id==waiting and e.stage=='error'),'reload_failed')
+        self.assertTrue(engine.is_alive())
+        retry=engine.request_reload()
+        latest=engine.begin();engine.enqueue(latest)
+        self.wait(lambda:any(e.id==latest and e.stage=='context' for e in self.events))
+        self.assertIsNone(next(e.error for e in self.events if e.reload_revision==retry))
+        self.assertEqual(self.count(),1)
+        engine.stop();engine.join(2)
+        self.assertIsNone(engine.request_reload())
+
+    def test_reload_during_meaning_refuses_old_enrichment_and_preserves_card(self):
+        from lookup import learning
+        source='They sat on the bank of the river.'
+        entered,release,finished=threading.Event(),threading.Event(),threading.Event()
+        self.addCleanup(release.set)
+        class ContextSource(FixedSource):
+            def resolve(self,frozen,dictset):
+                return app.Query('bank',source,span=(16,20),context_complete=True)
+        def meaning(request):
+            entered.set();release.wait(2)
+            return contextual.ContextResult('берег',contextual.PROVIDER)
+        original=translate.lookup
+        def lookup(*args,**kwargs):
+            try:return original(*args,**kwargs)
+            finally:finished.set()
+        @contextlib.contextmanager
+        def resources():
+            with self.resources() as value:
+                value.config=config.Config(online=True)
+                yield value
+        with patch.object(translate._online,'translate_online',return_value=ANSWER), \
+             patch.object(contextual,'translate_context',side_effect=meaning):
+            engine=self.engine(source=ContextSource(),resources=resources,lookup=lookup)
+            self.addCleanup(release.set)
+            identity=engine.begin();engine.enqueue(identity)
+            self.wait(lambda:any(e.id==identity and e.stage=='ready' for e in self.events))
+            self.assertTrue(entered.is_set())
+            with contextlib.closing(open_store(self.path)) as conn:
+                learning.add_history_card(conn,'bank',now=1)
+                card=learning.get_card(conn,'bank')
+            revision=engine.request_reload()
+            release.set();self.assertTrue(finished.wait(1))
+            self.wait(lambda:any(e.stage=='reload' and e.reload_revision==revision for e in self.events))
+            self.assertFalse(any(e.id==identity and e.stage=='context' for e in self.events))
+            with contextlib.closing(open_store(self.path)) as conn:
+                self.assertIsNone(get_word_context(conn,'bank')['meaning'])
+                self.assertEqual(learning.get_card(conn,'bank'),card)
+                self.assertEqual(conn.execute('SELECT count FROM words').fetchone()[0],1)
 
 
 class SourceTests(unittest.TestCase):
