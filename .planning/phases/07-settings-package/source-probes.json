@@ -1,0 +1,73 @@
+{
+  "kdotool_release": {
+    "tag": "v0.3.0",
+    "assets": [
+      {
+        "name": "kdotool-0.3.0-x86_64-unknown-linux-gnu.tar.gz",
+        "browser_download_url": "https://github.com/jinliu/kdotool/releases/download/v0.3.0/kdotool-0.3.0-x86_64-unknown-linux-gnu.tar.gz",
+        "digest": "sha256:2079cc1d492b6e83e04def4d9376e34fcb36a4e3bdc637c8c2ee6fa547ce90ff",
+        "size": 814494
+      }
+    ]
+  },
+  "kdotool_asset": {
+    "url": "https://github.com/jinliu/kdotool/releases/download/v0.3.0/kdotool-0.3.0-x86_64-unknown-linux-gnu.tar.gz",
+    "sha256": "2079cc1d492b6e83e04def4d9376e34fcb36a4e3bdc637c8c2ee6fa547ce90ff",
+    "files": [
+      "CHANGELOG.md",
+      "kdotool",
+      "LICENSE",
+      "README.md"
+    ]
+  },
+  "mueller": {
+    "url": "https://qstardict.ylsoftware.com/files/mueller7.tar.bz2",
+    "bytes": 4771569,
+    "sha256": "1c5e19b857eaa5fc98f77173e8baeb22cb654c407586465b4270e4286bf070ed",
+    "files": [
+      "mueller7",
+      "mueller7/mueller7.dict.dz",
+      "mueller7/mueller7.idx.gz",
+      "mueller7/mueller7.dict",
+      "mueller7/.mueller7.dict.swp",
+      "mueller7/mueller7.ifo"
+    ],
+    "metadata": {
+      "mueller7/mueller7.ifo": "StarDict's dict ifo file\nversion=2.4.2\nwordcount=46231\nidxfilesize=806608\nbookname=mueller\ndescription=V.K.Mueller English-Russian Dictionary, 7 Edition\nsametypesequence=m\n"
+    }
+  },
+  "kdotool_source": {
+    "url": "https://codeload.github.com/jinliu/kdotool/tar.gz/refs/tags/v0.3.0",
+    "bytes": 29298,
+    "sha256": "78e969941b1861aad849cad9bff7c34d34268912bf8042d5b3e9fbebcbb96f6d",
+    "files": [
+      "kdotool-0.3.0",
+      "kdotool-0.3.0/.github",
+      "kdotool-0.3.0/.github/workflows",
+      "kdotool-0.3.0/.github/workflows/release.yml",
+      "kdotool-0.3.0/.github/workflows/rust.yml",
+      "kdotool-0.3.0/.gitignore",
+      "kdotool-0.3.0/CHANGELOG.md",
+      "kdotool-0.3.0/Cargo.lock",
+      "kdotool-0.3.0/Cargo.toml",
+      "kdotool-0.3.0/LICENSE",
+      "kdotool-0.3.0/README.md",
+      "kdotool-0.3.0/completions",
+      "kdotool-0.3.0/completions/kdotool.bash",
+      "kdotool-0.3.0/examples",
+      "kdotool-0.3.0/examples/active_window.rs",
+      "kdotool-0.3.0/src",
+      "kdotool-0.3.0/src/help.rs",
+      "kdotool-0.3.0/src/lib.rs",
+      "kdotool-0.3.0/src/main.rs",
+      "kdotool-0.3.0/src/parser.rs",
+      "kdotool-0.3.0/src/templates.rs",
+      "kdotool-0.3.0/tests",
+      "kdotool-0.3.0/tests/completion.rs"
+    ],
+    "metadata": {
+      "kdotool-0.3.0/Cargo.toml": "[package]\nname = \"kdotool\"\nversion = \"0.3.0\"\ndescription = \"A xdotool-like tool to manipulate windows in KDE Plasma\"\nauthors = [\"Jin Liu <m.liu.jin@gmail.com>\"]\nrepository = \"https://github.com/jinliu/kdotool\"\nlicense = \"Apache-2.0\"\nkeywords = [\"xdotool\", \"wayland\", \"kde\"]\ncategories = [\"command-line-utilities\"]\nedition = \"2024\"\n\n[lib]\npath = \"src/lib.rs\"\n\n[profile.release]\nstrip = true  # Automatically strip symbols from the binary.\nopt-level = \"z\"  # Optimize for size.\nlto = true\ncodegen-units = 1\n\n[features]\ndefault = [\"cli\"]\ncli = [\"dep:env_logger\", \"dep:lexopt\"]\n\n[[bin]]\nname = \"kdotool\"\npath = \"src/main.rs\"\nrequired-features = [\"cli\"]\n\n[dependencies]\nanyhow = \"1.0.100\"\nchrono = \"0.4.43\"\ndbus = \"0.9.10\"\nenv_logger = { version = \"0.11.8\", optional = true }\nhandlebars = \"6.4.0\"\nlexopt = { version = \"0.3.1\", optional = true }\nlog = \"0.4.29\"\nphf = { version = \"0.13.1\", features = [\"macros\"] }\nserde = { version = \"1.0.228\", features = [\"derive\"] }\nserde_json = \"1.0.149\"\ntempfile = \"3.24.0\"\n\n[dev-dependencies.cargo-husky]\nversion = \"1.5.0\"\ndefault-features = true # Disable features which are enabled by default\nfeatures = [\"precommit-hook\", \"run-cargo-check\", \"run-cargo-clippy\", \"run-cargo-fmt\"]\n",
+      "kdotool-0.3.0/LICENSE": "                                 Apache License\n                           Version 2.0, January 2004\n                        http://www.apache.org/licenses/\n\n   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n   1. Definitions.\n\n      \"License\" shall mean the terms and conditions for use, reproduction,\n      and distribution as defined by Sections 1 through 9 of this document.\n\n      \"Licensor\" shall mean the copyright owner or entity authorized by\n      the copyright owner that is granting the License.\n\n      \"Legal Entity\" shall mean the union of the acting entity and all\n      other entities that control, are controlled by, or are under common\n      control with that entity. For the purposes of this definition,\n      \"control\" means (i) the power, direct or indirect, to cause the\n      direction or management of such entity, whether by contract or\n      otherwise, or (ii) ownership of fifty percent (50%) or more of the\n      outstanding shares, or (iii) beneficial ownership of such entity.\n\n      \"You\" (or \"Your\") shall mean an individual or Legal Entity\n      exercising permissions granted by this License.\n\n      \"Source\" form shall mean the preferred form for making modifications,\n      including but not limited to software source code, documentation\n      source, and configuration files.\n\n      \"Object\" form shall mean any form resulting from mechanical\n      transformation or translation of a Source form, including but\n      not limited to compiled object code, generated documentation,\n      and conversions to other media types.\n\n      \"Work\" shall mean the work of authorship, whether in Source or\n      Object form, made available under the License, as indicated by a\n      copyright notice that is included in or attached to the work\n      (an example is provided in the Appendix below).\n\n      \"Derivative Works\" shall mean any work, whether in Source or Object\n      form, that is based on (or derived from) the Work and for which the\n      editorial revisions, annotations, elaborations, or other modifications\n      represent, as a whole, an original work of authorship. For the purposes\n      of this License, Derivative Works shall not include works that remain\n      separable from, or merely link (or bind by name) to the interfaces of,\n      the Work and Derivative Works thereof.\n\n      \"Contribution\" shall mean any work of authorship, including\n      the original version of the Work and any modifications or additions\n      to that Work or Derivative Works thereof, that is intentionally\n      submitted to Licensor for inclusion in the Work by the copyright owner\n      or by an individual or Legal Entity authorized to submit on behalf of\n      the copyright owner. For the purposes of this definition, \"submitted\"\n      means any form of electronic, verbal, or written communication sent\n      to the Licensor or its representatives, including but not limited to\n      communication on electronic mailing lists, source code control systems,\n      and issue tracking systems that are managed by, or on behalf of, the\n      Licensor for the purpose of discussing and improving the Work, but\n      excluding communication that is conspicuously marked or otherwise\n      designated in writing by the copyright owner as \"Not a Contribution.\"\n\n      \"Contributor\" shall mean Licensor and any individual or Legal Entity\n      on behalf of whom a Contribution has been received by Licensor and\n      subsequently incorporated within the Work.\n\n   2. Grant of Copyright License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      copyright license to reproduce, prepare Derivative Works of,\n      publicly display, publicly perform, sublicense, and distribute the\n      Work and such Derivative Works in Source or Object form.\n\n   3. Grant of Patent License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      (except as stated in this section) patent license to make, have made,\n      use, offer to sell, sell, import, and otherwise transfer the Work,\n      where such license applies only to those patent claims licensable\n      by such Contributor that are necessarily infringed by their\n      Contribution(s) alone or by combination of their Contribution(s)\n      with the Work to which such Contribution(s) was submitted. If You\n      institute patent litigation against any entity (including a\n      cross-claim or counterclaim in a lawsuit) alleging that the Work\n      or a Contribution incorporated within the Work constitutes direct\n      or contributory patent infringement, then any patent licenses\n      granted to You under this License for that Work shall terminate\n      as of the date such litigation is filed.\n\n   4. Redistribution. You may reproduce and distribute copies of the\n      Work or Derivative Works thereof in any medium, with or without\n      modifications, and in Source or Object form, provided that You\n      meet the following conditions:\n\n      (a) You must give any other recipients of the Work or\n          Derivative Works a copy of this License; and\n\n      (b) You must cause any modified files to carry prominent notices\n          stating that You changed the files; and\n\n      (c) You must retain, in the Source form of any Derivative Works\n          that You distribute, all copyright, patent, trademark, and\n          attribution notices from the Source form of the Work,\n          excluding those notices that do not pertain to any part of\n          the Derivative Works; and\n\n      (d) If the Work includes a \"NOTICE\" text file as part of its\n          distribution, then any Derivative Works that You distribute must\n          include a readable copy of the attribution notices contained\n          within such NOTICE file, exclu"
+    }
+  }
+}
