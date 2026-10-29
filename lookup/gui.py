@@ -8,7 +8,7 @@ import sys
 import threading
 import time
 
-from . import app as core, platform
+from . import app as core, platform, timing
 from .store import MigrationError,SchemaTooNewError
 
 SERVICE='org.lookup.Linux'
@@ -407,6 +407,9 @@ def components():
             self._on_quit=on_quit or QApplication.instance().quit
             self._stopping=False
             self._identity=None
+            self._timing=timing.Sink()
+            self._timing_request=None
+            self._meaning_timed=False
             self._displayed=None
             self._known_cards=set()
             self._learning_conn=None
@@ -544,6 +547,7 @@ def components():
             self._refresh_learning()
         @pyqtSlot(str,result=int)
         def Trigger(self,token):
+            entered=time.monotonic_ns()
             if not valid_token(token) or self._stopping:
                 return 0
             token=''
@@ -551,10 +555,27 @@ def components():
             if identity is None:
                 return 0
             self._identity=identity
+            self._timing_request=(identity,entered)
+            self._meaning_timed=False
+            self._timing.emit('trigger',identity,at_ns=entered)
             self._clear_displayed()
             self.popup.hide_for_capture()
-            QTimer.singleShot(75,lambda:self.engine.enqueue(identity) if self.engine.current(identity) else None)
+            QTimer.singleShot(75,lambda:self._enqueue(identity))
             return os.getpid()
+        def _enqueue(self,identity):
+            if self.engine.current(identity):
+                self._time('queue',identity)
+                self.engine.enqueue(identity)
+        def _time(self,stage,identity,**fields):
+            if self._timing_request is None or self._timing_request[0]!=identity:return
+            now=time.monotonic_ns()
+            self._timing.emit(stage,identity,at_ns=now,
+                              elapsed_ms=(now-self._timing_request[1])/1e6,**fields)
+        def _time_meaning(self,event):
+            if not self._meaning_timed and isinstance(event.result.context_meaning,str) and event.result.context_meaning.strip():
+                self._meaning_timed=True
+                self._time('meaning_ready',event.id,engine_ms=event.elapsed_ms,
+                           meaning_cache=int(event.result.meaning_from_cache),**event.result.timings)
         def dismiss(self):
             self.engine.dismiss(self._identity)
             self._clear_displayed()
@@ -569,6 +590,7 @@ def components():
                 if self.popup.isVisible():
                     self.popup.update_context(event.result)
                     self._bind_displayed(event)
+                    self._time_meaning(event)
                     if event.result.meaning_save_error:
                         self.popup.footer.setText(MEANING_SAVE_ERROR)
                 return
@@ -576,9 +598,13 @@ def components():
                 self._clear_displayed()
                 self.popup.loading()
             elif event.stage=='ready':
+                if timing.useful(event.result):
+                    self._time('useful_ready',event.id,engine_ms=event.elapsed_ms,**event.result.timings)
                 self.popup.result(event.result,event.context,event.save_error)
                 self._bind_displayed(event)
+                self._time_meaning(event)
             else:
+                self._time('error',event.id,engine_ms=event.elapsed_ms)
                 self._clear_displayed()
                 self.popup.error(event.error)
             self.present(event)
@@ -597,6 +623,7 @@ def components():
             self.popup.setGeometry(*target)
             self.popup.show()
             self.popup.timer.start(self.popup._duration)
+            self._time('present',event.id,useful=int(timing.useful(event.result)))
             if not self._focus:
                 self.popup._armed=True
                 return

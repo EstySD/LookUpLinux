@@ -1,6 +1,6 @@
 """CLI: 0 means an answer, 1 no answer, 2 usage error.
 
-Only this module prints. stderr contains timings and fixed warnings with
+User-facing output comes from this module. stderr contains numeric timings and fixed warnings with
 exception type names, never exception messages or query text.
 """
 import argparse
@@ -55,8 +55,8 @@ def _image_point(value):
 
 
 def _print_timing(timings):
-    if os.environ.get('LOOKUP_TIMING') == '1':
-        print('timing: ' + ' '.join(f'{key}={value:.3f}ms' for key, value in timings.items()), file=sys.stderr)
+    from .timing import print_cli
+    print_cli(timings)
 
 
 def _context_span(text,context):
