@@ -1,0 +1,111 @@
+{
+  "acceptance": "agent",
+  "mode": "native-installed",
+  "passed": false,
+  "gates": {
+    "physical_installed_capture": true,
+    "effective_shortcut": true,
+    "dictionary_order_disable": true,
+    "online_off": true,
+    "popup_timeout": true,
+    "stale_reload": true,
+    "folder_rescan": true,
+    "native_appearance_keyboard": true,
+    "failure_states": true,
+    "installed_package": true,
+    "login_enabled": true,
+    "login_disabled": true,
+    "removal": true,
+    "doctor": true
+  },
+  "cleanup": {
+    "owned_processes_stopped": true,
+    "keys_released": true,
+    "user_data_retained": true,
+    "unrelated_entry_retained": true,
+    "clone_powered_off": true,
+    "original_preserved": false
+  },
+  "package": {
+    "version": "lookup-linux 0.1.0-1",
+    "final_production_revision": "a48fce1",
+    "source_archive_sha256": "4c1eb43ff29de4c14e0fcbb8cf92e99119737d99193506ec8acdbc6ea0adb380",
+    "package_sha256": "62d575bb455ad72624019d1d8f0a9e0939353bc6e889015d071df4202f6fb116",
+    "installed_settings_gui_sha256": "0c1b472f9b9d321cb064e03cda8d63f5cb88939e7a4a047f651f77a52086e103",
+    "actual_makepkg_si_exit": 0,
+    "checkout_cwd_or_pythonpath_required": false,
+    "desktop_validation_exit": 0,
+    "helper_ldd_missing": false,
+    "system_mueller_verified": true,
+    "removed_after_acceptance": true,
+    "provenance": "07-package-source.json",
+    "build_log": "07-package-build.txt",
+    "license_limit": "Own project license not declared; Mueller upstream GPL wording lacks exact version; notices preserve these facts. No redistribution clearance claimed."
+  },
+  "observations": {
+    "capture": "Plain installed daemon, physical VBox Meta+Shift+D over public river fixture, real authorized ScreenShot2/Tesseract OCR and system Mueller: bank count1 with full sentence. No permission bypass. Initial proof used source17b3b22; final a48fce1 changes only empty-root Settings handling, with unchanged capture/OCR/lifecycle code.",
+    "shortcut": "Actual Settings transaction changed D to E. Physical D kept presentations2; physical E advanced to4. Final actual registry E verified after reloads and subsequent logins.",
+    "folder": "Actual folder button launched native Dolphin. Dolphin isUrlOpen(file:///home/lookup07/.local/share/lookup/dicts) returned true. Copied complete public-first/public-second StarDict sets in subfolders; unchanged-field Apply acknowledged discovery in same Engine, next query returned fixture articles.",
+    "dictionary": "Native Up-button reorder yielded SECOND PUBLIC BANK then FIRST PUBLIC BANK. Disabling first yielded only SECOND PUBLIC BANK.",
+    "network": "Counted controlled provider oracle: online enabled produced1 attempt; after actual offline Apply, next uncached query left count1. No live provider success substituted for this policy test.",
+    "timeout_seconds": 2.073,
+    "timeout_config_seconds": 2,
+    "stale_reload": "Old query14 held at resolve; Apply invalidated it and waited for revision5. After release no ready result for old ID was emitted/presented.",
+    "failure_states": ["save_failed", "runtime_failed", "shortcut_conflict", "rollback_config", "rollback_shortcut"],
+    "failure_injection": "Save/resource/rollback errors deliberately injected into installed native controller seams. Conflict used occupied actual Meta+L. Registry key explicitly repaired to E afterward. No injected result substitutes for physical key/capture/login/removal gates.",
+    "appearance": "Native Wayland widgets, light/dark,450x420 small window, actual DPR1.5. Scrollable form and Apply/Close remain visible; unavailable configured identity retained; keyboard Space and Return Apply verified.",
+    "login": "Initial powered-off clone boot created real SDDM session1 and installed --autostart owner695. Physical native Settings saved false, actual tray Exit removed owner before restarting SDDM; new session22 stayed ownerless for12.143s. Later harness saved true, quit and ownerfalse verified before SDDM restart; real session48 spawned singleton installed --autostart owner2418 for13.791s. Observer never invoked app/autostart.",
+    "removal": "pacman -R ran while daemon2418 remained alive. Automatic registry refresh removed owned action/key before explicit manual refresh; physical E produced no popup or DB mutation. Unrelated physical U updated its synthetic marker. All installed paths gone. Later documented kbuildsycoca6 refresh exited0 and keys stayed absent. Actual tray Exit then stopped surviving daemon.",
+    "retention": "Before/after config, SQLite history/cards and unrelated.desktop SHA256 identical; seeded publicseed count4 and card persisted. See removal preflight/final records.",
+    "doctor": "Actual installed --doctor: healthy/offline exit0, missing-tool/damaged-dictionary exit1. Each isolated profile byte inventory unchanged and temporary profile removed. No lookup, clipboard, capture or network operation."
+  },
+  "verification": {
+    "focused": "51 tests OK,1.537s after final harness changes",
+    "host": "701 tests OK,8 expected target-only skips,30.036s, Python exit0",
+    "target": "701 tests OK,0 skips,36.974s, Python exit0; LOOKUP_TEST_OCR=1 and LOOKUP_TEST_DICTS=/usr/share/lookup/dicts/mueller7",
+    "target_log": "07-final-target-tests.txt",
+    "known_log_noise": "Existing negative-deadline multiprocessing fault injection may release SemLocks before child startup and print FileNotFoundError; positive concurrent writer tests passed. Not a new production failure."
+  },
+  "clone": {
+    "name": "lookup-gsd-07",
+    "uuid": "cf207909-94b5-4b49-8bd8-ccff973c1dc8",
+    "disk": "D:/vm/machines/lookup-gsd-07/lookup-gsd-07.vdi",
+    "disk_uuid": "2712d710-daaa-449c-843d-d570091127bc",
+    "mac": "080027A05376",
+    "ssh_port": 2227,
+    "graphical_user": "lookup07 uid1001",
+    "final_state": "poweroff",
+    "preserved_for_review": true
+  },
+  "original_baseline_limit": {
+    "name": "arch-kde",
+    "uuid": "abc73254-ddf7-4f1f-9c66-7c2fcc5254d7",
+    "final_state": "poweroff",
+    "baseline_bytes": 9848390144,
+    "final_bytes": 9958490624,
+    "baseline_sha256": "9f2b4a34fe8ae0f73db8df281f9414a68c9e9483e3d981b7a288f53c5b18fd1c",
+    "final_sha256_root_independent_check": "fd3c5382d73a5ebdf849c5abe2e974c227398b1389b5738d5729714aa9c401b1",
+    "byte_identity": false,
+    "observed_separate_run": "Original VBox.log opened2026-10-28T15:55:44.421707200Z, VirtualBoxVM.exe GUI PID6048, shutdown about16:11:09Z; original VDI mtime16:11:07Z.",
+    "actor": "Unknown; logs establish separate GUI run, not who initiated it.",
+    "independence": "Read-only attachments show separate base disk UUIDs, each attached only to its own VM. All acceptance VBox controls targeted clone UUID, never original.",
+    "earlier_bookkeeping": "Clone preparation removed13 transient original GuestProperties automatically; this earlier XML bookkeeping was separately recorded. Later original disk mismatch is a different observed event.",
+    "restored_or_reverted": false,
+    "acceptance_effect": "Strict accepted=false because final original byte preservation cannot pass. Product gates remain independently evidenced; no human acceptance claimed."
+  },
+  "development_deviations": [
+    "Initial harness list takeItem/addItem bypassed normal edit signals; rejected unchanged worker result. Replaced with actual Up-button clicks.",
+    "Counted provider initially injected unsupported reason network; corrected to production no_network before accepted run.",
+    "Stale command file replay and idempotent unchanged Apply assumptions were corrected; only fresh matching command responses accepted.",
+    "Native timing assertion initially too narrow for VM scheduling; final measured2.073s, with nominal2s and bounded1.5..4s tolerance; no hidden timer replacement.",
+    "Cross-user sudo left SUDO_UID1000; KDE attempted forbidden cache chown while uid1001. Stripped SUDO_* in owned harness; actual refresh then exit0. Official KDE source confirmed mechanism.",
+    "First post-removal observer attempted inaccessible arch checkout import. Replaced by read-only system QtDBus observer, before manual refresh; no package result promoted from failed observer."
+  ],
+  "evidence": [
+    "07-native-first.png", "07-native-suite-state.json", "07-native-extra-cases.json", "07-native-scaled.json",
+    "07-settings-light.png", "07-settings-dark.png", "07-settings-scaled-dark.png", "07-settings-rollback-key.png",
+    "07-autostart-disabled-save.png", "07-login-enabled.json", "07-login-disabled.json", "07-doctor-cases.json",
+    "07-removal-preflight.txt", "07-removal-automatic.txt", "07-removal-before-refresh.json",
+    "07-removal-after-physical.json", "07-removal-manual-refresh-cleanup.txt", "07-removal-final.json"
+  ]
+}
