@@ -44,6 +44,11 @@ def game(name,relative=False,multiline=False):
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_optical_article_match_needs_current_word_dictionary_and_body(self):
+        self.assertTrue(hardening.optical_match('bank Mueller7 берег реки','bank','берег'))
+        for text in ('bank','Ищем перевод bank','river Mueller7 берег','bank Mueller7','bank Mueller7 ошибка'):
+            self.assertFalse(hardening.optical_match(text,'bank','берег'))
+
     def test_actual_phase7_report_is_carried_without_reclassification(self):
         raw=json.loads((Path(__file__).resolve().parents[1]/'.planning/phases/07-settings-package/07-native-report.json').read_text(encoding='utf-8'))
         carried=hardening.carry_phase7(raw)
