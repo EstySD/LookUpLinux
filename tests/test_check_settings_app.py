@@ -27,3 +27,8 @@ class AcceptanceTests(unittest.TestCase):
             self.assertFalse(harness.accepted(report))
         report=self.report();report['error']='bounded_failure'
         self.assertFalse(harness.accepted(report))
+        report=self.report();report['gates']['additional_observation']=False
+        self.assertFalse(harness.accepted(report))
+        report=self.report();report['cleanup']=None
+        self.assertFalse(harness.accepted(report))
+        self.assertFalse(harness.accepted(None))
