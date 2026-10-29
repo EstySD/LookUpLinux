@@ -148,7 +148,7 @@ class EvidenceTests(unittest.TestCase):
         for invalid in (False,None,1,'skipped','mock'):
             self.assertFalse(hardening.strict_gates({'required':invalid},{'required'}))
         self.assertFalse(hardening.strict_gates({}, {'required'}))
-        raw=dict(passed=False,gates=dict(original_preserved=False),evidence='unchanged')
+        raw=dict(passed=False,cleanup=dict(original_preserved=False),evidence='unchanged')
         carried=hardening.carry_phase7(raw)
         self.assertIs(carried['raw'],raw)
         self.assertIs(carried['raw']['passed'],False)

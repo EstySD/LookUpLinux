@@ -280,5 +280,5 @@ def games_report(rows):
 
 def carry_phase7(raw):
     _require(isinstance(raw,dict) and raw.get('passed') is False
-             and isinstance(raw.get('gates'),dict) and raw['gates'].get('original_preserved') is False,'historical')
+             and isinstance(raw.get('cleanup'),dict) and raw['cleanup'].get('original_preserved') is False,'historical')
     return dict(raw=raw,actor='unknown',scope='historical_preservation_exception')
