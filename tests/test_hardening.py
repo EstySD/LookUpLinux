@@ -44,9 +44,15 @@ def game(name,relative=False,multiline=False):
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_reused_attempt_cannot_reuse_previous_arm_result(self):
+        command=dict(attempt=1,token=200)
+        self.assertTrue(hardening.matching_result(dict(command),command))
+        for result in (dict(attempt=1,token=100),dict(attempt=2,token=200),dict(attempt=1),{}):
+            self.assertFalse(hardening.matching_result(result,command))
+
     def test_optical_article_match_needs_current_word_dictionary_and_body(self):
         self.assertTrue(hardening.optical_match('bank Mueller7 берег реки','bank','берег'))
-        for text in ('bank','Ищем перевод bank','river Mueller7 берег','bank Mueller7','bank Mueller7 ошибка'):
+        for text in ('bank','Ищем перевод bank','river Mueller7 берег','river Mueller7 берег bank','bank Mueller7','bank Mueller7 ошибка'):
             self.assertFalse(hardening.optical_match(text,'bank','берег'))
 
     def test_actual_phase7_report_is_carried_without_reclassification(self):
