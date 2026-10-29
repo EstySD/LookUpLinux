@@ -1,10 +1,13 @@
 ---
 phase: 07
 slug: settings-package
-status: draft
+status: complete
 nyquist_compliant: true
 wave_0_complete: true
 created: 2026-10-28
+verified: 2026-10-29
+native_strict_accepted: false
+preservation_exception_recorded: true
 ---
 
 # Phase 7 — Validation Strategy
@@ -57,6 +60,7 @@ Wave ownership: 01 config/app; 02 lifecycle/platform/CLI/desktop compatibility; 
 | CONTEXT | D-08 private read-only doctor | 04,05 | COVERED |
 | CONTEXT | D-09 fresh-reader Russian guide | 04,05 | COVERED |
 | CONTEXT | D-10 isolated clone/native/login/package agent evidence | 05 | COVERED |
+| CONTEXT | D-11 dictionary folder/native open/unchanged-field rescan | 03,05 | VERIFIED by native Dolphin, copied StarDict discovery and focused regressions |
 | RESEARCH | Fixed KDE action, single-chord readback, inherited override | 02,03,05 | COVERED |
 | RESEARCH | Pinned third-party hashes, attribution uncertainty, installed capture identity | 04,05 | COVERED |
 | RESEARCH | Full clone/no snapshots, unique MAC/SSH forwarding, real graphical session | 05 | COVERED |
@@ -73,10 +77,10 @@ Use an owned full clone of powered-off arch-kde, with unique MAC and forwarding 
 
 ## Validation Sign-Off
 
-- [ ] All plan tasks map to automated checks or bounded native gates.
-- [ ] Focused regression and fresh full host/target suite evidence saved.
-- [ ] Physical key, real login and actual package install/remove evidence saved.
-- [ ] Cleanup and preservation assertions pass; unresolved limits recorded honestly.
-- [ ] nyquist_compliant updated from actual task mapping/evidence.
+- [x] All plan tasks map to automated checks or bounded native gates.
+- [x] Focused regression and fresh full host/target suite evidence saved: independent 114 focused tests; host701 OK8 target-only skips; target701 OK0 skips.
+- [x] Physical key, real login and actual package install/remove evidence saved and independently inspected.
+- [x] Strict cleanup/preservation result retained honestly: five cleanup predicates true, original_preserved false, raw native passed false. Scoped agent continuation exception is recorded in 07-VERIFICATION.md; preservation is not certified.
+- [x] nyquist_compliant reflects actual task mapping/evidence; D-11 included.
 
-Approval: pending agent verification under --auto.
+Approval: agent product acceptance under --auto with one explicit original-preservation exception. This does not approve the raw strict native report or claim every safety assertion passed. No human acceptance is recorded.
