@@ -1,5 +1,7 @@
 """Adversarial evidence is rejected before any native acceptance is attempted."""
 from copy import deepcopy
+import json
+from pathlib import Path
 import unittest
 
 from tools import check_hardening as hardening
@@ -42,6 +44,14 @@ def game(name,relative=False,multiline=False):
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_actual_phase7_report_is_carried_without_reclassification(self):
+        raw=json.loads((Path(__file__).resolve().parents[1]/'.planning/phases/07-settings-package/07-native-report.json').read_text(encoding='utf-8'))
+        carried=hardening.carry_phase7(raw)
+        self.assertIs(carried['raw'],raw)
+        self.assertFalse(carried['raw']['passed'])
+        self.assertFalse(carried['raw']['cleanup']['original_preserved'])
+        self.assertEqual(carried['actor'],'unknown')
+
     def test_statistics_and_predeclared_workload(self):
         self.assertEqual(hardening.summarize([1,2,3,4]),dict(count=4,median_ms=2.5,p95_ms=4))
         report=hardening.performance_report(performance())
