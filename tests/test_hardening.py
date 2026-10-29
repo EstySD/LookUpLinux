@@ -20,8 +20,8 @@ def sample(sequence,group='warm_distinct',case=None,latency=1000,pid=20):
 
 def performance():
     rows=[sample(i,'cold',pid=20+i) for i in range(1,4)]
-    rows += [sample(i,'warm_distinct',case=i) for i in range(4,22)]
-    rows += [sample(i,'repeat',case=i-18) for i in range(22,31)]
+    rows += [sample(i,'warm_distinct',case=i,pid=23) for i in range(4,22)]
+    rows += [sample(i,'repeat',case=i-18,pid=23) for i in range(22,31)]
     return rows
 
 
@@ -37,7 +37,7 @@ def stability():
 def game(name,relative=False,multiline=False):
     return dict(name=name,version='1',renderer='actual SDL renderer',mode='fullscreen',pid=500,
         source_verified=True,evidence='actual_game',frame_sha256='a'*64,post_dismiss_sha256='b'*64,
-        relative_mouse=relative,multiline=multiline,pointer_locked=relative,
+        relative_mouse=relative,multiline=multiline,pointer_locked=relative,relative_gameplay_verified=relative,
         gates={key:True for key in hardening.GAME_GATES})
 
 
@@ -90,6 +90,14 @@ class EvidenceTests(unittest.TestCase):
         rows[0]['mock']=True
         self.assertFalse(hardening.meaning_report(rows)['complete'])
 
+    def test_optional_online_cache_requires_real_successful_seed_and_bounded_workload(self):
+        uncached=dict(sample(1),kind='uncached',from_cache=False)
+        cached=dict(sample(2,case=1),kind='cache',from_cache=True,seeded=True)
+        self.assertTrue(hardening.online_report([uncached,cached])['complete'])
+        self.assertFalse(hardening.online_report([cached])['complete'])
+        self.assertFalse(hardening.online_report([uncached]*4)['complete'])
+        self.assertTrue(hardening.online_report([])['complete'])
+
     def test_sustained_protocol_growth_reset_and_missing_samples_reject(self):
         baseline=stability()
         self.assertTrue(hardening.stability_report(baseline)['passed'])
@@ -107,6 +115,7 @@ class EvidenceTests(unittest.TestCase):
     def test_burst_counts_only_accepted_completions_but_requires_latest_and_integrity(self):
         data=dict(mode='native',inputs=[dict(sequence=i,request=i,physical=True,released=True) for i in range(1,11)],
                   accepted_requests=[3,10],final_request=10,history_delta=2,enrichment_extra_count=0,integrity='ok',
+                  identity=[20,2000,20000],process_start_source='proc_stat',final_identity=[20,2000,20000,10],final_frame_sha256='a'*64,
                   gates={key:True for key in hardening.BURST_GATES})
         self.assertTrue(hardening.burst_report(data)['passed'])
         for changes in (dict(history_delta=10),dict(final_request=3),dict(integrity='corrupt')):
@@ -134,3 +143,16 @@ class EvidenceTests(unittest.TestCase):
         self.assertIs(carried['raw'],raw)
         self.assertIs(carried['raw']['passed'],False)
         self.assertEqual(carried['actor'],'unknown')
+
+    def test_privacy_and_faults_need_actual_owned_observations_and_fixed_required_gates(self):
+        data=dict(mode='native',capture_files=[],gates={key:True for key in hardening.PRIVACY_GATES})
+        for name in ('primary','clipboard','klipper'):
+            data[name+'_before']=data[name+'_after']='a'*64
+        self.assertTrue(hardening.privacy_report(data)['passed'])
+        self.assertFalse(hardening.privacy_report(dict(data,clipboard_after='b'*64))['passed'])
+        self.assertFalse(hardening.privacy_report(dict(data,capture_files=['residual.png']))['passed'])
+        faults=[dict(fault=name,kind='injected' if name=='capture' else 'real',mode='native',
+                     gates={key:True for key in hardening.FAULT_GATES}) for name in ('network','dictionary','capture')]
+        self.assertTrue(hardening.faults_report(faults)['passed'])
+        faults[0]['kind']='injected'
+        self.assertFalse(hardening.faults_report(faults)['passed'])
