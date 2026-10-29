@@ -1,5 +1,6 @@
 """Native Qt presentation and queued-generation rules; no desktop required."""
 import os
+import subprocess
 import sqlite3
 import time
 import unittest
@@ -48,6 +49,39 @@ class FakeEngine:
     def stop(self):self.stopping=True
     def is_alive(self):return False
     def join(self,timeout):pass
+
+
+class TriggerSpawnTests(unittest.TestCase):
+    def test_cold_spawn_inherits_stderr_only_for_exact_timing_opt_in(self):
+        from lookup import gui
+        for setting,stderr in ((None,subprocess.DEVNULL),('0',subprocess.DEVNULL),
+                               ('1',None),('true',subprocess.DEVNULL)):
+            with self.subTest(setting=setting):
+                env={'PATH':'synthetic-bin'}
+                if setting is not None:env['LOOKUP_TIMING']=setting
+                core=mock.Mock()
+                dbus=mock.Mock()
+                bus=dbus.QDBusConnection.sessionBus.return_value
+                missing=mock.Mock()
+                missing.type.return_value=dbus.QDBusMessage.MessageType.ErrorMessage
+                ready=mock.Mock()
+                ready.arguments.return_value=[1]
+                bus.call.side_effect=[missing,ready]
+                registered=bus.interface.return_value.isServiceRegistered.return_value
+                registered.isValid.return_value=True
+                registered.value.return_value=False
+                command=['/usr/bin/lookup','--app']
+                with mock.patch.dict(os.environ,env,clear=True), \
+                     mock.patch.dict('sys.modules',{'PyQt6.QtCore':core,'PyQt6.QtDBus':dbus}), \
+                     mock.patch.object(gui.platform,'session_env',return_value=env), \
+                     mock.patch('lookup.lifecycle.launch_command',return_value=(command,'/safe/path')) as launch, \
+                     mock.patch.object(gui.subprocess,'Popen') as spawn:
+                    self.assertEqual(gui.run(trigger=True),0)
+                launch.assert_called_once_with('--app')
+                spawn.assert_called_once_with(command,env=env,cwd='/safe/path',
+                    stdin=subprocess.DEVNULL,stdout=subprocess.DEVNULL,
+                    stderr=stderr,start_new_session=True)
+                self.assertEqual(bus.call.call_count,2)
 
 
 @unittest.skipIf(QApplication is None,'PyQt6 unavailable')

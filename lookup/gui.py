@@ -731,7 +731,9 @@ def run(trigger=False):
             command,directory=launch_command('--app')
             subprocess.Popen(command,env=env,
                              cwd=directory,stdin=subprocess.DEVNULL,
-                             stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True)
+                             stdout=subprocess.DEVNULL,
+                             stderr=None if env.get('LOOKUP_TIMING')=='1' else subprocess.DEVNULL,
+                             start_new_session=True)
         deadline=time.monotonic()+5
         while time.monotonic()<deadline:
             if forward() is not None:
