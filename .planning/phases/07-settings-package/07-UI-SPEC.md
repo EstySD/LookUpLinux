@@ -71,6 +71,7 @@ Use a single-column form grouped into «Вызов», «Словари», «Пе
 | Native shortcut editor | «Горячая клавиша», Meta+Shift+D default | One nonempty chord; show actual KDE binding when overridden externally. Invalid/multichord input gets an inline explanation. Check availability before applying; never steal another action's shortcut. |
 | Checkable dictionary list | «Словари — сверху приоритетнее» | Show discovered dictionaries in configured order, each enabled checkbox and readable name. Preserve temporarily unavailable configured IDs with «недоступен» status. Selection is separate from enabled state. |
 | Reorder buttons | «Выше» / «Ниже» | Accessible names «Переместить словарь выше» / «Переместить словарь ниже». Move selected dictionary one place without changing its checkbox. Disable at boundaries/no selection. Provide keyboard-operable alternative to any drag operation. |
+| Dictionary folder | «Открыть папку словарей» | Always visible, including empty list; show actual absolute user destination as selectable plain text, honoring XDG and the first LOOKUP_DICTS root. Create missing destination only on click and open through native file manager using a local-file URL, without shell interpolation. Keep path copyable on failure. After opening, allow Apply with unchanged fields to rescan dictionaries on the owning worker; refresh list on acknowledged success while retaining enabled/order identities. |
 | Integer spin box | «Закрывать попап через», suffix «с» | Default 20 seconds, range 1–300 seconds inclusive; visible bound validation. Next popup uses saved duration. Existing hover/close lifecycle remains intact. |
 | Checkbox | «Онлайн-перевод» | Saved off prevents new online requests; current bounded requests may finish but stale replies cannot publish. Help: «При отключении используются только локальные словари». |
 | Checkbox | «Запускать при входе в KDE» | Default enabled; saved choice governs next login. No immediate logout or application exit. |
@@ -87,7 +88,9 @@ Changing fields does not mutate live state before Apply. Capture a settings snap
 | Pending | «Применяем настройки…» |
 | Success | «Настройки применены. Автозапуск изменится при следующем входе в KDE». |
 | Empty dictionary heading | «Локальные словари не найдены» |
-| Empty dictionary body | «Установите Mueller 7 с пакетом или добавьте словари в каталог lookup/dicts. Для проверки запустите lookup --doctor». |
+| Empty dictionary body | «Установите Mueller 7 с пакетом или добавьте свои словари через кнопку „Открыть папку словарей“». |
+| Dictionary folder help (also with nonempty list) | «Скопируйте в эту папку словари StarDict, Lingvo DSL или MDX, затем нажмите „Применить настройки“. Для StarDict скопируйте весь комплект файлов. Можно использовать подпапки». |
+| Dictionary folder failure | «Не удалось открыть папку словарей. Скопируйте указанный путь и откройте его в файловом менеджере. Проверьте доступ к папке». |
 | All dictionaries disabled help | «Локальные словари отключены. При выключенном онлайн-переводе перевод будет недоступен». |
 | Invalid shortcut | «Укажите одно сочетание клавиш». |
 | Shortcut conflict | «Это сочетание занято в KDE. Выберите другое или измените его в системных настройках клавиатуры». |
@@ -103,6 +106,8 @@ Do not display raw exception messages, captured text, history content or network
 Associate every field label with its control; accessible names match Russian labels. Dictionary list name «Порядок и включение словарей»; row exposes name, checked state and availability. Status name «Применение настроек». Native visible focus, tab order follows form/list/reorder/toggles/actions; Space toggles, Enter activates focused button, Escape closes. Shortcut capture must not trap tab navigation or trigger Apply accidentally. No focus stealing from lookup when Settings is closed.
 
 Agent checks actual native window in both Breeze themes and representative scaling, small available work area, keyboard-only edits, empty/unavailable dictionaries, conflict/save/runtime errors and asynchronous acknowledgement. Behavior checks prove changed physical key works and old key stops, selected dictionary/order affects next lookup, online-off makes no new request, next-popup timeout changes, and actual subsequent login follows autostart flag. Isolate XDG paths before Qt in fixtures; report agent evidence honestly.
+
+Dictionary folder acceptance: from an empty list, use the button with the keyboard, verify the displayed absolute path and native file-manager destination match, copy a supported fixture there, then Apply without other field edits. The new dictionary appears and serves the next lookup without restarting. Cover missing directory creation, XDG/LOOKUP_DICTS override, paths with spaces and native-open failure with a retained selectable path.
 
 ## Registry Safety
 
