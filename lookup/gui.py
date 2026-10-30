@@ -390,7 +390,7 @@ def components():
                 inside=watched==self or self.isAncestorOf(watched)
                 deliberate=event.type() in (QEvent.Type.MouseButtonPress,QEvent.Type.MouseButtonDblClick,QEvent.Type.KeyPress,QEvent.Type.Wheel)
                 dragging=event.type()==QEvent.Type.MouseMove and event.buttons()!=Qt.MouseButton.NoButton
-                if inside and (deliberate or dragging):
+                if inside and (deliberate or dragging) and self.timer.isActive():
                     self.timer.start(self._duration)
                 elif not inside and self._armed and event.type()==QEvent.Type.MouseButtonPress:
                     self.dismiss()
@@ -615,6 +615,7 @@ def components():
                         if not self.popup.isVisible():
                             self.popup.loading()
                             self.present(replace(event,stage='frozen',result=None))
+                        self.popup.timer.stop()
                         QTimer.singleShot(10,self.ready_when_exposed)
                         return
                     # Retain the loading buffer until KWin has moved the resized card.
@@ -660,7 +661,8 @@ def components():
             self.popup._duration=self._popup_timeout*1000
             self.popup.setGeometry(*target)
             self.popup.show()
-            self.popup.timer.start(self.popup._duration)
+            if self.popup.updatesEnabled():self.popup.timer.start(self.popup._duration)
+            else:self.popup.timer.stop()
             self._time('present',event.id,useful=int(timing.useful(event.result)))
             if not self._focus:
                 self.popup._armed=True
@@ -700,6 +702,7 @@ def components():
                         self._clear_displayed()
                     self._paint_revision=None
                     self.popup.setUpdatesEnabled(True)
+                    self.popup.timer.start(self.popup._duration)
                 QTimer.singleShot(300,lambda:self.arm(identity,revision))
             if self._focus_pending is not None:
                 QTimer.singleShot(25,self.start_focus)

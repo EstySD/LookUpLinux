@@ -520,6 +520,33 @@ class GuiTests(unittest.TestCase):
             self.assertTrue(self.owner.popup.updatesEnabled())
             self.assertIn('word',self.texts())
 
+    def test_delayed_placement_starts_full_timeout_at_reveal_and_cancel_stays_closed(self):
+        self.owner._popup_timeout=1
+        self.owner.receive(self.event('frozen'))
+        QTest.qWait(20)
+        self.owner._focus=True
+        with mock.patch.object(self.owner,'start_focus'):
+            for error in (None,'focus_failed'):
+                with self.subTest(error=error):
+                    self.owner.receive(self.event(result=self.result()))
+                    revision=self.owner.presentations
+                    QTest.keyClick(self.owner.popup,Qt.Key.Key_A)
+                    QTest.qWait(1200)
+                    self.assertTrue(self.owner.popup.isVisible())
+                    self.assertTrue(self.owner.engine.current(self.identity))
+                    self.assertFalse(self.owner.popup.timer.isActive())
+                    self.owner.focus_done((self.identity,revision-1,'old',None))
+                    self.assertFalse(self.owner.popup.timer.isActive())
+                    self.owner.focus_done((self.identity,revision,'owned',error))
+                    self.assertTrue(self.owner.popup.updatesEnabled())
+                    self.assertGreater(self.owner.popup.timer.remainingTime(),850)
+            self.owner.receive(self.event(result=self.result()))
+            revision=self.owner.presentations
+            self.owner.popup.dismiss()
+            self.owner.focus_done((self.identity,revision,'old',None))
+            self.assertFalse(self.owner.popup.isVisible())
+            self.assertFalse(self.owner.popup.timer.isActive())
+
     def test_failed_move_reveals_error_and_new_trigger_restores_paint(self):
         self.owner.receive(self.event('frozen'))
         QTest.qWait(20)
