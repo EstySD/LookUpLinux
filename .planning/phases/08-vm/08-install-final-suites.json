@@ -1,0 +1,18 @@
+{
+  "host": {
+    "exit": 0,
+    "count": 751,
+    "skips": 8,
+    "seconds": 30.427,
+    "log_sha256": "0061de053aeeed10ed58f637a36946dbb95e0ab1e21778066da9b0ccf62a7af4"
+  },
+  "target": {
+    "exit": 0,
+    "count": 751,
+    "skips": 0,
+    "seconds": 40.223,
+    "log_sha256": "34d35d763ab604de5ce74dcd334fbae4c3e5b1d2d1498b1b7b23fc7a89cc30dd",
+    "ocr_optin": true,
+    "real_mueller": "/home/arch/lookup-readme-08-build/src/mueller7"
+  }
+}

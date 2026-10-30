@@ -1,0 +1,34 @@
+{
+  "gates": {
+    "session_override_restored": true,
+    "original_powered_off": true,
+    "owner_stopped": true,
+    "fixture_stopped": true,
+    "input_released": true,
+    "clone_powered_off": true,
+    "clipboard_restored": true
+  },
+  "machines": {
+    "cf207909-94b5-4b49-8bd8-ccff973c1dc8": {
+      "VMState": "\"poweroff\"",
+      "accelerate3d": "\"on\"",
+      "clipboard": "\"bidirectional\""
+    },
+    "abc73254-ddf7-4f1f-9c66-7c2fcc5254d7": {
+      "VMState": "\"poweroff\"",
+      "accelerate3d": "\"on\"",
+      "clipboard": "\"bidirectional\""
+    }
+  },
+  "shutdown": "guest systemctl poweroff completed",
+  "sddm_bytes_restored": true,
+  "network_modified": false,
+  "layout_modified": false,
+  "lookup07_data_erased": false,
+  "new_profile_retained": true,
+  "account": "lookup08install",
+  "uid": 1002,
+  "clipboard_contents_written": false,
+  "prior_clipboard_restored_after_off": true,
+  "original_action": "read-only state observations only; historical phase07 exception unchanged"
+}

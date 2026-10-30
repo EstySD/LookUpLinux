@@ -1,0 +1,14 @@
+{
+  "stage_exit": 0,
+  "makepkg_exit": 0,
+  "source_sha256": "5064dcf587fc4ad48255e7b39b4e777a6ac05a3bc18464da61c2b89920f20638",
+  "package_sha256": "7aa3cf123457c753fa572efbd58062f81cd1e4f4fc2387fe4a7505665ab480f3",
+  "readme_commands": [
+    "sudo pacman -S --needed --noconfirm base-devel python",
+    "python tools/stage_package.py --output /home/arch/lookup-readme-08-build",
+    "makepkg -si --noconfirm"
+  ],
+  "runtime_user": "lookup08install",
+  "build_user": "arch",
+  "source_members_identical_to_benchmarked_build": true
+}

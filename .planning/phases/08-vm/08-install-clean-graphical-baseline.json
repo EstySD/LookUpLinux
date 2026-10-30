@@ -1,0 +1,75 @@
+{
+  "uid": 1002,
+  "user": "lookup08install",
+  "home": "/home/lookup08install",
+  "home_owned": true,
+  "package_installed": false,
+  "lookup_paths": [],
+  "dependencies": [
+    {
+      "name": "python",
+      "version": "3.14.8-1",
+      "installed": true
+    },
+    {
+      "name": "python-pyqt6",
+      "version": "6.11.0-4",
+      "installed": true
+    },
+    {
+      "name": "qt6-wayland",
+      "version": "6.12.0-1",
+      "installed": true
+    },
+    {
+      "name": "tesseract",
+      "version": "5.5.3-1",
+      "installed": true
+    },
+    {
+      "name": "tesseract-data-eng",
+      "version": "2:4.1.0-5",
+      "installed": true
+    },
+    {
+      "name": "wl-clipboard",
+      "version": "1:2.3.0-1",
+      "installed": true
+    },
+    {
+      "name": "libkscreen",
+      "version": "6.8.1-1",
+      "installed": true
+    },
+    {
+      "name": "kglobalacceld",
+      "version": "6.8.1-1",
+      "installed": true
+    },
+    {
+      "name": "kservice",
+      "version": "6.31.0-1",
+      "installed": true
+    },
+    {
+      "name": "dbus",
+      "version": "1.16.2-2",
+      "installed": true
+    },
+    {
+      "name": "base-devel",
+      "version": "1-2",
+      "installed": true
+    },
+    {
+      "name": "cmake",
+      "version": "4.4.4-1",
+      "installed": true
+    }
+  ],
+  "observed": true,
+  "at_ns": 308405530208,
+  "vm": "cf207909-94b5-4b49-8bd8-ccff973c1dc8",
+  "disk": "2712d710-daaa-449c-843d-d570091127bc",
+  "original_off": true
+}
