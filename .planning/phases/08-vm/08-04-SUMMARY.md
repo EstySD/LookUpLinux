@@ -81,4 +81,4 @@ RED d05177a precedes GREEN fc4c277. Twelve game contract tests now include posit
 
 ## Self-Check: PASSED
 
-Implementation files, both task commits, final report, actual source/frame/control records and fresh host/target logs exist. Native acceptance remains explicitly incomplete. Parent owns global state and requirement transitions.
+Implementation files, both task commits, final report, actual source/frame/control records and fresh host/target logs exist. Parent owns global state and requirement transitions.
