@@ -2,6 +2,43 @@
 import time
 
 
+def pilot_cleanup_steps(prior,record,info,run,guest,input_command):
+    """Every safe cleanup action is attempted even if a preceding action fails."""
+    clone='cf207909-94b5-4b49-8bd8-ccff973c1dc8';original='abc73254-ddf7-4f1f-9c66-7c2fcc5254d7'
+    vbox='C:/Program Files/Oracle/VirtualBox/VBoxManage.exe'
+    def attempt(name,operation):
+        try:record[name]=dict(ok=True,result=operation())
+        except BaseException as error:record[name]=dict(ok=False,error=repr(error))
+        return record[name]
+    observed=attempt('identity',lambda:info(clone))
+    current=observed.get('result',{})
+    owned=current.get('UUID')=='"'+clone+'"' and current.get('"SATA-ImageUUID-0-0"')=='"2712d710-daaa-449c-843d-d570091127bc"'
+    if owned and current.get('VMState')=='"running"':
+        attempt('release',lambda:input_command('Keys',Codes='8f 81 91 9f 9e a0 aa b6 e0 db e0 dc'))
+        attempt('mouse_release',lambda:input_command('Pointer',X=640,Y=400,Buttons=0))
+        attempt('guest_cleanup',lambda:guest('sudo -n python /home/arch/lookup-games-08-pilot-cleanup.py'))
+        attempt('shutdown',lambda:guest('sudo -n systemctl poweroff'))
+        deadline=time.monotonic()+45
+        while time.monotonic()<deadline:
+            observed=attempt('power_poll',lambda:info(clone))
+            if observed.get('result',{}).get('VMState')=='"poweroff"':break
+            time.sleep(1)
+    if owned:
+        observed=attempt('power_before_restore',lambda:info(clone));off=observed.get('result',{}).get('VMState')=='"poweroff"'
+        if not off:
+            attempt('forced_stop',lambda:run(vbox,'controlvm',clone,'poweroff'))
+            observed=attempt('power_after_forced_stop',lambda:info(clone));off=observed.get('result',{}).get('VMState')=='"poweroff"'
+        if off:
+            attempt('restore',lambda:run(vbox,'modifyvm',clone,'--clipboard-mode',prior['clipboard'].strip('"'),
+                '--accelerate-3d',prior['accelerate3d'].strip('"')))
+    final=attempt('final_clone',lambda:info(clone)).get('result',{})
+    record['clone_off']=owned and final.get('VMState')=='"poweroff"'
+    record['settings_restored']=owned and all(final.get(key)==prior.get(key) for key in ('clipboard','accelerate3d'))
+    final_original=attempt('final_original',lambda:info(original)).get('result',{})
+    record['original_off']=final_original.get('VMState')=='"poweroff"'
+    return record
+
+
 def pilot_session():
     """Bounded owned-clone lifetime; every exit runs observed failure cleanup."""
     import json,subprocess
@@ -38,26 +75,8 @@ def pilot_session():
         else:record['error']='pilot_deadline'
     except BaseException as error:record['error']=type(error).__name__
     finally:
-        try:
-            if info(clone).get('VMState')=='"running"':
-                record['release']=vm_input('Keys',Codes='8f 81 91 9f 9e a0 aa b6 e0 db e0 dc')
-                record['mouse_release']=vm_input('Pointer',X=640,Y=400,Buttons=0)
-                from tools.check_hardening_install import ssh
-                # Dedicated stdlib cleanup is installed before any game/package mutation.
-                record['guest_cleanup']=ssh('sudo -n python /home/arch/lookup-games-08-pilot-cleanup.py')
-                record['shutdown']=ssh('sudo -n systemctl poweroff')
-                until=time.monotonic()+45
-                while time.monotonic()<until and info(clone).get('VMState')!='"poweroff"':time.sleep(1)
-            off=info(clone).get('VMState')=='"poweroff"'
-            if not off:
-                record['forced_stop']=run(vbox,'controlvm',clone,'poweroff');off=info(clone).get('VMState')=='"poweroff"'
-            if off:
-                record['restore']=run(vbox,'modifyvm',clone,'--clipboard-mode',prior['clipboard'].strip('"'),
-                    '--accelerate-3d',prior['accelerate3d'].strip('"'))
-            current=info(clone);record.update(clone_off=current.get('VMState')=='"poweroff"',
-                original_off=info(original).get('VMState')=='"poweroff"',
-                settings_restored=all(current.get(key)==prior.get(key) for key in ('clipboard','accelerate3d')))
-        except BaseException as error:record['cleanup_error']=repr(error)
+        from tools.check_hardening_install import ssh
+        pilot_cleanup_steps(prior,record,info,run,ssh,vm_input)
         write_record(cleanup,record);write_record(state,dict(state='finished',cleanup=str(cleanup)))
 
 # Test-only transparent SDL observation: original call exactly once, same return.
@@ -453,6 +472,16 @@ def guest_command(encoded):
             child=subprocess.Popen([sys.executable,str(Path(__file__).resolve()),'--observe-route',payload],env=env,cwd=root,
                 stdin=subprocess.DEVNULL,stdout=output,stderr=output,start_new_session=True)
         return dict(pid=child.pid,token=token)
+    if action=='start-control':
+        _require(kind=='assaultcube','game_kind');value=process();token=str(time.monotonic_ns())
+        payload=base64.b64encode(json.dumps(dict(game=value,token=token,kind=command['kind'])).encode()).decode()
+        with (root/('control-'+token+'.log')).open('w') as output:
+            child=subprocess.Popen([sys.executable,str(Path(__file__).resolve()),'--observe-control',payload],env=env,cwd=root,
+                stdin=subprocess.DEVNULL,stdout=output,stderr=output,start_new_session=True)
+        return dict(pid=child.pid,token=token)
+    if action=='control-state':
+        from check_hardening import read_record
+        return read_record(root/('control-'+command['token']+'.json'))
     if action=='route-state':
         from check_hardening import read_record
         return read_record(root/('route-'+command['token']+'.json'))
@@ -696,13 +725,90 @@ def run_lookup_route(output,word,sequence,*,game_kind='wesnoth',point=None):
     return data
 
 
+def observe_control(encoded):
+    """Non-grabbing kernel input observation and actual game frames, never fixture data."""
+    import base64,fcntl,hashlib,json,os,struct
+    from pathlib import Path
+    from check_hardening import write_record
+    _require(os.getuid()==1001,'unowned_account')
+    import sys
+    sys.path.insert(0,'/usr/lib/lookup/app')
+    from lookup import capture,platform
+    from PyQt6.QtGui import QGuiApplication
+    command=json.loads(base64.b64decode(encoded));kind=command['kind'];_require(kind in ('camera','movement'),'control_kind')
+    root=Path.home()/'.local/state/lookup-games-08/assaultcube';target=root/('control-'+command['token']+'.json')
+    app=QGuiApplication([]);app.setDesktopFileName('org.lookup.Linux');env=platform.session_env();descriptors=[]
+    data=dict(state='preparing',game=command['game'],kind=kind)
+    try:
+        monitor=platform.monitors(env)[0];before=capture.capture_monitor(monitor,env)
+        names=('AT Translated Set 2 keyboard',) if kind=='movement' else ('ImExPS/2 Generic Explorer Mouse','VirtualBox USB Tablet','VirtualBox mouse integration')
+        for path in Path('/sys/class/input').glob('event*'):
+            if path.joinpath('device/name').read_text().strip() in names:
+                descriptor=os.open('/dev/input/'+path.name,os.O_RDONLY|os.O_NONBLOCK)
+                fcntl.ioctl(descriptor,0x400445a0,struct.pack('i',time.CLOCK_MONOTONIC));descriptors.append((descriptor,path.name))
+        _require(descriptors,'control_device');armed=time.monotonic_ns();data.update(state='armed',armed_ns=armed);write_record(target,data)
+        deadline=time.monotonic()+12;event=None
+        while time.monotonic()<deadline and event is None:
+            for descriptor,name in descriptors:
+                try:raw=os.read(descriptor,24*128)
+                except BlockingIOError:continue
+                for offset in range(0,len(raw),24):
+                    sec,usec,event_kind,code,value=struct.unpack('llHHI',raw[offset:offset+24]);stamp=sec*1_000_000_000+usec*1000
+                    _require(not(event_kind==0 and code==3),'control_input_overflow')
+                    if stamp>=armed and ((kind=='movement' and event_kind==1 and code==17 and value==1) or
+                        (kind=='camera' and event_kind in (2,3))):event=dict(input_ns=stamp,device=name,type=event_kind,code=code,value=value)
+            app.processEvents();time.sleep(.01)
+        _require(event is not None,'control_input_missing');time.sleep(.8)
+        after=capture.capture_monitor(monitor,env);end=time.monotonic_ns()
+        before_path=root/('control-'+command['token']+'-before.png');after_path=root/('control-'+command['token']+'-after.png')
+        before_path.write_bytes(before.png);after_path.write_bytes(after.png)
+        active=platform.run(['kdotool','getactivewindow'],env).decode().strip()
+        windows=platform.run(['kdotool','search','--pid',str(command['game']['pid'])],env).decode().split()
+        path=Path('/proc',str(command['game']['pid']));start=int((path/'stat').read_text().split(') ',1)[1].split()[19])
+        _require(path.stat().st_uid==1001 and start==command['game']['start'],'control_game_identity')
+        data.update(state='complete',proof=dict(physical=True,game_active=active in windows,game_pid=command['game']['pid'],game_start=start,
+            kind='relative_pointer' if kind=='camera' else 'movement_key',**event,clock='kernel_evdev_monotonic',clock_ioctl_verified=True,
+            capture_end_ns=end,before_sha256=hashlib.sha256(before.png).hexdigest(),after_sha256=hashlib.sha256(after.png).hexdigest(),
+            before_path=str(before_path),after_path=str(after_path)))
+    except Exception as error:data.update(state='failed',error=repr(error))
+    finally:
+        for descriptor,_ in descriptors:os.close(descriptor)
+        write_record(target,data)
+
+
+def run_control(output,kind):
+    from pathlib import Path
+    from tools.check_hardening import vm_input,write_record
+    def command(value):return vm_command(dict(value,game_kind='assaultcube'))
+    _require(not Path(output).exists(),'existing_control_output');child=command(dict(action='start-control',kind=kind))
+    deadline=time.monotonic()+8;state=None
+    while time.monotonic()<deadline:
+        state=command(dict(action='control-state',token=child['token']))
+        if state and state['state'] in ('armed','failed'):break
+        time.sleep(.05)
+    _require(state and state['state']=='armed','control_not_armed')
+    try:
+        if kind=='camera':vm_input('Relative',X=60,Y=0)
+        else:vm_input('Keys',Codes='11');time.sleep(.4)
+    finally:
+        if kind=='movement':vm_input('Keys',Codes='91')
+    deadline=time.monotonic()+8
+    while time.monotonic()<deadline:
+        state=command(dict(action='control-state',token=child['token']))
+        if state and state['state'] in ('complete','failed'):break
+        time.sleep(.05)
+    write_record(Path(output),dict(child=child,observation=state));_require(state and state['state']=='complete','control_incomplete')
+    return state
+
+
 if __name__=='__main__':
     import argparse,json
     parser=argparse.ArgumentParser();parser.add_argument('--guest-command');parser.add_argument('--app-observer',action='store_true');parser.add_argument('--observe-route')
     parser.add_argument('--lookup-route');parser.add_argument('--word');parser.add_argument('--sequence',type=int)
-    parser.add_argument('--pilot-session',action='store_true');args=parser.parse_args()
+    parser.add_argument('--pilot-session',action='store_true');parser.add_argument('--observe-control');args=parser.parse_args()
     if args.pilot_session:pilot_session()
     if args.lookup_route:run_lookup_route(args.lookup_route,args.word,args.sequence)
     if args.observe_route:raise SystemExit(observe_route(args.observe_route))
+    if args.observe_control:observe_control(args.observe_control)
     if args.app_observer:app_observer()
     if args.guest_command:print(json.dumps(guest_command(args.guest_command)))

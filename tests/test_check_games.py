@@ -69,6 +69,26 @@ def assaultcube_record():
 
 
 class GameContractTests(unittest.TestCase):
+    def test_cleanup_release_and_guest_failure_cannot_skip_shutdown_or_off_restore(self):
+        from unittest.mock import patch
+        clone='cf207909-94b5-4b49-8bd8-ccff973c1dc8';calls=[]
+        machine=dict(UUID='"'+clone+'"',VMState='"running"',clipboard='"disabled"',accelerate3d='"off"',
+            **{'"SATA-ImageUUID-0-0"':'"2712d710-daaa-449c-843d-d570091127bc"'})
+        prior=dict(machine,clipboard='"bidirectional"',accelerate3d='"on"')
+        def info(identity):return dict(machine) if identity==clone else dict(VMState='"poweroff"')
+        def guest(command):
+            calls.append(command)
+            if 'pilot-cleanup' in command:raise OSError('controlled SSH failure')
+            machine['VMState']='"poweroff"'
+            return ''
+        def run(*args):calls.append(args);machine.update(clipboard=prior['clipboard'],accelerate3d=prior['accelerate3d']);return dict(exit=0)
+        def inputs(*args,**kwargs):raise OSError('controlled release failure')
+        with patch('tools.check_games.time.sleep'):
+            result=check_games.pilot_cleanup_steps(prior,{},info,run,guest,inputs)
+        self.assertFalse(result['release']['ok']);self.assertFalse(result['guest_cleanup']['ok'])
+        self.assertTrue(result['clone_off']);self.assertTrue(result['settings_restored'])
+        self.assertIn('sudo -n systemctl poweroff',calls)
+        self.assertTrue(any(isinstance(call,tuple) and 'modifyvm' in call for call in calls))
     def test_assaultcube_explicit_gl_and_actual_relative_evidence(self):
         self.assertTrue(check_games.captured_game_report(assaultcube_record())['passed'])
         for change in ('url','bytes','hash','executable','uid','gl_missing','gl_digest','gl_identity','driver',
