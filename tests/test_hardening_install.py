@@ -74,3 +74,15 @@ class InstallEvidenceTests(unittest.TestCase):
         self.assertFalse(install.login_evidence(other))
         reverse=deepcopy(data);reverse['samples'].reverse()
         self.assertFalse(install.login_evidence(reverse))
+
+    def test_observed_login_interval_and_owner_survival_are_required(self):
+        import json
+        from pathlib import Path
+        root=Path('.planning/phases/08-vm')
+        enabled=json.loads((root/'08-install-login-enabled.json').read_text());seen=False
+        for sample in enabled['samples']:
+            if seen:sample['owner']=False;sample.pop('process',None)
+            elif sample['owner']:seen=True
+        self.assertFalse(install.login_evidence(enabled))
+        disabled=json.loads((root/'08-install-login-disabled.json').read_text());disabled['samples']=disabled['samples'][-2:]
+        self.assertFalse(install.login_evidence(disabled))
