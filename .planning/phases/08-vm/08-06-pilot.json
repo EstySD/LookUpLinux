@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "game01_complete": false,
+  "game": "AssaultCube official v1.3.0.2 Linux RC1 asset",
+  "successful_route": "08-06-pilot-name-persistent.json",
+  "failed_route": "08-06-pilot-name.json",
+  "failed_reason": "held TAB scoreboard disappears on focus loss before Source.freeze; stage6, no Query",
+  "remedy": "ordinary physical /showscores 1 game command; console closed before lookup",
+  "game_pid": 1139,
+  "game_start": 11975,
+  "lookup_pid": 1528,
+  "word": "name",
+  "input_to_useful_bound_ms": 4232.717534,
+  "actual_driver": "wayland",
+  "actual_relative_state": 1,
+  "actual_locked_protocol": "zwp_locked_pointer_v1",
+  "renderer_acceptance": "Actual renderer log still required by Task2/3; software environment alone is not renderer proof",
+  "cleanup_responsibility": "successful live pilot transferred to Tasks2/3; bounded controller session35744 retains unconditional finally",
+  "human_acceptance": false
+}

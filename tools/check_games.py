@@ -1,6 +1,65 @@
 """Strict actual-game evidence and owned Wesnoth native observation."""
 import time
 
+
+def pilot_session():
+    """Bounded owned-clone lifetime; every exit runs observed failure cleanup."""
+    import json,subprocess
+    from pathlib import Path
+    from tools.check_hardening import write_record,vm_input
+    clone='cf207909-94b5-4b49-8bd8-ccff973c1dc8';original='abc73254-ddf7-4f1f-9c66-7c2fcc5254d7'
+    vbox='C:/Program Files/Oracle/VirtualBox/VBoxManage.exe'
+    root=Path('.planning/phases/08-vm');state=root/'08-06-pilot-session.json'
+    stop=root/'08-06-pilot-stop.json';cleanup=root/'08-06-cleanup-final.json'
+    _require(not stop.exists(),'existing_pilot_stop')
+    def run(*args):
+        result=subprocess.run(args,capture_output=True,text=True,timeout=30)
+        return dict(exit=result.returncode,stdout=result.stdout,stderr=result.stderr)
+    def info(identity):
+        result=run(vbox,'showvminfo',identity,'--machinereadable');_require(result['exit']==0,'vm_info')
+        return dict(line.split('=',1) for line in result['stdout'].splitlines() if '=' in line)
+    prior=info(clone)
+    _require(prior.get('UUID')=='"'+clone+'"' and prior.get('VMState')=='"poweroff"' and
+        prior.get('"SATA-ImageUUID-0-0"')=='"2712d710-daaa-449c-843d-d570091127bc"' and
+        info(original).get('VMState')=='"poweroff"','pilot_vm_baseline')
+    record=dict(prior=prior,commands=[],passed=False)
+    write_record(state,dict(state='prepared',prior=prior,controller_pid=__import__('os').getpid()))
+    try:
+        changed=run(vbox,'modifyvm',clone,'--clipboard-mode','disabled','--accelerate-3d','off')
+        record['commands'].append(dict(action='isolate',**changed));_require(changed['exit']==0,'pilot_isolation')
+        started=run(vbox,'startvm',clone,'--type','headless');record['commands'].append(dict(action='boot',**started))
+        _require(started['exit']==0,'pilot_boot')
+        write_record(state,dict(state='running',prior=prior,controller_pid=__import__('os').getpid()))
+        deadline=time.monotonic()+5400
+        while time.monotonic()<deadline:
+            if stop.exists():
+                record['stop']=json.loads(stop.read_text());break
+            time.sleep(1)
+        else:record['error']='pilot_deadline'
+    except BaseException as error:record['error']=type(error).__name__
+    finally:
+        try:
+            if info(clone).get('VMState')=='"running"':
+                record['release']=vm_input('Keys',Codes='8f 81 91 9f 9e a0 aa b6 e0 db e0 dc')
+                record['mouse_release']=vm_input('Pointer',X=640,Y=400,Buttons=0)
+                from tools.check_hardening_install import ssh
+                # Dedicated stdlib cleanup is installed before any game/package mutation.
+                record['guest_cleanup']=ssh('sudo -n python /home/arch/lookup-games-08-pilot-cleanup.py')
+                record['shutdown']=ssh('sudo -n systemctl poweroff')
+                until=time.monotonic()+45
+                while time.monotonic()<until and info(clone).get('VMState')!='"poweroff"':time.sleep(1)
+            off=info(clone).get('VMState')=='"poweroff"'
+            if not off:
+                record['forced_stop']=run(vbox,'controlvm',clone,'poweroff');off=info(clone).get('VMState')=='"poweroff"'
+            if off:
+                record['restore']=run(vbox,'modifyvm',clone,'--clipboard-mode',prior['clipboard'].strip('"'),
+                    '--accelerate-3d',prior['accelerate3d'].strip('"'))
+            current=info(clone);record.update(clone_off=current.get('VMState')=='"poweroff"',
+                original_off=info(original).get('VMState')=='"poweroff"',
+                settings_restored=all(current.get(key)==prior.get(key) for key in ('clipboard','accelerate3d')))
+        except BaseException as error:record['cleanup_error']=repr(error)
+        write_record(cleanup,record);write_record(state,dict(state='finished',cleanup=str(cleanup)))
+
 # Test-only transparent SDL observation: original call exactly once, same return.
 SDL_OBSERVER = r'''
 #define _GNU_SOURCE
@@ -25,6 +84,33 @@ SDL_Renderer *SDL_CreateRenderer(SDL_Window *window, int index, Uint32 flags) {
         }
     }
     errno=saved; return result;
+}
+int SDL_SetRelativeMouseMode(SDL_bool enabled) {
+    int (*original)(SDL_bool)=dlsym(RTLD_NEXT,"SDL_SetRelativeMouseMode");
+    int result=original(enabled);int saved=errno;
+    const char *path=getenv("LOOKUP_GAME_SDL_LOG");
+    struct timespec stamp;
+    if(path && !clock_gettime(CLOCK_MONOTONIC,&stamp)) {
+        FILE *output=fopen(path,"a");if(output) {
+            fprintf(output,"{\"pid\":%d,\"at_ns\":%lld,\"operation\":\"relative\",\"requested\":%d,\"result\":%d,\"state\":%d,\"driver\":\"%s\"}\n",
+                getpid(),(long long)stamp.tv_sec*1000000000+stamp.tv_nsec,enabled,result,SDL_GetRelativeMouseMode(),SDL_GetCurrentVideoDriver());
+            fclose(output);
+        }
+    }
+    errno=saved;return result;
+}
+void SDL_SetWindowGrab(SDL_Window *window,SDL_bool enabled) {
+    void (*original)(SDL_Window*,SDL_bool)=dlsym(RTLD_NEXT,"SDL_SetWindowGrab");
+    original(window,enabled);int saved=errno;
+    const char *path=getenv("LOOKUP_GAME_SDL_LOG");struct timespec stamp;
+    if(path && !clock_gettime(CLOCK_MONOTONIC,&stamp)) {
+        FILE *output=fopen(path,"a");if(output) {
+            fprintf(output,"{\"pid\":%d,\"at_ns\":%lld,\"operation\":\"grab\",\"requested\":%d,\"state\":%d,\"window\":%u,\"driver\":\"%s\"}\n",
+                getpid(),(long long)stamp.tv_sec*1000000000+stamp.tv_nsec,enabled,SDL_GetWindowGrab(window),SDL_GetWindowID(window),SDL_GetCurrentVideoDriver());
+            fclose(output);
+        }
+    }
+    errno=saved;
 }
 '''
 
@@ -147,7 +233,7 @@ def guest_command(encoded):
     sys.path.insert(0,'/usr/lib/lookup/app')
     from lookup import capture,platform
     command=json.loads(base64.b64decode(encoded));action=command['action'];kind=command.get('game_kind','wesnoth')
-    _require(kind in ('wesnoth','doom'),'game_kind')
+    _require(kind in ('wesnoth','doom','assaultcube'),'game_kind')
     root=Path.home()/'.local/state/lookup-games-08'/kind;root.mkdir(parents=True,exist_ok=True)
     env=platform.session_env()
     env.update(XDG_CONFIG_HOME=str(root/'xdg-config'),XDG_CACHE_HOME=str(root/'xdg-cache'),XDG_DATA_HOME=str(root/'xdg-data'))
@@ -157,13 +243,21 @@ def guest_command(encoded):
     from PyQt6.QtDBus import QDBus,QDBusConnection,QDBusMessage
     application=QCoreApplication([]);bus=QDBusConnection.sessionBus()
     metadata=root/'game-process.json'
+    if action=='pilot-package-receipt':
+        _require(kind=='assaultcube' and command.get('package_sha256')=='7aa3cf123457c753fa572efbd58062f81cd1e4f4fc2387fe4a7505665ab480f3','pilot_package')
+        (root/'package-reinstalled.json').write_text(json.dumps(dict(baseline_absent=True,package_sha256=command['package_sha256'],
+            absence_observation='pre-install SSH pacman -Q lookup-linux: package not found')))
+        paths=[path for base in (Path.home()/'.config/lookup',Path.home()/'.local/share/lookup') if base.exists() for path in base.rglob('*') if path.is_file()]
+        hashes={str(path):hashlib.sha256(path.read_bytes()).hexdigest() for path in paths}
+        (root/'retention-before.json').write_text(json.dumps(hashes));return dict(retained_hashes=hashes)
     def process():
         value=json.loads(metadata.read_text());path=Path('/proc',str(value['pid']))
         _require(value.get('boot_id')==Path('/proc/sys/kernel/random/boot_id').read_text().strip(),'game_boot_identity')
         fields=(path/'stat').read_text().split(') ',1)[1].split()
         _require(path.stat().st_uid==1001 and int(fields[19])==value['start'] and fields[0]!='Z','game_identity')
-        owned_argument=root/('userdata' if kind=='wesnoth' else 'main.cfg')
-        _require(os.fsencode(str(owned_argument)) in path.joinpath('cmdline').read_bytes().split(b'\0'),'unowned_game_profile')
+        owned_argument=str(root/('userdata' if kind=='wesnoth' else 'main.cfg'))
+        if kind=='assaultcube':owned_argument='--home='+str(root/'profile')
+        _require(os.fsencode(owned_argument) in path.joinpath('cmdline').read_bytes().split(b'\0'),'unowned_game_profile')
         return value
     def windows():
         value=process();ids=platform.run(['kdotool','search','--pid',str(value['pid'])],env).decode().split();result=[]
@@ -188,11 +282,17 @@ def guest_command(encoded):
             argv=[str(root/'chocolate-doom'),'-iwad',str(root/'freedoom2.wad'),'-config',str(root/'main.cfg'),
                 '-extraconfig',str(root/'extra.cfg'),'-savedir',str(root/'saves'),'-warp','1','-nomonsters','-nosound','-fullscreen']
             env.update(WAYLAND_DEBUG='1',LD_PRELOAD=str(root/'sdl-observer.so'),LOOKUP_GAME_SDL_LOG=str(root/'sdl-observer.jsonl'),SDL_RENDER_SCALE_QUALITY='nearest')
+        if kind=='assaultcube':
+            argv=[str(root/'package/bin_unix/linux_64_client'),'--home='+str(root/'profile'),'--init','-t1',
+                '-w'+str(command.get('width',1280)),'-h'+str(command.get('height',800)),'--loadmap=ac_desert']
+            env.update(SDL_VIDEODRIVER='wayland',LIBGL_ALWAYS_SOFTWARE='true',WAYLAND_DEBUG='1',
+                LD_PRELOAD=str(root/'sdl-observer.so'),LOOKUP_GAME_SDL_LOG=str(root/'sdl-observer.jsonl'))
         unit='lookup-'+kind+'-08-'+str(time.monotonic_ns())
-        launch=['systemd-run','--user','--unit='+unit,'--service-type=exec','--property=WorkingDirectory='+str(root),
+        launch=['systemd-run','--user','--unit='+unit,'--service-type=exec','--property=WorkingDirectory='+str(root/'package' if kind=='assaultcube' else root),
             '--property=TimeoutStopSec=5','--property=RuntimeMaxSec=3600']
         launch+=['--setenv='+key+'='+env[key] for key in ('WAYLAND_DISPLAY','XDG_RUNTIME_DIR','DBUS_SESSION_BUS_ADDRESS',
-            'XDG_CONFIG_HOME','XDG_CACHE_HOME','XDG_DATA_HOME','SDL_RENDER_DRIVER','WAYLAND_DEBUG','LD_PRELOAD','LOOKUP_GAME_SDL_LOG','SDL_RENDER_SCALE_QUALITY') if key in env]
+            'XDG_CONFIG_HOME','XDG_CACHE_HOME','XDG_DATA_HOME','SDL_RENDER_DRIVER','WAYLAND_DEBUG','LD_PRELOAD','LOOKUP_GAME_SDL_LOG','SDL_RENDER_SCALE_QUALITY',
+            'SDL_VIDEODRIVER','LIBGL_ALWAYS_SOFTWARE') if key in env]
         subprocess.run([*launch,*argv],env=env,capture_output=True,timeout=8,check=True)
         pid=int(subprocess.run(['systemctl','--user','show',unit,'--property=MainPID','--value'],env=env,capture_output=True,text=True,timeout=3,check=True).stdout)
         _require(pid>0,'game_service_not_running');path=Path('/proc',str(pid));value=dict(pid=pid,start=int((path/'stat').read_text().split(') ',1)[1].split()[19]),
@@ -201,7 +301,7 @@ def guest_command(encoded):
         value['control_group']=subprocess.run(['systemctl','--user','show',unit,'--property=ControlGroup','--value'],env=env,capture_output=True,text=True,timeout=3,check=True).stdout.strip()
         metadata.write_text(json.dumps(value));return value
     if action=='prepare-doom-observer':
-        _require(kind=='doom','game_kind');source=root/'sdl-observer.c';source.write_text(SDL_OBSERVER)
+        _require(kind in ('doom','assaultcube'),'game_kind');source=root/'sdl-observer.c';source.write_text(SDL_OBSERVER)
         subprocess.run(['cc','-shared','-fPIC','-I/usr/include/SDL2',str(source),'-o',str(root/'sdl-observer.so'),'-ldl','-lSDL2'],
             env=env,capture_output=True,timeout=15,check=True)
         return dict(observer='transparent original SDL_CreateRenderer return',sha256=hashlib.sha256(source.read_bytes()).hexdigest())
@@ -221,7 +321,7 @@ def guest_command(encoded):
         return dict(wad_sha256=hashlib.sha256(data).hexdigest(),map='MAP01',player_starts=[item for item in struct.iter_unpack('<5h',lumps['THINGS']) if item[3]==1],exit_lines=exits)
     if action=='doom-runtime-evidence':
         import re
-        _require(kind=='doom','game_kind');value=process()
+        _require(kind in ('doom','assaultcube'),'game_kind');value=process()
         output=subprocess.run(['journalctl','--user','-u',value['unit'],'--no-pager','-o','json','--grep=zwp_locked_pointer_v1','-n','256'],
             env=env,capture_output=True,text=True,timeout=5,check=True).stdout
         events=sorted((dict(at_ns=int(row['__MONOTONIC_TIMESTAMP'])*1000,message=row['MESSAGE'],pid=int(row['_PID']))
@@ -390,7 +490,7 @@ def app_observer():
         from tools.check_hardening import write_record
     except ModuleNotFoundError:
         from check_hardening import write_record
-    kind=os.environ.get('LOOKUP_GAME_KIND','wesnoth');_require(kind in ('wesnoth','doom'),'game_kind')
+    kind=os.environ.get('LOOKUP_GAME_KIND','wesnoth');_require(kind in ('wesnoth','doom','assaultcube'),'game_kind')
     root=Path.home()/'.local/state/lookup-games-08'/kind/'lookup';(root/'observations').mkdir(exist_ok=True)
     current={}
     def frozen(value,start,end):
@@ -422,7 +522,7 @@ def observe_route(encoded):
     from check_hardening import chronological,optical_match,read_record,write_record
     from PyQt6.QtGui import QGuiApplication
     from PyQt6.QtDBus import QDBus,QDBusConnection,QDBusMessage
-    command=json.loads(base64.b64decode(encoded));kind=command.get('game_kind','wesnoth');_require(kind in ('wesnoth','doom'),'game_kind')
+    command=json.loads(base64.b64decode(encoded));kind=command.get('game_kind','wesnoth');_require(kind in ('wesnoth','doom','assaultcube'),'game_kind')
     root=Path.home()/'.local/state/lookup-games-08'/kind;profile=root/'lookup'
     env=platform.session_env();env['LOOKUP_DICTS']='/usr/share/lookup/dicts';os.environ.update(env)
     application=QGuiApplication([]);application.setDesktopFileName('org.lookup.Linux');bus=QDBusConnection.sessionBus()
@@ -529,7 +629,7 @@ def run_lookup_route(output,word,sequence,*,game_kind='wesnoth',point=None):
         _require(len(targets)==1,'game_word_geometry')
         left,top,width,height=targets[0]['box'];point=[round(left+width/2),round(top+height/2)]
         vm_input('Pointer',X=point[0],Y=point[1],Buttons=0)
-    else:_require(game_kind=='doom' and frame['cursor']==point,'actual_locked_cursor')
+    else:_require(game_kind in ('doom','assaultcube') and frame['cursor']==point,'actual_locked_cursor')
     observer=command(dict(action='start-route',route=dict(sequence=sequence,word=word)))
     data=dict(complete=False,lookup_complete=False,observer=observer,target=targets[0] if len(targets)==1 else None,point=point)
     write_record(output,data);deadline=time.monotonic()+8
@@ -538,6 +638,9 @@ def run_lookup_route(output,word,sequence,*,game_kind='wesnoth',point=None):
         if state and state['state'] in ('armed','failed'):break
         time.sleep(.05)
     _require(state and state['state']=='armed','observer_not_armed')
+    if game_kind=='assaultcube':
+        data['runtime_before_input']=command(dict(action='doom-runtime-evidence'))
+        write_record(output,data)
     vm_input('Keys',Codes='e0 5b 2a 12 92 aa e0 db');deadline=time.monotonic()+45
     while time.monotonic()<deadline:
         state=command(dict(action='route-state',token=observer['token']))
@@ -567,7 +670,9 @@ def run_lookup_route(output,word,sequence,*,game_kind='wesnoth',point=None):
 if __name__=='__main__':
     import argparse,json
     parser=argparse.ArgumentParser();parser.add_argument('--guest-command');parser.add_argument('--app-observer',action='store_true');parser.add_argument('--observe-route')
-    parser.add_argument('--lookup-route');parser.add_argument('--word');parser.add_argument('--sequence',type=int);args=parser.parse_args()
+    parser.add_argument('--lookup-route');parser.add_argument('--word');parser.add_argument('--sequence',type=int)
+    parser.add_argument('--pilot-session',action='store_true');args=parser.parse_args()
+    if args.pilot_session:pilot_session()
     if args.lookup_route:run_lookup_route(args.lookup_route,args.word,args.sequence)
     if args.observe_route:raise SystemExit(observe_route(args.observe_route))
     if args.app_observer:app_observer()
