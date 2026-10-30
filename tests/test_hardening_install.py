@@ -27,6 +27,9 @@ class InstallEvidenceTests(unittest.TestCase):
         good=dict(observed=True,observer_launches_product=False,owner_before=False,session_before='1',session_after='2',
             session_type='wayland',user='lookup08install',uid=1002,login_ns=1000,observed_until_ns=12_000_001_000,
             enabled=True,owners=[dict(pid=40,start_ns=2000,uid=1002,argv=['/usr/bin/python','/usr/bin/lookup','--autostart'])])
+        good['before']=dict(owner=False,sessions=[dict(Id='1')])
+        good['samples']=[dict(at_ns=stamp,owner=True,process=deepcopy(good['owners'][0]),
+            sessions=[dict(Id='2',Type='wayland',Service='sddm-autologin')]) for stamp in (3000,12_000_001_000)]
         self.assertTrue(install.login_evidence(good))
         for change in ('same_session','old_owner','manual','wrong_uid','short'):
             data=deepcopy(good)
@@ -36,3 +39,16 @@ class InstallEvidenceTests(unittest.TestCase):
             elif change=='wrong_uid':data['owners'][0]['uid']=1001
             else:data['observed_until_ns']=2000
             with self.subTest(change=change):self.assertFalse(install.login_evidence(data))
+
+    def test_empty_samples_or_multiple_owner_identities_cannot_prove_login(self):
+        import json
+        from pathlib import Path
+        path=Path('.planning/phases/08-vm/08-install-login-enabled.json')
+        data=json.loads(path.read_text())
+        self.assertTrue(install.login_evidence(data))
+        empty=deepcopy(data);empty['samples']=[]
+        self.assertFalse(install.login_evidence(empty))
+        other=deepcopy(data);extra=deepcopy(other['owners'][0]);extra['pid']+=1;other['owners'].append(extra)
+        self.assertFalse(install.login_evidence(other))
+        reverse=deepcopy(data);reverse['samples'].reverse()
+        self.assertFalse(install.login_evidence(reverse))
