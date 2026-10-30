@@ -13,7 +13,7 @@ def route(index):
         source=dict(kind='actual_game',mode='ocr',backend='screenshot2',sha256=f'{index+100:064x}',
             pid=timing['pid'],run=timing['run'],request=timing['request'],span=[4,8],
             capture_start_ns=timing['input_ns']+100_000_000,capture_end_ns=timing['input_ns']+300_000_000,
-            word='move',query='move',context='Now move your unit to the marked keep. '+str(index),
+            word='move',query='move',context='Now move your unit\nto the marked keep. '+str(index),
             visual_lines=2,cursor=[320,400],word_rect=[300,390,80,25],unchanged_objects=True),
         timing=timing,overlay=dict(useful=True,loading=False,error=False,current_word='move',
             sha256=timing['frame_sha256'],identity=timing['frame_identity']),
@@ -58,7 +58,9 @@ class GameContractTests(unittest.TestCase):
             elif change=='physical':row['gameplay']['physical']=False
             elif change=='word':row['overlay']['current_word']='previous'
             elif change=='clock':row['timing']['origin']='fixed_wait'
-            else:row['source']['visual_lines']=1
+            else:
+                for entry in data['routes']:
+                    entry['source']['visual_lines']=1;entry['source']['context']=entry['source']['context'].replace('\n',' ')
             with self.subTest(change=change):self.assertFalse(check_games.game_report(data)['passed'])
 
     def test_read_only_tap_calls_original_once_and_returns_identical_object_even_if_observer_fails(self):
@@ -87,3 +89,15 @@ class GameContractTests(unittest.TestCase):
         def original():raise original_error
         with self.assertRaises(ValueError) as caught:check_games.tap(original,fail,fail)()
         self.assertIs(caught.exception,original_error)
+
+    def test_multiline_is_required_across_game_not_every_changed_scene(self):
+        data=record();data['routes'][1]['source']['visual_lines']=1
+        data['routes'][1]['source']['context']=data['routes'][1]['source']['context'].replace('\n',' ')
+        self.assertTrue(check_games.game_report(data)['passed'])
+
+    def test_only_matching_new_production_error_ends_route(self):
+        trigger=dict(pid=20,run=200,request=3,mono_ns=1000)
+        wrong=[dict(trigger,stage=6,pid=21,mono_ns=2000),dict(trigger,stage=6,request=2,mono_ns=2000),dict(trigger,stage=6,mono_ns=900)]
+        self.assertIsNone(check_games.request_error(wrong,trigger,950))
+        error=dict(trigger,stage=6,mono_ns=1500)
+        self.assertIs(check_games.request_error(wrong+[error],trigger,950),error)
