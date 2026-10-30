@@ -133,6 +133,8 @@ class EvidenceTests(unittest.TestCase):
                 [dict(pid=200,process_start=2000,uid=uid),dict(pid=300,process_start=3000,uid=uid)])
             with self.assertRaises(hardening.EvidenceError):hardening.descendant_identities(100,999,uid,root)
             with self.assertRaises(hardening.EvidenceError):hardening.descendant_identities(100,1000,uid+1,root)
+            (root/'300/stat').unlink()
+            with self.assertRaises(FileNotFoundError):hardening.descendant_identities(100,1000,uid,root)
 
     def test_scale_acceptance_requires_all_four_observations_and_restoration(self):
         rows=[dict(scale=value,passed=True) for value in (1,1.25,1.5,2)]
@@ -140,6 +142,30 @@ class EvidenceTests(unittest.TestCase):
         for data in (dict(records=rows[:1],display_restored=True),dict(records=rows,display_restored=False),
                      dict(records=rows[:3]+[rows[0]],display_restored=True)):
             self.assertFalse(hardening.scales_report(data)['passed'])
+
+    def test_interrupted_scale_writer_preserves_partial_failure(self):
+        import base64,io,json,tempfile
+        from contextlib import redirect_stdout
+        from pathlib import Path
+        from unittest.mock import patch
+        def command(value):
+            action=value['action']
+            if action=='outputs':return [dict(scale=1)]
+            if action=='scale':
+                if value['value']==1.25:raise RuntimeError('controlled_second_scale_failure')
+                return dict(scale=1)
+            if action=='arm':return dict(point=[5,5],logical_point=[5,5],token=9)
+            if action=='result':return dict(request=1,status='success',popup_rect=[0,0,10,10],work_area=[0,0,100,100],actual_cursor=[5,5],monitor=dict(scale=1))
+            if action=='frame':return dict(png_base64=base64.b64encode(b'unit fixture').decode())
+            raise AssertionError(action)
+        with tempfile.TemporaryDirectory() as directory:
+            output=Path(directory)/'scales.json'
+            with patch.object(hardening,'vm_command',side_effect=command),patch.object(hardening,'vm_input'),redirect_stdout(io.StringIO()):
+                result=hardening.run_scales(output)
+            saved=json.loads(output.read_text())
+            self.assertFalse(result['passed']);self.assertFalse(saved['passed']);self.assertFalse(saved['complete'])
+            self.assertTrue(saved['display_restored']);self.assertEqual(len(saved['records']),1)
+            self.assertEqual(saved['errors'],[dict(stage='observation',reason='RuntimeError')])
 
     def test_failed_live_meanings_keep_denominator_and_null_statistics(self):
         rows=[dict(case=i,kind='live',live=True,cached=False,mock=False,status='error',reason='blocked') for i in range(6)]

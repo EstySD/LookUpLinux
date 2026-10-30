@@ -327,6 +327,39 @@ def chronological(rows):
     return sorted(rows,key=lambda row:row['mono_ns'])
 
 
+def descendant_identities(pid,start,uid,proc=None):
+    """Inspect every thread's descendants; races reject evidence rather than hide children."""
+    from pathlib import Path
+    proc=Path('/proc') if proc is None else Path(proc)
+    def read(number):
+        _require(_integer(number,1),'process_identity')
+        path=proc/str(number)
+        owner=path.stat().st_uid
+        born=int((path/'stat').read_text().split(') ',1)[1].split()[19])
+        children=set()
+        for task in (path/'task').iterdir():
+            children.update(int(value) for value in (task/'children').read_text().split())
+        _require(path.stat().st_uid==owner and int((path/'stat').read_text().split(') ',1)[1].split()[19])==born,'process_race')
+        return owner,born,children
+    found={}
+    def visit(number,expected=None):
+        _require(number not in found,'process_cycle')
+        owner,born,children=read(number)
+        _require(owner==uid and born>0 and (expected is None or born==expected),'process_identity')
+        found[number]=dict(pid=number,process_start=born,uid=owner)
+        for child in sorted(children):visit(child)
+        _require(read(number)==(owner,born,children),'process_race')
+    visit(pid,start)
+    return [found[number] for number in sorted(found) if number!=pid]
+
+
+def scales_report(data):
+    rows=data.get('records',[])
+    complete=len(rows)==4 and {row.get('scale') for row in rows}=={1,1.25,1.5,2}
+    return dict(complete=complete,passed=complete and data.get('display_restored') is True and
+                all(row.get('passed') is True for row in rows) and not data.get('errors'))
+
+
 def guest_probe(continuous=False):
     """First bounded real input/optical probe; production daemon is unmodified."""
     import fcntl,hashlib,json,os,struct,subprocess,sys,time
@@ -649,9 +682,15 @@ def guest_command(encoded):
         result.update(png_files=sorted(files),scanned=['/tmp','/run/user/1001',str(root/'data')])
         return result
     if action=='privacy-seed':
-        for extra,text in (([],b'Public hardening clipboard fixture 08'),(['--primary'],b'Public hardening primary fixture 08')):
-            subprocess.run(['wl-copy',*extra],input=text,env=env,check=True,timeout=3)
+        for extra,text in (([],b'Public hardening clipboard fixture 08'),):
+            subprocess.run(['wl-copy',*extra],input=text,env=env,check=True,timeout=3,
+                stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
         return dict(seeded=True,history_cleared=False)
+    if action=='restore-owned-primary':
+        value=subprocess.run(['wl-paste','--primary','--no-newline'],env=env,capture_output=True,timeout=3)
+        _require(value.returncode==0 and value.stdout in (b'Public hardening primary fixture 08',b'Public hardening clipboard fixture 08'),'unknown_primary')
+        subprocess.run(['wl-copy','--primary','--clear'],env=env,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,check=True,timeout=3)
+        return dict(restored_absent_selection=True,history_cleared=False)
     if action=='injection-evidence':
         path=root/'injected-capture.jsonl'
         return [json.loads(line) for line in path.read_text().splitlines()] if path.exists() else []
@@ -807,9 +846,10 @@ def guest_command(encoded):
         events=[json.loads(line.split(':',1)[1]) for line in (root/'daemon.log').read_text().splitlines()
                 if line.startswith('lookup-timing:')]
         run=next(item['run'] for item in reversed(events) if item['pid']==pid)
+        descendants=descendant_identities(pid,start,1001)
         return dict(identity=[pid,start,run],rss_bytes=int(re.search(r'^VmRSS:\s+(\d+)',status,re.M)[1])*1024,
             threads=len(list(process.joinpath('task').iterdir())),fds=len(list(process.joinpath('fd').iterdir())),
-            owned_children=[int(i) for i in process.joinpath('task',str(pid),'children').read_text().split()],observed=True)
+            owned_children=[row['pid'] for row in descendants],descendant_identities=descendants,observed=True)
     if action=='history':
         import sqlite3
         path=root/'data/history.db'
@@ -987,6 +1027,8 @@ def run_scales(output):
     output=Path(output)
     if output.exists():raise ValueError('attempt_file_must_be_new')
     rows=[];original=vm_command(dict(action='outputs'))[0]['scale']
+    data=dict(records=rows,second_output='unverified: only one active output',display_restored=False,errors=[])
+    data.update(scales_report(data));write_record(output,data)
     try:
         for index,value in enumerate((1,1.25,1.5,2),1):
             vm_input('Keys',Codes='01 81');metadata=vm_command(dict(action='scale',value=value))
@@ -1002,10 +1044,17 @@ def run_scales(output):
                 popup_bounded=ax-1<=x and ay-1<=y and x+w<=ax+aw+1 and y+h<=ay+ah+1,
                 actual_scale=row['monitor']['scale'])
             row['passed']=row.get('status')=='success' and row['cursor_correct'] and row['popup_bounded'] and abs(row['actual_scale']-value)<.001
-            rows.append(row);write_record(output,dict(records=rows,second_output='unverified: only one active output',passed=all(r['passed'] for r in rows)))
+            rows.append(row);data.update(scales_report(data));write_record(output,data)
             print(json.dumps(dict(scale=value,passed=row['passed'],cursor=row['actual_cursor'],popup=row['popup_rect'])),flush=True)
-    finally:vm_command(dict(action='scale',value=original))
-    return dict(passed=len(rows)==4 and all(row['passed'] for row in rows),records=rows)
+    except Exception as error:data['errors'].append(dict(stage='observation',reason=type(error).__name__))
+    finally:
+        try:
+            vm_command(dict(action='scale',value=original))
+            actual=vm_command(dict(action='outputs'))[0]['scale']
+            data['display_restored']=abs(actual-original)<.001
+        except Exception as error:data['errors'].append(dict(stage='restore',reason=type(error).__name__))
+        data.update(scales_report(data));write_record(output,data)
+    return data
 
 
 if __name__=='__main__':
