@@ -16,6 +16,7 @@ def actual_install_fixture():
     root=Path('.planning/phases/08-vm')
     def read(name):return json.loads((root/('08-install-'+name+'.json')).read_text())
     return dict(baseline=read('clean-graphical-baseline'),gates={key:True for key in install.GATES},
+        build=dict(stage_exit=0,makepkg_exit=0,source_sha256=read('SOURCE')['archive_sha256'],package_sha256='a'*64,log_sha256='b'*64),
         enabled_login=read('login-enabled'),disabled_login=read('login-disabled'),retention_before=read('retention-before-remove'),
         removed_physical=read('removed-physical-automatic'),installed=read('installed-identity'),physical_capture=read('physical-useful'),
         cleanup={key:True for key in ('owner_stopped','fixture_stopped','input_released','session_override_restored',
@@ -25,12 +26,13 @@ def actual_install_fixture():
 class InstallEvidenceTests(unittest.TestCase):
     def test_partial_identity_retention_cleanup_and_wrong_login_role_cannot_pass(self):
         self.assertTrue(install.install_report(actual_install_fixture())['passed'])
-        for change in ('files','hashes','cleanup','role'):
+        for change in ('files','hashes','cleanup','role','build'):
             data=actual_install_fixture()
             if change=='files':data['installed']['files']={}
             elif change=='hashes':
                 data['retention_before']['hashes']={};data['removed_physical']['after_unrelated']['retention']['hashes']={}
             elif change=='cleanup':data['cleanup']={'done':True}
+            elif change=='build':data.pop('build')
             else:data['disabled_login']=deepcopy(data['enabled_login'])
             with self.subTest(change=change):self.assertFalse(install.install_report(data)['passed'])
     def test_clean_owned_inventory_passes_but_old_profile_and_package_cannot(self):
