@@ -11,6 +11,7 @@ def route(index):
     return dict(sequence=index,scene='tutorial_map_dialogue',game_pid=500,game_start=5000,
         window_id='real-game-window',game_active_before=True,
         source=dict(kind='actual_game',mode='ocr',backend='screenshot2',sha256=f'{index+100:064x}',
+            pid=timing['pid'],run=timing['run'],request=timing['request'],span=[4,8],
             capture_start_ns=timing['input_ns']+100_000_000,capture_end_ns=timing['input_ns']+300_000_000,
             word='move',query='move',context='Now move your unit to the marked keep. '+str(index),
             visual_lines=2,cursor=[320,400],word_rect=[300,390,80,25],unchanged_objects=True),
@@ -66,3 +67,23 @@ class GameContractTests(unittest.TestCase):
         def observer(*unused):raise RuntimeError('controlled_observer_failure')
         wrapped=check_games.tap(original,observer,errors.append)
         self.assertIs(wrapped(),result);self.assertEqual(calls,['called']);self.assertEqual(errors,['RuntimeError'])
+
+    def test_reused_request_wrong_source_identity_and_raw_sequence_reject(self):
+        for change in ('duplicate','source','sequence','span'):
+            data=record();first,second=data['routes']
+            if change=='duplicate':
+                second['timing']=deepcopy(first['timing']);second['overlay']=deepcopy(first['overlay'])
+                for key in ('pid','run','request','capture_start_ns','capture_end_ns'):second['source'][key]=first['source'][key]
+            elif change=='source':second['source'].update(pid=999,run=999,request=999)
+            elif change=='sequence':second['timing']['input_sequence']=99
+            else:second['source']['span']=[0,3]
+            with self.subTest(change=change):self.assertFalse(check_games.game_report(data)['passed'])
+
+    def test_tap_error_logging_cannot_change_original_result_or_exception(self):
+        result=object()
+        def fail(*unused):raise OSError('controlled_logging_failure')
+        self.assertIs(check_games.tap(lambda:result,fail,fail)(),result)
+        original_error=ValueError('original_error')
+        def original():raise original_error
+        with self.assertRaises(ValueError) as caught:check_games.tap(original,fail,fail)()
+        self.assertIs(caught.exception,original_error)
