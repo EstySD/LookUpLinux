@@ -694,6 +694,23 @@ def guest_command(encoded):
     if action=='injection-evidence':
         path=root/'injected-capture.jsonl'
         return [json.loads(line) for line in path.read_text().splitlines()] if path.exists() else []
+    if action=='cleanup-profile':
+        import hashlib,shlex
+        _require(not owner()['owner'],'owner_still_running')
+        settings=dict(LOOKUP_CONFIG=str(root/'config.json'),LOOKUP_DB=str(root/'data/history.db'),LOOKUP_CACHE=str(root/'cache'),
+            LOOKUP_DICTS='/usr/share/lookup/dicts',LOOKUP_TIMING='1')
+        script=Path.home()/'.config/plasma-workspace/env/lookup-hardening-08.sh'
+        expected='# Owned lookup-hardening-08\n'+''.join('export '+key+'='+shlex.quote(value)+'\n' for key,value in settings.items())
+        _require(script.is_file() and not script.is_symlink() and script.stat().st_uid==1001 and script.read_text()==expected,'unowned_environment_script')
+        backup=root/'retained-config-before.bin';target=Path.home()/'.config/lookup/config.json'
+        _require(backup.is_file() and not backup.is_symlink() and backup.stat().st_uid==1001 and target.is_file()
+                 and not target.is_symlink() and target.stat().st_uid==1001,'unowned_retained_config')
+        data=backup.read_bytes();temporary=target.with_name('config.hardening-restore.tmp')
+        with os.fdopen(os.open(temporary,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600),'wb') as output:output.write(data)
+        temporary.replace(target);script.unlink()
+        return dict(environment_script_removed=not script.exists(),retained_config_restored=target.read_bytes()==data,
+            retained_config_sha256=hashlib.sha256(data).hexdigest(),owner_absent=not owner()['owner'],
+            activation_environment='expires at controlled guest shutdown',input_acl='temporary device node expires at guest shutdown')
     if action=='environment':
         pid=interface.servicePid('org.kde.kglobalaccel').value()
         return dict(global_shortcut_pid=pid,
@@ -988,6 +1005,68 @@ def run_burst(output):
     print(json.dumps(report),flush=True);return report
 
 
+def root_network(operation):
+    import subprocess
+    _require(operation in ('on','off','status'),'network_operation')
+    child=subprocess.run(['ssh','-o','BatchMode=yes','-o','HostKeyAlias=lookup-gsd-07','-o',
+        'UserKnownHostsFile=D:/vm/machines/lookup-gsd-07/ssh_known_hosts','-p','2227','archvm',
+        'sudo','-n','python','/home/lookup07/check_hardening.py','--network-fault',operation],
+        capture_output=True,text=True,timeout=8)
+    _require(child.returncode==0,'owned_network_command');return child.stdout
+
+
+def run_network_fault(output):
+    import base64,re,time
+    from pathlib import Path
+    output=Path(output)
+    if output.exists():raise ValueError('attempt_file_must_be_new')
+    vm_command(dict(action='stop-owner'));owner=vm_command(dict(action='launch-owner',online=True))
+    before=vm_command(dict(action='history'));active=False
+    data=dict(fault='network',kind='real',mode='native',owner=owner,gates={})
+    def physical(attempt,scene):
+        ready=vm_command(dict(action='arm',attempt=attempt,group='network-fault',case=scene,scene=scene))
+        vm_input('Keys',Codes='01 81');vm_input('Pointer',X=ready['point'][0],Y=ready['point'][1],Buttons=0)
+        start=time.monotonic_ns();vm_input('Keys',Codes='e0 5b 2a 12 92 aa e0 db')
+        row=vm_command(dict(action='result',attempt=attempt,token=ready['token']))
+        return start,row
+    def visible(name,predicate):
+        deadline=time.monotonic()+8
+        while time.monotonic()<deadline:
+            image=vm_command(dict(action='snapshot'))
+            if predicate(image['text'].casefold()):
+                output.with_name(output.stem+'-'+name+'.png').write_bytes(base64.b64decode(image['png_base64']))
+                return image['text'],time.monotonic_ns()
+        raise TimeoutError('network_status_frame')
+    try:
+        root_network('on');active=True
+        start,row=physical(1,8)
+        text,end=visible('unavailable',lambda value:bool(re.search(r'нет\s+сети',value)))
+        rules=root_network('status');after=vm_command(dict(action='history'))
+        alive=vm_command(dict(action='owner'))==owner
+        data.update(record=row,frame_text=text,rules=rules,elapsed_upper_ms=(end-start)/1e6,
+            history_before=before,history_after=after)
+        root_network('off');active=False;data['network_restored']=True
+        _,recovered=physical(2,9)
+        recovery_text,_=visible('recovered',lambda value:'заблокирован' in value or
+            ('значение в контексте' in value and 'недоступно' not in value))
+        final=vm_command(dict(action='history'))
+        data.update(recovered=recovered,recovery_text=recovery_text,history_recovered=final)
+        counter=re.search(r'counter packets (\d+)',rules)
+        data['gates']=dict(bounded=(end-start)<10_000_000_000,
+            specific_status=bool(counter and int(counter[1])>0),daemon_alive=alive,
+            recovered=recovered.get('status')=='success' and vm_command(dict(action='owner'))==owner,
+            counts_intact=after['count']==before['count']+1 and final['count']==before['count']+2 and final['integrity']=='ok',
+            private_errors=all(token not in text for token in ('Traceback','/home/','https://')))
+    except Exception as error:data['error']=type(error).__name__
+    finally:
+        if active:
+            try:root_network('off');data['network_restored']=True
+            except Exception as error:data['restoration_error']=type(error).__name__
+        write_record(output,data)
+    print(__import__('json').dumps(dict(gates=data['gates'],error=data.get('error'))),flush=True)
+    return data
+
+
 def run_capture_fault(output):
     import base64,time
     from pathlib import Path
@@ -1037,7 +1116,7 @@ def run_scales(output):
             vm_input('Keys',Codes='e0 5b 2a 12 92 aa e0 db')
             row=vm_command(dict(action='result',attempt=index,token=ready['token']))
             image=vm_command(dict(action='frame',attempt=index,token=ready['token'],request=row['request']))
-            output.with_name('08-scale-'+str(round(value*100))+'.png').write_bytes(base64.b64decode(image['png_base64']))
+            output.with_name(output.stem+'-'+str(round(value*100))+'.png').write_bytes(base64.b64decode(image['png_base64']))
             x,y,w,h=row['popup_rect'];ax,ay,aw,ah=row['work_area'];expected=ready['logical_point']
             row.update(scale=value,output_metadata=metadata,expected_cursor=expected,
                 cursor_correct=all(abs(a-b)<=2 for a,b in zip(expected,row['actual_cursor'])),
@@ -1066,10 +1145,14 @@ if __name__=='__main__':
     parser.add_argument('--burst')
     parser.add_argument('--scales')
     parser.add_argument('--capture-fault')
+    parser.add_argument('--run-network-fault')
     parser.add_argument('--network-fault',choices=('on','off','status'))
     parser.add_argument('--injected-capture',action='store_true')
     parser.add_argument('--session-environment',type=int)
     args=parser.parse_args()
+    if args.run_network_fault:
+        result=run_network_fault(args.run_network_fault)
+        raise SystemExit(0 if strict_gates(result['gates'],FAULT_GATES) and result.get('network_restored') is True else 1)
     if args.capture_fault:
         result=run_capture_fault(args.capture_fault);raise SystemExit(0 if all(result['gates'].values()) else 1)
     if args.injected_capture:
@@ -1086,14 +1169,18 @@ if __name__=='__main__':
         sys.argv=['/usr/bin/lookup','--app'];runpy.run_path('/usr/bin/lookup',run_name='__main__')
         raise SystemExit(0)
     if args.network_fault:
-        import os,subprocess
+        import json,os,subprocess
         from pathlib import Path
-        assert os.geteuid()==0 and Path('/sys/class/dmi/id/product_uuid').read_text().strip()=='097920cf-b594-494b-8bd8-ccff973c1dc8'
+        _require(os.geteuid()==0 and Path('/sys/class/dmi/id/product_uuid').read_text().strip()=='097920cf-b594-494b-8bd8-ccff973c1dc8','unowned_root_network')
         if args.network_fault=='on':
-            rules='add table inet lookup_hardening_08\nadd chain inet lookup_hardening_08 output { type filter hook output priority 0; policy accept; }\nadd rule inet lookup_hardening_08 output meta skuid 1001 counter reject\n'
+            rules='create table inet lookup_hardening_08 { comment "Owned LookUp phase08 fault"; }\nadd chain inet lookup_hardening_08 output { type filter hook output priority 0; policy accept; }\nadd rule inet lookup_hardening_08 output meta skuid 1001 counter reject\n'
             subprocess.run(['nft','-f','-'],input=rules,text=True,check=True)
-        elif args.network_fault=='off':subprocess.run(['nft','delete','table','inet','lookup_hardening_08'],check=True)
-        else:subprocess.run(['nft','list','table','inet','lookup_hardening_08'],check=True)
+        else:
+            value=subprocess.run(['nft','--json','list','table','inet','lookup_hardening_08'],capture_output=True,text=True,check=True)
+            tables=[entry['table'] for entry in json.loads(value.stdout)['nftables'] if 'table' in entry]
+            _require(len(tables)==1 and tables[0].get('comment')=='Owned LookUp phase08 fault','unowned_network_table')
+            if args.network_fault=='off':subprocess.run(['nft','delete','table','inet','lookup_hardening_08'],check=True)
+            else:subprocess.run(['nft','list','table','inet','lookup_hardening_08'],check=True)
         raise SystemExit(0)
     if args.scales:raise SystemExit(0 if run_scales(args.scales)['passed'] else 1)
     if args.burst:raise SystemExit(0 if run_burst(args.burst)['passed'] else 1)
