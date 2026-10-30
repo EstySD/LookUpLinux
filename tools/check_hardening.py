@@ -250,6 +250,9 @@ def burst_report(data):
             _require(type(row.get('sequence')) is int and row['sequence']==index and row.get('physical') is True and row.get('released') is True
                      and _integer(row.get('request'),1),'burst')
         requests=[row['request'] for row in inputs]
+        stamps=[row.get('input_ns') for row in inputs]
+        _require(all(_integer(stamp,1) for stamp in stamps) and
+                 all(20_000_000<=right-left<=100_000_000 for left,right in zip(stamps,stamps[1:])),'burst_cadence')
         _require(all(_integer(value,1) for value in accepted) and len(set(requests))==10
                  and requests==sorted(requests) and len(set(accepted))==len(accepted) and set(accepted)<=set(requests),'burst')
         _require(data.get('final_request')==requests[-1] and requests[-1] in accepted,'burst')
@@ -645,6 +648,13 @@ def guest_command(encoded):
                     if magic==b'\x89PNG\r\n\x1a\n':files.append(str(path))
         result.update(png_files=sorted(files),scanned=['/tmp','/run/user/1001',str(root/'data')])
         return result
+    if action=='privacy-seed':
+        for extra,text in (([],b'Public hardening clipboard fixture 08'),(['--primary'],b'Public hardening primary fixture 08')):
+            subprocess.run(['wl-copy',*extra],input=text,env=env,check=True,timeout=3)
+        return dict(seeded=True,history_cleared=False)
+    if action=='injection-evidence':
+        path=root/'injected-capture.jsonl'
+        return [json.loads(line) for line in path.read_text().splitlines()] if path.exists() else []
     if action=='environment':
         pid=interface.servicePid('org.kde.kglobalaccel').value()
         return dict(global_shortcut_pid=pid,
@@ -938,6 +948,39 @@ def run_burst(output):
     print(json.dumps(report),flush=True);return report
 
 
+def run_capture_fault(output):
+    import base64,time
+    from pathlib import Path
+    output=Path(output)
+    if output.exists():raise ValueError('attempt_file_must_be_new')
+    vm_command(dict(action='stop-owner'))
+    before=vm_command(dict(action='history'));injected_before=vm_command(dict(action='injection-evidence'))
+    owner=vm_command(dict(action='launch-owner',capture_fault=True))
+    ready=vm_command(dict(action='arm',attempt=1,group='injected-capture',case=1,scene=1))
+    vm_input('Keys',Codes='01 81');vm_input('Pointer',X=ready['point'][0],Y=ready['point'][1],Buttons=0)
+    start=time.monotonic_ns();vm_input('Keys',Codes='e0 5b 2a 12 92 aa e0 db')
+    row=vm_command(dict(action='result',attempt=1,token=ready['token']))
+    frame=vm_command(dict(action='snapshot'));end=time.monotonic_ns()
+    output.with_suffix('.png').write_bytes(base64.b64decode(frame['png_base64']))
+    after=vm_command(dict(action='history'));alive=vm_command(dict(action='owner'))==owner
+    injection=vm_command(dict(action='injection-evidence'))[len(injected_before):]
+    vm_command(dict(action='stop-owner'));normal=vm_command(dict(action='launch-owner'))
+    ready=vm_command(dict(action='arm',attempt=2,group='capture-recovered',case=1,scene=1))
+    vm_input('Keys',Codes='01 81');vm_input('Pointer',X=ready['point'][0],Y=ready['point'][1],Buttons=0)
+    vm_input('Keys',Codes='e0 5b 2a 12 92 aa e0 db')
+    recovered=vm_command(dict(action='result',attempt=2,token=ready['token']))
+    final=vm_command(dict(action='history'))
+    gates=dict(bounded=(end-start)<10_000_000_000,
+        specific_status=all(part in frame['text'].casefold() for part in ('удалось получить','экрана','повторите поиск')),
+        daemon_alive=alive,recovered=recovered.get('status')=='success',
+        counts_intact=before==after and final['count']==before['count']+1 and final['integrity']=='ok',
+        private_errors=bool(injection) and all(set(item)=={'site','kind','at_ns'} for item in injection))
+    data=dict(fault='capture',kind='injected',mode='native',site='capture._screenshot2',gates=gates,
+        frame_text=frame['text'],elapsed_upper_ms=(end-start)/1e6,owner=owner,recovery_owner=normal,
+        record=row,injection=injection,history_before=before,history_after=after,history_recovered=final,recovered=recovered)
+    write_record(output,data);print(__import__('json').dumps(gates),flush=True);return data
+
+
 def run_scales(output):
     import base64,json
     from pathlib import Path
@@ -973,10 +1016,13 @@ if __name__=='__main__':
     parser.add_argument('--stability')
     parser.add_argument('--burst')
     parser.add_argument('--scales')
+    parser.add_argument('--capture-fault')
     parser.add_argument('--network-fault',choices=('on','off','status'))
     parser.add_argument('--injected-capture',action='store_true')
     parser.add_argument('--session-environment',type=int)
     args=parser.parse_args()
+    if args.capture_fault:
+        result=run_capture_fault(args.capture_fault);raise SystemExit(0 if all(result['gates'].values()) else 1)
     if args.injected_capture:
         import os,runpy,sys,time
         from pathlib import Path
