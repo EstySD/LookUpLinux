@@ -20,6 +20,7 @@ def tap(original,observer,on_error=lambda unused:None):
 
 
 def game_report(data):
+    from lookup.normalize import normalize
     try:
         _require(data.get('name')=='The Battle for Wesnoth' and isinstance(data.get('version'),str) and data['version'],'game')
         package=data['package'];process=data['process'];renderer=data['renderer'];window=data['window']
@@ -54,7 +55,7 @@ def game_report(data):
             _require(source['visual_lines']==len(source['context'].splitlines()),'context_lines')
             multiline|=source['visual_lines']>=2
             span=source['span'];_require(len(span)==2 and all(type(value) is int for value in span) and
-                0<=span[0]<span[1]<=len(source['context']) and source['context'][span[0]:span[1]].casefold()==source['query'].casefold(),'context_span')
+                0<=span[0]<span[1]<=len(source['context']) and normalize(source['context'][span[0]:span[1]])==normalize(source['query']),'context_span')
             x,y=source['cursor'];left,top,width,height=source['word_rect']
             _require(width>0 and height>0 and left<=x<=left+width and top<=y<=top+height,'target')
             _require(overlay.get('useful') is True and overlay.get('loading') is False and overlay.get('error') is False
@@ -70,7 +71,8 @@ def game_report(data):
             hashes.add(source['sha256']);contexts.add(source['context']);latencies.append(latency)
         _require(len(hashes)>=2 and len(contexts)>=2 and multiline,'changed_scenes')
         return dict(passed=True,game01_complete=False,routes=len(rows),latencies_ms=latencies)
-    except (EvidenceError,KeyError,TypeError,ValueError,AttributeError):return dict(passed=False,game01_complete=False)
+    except EvidenceError as error:return dict(passed=False,game01_complete=False,reason=str(error))
+    except (KeyError,TypeError,ValueError,AttributeError) as error:return dict(passed=False,game01_complete=False,reason=type(error).__name__)
 
 
 def request_error(rows,trigger,input_ns):
