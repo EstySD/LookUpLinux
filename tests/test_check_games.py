@@ -50,7 +50,50 @@ def captured_record():
     return data
 
 
+def assaultcube_record():
+    import hashlib,json
+    data=captured_record();data.update(name='AssaultCube',engine='AssaultCube',engine_version='1.3.0.2',version='1.3.0.2')
+    data['process']['executable']='/home/lookup07/.local/state/lookup-games-08/assaultcube/package/bin_unix/linux_64_client'
+    data['acquisition']=dict(url='https://github.com/assaultcube/AC/releases/download/v1.3.0.2/AssaultCube_v1.3.0.2_LockdownEdition_RC1.tar.bz2',
+        bytes=52071427,sha256='9b3118e7929253f0114fa06cad8310faab646d177b4660406011152f34086b55',release_asset='RC1')
+    text='AssaultCube 1.3.0.2\nRenderer: llvmpipe (LLVM 21.1) (Mesa)\nDriver: 4.5 Mesa 25.3\n'
+    data['renderer']=dict(name='llvmpipe (LLVM 21.1) (Mesa)',observed=True,pid=500,start=5000,kind='game_gl_log',
+        text=text,log_sha256=hashlib.sha256(text.encode()).hexdigest())
+    for entry in data['routes']:
+        entry['scene']='local_map_scoreboard';stamp=entry['timing']['input_ns'];grab=entry['grab']
+        events=[dict(pid=500,at_ns=stamp-2000,message='zwp_locked_pointer_v1#12.locked()')]
+        relative=[dict(pid=500,at_ns=stamp-3000,operation='relative',requested=1,result=0,state=1,driver='wayland')]
+        grab.update(events_sha256=hashlib.sha256(json.dumps(events).encode()).hexdigest(),events=events,
+            sdl=relative,driver='wayland')
+    return data
+
+
 class GameContractTests(unittest.TestCase):
+    def test_assaultcube_explicit_gl_and_actual_relative_evidence(self):
+        self.assertTrue(check_games.captured_game_report(assaultcube_record())['passed'])
+        for change in ('url','bytes','hash','executable','uid','gl_missing','gl_digest','gl_identity','driver',
+                       'relative_failure','relative_disabled','unlock','stale_state','no_query','box','overlay'):
+            data=assaultcube_record();row=data['routes'][0]
+            if change=='url':data['acquisition']['url']='https://example.invalid/game'
+            elif change=='bytes':data['acquisition']['bytes']-=1
+            elif change=='hash':data['acquisition']['sha256']='a'*64
+            elif change=='executable':data['process']['executable']='/tmp/game'
+            elif change=='uid':data['process']['uid']=1000
+            elif change=='gl_missing':data['renderer'].pop('text')
+            elif change=='gl_digest':data['renderer']['text']+='different'
+            elif change=='gl_identity':data['renderer']['start']=999
+            elif change=='driver':row['grab']['sdl'][-1]['driver']='x11'
+            elif change=='relative_failure':row['grab']['sdl'][-1]['result']=-1
+            elif change=='relative_disabled':row['grab']['sdl'][-1]['state']=0
+            elif change=='unlock':
+                import hashlib,json
+                row['grab']['events'].append(dict(pid=500,at_ns=row['timing']['input_ns']-500,message='zwp_locked_pointer_v1#12.unlocked()'))
+                row['grab']['events_sha256']=hashlib.sha256(json.dumps(row['grab']['events']).encode()).hexdigest()
+            elif change=='stale_state':row['grab']['sdl'][-1]['at_ns']=row['timing']['input_ns']+1
+            elif change=='no_query':row['source'].pop('query')
+            elif change=='box':row['source']['word_rect']=[0,0,1,1]
+            else:row['overlay']['useful']=False
+            with self.subTest(change=change):self.assertFalse(check_games.captured_game_report(data)['passed'])
     def test_captured_game_rejects_missing_actual_provenance_grab_and_camera_proof(self):
         for value in ({},record(),dict(record(),name='Freedoom Phase 2',relative=True)):
             self.assertFalse(check_games.captured_game_report(value)['passed'])
