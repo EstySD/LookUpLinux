@@ -1,5 +1,9 @@
 """Clean-profile and real-login evidence must fail closed."""
 from copy import deepcopy
+import json
+from pathlib import Path
+import shutil
+import tempfile
 import unittest
 from tools import check_hardening_install as install
 
@@ -16,7 +20,7 @@ def actual_install_fixture():
     root=Path('.planning/phases/08-vm')
     def read(name):return json.loads((root/('08-install-'+name+'.json')).read_text())
     return dict(baseline=read('clean-graphical-baseline'),gates={key:True for key in install.GATES},
-        build=dict(stage_exit=0,makepkg_exit=0,source_sha256=read('SOURCE')['archive_sha256'],package_sha256='a'*64,log_sha256='b'*64),
+        build=dict(stage_exit=0,makepkg_exit=0,source_sha256=read('SOURCE')['archive_sha256'],package_sha256='a'*64,log_sha256='b'*64,binding_verified=True),
         enabled_login=read('login-enabled'),disabled_login=read('login-disabled'),retention_before=read('retention-before-remove'),
         removed_physical=read('removed-physical-automatic'),installed=read('installed-identity'),physical_capture=read('physical-useful'),
         cleanup={key:True for key in ('owner_stopped','fixture_stopped','input_released','session_override_restored',
@@ -24,6 +28,30 @@ def actual_install_fixture():
 
 
 class InstallEvidenceTests(unittest.TestCase):
+    def test_assembler_binds_saved_build_and_negative_test_outcomes(self):
+        source=Path('.planning/phases/08-vm')
+        for change in ('build_exit','package_hash','source_hash','build_log','negative_log','negative_result'):
+            with self.subTest(change=change),tempfile.TemporaryDirectory() as directory:
+                root=Path(directory)/'08-vm';root.mkdir()
+                for path in source.iterdir():
+                    if path.suffix in ('.json','.txt','.jsonl'):shutil.copyfile(path,root/path.name)
+                phase7=root.parent/'07-settings-package';phase7.mkdir()
+                shutil.copyfile(source.parent/'07-settings-package/07-native-report.json',phase7/'07-native-report.json')
+                provenance=root/'08-install-build-provenance.json';data=json.loads(provenance.read_text())
+                if change=='build_exit':data['stage_exit']=1;data['makepkg_exit']=1
+                elif change=='package_hash':data['package_sha256']='invalid'
+                elif change=='source_hash':data['source_sha256']='0'*64
+                elif change=='build_log':(root/'08-install-readme-build.txt').write_text('controlled changed log')
+                elif change=='negative_log':(root/'08-install-negative-origin-tests.txt').write_text('FAILED (failures=1)\n')
+                else:
+                    path=root/'08-install-negative-origin-result.json';record=json.loads(path.read_text());record['exit']=1;path.write_text(json.dumps(record))
+                provenance.write_text(json.dumps(data));install.assemble_reports(root)
+                native=json.loads((root/'08-install-native-report.json').read_text())
+                final=json.loads((root/'08-final-aggregate.json').read_text())
+                if change.startswith('negative'):self.assertFalse(final['criteria']['geometry'])
+                else:self.assertFalse(native['report']['passed'])
+                self.assertFalse(final['passed'])
+
     def test_partial_identity_retention_cleanup_and_wrong_login_role_cannot_pass(self):
         self.assertTrue(install.install_report(actual_install_fixture())['passed'])
         for change in ('files','hashes','cleanup','role','build'):
