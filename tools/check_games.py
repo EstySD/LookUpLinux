@@ -78,6 +78,7 @@ def game_report(data,*,_captured=False):
             and window.get('pid')==process['pid'] and window.get('id') and window.get('rect')==window.get('screen'),'fullscreen')
         rows=data['routes'];_require(isinstance(rows,list) and len(rows)>=2,'routes')
         hashes=set();contexts=set();latencies=[];requests=set();inputs=set();multiline=False
+        control_inputs=set();control_frames=set()
         for index,row in enumerate(rows,1):
             source=row['source'];overlay=row['overlay'];closed=row['dismissal'];play=row['gameplay'];timing=row['timing']
             latency=physical_latency(timing)
@@ -119,8 +120,13 @@ def game_report(data,*,_captured=False):
                     and _hash(grab.get('events_sha256')) and grab.get('lock_event_ns',timing['input_ns']+1)<=grab['at_ns'],'actual_relative_grab')
                 for change in (camera,movement):
                     _require(change.get('physical') is True and change.get('game_active') is True
-                        and change.get('input_ns')>=closed['at_ns'] and _hash(change.get('before_sha256'))
+                        and change.get('game_pid')==process['pid'] and change.get('game_start')==process['start']
+                        and _integer(change.get('input_ns'),1) and change['input_ns']>=closed['at_ns'] and _hash(change.get('before_sha256'))
                         and _hash(change.get('after_sha256')) and change['before_sha256']!=change['after_sha256'],'relative_control')
+                    identity=(change['game_pid'],change['game_start'],change['input_ns'])
+                    frames=(change['before_sha256'],change['after_sha256'])
+                    _require(identity not in control_inputs and frames not in control_frames,'reused_relative_control')
+                    control_inputs.add(identity);control_frames.add(frames)
                 _require(camera.get('kind')=='relative_pointer' and movement.get('kind')=='movement_key','relative_control_kind')
             hashes.add(source['sha256']);contexts.add(source['context']);latencies.append(latency)
         _require(len(hashes)>=2 and (_captured or len(contexts)>=2 and multiline),'changed_scenes')

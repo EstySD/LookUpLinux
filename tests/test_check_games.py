@@ -46,7 +46,7 @@ def captured_record():
         for offset,(key,kind) in enumerate((('camera','relative_pointer'),('movement','movement_key'))):
             entry['gameplay'][key]=dict(physical=True,game_active=True,game_pid=500,game_start=5000,
                 kind=kind,input_ns=entry['gameplay']['input_ns']+offset,
-                before_sha256=str(offset+1)*64,after_sha256=str(offset+2)*64)
+                before_sha256=f"{entry['sequence']*4+offset:x}"*64,after_sha256=f"{entry['sequence']*4+offset+1:x}"*64)
     return data
 
 
@@ -70,7 +70,7 @@ class GameContractTests(unittest.TestCase):
             elif change=='old_grab':entry['grab']['at_ns']-=3_000_000_000
             elif change=='grab_identity':entry['grab']['start']=99
             elif change=='events':entry['grab'].pop('events_sha256')
-            elif change in ('camera','movement'):entry['gameplay'][change]['after_sha256']='1'*64
+            elif change in ('camera','movement'):entry['gameplay'][change]['after_sha256']=entry['gameplay'][change]['before_sha256']
             elif change=='kind':entry['gameplay']['camera']['kind']='absolute_pointer'
             elif change=='checksum':data['acquisition'].pop('checksum_absence_evidence')
             elif change=='hash':data['acquisition']['wad_sha256']='invented'
