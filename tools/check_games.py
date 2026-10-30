@@ -107,6 +107,23 @@ SDL_Renderer *SDL_CreateRenderer(SDL_Window *window, int index, Uint32 flags) {
     }
     errno=saved; return result;
 }
+SDL_GLContext SDL_GL_CreateContext(SDL_Window *window) {
+    SDL_GLContext (*original)(SDL_Window*)=dlsym(RTLD_NEXT,"SDL_GL_CreateContext");
+    SDL_GLContext result=original(window);int saved=errno;
+    const char *path=getenv("LOOKUP_GAME_SDL_LOG");struct timespec stamp;
+    if(result && SDL_GL_GetCurrentContext()==result && SDL_GL_GetCurrentWindow()==window && path) {
+      const unsigned char *(*get_string)(unsigned int)=SDL_GL_GetProcAddress("glGetString");
+      if(get_string && !clock_gettime(CLOCK_MONOTONIC,&stamp)) {
+        const unsigned char *renderer=get_string(0x1F01),*driver=get_string(0x1F02);
+        FILE *output=renderer && driver ? fopen(path,"a") : NULL;if(output) {
+            fprintf(output,"{\"pid\":%d,\"at_ns\":%lld,\"operation\":\"gl_context\",\"window\":%u,\"current_window\":%u,\"window_ptr\":\"%p\",\"context_ptr\":\"%p\",\"current_context_matches\":true,\"renderer\":\"%s\",\"version\":\"%s\",\"driver\":\"%s\"}\n",
+                getpid(),(long long)stamp.tv_sec*1000000000+stamp.tv_nsec,SDL_GetWindowID(window),SDL_GetWindowID(SDL_GL_GetCurrentWindow()),window,result,renderer,driver,SDL_GetCurrentVideoDriver());
+            fclose(output);
+        }
+      }
+    }
+    errno=saved;return result;
+}
 int SDL_SetRelativeMouseMode(SDL_bool enabled) {
     int (*original)(SDL_bool)=dlsym(RTLD_NEXT,"SDL_SetRelativeMouseMode");
     int result=original(enabled);int saved=errno;
@@ -127,8 +144,8 @@ void SDL_SetWindowGrab(SDL_Window *window,SDL_bool enabled) {
     const char *path=getenv("LOOKUP_GAME_SDL_LOG");struct timespec stamp;
     if(path && !clock_gettime(CLOCK_MONOTONIC,&stamp)) {
         FILE *output=fopen(path,"a");if(output) {
-            fprintf(output,"{\"pid\":%d,\"at_ns\":%lld,\"operation\":\"grab\",\"requested\":%d,\"state\":%d,\"window\":%u,\"driver\":\"%s\"}\n",
-                getpid(),(long long)stamp.tv_sec*1000000000+stamp.tv_nsec,enabled,SDL_GetWindowGrab(window),SDL_GetWindowID(window),SDL_GetCurrentVideoDriver());
+            fprintf(output,"{\"pid\":%d,\"at_ns\":%lld,\"operation\":\"grab\",\"requested\":%d,\"state\":%d,\"window\":%u,\"window_ptr\":\"%p\",\"driver\":\"%s\"}\n",
+                getpid(),(long long)stamp.tv_sec*1000000000+stamp.tv_nsec,enabled,SDL_GetWindowGrab(window),SDL_GetWindowID(window),window,SDL_GetCurrentVideoDriver());
             fclose(output);
         }
     }
@@ -200,10 +217,22 @@ def game_report(data,*,_captured=False):
                 and acquisition.get('bytes')==52071427 and acquisition.get('sha256')=='9b3118e7929253f0114fa06cad8310faab646d177b4660406011152f34086b55'
                 and acquisition.get('release_asset')=='RC1','assaultcube_provenance')
             executable='/home/lookup07/.local/state/lookup-games-08/assaultcube/package/bin_unix/linux_64_client'
-            text=renderer.get('text')
-            _require(isinstance(text,str) and 'Renderer: '+renderer.get('name','') in text and '\nDriver: ' in text
-                and renderer.get('kind')=='game_gl_log' and renderer.get('pid')==process.get('pid') and renderer.get('start')==process.get('start')
-                and hashlib.sha256(text.encode()).hexdigest()==renderer.get('log_sha256'),'actual_game_gl_log')
+            _require(renderer.get('pid')==process.get('pid') and renderer.get('start')==process.get('start'),'gl_process_identity')
+            import json,re
+            gl=renderer['record'];canonical=json.dumps(gl,sort_keys=True,separators=(',',':')).encode()
+            _require(renderer.get('kind')=='actual_sdl_gl_context' and gl.get('operation')=='gl_context'
+                and gl.get('pid')==process['pid'] and gl.get('driver')=='wayland'
+                and gl.get('renderer')==renderer.get('name') and isinstance(gl.get('version'),str) and gl['version']
+                and _integer(process.get('clock_ticks'),1) and _integer(gl.get('at_ns'),1)
+                and gl['at_ns']>=process['start']*1_000_000_000//process['clock_ticks']
+                and all(gl['at_ns']<row['timing']['input_ns'] for row in data['routes'])
+                and hashlib.sha256(canonical).hexdigest()==renderer.get('log_sha256'),'actual_gl_context')
+            _require(_integer(gl.get('window'),1) and gl.get('current_window')==gl['window']==window.get('sdl_window')
+                and gl.get('current_context_matches') is True and all(isinstance(gl.get(key),str) and
+                    re.fullmatch(r'0x[0-9a-fA-F]+',gl[key]) and int(gl[key],16)>0 for key in ('window_ptr','context_ptr')),'gl_current_window_context')
+            for row in data['routes']:
+                grabs=sorted((item for item in row['grab']['sdl'] if item.get('operation')=='grab'),key=lambda item:item['at_ns'])
+                _require(grabs and grabs[-1].get('window')==gl['window'] and grabs[-1].get('window_ptr')==gl['window_ptr'],'gl_grab_window')
         elif _captured:
             acquisition=data['acquisition']
             _require(data.get('source_verified') is True and data.get('engine')=='Chocolate Doom' and data.get('engine_version')=='3.1.1'
@@ -333,6 +362,7 @@ def guest_command(encoded):
         owned_argument=str(root/('userdata' if kind=='wesnoth' else 'main.cfg'))
         if kind=='assaultcube':owned_argument='--home='+str(root/'profile')
         _require(os.fsencode(owned_argument) in path.joinpath('cmdline').read_bytes().split(b'\0'),'unowned_game_profile')
+        value['clock_ticks']=os.sysconf('SC_CLK_TCK')
         return value
     def windows():
         value=process();ids=platform.run(['kdotool','search','--pid',str(value['pid'])],env).decode().split();result=[]

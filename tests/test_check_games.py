@@ -56,13 +56,16 @@ def assaultcube_record():
     data['process']['executable']='/home/lookup07/.local/state/lookup-games-08/assaultcube/package/bin_unix/linux_64_client'
     data['acquisition']=dict(url='https://github.com/assaultcube/AC/releases/download/v1.3.0.2/AssaultCube_v1.3.0.2_LockdownEdition_RC1.tar.bz2',
         bytes=52071427,sha256='9b3118e7929253f0114fa06cad8310faab646d177b4660406011152f34086b55',release_asset='RC1')
-    text='AssaultCube 1.3.0.2\nRenderer: llvmpipe (LLVM 21.1) (Mesa)\nDriver: 4.5 Mesa 25.3\n'
-    data['renderer']=dict(name='llvmpipe (LLVM 21.1) (Mesa)',observed=True,pid=500,start=5000,kind='game_gl_log',
-        text=text,log_sha256=hashlib.sha256(text.encode()).hexdigest())
+    data['process'].update(start=1,clock_ticks=100);data['window']['sdl_window']=7
+    gl=dict(operation='gl_context',pid=500,at_ns=10_000_001,driver='wayland',renderer='llvmpipe',version='4.6 Mesa',
+        window=7,current_window=7,window_ptr='0xabc',context_ptr='0xdef',current_context_matches=True)
+    data['renderer']=dict(name='llvmpipe',observed=True,pid=500,start=1,kind='actual_sdl_gl_context',record=gl,
+        log_sha256=hashlib.sha256(json.dumps(gl,sort_keys=True,separators=(',',':')).encode()).hexdigest())
     for entry in data['routes']:
         entry['scene']='local_map_scoreboard';stamp=entry['timing']['input_ns'];grab=entry['grab']
         events=[dict(pid=500,at_ns=stamp-2000,message='zwp_locked_pointer_v1#12.locked()')]
         relative=[dict(pid=500,at_ns=stamp-3000,operation='relative',requested=1,result=0,state=1,driver='wayland')]
+        relative.insert(0,dict(pid=500,at_ns=stamp-4000,operation='grab',window=7,window_ptr='0xabc',driver='wayland'))
         grab.update(events_sha256=hashlib.sha256(json.dumps(events).encode()).hexdigest(),events=events,
             sdl=relative,driver='wayland')
         for kind in ('camera','movement'):
@@ -70,10 +73,30 @@ def assaultcube_record():
                 before_sha256='1'*64,after_sha256='2'*64)
         camera=entry['gameplay']['camera'];stamp=camera['input_ns']
         camera.update(input_events=[dict(type=2,code=0,value=60,input_ns=stamp),dict(type=2,code=0,value=60,input_ns=stamp+100)],capture_end_ns=stamp+200)
+        entry['game_start']=1;entry['grab']['start']=1;entry['gameplay']['game_start']=1
+        for kind in ('camera','movement'):entry['gameplay'][kind]['game_start']=1
     return data
 
 
 class GameContractTests(unittest.TestCase):
+    def test_actual_gl_context_is_unbuffered_source_bound_before_physical_input(self):
+        import hashlib,json
+        data=assaultcube_record()
+        self.assertTrue(check_games.captured_game_report(data)['passed'])
+        for change in ('pid','late','stale','digest','driver','window','current','context','grab_window','pointer'):
+            value=deepcopy(data);gl=value['renderer']['record']
+            if change=='pid':gl['pid']=999
+            elif change=='late':gl['at_ns']=value['routes'][0]['timing']['input_ns']+1
+            elif change=='stale':gl['at_ns']=1
+            elif change=='driver':gl['driver']='x11'
+            elif change=='window':gl['window']=999
+            elif change=='current':gl['current_window']=888
+            elif change=='context':gl['current_context_matches']=False
+            elif change=='grab_window':value['routes'][0]['grab']['sdl'][0]['window']=888
+            elif change=='pointer':value['routes'][0]['grab']['sdl'][0]['window_ptr']='0x999'
+            else:value['renderer']['log_sha256']='f'*64
+            if change!='digest':value['renderer']['log_sha256']=hashlib.sha256(json.dumps(gl,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+            with self.subTest(change=change):self.assertFalse(check_games.captured_game_report(value)['passed'])
     def test_cleanup_release_and_guest_failure_cannot_skip_shutdown_or_off_restore(self):
         from unittest.mock import patch
         clone='cf207909-94b5-4b49-8bd8-ccff973c1dc8';calls=[]
@@ -104,8 +127,8 @@ class GameContractTests(unittest.TestCase):
             elif change=='hash':data['acquisition']['sha256']='a'*64
             elif change=='executable':data['process']['executable']='/tmp/game'
             elif change=='uid':data['process']['uid']=1000
-            elif change=='gl_missing':data['renderer'].pop('text')
-            elif change=='gl_digest':data['renderer']['text']+='different'
+            elif change=='gl_missing':data['renderer'].pop('record')
+            elif change=='gl_digest':data['renderer']['record']['renderer']='different'
             elif change=='gl_identity':data['renderer']['start']=999
             elif change=='driver':row['grab']['sdl'][-1]['driver']='x11'
             elif change=='relative_failure':row['grab']['sdl'][-1]['result']=-1
