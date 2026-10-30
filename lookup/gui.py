@@ -7,6 +7,7 @@ import subprocess
 import sys
 import threading
 import time
+from dataclasses import replace
 
 from . import app as core, platform, timing
 from .store import MigrationError,SchemaTooNewError
@@ -18,6 +19,7 @@ DESKTOP='org.lookup.Linux.desktop'
 _components=None
 
 REASONS={
+    'placement_failed':('Не удалось разместить окно перевода','Повторите поиск.'),
     'ocr_timeout':('Не удалось распознать текст вовремя','Наведите курсор на слово или выделите текст и повторите поиск.'),
     'ocr_failed':('Не удалось распознать текст','Наведите курсор на слово или выделите текст и повторите поиск.'),
     'no_network':('Нет сети','Проверьте подключение и повторите поиск. Офлайн-словари доступны.'),
@@ -364,6 +366,7 @@ def components():
             self._armed=False
             self.timer.stop()
             self.hide()
+            self.setUpdatesEnabled(True)
         def dismiss(self):
             if self.isVisible():
                 self.hide_for_capture()
@@ -419,6 +422,9 @@ def components():
             self._popup_timeout=20
             self._focus_thread=None
             self._focus_pending=None
+            self._waiting_ready=None
+            self._waiting_context=None
+            self._paint_revision=None
             self.popup_uuid=None
             self.presentations=0
             self.bridge=Bridge(self)
@@ -511,6 +517,7 @@ def components():
             self.settings_window.activateWindow()
         def _clear_displayed(self):
             self._displayed=None
+            self._waiting_ready=self._waiting_context=None
             self.popup.card_button.setEnabled(False)
             self.popup.card_button.hide()
         def _bind_displayed(self,event):
@@ -587,6 +594,9 @@ def components():
                 return
             self._identity=event.id
             if event.stage=='context':
+                if self._waiting_ready is not None:
+                    self._waiting_context=event
+                    return
                 if self.popup.isVisible():
                     self.popup.update_context(event.result)
                     self._bind_displayed(event)
@@ -598,6 +608,17 @@ def components():
                 self._clear_displayed()
                 self.popup.loading()
             elif event.stage=='ready':
+                if self._focus:
+                    handle=self.popup.windowHandle()
+                    if handle is None or not handle.isExposed():
+                        self._waiting_ready=(event,time.monotonic()+1)
+                        if not self.popup.isVisible():
+                            self.popup.loading()
+                            self.present(replace(event,stage='frozen',result=None))
+                        QTimer.singleShot(10,self.ready_when_exposed)
+                        return
+                    # Retain the loading buffer until KWin has moved the resized card.
+                    self.popup.setUpdatesEnabled(False)
                 if timing.useful(event.result):
                     self._time('useful_ready',event.id,engine_ms=event.elapsed_ms,**event.result.timings)
                 self.popup.result(event.result,event.context,event.save_error)
@@ -608,8 +629,25 @@ def components():
                 self._clear_displayed()
                 self.popup.error(event.error)
             self.present(event)
+        def ready_when_exposed(self):
+            if self._waiting_ready is None:return
+            event,deadline=self._waiting_ready
+            if self._stopping or not self.engine.current(event.id) or not self.popup.isVisible():
+                self._waiting_ready=self._waiting_context=None
+                return
+            if not self.popup.windowHandle().isExposed() and time.monotonic()<deadline:
+                QTimer.singleShot(10,self.ready_when_exposed)
+                return
+            context=self._waiting_context
+            self._waiting_ready=self._waiting_context=None
+            if not self.popup.windowHandle().isExposed():
+                self.receive(replace(event,stage='error',result=None,error='placement_failed'))
+                return
+            self.receive(event)
+            if context is not None:self.receive(context)
         def present(self,event):
             self.presentations+=1
+            if not self.popup.updatesEnabled():self._paint_revision=self.presentations
             point=event.point
             screen=QApplication.screenAt(QPoint(round(point[0]),round(point[1]))) if point else None
             screen=screen or QApplication.primaryScreen()
@@ -656,6 +694,12 @@ def components():
             if not self._stopping and revision==self.presentations and self.engine.current(identity) and self.popup.isVisible():
                 self.popup_uuid=uuid
                 self.focus_error=error
+                if self._paint_revision==revision:
+                    if error:
+                        self.popup.error('placement_failed')
+                        self._clear_displayed()
+                    self._paint_revision=None
+                    self.popup.setUpdatesEnabled(True)
                 QTimer.singleShot(300,lambda:self.arm(identity,revision))
             if self._focus_pending is not None:
                 QTimer.singleShot(25,self.start_focus)

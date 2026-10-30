@@ -502,6 +502,79 @@ class GuiTests(unittest.TestCase):
         self.assertLessEqual(rect.x()+rect.width(),1000)
         self.assertLessEqual(rect.y()+rect.height(),640)
 
+    def test_ready_paint_waits_for_matching_compositor_move(self):
+        self.owner.receive(self.event('frozen'))
+        QTest.qWait(20)
+        self.owner._focus=True
+        value=self.result()
+        value.articles=(replace(value.articles[0],text='long article '*1000),)
+        event=replace(self.event(result=value),point=(684,376),available=(0,0,1280,738))
+        with mock.patch.object(self.owner,'start_focus'):
+            self.owner.receive(event)
+            revision=self.owner.presentations
+            self.assertFalse(self.owner.popup.updatesEnabled())
+            self.assertEqual(self.owner._focus_pending[2][:2],(696,0))
+            self.owner.focus_done((self.identity,revision-1,'old',None))
+            self.assertFalse(self.owner.popup.updatesEnabled())
+            self.owner.focus_done((self.identity,revision,'owned',None))
+            self.assertTrue(self.owner.popup.updatesEnabled())
+            self.assertIn('word',self.texts())
+
+    def test_failed_move_reveals_error_and_new_trigger_restores_paint(self):
+        self.owner.receive(self.event('frozen'))
+        QTest.qWait(20)
+        self.owner._focus=True
+        with mock.patch.object(self.owner,'start_focus'):
+            self.owner.receive(self.event(result=self.result()))
+            self.owner.focus_done((self.identity,self.owner.presentations,None,'focus_failed'))
+            self.assertTrue(self.owner.popup.updatesEnabled())
+            self.assertIn('Не удалось разместить',self.texts())
+            self.assertIsNone(self.owner._displayed)
+            self.owner.receive(self.event(result=self.result()))
+            self.assertFalse(self.owner.popup.updatesEnabled())
+            self.owner.Trigger('')
+            self.assertTrue(self.owner.popup.updatesEnabled())
+            self.assertFalse(self.owner.popup.isVisible())
+
+    def test_unexposed_loading_defers_ready_and_keeps_latest_context(self):
+        self.owner.receive(self.event('frozen'))
+        self.owner._focus=True
+        handle=self.owner.popup.windowHandle()
+        with mock.patch.object(self.owner,'start_focus'), \
+             mock.patch.object(type(handle),'isExposed',return_value=False):
+            self.owner.receive(self.event(result=self.result()))
+            self.assertIsNotNone(self.owner._waiting_ready)
+            context=self.event('context',result=replace(self.result(),context_meaning='public meaning'))
+            self.owner.receive(context)
+            self.assertIs(self.owner._waiting_context,context)
+        QTest.qWait(20)
+        self.owner.ready_when_exposed()
+        self.assertIsNone(self.owner._waiting_ready)
+        self.assertEqual(self.owner.popup.meaning_value.text(),'public meaning')
+        self.owner.popup.dismiss()
+        self.owner.focus_done((self.identity,self.owner.presentations,'old',None))
+        self.assertFalse(self.owner.popup.isVisible())
+        self.assertTrue(self.owner.popup.updatesEnabled())
+
+    def test_unexposed_timeout_is_bounded_and_cancelled_ready_cannot_reopen(self):
+        self.owner.receive(self.event('frozen'))
+        self.owner._focus=True
+        event=self.event(result=self.result())
+        handle=self.owner.popup.windowHandle()
+        with mock.patch.object(self.owner,'start_focus'), \
+             mock.patch.object(type(handle),'isExposed',return_value=False):
+            self.owner.receive(event)
+            self.owner._waiting_ready=(event,0)
+            self.owner.ready_when_exposed()
+            self.assertIsNone(self.owner._waiting_ready)
+            self.assertIn('Не удалось разместить',self.texts())
+            self.assertTrue(self.owner.popup.updatesEnabled())
+            self.owner.receive(event)
+            self.owner.popup.dismiss()
+            self.owner.ready_when_exposed()
+            self.assertIsNone(self.owner._waiting_ready)
+            self.assertFalse(self.owner.popup.isVisible())
+
 
 if __name__=='__main__':
     unittest.main()
