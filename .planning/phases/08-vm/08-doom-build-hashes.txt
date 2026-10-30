@@ -1,0 +1,6 @@
+034afdd8a22a35783b6ffbf2004732d9654b1ca21843ebc563566335653c5dee  /home/arch/lookup-games-08-doom/chocolate-3.1.1.tar.gz
+3f9b264f3e3ce503b4fb7f6bdcb1f419d93c7b546f4df3e874dd878db9688f59  /home/arch/lookup-games-08-doom/freedoom-0.13.0.zip
+a8772e088847032510d97ba2312406a6998f21cbab44d4ff10696faa9c0ecd4b  /home/arch/lookup-games-08-doom/assets/freedoom-0.13.0/freedoom2.wad
+6c3a102945980e41f59015e615f0e2c1adb23436758d230224094cc0a6f02c72  /home/arch/lookup-games-08-doom/build/src/chocolate-doom
+cmake version 4.4.4
+cc (GCC) 16.2.1 20260810

@@ -1,0 +1,1 @@
+{"wad_sha256": "a8772e088847032510d97ba2312406a6998f21cbab44d4ff10696faa9c0ecd4b", "map": "MAP01", "player_starts": [[-192, -192, 0, 1, 7]], "exit_lines": [{"vertices": [[704, -1040], [704, -1008]], "textures": ["EXITSGN2", "-", "-"], "special": 0}]}

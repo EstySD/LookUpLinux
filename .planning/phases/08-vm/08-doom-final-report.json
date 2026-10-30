@@ -1,0 +1,301 @@
+{
+  "name": "Freedoom Phase 2",
+  "version": "0.13.0",
+  "engine": "Chocolate Doom",
+  "engine_version": "3.1.1",
+  "source_verified": true,
+  "acquisition": {
+    "source_url": "https://api.github.com/repos/chocolate-doom/chocolate-doom/tarball/chocolate-doom-3.1.1",
+    "source_sha256": "034afdd8a22a35783b6ffbf2004732d9654b1ca21843ebc563566335653c5dee",
+    "assets_url": "https://github.com/freedoom/freedoom/releases/download/v0.13.0/freedoom-0.13.0.zip",
+    "assets_sha256": "3f9b264f3e3ce503b4fb7f6bdcb1f419d93c7b546f4df3e874dd878db9688f59",
+    "wad_sha256": "a8772e088847032510d97ba2312406a6998f21cbab44d4ff10696faa9c0ecd4b",
+    "binary_sha256": "6c3a102945980e41f59015e615f0e2c1adb23436758d230224094cc0a6f02c72",
+    "checksum_status": "not_published",
+    "checksum_absence_evidence": "08-doom-freedoom-release.json official asset list; release CHECKSUM URL404; no CHECKSUM in zip",
+    "rejected_checksum_url": "https://github.com/freedoom/freedoom/releases/download/v0.13.0/CHECKSUM"
+  },
+  "process": {
+    "pid": 2713,
+    "start": 58616,
+    "uid": 1001,
+    "executable": "/home/lookup07/.local/state/lookup-games-08/doom/chocolate-doom",
+    "argv": [
+      "/home/lookup07/.local/state/lookup-games-08/doom/chocolate-doom",
+      "-iwad",
+      "/home/lookup07/.local/state/lookup-games-08/doom/freedoom2.wad",
+      "-config",
+      "/home/lookup07/.local/state/lookup-games-08/doom/main.cfg",
+      "-extraconfig",
+      "/home/lookup07/.local/state/lookup-games-08/doom/extra.cfg",
+      "-savedir",
+      "/home/lookup07/.local/state/lookup-games-08/doom/saves",
+      "-warp",
+      "1",
+      "-nomonsters",
+      "-nosound",
+      "-fullscreen"
+    ],
+    "renderer_requested": "software",
+    "unit": "lookup-doom-08-586153633540",
+    "boot_id": "2b1fa42d-1d79-43d3-8034-66542549ffe9",
+    "control_group": "/user.slice/user-1001.slice/user@1001.service/app.slice/lookup-doom-08-586153633540.service"
+  },
+  "renderer": {
+    "name": "software",
+    "observed": true,
+    "log_sha256": "dca58c48684cb13bf41af81945b680468a48760099d04c0bfa236a303c84c385"
+  },
+  "mode": "fullscreen",
+  "window": {
+    "id": "{5c0bf3f7-4615-4aab-8bec-8423ce968832}",
+    "pid": 2713,
+    "fullscreen": true,
+    "observed": true,
+    "rect": [
+      0,
+      0,
+      1280,
+      800
+    ],
+    "screen": [
+      0,
+      0,
+      1280,
+      800
+    ]
+  },
+  "routes": [],
+  "attempts": [
+    {
+      "complete": false,
+      "lookup_complete": false,
+      "observer": {
+        "pid": 2286,
+        "token": "331190448624"
+      },
+      "target": null,
+      "point": [
+        670,
+        440
+      ],
+      "lookup_observation": {
+        "state": "failed",
+        "token": "331190448624",
+        "device": "/dev/input/event2",
+        "game_window": "{32289c88-c356-4f7b-9702-16c870d6bca2}",
+        "game_info": {
+          "activities": [
+            "d3ff151d-fc21-4f02-ab71-65e8ac09a4a5"
+          ],
+          "caption": "Freedoom: Phase 2 - Chocolate Doom 3.1.1",
+          "clientMachine": "",
+          "decorationPolicy": 1,
+          "desktopFile": "chocolate-doom",
+          "desktops": [
+            "3870fa05-d667-4cca-9ac9-36d57b9d5c00"
+          ],
+          "excludeFromCapture": false,
+          "fullscreen": true,
+          "hasTransientParent": false,
+          "height": 800.0,
+          "keepAbove": false,
+          "keepBelow": false,
+          "layer": 5,
+          "localhost": true,
+          "maximizeHorizontal": 0,
+          "maximizeVertical": 0,
+          "minimized": false,
+          "noBorder": false,
+          "pid": 2002,
+          "resourceClass": "chocolate-doom",
+          "resourceName": "chocolate-doom",
+          "role": "",
+          "skipPager": false,
+          "skipSwitcher": false,
+          "skipTaskbar": false,
+          "type": 0,
+          "uuid": "{32289c88-c356-4f7b-9702-16c870d6bca2}",
+          "width": 1280.0,
+          "x": 0.0,
+          "y": 0.0
+        },
+        "baseline_sha256": "24e3ec56100dc07c79e16737eb6a932038cecac726aa8a08b554dcba20e879eb",
+        "input": {
+          "input_ns": 331966720000,
+          "receipt_ns": 331977398546,
+          "released": true
+        },
+        "trigger": {
+          "mono_ns": 332155618621,
+          "pid": 2244,
+          "request": 1,
+          "run": 3920674803428834,
+          "stage": 1
+        },
+        "source_observation": {
+          "pid": 2244,
+          "run": 3920674803428834,
+          "request": 1,
+          "mode": "ocr",
+          "cursor": [
+            670,
+            440
+          ],
+          "monitor": {
+            "name": "Virtual-1",
+            "x": 0,
+            "y": 0,
+            "width": 1280.0,
+            "height": 800.0,
+            "scale": 1
+          },
+          "capture_start_ns": 332232099090,
+          "capture_end_ns": 332447265760,
+          "unchanged_objects": true,
+          "backend": "screenshot2",
+          "sha256": "c71c08ddd458a4cf318e147fa8063b167d666124e14640613dc76ec836bc6990",
+          "image_path": "/home/lookup07/.local/state/lookup-games-08/doom/lookup/observations/source-2244-3920674803428834-1.png"
+        },
+        "error": "production_stage6",
+        "production_event": {
+          "elapsed_ms": 830.012549,
+          "engine_ms": 828.3297609999636,
+          "mono_ns": 332985631170,
+          "pid": 2244,
+          "request": 1,
+          "run": 3920674803428834,
+          "stage": 6
+        }
+      }
+    },
+    {
+      "complete": false,
+      "lookup_complete": false,
+      "observer": {
+        "pid": 2789,
+        "token": "603029231065"
+      },
+      "target": null,
+      "point": [
+        312,
+        778
+      ],
+      "lookup_observation": {
+        "state": "failed",
+        "token": "603029231065",
+        "device": "/dev/input/event2",
+        "game_window": "{5c0bf3f7-4615-4aab-8bec-8423ce968832}",
+        "game_info": {
+          "activities": [
+            "d3ff151d-fc21-4f02-ab71-65e8ac09a4a5"
+          ],
+          "caption": "Freedoom: Phase 2 - Chocolate Doom 3.1.1",
+          "clientMachine": "",
+          "decorationPolicy": 1,
+          "desktopFile": "chocolate-doom",
+          "desktops": [
+            "3870fa05-d667-4cca-9ac9-36d57b9d5c00"
+          ],
+          "excludeFromCapture": false,
+          "fullscreen": true,
+          "hasTransientParent": false,
+          "height": 800.0,
+          "keepAbove": false,
+          "keepBelow": false,
+          "layer": 5,
+          "localhost": true,
+          "maximizeHorizontal": 0,
+          "maximizeVertical": 0,
+          "minimized": false,
+          "noBorder": false,
+          "pid": 2713,
+          "resourceClass": "chocolate-doom",
+          "resourceName": "chocolate-doom",
+          "role": "",
+          "skipPager": false,
+          "skipSwitcher": false,
+          "skipTaskbar": false,
+          "type": 0,
+          "uuid": "{5c0bf3f7-4615-4aab-8bec-8423ce968832}",
+          "width": 1280.0,
+          "x": 0.0,
+          "y": 0.0
+        },
+        "baseline_sha256": "6dd1b2303ffe680c1a0be3e383099abb10046ffe74d3f5355cc1e2cb944c7e37",
+        "input": {
+          "input_ns": 603828108000,
+          "receipt_ns": 603830876186,
+          "released": true
+        },
+        "trigger": {
+          "mono_ns": 603991058906,
+          "pid": 2244,
+          "request": 3,
+          "run": 3920674803428834,
+          "stage": 1
+        },
+        "source_observation": {
+          "pid": 2244,
+          "run": 3920674803428834,
+          "request": 3,
+          "mode": "ocr",
+          "cursor": [
+            312,
+            778
+          ],
+          "monitor": {
+            "name": "Virtual-1",
+            "x": 0,
+            "y": 0,
+            "width": 1280.0,
+            "height": 800.0,
+            "scale": 1
+          },
+          "capture_start_ns": 604066532442,
+          "capture_end_ns": 604277092522,
+          "unchanged_objects": true,
+          "backend": "screenshot2",
+          "sha256": "0cfd85010bf84e34045f93121c79f3278666c3f89573022fb413ab74c8db17a0",
+          "image_path": "/home/lookup07/.local/state/lookup-games-08/doom/lookup/observations/source-2244-3920674803428834-3.png"
+        },
+        "error": "production_stage6",
+        "production_event": {
+          "elapsed_ms": 591.641576,
+          "engine_ms": 591.4467900000773,
+          "mono_ns": 604582700482,
+          "pid": 2244,
+          "request": 3,
+          "run": 3920674803428834,
+          "stage": 6
+        }
+      }
+    }
+  ],
+  "gates": {
+    "official_source": true,
+    "actual_fullscreen": true,
+    "actual_renderer": true,
+    "actual_relative_grab": true,
+    "physical_requests": true,
+    "fresh_capture": true,
+    "real_selected_word": false,
+    "useful_overlay": false,
+    "return_after_useful": false,
+    "repeated_useful_routes": false
+  },
+  "agent_acceptance": false,
+  "human_acceptance": false,
+  "limits": [
+    "Mandatory captured useful game route failed; GAME-01 stays open.",
+    "Real decorative game font not selected by unchanged production OCR.",
+    "Noclip encountered vanilla visplane limit; regular corridor trial did not reach EXIT.",
+    "Borderless and exclusive scanout unverified.",
+    "Clone3Doff; historical phase07 original-disk exception unchanged."
+  ],
+  "report": {
+    "passed": false,
+    "game01_complete": false,
+    "reason": "routes"
+  }
+}

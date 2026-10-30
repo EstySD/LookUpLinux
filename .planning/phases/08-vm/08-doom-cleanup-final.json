@@ -1,0 +1,25 @@
+{
+  "cf207909-94b5-4b49-8bd8-ccff973c1dc8": {
+    "VMState": "\"poweroff\"",
+    "accelerate3d": "\"on\"",
+    "clipboard": "\"bidirectional\""
+  },
+  "abc73254-ddf7-4f1f-9c66-7c2fcc5254d7": {
+    "VMState": "\"poweroff\"",
+    "accelerate3d": "\"on\"",
+    "clipboard": "\"bidirectional\""
+  },
+  "game_stopped": true,
+  "lookup_tray_exited": true,
+  "one_shot_observers_finished": true,
+  "keys_released": true,
+  "primary_absent_unchanged": true,
+  "clipboard_written": false,
+  "klipper_history_cleared": false,
+  "prior_clipboard_restored_after_off": true,
+  "prior_3d_restored_after_off": true,
+  "test_3d": false,
+  "default_arch_empty_config_directory_removed": true,
+  "owned_profiles_retained": true,
+  "original_action": "read-only VM state observation only; historical phase07 exception unchanged"
+}
