@@ -36,7 +36,7 @@ completed: 2026-10-30
 **Actual fullscreen Freedoom ran with verified relative pointer lock, but unchanged production OCR could not select the targeted game words; mandatory useful captured-game acceptance remains failed.**
 
 Implementation: `tools/check_games.py` and `tests/test_check_games.py`.
-Task commits: d05177a (RED captured-proof rejection), fc4c277 (GREEN native observer and strict captured contract).
+Task commits: d05177a (RED captured-proof rejection), fc4c277 (GREEN native observer and strict captured contract), fad487c (RED independent control identities), f9a6f55 (GREEN distinct controls bound to the actual game).
 
 ## Validation Results
 
@@ -53,7 +53,7 @@ The exact unchanged production preprocessing/PSM diagnostic is retained for both
 
 Actual Wayland journal events show `lock_pointer`, `locked`, focus-related unlock/destroy and subsequent locking. Physical desktop-toggle/preposition/refocus preserved the observed cursor coordinate under lock. `08-doom-runtime-evidence.json` identifies the actual process and renderer; camera and movement PNGs show genuine subsequent physical gameplay changes. These observations prove relative control exists, **not** that it returned after a successful useful lookup.
 
-Fresh focused verification: **82 tests passed**. Host discovery: **742 tests passed, 8 host platform/opt-in skips, 30.291s, Python exit0**. Target with `LOOKUP_TEST_OCR=1` and real system Mueller: **742 tests passed, zero skips, 41.119s, Python exit0**. Raw logs are `08-doom-host-tests.txt` and `08-doom-target-tests.txt`. The target retains the previously diagnosed forced-deadline multiprocessing SemLock teardown traceback; positive assertions and the actual process exit passed. No historical suite was promoted as this unit's result.
+Fresh focused verification after the reviewer correction: **83 tests passed**. Before that pure oracle correction, host discovery: **742 tests passed, 8 host platform/opt-in skips, 30.291s, Python exit0**; target with `LOOKUP_TEST_OCR=1` and real system Mueller: **742 tests passed, zero skips, 41.119s, Python exit0**. Raw logs are `08-doom-host-tests.txt` and `08-doom-target-tests.txt`. The target retains the previously diagnosed forced-deadline multiprocessing SemLock teardown traceback; positive assertions and the actual process exit passed. Production/native data did not change for the subsequent oracle correction, so focused verification covered it without another VM run.
 
 ## Acquisition and Actual Environment
 
@@ -67,6 +67,7 @@ The game was observed fullscreen at1280×800 in the owned clone with3D disabled;
 
 - **[Rule 3 - Environment]** No Arch package was assumed. Legitimate source was built locally as planned. The nonexistent CHECKSUM was replaced by honest published-asset inspection and byte-hash evidence, consistent with verifying checksums where supplied.
 - **[Rule 1 - Harness]** The captured oracle extends existing source/input correlation with recent actual protocol-lock evidence and separate physical relative-camera and movement observations. Tests reject missing grab, stale grab, changed process identity, absent event digest, false camera/movement changes, absolute-pointer substitution and missing provenance evidence.
+- **[Rule 1 - Reviewer correction]** Camera and movement subproofs initially accepted unrelated process identities or the same physical/frame evidence for both actions. RED reproduced four false-pass cases. The final oracle requires the exact game PID/start and globally distinct physical timestamps and before/after frame pairs. This correction leaves the recorded native report false; no accepted route was invalidated or relabeled.
 - **Mandatory verification gap:** Two useful repeated captured-game lookups and return from their overlays were not achieved. GAME-01 remains open. Another ungrabbed/menu-only game was not substituted. A subsequent focused gap plan must supply actual useful captured-game proof; this summary does not waive it.
 
 ## Cleanup
@@ -77,7 +78,7 @@ Guest shutdown completed and both clone and original are verified powered off. O
 
 ## TDD Gate Compliance
 
-RED d05177a precedes GREEN fc4c277. Twelve game contract tests now include positive structural proof plus adversarial captured-route rejection. No fabricated native success or production stub was introduced.
+RED d05177a precedes GREEN fc4c277; reviewer RED fad487c precedes GREEN f9a6f55. Thirteen game contract tests now include positive structural proof plus adversarial captured-route rejection. No fabricated native success or production stub was introduced.
 
 ## Self-Check: PASSED
 
