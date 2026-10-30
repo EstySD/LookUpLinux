@@ -39,7 +39,8 @@ def login_evidence(data):
             and data['uid']==UID and data['observed_until_ns']-data['login_ns']>=10_000_000_000):return False
         if data['before']['owner'] is not False or data['before']['sessions'][0]['Id']!=data['session_before']:return False
         samples=data['samples'];owners=data['owners'];identities={};last=data['login_ns']
-        if len(samples)<2:return False
+        if len(samples)<2 or samples[-1]['at_ns']-samples[0]['at_ns']<10_000_000_000:return False
+        owner_seen=False
         for sample in samples:
             if not (type(sample['at_ns']) is int and last<sample['at_ns']<=data['observed_until_ns'] and
                 len(sample['sessions'])==1 and sample['sessions'][0]['Id']==data['session_after'] and
@@ -50,7 +51,8 @@ def login_evidence(data):
                 if not(owner['uid']==UID and data['login_ns']<=owner['start_ns']<=sample['at_ns'] and
                     owner['pid']>0 and '/usr/bin/lookup' in owner['argv'] and '--autostart' in owner['argv']):return False
                 identities[(owner['pid'],owner['start_ns'])]=owner
-            elif sample['owner'] is not False:return False
+                owner_seen=True
+            elif sample['owner'] is not False or owner_seen:return False
         if last!=data['observed_until_ns'] or owners!=list(identities.values()):return False
         return (data['enabled'] is False and not identities or data['enabled'] is True and len(identities)==1)
     except (KeyError,TypeError,AttributeError,IndexError):return False
@@ -105,6 +107,22 @@ def vm_command(action,**values):
     import base64
     vm_guard();payload=base64.b64encode(json.dumps(dict(action=action,**values)).encode()).decode()
     return json.loads(ssh('sudo -n -H -u '+USER+' python '+(HOME/'check_hardening_install.py').as_posix()+' --guest '+payload,45))
+
+
+def compare_package_inputs():
+    """Distinguish compressed-archive differences from changed production bytes."""
+    import shlex
+    vm_guard()
+    program="""import tarfile,json,hashlib
+paths=['/home/arch/lookup-package-08-final-timer/lookup-source.tar.gz','/home/arch/lookup-readme-08-build/lookup-source.tar.gz']
+records=[]
+for path in paths:
+    with tarfile.open(path) as archive:
+        records.append({member.name:hashlib.sha256(archive.extractfile(member).read()).hexdigest() for member in archive.getmembers() if member.isfile()})
+a,b=records
+print(json.dumps(dict(same_members=set(a)==set(b),differences={name:[a.get(name),b.get(name)] for name in set(a)|set(b) if a.get(name)!=b.get(name)})))
+"""
+    return json.loads(ssh('python -c '+shlex.quote(program)))
 
 
 def observe_relogin(output,enabled):

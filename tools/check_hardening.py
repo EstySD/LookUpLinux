@@ -311,6 +311,41 @@ def carry_phase7(raw):
     return dict(raw=raw,actor='unknown',scope='historical_preservation_exception')
 
 
+def aggregate_report(data):
+    """Recompute the seven groups from raw records; summary booleans never substitute."""
+    from tools.check_games import game_report,captured_game_report
+    from tools.check_hardening_install import install_report
+    reports={}
+    checks=(('performance',performance_report,'performance'),('stability',stability_report,'stability'),
+        ('burst',burst_report,'burst'),('scales',scales_report,'scales'),('privacy',privacy_report,'privacy'),
+        ('faults',faults_report,'faults'),('meaning',meaning_report,'meaning'),('installation',install_report,'installation'),
+        ('wesnoth',game_report,'wesnoth'),('captured_game',captured_game_report,'captured_game'))
+    for name,check,key in checks:
+        try:reports[name]=check(data[key])
+        except (KeyError,TypeError,ValueError,AttributeError,IndexError):reports[name]=dict(passed=False,reason='missing_or_invalid_raw')
+    negative=data.get('negative_origin_tests',{})
+    negative_ok=(negative.get('exit')==0 and type(negative.get('count')) is int and negative['count']>0 and
+        _hash(negative.get('log_sha256')) and 'tests.test_platform.GeometryTests.test_actual_ratios_and_negative_origins' in negative.get('tests',[]))
+    criteria=dict(performance=reports['performance'].get('passed') is True,
+        stability_burst=reports['stability'].get('passed') is True and reports['burst'].get('passed') is True,
+        geometry=reports['scales'].get('passed') is True and negative_ok,
+        privacy_faults=reports['privacy'].get('passed') is True and reports['faults'].get('passed') is True,
+        installation=reports['installation'].get('passed') is True,
+        games=reports['wesnoth'].get('passed') is True and reports['captured_game'].get('passed') is True,
+        live_meaning_observed=reports['meaning'].get('complete') is True)
+    try:historical=carry_phase7(data['historical_phase7']);historical_valid=True
+    except (EvidenceError,KeyError,TypeError):historical=None;historical_valid=False
+    suites=data.get('suites',{})
+    suites_ok=set(suites)=={'host','target'} and all(row.get('exit')==0 and type(row.get('count')) is int and row['count']>0
+        and _hash(row.get('log_sha256')) for row in suites.values()) and suites['target'].get('skips')==0
+    review=data.get('independent',{})
+    reviewed=all(review.get(key)=='passed' for key in ('code_review','security_review','verifier'))
+    passed=all(criteria.values()) and historical_valid and suites_ok and reviewed
+    return dict(passed=passed,game01_complete=criteria['games'] and reviewed,criteria=criteria,reports=reports,
+        suites_valid=suites_ok,independent_complete=reviewed,historical_phase7=historical,
+        historical_valid=historical_valid,human_acceptance=False)
+
+
 SCENES=(('bank','They waited by the bank of the river.'),('cat','The cat sat beside the chair.'),
     ('dog','The dog ran across the garden.'),('tree','A tall tree stood beside the road.'),
     ('house','They entered the old house together.'),('water','The water flowed through the valley.'),
