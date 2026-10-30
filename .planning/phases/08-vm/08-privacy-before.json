@@ -1,0 +1,14 @@
+{
+  "primary": "e79e418e48623569d75e2a7b09ae88ed9b77b126a445b9ff9dc6989a08efa079",
+  "primary_exit": 1,
+  "clipboard": "41eb872b67fc7165fd1d0064b707f2c76f377119a4f031428edb743240520c76",
+  "clipboard_exit": 0,
+  "klipper": "dfa133b1d130ab014f4bd989f5c439172359e7e2d4edb9801d22783653049c23",
+  "klipper_items": 5,
+  "png_files": [],
+  "scanned": [
+    "/tmp",
+    "/run/user/1001",
+    "/home/lookup07/.local/state/lookup-hardening-08/series/data"
+  ]
+}

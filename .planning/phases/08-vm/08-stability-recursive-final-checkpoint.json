@@ -1,0 +1,1 @@
+{"warmup": 20, "measured": 20, "errors": 0, "last_resource": {"identity": [27115, 172467, 1386999639202549], "rss_bytes": 174657536, "threads": 9, "fds": 22, "owned_children": [], "descendant_identities": [], "observed": true, "after": 20}, "observer": 27062, "host_session": 12407}

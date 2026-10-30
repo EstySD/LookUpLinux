@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "early_rss_bytes": 174657536.0,
+  "late_rss_bytes": 174698496.0,
+  "rss_allowance_bytes": 26198630.4,
+  "late_trend_bytes": 8192,
+  "cooldown_rss_bytes": 174702592
+}

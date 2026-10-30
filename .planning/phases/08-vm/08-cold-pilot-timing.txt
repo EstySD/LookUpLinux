@@ -1,0 +1,5 @@
+lookup-timing:{"elapsed_ms":452.724584,"mono_ns":1943102946031,"pid":9620,"request":1,"run":1897541369148099,"stage":4,"useful":1}
+lookup-timing:{"cache":0.0,"capture":46.99319899987131,"classify":0.02275299993925728,"context":0.0,"db":0.0,"dicts":1.1284580000392452,"elapsed_ms":434.561083,"engine_ms":434.36096200002794,"first_useful":426.60347600030946,"meaning_ready":0.0,"mono_ns":1943084782530,"ocr":145.0297380001757,"online":0.0,"pid":9620,"prepare_image":66.37301899991144,"request":1,"run":1897541369148099,"select":0.7978609999099717,"stage":3,"total":1.2408370000684954}
+lookup-timing:{"elapsed_ms":229.860211,"mono_ns":1942880081658,"pid":9620,"request":1,"run":1897541369148099,"stage":4,"useful":0}
+lookup-timing:{"elapsed_ms":76.713503,"mono_ns":1942726934950,"pid":9620,"request":1,"run":1897541369148099,"stage":2}
+lookup-timing:{"mono_ns":1942650221447,"pid":9620,"request":1,"run":1897541369148099,"stage":1}

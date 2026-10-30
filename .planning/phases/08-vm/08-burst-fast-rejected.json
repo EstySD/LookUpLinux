@@ -1,0 +1,277 @@
+{
+  "trace": [
+    {
+      "elapsed_ms": 544.071199,
+      "mono_ns": 203228497214,
+      "pid": 701,
+      "request": 44,
+      "run": 363937822073644,
+      "stage": 4,
+      "useful": 1
+    },
+    {
+      "cache": 0.0,
+      "capture": 39.417326000005914,
+      "classify": 0.02478900000824069,
+      "context": 0.0,
+      "db": 0.0,
+      "dicts": 1.358991999978798,
+      "elapsed_ms": 516.084817,
+      "engine_ms": 515.8385960000089,
+      "first_useful": 515.6484359999922,
+      "meaning_ready": 0.0,
+      "mono_ns": 203200510832,
+      "ocr": 242.72206699998833,
+      "online": 0.0,
+      "pid": 701,
+      "prepare_image": 65.50093100000254,
+      "request": 44,
+      "run": 363937822073644,
+      "select": 0.3766339999913271,
+      "stage": 3,
+      "total": 1.4231739999956972
+    },
+    {
+      "elapsed_ms": 207.415245,
+      "mono_ns": 202891841260,
+      "pid": 701,
+      "request": 44,
+      "run": 363937822073644,
+      "stage": 4,
+      "useful": 0
+    },
+    {
+      "elapsed_ms": 75.508043,
+      "mono_ns": 202759934058,
+      "pid": 701,
+      "request": 44,
+      "run": 363937822073644,
+      "stage": 2
+    },
+    {
+      "mono_ns": 202684426015,
+      "pid": 701,
+      "request": 44,
+      "run": 363937822073644,
+      "stage": 1
+    },
+    {
+      "elapsed_ms": 75.412858,
+      "mono_ns": 202598454419,
+      "pid": 701,
+      "request": 43,
+      "run": 363937822073644,
+      "stage": 2
+    },
+    {
+      "mono_ns": 202523041561,
+      "pid": 701,
+      "request": 43,
+      "run": 363937822073644,
+      "stage": 1
+    },
+    {
+      "elapsed_ms": 76.66081,
+      "mono_ns": 202411600920,
+      "pid": 701,
+      "request": 42,
+      "run": 363937822073644,
+      "stage": 2
+    },
+    {
+      "mono_ns": 202334940110,
+      "pid": 701,
+      "request": 42,
+      "run": 363937822073644,
+      "stage": 1
+    },
+    {
+      "elapsed_ms": 81.999259,
+      "mono_ns": 202248306845,
+      "pid": 701,
+      "request": 41,
+      "run": 363937822073644,
+      "stage": 2
+    },
+    {
+      "mono_ns": 202166307586,
+      "pid": 701,
+      "request": 41,
+      "run": 363937822073644,
+      "stage": 1
+    },
+    {
+      "elapsed_ms": 89.462396,
+      "mono_ns": 202101551001,
+      "pid": 701,
+      "request": 40,
+      "run": 363937822073644,
+      "stage": 2
+    },
+    {
+      "mono_ns": 202012088605,
+      "pid": 701,
+      "request": 40,
+      "run": 363937822073644,
+      "stage": 1
+    },
+    {
+      "elapsed_ms": 75.556586,
+      "mono_ns": 201900011362,
+      "pid": 701,
+      "request": 39,
+      "run": 363937822073644,
+      "stage": 2
+    },
+    {
+      "mono_ns": 201824454776,
+      "pid": 701,
+      "request": 39,
+      "run": 363937822073644,
+      "stage": 1
+    },
+    {
+      "elapsed_ms": 129.746984,
+      "mono_ns": 201809477877,
+      "pid": 701,
+      "request": 38,
+      "run": 363937822073644,
+      "stage": 2
+    },
+    {
+      "mono_ns": 201679730893,
+      "pid": 701,
+      "request": 38,
+      "run": 363937822073644,
+      "stage": 1
+    },
+    {
+      "elapsed_ms": 78.384249,
+      "mono_ns": 201597767897,
+      "pid": 701,
+      "request": 37,
+      "run": 363937822073644,
+      "stage": 2
+    },
+    {
+      "mono_ns": 201519383648,
+      "pid": 701,
+      "request": 37,
+      "run": 363937822073644,
+      "stage": 1
+    },
+    {
+      "elapsed_ms": 77.162252,
+      "mono_ns": 201435430876,
+      "pid": 701,
+      "request": 36,
+      "run": 363937822073644,
+      "stage": 2
+    },
+    {
+      "mono_ns": 201358268624,
+      "pid": 701,
+      "request": 36,
+      "run": 363937822073644,
+      "stage": 1
+    },
+    {
+      "elapsed_ms": 79.922161,
+      "mono_ns": 201255669402,
+      "pid": 701,
+      "request": 35,
+      "run": 363937822073644,
+      "stage": 2
+    },
+    {
+      "mono_ns": 201175747241,
+      "pid": 701,
+      "request": 35,
+      "run": 363937822073644,
+      "stage": 1
+    }
+  ],
+  "inputs": [
+    {
+      "input_ns": 201027760000,
+      "receipt_ns": 201038294458,
+      "token": 199671307692,
+      "physical": true,
+      "released": true,
+      "release_ns": 201079249000
+    },
+    {
+      "input_ns": 201183393000,
+      "receipt_ns": 201202285443,
+      "token": 199671307692,
+      "physical": true,
+      "released": true,
+      "release_ns": 201239212000
+    },
+    {
+      "input_ns": 201339398000,
+      "receipt_ns": 201353528000,
+      "token": 199671307692,
+      "physical": true,
+      "released": true,
+      "release_ns": 201384931000
+    },
+    {
+      "input_ns": 201496974000,
+      "receipt_ns": 201513516794,
+      "token": 199671307692,
+      "physical": true,
+      "released": true,
+      "release_ns": 201545029000
+    },
+    {
+      "input_ns": 201672218000,
+      "receipt_ns": 201693642103,
+      "token": 199671307692,
+      "physical": true,
+      "released": true,
+      "release_ns": 201719448000
+    },
+    {
+      "input_ns": 201843334000,
+      "receipt_ns": 201850525588,
+      "token": 199671307692,
+      "physical": true,
+      "released": true,
+      "release_ns": 201887149000
+    },
+    {
+      "input_ns": 202017065000,
+      "receipt_ns": 202029318446,
+      "token": 199671307692,
+      "physical": true,
+      "released": true,
+      "release_ns": 202060988000
+    },
+    {
+      "input_ns": 202184922000,
+      "receipt_ns": 202189769746,
+      "token": 199671307692,
+      "physical": true,
+      "released": true,
+      "release_ns": 202246663000
+    },
+    {
+      "input_ns": 202359390000,
+      "receipt_ns": 202377515397,
+      "token": 199671307692,
+      "physical": true,
+      "released": true,
+      "release_ns": 202405652000
+    },
+    {
+      "input_ns": 202527470000,
+      "receipt_ns": 202539259254,
+      "token": 199671307692,
+      "physical": true,
+      "released": true,
+      "release_ns": 202575586000
+    }
+  ],
+  "rejected_reason": "final_request_frame_mismatch"
+}
