@@ -62,7 +62,8 @@ def install_report(data):
     try:
         gates=data['gates'];cleanup=data['cleanup']
         build=data['build']
-        built=(build.get('stage_exit')==0 and build.get('makepkg_exit')==0 and
+        built=(build.get('binding_verified') is True and type(build.get('stage_exit')) is int and type(build.get('makepkg_exit')) is int
+            and build.get('stage_exit')==0 and build.get('makepkg_exit')==0 and
             all(_hash(build.get(key)) for key in ('source_sha256','package_sha256','log_sha256')))
         before=data['retention_before'];removed=data['removed_physical'];after=removed['after_unrelated']['retention']
         old=removed['after_old_key'];installed=data['installed'];capture=data['physical_capture']
@@ -137,8 +138,7 @@ def assemble_reports(root):
     def digest(name):return hashlib.sha256((root/name).read_bytes()).hexdigest()
     cleanup=read('08-install-cleanup-final.json')['gates'] if (root/'08-install-cleanup-final.json').exists() else {key:False for key in CLEANUP}
     native=dict(baseline=read('08-install-clean-graphical-baseline.json'),gates={key:True for key in GATES},cleanup=cleanup,
-        build=dict(stage_exit=0,makepkg_exit=0,source_sha256=read('08-install-SOURCE.json')['archive_sha256'],
-            package_sha256='7aa3cf123457c753fa572efbd58062f81cd1e4f4fc2387fe4a7505665ab480f3',log_sha256=digest('08-install-readme-build.txt')),
+        build=bound_build_evidence(root),
         installed=read('08-install-installed-identity.json'),physical_capture=read('08-install-physical-useful.json'),
         enabled_login=read('08-install-login-enabled.json'),disabled_login=read('08-install-login-disabled.json'),
         retention_before=read('08-install-retention-before-remove.json'),removed_physical=read('08-install-removed-physical-automatic.json'))
@@ -150,8 +150,7 @@ def assemble_reports(root):
     data={key:read(name) for key,name in sources.items()}
     data.update(faults=read('08-faults-final-report.json')['records'],meaning=read('08-live-meaning.json')['records'],installation=native,
         historical_phase7=json.loads((root.parent/'07-settings-package/07-native-report.json').read_text()),
-        negative_origin_tests=dict(exit=0,count=1,log_sha256=digest('08-install-negative-origin-tests.txt'),
-            tests=['tests.test_platform.GeometryTests.test_actual_ratios_and_negative_origins']),
+        negative_origin_tests=bound_negative_evidence(root),
         suites=read('08-install-final-suites.json') if (root/'08-install-final-suites.json').exists() else {},
         independent=dict(code_review='pending_parent',security_review='pending_parent',verifier='pending_parent'))
     data['cleanup']=dict(native=read('08-native-final-report.json')['cleanup'],wesnoth=read('08-wesnoth-cleanup-final.json'),
@@ -163,6 +162,38 @@ def assemble_reports(root):
             'Meaning availability0/6; conditional/UI latency null.','Second output/borderless unverified.'])
     (root/'08-final-aggregate.json').write_text(json.dumps(result,indent=2))
     return dict(native=native['report'],aggregate=result['passed'],criteria=result['criteria'])
+
+
+def bound_build_evidence(root):
+    import hashlib
+    root=Path(root)
+    try:
+        record=json.loads((root/'08-install-build-provenance.json').read_text())
+        source=json.loads((root/'08-install-SOURCE.json').read_text())
+        raw=(root/'08-install-readme-build.txt').read_bytes();actual_log=hashlib.sha256(raw).hexdigest();text=raw.decode('utf-8-sig')
+        successful_log=('Finished making: lookup-linux' in text and 'installing lookup-linux...' in text
+            and record.get('source_sha256','missing') in text and '==> ERROR:' not in text)
+        return dict(record,binding_verified=record.get('source_sha256')==source['archive_sha256'] and
+            _hash(record.get('source_sha256')) and _hash(record.get('package_sha256')) and record.get('log_sha256')==actual_log and successful_log)
+    except (OSError,ValueError,TypeError,KeyError):return dict(binding_verified=False,reason='missing_or_invalid_build_record')
+
+
+def bound_negative_evidence(root):
+    import hashlib
+    root=Path(root)
+    try:
+        record=json.loads((root/'08-install-negative-origin-result.json').read_text())
+        raw=(root/'08-install-negative-origin-tests.txt').read_bytes();lines=[line.strip() for line in raw.decode('utf-8-sig').splitlines() if line.strip()]
+        runs=[re.fullmatch(r'Ran ([0-9]+) tests? in [0-9.]+s',line) for line in lines]
+        runs=[match for match in runs if match]
+        identity='tests.test_platform.GeometryTests.test_actual_ratios_and_negative_origins'
+        success=[line for line in lines if identity in line and line.endswith(' ... ok')]
+        verified=(type(record.get('exit')) is int and record['exit']==0 and len(runs)==1 and
+            type(record.get('count')) is int and record['count']==int(runs[0][1])==len(success)>0 and
+            record.get('tests')==[identity] and lines[-1]=='OK' and not any(line.startswith(('FAIL','ERROR','Traceback')) for line in lines) and
+            record.get('log_sha256')==hashlib.sha256(raw).hexdigest())
+        return dict(record,verified=verified)
+    except (OSError,ValueError,TypeError,KeyError,IndexError):return dict(verified=False,reason='missing_or_invalid_test_record')
 
 
 def observe_relogin(output,enabled):

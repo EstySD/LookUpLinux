@@ -344,7 +344,7 @@ def aggregate_report(data):
         try:reports[name]=check(data[key])
         except (KeyError,TypeError,ValueError,AttributeError,IndexError):reports[name]=dict(passed=False,reason='missing_or_invalid_raw')
     negative=data.get('negative_origin_tests',{})
-    negative_ok=(negative.get('exit')==0 and type(negative.get('count')) is int and negative['count']>0 and
+    negative_ok=(negative.get('verified') is True and negative.get('exit')==0 and type(negative.get('count')) is int and negative['count']>0 and
         _hash(negative.get('log_sha256')) and 'tests.test_platform.GeometryTests.test_actual_ratios_and_negative_origins' in negative.get('tests',[]))
     criteria=dict(performance=reports['performance'].get('passed') is True,
         stability_burst=reports['stability'].get('passed') is True and reports['burst'].get('passed') is True,

@@ -1,6 +1,7 @@
 """Clean-profile and real-login evidence must fail closed."""
 from copy import deepcopy
 import json
+import hashlib
 from pathlib import Path
 import shutil
 import tempfile
@@ -41,8 +42,13 @@ class InstallEvidenceTests(unittest.TestCase):
                 if change=='build_exit':data['stage_exit']=1;data['makepkg_exit']=1
                 elif change=='package_hash':data['package_sha256']='invalid'
                 elif change=='source_hash':data['source_sha256']='0'*64
-                elif change=='build_log':(root/'08-install-readme-build.txt').write_text('controlled changed log')
-                elif change=='negative_log':(root/'08-install-negative-origin-tests.txt').write_text('FAILED (failures=1)\n')
+                elif change=='build_log':
+                    log=root/'08-install-readme-build.txt';log.write_text('==> ERROR: controlled build failure\n')
+                    data['log_sha256']=hashlib.sha256(log.read_bytes()).hexdigest()
+                elif change=='negative_log':
+                    log=root/'08-install-negative-origin-tests.txt';log.write_text('Ran 1 test in 0.001s\nFAILED (failures=1)\n')
+                    result=root/'08-install-negative-origin-result.json';record=json.loads(result.read_text())
+                    record['log_sha256']=hashlib.sha256(log.read_bytes()).hexdigest();result.write_text(json.dumps(record))
                 else:
                     path=root/'08-install-negative-origin-result.json';record=json.loads(path.read_text());record['exit']=1;path.write_text(json.dumps(record))
                 provenance.write_text(json.dumps(data));install.assemble_reports(root)
