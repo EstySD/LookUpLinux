@@ -1,11 +1,35 @@
-"""Phase 8 pure evidence oracles. No VM, input, capture or network operations.
+"""Phase 8 strict oracles and explicitly selected owned-clone native scenarios.
 
 All timestamps are integer nanoseconds. A receipt timestamp is diagnostic only.
-These checks validate evidence structure; native drivers must supply real proofs.
+Imports and pure checks perform no VM operations; native CLI modes supply proofs.
 """
 import math
 import re
 import statistics
+
+
+def optical_match(text,word,body):
+    """Match actual cropped popup OCR, not numeric show/paint telemetry."""
+    tokens=re.findall(r"[\w]+",text.casefold())
+    matched=(body.casefold() in tokens if isinstance(body,str) else len(set(body)&set(tokens))>=2)
+    return bool(tokens) and tokens[0]==word.casefold() and any('mueller' in token for token in tokens) and matched
+
+
+def matching_result(result,command):
+    return (isinstance(result,dict) and type(command.get('token')) is int and command['token']>0 and
+            result.get('attempt')==command['attempt'] and result.get('token')==command['token'] and
+            ('request' not in command or result.get('request')==command['request']))
+
+
+def read_record(path):
+    import json
+    try:return json.loads(path.read_text())
+    except (json.JSONDecodeError,FileNotFoundError):return None
+
+
+def write_record(path,value):
+    import json
+    temporary=path.with_name(path.name+'.tmp');temporary.write_text(json.dumps(value));temporary.replace(path)
 
 PERFORMANCE_GROUPS={'cold':3,'warm_distinct':18,'repeat':9}
 GAME_GATES=frozenset(('actual_process','fullscreen_verified','physical_hotkey','fresh_capture','real_ocr',
@@ -282,3 +306,738 @@ def carry_phase7(raw):
     _require(isinstance(raw,dict) and raw.get('passed') is False
              and isinstance(raw.get('cleanup'),dict) and raw['cleanup'].get('original_preserved') is False,'historical')
     return dict(raw=raw,actor='unknown',scope='historical_preservation_exception')
+
+
+SCENES=(('bank','They waited by the bank of the river.'),('cat','The cat sat beside the chair.'),
+    ('dog','The dog ran across the garden.'),('tree','A tall tree stood beside the road.'),
+    ('house','They entered the old house together.'),('water','The water flowed through the valley.'),
+    ('fire','The fire burned brightly in the night.'),('book','She read the book beside the window.'),
+    ('hand','He raised his hand above the table.'),('head','She turned her head toward the door.'),
+    ('eye','The bird opened one eye slowly.'),('day','It was a bright day in spring.'),
+    ('night','They returned home before night fell.'),('sun','The sun rose above the hills.'),
+    ('moon','The moon shone over the quiet town.'),('road','The road crossed a narrow bridge.'),
+    ('door','He opened the door very quietly.'),('room','The room was full of warm light.'))
+
+
+def chronological(rows):
+    """Journal transport ordering is not a request chronology guarantee."""
+    return sorted(rows,key=lambda row:row['mono_ns'])
+
+
+def guest_probe(continuous=False):
+    """First bounded real input/optical probe; production daemon is unmodified."""
+    import fcntl,hashlib,json,os,struct,subprocess,sys,time
+    from pathlib import Path
+    assert os.getuid()==1001 and Path.home()==Path('/home/lookup07')
+    root=Path.home()/'.local/state/lookup-hardening-08'
+    if continuous:root=root/'series'
+    root.mkdir(parents=True,exist_ok=True)
+    sys.path.insert(0,'/usr/lib/lookup/app')
+    from lookup import platform,capture,gui
+    env=platform.session_env()
+    env.update(XDG_CONFIG_HOME=str(root/'config'),XDG_CACHE_HOME=str(root/'cache'),XDG_DATA_HOME=str(root/'data'),
+        LOOKUP_CONFIG=str(root/'config.json'),LOOKUP_DB=str(root/'data/history.db'),LOOKUP_DICTS='/usr/share/lookup/dicts',
+        LOOKUP_CACHE=str(root/'cache'),LOOKUP_TIMING='1')
+    for key in ('SUDO_UID','SUDO_GID','SUDO_USER','SUDO_COMMAND','PYTHONPATH'):env.pop(key,None);os.environ.pop(key,None)
+    os.environ.update(env)
+    (root/'config.json').write_text('{"online":false,"shortcut":"Meta+Shift+E","popup_timeout":60}')
+    from PyQt6.QtCore import Qt,QTimer
+    from PyQt6.QtGui import QFont
+    from PyQt6.QtWidgets import QApplication,QWidget,QVBoxLayout,QLabel
+    from PyQt6.QtDBus import QDBusConnection,QDBusMessage,QDBus
+    application=QApplication([]);application.setDesktopFileName('org.lookup.Linux')
+    import signal
+    signal.signal(signal.SIGTERM,lambda *_:application.quit())
+    window=QWidget();window.setWindowTitle('Public hardening scene')
+    window.setWindowFlags(Qt.WindowType.Window|Qt.WindowType.FramelessWindowHint)
+    layout=QVBoxLayout(window);layout.addStretch();label=QLabel('They waited by the bank of the river.')
+    font=QFont('Noto Sans');font.setPixelSize(26);label.setFont(font);label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+    layout.addWidget(label);layout.addStretch();window.showMaximized()
+    devices=[path for path in Path('/sys/class/input').glob('event*')
+             if (path/'device/name').read_text().strip()=='AT Translated Set 2 keyboard']
+    assert len(devices)==1,'exact_keyboard_required'
+    device='/dev/input/'+devices[0].name
+    descriptor=os.open(device,os.O_RDONLY|os.O_NONBLOCK)
+    fcntl.ioctl(descriptor,0x400445a0,struct.pack('i',time.CLOCK_MONOTONIC))
+    clock_set=time.monotonic_ns();keys=set();rows=[];pending=None;chord=None;started=time.monotonic()
+    log=(root/'daemon.log').open('a')
+    daemon=None if continuous else subprocess.Popen(['/usr/bin/lookup','--app'],env=env,cwd='/tmp',stdout=log,stderr=log,start_new_session=True)
+    process_start=0 if daemon is None else int(Path('/proc',str(daemon.pid),'stat').read_text().split(') ',1)[1].split()[19])
+    (root/'probe-process.json').write_text(json.dumps(dict(observer=os.getpid(),daemon=daemon.pid if daemon else None,start=process_start)))
+    monitor=platform.monitors(env)[0];baseline=None;last=None;ready=False;next_capture=0
+    command=dict(attempt=1,group='cold',case=1);arm_id=None;settle=started+1;word='bank';body='насыпь';pid=daemon.pid if daemon else 0
+    if continuous:
+        from lookup import dicts,config
+        dictionaries=dicts.open_all(config.Config())
+        catalog={}
+        try:
+            for index,(term,sentence) in enumerate(SCENES,1):
+                articles=dictionaries.lookup_exact(term);assert articles,'missing_corpus_word'
+                canonical=set(re.findall('[а-яё]{5,}',articles[0].text[:1800].casefold()))
+                assert len(canonical)>=2,'missing_corpus_body'
+                catalog[index]=dict(word=term,sentence=sentence,body=sorted(canonical))
+        finally:dictionaries.close()
+        (root/'catalog.json').write_text(json.dumps(catalog,ensure_ascii=False))
+    def get_popup(owner_pid):
+        values=platform.run(['kdotool','search','--pid',str(owner_pid),'--name',gui.TITLE],env).decode().split()
+        for uuid in values:
+            message=QDBusMessage.createMethodCall('org.kde.KWin','/KWin','org.kde.KWin','getWindowInfo');message.setArguments([uuid])
+            reply=QDBusConnection.sessionBus().call(message,QDBus.CallMode.Block,400)
+            info=reply.arguments()[0] if reply.arguments() else {}
+            if info.get('caption')==gui.TITLE:return info
+        return None
+    def tick():
+        nonlocal baseline,last,ready,pending,chord,next_capture,command,arm_id,settle,word,body,pid,process_start,monitor
+        now=time.monotonic_ns()
+        if time.monotonic()-started>(3600 if continuous else 120):application.quit();return
+        arm=root/'arm.json'
+        if continuous and arm.exists():
+            value=json.loads(arm.read_text())
+            if value.get('token',0)!=arm_id and pending is None:
+                command=value;arm_id=value.get('token',0);case=catalog[value['scene']]
+                word=case['word'];body=case['body'];label.setText(case['sentence'])
+                ready=False;settle=time.monotonic()+.3
+        try:data=os.read(descriptor,24*64)
+        except BlockingIOError:data=b''
+        receipt=time.monotonic_ns()
+        for offset in range(0,len(data),24):
+            seconds,micros,kind,code,value=struct.unpack('llHHI',data[offset:offset+24])
+            if kind==0 and code==3:raise EvidenceError('input_overflow')
+            if kind!=1 or code not in (18,42,54,125,126):continue
+            if value==1:keys.add(code)
+            elif value==0:keys.discard(code)
+            if ready and code==18 and value==1 and keys.intersection((42,54)) and keys.intersection((125,126)):
+                stamp=seconds*1_000_000_000+micros*1000
+                pending=dict(input_ns=stamp,receipt_ns=receipt,clock_ioctl_verified=True,
+                    kernel_clock_verified=clock_set<=stamp<=receipt,last_not_visible_ns=last,rows_before=len(rows))
+                chord=dict(input_ns=stamp,receipt_ns=receipt,token=command.get('token',0),physical=True,released=False)
+            if pending:pending['released']=not keys
+            if chord is not None and not keys:
+                chord.update(released=True,release_ns=seconds*1_000_000_000+micros*1000)
+                with (root/'inputs.jsonl').open('a') as output:output.write(json.dumps(chord)+'\n')
+                chord=None
+        if not ready:
+            if continuous and arm_id is None:return
+            if time.monotonic()<settle:return
+            monitor=platform.monitors(env)[0]
+            frame=capture.capture_monitor(monitor,env);baseline=hashlib.sha256(frame.png).hexdigest();last=time.monotonic_ns()
+            point=label.mapToGlobal(label.rect().center());text=label.text();prefix=text[:text.index(word)]
+            left=point.x()-label.fontMetrics().horizontalAdvance(text)//2
+            point.setX(left+label.fontMetrics().horizontalAdvance(prefix)+label.fontMetrics().horizontalAdvance(word)//2)
+            physical=platform.image_point((point.x(),point.y()),monitor,(frame.width,frame.height))
+            write_record(root/'ready.json',dict(point=[round(value) for value in physical],logical_point=[point.x(),point.y()],
+                monitor=monitor.__dict__,pid=pid,attempt=command['attempt'],token=command.get('token',0),clock_ioctl_verified=True,
+                device=device,device_name='AT Translated Set 2 keyboard',baseline_sha256=baseline))
+            ready=True
+        if not pending or now<next_capture:return
+        if command.get('verify_count'):
+            released=[json.loads(line) for line in (root/'inputs.jsonl').read_text().splitlines()]
+            if sum(row.get('token')==command['token'] for row in released)<10:return
+        if now-pending['input_ns']>15_000_000_000:
+            row=dict(pending,**command,status='error',reason='optical_deadline')
+            with (root/'records.jsonl').open('a') as output:output.write(json.dumps(row)+'\n')
+            write_record(root/'result.json',row);pending=None;return
+        events=[]
+        numeric=(root/'daemon.log').read_text()
+        if continuous:
+            journal=subprocess.run(['journalctl','--user','-b','--no-pager','-o','cat','-g','^lookup-timing:',
+                '-n','1000'],env=env,capture_output=True,text=True,timeout=3)
+            numeric=journal.stdout
+            if (root/'fault-daemon.log').exists():numeric+='\n'+(root/'fault-daemon.log').read_text()
+            with (root/'daemon.log').open('w') as output:
+                output.write('\n'.join(line for line in numeric.splitlines() if line.startswith('lookup-timing:'))+'\n')
+        for line in numeric.splitlines():
+            if line.startswith('lookup-timing:'):
+                value=json.loads(line.split(':',1)[1])
+                if value['mono_ns']>=pending['input_ns']:events.append(value)
+        events=chronological(events)
+        triggers=[value for value in events if value['stage']==1]
+        if triggers:
+            pid=triggers[-1]['pid'];process_start=int(Path('/proc',str(pid),'stat').read_text().split(') ',1)[1].split()[19])
+            events=[value for value in events if value['pid']==pid]
+        failed=[value for value in events if value['stage']==6 and value['mono_ns']>=pending['input_ns']]
+        if failed:
+            row=dict(pending,**command,status='error',reason='production_error',pid=pid,request=failed[-1]['request'],run=failed[-1]['run'])
+            rows.append(row);(root/'probe-error.json').write_text(json.dumps(row))
+            with (root/'records.jsonl').open('a') as output:output.write(json.dumps(row)+'\n')
+            write_record(root/'result.json',row);pending=None;return
+        if not triggers:return
+        useful=[value for value in events if value['stage']==4 and value.get('useful')==1
+                and value['request']==triggers[-1]['request'] and value['mono_ns']>=pending['input_ns']]
+        if not useful:return
+        event=useful[-1];info=get_popup(pid)
+        if not info:return
+        begin=time.monotonic_ns();frame=capture.capture_monitor(monitor,env);end=time.monotonic_ns()
+        image=capture._png_image(frame.png)
+        left,top=platform.image_point((info['x'],info['y']),monitor,(frame.width,frame.height))
+        right,bottom=platform.image_point((info['x']+info['width'],info['y']+info['height']),monitor,(frame.width,frame.height))
+        cropped=capture._encode(image.copy(int(left),int(top),int(right-left),int(bottom-top)))
+        optical=subprocess.run(['tesseract','stdin','stdout','-l','eng+rus','--psm','11'],input=cropped,capture_output=True,timeout=5)
+        text=optical.stdout.decode('utf-8','replace');matched=optical_match(text,word,body)
+        if command.get('verify_count'):
+            import sqlite3
+            with sqlite3.connect('file:'+str(root/'data/history.db')+'?mode=ro',uri=True) as connection:
+                expected_count=connection.execute('SELECT count FROM words WHERE word=?',(word,)).fetchone()[0]
+            normalized=text.casefold().translate(str.maketrans({'c':'с','a':'а','e':'е','o':'о','p':'р','u':'и'}))
+            footer=re.search(r'искали\s*(\d+)',normalized)
+            matched=matched and footer is not None and int(footer[1])==expected_count
+        (root/'probe-optical.txt').write_text(text)
+        next_capture=time.monotonic_ns()+50_000_000
+        if not matched:last=end;return
+        (root/'probe-useful.png').write_bytes(frame.png)
+        trigger=next(v for v in events if v['request']==event['request'] and v['stage']==1)
+        row=dict(pending,**command,input_sequence=command['attempt'],status='success',mode='native',physical=True,
+            pid=pid,process_start=process_start,process_start_source='proc_stat',run=event['run'],request=event['request'],
+            clock='guest_monotonic',frame_clock='guest_monotonic',origin='kernel_evdev',trigger_ns=trigger['mono_ns'],
+            first_visible_start_ns=begin,first_visible_end_ns=end,frame_identity=[pid,process_start,event['run'],event['request']],
+            frame_sha256=hashlib.sha256(frame.png).hexdigest(),observed=True,fresh=hashlib.sha256(frame.png).hexdigest()!=baseline,
+            useful_verified=True,loading=False,error_card=False,previous_card=False,latency_ms=(end-pending['input_ns'])/1e6,
+            monitor=monitor.__dict__,popup_rect=[info[key] for key in ('x','y','width','height')],
+            work_area=platform.work_area(env,monitor),actual_cursor=platform.cursor_position(env))
+        if command.get('verify_count'):row.update(observed_footer_count=int(footer[1]),expected_count=expected_count)
+        offset=time.clock_gettime_ns(time.CLOCK_BOOTTIME)-time.monotonic_ns();tick_ns=1_000_000_000//os.sysconf('SC_CLK_TCK')
+        row['process_birth_mono_lower_ns']=process_start*tick_ns-offset-tick_ns
+        row['process_born_after_input']=row['process_birth_mono_lower_ns']>pending['input_ns']
+        rows.append(row);(root/'probe-result.json').write_text(json.dumps(row))
+        with (root/'records.jsonl').open('a') as output:output.write(json.dumps(row)+'\n')
+        write_record(root/'result.json',row);pending=None
+    def safe_tick():
+        nonlocal next_capture
+        try:tick()
+        except (platform.PlatformError,subprocess.TimeoutExpired) as error:
+            diagnostic=dict(error=type(error).__name__,reason=getattr(error,'reason','observer_process_timeout'),
+                            attempt=command['attempt'],at_ns=time.monotonic_ns())
+            if pending is not None:pending.setdefault('observer_retries',[]).append(diagnostic)
+            with (root/'observer-retries.jsonl').open('a') as output:output.write(json.dumps(diagnostic)+'\n')
+            next_capture=time.monotonic_ns()+100_000_000
+        except Exception as error:
+            (root/'observer-error.json').write_text(json.dumps(dict(error=type(error).__name__,attempt=command['attempt'])))
+            application.quit()
+    timer=QTimer();timer.timeout.connect(safe_tick);timer.start(20)
+    try:return application.exec()
+    finally:
+        os.close(descriptor);log.close()
+        if daemon is not None and daemon.poll() is None:
+            daemon.terminate()
+            try:daemon.wait(4)
+            except subprocess.TimeoutExpired:daemon.kill();daemon.wait(2)
+
+
+def guest_command(encoded):
+    """Bounded commands restricted to this owned verification account/profile."""
+    import base64,json,os,subprocess,sys,time
+    from pathlib import Path
+    assert os.getuid()==1001 and Path.home()==Path('/home/lookup07')
+    sys.path.insert(0,'/usr/lib/lookup/app')
+    from lookup import platform,lifecycle
+    env=platform.session_env()
+    for key in ('SUDO_UID','SUDO_GID','SUDO_USER','SUDO_COMMAND','PYTHONPATH'):env.pop(key,None);os.environ.pop(key,None)
+    os.environ.update(env)
+    root=Path.home()/'.local/state/lookup-hardening-08/series';root.mkdir(parents=True,exist_ok=True)
+    command=json.loads(base64.b64decode(encoded));action=command['action']
+    from PyQt6.QtCore import QCoreApplication
+    from PyQt6.QtDBus import QDBusConnection
+    application=QCoreApplication([]);bus=QDBusConnection.sessionBus();interface=bus.interface();interface.setTimeout(1200)
+    def owner():
+        present=interface.isServiceRegistered('org.lookup.Linux')
+        pid=interface.servicePid('org.lookup.Linux').value() if present.isValid() and present.value() else 0
+        return dict(pid=pid,owner=bool(pid),keys=[lifecycle.key_text(key) for key in lifecycle.inspect_shortcut().keys])
+    if action=='owner':return owner()
+    if action=='outputs':return [item.__dict__ for item in platform.monitors(env)]
+    if action=='scale':
+        value=command['value'];_require(value in (1,1.25,1.5,2),'scale')
+        monitor=platform.monitors(env)[0]
+        subprocess.run(['kscreen-doctor','output.'+monitor.name+'.scale.'+str(value)],env=env,capture_output=True,timeout=5,check=True)
+        time.sleep(.5)
+        return dict(outputs=[item.__dict__ for item in platform.monitors(env)])
+    if action=='frame':
+        import hashlib
+        result=read_record(root/'result.json');_require(matching_result(result,command),'frame_identity')
+        png=(root/'probe-useful.png').read_bytes();_require(hashlib.sha256(png).hexdigest()==result['frame_sha256'],'frame_hash')
+        return dict(png_base64=base64.b64encode(png).decode(),sha256=result['frame_sha256'])
+    if action=='last-trigger':
+        pid=owner()['pid'];deadline=time.monotonic()+4
+        while time.monotonic()<deadline:
+            child=subprocess.run(['journalctl','--user','-b','--no-pager','-o','cat','-g','^lookup-timing:', '-n','1000'],
+                env=env,capture_output=True,text=True,timeout=3)
+            records=[json.loads(line.split(':',1)[1]) for line in child.stdout.splitlines() if line.startswith('lookup-timing:')]
+            matching=chronological(row for row in records if row['pid']==pid and row['stage']==1 and row['request']>command.get('after',0))
+            if matching:return matching[-1]
+            time.sleep(.03)
+        raise TimeoutError('trigger_deadline')
+    if action=='trace':
+        pid=owner()['pid']
+        child=subprocess.run(['journalctl','--user','-b','--no-pager','-o','cat','-g','^lookup-timing:', '-n','1000'],
+            env=env,capture_output=True,text=True,timeout=3)
+        rows=[json.loads(line.split(':',1)[1]) for line in child.stdout.splitlines() if line.startswith('lookup-timing:')]
+        return chronological(row for row in rows if row['pid']==pid and row['mono_ns']>=command.get('since_ns',0))
+    if action=='inputs':
+        deadline=time.monotonic()+4
+        while time.monotonic()<deadline:
+            rows=[]
+            for line in (root/'inputs.jsonl').read_text().splitlines():
+                try:row=json.loads(line)
+                except json.JSONDecodeError:continue
+                if row.get('token')==command['token']:rows.append(row)
+            if len(rows)>=command['count']:return rows
+            time.sleep(.03)
+        raise TimeoutError('input_release_deadline')
+    if action=='meaning-provider':
+        from lookup import context,online
+        cases=[('They waited by the bank of the river before sunrise.',0),
+            ('She deposited the money in the bank before going home.',0),
+            ('The bank by the river was far from the bank downtown.',0),
+            ('The bank by the river was far from the bank downtown.',1),
+            ('We sat quietly on the bank\nand watched the river flow.',0),
+            ('A steep bank rose above the narrow stream beside us.',0)]
+        rows=[]
+        for index,(sentence,occurrence) in enumerate(cases):
+            start=sentence.index('bank') if not occurrence else sentence.rindex('bank')
+            request=context.ContextRequest(sentence,start,start+4,'bank');began=time.monotonic_ns()
+            row=dict(case=index,kind='live',origin='provider_call_only',live=True,cached=False,mock=False,
+                     ui_end_to_end=False)
+            try:
+                value=context.translate_context(request)
+                row.update(status='success',meaning_verified=True,meaning=value.meaning,duration_ms=(time.monotonic_ns()-began)/1e6)
+            except online.TranslateError as error:row.update(status='error',reason=error.reason,duration_ms=None)
+            row['attempt_duration_ms']=(time.monotonic_ns()-began)/1e6;rows.append(row)
+        result=meaning_report(rows);result.update(origin='provider_call_only',physical_ui_meaning_median_ms=None,
+            physical_ui_meaning_p95_ms=None,ui_limit='Provider availability probes do not measure UI end-to-end time.')
+        write_record(root/'meaning-provider.json',result);return result
+    if action=='stop-observer':
+        import signal
+        metadata=read_record(root/'probe-process.json');pid=metadata['observer'];process=Path('/proc',str(pid))
+        if not process.exists():return dict(stopped=True,method='already_absent')
+        argv=process.joinpath('cmdline').read_bytes().split(b'\0')
+        _require(process.stat().st_uid==1001 and b'/home/lookup07/check_hardening.py' in argv and b'--guest-probe' in argv
+                 and os.getsid(pid)==pid,'unowned_observer')
+        os.killpg(pid,signal.SIGTERM);deadline=time.monotonic()+6
+        while time.monotonic()<deadline:
+            if not process.exists():return dict(stopped=True,pid=pid)
+            time.sleep(.05)
+        raise TimeoutError('observer_exit_deadline')
+    if action=='privacy':
+        import hashlib
+        result={}
+        for name,extra in (('primary',['--primary']),('clipboard',[])):
+            child=subprocess.run(['wl-paste',*extra,'--no-newline'],env=env,capture_output=True,timeout=3)
+            _require(len(child.stdout)<=1<<20,'clipboard_too_large')
+            result[name]=hashlib.sha256(str(child.returncode).encode()+b'\0'+child.stdout).hexdigest()
+            result[name+'_exit']=child.returncode
+        from PyQt6.QtDBus import QDBusMessage,QDBus
+        def klipper(method,*arguments):
+            message=QDBusMessage.createMethodCall('org.kde.klipper','/klipper','org.kde.klipper.klipper',method)
+            message.setArguments(list(arguments));reply=bus.call(message,QDBus.CallMode.Block,1200)
+            _require(reply.type()!=QDBusMessage.MessageType.ErrorMessage,'klipper_unavailable')
+            return reply.arguments()[0] if reply.arguments() else None
+        menu=klipper('getClipboardHistoryMenu');_require(isinstance(menu,list) and len(menu)<=1000,'klipper_history')
+        history=[klipper('getClipboardHistoryItem',index) for index in range(len(menu))]
+        _require(all(isinstance(value,str) for value in history),'klipper_history')
+        result['klipper']=hashlib.sha256(json.dumps(history,ensure_ascii=False).encode()).hexdigest()
+        result['klipper_items']=len(history);files=[]
+        for directory in (Path('/tmp'),Path('/run/user/1001'),root/'data'):
+            for parent,dirs,names in os.walk(directory):
+                dirs[:]=[name for name in dirs if (Path(parent)/name).stat().st_uid==1001 and not (Path(parent)/name).is_symlink()]
+                for name in names:
+                    path=Path(parent)/name
+                    if path.is_symlink() or not path.is_file() or path.stat().st_uid!=1001 or path.stat().st_size<8:continue
+                    with path.open('rb') as stream:magic=stream.read(8)
+                    if magic==b'\x89PNG\r\n\x1a\n':files.append(str(path))
+        result.update(png_files=sorted(files),scanned=['/tmp','/run/user/1001',str(root/'data')])
+        return result
+    if action=='environment':
+        pid=interface.servicePid('org.kde.kglobalaccel').value()
+        return dict(global_shortcut_pid=pid,
+            installed_exec=next(line for line in Path('/usr/share/applications/org.lookup.Linux.desktop').read_text().splitlines() if line.startswith('Exec=')),
+            user_desktop_present=(Path.home()/'.local/share/applications/org.lookup.Linux.desktop').exists(),owner=owner())
+    if action=='work-area':
+        monitor=platform.monitors(env)[0]
+        return dict(monitor=monitor.__dict__,panels=platform.panel_rects(env),work_area=platform.work_area(env,monitor))
+    if action=='popup-info':
+        from lookup import gui
+        from PyQt6.QtDBus import QDBusMessage,QDBus
+        matches=platform.run(['kdotool','search','--pid',str(owner()['pid']),'--name',gui.TITLE],env).decode().split()
+        result=[]
+        for window in matches:
+            message=QDBusMessage.createMethodCall('org.kde.KWin','/KWin','org.kde.KWin','getWindowInfo');message.setArguments([window])
+            reply=bus.call(message,QDBus.CallMode.Block,1200);info=reply.arguments()[0] if reply.arguments() else {}
+            if info.get('caption')==gui.TITLE:result.append({key:info.get(key) for key in ('x','y','width','height','caption','active')})
+        return result
+    if action=='snapshot':
+        from lookup import capture
+        image=capture.capture_monitor(platform.monitors(env)[0],env)
+        text=subprocess.run(['tesseract','stdin','stdout','-l','eng+rus','--psm','11'],input=image.png,capture_output=True,timeout=5).stdout.decode()
+        return dict(png_base64=base64.b64encode(image.png).decode(),text=text)
+    if action=='dictionary-fixture':
+        import shutil
+        target=root/'dicts/mueller7';missing=root/'mueller7-unavailable'
+        previous=root/'dicts/mueller7-unavailable'
+        if previous.exists():
+            _require(not target.exists() and not missing.exists(),'fixture_identity');previous.rename(missing)
+        operation=command['operation']
+        if operation=='prepare':
+            _require(not target.exists() and not missing.exists(),'existing_fixture')
+            shutil.copytree('/usr/share/lookup/dicts/mueller7',target)
+        elif operation=='unavailable':
+            _require(target.is_dir() and not missing.exists(),'fixture_identity');target.rename(missing)
+        elif operation=='restore':
+            _require(missing.is_dir() and not target.exists(),'fixture_identity');missing.rename(target)
+        else:raise ValueError('fixture_operation')
+        return dict(path=str(target.parent),available=target.exists(),operation=operation)
+    if action=='settings-open':
+        from PyQt6.QtDBus import QDBusMessage,QDBus
+        pid=owner()['pid']
+        message=QDBusMessage.createMethodCall('org.kde.StatusNotifierWatcher','/StatusNotifierWatcher','org.freedesktop.DBus.Properties','Get')
+        message.setArguments(['org.kde.StatusNotifierWatcher','RegisteredStatusNotifierItems']);reply=bus.call(message,QDBus.CallMode.Block,1200)
+        items=reply.arguments()[0]
+        if hasattr(items,'variant'):items=items.variant()
+        for item in items:
+            service=item.split('/')[0]
+            if interface.servicePid(service).value()!=pid:continue
+            reply=subprocess.run(['qdbus6',service,'/MenuBar','com.canonical.dbusmenu.Event','3','clicked','0','0'],
+                env=env,capture_output=True,timeout=3)
+            return dict(opened=reply.returncode==0,pid=pid)
+        raise EvidenceError('owned_notifier_missing')
+    if action=='launch-owner':
+        _require(not owner()['owner'],'preexisting_owner')
+        config=json.loads((root/'config.json').read_text());config['online']=command.get('online',False)
+        (root/'config.json').write_text(json.dumps(config))
+        child_env=dict(env,LOOKUP_TIMING='1',LOOKUP_DB=str(root/'data/history.db'),LOOKUP_CONFIG=str(root/'config.json'),
+            LOOKUP_CACHE=str(root/'cache'),LOOKUP_DICTS=command.get('dicts','/usr/share/lookup/dicts'))
+        with (root/'fault-daemon.log').open('w') as stream:
+            argv=([sys.executable,str(Path(__file__).resolve()),'--injected-capture'] if command.get('capture_fault') else ['/usr/bin/lookup','--app'])
+            child=subprocess.Popen(argv,env=child_env,cwd='/tmp',stdin=subprocess.DEVNULL,
+                stdout=stream,stderr=stream,start_new_session=True)
+        deadline=time.monotonic()+8
+        while time.monotonic()<deadline:
+            result=owner()
+            if result['owner'] and result['pid']==child.pid:return result
+            time.sleep(.05)
+        raise TimeoutError('plain_owner_start')
+    if action=='prepare':
+        assert not owner()['owner'],'preexisting_owner'
+        desktop=Path.home()/'.local/share/applications/org.lookup.Linux.desktop'
+        if desktop.exists():
+            _require('X-LookUpHardening-Owned=true' in desktop.read_text(),'unexpected_desktop_shadow')
+            desktop.unlink()
+        (root/'config.json').write_text('{"online":false,"shortcut":"Meta+Shift+E","popup_timeout":60}')
+        settings=dict(LOOKUP_CONFIG=str(root/'config.json'),LOOKUP_DB=str(root/'data/history.db'),LOOKUP_CACHE=str(root/'cache'),
+            LOOKUP_DICTS='/usr/share/lookup/dicts',LOOKUP_TIMING='1')
+        actual=Path.home()/'.config/lookup/config.json';backup=root/'retained-config-before.bin'
+        if not backup.exists():backup.write_bytes(actual.read_bytes())
+        value=json.loads(actual.read_text());value['autostart']=False
+        temporary=actual.with_suffix('.hardening-tmp');temporary.write_text(json.dumps(value));temporary.replace(actual)
+        script=Path.home()/'.config/plasma-workspace/env/lookup-hardening-08.sh';script.parent.mkdir(parents=True,exist_ok=True)
+        if script.exists():_require(script.read_text().startswith('# Owned lookup-hardening-08'),'unexpected_environment_file')
+        import shlex
+        script.write_text('# Owned lookup-hardening-08\n'+''.join('export '+key+'='+shlex.quote(value)+'\n' for key,value in settings.items()))
+        subprocess.run(['dbus-update-activation-environment','--systemd',*[key+'='+value for key,value in settings.items()]],
+            env=env,capture_output=True,timeout=5,check=True)
+        refresh=subprocess.run(['kbuildsycoca6'],env=env,capture_output=True,timeout=15)
+        _require(refresh.returncode==0,'desktop_refresh')
+        registry=lifecycle.ShortcutRegistry()
+        if registry.inspect().keys!=(lifecycle.parse_shortcut('Meta+Shift+E')[1],):
+            registry.change('Meta+Shift+E').commit()
+        return dict(prepared=True,owner_before=owner(),environment_script=str(script),installed_desktop_unchanged=True)
+    if action=='arm':
+        value={key:command[key] for key in ('attempt','group','case','scene')}
+        value['verify_count']=command.get('verify_count',False)
+        value['token']=time.monotonic_ns()
+        temporary=root/'arm.tmp';temporary.write_text(json.dumps(value));temporary.replace(root/'arm.json')
+        deadline=time.monotonic()+6
+        while time.monotonic()<deadline:
+            path=root/'ready.json'
+            if path.exists():
+                result=read_record(path)
+                if result is None:
+                    with (root/'command-read-retries.jsonl').open('a') as output:output.write(json.dumps(dict(action=action,attempt=command['attempt'],reason='incomplete_json',at_ns=time.monotonic_ns()))+'\n')
+                if matching_result(result,value):
+                    _require(path.stat().st_uid==1001,'transport_owner');return result
+            time.sleep(.03)
+        raise TimeoutError('arm_deadline')
+    if action=='result':
+        deadline=time.monotonic()+18
+        while time.monotonic()<deadline:
+            path=root/'result.json'
+            if path.exists():
+                result=read_record(path)
+                if result is None:
+                    with (root/'command-read-retries.jsonl').open('a') as output:output.write(json.dumps(dict(action=action,attempt=command['attempt'],reason='incomplete_json',at_ns=time.monotonic_ns()))+'\n')
+                if matching_result(result,command):
+                    _require(path.stat().st_uid==1001,'transport_owner')
+                    return dict(result,transport_file_uid=path.stat().st_uid,transport_file_mode=oct(path.stat().st_mode&0o777))
+            if (root/'observer-error.json').exists():raise RuntimeError('observer_failed')
+            time.sleep(.03)
+        raise TimeoutError('result_deadline')
+    if action=='stop-owner':
+        value=owner()
+        if not value['pid']:return dict(stopped=True,method='already_absent')
+        process=Path('/proc',str(value['pid']))
+        expected=('LOOKUP_DB='+str(root/'data/history.db')).encode()
+        scoped=expected in process.joinpath('environ').read_bytes().split(b'\0')
+        if not scoped:
+            argv=process.joinpath('cmdline').read_bytes().split(b'\0')
+            _require(command.get('allow_retained') is True and argv[:3]==[b'/usr/bin/python',b'/usr/bin/lookup',b'--app']
+                     and process.stat().st_uid==1001,'unowned_owner')
+        items=subprocess.run(['qdbus6','org.kde.StatusNotifierWatcher','/StatusNotifierWatcher',
+            'org.kde.StatusNotifierWatcher.RegisteredStatusNotifierItems'],env=env,capture_output=True,text=True,timeout=3,check=True).stdout.split()
+        for item in items:
+            service=item.split('/StatusNotifierItem')[0]
+            if interface.servicePid(service).value()==value['pid']:
+                subprocess.run(['qdbus6',service,'/MenuBar','com.canonical.dbusmenu.Event','5','clicked','0','0'],
+                    env=env,capture_output=True,timeout=3,check=True)
+        deadline=time.monotonic()+6
+        while time.monotonic()<deadline:
+            if not owner()['owner']:return dict(stopped=True,method='tray_exit',old_pid=value['pid'])
+            time.sleep(.05)
+        raise TimeoutError('owner_exit_deadline')
+    if action=='resource':
+        value=owner();pid=value['pid'];process=Path('/proc',str(pid));status=process.joinpath('status').read_text()
+        start=int(process.joinpath('stat').read_text().split(') ',1)[1].split()[19])
+        events=[json.loads(line.split(':',1)[1]) for line in (root/'daemon.log').read_text().splitlines()
+                if line.startswith('lookup-timing:')]
+        run=next(item['run'] for item in reversed(events) if item['pid']==pid)
+        return dict(identity=[pid,start,run],rss_bytes=int(re.search(r'^VmRSS:\s+(\d+)',status,re.M)[1])*1024,
+            threads=len(list(process.joinpath('task').iterdir())),fds=len(list(process.joinpath('fd').iterdir())),
+            owned_children=[int(i) for i in process.joinpath('task',str(pid),'children').read_text().split()],observed=True)
+    if action=='history':
+        import sqlite3
+        path=root/'data/history.db'
+        if not path.exists():return dict(count=0,integrity='ok')
+        with sqlite3.connect('file:'+str(path)+'?mode=ro',uri=True) as conn:
+            return dict(count=conn.execute('SELECT COALESCE(sum(count),0) FROM words').fetchone()[0],
+                integrity=conn.execute('PRAGMA integrity_check').fetchone()[0])
+    raise ValueError('unknown_owned_command')
+
+
+def vm_command(value):
+    import base64,json,subprocess
+    encoded=base64.b64encode(json.dumps(value).encode()).decode()
+    child=subprocess.run(['ssh','-o','BatchMode=yes','-o','HostKeyAlias=lookup-gsd-07','-o',
+        'UserKnownHostsFile=D:/vm/machines/lookup-gsd-07/ssh_known_hosts','-p','2227','archvm',
+        'sudo','-n','-H','-u','lookup07','python','/home/lookup07/check_hardening.py','--guest-command',encoded],
+        capture_output=True,text=True,timeout=25)
+    if child.returncode:raise RuntimeError('owned_guest_command_failed')
+    return json.loads(child.stdout)
+
+
+def vm_input(action,**values):
+    import os,subprocess
+    from pathlib import Path
+    argv=['powershell','-NoProfile','-File',str(Path(__file__).with_name('check_hardening_vm.ps1')),'-Action',action]
+    for key,value in values.items():argv+=['-'+key,str(value)]
+    subprocess.run(argv,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE,timeout=8,check=True,
+        creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
+
+
+def run_performance(output):
+    import json
+    from pathlib import Path
+    output=Path(output);output.parent.mkdir(parents=True,exist_ok=True)
+    if output.exists():raise ValueError('attempt_file_must_be_new')
+    rows=[]
+    workload=[('cold',i,i) for i in range(1,4)]+[('warm_distinct',i,i) for i in range(1,19)]+[('repeat',i,i) for i in range(1,10)]
+    for attempt,(group,case,scene) in enumerate(workload,1):
+        before=None
+        try:
+            if group=='cold':
+                vm_command(dict(action='stop-owner'));before=vm_command(dict(action='owner'))
+                _require(before['owner'] is False,'cold_owner_present')
+            vm_input('Keys',Codes='01 81')
+            ready=vm_command(dict(action='arm',attempt=attempt,group=group,case=case,scene=scene))
+            vm_input('Pointer',X=ready['point'][0],Y=ready['point'][1],Buttons=0)
+            vm_input('Keys',Codes='e0 5b 2a 12 92 aa e0 db')
+            row=vm_command(dict(action='result',attempt=attempt,token=ready['token']))
+            if group=='cold':
+                row['owner_absent_before_input']=not before['owner']
+                if not row.get('process_born_after_input'):row.update(status='error',reason='cold_owner_birth')
+        except Exception as error:
+            row=dict(attempt=attempt,input_sequence=attempt,group=group,case=case,scene=scene,status='error',
+                     reason=type(error).__name__,mode='native',physical=False,released=False)
+        rows.append(row);output.write_text(json.dumps(rows,indent=2))
+        print(json.dumps(dict(attempt=attempt,group=group,status=row['status'],latency_ms=row.get('latency_ms'))),flush=True)
+    report=performance_report(rows);output.with_name(output.stem+'-report.json').write_text(json.dumps(report,indent=2))
+    return report
+
+
+def run_stability(output):
+    import json,time
+    from pathlib import Path
+    output=Path(output)
+    if output.exists():raise ValueError('attempt_file_must_be_new')
+    vm_command(dict(action='stop-owner'))
+    data=dict(mode='native',protocol=protocol(),warmup=[],completions=[],resources=[])
+    baseline=None
+    for attempt in range(1,341):
+        group='warmup' if attempt<=20 else 'stress';case=(attempt-1)%len(SCENES)+1
+        try:
+            vm_input('Keys',Codes='01 81')
+            ready=vm_command(dict(action='arm',attempt=attempt,group=group,case=case,scene=case))
+            vm_input('Pointer',X=ready['point'][0],Y=ready['point'][1],Buttons=0)
+            vm_input('Keys',Codes='e0 5b 2a 12 92 aa e0 db')
+            row=vm_command(dict(action='result',attempt=attempt,token=ready['token']))
+        except Exception as error:
+            row=dict(attempt=attempt,input_sequence=attempt,case=case,group=group,status='error',reason=type(error).__name__)
+        data['warmup' if attempt<=20 else 'completions'].append(row)
+        if attempt==20:baseline=vm_command(dict(action='history'))
+        if attempt>20 and (attempt-20)%10==0:
+            value=vm_command(dict(action='resource'));value['after']=attempt-20;data['resources'].append(value)
+        write_record(output,data)
+        if attempt%10==0 or row['status']!='success':
+            print(json.dumps(dict(attempt=attempt,measured=max(0,attempt-20),status=row['status'],
+                last_latency_ms=row.get('latency_ms'),rss_bytes=data['resources'][-1]['rss_bytes'] if data['resources'] else None)),flush=True)
+        if output.with_suffix('.stop').exists():
+            data.update(controlled_stop=True,stopped_after=attempt);write_record(output,data)
+            return dict(passed=False,controlled_stop=True,stopped_after=attempt)
+    started=time.monotonic();time.sleep(protocol()['cooldown_ms']/1000)
+    cooldown=vm_command(dict(action='resource'));cooldown.update(after=320,idle_ms=(time.monotonic()-started)*1000)
+    final=vm_command(dict(action='history'));delta=final['count']-baseline['count']
+    data.update(cooldown=cooldown,history_delta=delta,enrichment_extra_count=delta-320,integrity=final['integrity'],
+        history_before=baseline['count'],history_after=final['count'])
+    output.write_text(json.dumps(data,indent=2));report=stability_report(data)
+    output.with_name(output.stem+'-report.json').write_text(json.dumps(report,indent=2))
+    print(json.dumps(report),flush=True);return report
+
+
+def run_burst(output):
+    import base64,json
+    from pathlib import Path
+    output=Path(output)
+    if output.exists():raise ValueError('attempt_file_must_be_new')
+    before=vm_command(dict(action='history'));resource=vm_command(dict(action='resource'))
+    vm_input('Keys',Codes='01 81')
+    ready=vm_command(dict(action='arm',attempt=1,group='burst',case=1,scene=1,verify_count=True))
+    vm_input('Pointer',X=ready['point'][0],Y=ready['point'][1],Buttons=0)
+    previous=vm_command(dict(action='last-trigger',after=0))
+    vm_input('Burst')
+    raw=vm_command(dict(action='inputs',token=ready['token'],count=10))
+    trace=vm_command(dict(action='trace',since_ns=raw[0]['input_ns']))
+    triggers=[row for row in trace if row['stage']==1 and row['request']>previous['request']]
+    _require(len(raw)==10 and len(triggers)==10,'burst_input_trigger_count')
+    inputs=[dict(row,sequence=index+1,request=trigger['request']) for index,(row,trigger) in enumerate(zip(raw,triggers))]
+    latest=triggers[-1]
+    final=vm_command(dict(action='result',attempt=1,token=ready['token'],request=latest['request']))
+    frame=vm_command(dict(action='frame',attempt=1,token=ready['token'],request=latest['request']))
+    output.with_suffix('.png').write_bytes(base64.b64decode(frame['png_base64']))
+    trace=vm_command(dict(action='trace',since_ns=inputs[0]['input_ns']))
+    accepted=sorted({row['request'] for row in trace if row['stage']==3})
+    after=vm_command(dict(action='history'));delta=after['count']-before['count']
+    vm_input('Keys',Codes='01 81')
+    subsequent=vm_command(dict(action='arm',attempt=2,group='postburst',case=2,scene=2))
+    vm_input('Pointer',X=subsequent['point'][0],Y=subsequent['point'][1],Buttons=0)
+    vm_input('Keys',Codes='e0 5b 2a 12 92 aa e0 db')
+    response=vm_command(dict(action='result',attempt=2,token=subsequent['token']))
+    last=vm_command(dict(action='resource'))
+    data=dict(mode='native',identity=resource['identity'],process_start_source='proc_stat',inputs=inputs,
+        accepted_requests=accepted,final_request=latest['request'],final_identity=final.get('frame_identity'),
+        final_frame_sha256=frame['sha256'],history_delta=delta,enrichment_extra_count=delta-len(accepted),integrity=after['integrity'],
+        final_record=final,subsequent=response,trace=trace,gates=dict(daemon_alive=last['identity']==resource['identity'],
+            subsequent_lookup=response.get('status')=='success',no_owned_children=not last['owned_children'],
+            fresh_final=final.get('observed_footer_count')==final.get('expected_count') and final.get('request')==latest['request']))
+    report=burst_report(data);write_record(output,data);write_record(output.with_name(output.stem+'-report.json'),report)
+    print(json.dumps(report),flush=True);return report
+
+
+def run_scales(output):
+    import base64,json
+    from pathlib import Path
+    output=Path(output)
+    if output.exists():raise ValueError('attempt_file_must_be_new')
+    rows=[];original=vm_command(dict(action='outputs'))[0]['scale']
+    try:
+        for index,value in enumerate((1,1.25,1.5,2),1):
+            vm_input('Keys',Codes='01 81');metadata=vm_command(dict(action='scale',value=value))
+            ready=vm_command(dict(action='arm',attempt=index,group='scale',case=1,scene=1))
+            vm_input('Pointer',X=ready['point'][0],Y=ready['point'][1],Buttons=0)
+            vm_input('Keys',Codes='e0 5b 2a 12 92 aa e0 db')
+            row=vm_command(dict(action='result',attempt=index,token=ready['token']))
+            image=vm_command(dict(action='frame',attempt=index,token=ready['token'],request=row['request']))
+            output.with_name('08-scale-'+str(round(value*100))+'.png').write_bytes(base64.b64decode(image['png_base64']))
+            x,y,w,h=row['popup_rect'];ax,ay,aw,ah=row['work_area'];expected=ready['logical_point']
+            row.update(scale=value,output_metadata=metadata,expected_cursor=expected,
+                cursor_correct=all(abs(a-b)<=2 for a,b in zip(expected,row['actual_cursor'])),
+                popup_bounded=ax-1<=x and ay-1<=y and x+w<=ax+aw+1 and y+h<=ay+ah+1,
+                actual_scale=row['monitor']['scale'])
+            row['passed']=row.get('status')=='success' and row['cursor_correct'] and row['popup_bounded'] and abs(row['actual_scale']-value)<.001
+            rows.append(row);write_record(output,dict(records=rows,second_output='unverified: only one active output',passed=all(r['passed'] for r in rows)))
+            print(json.dumps(dict(scale=value,passed=row['passed'],cursor=row['actual_cursor'],popup=row['popup_rect'])),flush=True)
+    finally:vm_command(dict(action='scale',value=original))
+    return dict(passed=len(rows)==4 and all(row['passed'] for row in rows),records=rows)
+
+
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser();parser.add_argument('--guest-probe',action='store_true');parser.add_argument('--start-probe',action='store_true')
+    parser.add_argument('--continuous',action='store_true');parser.add_argument('--guest-command')
+    parser.add_argument('--performance')
+    parser.add_argument('--stability')
+    parser.add_argument('--burst')
+    parser.add_argument('--scales')
+    parser.add_argument('--network-fault',choices=('on','off','status'))
+    parser.add_argument('--injected-capture',action='store_true')
+    parser.add_argument('--session-environment',type=int)
+    args=parser.parse_args()
+    if args.injected_capture:
+        import os,runpy,sys,time
+        from pathlib import Path
+        assert os.getuid()==1001 and Path.home()==Path('/home/lookup07')
+        sys.path.insert(0,'/usr/lib/lookup/app')
+        from lookup import capture,platform
+        def fail_transport(name):
+            with (Path.home()/'.local/state/lookup-hardening-08/series/injected-capture.jsonl').open('a') as output:
+                output.write(__import__('json').dumps(dict(site='capture._screenshot2',kind='injected',at_ns=time.monotonic_ns()))+'\n')
+            raise platform.PlatformError('capture_failed')
+        capture._screenshot2=fail_transport
+        sys.argv=['/usr/bin/lookup','--app'];runpy.run_path('/usr/bin/lookup',run_name='__main__')
+        raise SystemExit(0)
+    if args.network_fault:
+        import os,subprocess
+        from pathlib import Path
+        assert os.geteuid()==0 and Path('/sys/class/dmi/id/product_uuid').read_text().strip()=='097920cf-b594-494b-8bd8-ccff973c1dc8'
+        if args.network_fault=='on':
+            rules='add table inet lookup_hardening_08\nadd chain inet lookup_hardening_08 output { type filter hook output priority 0; policy accept; }\nadd rule inet lookup_hardening_08 output meta skuid 1001 counter reject\n'
+            subprocess.run(['nft','-f','-'],input=rules,text=True,check=True)
+        elif args.network_fault=='off':subprocess.run(['nft','delete','table','inet','lookup_hardening_08'],check=True)
+        else:subprocess.run(['nft','list','table','inet','lookup_hardening_08'],check=True)
+        raise SystemExit(0)
+    if args.scales:raise SystemExit(0 if run_scales(args.scales)['passed'] else 1)
+    if args.burst:raise SystemExit(0 if run_burst(args.burst)['passed'] else 1)
+    if args.stability:raise SystemExit(0 if run_stability(args.stability)['passed'] else 1)
+    if args.session_environment:
+        import json,os
+        from pathlib import Path
+        process=Path('/proc',str(args.session_environment))
+        assert os.geteuid()==0 and process.stat().st_uid==1001 and process.joinpath('comm').read_text().strip()=='kwin_wayland'
+        values=dict(item.split(b'=',1) for item in process.joinpath('environ').read_bytes().split(b'\0') if b'=' in item)
+        print(json.dumps({key:values.get(key.encode(),b'').decode() for key in
+            ('LOOKUP_TIMING','LOOKUP_CONFIG','LOOKUP_DB','LOOKUP_DICTS','LOOKUP_CACHE')}));raise SystemExit(0)
+    if args.performance:
+        import json
+        value=run_performance(args.performance);print(json.dumps({key:value[key] for key in ('passed','attempts','successful','median_ms','p95_ms')}))
+        raise SystemExit(0 if value['passed'] else 1)
+    if args.guest_command:
+        import json
+        try:result=guest_command(args.guest_command)
+        except Exception as error:
+            import base64,time
+            from pathlib import Path
+            value=json.loads(base64.b64decode(args.guest_command));root=Path('/home/lookup07/.local/state/lookup-hardening-08/series')
+            with (root/'command-errors.jsonl').open('a') as output:
+                output.write(json.dumps(dict(action=value.get('action'),attempt=value.get('attempt'),token=value.get('token'),
+                    error=type(error).__name__,at_ns=time.monotonic_ns()))+'\n')
+            raise
+        print(json.dumps(result));raise SystemExit(0)
+    if args.guest_probe:raise SystemExit(guest_probe(args.continuous))
+    if args.start_probe:
+        import os,subprocess,sys
+        from pathlib import Path
+        assert os.getuid()==1001 and Path.home()==Path('/home/lookup07')
+        output=Path.home()/'hardening-observer.log'
+        if args.continuous:
+            stale=Path.home()/'.local/state/lookup-hardening-08/series/observer-error.json'
+            if stale.exists():
+                saved=stale.with_name('observer-error-'+str(__import__('time').time_ns())+'.json');stale.replace(saved)
+        with output.open('w') as stream:
+            child=subprocess.Popen([sys.executable,str(Path(__file__).resolve()),'--guest-probe']+(['--continuous'] if args.continuous else []),cwd='/tmp',
+                stdin=subprocess.DEVNULL,stdout=stream,stderr=stream,start_new_session=True)
+        print(child.pid)
