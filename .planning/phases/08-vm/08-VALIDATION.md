@@ -87,3 +87,37 @@ Never boot/revert/delete original arch-kde. Validate clone UUID/disk/account and
 - [ ] Nonblocking limits and Phase7 preservation exception retained honestly.
 
 Approval: pending agent acceptance under explicit --auto.
+
+## Gap Closure — 2026-10-31 (08-06/08-07)
+
+Source: 08-VERIFICATION.md at1a6b6f3 has6/7 criteria verified and one mandatory GAME-01 blocker. No useful Doom captured route exists; GL/SDL lock or passing tests alone cannot close it. 08-GAP-RESEARCH.md atb4f6e94 selects ONE bounded AssaultCube pilot; old04 failure stays unchanged. Final prior target suite is stale relative to host-only fixes. Existing six accepted raw groups are reused, not unnecessarily remeasured.
+
+| Task | Requirement | Automated feedback | Native/acceptance gate |
+|---|---|---|---|
+| 06-1 | GAME-01 | python -m unittest tests.test_check_games tests.test_platform tests.test_ocr tests.test_app_gui | Early real useful/grab pilot before substantial expansion: official pinned archive, actual GL/driver/fullscreen, genuine scoreboard heading under actual grab, physical selected Query/useful overlay. Declared two-resolution/one-shipped-font budget and stop condition. |
+| 06-2 | GAME-01 | python -m unittest tests.test_check_games tests.test_hardening tests.test_timing tests.test_platform tests.test_ocr tests.test_app_gui | Explicit candidate provenance/GL/SDL-call-and-return/queried relative state; actual Wayland lock only for real Wayland driver, never fabricated for X11; strict source/input/control correlation. |
+| 06-3 | GAME-01 | python -m unittest tests.test_check_games tests.test_hardening tests.test_app_gui tests.test_platform | Two changed useful captured fullscreen routes, physical dismiss and distinct camera+movement proof, all keys released, new06 cleanup/product absence/data retention/clone settings restored OFF. |
+| 07-1 | GAME-01 | python -m unittest tests.test_hardening tests.test_check_games tests.test_hardening_install tests.test_timing | Raw selected captured report/cleanup binding plus accepted Wesnoth; failed Doom retained, no hardcoded metadata/exits/count/digest or changed previous six groups. |
+| 07-2 | GAME-01 | python -m unittest discover -s tests | Fresh actual full host+target at same recorded final code revision, latest07 cleanup, recomputed aggregate, then parent independent review/security/verifier. |
+
+Dependencies: 06 depends05 (wave6);07 depends05/06 (wave7). All shared owned-VM/account access is serialized. No new frontend/UI gate, mapper regeneration, production dependency or production OCR edit is planned. Pilot failure stops further candidate expansion and leaves GAME-01 open; no new catalogue or blanket waiver. If a portable saved-source OCR fix becomes demonstrated later, separately scope exact source/test files and remeasure affected first-useful performance.
+
+Durable rejection cases: wrong candidate URL/byte size/hash/executable/UID/version evidence; stale process; absent real GL log; failed/absent/stale/unlocked relative state; driver/protocol mismatch; stage6/no Query; incorrect box/span; previous/fake/empty overlay; duplicate source/input/control frames; report/cleanup swap, incomplete cleanup, old suite identity or fabricated outcome. Read-only taps call originals exactly once and return original objects/results/errno.
+
+### Gap Source Coverage
+
+| Source | Required closure item | Plan/task | Coverage |
+|---|---|---|---|
+| GOAL/REQ | Useful second real fullscreen captured game, post-close control (GAME-01) | 06-1..3,07 | COVERED |
+| VERIFIER missing1 | Diagnose real sources OR reach genuinely readable unchanged actual captured text | 06-1 authentic scoreboard pilot; no speculative production fix | COVERED |
+| VERIFIER missing2 | Two useful changed physical routes, exact source/span/box/identity/clock | 06-2/3 | COVERED |
+| VERIFIER missing3 | Actual same-process grab then physical dismiss/camera/movement | 06-2/3 | COVERED |
+| VERIFIER missing4 | Raw recomputation, rejected attempts and mandatory no-waiver | 06-3,07-1 | COVERED |
+| VERIFIER missing5/warning | Fresh final host/target, independent review/verifier | 07-2 | COVERED |
+| RESEARCH | Exact official RC1 asset/SDL2 GL runtime, pilot budget before adapters | 06-1/2 | COVERED |
+| RESEARCH | Explicit selected-candidate aggregate and current cleanup, failed Doom history | 07-1/2 | COVERED |
+| CONTEXT D-01/D-02 | Owned clone only; original strict-false unknown-actor exception unchanged | 06,07 | COVERED |
+| CONTEXT D-03..D-07/D-09 | Accepted performance/meaning/scales/stress/privacy/install remain binding and reused unchanged | 06 production-member comparison,07 raw reuse | COVERED |
+| CONTEXT D-08/D-10 | Actual useful game/returned control, raw evidence and independent final acceptance | 06,07 | COVERED |
+
+No missed mandatory gap is deferred. Historical original-preservation exception, optional modes, provider429 and licensing limits remain separate from GAME-01 acceptance. Do not claim current target count/exit, actual renderer/grab/useful route or review outcome before execution evidence.
