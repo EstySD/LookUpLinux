@@ -116,6 +116,31 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual([row['request'] for row in hardening.chronological(rows)],[1,2,3])
         self.assertEqual(rows[0]['request'],3)
 
+    def test_resource_tree_includes_worker_thread_children_and_grandchildren(self):
+        import tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            for pid,start,tasks in ((100,1000,{100:[],101:[200]}),(200,2000,{200:[300]}),(300,3000,{300:[]})):
+                process=root/str(pid);process.mkdir()
+                fields=['0']*20;fields[0]='S';fields[19]=str(start)
+                (process/'stat').write_text(str(pid)+' (owned process) '+' '.join(fields))
+                for tid,children in tasks.items():
+                    task=process/'task'/str(tid);task.mkdir(parents=True)
+                    (task/'children').write_text(' '.join(map(str,children)))
+            uid=(root/'100').stat().st_uid
+            self.assertEqual(hardening.descendant_identities(100,1000,uid,root),
+                [dict(pid=200,process_start=2000,uid=uid),dict(pid=300,process_start=3000,uid=uid)])
+            with self.assertRaises(hardening.EvidenceError):hardening.descendant_identities(100,999,uid,root)
+            with self.assertRaises(hardening.EvidenceError):hardening.descendant_identities(100,1000,uid+1,root)
+
+    def test_scale_acceptance_requires_all_four_observations_and_restoration(self):
+        rows=[dict(scale=value,passed=True) for value in (1,1.25,1.5,2)]
+        self.assertTrue(hardening.scales_report(dict(records=rows,display_restored=True))['passed'])
+        for data in (dict(records=rows[:1],display_restored=True),dict(records=rows,display_restored=False),
+                     dict(records=rows[:3]+[rows[0]],display_restored=True)):
+            self.assertFalse(hardening.scales_report(data)['passed'])
+
     def test_failed_live_meanings_keep_denominator_and_null_statistics(self):
         rows=[dict(case=i,kind='live',live=True,cached=False,mock=False,status='error',reason='blocked') for i in range(6)]
         report=hardening.meaning_report(rows)
