@@ -1,0 +1,36 @@
+{
+  "cf207909-94b5-4b49-8bd8-ccff973c1dc8": {
+    "VMState": "\"poweroff\"",
+    "accelerate3d": "\"off\"",
+    "clipboard": "\"bidirectional\""
+  },
+  "abc73254-ddf7-4f1f-9c66-7c2fcc5254d7": {
+    "VMState": "\"poweroff\"",
+    "accelerate3d": "\"on\"",
+    "clipboard": "\"bidirectional\""
+  },
+  "keys_released": true,
+  "game_and_instrumented_lookup_stopped": true,
+  "owned_clipboard_fixture_restored": true,
+  "primary_unchanged": true,
+  "klipper_history_cleared": false,
+  "clone_shutdown": "guest systemctl poweroff completed",
+  "original_action": "read-only state observation only",
+  "accelerate3d_restore": "deferred across plan03/04; prior on, current off",
+  "target_tests": {
+    "count": 739,
+    "skips": 0,
+    "seconds": 39.201,
+    "python_exit": 0
+  },
+  "host_tests": {
+    "count": 739,
+    "skips": 8,
+    "seconds": 30.381,
+    "result": "OK; PowerShell stderr projection retained"
+  },
+  "focused_tests": {
+    "count": 57,
+    "python_exit": 0
+  }
+}

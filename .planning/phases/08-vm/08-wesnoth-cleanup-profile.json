@@ -1,0 +1,1 @@
+{"game": {"stopped": true, "pid": 1042, "unit": "lookup-wesnoth-08-97450648782", "method": "owned user-service stop"}, "lookup": {"stopped": true, "pid": 1481}, "clipboard": {"restored_known_public_fixture": true, "history_cleared": false}, "primary": {"absent": true, "changed": false}}
