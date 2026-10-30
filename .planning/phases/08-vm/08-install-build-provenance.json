@@ -10,5 +10,6 @@
   ],
   "runtime_user": "lookup08install",
   "build_user": "arch",
-  "source_members_identical_to_benchmarked_build": true
+  "source_members_identical_to_benchmarked_build": true,
+  "log_sha256": "001716cd9ca6d6e0e31f02714f390b5eeca1f63f4fdea2a04aeaa6a78c9f3fd0"
 }

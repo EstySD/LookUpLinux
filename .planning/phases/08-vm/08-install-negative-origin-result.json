@@ -1,0 +1,8 @@
+{
+  "exit": 0,
+  "count": 1,
+  "tests": [
+    "tests.test_platform.GeometryTests.test_actual_ratios_and_negative_origins"
+  ],
+  "log_sha256": "397562ccff013640eac3dc56742ae7054c290a9f5774ad296bef56df0310505d"
+}

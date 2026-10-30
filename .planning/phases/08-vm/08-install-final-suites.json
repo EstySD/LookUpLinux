@@ -1,10 +1,11 @@
 {
   "host": {
     "exit": 0,
-    "count": 751,
+    "count": 752,
     "skips": 8,
-    "seconds": 30.427,
-    "log_sha256": "0061de053aeeed10ed58f637a36946dbb95e0ab1e21778066da9b0ccf62a7af4"
+    "seconds": 31.22,
+    "log_sha256": "d5701fb5754d36f05c5d01c40791b1e933c74f88c12e5a7803c454c08c732720",
+    "code_revision": "a10c5e1"
   },
   "target": {
     "exit": 0,
@@ -13,6 +14,8 @@
     "seconds": 40.223,
     "log_sha256": "34d35d763ab604de5ce74dcd334fbae4c3e5b1d2d1498b1b7b23fc7a89cc30dd",
     "ocr_optin": true,
-    "real_mueller": "/home/arch/lookup-readme-08-build/src/mueller7"
+    "real_mueller": "/home/arch/lookup-readme-08-build/src/mueller7",
+    "code_revision": "d5488b3",
+    "scope": "last target run before host-only raw-binding correction; target rerun deferred to later native gap work"
   }
 }
