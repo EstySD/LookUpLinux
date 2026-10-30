@@ -151,13 +151,16 @@ class EvidenceTests(unittest.TestCase):
             with self.subTest(change=change):self.assertFalse(hardening.stability_report(data)['passed'])
 
     def test_burst_counts_only_accepted_completions_but_requires_latest_and_integrity(self):
-        data=dict(mode='native',inputs=[dict(sequence=i,request=i,physical=True,released=True) for i in range(1,11)],
+        data=dict(mode='native',inputs=[dict(sequence=i,request=i,input_ns=i*50_000_000,physical=True,released=True) for i in range(1,11)],
                   accepted_requests=[3,10],final_request=10,history_delta=2,enrichment_extra_count=0,integrity='ok',
                   identity=[20,2000,20000],process_start_source='proc_stat',final_identity=[20,2000,20000,10],final_frame_sha256='a'*64,
                   gates={key:True for key in hardening.BURST_GATES})
         self.assertTrue(hardening.burst_report(data)['passed'])
         for changes in (dict(history_delta=10),dict(final_request=3),dict(integrity='corrupt')):
             self.assertFalse(hardening.burst_report(dict(data,**changes))['passed'])
+        slow=deepcopy(data)
+        for row in slow['inputs']:row['input_ns']*=10
+        self.assertFalse(hardening.burst_report(slow)['passed'])
 
     def test_two_actual_fullscreen_games_relative_mouse_and_resumed_gameplay_required(self):
         rows=[game('Wesnoth',multiline=True),game('Freedoom',relative=True)]
