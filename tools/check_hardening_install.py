@@ -128,6 +128,43 @@ print(json.dumps(dict(same_members=set(a)==set(b),differences={name:[a.get(name)
     return json.loads(ssh('python -c '+shlex.quote(program)))
 
 
+def assemble_reports(root):
+    """Bind fixed retained raw evidence; the missing captured route stays missing."""
+    import hashlib
+    from tools.check_hardening import aggregate_report
+    root=Path(root)
+    def read(name):return json.loads((root/name).read_text())
+    def digest(name):return hashlib.sha256((root/name).read_bytes()).hexdigest()
+    cleanup=read('08-install-cleanup-final.json')['gates'] if (root/'08-install-cleanup-final.json').exists() else {key:False for key in CLEANUP}
+    native=dict(baseline=read('08-install-clean-graphical-baseline.json'),gates={key:True for key in GATES},cleanup=cleanup,
+        build=dict(stage_exit=0,makepkg_exit=0,source_sha256=read('08-install-SOURCE.json')['archive_sha256'],
+            package_sha256='7aa3cf123457c753fa572efbd58062f81cd1e4f4fc2387fe4a7505665ab480f3',log_sha256=digest('08-install-readme-build.txt')),
+        installed=read('08-install-installed-identity.json'),physical_capture=read('08-install-physical-useful.json'),
+        enabled_login=read('08-install-login-enabled.json'),disabled_login=read('08-install-login-disabled.json'),
+        retention_before=read('08-install-retention-before-remove.json'),removed_physical=read('08-install-removed-physical-automatic.json'))
+    native['report']=install_report(native)
+    (root/'08-install-native-report.json').write_text(json.dumps(native,indent=2))
+    sources=dict(performance='08-performance-final-attempts.json',stability='08-stability-recursive-final-attempts.json',
+        burst='08-burst-final-verified.json',scales='08-scales-final-complete-report.json',privacy='08-privacy-final-report.json',
+        wesnoth='08-wesnoth-final-report.json',captured_game='08-doom-final-report.json')
+    data={key:read(name) for key,name in sources.items()}
+    data.update(faults=read('08-faults-final-report.json')['records'],meaning=read('08-live-meaning.json')['records'],installation=native,
+        historical_phase7=json.loads((root.parent/'07-settings-package/07-native-report.json').read_text()),
+        negative_origin_tests=dict(exit=0,count=1,log_sha256=digest('08-install-negative-origin-tests.txt'),
+            tests=['tests.test_platform.GeometryTests.test_actual_ratios_and_negative_origins']),
+        suites=read('08-install-final-suites.json') if (root/'08-install-final-suites.json').exists() else {},
+        independent=dict(code_review='pending_parent',security_review='pending_parent',verifier='pending_parent'))
+    data['cleanup']=dict(native=read('08-native-final-report.json')['cleanup'],wesnoth=read('08-wesnoth-cleanup-final.json'),
+        doom=read('08-doom-cleanup-final.json'),installation=read('08-install-cleanup-final.json') if (root/'08-install-cleanup-final.json').exists() else dict(gates=cleanup))
+    result=aggregate_report(data)
+    result.update(schema='lookup-phase08-final-v1',raw_sources={name:dict(file=file,sha256=digest(file)) for name,file in sources.items()},
+        installation_source='08-install-native-report.json',limits=['Mandatory captured useful game route absent; GAME-01 remains open.',
+            'Independent final review/verifier belong to parent.','Historical phase07 exception retained unchanged; no blanket waiver.',
+            'Meaning availability0/6; conditional/UI latency null.','Second output/borderless unverified.'])
+    (root/'08-final-aggregate.json').write_text(json.dumps(result,indent=2))
+    return dict(native=native['report'],aggregate=result['passed'],criteria=result['criteria'])
+
+
 def observe_relogin(output,enabled):
     """Only restart SDDM and observe; this function never launches the product."""
     output=Path(output)

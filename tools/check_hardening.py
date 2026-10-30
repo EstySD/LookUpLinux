@@ -311,6 +311,26 @@ def carry_phase7(raw):
     return dict(raw=raw,actor='unknown',scope='historical_preservation_exception')
 
 
+def final_cleanup_report(raw):
+    """Require the native, both game and current installation cleanup observations."""
+    try:
+        native=raw['native'];wesnoth=raw['wesnoth'];doom=raw['doom'];install=raw['installation']['gates']
+        checks=dict(
+            observers_stopped=native['observer_stopped'] is True and doom['one_shot_observers_finished'] is True and install['fixture_stopped'] is True,
+            games_stopped=wesnoth['game_and_instrumented_lookup_stopped'] is True and doom['game_stopped'] is True,
+            helpers_stopped=native['helpers_ended_with_guest_shutdown'] is True and doom['lookup_tray_exited'] is True and install['owner_stopped'] is True,
+            activation_environment_restored=native['retained_config_restored'] is True and native['environment_script_removed'] is True and install['session_override_restored'] is True,
+            network_restored=native['network_restored'] is True,
+            dictionary_restored=native['dictionary_restored'] is True,
+            layout_restored=native['display_restored'] is True and doom['prior_3d_restored_after_off'] is True,
+            input_released=native['input_release_command_succeeded'] is True and wesnoth['keys_released'] is True and doom['keys_released'] is True and install['input_released'] is True,
+            clipboard_restored=native['shared_clipboard_restored'] is True and wesnoth['owned_clipboard_fixture_restored'] is True and doom['prior_clipboard_restored_after_off'] is True and install['clipboard_restored'] is True,
+            clone_powered_off=install['clone_powered_off'] is True,
+            original_powered_off=install['original_powered_off'] is True)
+        return dict(passed=all(checks.values()),checks=checks)
+    except (KeyError,TypeError,AttributeError):return dict(passed=False,reason='missing_or_invalid_cleanup')
+
+
 def aggregate_report(data):
     """Recompute the seven groups from raw records; summary booleans never substitute."""
     from tools.check_games import game_report,captured_game_report
@@ -340,10 +360,11 @@ def aggregate_report(data):
         and _hash(row.get('log_sha256')) for row in suites.values()) and suites['target'].get('skips')==0
     review=data.get('independent',{})
     reviewed=all(review.get(key)=='passed' for key in ('code_review','security_review','verifier'))
-    passed=all(criteria.values()) and historical_valid and suites_ok and reviewed
+    cleanup=final_cleanup_report(data.get('cleanup',{}))
+    passed=all(criteria.values()) and historical_valid and suites_ok and reviewed and cleanup['passed']
     return dict(passed=passed,game01_complete=criteria['games'] and reviewed,criteria=criteria,reports=reports,
         suites_valid=suites_ok,independent_complete=reviewed,historical_phase7=historical,
-        historical_valid=historical_valid,human_acceptance=False)
+        historical_valid=historical_valid,human_acceptance=False,cleanup=cleanup)
 
 
 SCENES=(('bank','They waited by the bank of the river.'),('cat','The cat sat beside the chair.'),
