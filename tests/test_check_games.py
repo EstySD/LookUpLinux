@@ -34,6 +34,17 @@ def record():
 
 
 class GameContractTests(unittest.TestCase):
+    def test_captured_game_rejects_missing_actual_provenance_grab_and_camera_proof(self):
+        for value in ({},record(),dict(record(),name='Freedoom Phase 2',relative=True)):
+            self.assertFalse(check_games.captured_game_report(value)['passed'])
+
+    def test_captured_route_requires_each_physical_camera_and_movement_change(self):
+        data=record();data.update(name='Freedoom Phase 2',engine='Chocolate Doom',engine_version='3.1.1')
+        data['acquisition']=dict(source_url='https://api.github.com/repos/chocolate-doom/chocolate-doom/tarball/chocolate-doom-3.1.1',
+            source_sha256='c'*64,assets_url='https://github.com/freedoom/freedoom/releases/download/v0.13.0/freedoom-0.13.0.zip',
+            assets_sha256='d'*64,checksum_verified=True,wad_sha256='e'*64)
+        self.assertFalse(check_games.captured_game_report(data)['passed'])
+
     def test_complete_changed_actual_game_routes_pass_without_closing_two_game_requirement(self):
         report=check_games.game_report(record())
         self.assertTrue(report['passed']);self.assertFalse(report['game01_complete'])
