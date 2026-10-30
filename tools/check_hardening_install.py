@@ -61,6 +61,9 @@ def login_evidence(data):
 def install_report(data):
     try:
         gates=data['gates'];cleanup=data['cleanup']
+        build=data['build']
+        built=(build.get('stage_exit')==0 and build.get('makepkg_exit')==0 and
+            all(_hash(build.get(key)) for key in ('source_sha256','package_sha256','log_sha256')))
         before=data['retention_before'];removed=data['removed_physical'];after=removed['after_unrelated']['retention']
         old=removed['after_old_key'];installed=data['installed'];capture=data['physical_capture']
         preservation=(set(before['hashes'])==set(after['hashes'])=={'config','database','unrelated'}
@@ -79,7 +82,7 @@ def install_report(data):
         passed=(clean_baseline(data['baseline']) and set(GATES)<=set(gates) and all(value is True for value in gates.values())
             and data['enabled_login']['enabled'] is True and data['disabled_login']['enabled'] is False
             and login_evidence(data['enabled_login']) and login_evidence(data['disabled_login'])
-            and preservation and inactive and unrelated and package and useful
+            and built and preservation and inactive and unrelated and package and useful
             and set(CLEANUP)<=set(cleanup) and all(value is True for value in cleanup.values()))
         return dict(passed=passed)
     except (KeyError,TypeError,AttributeError):return dict(passed=False)
