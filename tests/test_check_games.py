@@ -109,3 +109,6 @@ class GameContractTests(unittest.TestCase):
             with self.subTest(token=token):
                 self.assertEqual(check_games.game_report(data)['passed'],accepted)
                 self.assertEqual(source['context'][slice(*source['span'])],raw)
+        data=record();source=data['routes'][0]['source'];source.update(word='m.ove',query='m.ove',context='Now m.ove\nto the keep.',span=[4,9])
+        data['routes'][0]['overlay']['current_word']='m.ove'
+        self.assertFalse(check_games.game_report(data)['passed'])

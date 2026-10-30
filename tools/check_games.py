@@ -54,8 +54,8 @@ def game_report(data):
                 and _integer(source.get('visual_lines'),1),'ocr')
             _require(source['visual_lines']==len(source['context'].splitlines()),'context_lines')
             multiline|=source['visual_lines']>=2
-            span=source['span'];_require(len(span)==2 and all(type(value) is int for value in span) and
-                0<=span[0]<span[1]<=len(source['context']) and normalize(source['context'][span[0]:span[1]])==normalize(source['query']),'context_span')
+            span=source['span'];query_key=normalize(source['query']);_require(query_key and len(span)==2 and all(type(value) is int for value in span) and
+                0<=span[0]<span[1]<=len(source['context']) and normalize(source['context'][span[0]:span[1]])==query_key,'context_span')
             x,y=source['cursor'];left,top,width,height=source['word_rect']
             _require(width>0 and height>0 and left<=x<=left+width and top<=y<=top+height,'target')
             _require(overlay.get('useful') is True and overlay.get('loading') is False and overlay.get('error') is False
@@ -183,6 +183,12 @@ def guest_command(encoded):
         _require(value.returncode==0 and value.stdout in known,'unknown_primary_not_cleared')
         subprocess.run(['wl-copy','--primary','--clear'],env=env,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,timeout=3,check=True)
         return dict(absent=True,changed=True,history_cleared=False)
+    if action=='restore-owned-clipboard':
+        previous=b'Public hardening clipboard fixture 08';report=root/'copied-report.txt'
+        value=subprocess.run(['wl-paste','--no-newline'],env=env,capture_output=True,timeout=3,check=True).stdout
+        _require(report.exists() and value in (report.read_bytes(),previous),'unknown_clipboard_not_overwritten')
+        subprocess.run(['wl-copy'],input=previous,env=env,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,timeout=3,check=True)
+        return dict(restored_known_public_fixture=True,history_cleared=False)
     if action=='stop-lookup':
         interface=bus.interface();present=interface.isServiceRegistered('org.lookup.Linux')
         if not present.isValid() or not present.value():return dict(stopped=True,already_absent=True)
