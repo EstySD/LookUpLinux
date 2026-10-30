@@ -7,7 +7,9 @@ def pilot_cleanup_steps(prior,record,info,run,guest,input_command):
     clone='cf207909-94b5-4b49-8bd8-ccff973c1dc8';original='abc73254-ddf7-4f1f-9c66-7c2fcc5254d7'
     vbox='C:/Program Files/Oracle/VirtualBox/VBoxManage.exe'
     def attempt(name,operation):
-        try:record[name]=dict(ok=True,result=operation())
+        try:
+            result=operation()
+            record[name]=dict(ok=not(isinstance(result,dict) and result.get('exit',0)!=0),result=result)
         except BaseException as error:record[name]=dict(ok=False,error=repr(error))
         return record[name]
     observed=attempt('identity',lambda:info(clone))
@@ -39,15 +41,16 @@ def pilot_cleanup_steps(prior,record,info,run,guest,input_command):
     return record
 
 
-def pilot_session():
+def pilot_session(suffix=''):
     """Bounded owned-clone lifetime; every exit runs observed failure cleanup."""
     import json,subprocess
     from pathlib import Path
     from tools.check_hardening import write_record,vm_input
     clone='cf207909-94b5-4b49-8bd8-ccff973c1dc8';original='abc73254-ddf7-4f1f-9c66-7c2fcc5254d7'
     vbox='C:/Program Files/Oracle/VirtualBox/VBoxManage.exe'
-    root=Path('.planning/phases/08-vm');state=root/'08-06-pilot-session.json'
-    stop=root/'08-06-pilot-stop.json';cleanup=root/'08-06-cleanup-final.json'
+    _require(suffix in ('','-control-retry'),'pilot_attempt')
+    root=Path('.planning/phases/08-vm');state=root/('08-06-pilot-session'+suffix+'.json')
+    stop=root/('08-06-pilot-stop'+suffix+'.json');cleanup=root/('08-06-cleanup'+suffix+'-final.json')
     _require(not stop.exists(),'existing_pilot_stop')
     def run(*args):
         result=subprocess.run(args,capture_output=True,text=True,timeout=30)
@@ -169,6 +172,19 @@ def assaultcube_grab(grab,process,input_ns):
     _require(states and '.locked()' in states[-1]['message'] and states[-1]['at_ns']==grab.get('lock_event_ns'),'protocol_locked_at_input')
 
 
+def world_change(before,after):
+    """Compare a fixed static-world region excluding weapon, scoreboard, HUD and FPS."""
+    import hashlib
+    from PyQt6.QtGui import QImage
+    images=[QImage.fromData(png).convertToFormat(QImage.Format.Format_RGBA8888) for png in (before,after)]
+    _require(all(not image.isNull() and image.width()==1280 and image.height()==800 for image in images),'world_image_geometry')
+    region=[128,160,384,360];crops=[image.copy(*region) for image in images]
+    pixels=[crop.constBits().asstring(crop.sizeInBytes()) for crop in crops]
+    changed=sum(pixels[0][offset:offset+3]!=pixels[1][offset:offset+3] for offset in range(0,len(pixels[0]),4))
+    return dict(rect=region,pixels=384*360,changed_pixels=changed,
+        before_sha256=hashlib.sha256(pixels[0]).hexdigest(),after_sha256=hashlib.sha256(pixels[1]).hexdigest())
+
+
 def game_report(data,*,_captured=False):
     from lookup.normalize import normalize
     try:
@@ -261,6 +277,17 @@ def game_report(data,*,_captured=False):
                     frames=(change['before_sha256'],change['after_sha256'])
                     _require(identity not in control_inputs and frames not in control_frames,'reused_relative_control')
                     control_inputs.add(identity);control_frames.add(frames)
+                    if assaultcube:
+                        world=change['world_change']
+                        _require(world.get('rect')==[128,160,384,360] and world.get('pixels')==138240 and
+                            type(world.get('changed_pixels')) is int and 1383<=world['changed_pixels']<=138240 and
+                            _hash(world.get('before_sha256')) and _hash(world.get('after_sha256')) and
+                            world['before_sha256']!=world['after_sha256'],'world_control_change')
+                        if change['kind']=='relative_pointer':
+                            pulses=change['input_events']
+                            _require(isinstance(pulses,list) and len(pulses)==2 and all(event.get('type')==2 and event.get('code')==0
+                                and event.get('value')==60 and _integer(event.get('input_ns'),1) for event in pulses)
+                                and pulses[0]['input_ns']==change['input_ns']<pulses[1]['input_ns']<=change['capture_end_ns'],'camera_physical_pulses')
                 _require(camera.get('kind')=='relative_pointer' and movement.get('kind')=='movement_key','relative_control_kind')
             hashes.add(source['sha256']);contexts.add(source['context']);latencies.append(latency)
         _require(len(hashes)>=2 and (_captured or len(contexts)>=2 and multiline),'changed_scenes')
@@ -661,7 +688,8 @@ def observe_route(encoded):
             source=dict(observation,kind='actual_game',word=command['word'],word_rect=matched[0].box,visual_lines=len(observation['context'].splitlines()),
                 line_evidence='unchanged production OCR context line boundaries',source_words=[dict(text=word.text,box=word.box,line_id=word.line_id) for word in words])
             path=root/('route-'+command['token']+'-useful.png');path.write_bytes(frame.png)
-            result.update(state='complete',route=dict(sequence=command['sequence'],scene='tutorial_map_dialogue',game_pid=command['game']['pid'],game_start=command['game']['start'],window_id=game_id,game_active_before=True,
+            scene='local_map_scoreboard' if command['game_kind']=='assaultcube' else 'map01_captured_prompt' if command['game_kind']=='doom' else 'tutorial_map_dialogue'
+            result.update(state='complete',route=dict(sequence=command['sequence'],scene=scene,game_pid=command['game']['pid'],game_start=command['game']['start'],window_id=game_id,game_active_before=True,
                 source=source,timing=timing,overlay=dict(useful=True,loading=False,error=False,current_word=command['word'],sha256=sha,identity=timing['frame_identity']),popup_geometry=popup,overlay_path=str(path)),optical=optical)
             write_record(target,result);return 0
         raise TimeoutError('game_useful_frame_deadline')
@@ -747,8 +775,8 @@ def observe_control(encoded):
                 descriptor=os.open('/dev/input/'+path.name,os.O_RDONLY|os.O_NONBLOCK)
                 fcntl.ioctl(descriptor,0x400445a0,struct.pack('i',time.CLOCK_MONOTONIC));descriptors.append((descriptor,path.name))
         _require(descriptors,'control_device');armed=time.monotonic_ns();data.update(state='armed',armed_ns=armed);write_record(target,data)
-        deadline=time.monotonic()+12;event=None
-        while time.monotonic()<deadline and event is None:
+        deadline=time.monotonic()+12;event=None;inputs=[]
+        while time.monotonic()<deadline and (event is None or time.monotonic_ns()<event['input_ns']+1_500_000_000):
             for descriptor,name in descriptors:
                 try:raw=os.read(descriptor,24*128)
                 except BlockingIOError:continue
@@ -756,9 +784,12 @@ def observe_control(encoded):
                     sec,usec,event_kind,code,value=struct.unpack('llHHI',raw[offset:offset+24]);stamp=sec*1_000_000_000+usec*1000
                     _require(not(event_kind==0 and code==3),'control_input_overflow')
                     if stamp>=armed and ((kind=='movement' and event_kind==1 and code==17 and value==1) or
-                        (kind=='camera' and event_kind in (2,3))):event=dict(input_ns=stamp,device=name,type=event_kind,code=code,value=value)
+                        (kind=='camera' and event_kind in (2,3))):
+                        value=dict(input_ns=stamp,device=name,type=event_kind,code=code,value=value)
+                        inputs.append(value)
+                        if event is None:event=value
             app.processEvents();time.sleep(.01)
-        _require(event is not None,'control_input_missing');time.sleep(.8)
+        _require(event is not None,'control_input_missing')
         after=capture.capture_monitor(monitor,env);end=time.monotonic_ns()
         before_path=root/('control-'+command['token']+'-before.png');after_path=root/('control-'+command['token']+'-after.png')
         before_path.write_bytes(before.png);after_path.write_bytes(after.png)
@@ -769,7 +800,7 @@ def observe_control(encoded):
         data.update(state='complete',proof=dict(physical=True,game_active=active in windows,game_pid=command['game']['pid'],game_start=start,
             kind='relative_pointer' if kind=='camera' else 'movement_key',**event,clock='kernel_evdev_monotonic',clock_ioctl_verified=True,
             capture_end_ns=end,before_sha256=hashlib.sha256(before.png).hexdigest(),after_sha256=hashlib.sha256(after.png).hexdigest(),
-            before_path=str(before_path),after_path=str(after_path)))
+            before_path=str(before_path),after_path=str(after_path),world_change=world_change(before.png,after.png),input_events=inputs))
     except Exception as error:data.update(state='failed',error=repr(error))
     finally:
         for descriptor,_ in descriptors:os.close(descriptor)
@@ -788,7 +819,8 @@ def run_control(output,kind):
         time.sleep(.05)
     _require(state and state['state']=='armed','control_not_armed')
     try:
-        if kind=='camera':vm_input('Relative',X=60,Y=0)
+        if kind=='camera':
+            vm_input('Relative',X=60,Y=0);time.sleep(.1);vm_input('Relative',X=60,Y=0)
         else:vm_input('Keys',Codes='11');time.sleep(.4)
     finally:
         if kind=='movement':vm_input('Keys',Codes='91')

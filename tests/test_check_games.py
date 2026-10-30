@@ -65,6 +65,11 @@ def assaultcube_record():
         relative=[dict(pid=500,at_ns=stamp-3000,operation='relative',requested=1,result=0,state=1,driver='wayland')]
         grab.update(events_sha256=hashlib.sha256(json.dumps(events).encode()).hexdigest(),events=events,
             sdl=relative,driver='wayland')
+        for kind in ('camera','movement'):
+            entry['gameplay'][kind]['world_change']=dict(rect=[128,160,384,360],pixels=138240,changed_pixels=10000,
+                before_sha256='1'*64,after_sha256='2'*64)
+        camera=entry['gameplay']['camera'];stamp=camera['input_ns']
+        camera.update(input_events=[dict(type=2,code=0,value=60,input_ns=stamp),dict(type=2,code=0,value=60,input_ns=stamp+100)],capture_end_ns=stamp+200)
     return data
 
 
@@ -92,7 +97,7 @@ class GameContractTests(unittest.TestCase):
     def test_assaultcube_explicit_gl_and_actual_relative_evidence(self):
         self.assertTrue(check_games.captured_game_report(assaultcube_record())['passed'])
         for change in ('url','bytes','hash','executable','uid','gl_missing','gl_digest','gl_identity','driver',
-                       'relative_failure','relative_disabled','unlock','stale_state','no_query','box','overlay'):
+                       'relative_failure','relative_disabled','unlock','stale_state','no_query','box','overlay','idle_only'):
             data=assaultcube_record();row=data['routes'][0]
             if change=='url':data['acquisition']['url']='https://example.invalid/game'
             elif change=='bytes':data['acquisition']['bytes']-=1
@@ -112,8 +117,21 @@ class GameContractTests(unittest.TestCase):
             elif change=='stale_state':row['grab']['sdl'][-1]['at_ns']=row['timing']['input_ns']+1
             elif change=='no_query':row['source'].pop('query')
             elif change=='box':row['source']['word_rect']=[0,0,1,1]
+            elif change=='idle_only':row['gameplay']['camera']['world_change']['changed_pixels']=6
             else:row['overlay']['useful']=False
             with self.subTest(change=change):self.assertFalse(check_games.captured_game_report(data)['passed'])
+
+    def test_actual_rejected_first_camera_differs_only_in_idle_overlay_not_world(self):
+        from pathlib import Path
+        root=Path('.planning/phases/08-vm')
+        value=check_games.world_change((root/'08-06-raw-control-522383335795-before.png').read_bytes(),
+            (root/'08-06-raw-control-522383335795-after.png').read_bytes())
+        self.assertLess(value['changed_pixels'],1383)
+        rotation=check_games.world_change((root/'08-06-raw-control-583541202128-before.png').read_bytes(),
+            (root/'08-06-raw-control-583541202128-after.png').read_bytes())
+        self.assertGreaterEqual(rotation['changed_pixels'],1383)
+        data=assaultcube_record();data['routes'][0]['gameplay']['camera']['input_events'].pop()
+        self.assertFalse(check_games.captured_game_report(data)['passed'])
     def test_captured_game_rejects_missing_actual_provenance_grab_and_camera_proof(self):
         for value in ({},record(),dict(record(),name='Freedoom Phase 2',relative=True)):
             self.assertFalse(check_games.captured_game_report(value)['passed'])
