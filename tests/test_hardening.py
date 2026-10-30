@@ -45,6 +45,11 @@ def game(name,relative=False,multiline=False):
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_final_aggregate_cannot_promote_summary_flags_or_missing_captured_game(self):
+        result=hardening.aggregate_report(dict(passed=True,gates={'all_seven':True},games={'passed':True}))
+        self.assertFalse(result['passed']);self.assertFalse(result['game01_complete'])
+        self.assertFalse(result['criteria']['games'])
+
     def test_partial_transport_json_is_waited_for_without_a_new_input(self):
         with tempfile.TemporaryDirectory() as directory:
             path=Path(directory)/'result.json'
