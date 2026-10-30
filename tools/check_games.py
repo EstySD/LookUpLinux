@@ -136,13 +136,40 @@ def captured_game_report(data):
     return game_report(data,_captured=True)
 
 
+def assaultcube_grab(grab,process,input_ns):
+    """Bind the pre-input observation to actual SDL state and Wayland events."""
+    import hashlib,json,re
+    rows=grab['sdl'];events=grab['events']
+    _require(grab.get('driver')=='wayland' and isinstance(rows,list) and rows and events,'assaultcube_driver')
+    _require(all(row.get('pid')==process['pid'] and _integer(row.get('at_ns'),1) and row['at_ns']<=input_ns for row in rows+events),'runtime_identity')
+    relative=sorted((row for row in rows if row.get('operation')=='relative'),key=lambda row:row['at_ns'])
+    _require(relative and relative[-1].get('requested')==1 and relative[-1].get('result')==0 and
+        relative[-1].get('state')==1 and relative[-1].get('driver')=='wayland','sdl_relative_state')
+    _require(hashlib.sha256(json.dumps(events).encode()).hexdigest()==grab.get('events_sha256'),'protocol_digest')
+    states=sorted((row for row in events if re.search(r'\.(?:locked|unlocked|destroy)\(',row.get('message',''))),key=lambda row:row['at_ns'])
+    _require(states and '.locked()' in states[-1]['message'] and states[-1]['at_ns']==grab.get('lock_event_ns'),'protocol_locked_at_input')
+
+
 def game_report(data,*,_captured=False):
     from lookup.normalize import normalize
     try:
-        expected='Freedoom Phase 2' if _captured else 'The Battle for Wesnoth'
+        assaultcube=_captured and data.get('name')=='AssaultCube'
+        expected=('AssaultCube' if assaultcube else 'Freedoom Phase 2') if _captured else 'The Battle for Wesnoth'
         _require(data.get('name')==expected and isinstance(data.get('version'),str) and data['version'],'game')
         process=data['process'];renderer=data['renderer'];window=data['window']
-        if _captured:
+        if assaultcube:
+            import hashlib
+            acquisition=data['acquisition']
+            _require(data.get('engine')=='AssaultCube' and data.get('engine_version')=='1.3.0.2' and data.get('version')=='1.3.0.2'
+                and acquisition.get('url')=='https://github.com/assaultcube/AC/releases/download/v1.3.0.2/AssaultCube_v1.3.0.2_LockdownEdition_RC1.tar.bz2'
+                and acquisition.get('bytes')==52071427 and acquisition.get('sha256')=='9b3118e7929253f0114fa06cad8310faab646d177b4660406011152f34086b55'
+                and acquisition.get('release_asset')=='RC1','assaultcube_provenance')
+            executable='/home/lookup07/.local/state/lookup-games-08/assaultcube/package/bin_unix/linux_64_client'
+            text=renderer.get('text')
+            _require(isinstance(text,str) and 'Renderer: '+renderer.get('name','') in text and '\nDriver: ' in text
+                and renderer.get('kind')=='game_gl_log' and renderer.get('pid')==process.get('pid') and renderer.get('start')==process.get('start')
+                and hashlib.sha256(text.encode()).hexdigest()==renderer.get('log_sha256'),'actual_game_gl_log')
+        elif _captured:
             acquisition=data['acquisition']
             _require(data.get('source_verified') is True and data.get('engine')=='Chocolate Doom' and data.get('engine_version')=='3.1.1'
                 and acquisition.get('source_url')=='https://api.github.com/repos/chocolate-doom/chocolate-doom/tarball/chocolate-doom-3.1.1'
@@ -172,7 +199,8 @@ def game_report(data,*,_captured=False):
             _require(request_identity not in requests and timing['input_ns'] not in inputs and
                 row.get('sequence')==timing.get('input_sequence')==timing.get('attempt'),'unique_route_input')
             requests.add(request_identity);inputs.add(timing['input_ns'])
-            _require(row.get('sequence')==index and row.get('scene')==('map01_captured_prompt' if _captured else 'tutorial_map_dialogue') and
+            scene='local_map_scoreboard' if assaultcube else 'map01_captured_prompt' if _captured else 'tutorial_map_dialogue'
+            _require(row.get('sequence')==index and row.get('scene')==scene and
                 row.get('game_pid')==process['pid'] and row.get('game_start')==process['start'] and
                 row.get('window_id')==window['id'] and row.get('game_active_before') is True,'game_source')
             _require(source.get('kind')=='actual_game' and source.get('mode')=='ocr' and source.get('backend')=='screenshot2'
@@ -200,6 +228,7 @@ def game_report(data,*,_captured=False):
                 and play['before_sha256']!=play['after_sha256'],'resumed_gameplay')
             if _captured:
                 grab=row['grab'];camera=play['camera'];movement=play['movement']
+                if assaultcube:assaultcube_grab(grab,process,timing['input_ns'])
                 _require(grab.get('relative') is True and grab.get('observed') is True and grab.get('pid')==process['pid']
                     and grab.get('start')==process['start'] and grab.get('at_ns')<=timing['input_ns']
                     and timing['input_ns']-grab['at_ns']<=2_000_000_000 and grab.get('protocol')=='zwp_locked_pointer_v1'
