@@ -64,7 +64,7 @@ Authoritative installation result: `08-install-native-report.json`: **11/11 prod
 
 Actual install source archive SHA and package SHA are recorded in `08-install-build-provenance.json`. The compressed source archive differs from the benchmark archive, but a read-only comparison proves **all32 source member names and bytes identical** (`08-install-source-comparison.json`). Production code remained unchanged; no performance or game run was silently relabeled.
 
-Fresh focused verification after the final oracle corrections: **49 tests passed**. Final host discovery: **751 tests OK, 8 skips, 30.427s, Python exit0**. Final target discovery: **751 tests OK, zero skips, 40.223s, Python exit0**. Details are retained in `08-install-host-tests.txt`, `08-install-target-tests.txt` and `08-install-final-suites.json`. Target uses actual image OCR and `/home/arch/lookup-readme-08-build/src/mueller7`, a retained verified real Mueller directory after product removal; the application was not reinstalled to make tests pass. Preliminary pre-freeze suite logs remain separate. Existing forced-deadline multiprocessing SemLock teardown noise is preserved in target output; actual assertion/exit results are recorded explicitly.
+Fresh focused verification after the final raw-binding correction: **50 tests passed**. Final host discovery at a10c5e1: **752 tests OK, 8 skips, 31.220s, Python exit0**. Last target discovery at d5488b3, before the host-only raw-binding correction: **751 tests OK, zero skips, 40.223s, Python exit0**. Details are retained in `08-install-host-tests.txt`, `08-install-target-tests.txt` and `08-install-final-suites.json`. Target used actual image OCR and `/home/arch/lookup-readme-08-build/src/mueller7`, a retained verified real Mueller directory after product removal; the application was not reinstalled to make tests pass. Preliminary pre-freeze suite logs remain separate. Existing forced-deadline multiprocessing SemLock teardown noise is preserved in target output; actual assertion/exit results are recorded explicitly.
 
 ## Raw Evidence and Remaining Mandatory Gap
 
@@ -90,6 +90,14 @@ Both VMs are verified powered off. The clone's prior bidirectional shared clipbo
 ## TDD Gate Compliance
 
 Install RED11d2bc5 precedes GREEN884933a. Subsequent reviewer RED a723712/68c0542/296dc3f and raw-build REDbb62550 precede their corrections. Aggregate RED0d6f91e and global-cleanup RED322b65c precede GREEN24716f7/d5488b3. No production placeholder or fabricated native success was introduced.
+
+## Final Raw-Binding Follow-up
+
+Canonical review found the assembler regenerated build exits/package hash and negative-origin exit/count instead of consuming their saved outcomes. RED49e6659 reproduced six false passes; GREENa10c5e1 now reads saved build provenance, requires its source hash to match SOURCE, validates the actual build-log digest/success markers and preserves the recorded package hash. The negative-origin check consumes a fresh observed subprocess result and validates count/test identity/success against its bound log. Failure logs still reject when their digest is recomputed to match, preventing a checksum-only false pass.
+
+Fresh focused verification after this correction: **50 tests passed**, including the six assembly mutations. Actual native installation/removal observations remain unchanged and the regenerated native report remains true; mandatory captured-game and overall phase acceptance remain false. The prior target run is explicitly labeled **751 tests at d5488b3, before this host-only correction**. The clone was not booted to relabel that result; a final target rerun belongs to later native gap work after all source changes settle. The original negative-origin PowerShell capture is retained beside the fresh structured result and log.
+
+Independent canonical review cleared this correction after fresh focused reproduction; no open code-review finding remains. Parent-owned final verifier and mandatory captured-game gap closure still follow separately.
 
 ## Self-Check: PASSED
 
