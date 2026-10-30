@@ -50,6 +50,23 @@ class EvidenceTests(unittest.TestCase):
         self.assertFalse(result['passed']);self.assertFalse(result['game01_complete'])
         self.assertFalse(result['criteria']['games'])
 
+    def test_final_cleanup_requires_all_scoped_raw_records_and_rejects_missing_or_false(self):
+        root=Path('.planning/phases/08-vm')
+        raw=dict(native=json.loads((root/'08-native-final-report.json').read_text())['cleanup'],
+            wesnoth=json.loads((root/'08-wesnoth-cleanup-final.json').read_text()),
+            doom=json.loads((root/'08-doom-cleanup-final.json').read_text()),
+            installation=dict(gates={key:True for key in ('owner_stopped','fixture_stopped','input_released','session_override_restored',
+                'clone_powered_off','original_powered_off','clipboard_restored')}))
+        self.assertTrue(hardening.final_cleanup_report(raw)['passed'])
+        for change in ('missing','false','unknown'):
+            data=deepcopy(raw)
+            if change=='missing':data.pop('doom')
+            elif change=='false':data['native']['network_restored']=False
+            else:data={'done':True}
+            with self.subTest(change=change):self.assertFalse(hardening.final_cleanup_report(data)['passed'])
+        result=hardening.aggregate_report({})
+        self.assertFalse(result['cleanup']['passed'])
+
     def test_partial_transport_json_is_waited_for_without_a_new_input(self):
         with tempfile.TemporaryDirectory() as directory:
             path=Path(directory)/'result.json'
