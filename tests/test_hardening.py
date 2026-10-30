@@ -2,6 +2,7 @@
 from copy import deepcopy
 import json
 from pathlib import Path
+import tempfile
 import unittest
 
 from tools import check_hardening as hardening
@@ -44,11 +45,22 @@ def game(name,relative=False,multiline=False):
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_partial_transport_json_is_waited_for_without_a_new_input(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'result.json'
+            path.write_text('')
+            self.assertIsNone(hardening.read_record(path))
+            path.write_text('{"attempt":1,')
+            self.assertIsNone(hardening.read_record(path))
+            hardening.write_record(path,dict(attempt=1,token=8,input_ns=100))
+            self.assertEqual(hardening.read_record(path),dict(attempt=1,token=8,input_ns=100))
+
     def test_reused_attempt_cannot_reuse_previous_arm_result(self):
         command=dict(attempt=1,token=200)
         self.assertTrue(hardening.matching_result(dict(command),command))
         for result in (dict(attempt=1,token=100),dict(attempt=2,token=200),dict(attempt=1),{}):
             self.assertFalse(hardening.matching_result(result,command))
+        self.assertFalse(hardening.matching_result(dict(command,request=2),dict(command,request=3)))
 
     def test_optical_article_match_needs_current_word_dictionary_and_body(self):
         self.assertTrue(hardening.optical_match('bank Mueller7 берег реки','bank','берег'))
@@ -98,6 +110,11 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(hardening.physical_latency(row),1000)
         row['before_dispatch']=False
         with self.assertRaises(hardening.EvidenceError):hardening.physical_latency(row)
+
+    def test_journal_reverse_order_cannot_select_old_request_as_newest(self):
+        rows=[dict(mono_ns=300,request=3),dict(mono_ns=100,request=1),dict(mono_ns=200,request=2)]
+        self.assertEqual([row['request'] for row in hardening.chronological(rows)],[1,2,3])
+        self.assertEqual(rows[0]['request'],3)
 
     def test_failed_live_meanings_keep_denominator_and_null_statistics(self):
         rows=[dict(case=i,kind='live',live=True,cached=False,mock=False,status='error',reason='blocked') for i in range(6)]
