@@ -1,6 +1,33 @@
 """Strict actual-game evidence and owned Wesnoth native observation."""
 import time
 
+# Test-only transparent SDL observation: original call exactly once, same return.
+SDL_OBSERVER = r'''
+#define _GNU_SOURCE
+#include <SDL.h>
+#include <dlfcn.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <time.h>
+#include <unistd.h>
+SDL_Renderer *SDL_CreateRenderer(SDL_Window *window, int index, Uint32 flags) {
+    SDL_Renderer *(*original)(SDL_Window*,int,Uint32)=dlsym(RTLD_NEXT,"SDL_CreateRenderer");
+    SDL_Renderer *result=original(window,index,flags); int saved=errno;
+    const char *path=getenv("LOOKUP_GAME_SDL_LOG");
+    if (result && path) { SDL_RendererInfo info; struct timespec stamp;
+        if (!SDL_GetRendererInfo(result,&info) && !clock_gettime(CLOCK_MONOTONIC,&stamp)) {
+            FILE *output=fopen(path,"a"); if(output) {
+                fprintf(output,"{\"pid\":%d,\"at_ns\":%lld,\"renderer\":\"%s\",\"flags\":%u,\"driver\":\"%s\"}\n",
+                    getpid(),(long long)stamp.tv_sec*1000000000+stamp.tv_nsec,info.name,info.flags,SDL_GetCurrentVideoDriver());
+                fclose(output);
+            }
+        }
+    }
+    errno=saved; return result;
+}
+'''
+
 try:
     from tools.check_hardening import EvidenceError,physical_latency,_require,_hash,_integer
 except ModuleNotFoundError:
@@ -19,16 +46,32 @@ def tap(original,observer,on_error=lambda unused:None):
     return wrapped
 
 
-def game_report(data):
+def captured_game_report(data):
+    return game_report(data,_captured=True)
+
+
+def game_report(data,*,_captured=False):
     from lookup.normalize import normalize
     try:
-        _require(data.get('name')=='The Battle for Wesnoth' and isinstance(data.get('version'),str) and data['version'],'game')
-        package=data['package'];process=data['process'];renderer=data['renderer'];window=data['window']
-        _require(data.get('source_verified') is True and package.get('source')=='official_arch' and
+        expected='Freedoom Phase 2' if _captured else 'The Battle for Wesnoth'
+        _require(data.get('name')==expected and isinstance(data.get('version'),str) and data['version'],'game')
+        process=data['process'];renderer=data['renderer'];window=data['window']
+        if _captured:
+            acquisition=data['acquisition']
+            _require(data.get('source_verified') is True and data.get('engine')=='Chocolate Doom' and data.get('engine_version')=='3.1.1'
+                and acquisition.get('source_url')=='https://api.github.com/repos/chocolate-doom/chocolate-doom/tarball/chocolate-doom-3.1.1'
+                and acquisition.get('assets_url')=='https://github.com/freedoom/freedoom/releases/download/v0.13.0/freedoom-0.13.0.zip'
+                and all(_hash(acquisition.get(key)) for key in ('source_sha256','assets_sha256','wad_sha256'))
+                and acquisition.get('checksum_status') in ('verified','not_published')
+                and (acquisition.get('checksum_status')!='not_published' or acquisition.get('checksum_absence_evidence')),'provenance')
+            executable='/home/lookup07/.local/state/lookup-games-08/doom/chocolate-doom'
+        else:
+            package=data['package'];executable='/usr/bin/wesnoth'
+            _require(data.get('source_verified') is True and package.get('source')=='official_arch' and
             package.get('name')=='wesnoth' and package.get('repository')=='extra' and package.get('signature_verified') is True
             and _hash(package.get('archive_sha256')) and isinstance(package.get('version'),str),'package')
         _require(_integer(process.get('pid'),1) and _integer(process.get('start'),1) and process.get('uid')==1001
-            and process.get('executable')=='/usr/bin/wesnoth','process')
+            and process.get('executable')==executable,'process')
         _require(isinstance(renderer.get('name'),str) and renderer['name'] and renderer.get('observed') is True
             and _hash(renderer.get('log_sha256')),'renderer')
         _require(data.get('mode')=='fullscreen' and window.get('fullscreen') is True and window.get('observed') is True
@@ -42,7 +85,7 @@ def game_report(data):
             _require(request_identity not in requests and timing['input_ns'] not in inputs and
                 row.get('sequence')==timing.get('input_sequence')==timing.get('attempt'),'unique_route_input')
             requests.add(request_identity);inputs.add(timing['input_ns'])
-            _require(row.get('sequence')==index and row.get('scene')=='tutorial_map_dialogue' and
+            _require(row.get('sequence')==index and row.get('scene')==('map01_captured_prompt' if _captured else 'tutorial_map_dialogue') and
                 row.get('game_pid')==process['pid'] and row.get('game_start')==process['start'] and
                 row.get('window_id')==window['id'] and row.get('game_active_before') is True,'game_source')
             _require(source.get('kind')=='actual_game' and source.get('mode')=='ocr' and source.get('backend')=='screenshot2'
@@ -68,8 +111,19 @@ def game_report(data):
                 and play['input_ns']>=closed['at_ns'] and play.get('observed_change') is True
                 and _hash(play.get('before_sha256')) and _hash(play.get('after_sha256'))
                 and play['before_sha256']!=play['after_sha256'],'resumed_gameplay')
+            if _captured:
+                grab=row['grab'];camera=play['camera'];movement=play['movement']
+                _require(grab.get('relative') is True and grab.get('observed') is True and grab.get('pid')==process['pid']
+                    and grab.get('start')==process['start'] and grab.get('at_ns')<=timing['input_ns']
+                    and timing['input_ns']-grab['at_ns']<=2_000_000_000 and grab.get('protocol')=='zwp_locked_pointer_v1'
+                    and _hash(grab.get('events_sha256')) and grab.get('lock_event_ns',timing['input_ns']+1)<=grab['at_ns'],'actual_relative_grab')
+                for change in (camera,movement):
+                    _require(change.get('physical') is True and change.get('game_active') is True
+                        and change.get('input_ns')>=closed['at_ns'] and _hash(change.get('before_sha256'))
+                        and _hash(change.get('after_sha256')) and change['before_sha256']!=change['after_sha256'],'relative_control')
+                _require(camera.get('kind')=='relative_pointer' and movement.get('kind')=='movement_key','relative_control_kind')
             hashes.add(source['sha256']);contexts.add(source['context']);latencies.append(latency)
-        _require(len(hashes)>=2 and len(contexts)>=2 and multiline,'changed_scenes')
+        _require(len(hashes)>=2 and (_captured or len(contexts)>=2 and multiline),'changed_scenes')
         return dict(passed=True,game01_complete=False,routes=len(rows),latencies_ms=latencies)
     except EvidenceError as error:return dict(passed=False,game01_complete=False,reason=str(error))
     except (KeyError,TypeError,ValueError,AttributeError) as error:return dict(passed=False,game01_complete=False,reason=type(error).__name__)
@@ -86,7 +140,9 @@ def guest_command(encoded):
     _require(os.getuid()==1001 and Path.home()==Path('/home/lookup07'),'unowned_account')
     sys.path.insert(0,'/usr/lib/lookup/app')
     from lookup import capture,platform
-    root=Path.home()/'.local/state/lookup-games-08/wesnoth';root.mkdir(parents=True,exist_ok=True)
+    command=json.loads(base64.b64decode(encoded));action=command['action'];kind=command.get('game_kind','wesnoth')
+    _require(kind in ('wesnoth','doom'),'game_kind')
+    root=Path.home()/'.local/state/lookup-games-08'/kind;root.mkdir(parents=True,exist_ok=True)
     env=platform.session_env()
     env.update(XDG_CONFIG_HOME=str(root/'xdg-config'),XDG_CACHE_HOME=str(root/'xdg-cache'),XDG_DATA_HOME=str(root/'xdg-data'))
     for key in ('SUDO_UID','SUDO_GID','SUDO_USER','SUDO_COMMAND','PYTHONPATH'):env.pop(key,None);os.environ.pop(key,None)
@@ -94,14 +150,14 @@ def guest_command(encoded):
     from PyQt6.QtCore import QCoreApplication
     from PyQt6.QtDBus import QDBus,QDBusConnection,QDBusMessage
     application=QCoreApplication([]);bus=QDBusConnection.sessionBus()
-    command=json.loads(base64.b64decode(encoded));action=command['action']
     metadata=root/'game-process.json'
     def process():
         value=json.loads(metadata.read_text());path=Path('/proc',str(value['pid']))
         _require(value.get('boot_id')==Path('/proc/sys/kernel/random/boot_id').read_text().strip(),'game_boot_identity')
         fields=(path/'stat').read_text().split(') ',1)[1].split()
         _require(path.stat().st_uid==1001 and int(fields[19])==value['start'] and fields[0]!='Z','game_identity')
-        _require(os.fsencode(str(root/'userdata')) in path.joinpath('cmdline').read_bytes().split(b'\0'),'unowned_game_profile')
+        owned_argument=root/('userdata' if kind=='wesnoth' else 'main.cfg')
+        _require(os.fsencode(str(owned_argument)) in path.joinpath('cmdline').read_bytes().split(b'\0'),'unowned_game_profile')
         return value
     def windows():
         value=process();ids=platform.run(['kdotool','search','--pid',str(value['pid'])],env).decode().split();result=[]
@@ -118,18 +174,58 @@ def guest_command(encoded):
             '--usercache-dir',str(root/'cache'),'--userconfig-dir',str(root/'config'),'--nomusic','--nosound','--noaddons',
             '--log-info=display']
         if command.get('software'):env['SDL_RENDER_DRIVER']='software'
-        unit='lookup-wesnoth-08-'+str(time.monotonic_ns())
+        if kind=='doom':
+            (root/'saves').mkdir(exist_ok=True)
+            settings='force_software_renderer 1\nfullscreen 1\nfullscreen_width 1280\nfullscreen_height 800\n'
+            if command.get('integer_pixels'):settings+='aspect_ratio_correct 0\nsmooth_pixel_scaling 0\ninteger_scaling 1\n'
+            (root/'extra.cfg').write_text(settings)
+            argv=[str(root/'chocolate-doom'),'-iwad',str(root/'freedoom2.wad'),'-config',str(root/'main.cfg'),
+                '-extraconfig',str(root/'extra.cfg'),'-savedir',str(root/'saves'),'-warp','1','-nomonsters','-nosound','-fullscreen']
+            env.update(WAYLAND_DEBUG='1',LD_PRELOAD=str(root/'sdl-observer.so'),LOOKUP_GAME_SDL_LOG=str(root/'sdl-observer.jsonl'),SDL_RENDER_SCALE_QUALITY='nearest')
+        unit='lookup-'+kind+'-08-'+str(time.monotonic_ns())
         launch=['systemd-run','--user','--unit='+unit,'--service-type=exec','--property=WorkingDirectory='+str(root),
             '--property=TimeoutStopSec=5','--property=RuntimeMaxSec=3600']
         launch+=['--setenv='+key+'='+env[key] for key in ('WAYLAND_DISPLAY','XDG_RUNTIME_DIR','DBUS_SESSION_BUS_ADDRESS',
-            'XDG_CONFIG_HOME','XDG_CACHE_HOME','XDG_DATA_HOME','SDL_RENDER_DRIVER') if key in env]
+            'XDG_CONFIG_HOME','XDG_CACHE_HOME','XDG_DATA_HOME','SDL_RENDER_DRIVER','WAYLAND_DEBUG','LD_PRELOAD','LOOKUP_GAME_SDL_LOG','SDL_RENDER_SCALE_QUALITY') if key in env]
         subprocess.run([*launch,*argv],env=env,capture_output=True,timeout=8,check=True)
         pid=int(subprocess.run(['systemctl','--user','show',unit,'--property=MainPID','--value'],env=env,capture_output=True,text=True,timeout=3,check=True).stdout)
         _require(pid>0,'game_service_not_running');path=Path('/proc',str(pid));value=dict(pid=pid,start=int((path/'stat').read_text().split(') ',1)[1].split()[19]),
-            uid=1001,executable='/usr/bin/wesnoth',argv=argv,renderer_requested=env.get('SDL_RENDER_DRIVER','default'),unit=unit,
+            uid=1001,executable=argv[0],argv=argv,renderer_requested=env.get('SDL_RENDER_DRIVER','default'),unit=unit,
             boot_id=Path('/proc/sys/kernel/random/boot_id').read_text().strip())
         value['control_group']=subprocess.run(['systemctl','--user','show',unit,'--property=ControlGroup','--value'],env=env,capture_output=True,text=True,timeout=3,check=True).stdout.strip()
         metadata.write_text(json.dumps(value));return value
+    if action=='prepare-doom-observer':
+        _require(kind=='doom','game_kind');source=root/'sdl-observer.c';source.write_text(SDL_OBSERVER)
+        subprocess.run(['cc','-shared','-fPIC','-I/usr/include/SDL2',str(source),'-o',str(root/'sdl-observer.so'),'-ldl','-lSDL2'],
+            env=env,capture_output=True,timeout=15,check=True)
+        return dict(observer='transparent original SDL_CreateRenderer return',sha256=hashlib.sha256(source.read_bytes()).hexdigest())
+    if action=='doom-map':
+        import struct
+        _require(kind=='doom','game_kind');data=(root/'freedoom2.wad').read_bytes();magic,count,offset=struct.unpack_from('<4sii',data)
+        _require(magic==b'IWAD','not_iwad')
+        entries=[struct.unpack_from('<ii8s',data,offset+16*index) for index in range(count)]
+        start=next(index for index,entry in enumerate(entries) if entry[2].rstrip(b'\0')==b'MAP01')
+        lumps={name.rstrip(b'\0').decode():data[position:position+size] for position,size,name in entries[start+1:start+11]}
+        vertices=list(struct.iter_unpack('<hh',lumps['VERTEXES']));sides=lumps['SIDEDEFS'];exits=[]
+        for line in struct.iter_unpack('<7H',lumps['LINEDEFS']):
+            for side in line[-2:]:
+                if side==65535:continue
+                textures=[sides[side*30+item:side*30+item+8].rstrip(b'\0').decode() for item in (4,12,20)]
+                if any('EXIT' in name for name in textures):exits.append(dict(vertices=[vertices[line[0]],vertices[line[1]]],textures=textures,special=line[3]))
+        return dict(wad_sha256=hashlib.sha256(data).hexdigest(),map='MAP01',player_starts=[item for item in struct.iter_unpack('<5h',lumps['THINGS']) if item[3]==1],exit_lines=exits)
+    if action=='doom-runtime-evidence':
+        import re
+        _require(kind=='doom','game_kind');value=process()
+        output=subprocess.run(['journalctl','--user','-u',value['unit'],'--no-pager','-o','json','--grep=zwp_locked_pointer_v1','-n','256'],
+            env=env,capture_output=True,text=True,timeout=5,check=True).stdout
+        events=sorted((dict(at_ns=int(row['__MONOTONIC_TIMESTAMP'])*1000,message=row['MESSAGE'],pid=int(row['_PID']))
+            for row in (json.loads(line) for line in output.splitlines()) if int(row['_PID'])==value['pid']),key=lambda row:row['at_ns'])
+        changes=[row for row in events if re.search(r'\.(?:locked|unlocked|destroy)\(',row['message'])]
+        last=changes[-1] if changes else None;at=time.monotonic_ns();digest=hashlib.sha256(json.dumps(events).encode()).hexdigest()
+        grab=dict(pid=value['pid'],start=value['start'],at_ns=at,observed=bool(last),relative=bool(last and '.locked()' in last['message']),
+            protocol='zwp_locked_pointer_v1',events_sha256=digest,lock_event_ns=last['at_ns'] if last else None)
+        renderers=[json.loads(line) for line in (root/'sdl-observer.jsonl').read_text().splitlines()]
+        return dict(process=value,grab=grab,events=events,renderer=[row for row in renderers if row['pid']==value['pid']],windows=windows())
     if action=='archive-dead':
         value=json.loads(metadata.read_text());old=Path('/proc',str(value['pid']))
         if old.exists():
@@ -143,7 +239,7 @@ def guest_command(encoded):
         import signal
         value=process()
         if value.get('unit'):
-            unit=value['unit'];_require(unit.startswith('lookup-wesnoth-08-') and unit.removeprefix('lookup-wesnoth-08-').isdigit(),'unowned_game_unit')
+            unit=value['unit'];prefix='lookup-'+kind+'-08-';_require(unit.startswith(prefix) and unit.removeprefix(prefix).isdigit(),'unowned_game_unit')
             pid=int(subprocess.run(['systemctl','--user','show',unit,'--property=MainPID','--value'],env=env,capture_output=True,text=True,timeout=3,check=True).stdout)
             _require(pid==value['pid'],'game_unit_identity')
             subprocess.run(['systemctl','--user','stop',unit],env=env,capture_output=True,timeout=8,check=True)
@@ -208,14 +304,14 @@ def guest_command(encoded):
         _require(not bus.interface().isServiceRegistered('org.lookup.Linux').value(),'existing_lookup')
         profile=root/'lookup';(profile/'data').mkdir(parents=True,exist_ok=True)
         (profile/'config.json').write_text(json.dumps(dict(online=False,autostart=False,shortcut='Meta+Shift+E',popup_timeout=60)))
-        child_env=dict(env,LOOKUP_TIMING='1',LOOKUP_CONFIG=str(profile/'config.json'),LOOKUP_DB=str(profile/'data/history.db'),LOOKUP_CACHE=str(profile/'cache'),LOOKUP_DICTS='/usr/share/lookup/dicts')
+        child_env=dict(env,LOOKUP_GAME_KIND=kind,LOOKUP_TIMING='1',LOOKUP_CONFIG=str(profile/'config.json'),LOOKUP_DB=str(profile/'data/history.db'),LOOKUP_CACHE=str(profile/'cache'),LOOKUP_DICTS='/usr/share/lookup/dicts')
         if (profile/'daemon.log').exists():(profile/'daemon.log').rename(profile/('daemon-previous-'+str(time.time_ns())+'.log'))
         with (profile/'daemon.log').open('w') as output:
             child=subprocess.Popen([sys.executable,str(Path(__file__).resolve()),'--app-observer'],env=child_env,cwd=root,
                 stdin=subprocess.DEVNULL,stdout=output,stderr=output,start_new_session=True)
         return dict(pid=child.pid,profile=str(profile),instrumentation='read-only Source.freeze/resolve taps; original returned objects unchanged')
     if action=='start-route':
-        value=command['route'];value['game']=process()
+        value=command['route'];value['game']=process();value['game_kind']=kind
         token=str(time.monotonic_ns());value['token']=token
         payload=base64.b64encode(json.dumps(value).encode()).decode()
         with (root/('observer-'+token+'.log')).open('w') as output:
@@ -230,6 +326,16 @@ def guest_command(encoded):
         records=sorted((json.loads(path.read_text()) for path in paths),key=lambda row:row['capture_start_ns'])
         trace=[json.loads(line.split(':',1)[1]) for line in (profile/'daemon.log').read_text().splitlines() if line.startswith('lookup-timing:')]
         return dict(records=records,trace=trace,observer_errors=(profile/'observer-errors.jsonl').read_text() if (profile/'observer-errors.jsonl').exists() else '')
+    if action=='source-ocr-diagnostic':
+        from lookup import ocr
+        _require(all(_integer(command.get(key),1) for key in ('pid','run','request')),'source_request')
+        key='-'.join(str(command[name]) for name in ('pid','run','request'))
+        observation=json.loads((root/'lookup/observations'/('request-'+key+'.json')).read_text())
+        png,transform=ocr._prepare_image(Path(observation['image_path']),observation['cursor'],ocr.DEFAULT_ENLARGE,ocr.DEFAULT_INVERT)
+        result=subprocess.run(['tesseract','stdin','stdout','-l','eng','--psm',str(ocr.DEFAULT_PSM),'tsv'],input=png,capture_output=True,timeout=8,check=True)
+        words=ocr.parse_tsv(result.stdout,transform)
+        return dict(source=observation,prepared_sha256=hashlib.sha256(png).hexdigest(),
+            words=[dict(text=word.text,confidence=word.confidence,box=word.box) for word in words])
     if action=='windows':return dict(process=process(),windows=windows(),active=platform.run(['kdotool','getactivewindow'],env).decode().strip(),at_ns=time.monotonic_ns())
     if action=='image':
         if command['kind']=='source':
@@ -278,7 +384,8 @@ def app_observer():
         from tools.check_hardening import write_record
     except ModuleNotFoundError:
         from check_hardening import write_record
-    root=Path.home()/'.local/state/lookup-games-08/wesnoth/lookup';(root/'observations').mkdir(exist_ok=True)
+    kind=os.environ.get('LOOKUP_GAME_KIND','wesnoth');_require(kind in ('wesnoth','doom'),'game_kind')
+    root=Path.home()/'.local/state/lookup-games-08'/kind/'lookup';(root/'observations').mkdir(exist_ok=True)
     current={}
     def frozen(value,start,end):
         events=[json.loads(line.split(':',1)[1]) for line in (root/'daemon.log').read_text().splitlines() if line.startswith('lookup-timing:')]
@@ -309,7 +416,8 @@ def observe_route(encoded):
     from check_hardening import chronological,optical_match,read_record,write_record
     from PyQt6.QtGui import QGuiApplication
     from PyQt6.QtDBus import QDBus,QDBusConnection,QDBusMessage
-    root=Path.home()/'.local/state/lookup-games-08/wesnoth';profile=root/'lookup';command=json.loads(base64.b64decode(encoded))
+    command=json.loads(base64.b64decode(encoded));kind=command.get('game_kind','wesnoth');_require(kind in ('wesnoth','doom'),'game_kind')
+    root=Path.home()/'.local/state/lookup-games-08'/kind;profile=root/'lookup'
     env=platform.session_env();env['LOOKUP_DICTS']='/usr/share/lookup/dicts';os.environ.update(env)
     application=QGuiApplication([]);application.setDesktopFileName('org.lookup.Linux');bus=QDBusConnection.sessionBus()
     target=root/('route-'+command['token']+'.json');descriptor=None;result=dict(state='preparing',token=command['token'])
@@ -399,7 +507,7 @@ def observe_route(encoded):
         if descriptor is not None:os.close(descriptor)
 
 
-def run_lookup_route(output,word,sequence):
+def run_lookup_route(output,word,sequence,*,game_kind='wesnoth',point=None):
     """Close immediately after useful capture; interactive gameplay is recorded separately."""
     import base64,json
     from pathlib import Path
@@ -407,23 +515,26 @@ def run_lookup_route(output,word,sequence):
         from tools.check_hardening import vm_input,write_record
     except ModuleNotFoundError:
         from check_hardening import vm_input,write_record
+    def command(value):return vm_command(dict(value,game_kind=game_kind))
     output=Path(output);_require(not output.exists(),'existing_route_output')
-    frame=vm_command(dict(action='snapshot'))
+    frame=command(dict(action='snapshot'))
     targets=[item for item in frame['words'] if item['text'].strip('.,!?:;').casefold()==word.casefold()]
-    _require(len(targets)==1,'game_word_geometry')
-    left,top,width,height=targets[0]['box'];point=[round(left+width/2),round(top+height/2)]
-    vm_input('Pointer',X=point[0],Y=point[1],Buttons=0)
-    observer=vm_command(dict(action='start-route',route=dict(sequence=sequence,word=word)))
-    data=dict(complete=False,lookup_complete=False,observer=observer,target=targets[0],point=point)
+    if point is None:
+        _require(len(targets)==1,'game_word_geometry')
+        left,top,width,height=targets[0]['box'];point=[round(left+width/2),round(top+height/2)]
+        vm_input('Pointer',X=point[0],Y=point[1],Buttons=0)
+    else:_require(game_kind=='doom' and frame['cursor']==point,'actual_locked_cursor')
+    observer=command(dict(action='start-route',route=dict(sequence=sequence,word=word)))
+    data=dict(complete=False,lookup_complete=False,observer=observer,target=targets[0] if len(targets)==1 else None,point=point)
     write_record(output,data);deadline=time.monotonic()+8
     while time.monotonic()<deadline:
-        state=vm_command(dict(action='route-state',token=observer['token']))
+        state=command(dict(action='route-state',token=observer['token']))
         if state and state['state'] in ('armed','failed'):break
         time.sleep(.05)
     _require(state and state['state']=='armed','observer_not_armed')
     vm_input('Keys',Codes='e0 5b 2a 12 92 aa e0 db');deadline=time.monotonic()+45
     while time.monotonic()<deadline:
-        state=vm_command(dict(action='route-state',token=observer['token']))
+        state=command(dict(action='route-state',token=observer['token']))
         if state and state['state'] in ('complete','failed'):break
         time.sleep(.08)
     data['lookup_observation']=state;write_record(output,data)
@@ -431,7 +542,7 @@ def run_lookup_route(output,word,sequence):
     vm_input('Keys',Codes='01 81')
     deadline=time.monotonic()+5
     while time.monotonic()<deadline:
-        active=vm_command(dict(action='windows'))
+        active=command(dict(action='windows'))
         if active['active']==state['game_window']:break
         time.sleep(.05)
     route=state['route'];route['dismissal']=dict(physical=True,released=True,closed=active['active']==state['game_window'],
@@ -441,7 +552,7 @@ def run_lookup_route(output,word,sequence):
         arguments=dict(action='image',kind=kind)
         if kind=='source':arguments.update({key:route['timing'][key] for key in ('pid','run','request')})
         else:arguments['token']=observer['token']
-        image=vm_command(arguments);output.with_name(output.stem+'-'+kind+'.png').write_bytes(base64.b64decode(image['png_base64']))
+        image=command(arguments);output.with_name(output.stem+'-'+kind+'.png').write_bytes(base64.b64decode(image['png_base64']))
     write_record(output,data);print(json.dumps(dict(lookup_complete=True,dismissed=route['dismissal']['closed'],word=word,
         latency_ms=physical_latency(route['timing']),visual_lines=route['source']['visual_lines'])),flush=True)
     return data

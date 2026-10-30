@@ -33,6 +33,22 @@ def record():
             rect=[0,0,1280,800],screen=[0,0,1280,800]),routes=[route(1),route(2)])
 
 
+def captured_record():
+    data=record();data.update(name='Freedoom Phase 2',engine='Chocolate Doom',engine_version='3.1.1',version='0.13.0')
+    data['process']['executable']='/home/lookup07/.local/state/lookup-games-08/doom/chocolate-doom'
+    data['acquisition']=dict(source_url='https://api.github.com/repos/chocolate-doom/chocolate-doom/tarball/chocolate-doom-3.1.1',
+        source_sha256='c'*64,assets_url='https://github.com/freedoom/freedoom/releases/download/v0.13.0/freedoom-0.13.0.zip',
+        assets_sha256='d'*64,wad_sha256='e'*64,checksum_status='not_published',checksum_absence_evidence='official release API assets and404')
+    for entry in data['routes']:
+        entry['scene']='map01_captured_prompt';stamp=entry['timing']['input_ns']
+        entry['grab']=dict(relative=True,observed=True,pid=500,start=5000,at_ns=stamp-1000,
+            protocol='zwp_locked_pointer_v1',lock_event_ns=stamp-2000,events_sha256='f'*64)
+        for key,kind in (('camera','relative_pointer'),('movement','movement_key')):
+            entry['gameplay'][key]=dict(physical=True,game_active=True,kind=kind,input_ns=entry['gameplay']['input_ns'],
+                before_sha256='1'*64,after_sha256='2'*64)
+    return data
+
+
 class GameContractTests(unittest.TestCase):
     def test_captured_game_rejects_missing_actual_provenance_grab_and_camera_proof(self):
         for value in ({},record(),dict(record(),name='Freedoom Phase 2',relative=True)):
@@ -44,6 +60,21 @@ class GameContractTests(unittest.TestCase):
             source_sha256='c'*64,assets_url='https://github.com/freedoom/freedoom/releases/download/v0.13.0/freedoom-0.13.0.zip',
             assets_sha256='d'*64,checksum_verified=True,wad_sha256='e'*64)
         self.assertFalse(check_games.captured_game_report(data)['passed'])
+
+    def test_captured_contract_accepts_supported_proof_but_rejects_missing_individual_gates(self):
+        self.assertTrue(check_games.captured_game_report(captured_record())['passed'])
+        for change in ('grab','old_grab','grab_identity','events','camera','movement','kind','checksum','hash','source'):
+            data=captured_record();entry=data['routes'][1]
+            if change=='grab':entry['grab']['relative']=False
+            elif change=='old_grab':entry['grab']['at_ns']-=3_000_000_000
+            elif change=='grab_identity':entry['grab']['start']=99
+            elif change=='events':entry['grab'].pop('events_sha256')
+            elif change in ('camera','movement'):entry['gameplay'][change]['after_sha256']='1'*64
+            elif change=='kind':entry['gameplay']['camera']['kind']='absolute_pointer'
+            elif change=='checksum':data['acquisition'].pop('checksum_absence_evidence')
+            elif change=='hash':data['acquisition']['wad_sha256']='invented'
+            else:entry['source']['pid']=999
+            with self.subTest(change=change):self.assertFalse(check_games.captured_game_report(data)['passed'])
 
     def test_complete_changed_actual_game_routes_pass_without_closing_two_game_requirement(self):
         report=check_games.game_report(record())
