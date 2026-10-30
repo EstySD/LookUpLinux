@@ -43,9 +43,10 @@ def captured_record():
         entry['scene']='map01_captured_prompt';stamp=entry['timing']['input_ns']
         entry['grab']=dict(relative=True,observed=True,pid=500,start=5000,at_ns=stamp-1000,
             protocol='zwp_locked_pointer_v1',lock_event_ns=stamp-2000,events_sha256='f'*64)
-        for key,kind in (('camera','relative_pointer'),('movement','movement_key')):
-            entry['gameplay'][key]=dict(physical=True,game_active=True,kind=kind,input_ns=entry['gameplay']['input_ns'],
-                before_sha256='1'*64,after_sha256='2'*64)
+        for offset,(key,kind) in enumerate((('camera','relative_pointer'),('movement','movement_key'))):
+            entry['gameplay'][key]=dict(physical=True,game_active=True,game_pid=500,game_start=5000,
+                kind=kind,input_ns=entry['gameplay']['input_ns']+offset,
+                before_sha256=str(offset+1)*64,after_sha256=str(offset+2)*64)
     return data
 
 
@@ -74,6 +75,16 @@ class GameContractTests(unittest.TestCase):
             elif change=='checksum':data['acquisition'].pop('checksum_absence_evidence')
             elif change=='hash':data['acquisition']['wad_sha256']='invented'
             else:entry['source']['pid']=999
+            with self.subTest(change=change):self.assertFalse(check_games.captured_game_report(data)['passed'])
+
+    def test_captured_controls_reject_other_process_and_reused_action_evidence(self):
+        for change in ('pid','start','same_input','same_frames'):
+            data=captured_record();play=data['routes'][0]['gameplay']
+            if change=='pid':play['camera']['game_pid']=999
+            elif change=='start':play['movement']['game_start']=999
+            elif change=='same_input':play['movement']['input_ns']=play['camera']['input_ns']
+            else:
+                for key in ('before_sha256','after_sha256'):play['movement'][key]=play['camera'][key]
             with self.subTest(change=change):self.assertFalse(check_games.captured_game_report(data)['passed'])
 
     def test_complete_changed_actual_game_routes_pass_without_closing_two_game_requirement(self):
