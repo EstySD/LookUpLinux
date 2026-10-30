@@ -101,3 +101,11 @@ class GameContractTests(unittest.TestCase):
         self.assertIsNone(check_games.request_error(wrong,trigger,950))
         error=dict(trigger,stage=6,mono_ns=1500)
         self.assertIs(check_games.request_error(wrong+[error],trigger,950),error)
+
+    def test_source_span_uses_canonical_boundary_punctuation_without_changing_raw_span(self):
+        for token,accepted in (('MOVE,',True),('move now',False),('mo-ve',False),('m.ove',False),('time',False)):
+            data=record();source=data['routes'][0]['source'];source['context']='Now '+token+'\nto the marked keep.'
+            source['span']=[4,4+len(token)];raw=source['context'][slice(*source['span'])]
+            with self.subTest(token=token):
+                self.assertEqual(check_games.game_report(data)['passed'],accepted)
+                self.assertEqual(source['context'][slice(*source['span'])],raw)
