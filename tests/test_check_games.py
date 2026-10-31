@@ -239,6 +239,17 @@ class GameContractTests(unittest.TestCase):
         wrapped=check_games.tap(original,observer,errors.append)
         self.assertIs(wrapped(),result);self.assertEqual(calls,['called']);self.assertEqual(errors,['RuntimeError'])
 
+    def test_actual_recognition_selection_is_observed_without_replacement_or_second_call(self):
+        from lookup.ocr import Recognition,Selection
+        selected=Selection('name','name',(),(716.5,374,34,8.5),89,'name',(0,4),False)
+        result=Recognition(selected,{});calls=[];observed=[]
+        def original():calls.append(True);return result
+        wrapped=check_games.tap(original,lambda value,*unused:observed.append(check_games.selection_evidence(value)),lambda unused:None)
+        self.assertIs(wrapped(),result);self.assertIs(result.selection,selected);self.assertEqual(calls,[True])
+        self.assertEqual(observed[0]['box'],list(selected.box))
+        self.assertEqual(observed[0]['span'],[0,4])
+        self.assertIsNone(check_games.selection_evidence(Recognition(None,{})))
+
     def test_reused_request_wrong_source_identity_and_raw_sequence_reject(self):
         for change in ('duplicate','source','sequence','span'):
             data=record();first,second=data['routes']

@@ -275,6 +275,12 @@ def game_report(data,*,_captured=False):
                 and isinstance(source.get('context'),str) and source['word'].casefold() in source['context'].casefold()
                 and _integer(source.get('visual_lines'),1),'ocr')
             _require(source['visual_lines']==len(source['context'].splitlines()),'context_lines')
+            if 'production_selection' in source:
+                selected=source['production_selection']
+                _require(isinstance(selected,dict) and selected.get('origin')=='actual_recognize_image_return'
+                    and selected.get('word')==source['word'] and selected.get('context')==source['context']
+                    and selected.get('span')==source['span'] and selected.get('box')==source['word_rect'],
+                    'actual_production_selection')
             multiline|=source['visual_lines']>=2
             span=source['span'];query_key=normalize(source['query']);_require(query_key and len(span)==2 and all(type(value) is int for value in span) and
                 0<=span[0]<span[1]<=len(source['context']) and normalize(source['context'][span[0]:span[1]])==query_key,'context_span')
@@ -595,12 +601,20 @@ def vm_command(value):
     return json.loads(child.stdout)
 
 
+def selection_evidence(recognition):
+    """Serialize only the selection actually returned by the original recognizer."""
+    selected=recognition.selection
+    if selected is None:return None
+    return dict(origin='actual_recognize_image_return',word=selected.word,context=selected.context,
+        span=list(selected.span),box=list(selected.box),confidence=selected.confidence)
+
+
 def app_observer():
     import hashlib,json,os,runpy,sys
     from pathlib import Path
     _require(os.getuid()==1001 and Path.home()==Path('/home/lookup07'),'unowned_account')
     sys.path.insert(0,'/usr/lib/lookup/app')
-    from lookup import app
+    from lookup import app,ocr
     try:
         from tools.check_hardening import write_record
     except ModuleNotFoundError:
@@ -621,9 +635,12 @@ def app_observer():
     def resolved(value,start,end):
         current.update(query=value.text,context=value.context,span=value.span,context_complete=value.context_complete,resolve_start_ns=start,resolve_end_ns=end)
         key='-'.join(str(current[name]) for name in ('pid','run','request'));write_record(root/'observations'/('request-'+key+'.json'),dict(current))
+    def recognized(value,start,end):
+        current['production_selection']=selection_evidence(value)
     def failed(name):
         with (root/'observer-errors.jsonl').open('a') as output:output.write(json.dumps(dict(error=name,at_ns=time.monotonic_ns()))+'\n')
     app.Source.freeze=tap(app.Source.freeze,frozen,failed);app.Source.resolve=tap(app.Source.resolve,resolved,failed)
+    ocr.recognize_image=tap(ocr.recognize_image,recognized,failed)
     sys.argv=['/usr/bin/lookup','--app'];runpy.run_path('/usr/bin/lookup',run_name='__main__')
 
 
@@ -700,23 +717,21 @@ def observe_route(encoded):
             with dicts.open_all(config.Config()) as dictionaries:
                 articles=dictionaries.lookup_exact(command['word']);body=sorted(set(re.findall('[а-яё]{5,}',articles[0].text[:1800].casefold())))
             if not optical_match(optical,command['word'],body):next_frame=time.monotonic_ns()+50_000_000;continue
-            source_png=Path(observation['image_path']).read_bytes()
-            source_tsv=subprocess.run(['tesseract','stdin','stdout','-l','eng','--psm','11','tsv'],input=source_png,capture_output=True,timeout=5).stdout
-            words=ocr.parse_tsv(source_tsv);tokens=[normalize(word.text) for word in words];context_tokens=[normalize(value) for value in observation['context'].split()];context_tokens=[value for value in context_tokens if value]
-            useful_words=[(word,token) for word,token in zip(words,tokens) if token];line_ids=set()
-            for index in range(len(useful_words)-len(context_tokens)+1):
-                if [token for _,token in useful_words[index:index+len(context_tokens)]]==context_tokens:
-                    line_ids={word.line_id for word,_ in useful_words[index:index+len(context_tokens)]};break
-            point=observation['cursor'];matched=[word for word in words if normalize(word.text)==command['word'] and word.box[0]<=point[0]<=word.box[0]+word.box[2] and word.box[1]<=point[1]<=word.box[1]+word.box[3]]
-            _require(len(matched)==1,'source_target_geometry')
+            selected=observation.get('production_selection')
+            _require(isinstance(selected,dict) and selected.get('origin')=='actual_recognize_image_return'
+                and selected.get('word')==observation['query'] and selected.get('context')==observation['context']
+                and selected.get('span')==observation['span'],'actual_production_selection')
+            point=observation['cursor'];left,top,width,height=selected['box']
+            _require(left<=point[0]<=left+width and top<=point[1]<=top+height,'source_target_geometry')
             born=int(Path('/proc',str(pid),'stat').read_text().split(') ',1)[1].split()[19]);sha=hashlib.sha256(frame.png).hexdigest()
             timing=dict(pending,attempt=command['sequence'],input_sequence=command['sequence'],status='success',mode='native',physical=True,
                 pid=pid,process_start=born,process_start_source='proc_stat',run=trigger['run'],request=request,clock='guest_monotonic',frame_clock='guest_monotonic',origin='kernel_evdev',
                 kernel_clock_verified=True,clock_ioctl_verified=True,trigger_ns=trigger['mono_ns'],last_not_visible_ns=baseline_end,
                 first_visible_start_ns=begin,first_visible_end_ns=end,frame_identity=[pid,born,trigger['run'],request],frame_sha256=sha,
                 observed=True,fresh=sha!=result['baseline_sha256'],useful_verified=True,loading=False,error_card=False,previous_card=False)
-            source=dict(observation,kind='actual_game',word=command['word'],word_rect=matched[0].box,visual_lines=len(observation['context'].splitlines()),
-                line_evidence='unchanged production OCR context line boundaries',source_words=[dict(text=word.text,box=word.box,line_id=word.line_id) for word in words])
+            source=dict(observation,kind='actual_game',word=command['word'],word_rect=selected['box'],visual_lines=len(observation['context'].splitlines()),
+                line_evidence='unchanged original Query context; box from actual returned recognition',
+                source_words=[dict(text=selected['word'],box=selected['box'])])
             path=root/('route-'+command['token']+'-useful.png');path.write_bytes(frame.png)
             scene='local_map_scoreboard' if command['game_kind']=='assaultcube' else 'map01_captured_prompt' if command['game_kind']=='doom' else 'tutorial_map_dialogue'
             result.update(state='complete',route=dict(sequence=command['sequence'],scene=scene,game_pid=command['game']['pid'],game_start=command['game']['start'],window_id=game_id,game_active_before=True,

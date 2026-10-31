@@ -392,6 +392,49 @@ class GuiTests(unittest.TestCase):
         self.assertFalse(controller.pending)
         self.assertEqual(config.load(),before)
 
+    def test_quit_and_qt_events_remain_responsive_while_second_ocr_child_finishes(self):
+        import contextlib,threading
+        from lookup import gui,config,ocr
+        from tests.test_app import fallback_source
+        from tests.test_ocr import tsv
+        entered,release=threading.Event(),threading.Event();closed=[]
+        self.addCleanup(release.set)
+        @contextlib.contextmanager
+        def resources():yield app.Resources(config.Config(online=False))
+        def child(argv,**kwargs):
+            output=tsv()
+            if argv[6]=='11':
+                entered.set();release.wait(3)
+                output=tsv((5,1,1,1,1,1,48,48,60,20,95,'word'))
+            return subprocess.CompletedProcess(argv,0,output,b'')
+        _,Owner=gui.components()
+        owner=Owner({},engine_factory=lambda publish,**kwargs:app.Engine(publish,source=fallback_source(),resources=resources),
+                    focus=False,on_quit=lambda:closed.append(True))
+        def wait(predicate):
+            deadline=time.monotonic()+3
+            while time.monotonic()<deadline:
+                self.application.processEvents()
+                if predicate():return
+                QTest.qWait(5)
+            self.fail('held OCR owner did not reach expected state')
+        def cleanup():
+            release.set();owner.quit()
+            wait(lambda:not owner.engine.is_alive() and not owner.settings_controller.is_alive())
+            owner.popup.deleteLater();owner.menu.deleteLater();owner.deleteLater()
+            self.application.sendPostedEvents(None,QEvent.Type.DeferredDelete)
+        self.addCleanup(cleanup)
+        with mock.patch.object(ocr.subprocess,'run',side_effect=child):
+            wait(lambda:not owner.settings_controller.pending)
+            owner.Trigger('');wait(entered.is_set)
+            alive=[]
+            from PyQt6.QtCore import QTimer
+            QTimer.singleShot(0,lambda:alive.append(True));QTest.qWait(30)
+            self.assertTrue(alive)
+            owner.quit();QTest.qWait(30)
+            self.assertEqual(closed,[]);self.assertTrue(owner.engine.is_alive())
+            release.set();wait(lambda:bool(closed))
+        self.assertFalse(owner.popup.isVisible());self.assertIsNone(owner._displayed)
+
     def test_copy_dictionary_then_unchanged_apply_serves_next_lookup_without_restart(self):
         from lookup import config
         from tests.test_app import FixedSource

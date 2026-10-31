@@ -26,6 +26,19 @@ class FixedSource:
         pass
 
 
+def fallback_source():
+    """Real recognition with fixed public pixels; only the child process is controlled."""
+    from PyQt6.QtCore import QBuffer,QIODevice
+    from PyQt6.QtGui import QImage,QColor
+    from lookup.capture import Capture
+    image=QImage(200,80,QImage.Format.Format_RGB32);image.fill(QColor('white'))
+    buffer=QBuffer();buffer.open(QIODevice.OpenModeFlag.WriteOnly);image.save(buffer,'PNG')
+    frame=Capture(bytes(buffer.data()),200,80,'test',0)
+    class Source(app.Source):
+        def freeze(self):return app.Frozen('ocr',(25,25),Monitor('test',0,0,200,80,1),image=frame)
+    return Source({})
+
+
 class EngineCase(unittest.TestCase):
     def setUp(self):
         self.root=make_tempdir(self)
@@ -70,6 +83,43 @@ class EngineCase(unittest.TestCase):
             return conn.execute('SELECT coalesce(sum(count),0) FROM words').fetchone()[0]
 
 class EngineTests(EngineCase):
+    def test_held_second_ocr_pass_preserves_generation_reload_stop_and_one_count(self):
+        import subprocess
+        from tests.test_ocr import tsv
+        try:source=fallback_source()
+        except ImportError:self.skipTest('PyQt6 unavailable')
+        for action in ('replace','dismiss','reload','stop','current'):
+            with self.subTest(action=action):
+                with contextlib.closing(open_store(self.path)) as conn:conn.execute('DELETE FROM words')
+                self.events.clear();entered=threading.Event();release=threading.Event();calls=[]
+                self.addCleanup(release.set)
+                def child(argv,**kwargs):
+                    output=tsv()
+                    if argv[6]=='11':
+                        entered.set();release.wait(3)
+                        output=tsv((5,1,1,1,1,1,48,48,60,20,95,'word'))
+                    return subprocess.CompletedProcess(argv,0,output,b'')
+                def lookup(*args,**kwargs):calls.append(args[0]);return translate.lookup(*args,**kwargs)
+                with patch.object(ocr.subprocess,'run',side_effect=child):
+                    engine=self.engine(source=source,lookup=lookup)
+                    first=engine.begin();engine.enqueue(first)
+                    self.assertTrue(entered.wait(1));self.assertEqual(calls,[])
+                    if action=='replace':
+                        latest=engine.begin();engine.enqueue(latest)
+                    elif action=='dismiss':engine.dismiss(first)
+                    elif action=='reload':revision=engine.request_reload()
+                    elif action=='stop':
+                        engine.stop();engine.join(.03);self.assertTrue(engine.is_alive())
+                    release.set()
+                    if action=='reload':self.wait(lambda:any(e.stage=='reload' and e.reload_revision==revision for e in self.events))
+                    elif action in ('replace','current'):
+                        wanted=latest if action=='replace' else first
+                        self.wait(lambda:any(e.id==wanted and e.stage=='ready' for e in self.events))
+                    engine.stop();engine.join(2);self.assertFalse(engine.is_alive())
+                self.assertEqual(self.count(),1 if action in ('replace','current') else 0)
+                self.assertEqual(len(calls),1 if action in ('replace','current') else 0)
+                if action!='current':self.assertFalse(any(e.id==first and e.stage in ('ready','context') for e in self.events))
+
     def test_ready_and_final_count_once_on_worker_thread(self):
         engine=self.engine()
         identity=engine.begin();engine.enqueue(identity)
