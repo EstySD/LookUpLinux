@@ -79,6 +79,18 @@ def assaultcube_record():
 
 
 class GameContractTests(unittest.TestCase):
+    def test_new_selection_evidence_rejects_diagnostic_box_or_wrong_returned_pass(self):
+        data=record()
+        for row in data['routes']:
+            source=row['source']
+            source['production_selection']=dict(origin='actual_recognize_image_return',word=source['word'],
+                context=source['context'],span=source['span'],box=source['word_rect'],confidence=95)
+        self.assertTrue(check_games.game_report(data)['passed'])
+        for field,value in (('origin','forced_psm11_diagnostic'),('word','other'),
+                            ('context','other context'),('span',[0,4]),('box',[1,1,2,2])):
+            changed=deepcopy(data);changed['routes'][0]['source']['production_selection'][field]=value
+            self.assertFalse(check_games.game_report(changed)['passed'],field)
+
     def test_actual_gl_context_is_unbuffered_source_bound_before_physical_input(self):
         import hashlib,json
         data=assaultcube_record()
