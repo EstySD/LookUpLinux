@@ -1,0 +1,46 @@
+{
+  "state": "passed",
+  "active": null,
+  "steps": [
+    {
+      "name": "isolated_boundary",
+      "exit": 0,
+      "elapsed_seconds": 0.8022333740000249,
+      "stdout": "",
+      "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.720s\n\nOK\n"
+    },
+    {
+      "name": "context144",
+      "exit": 0,
+      "elapsed_seconds": 31.883818872000006,
+      "stdout": "{\"acceptance\": \"agent\", \"total\": 144, \"passed\": 144, \"failed\": 0}\n",
+      "stderr": ""
+    },
+    {
+      "name": "prepared_hashes",
+      "cases": [
+        {
+          "path": "01-name-success.png",
+          "actual_sha256": "0b93a61b75218a31deb36b5526eedf88469f75cad78da8647a0c702505016503",
+          "native_reference": "0b93a61b75218a31deb36b5526eedf88469f75cad78da8647a0c702505016503"
+        },
+        {
+          "path": "02-name-sparse.png",
+          "actual_sha256": "2a8b1f789e1ac215b4c5d9264c623fbfee45bbc8d1266c967755aab89d45749f",
+          "native_reference": "2a8b1f789e1ac215b4c5d9264c623fbfee45bbc8d1266c967755aab89d45749f"
+        },
+        {
+          "path": "03-deaths-sparse.png",
+          "actual_sha256": "2a8b1f789e1ac215b4c5d9264c623fbfee45bbc8d1266c967755aab89d45749f",
+          "native_reference": "2a8b1f789e1ac215b4c5d9264c623fbfee45bbc8d1266c967755aab89d45749f"
+        },
+        {
+          "path": "04-recovery-name.png",
+          "actual_sha256": "44a19eeceee75ffacee6071b15e38c1c4773dc8dff5189d8be50c1a723c8a443",
+          "native_reference": "44a19eeceee75ffacee6071b15e38c1c4773dc8dff5189d8be50c1a723c8a443"
+        }
+      ],
+      "exit": 0
+    }
+  ]
+}

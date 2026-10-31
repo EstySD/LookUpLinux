@@ -1,0 +1,22 @@
+{
+  "state": "failed",
+  "source_sha256": "949ded266330b9a57814b4a8def41d517b35bc97ebedfca2621bc7578b6eb7f4",
+  "steps": [
+    {
+      "name": "render16",
+      "exit": 0,
+      "elapsed_seconds": 2.9610089880000032,
+      "stdout": "Rendered 16 images, 96 cases\n",
+      "stderr": ""
+    },
+    {
+      "name": "focused",
+      "exit": 1,
+      "elapsed_seconds": 55.40126868799999,
+      "stdout": "",
+      "stderr": "..................................................F..........\n======================================================================\nFAIL: test_child_deadline_and_output_cap (tests.test_platform.BoundaryTests.test_child_deadline_and_output_cap)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/lookup07/.local/state/lookup-ocr-08-08-e236ee09/tests/test_platform.py\", line 64, in test_child_deadline_and_output_cap\n    self.assertLess(time.monotonic()-start, 2)\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 3.1951983280000036 not less than 2\n\n----------------------------------------------------------------------\nRan 61 tests in 55.123s\n\nFAILED (failures=1)\n"
+    }
+  ],
+  "active": "focused",
+  "error": "RuntimeError('focused_failed')"
+}

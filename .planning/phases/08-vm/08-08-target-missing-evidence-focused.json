@@ -1,0 +1,14 @@
+{
+  "state": "failed",
+  "files": {
+    "lookup/ocr.py": "949ded266330b9a57814b4a8def41d517b35bc97ebedfca2621bc7578b6eb7f4",
+    "tools/check_games.py": "cfe4abc3c4ba2ca9cb4f95a2c13975106cf2bcf001b80ddb439e9cf22b183766",
+    "tools/calibrate_ocr.py": "83b114eff7b7cf4e43c835cbcdb8f38183db56348a0153835741ea3ee37c3406",
+    "tests/test_app.py": "b73d5ebae83930b67070412595a4638c8861c51c8cadac80e3305f742ba121e6",
+    "tests/test_app_gui.py": "ded9a3fb709bf857cec173c9e99f353174ce37943115b0664a28f781d4156485",
+    "tests/test_check_games.py": "a4f0ca8cf23b0c6fa9f24ca0dc336cf75ed73da8257eb0a3962cf4046c9e3e34"
+  },
+  "exit": 1,
+  "stdout": "",
+  "stderr": "...................................................E......................................................\n======================================================================\nERROR: test_actual_rejected_first_camera_differs_only_in_idle_overlay_not_world (tests.test_check_games.GameContractTests.test_actual_rejected_first_camera_differs_only_in_idle_overlay_not_world)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/lookup07/.local/state/lookup-ocr-08-08-e236ee09/tests/test_check_games.py\", line 162, in test_actual_rejected_first_camera_differs_only_in_idle_overlay_not_world\n    value=check_games.world_change((root/'08-06-raw-control-522383335795-before.png').read_bytes(),\n                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 777, in read_bytes\n    with self.open(mode='rb', buffering=0) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '.planning/phases/08-vm/08-06-raw-control-522383335795-before.png'\n\n----------------------------------------------------------------------\nRan 106 tests in 4.238s\n\nFAILED (errors=1)\n"
+}
