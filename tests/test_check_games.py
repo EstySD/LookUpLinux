@@ -27,6 +27,17 @@ class ProcessObservationTests(unittest.TestCase):
         broken=check_games.observe_ocr_process(original,Mock(side_effect=RuntimeError))
         self.assertIs(broken(argv,input=data,timeout=3),result)
 
+    def test_observation_handles_text_and_uncaptured_output_without_interference(self):
+        import subprocess
+        from unittest.mock import Mock
+        argv=['tesseract','stdin','stdout','-l','eng','--psm','6','tsv']
+        for data,stdout in (('text input','text output'),(b'png',None)):
+            result=subprocess.CompletedProcess(argv,0,stdout,None)
+            original=Mock(return_value=result);observations=[]
+            wrapped=check_games.observe_ocr_process(original,observations.append)
+            self.assertIs(wrapped(argv,input=data),result)
+            original.assert_called_once_with(argv,input=data)
+
 
 def route(index):
     timing=sample(index,latency=1200)

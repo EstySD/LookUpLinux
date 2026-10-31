@@ -616,17 +616,20 @@ def observe_ocr_process(original,observe):
         argv=args[0] if args else kwargs.get('args',[])
         measured=(isinstance(argv,(list,tuple)) and len(argv)==8 and argv[:6]==['tesseract','stdin','stdout','-l','eng','--psm'] and argv[7]=='tsv')
         if not measured:return original(*args,**kwargs)
-        row=dict(psm=int(argv[6]),start_ns=time.monotonic_ns(),input_sha256=hashlib.sha256(kwargs['input']).hexdigest(),timeout=kwargs.get('timeout'))
+        try:row=dict(psm=int(argv[6]),start_ns=time.monotonic_ns(),input_sha256=hashlib.sha256(kwargs['input']).hexdigest(),timeout=kwargs.get('timeout'))
+        except (ValueError,TypeError,KeyError):return original(*args,**kwargs)
         try:
             result=original(*args,**kwargs)
-            row.update(returncode=result.returncode,stdout_sha256=hashlib.sha256(result.stdout).hexdigest())
+            try:row.update(returncode=result.returncode,stdout_sha256=hashlib.sha256(result.stdout).hexdigest())
+            except (TypeError,AttributeError):row=None
             return result
         except BaseException as error:
             row['error']=type(error).__name__;raise
         finally:
-            row['end_ns']=time.monotonic_ns()
-            try:observe(row)
-            except BaseException:pass
+            if row is not None:
+                row['end_ns']=time.monotonic_ns()
+                try:observe(row)
+                except BaseException:pass
     return wrapped
 
 
