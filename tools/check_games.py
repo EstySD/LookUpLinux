@@ -609,6 +609,27 @@ def selection_evidence(recognition):
         span=list(selected.span),box=list(selected.box),confidence=selected.confidence)
 
 
+def observe_ocr_process(original,observe):
+    """Record real process passes; preserve the original input, result and errors."""
+    import hashlib
+    def wrapped(*args,**kwargs):
+        argv=args[0] if args else kwargs.get('args',[])
+        measured=(isinstance(argv,(list,tuple)) and len(argv)==8 and argv[:6]==['tesseract','stdin','stdout','-l','eng','--psm'] and argv[7]=='tsv')
+        if not measured:return original(*args,**kwargs)
+        row=dict(psm=int(argv[6]),start_ns=time.monotonic_ns(),input_sha256=hashlib.sha256(kwargs['input']).hexdigest(),timeout=kwargs.get('timeout'))
+        try:
+            result=original(*args,**kwargs)
+            row.update(returncode=result.returncode,stdout_sha256=hashlib.sha256(result.stdout).hexdigest())
+            return result
+        except BaseException as error:
+            row['error']=type(error).__name__;raise
+        finally:
+            row['end_ns']=time.monotonic_ns()
+            try:observe(row)
+            except BaseException:pass
+    return wrapped
+
+
 def app_observer():
     import hashlib,json,os,runpy,sys
     from pathlib import Path
@@ -640,6 +661,7 @@ def app_observer():
     def failed(name):
         with (root/'observer-errors.jsonl').open('a') as output:output.write(json.dumps(dict(error=name,at_ns=time.monotonic_ns()))+'\n')
     app.Source.freeze=tap(app.Source.freeze,frozen,failed);app.Source.resolve=tap(app.Source.resolve,resolved,failed)
+    ocr.subprocess.run=observe_ocr_process(ocr.subprocess.run,lambda row:current.setdefault('ocr_passes',[]).append(row))
     ocr.recognize_image=tap(ocr.recognize_image,recognized,failed)
     sys.argv=['/usr/bin/lookup','--app'];runpy.run_path('/usr/bin/lookup',run_name='__main__')
 
