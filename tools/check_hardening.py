@@ -224,6 +224,38 @@ def current_performance_report(rows,receipt,artifacts=None):
     return report
 
 
+def fallback_stability_report(data):
+    """The declared twenty-call changed path, separate from historical 320."""
+    try:
+        rows=data['completions'];resources=data['resources'];cooldown=data['cooldown']
+        _require(len(rows)==20 and len(resources)==20,'workload')
+        identities=set();processes=set();retried=0
+        for row in rows:
+            timing=row['timing'];physical_latency(timing);identity=_identity(timing)
+            _require(identity not in identities,'identity');identities.add(identity);processes.add(identity[:3])
+            passes=row['ocr_passes'];modes=[item['psm'] for item in passes]
+            _require(modes in ([6],[6,11]),'passes')
+            for item in passes:
+                _require(item.get('returncode')==0 and 'error' not in item and _hash(item.get('input_sha256'))
+                    and _hash(item.get('stdout_sha256')) and timing['trigger_ns']<=item['start_ns']<=item['end_ns']<=timing['first_visible_end_ns'],'passes')
+            if len(passes)==2:
+                _require(passes[0]['input_sha256']==passes[1]['input_sha256'] and passes[0]['end_ns']<=passes[1]['start_ns'],'same_prepared_input')
+                retried+=1
+        _require(len(processes)==1 and retried>=2,'actual_retry')
+        _require([row['after'] for row in resources]==list(range(1,21)) and cooldown['idle_ms']>=5000,'resources')
+        for row in resources+[cooldown]:
+            _require(tuple(row['identity'])==next(iter(processes)) and row.get('observed') is True
+                and row.get('owned_children')==[] and all(_integer(row.get(key),1) for key in ('rss_bytes','threads','fds')),'resources')
+        early=statistics.median(row['rss_bytes'] for row in resources[:5]);late=statistics.median(row['rss_bytes'] for row in resources[-5:])
+        allowance=max(16<<20,early*.15);trend_allowance=max(4<<20,early*.05)
+        _require(max(row['rss_bytes'] for row in resources+[cooldown])-early<=allowance
+            and late-early<=allowance and statistics.median(row['rss_bytes'] for row in resources[-5:])-statistics.median(row['rss_bytes'] for row in resources[-10:-5])<=trend_allowance,'rss')
+        _require(all(row['fds']<=resources[0]['fds']+4 and row['threads']<=resources[0]['threads']+2 for row in resources+[cooldown]),'handles')
+        _require(type(data['history_delta']) is int and data['history_delta']==20 and data['integrity']=='ok','history')
+        return dict(passed=True,completions=20,second_pass_completions=retried,early_rss_bytes=early,late_rss_bytes=late,rss_allowance_bytes=allowance)
+    except (EvidenceError,KeyError,TypeError,AttributeError,IndexError):return dict(passed=False)
+
+
 def online_report(rows):
     """Optional up-to-three uncached/cache physical requests, never fake seeds."""
     uncached=[];cached=[];seeds=set();identities=set();reasons={};errors=[];counts={'uncached':0,'cache':0}
