@@ -19,7 +19,7 @@ def evaluate(root, images, psm, enlarge, invert):
         for case in image['cases']:
             try:
                 result = ocr.recognize_image(root/image['path'], case['point'],
-                                             psm=psm, enlarge=enlarge, invert=invert)
+                                             psm=psm, enlarge=enlarge, invert=invert,fallback=False)
                 found = result.selection
                 word = found.word if found else None
                 tokens = [normalize(w) for w in found.line.split()] if found else []

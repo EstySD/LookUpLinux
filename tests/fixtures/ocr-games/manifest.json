@@ -1,0 +1,127 @@
+{
+  "source": "immutable actual Screenshot2 game captures",
+  "production_before": "5d04a4c",
+  "prepared_reference": "Native encoded SHA; decoded RGBA pixels and Transform checked across Qt encoders",
+  "cases": [
+    {
+      "path": "01-name-success.png",
+      "source_sha256": "69c77132ff14bad9fba7d8a825127111660bb4adbd101bb58d8f58b0122a88ff",
+      "point": [
+        723,
+        370
+      ],
+      "word": "name",
+      "span": [
+        0,
+        4
+      ],
+      "box": [
+        703.0,
+        367.0,
+        39.0,
+        9.0
+      ],
+      "first_pass_selects": true,
+      "prepared_sha256": "0b93a61b75218a31deb36b5526eedf88469f75cad78da8647a0c702505016503",
+      "prepared_pixels_sha256": "a240e433e2e5477d7ece1063e3155951c1f494f3b41e213d57115793fbc112d7",
+      "transform": [
+        0,
+        242,
+        2.0,
+        2.0,
+        8
+      ],
+      "original_evidence": ".planning/phases/08-vm/08-06-takeover-route1-source.png"
+    },
+    {
+      "path": "02-name-sparse.png",
+      "source_sha256": "5c3e6924b7a88d4a92fd791a4c234b57bfd0c9317f2c6c0a7677a06d4bc1172d",
+      "point": [
+        723,
+        370
+      ],
+      "word": "name",
+      "span": [
+        0,
+        4
+      ],
+      "box": [
+        703.0,
+        367.5,
+        39.0,
+        8.5
+      ],
+      "first_pass_selects": false,
+      "prepared_sha256": "2a8b1f789e1ac215b4c5d9264c623fbfee45bbc8d1266c967755aab89d45749f",
+      "prepared_pixels_sha256": "89dbd1e924ea84ea0fe3d1668df0b21b06d94d74dcc4484c087b0e91528c8347",
+      "transform": [
+        0,
+        242,
+        2.0,
+        2.0,
+        8
+      ],
+      "original_evidence": ".planning/phases/08-vm/08-06-takeover-route2-source.png"
+    },
+    {
+      "path": "03-deaths-sparse.png",
+      "source_sha256": "fe16412257f45450c2018d0a7405fab29cc65058af85e22f76e0298586c6505a",
+      "point": [
+        587,
+        370
+      ],
+      "word": "deaths",
+      "span": [
+        0,
+        6
+      ],
+      "box": [
+        561.0,
+        365.0,
+        51.5,
+        11.0
+      ],
+      "first_pass_selects": false,
+      "prepared_sha256": "2a8b1f789e1ac215b4c5d9264c623fbfee45bbc8d1266c967755aab89d45749f",
+      "prepared_pixels_sha256": "89dbd1e924ea84ea0fe3d1668df0b21b06d94d74dcc4484c087b0e91528c8347",
+      "transform": [
+        0,
+        242,
+        2.0,
+        2.0,
+        8
+      ],
+      "original_evidence": ".planning/phases/08-vm/08-06-takeover-route2-deaths-source.png"
+    },
+    {
+      "path": "04-recovery-name.png",
+      "source_sha256": "9cbc077f181e3c564d21e5d3ec88d68129630811972b12cc659558fc8723497e",
+      "point": [
+        733,
+        378
+      ],
+      "word": "name",
+      "span": [
+        0,
+        4
+      ],
+      "box": [
+        716.5,
+        374.0,
+        34.0,
+        8.5
+      ],
+      "first_pass_selects": false,
+      "prepared_sha256": "44a19eeceee75ffacee6071b15e38c1c4773dc8dff5189d8be50c1a723c8a443",
+      "prepared_pixels_sha256": "d50c8ae66e7612ee73a4ceb56bc4d7b39fcea94dce4ca05c021c46c9b1bc2597",
+      "transform": [
+        0,
+        250,
+        2.0,
+        2.0,
+        8
+      ],
+      "original_evidence": ".planning/phases/08-vm/08-06-raw-preserved-lookup-observations-source-1083-1870107953965939-3.png"
+    }
+  ]
+}

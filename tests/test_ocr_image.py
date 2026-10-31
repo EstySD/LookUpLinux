@@ -2,6 +2,7 @@
 import json
 import math
 import subprocess
+import shutil
 import unittest
 from pathlib import Path
 from unittest import mock
@@ -169,3 +170,22 @@ class FixtureManifestTests(unittest.TestCase):
                     self.assertLess(left, case['point'][0])
                     self.assertLess(case['point'][0], right)
                     self.assertGreater(case['point'][0], (left+right)/2)
+
+    @unittest.skipUnless(shutil.which('tesseract') and QImage is not None,'actual OCR requires Tesseract and PyQt6')
+    def test_all_rendered_breeze_cases_use_production_default_recognition(self):
+        from lookup.normalize import normalize
+        root=Path(__file__).parent/'fixtures/ocr'
+        if not (root/'manifest.json').exists():self.skipTest('target Breeze fixtures not generated yet')
+        images=json.loads((root/'manifest.json').read_text())['images']
+        self.assertEqual(len(images),16)
+        checked=0
+        for image in images:
+            for case in image['cases']:
+                with self.subTest(image=image['path'],case=case['name']):
+                    result=ocr.recognize_image(root/image['path'],case['point']).selection
+                    self.assertEqual(result.word if result else None,case['word'])
+                    self.assertEqual([normalize(word) for word in result.line.split()] if result else [],
+                                     [normalize(word) for word in case['line_tokens']])
+                    if case['compound']:self.assertEqual(result.candidates[0],case['compound'])
+                checked+=1
+        self.assertEqual(checked,96)

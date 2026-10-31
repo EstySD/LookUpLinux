@@ -103,5 +103,12 @@ class FallbackTests(unittest.TestCase):
                 with self.assertRaisesRegex(ocr.OcrError,'^invalid_image$'):self.recognize(fallback=value)
                 run.assert_not_called()
 
+    def test_retry_does_not_jump_from_rejected_hit_to_valid_neighbor(self):
+        for text,confidence in (('bad123',95),('noise',10)):
+            output=tsv((5,1,1,1,1,1,48,48,20,20,confidence,text),
+                       (5,1,1,1,1,2,72,48,60,20,95,'run'))
+            with self.subTest(text=text),mock.patch.object(ocr.subprocess,'run',side_effect=[self.completed(tsv()),self.completed(output)]):
+                self.assertIsNone(self.recognize().selection)
+
 
 if __name__=='__main__':unittest.main()
