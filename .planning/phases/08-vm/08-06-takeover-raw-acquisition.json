@@ -1,0 +1,20 @@
+{
+  "url": "https://github.com/assaultcube/AC/releases/download/v1.3.0.2/AssaultCube_v1.3.0.2_LockdownEdition_RC1.tar.bz2",
+  "bytes": 52071427,
+  "sha256": "9b3118e7929253f0114fa06cad8310faab646d177b4660406011152f34086b55",
+  "checksum_status": "researched reproducibility pin; no signed upstream checksum",
+  "executable": "/home/lookup07/.local/state/lookup-games-08/assaultcube/package/bin_unix/linux_64_client",
+  "actual_package": "/home/lookup07/.local/state/lookup-games-08/assaultcube/extracted",
+  "ldd": "\tlinux-vdso.so.1 (0x00007f9ce70d3000)\n\tlibX11.so.6 => /usr/lib/libX11.so.6 (0x00007f9ce6f58000)\n\tlibSDL2-2.0.so.0 => /usr/lib/libSDL2-2.0.so.0 (0x00007f9ce6ef4000)\n\tlibSDL2_image-2.0.so.0 => /usr/lib/libSDL2_image-2.0.so.0 (0x00007f9ce6ed1000)\n\tlibz.so.1 => /usr/lib/libz.so.1 (0x00007f9ce6eb6000)\n\tlibGL.so.1 => /usr/lib/libGL.so.1 (0x00007f9ce6e42000)\n\tlibopenal.so.1 => /usr/lib/libopenal.so.1 (0x00007f9ce6a00000)\n\tlibvorbisfile.so.3 => /usr/lib/libvorbisfile.so.3 (0x00007f9ce6e38000)\n\tlibstdc++.so.6 => /usr/lib/libstdc++.so.6 (0x00007f9ce6600000)\n\tlibm.so.6 => /usr/lib/libm.so.6 (0x00007f9ce6d01000)\n\tlibgcc_s.so.1 => /usr/lib/libgcc_s.so.1 (0x00007f9ce6cd4000)\n\tlibc.so.6 => /usr/lib/libc.so.6 (0x00007f9ce6200000)\n\tlibxcb.so.1 => /usr/lib/libxcb.so.1 (0x00007f9ce6ca7000)\n\tlibpng16.so.16 => /usr/lib/libpng16.so.16 (0x00007f9ce69c3000)\n\tlibjxl.so.0.12 => /usr/lib/libjxl.so.0.12 (0x00007f9ce5c00000)\n\tlibjpeg.so.8 => /usr/lib/libjpeg.so.8 (0x00007f9ce691b000)\n\tlibtiff.so.6 => /usr/lib/libtiff.so.6 (0x00007f9ce6568000)\n\tlibavif.so.16 => /usr/lib/libavif.so.16 (0x00007f9ce68d3000)\n\tlibwebpdemux.so.2 => /usr/lib/libwebpdemux.so.2 (0x00007f9ce6c9e000)\n\tlibwebp.so.7 => /usr/lib/libwebp.so.7 (0x00007f9ce64e1000)\n\tlibGLdispatch.so.0 => /usr/lib/libGLdispatch.so.0 (0x00007f9ce6468000)\n\tlibGLX.so.0 => /usr/lib/libGLX.so.0 (0x00007f9ce6437000)\n\t/lib64/ld-linux-x86-64.so.2 => /usr/lib64/ld-linux-x86-64.so.2 (0x00007f9ce70d5000)\n\tlibvorbis.so.0 => /usr/lib/libvorbis.so.0 (0x00007f9ce61d2000)\n\tlibogg.so.0 => /usr/lib/libogg.so.0 (0x00007f9ce642d000)\n\tlibXau.so.6 => /usr/lib/libXau.so.6 (0x00007f9ce6428000)\n\tlibXdmcp.so.6 => /usr/lib/libXdmcp.so.6 (0x00007f9ce61ca000)\n\tlibjxl_cms.so.0.12 => /usr/lib/libjxl_cms.so.0.12 (0x00007f9ce61a1000)\n\tlibhwy.so.1 => /usr/lib/libhwy.so.1 (0x00007f9ce6192000)\n\tlibbrotlidec.so.1 => /usr/lib/libbrotlidec.so.1 (0x00007f9ce6182000)\n\tlibbrotlienc.so.1 => /usr/lib/libbrotlienc.so.1 (0x00007f9ce60bd000)\n\tlibdeflate.so.0 => /usr/lib/libdeflate.so.0 (0x00007f9ce60a5000)\n\tlibjbig.so.2.2 => /usr/lib/libjbig.so.2.2 (0x00007f9ce6097000)\n\tliblzma.so.5 => /usr/lib/liblzma.so.5 (0x00007f9ce6061000)\n\tlibzstd.so.1 => /usr/lib/libzstd.so.1 (0x00007f9ce5b1a000)\n\tlibyuv.so => /usr/lib/libyuv.so (0x00007f9ce5a73000)\n\tlibsharpyuv.so.0 => /usr/lib/libsharpyuv.so.0 (0x00007f9ce6058000)\n\tlibdav1d.so.7 => /usr/lib/libdav1d.so.7 (0x00007f9ce5892000)\n\tlibrav1e.so.0.8 => /usr/lib/librav1e.so.0.8 (0x00007f9ce5400000)\n\tlibSvtAv1Enc.so.4 => /usr/lib/libSvtAv1Enc.so.4 (0x00007f9cdce00000)\n\tlibaom.so.3 => /usr/lib/libaom.so.3 (0x00007f9cdc400000)\n\tlibbrotlicommon.so.1 => /usr/lib/libbrotlicommon.so.1 (0x00007f9ce586f000)\n",
+  "ldd_exit": 0,
+  "licenses": [
+    {
+      "path": "docs/package_copyrights.txt",
+      "sha256": "647b8ce8aa1d21dc4d1ea046d20b03c86eae61a8359cbc8e2fa09c25cb450468"
+    },
+    {
+      "path": "docs/license.html",
+      "sha256": "bafe9bb58ca5b931293aea05af4b4a35d92638b972f72055ce78e949aedf53f7"
+    }
+  ]
+}

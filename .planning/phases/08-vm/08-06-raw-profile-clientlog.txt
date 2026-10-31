@@ -1,0 +1,61 @@
+######## start logging: 20261030_22.41.46
+parsing commandline argument 1: "--home=/home/lookup07/.local/state/lookup-games-08/assaultcube/profile"
+Using home directory: /home/lookup07/.local/state/lookup-games-08/assaultcube/profile/
+parsing commandline argument 2: "--init"
+parsing commandline argument 3: "-t1"
+parsing commandline argument 4: "-w1280"
+parsing commandline argument 5: "-h800"
+parsing commandline argument 6: "--loadmap=ac_desert"
+private/entropy.dat not found.
+writing to file: /home/lookup07/.local/state/lookup-games-08/assaultcube/profile/clientlog.txt
+writing to file: /home/lookup07/.local/state/lookup-games-08/assaultcube/profile/config/autoexec.cfg
+created config/autoexec.cfg from template config/configtemplates.zip
+writing to file: /home/lookup07/.local/state/lookup-games-08/assaultcube/profile/config/favourites.cfg
+created config/favourites.cfg from template config/configtemplates.zip
+writing to file: /home/lookup07/.local/state/lookup-games-08/assaultcube/profile/config/pcksources.cfg
+created config/pcksources.cfg from template config/configtemplates.zip
+init: sdl (2.0.10)
+SDL: compiled version 2.0.10, linked version 2.32.74
+init: net (1.3.6)
+init: world (1302)
+init: video: sdl
+init: video: mode
+init: video: misc
+init: gl
+Renderer: llvmpipe (LLVM 23.1.3, 256 bits) (Mesa)
+Driver: 4.6 (Compatibility Profile) Mesa 26.2.5-arch1.1
+init: console
+init: sound
+Audio devices: OpenAL Soft
+Sound: OpenAL Soft / OpenAL Soft (OpenAL Community)
+Driver: 1.1 ALSOFT 1.25.2
+init: cfg
+init: models
+init: docs
+init: localconnect
+own IP: 0.0.0.0, censored own IP: 0.0.0.0, --, clock offset -498166 hours -41 minutes
+auth challenge: SERVINFOCHALLENGE<(0) cn: 0 c: 0.0.0.0 (--) s: 0.0.0.0:0 3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29 st: 0 ct: 29890001 (1084065587)>
+init: mainloop
+could not read "private/authprivate.cfg"
+read map packages/maps/official/ac_desert.cgz rev 19 (72 milliseconds)
+Desert Village by Arghvark & makkE
+loaded textures (29 milliseconds)
+loaded mapmodels (31 milliseconds)
+loaded mapsounds (79 milliseconds)
+game mode is "TDM"
+resolving hostname packages.cubers.net succeeded (51.79.7.196)
+http head packages.cubers.net:80/updates.txt response time: 552, status: 404, contentlength: 0
+successfully pinged 1 media server, 0 failures, 0 disabled
+Welcome to AssaultCube
+Developed by 'Rabid Viper Productions'
+
+Use the below menu to change some necessary settings...
+
+Further help & information can be found in your README which is inside your AssaultCube directory.
+writing to file: /home/lookup07/.local/state/lookup-games-08/assaultcube/profile/config/init.cfg
+writing to file: /home/lookup07/.local/state/lookup-games-08/assaultcube/profile/config/servers.cfg
+writing to file: /home/lookup07/.local/state/lookup-games-08/assaultcube/profile/config/pcksources.cfg
+writing to file: /home/lookup07/.local/state/lookup-games-08/assaultcube/profile/config/saved.cfg
+writing to file: /home/lookup07/.local/state/lookup-games-08/assaultcube/profile/config/history
+writing to file: /home/lookup07/.local/state/lookup-games-08/assaultcube/profile/config/mapmodelattributes.cfg
+writing to file: /home/lookup07/.local/state/lookup-games-08/assaultcube/profile/private/entropy.dat

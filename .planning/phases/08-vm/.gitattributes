@@ -1,0 +1,8 @@
+# Preserve byte hashes of Phase 08-06 raw evidence and its scoped adapters.
+08-06-*.json -text
+08-06-*.jsonl -text
+08-06-*.txt -text
+08-06-*.py -text
+08-06-*.ps1 -text
+08-06-input-source-notes.md -text
+08-assaultcube-final-report.json -text
