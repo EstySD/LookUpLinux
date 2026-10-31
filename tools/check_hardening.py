@@ -140,6 +140,25 @@ def stats_without_count(stats):
     return {key:value for key,value in stats.items() if key!='count'}
 
 
+def current_performance_report(rows,receipt):
+    """Bind unchanged physical criteria to the verified staged/installed build."""
+    report=performance_report(rows)
+    try:
+        build=receipt['build'];source=receipt['source_members'];installed=receipt['installed_members']
+        _require(isinstance(build,dict) and set(build)=={'source_sha256','package_sha256','ocr_sha256'}
+            and all(_hash(value) for value in build.values()),'current_build')
+        _require(isinstance(source,dict) and source and source==installed
+            and all(_hash(value) for value in source.values())
+            and source.get('lookup/ocr.py')==build['ocr_sha256'],'installed_source')
+        _require(all(type(receipt.get(key)) is int and receipt[key]==0
+            for key in ('stage_exit','build_exit','install_exit')),'build_exit')
+        _require(isinstance(rows,list) and all(row.get('build')==build for row in rows),'old_build')
+        report.update(source_bound=True,build=dict(build))
+    except (EvidenceError,KeyError,TypeError,AttributeError):
+        report.update(passed=False,source_bound=False,source_error='current_source_binding')
+    return report
+
+
 def online_report(rows):
     """Optional up-to-three uncached/cache physical requests, never fake seeds."""
     uncached=[];cached=[];seeds=set();identities=set();reasons={};errors=[];counts={'uncached':0,'cache':0}
