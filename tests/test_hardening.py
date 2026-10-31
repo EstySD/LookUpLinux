@@ -76,6 +76,29 @@ def game(name,relative=False,multiline=False):
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_fallback_stability_requires_twenty_actual_completions_and_real_retry(self):
+        from tools.check_hardening import fallback_stability_report
+        rows=[]
+        for index in range(1,21):
+            timing=sample(index);passes=[dict(psm=mode,start_ns=timing['trigger_ns']+offset*10,end_ns=timing['trigger_ns']+offset*10+5,
+                input_sha256='a'*64,stdout_sha256='b'*64,returncode=0) for offset,mode in enumerate((6,11))]
+            rows.append(dict(timing=timing,ocr_passes=passes))
+        resource=dict(identity=list(rows[0]['timing'][key] for key in ('pid','process_start','run')),rss_bytes=100<<20,threads=3,fds=20,owned_children=[],observed=True)
+        data=dict(completions=rows,resources=[dict(resource,after=i) for i in range(1,21)],cooldown=dict(resource,idle_ms=5000),history_delta=20,integrity='ok')
+        self.assertTrue(fallback_stability_report(data)['passed'])
+        for field,value in (('history_delta',21),('integrity','bad'),('completions',rows[:19])):
+            altered=deepcopy(data);altered[field]=value;self.assertFalse(fallback_stability_report(altered)['passed'])
+        for alter in ('no_retry','different_input','timeout','orphan','growth','thread_growth','cooldown'):
+            changed=deepcopy(data)
+            if alter=='no_retry':
+                for row in changed['completions']:row['ocr_passes']=row['ocr_passes'][:1]
+            if alter=='different_input':changed['completions'][0]['ocr_passes'][1]['input_sha256']='c'*64
+            if alter=='timeout':changed['completions'][0]['ocr_passes'][1]['error']='TimeoutExpired'
+            if alter=='orphan':changed['resources'][0]['owned_children']=[999]
+            if alter=='growth':changed['resources'][-1]['rss_bytes']=1000<<20
+            if alter=='thread_growth':changed['resources'][-1]['threads']=10
+            if alter=='cooldown':changed['cooldown']['idle_ms']=4999
+            self.assertFalse(fallback_stability_report(changed)['passed'],alter)
     def test_real_old_thirty_cannot_be_relabelled_with_new_summary_hashes(self):
         rows=json.loads(Path('.planning/phases/08-vm/08-performance-final-attempts.json').read_text())
         build=dict(source_sha256='a'*64,package_sha256='b'*64,ocr_sha256='c'*64)
