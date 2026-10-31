@@ -127,6 +127,14 @@ class ImageTests(unittest.TestCase):
 
 
 class CalibrationTests(unittest.TestCase):
+    def test_calibration_disables_retry_to_compare_independent_psm_results(self):
+        from tools.calibrate_ocr import evaluate
+        image={'path':'public.png','cases':[{'name':'word','point':[1,1],
+            'word':None,'line_tokens':[],'compound':None}]}
+        with mock.patch('lookup.ocr.recognize_image',return_value=ocr.Recognition(None,{'total':1})) as recognize:
+            evaluate(Path('.'),[image],6,2,'auto')
+        self.assertIs(recognize.call_args.kwargs.get('fallback'),False)
+
     def test_line_check_preserves_order_and_repeated_words(self):
         from tools.calibrate_ocr import evaluate
         image = {'path': 'public.png', 'cases': [
