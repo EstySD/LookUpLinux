@@ -45,6 +45,23 @@ def game(name,relative=False,multiline=False):
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_current_performance_refuses_old_build_or_wrong_installed_ocr(self):
+        build=dict(source_sha256='a'*64,package_sha256='b'*64,ocr_sha256='c'*64)
+        members={'lookup/ocr.py':'c'*64,'lookup/app.py':'d'*64}
+        receipt=dict(build=build,source_members=members,installed_members=dict(members),stage_exit=0,build_exit=0,install_exit=0)
+        rows=performance()
+        for row in rows:row['build']=dict(build)
+        self.assertTrue(hardening.current_performance_report(rows,receipt)['passed'])
+        for change in ('old_rows','old_package','module','source','install_error'):
+            current=deepcopy(receipt);attempts=deepcopy(rows)
+            if change=='old_rows':
+                for row in attempts:row.pop('build')
+            elif change=='old_package':attempts[0]['build']['package_sha256']='e'*64
+            elif change=='module':current['installed_members']['lookup/ocr.py']='e'*64
+            elif change=='source':current['source_members']['lookup/ocr.py']='e'*64
+            else:current['install_exit']=1
+            self.assertFalse(hardening.current_performance_report(attempts,current)['passed'],change)
+
     def test_final_aggregate_cannot_promote_summary_flags_or_missing_captured_game(self):
         result=hardening.aggregate_report(dict(passed=True,gates={'all_seven':True},games={'passed':True}))
         self.assertFalse(result['passed']);self.assertFalse(result['game01_complete'])
