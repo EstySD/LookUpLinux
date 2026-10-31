@@ -45,6 +45,15 @@ def game(name,relative=False,multiline=False):
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_real_old_thirty_cannot_be_relabelled_with_new_summary_hashes(self):
+        rows=json.loads(Path('.planning/phases/08-vm/08-performance-final-attempts.json').read_text())
+        build=dict(source_sha256='a'*64,package_sha256='b'*64,ocr_sha256='c'*64)
+        for row in rows:row['build']=dict(build)
+        receipt=dict(build=build,source_members={'lookup/ocr.py':'c'*64},
+                     installed_members={'lookup/ocr.py':'c'*64},stage_exit=0,build_exit=0,install_exit=0)
+        self.assertTrue(hardening.performance_report(rows)['passed'])
+        self.assertFalse(hardening.current_performance_report(rows,receipt)['passed'])
+
     def test_current_performance_refuses_old_build_or_wrong_installed_ocr(self):
         build=dict(source_sha256='a'*64,package_sha256='b'*64,ocr_sha256='c'*64)
         members={'lookup/ocr.py':'c'*64,'lookup/app.py':'d'*64}
