@@ -453,31 +453,45 @@ def _prepare_image(path, point, enlarge, invert):
 
 
 def recognize_image(path, point, *, psm=DEFAULT_PSM, enlarge=DEFAULT_ENLARGE,
-                    invert=DEFAULT_INVERT) -> Recognition:
-    if psm not in (6, 11) or enlarge not in (1, 2) or invert not in ('never', 'auto'):
+                    invert=DEFAULT_INVERT, fallback=True) -> Recognition:
+    if (psm not in (6, 11) or enlarge not in (1, 2) or invert not in ('never', 'auto')
+            or type(fallback) is not bool):
         _fail('invalid_image')
     start = time.perf_counter()
     png, transform = _prepare_image(path, point, enlarge, invert)
     prepared_at = time.perf_counter()
-    try:
-        process = subprocess.run(['tesseract', 'stdin', 'stdout', '-l', 'eng', '--psm', str(psm), 'tsv'],
-                                 input=png, capture_output=True, timeout=OCR_TIMEOUT,
-                                 shell=False, check=False, env=dict(os.environ, OMP_THREAD_LIMIT='1'))
-    except FileNotFoundError:
-        _fail('missing_tesseract')
-    except subprocess.TimeoutExpired:
-        _fail('timeout')
-    except OSError:
-        _fail('process_failed')
-    recognized_at = time.perf_counter()
-    if process.returncode:
-        if b'eng.traineddata' in process.stderr or b"Failed loading language 'eng'" in process.stderr:
-            _fail('missing_eng')
-        _fail('process_failed')
-    words = parse_tsv(process.stdout, transform)
-    selection = select_word(words, point)
-    finished = time.perf_counter()
+    deadline = None
+    ocr_seconds = select_seconds = 0
+    for mode in ((psm, 11) if psm == 6 and fallback else (psm,)):
+        process_at = time.perf_counter()
+        if deadline is None:
+            deadline = process_at + 2*OCR_TIMEOUT
+        remaining = deadline-process_at
+        if remaining <= 0:
+            _fail('timeout')
+        try:
+            process = subprocess.run(['tesseract', 'stdin', 'stdout', '-l', 'eng', '--psm', str(mode), 'tsv'],
+                                     input=png, capture_output=True, timeout=min(OCR_TIMEOUT, remaining),
+                                     shell=False, check=False, env=dict(os.environ, OMP_THREAD_LIMIT='1'))
+        except FileNotFoundError:
+            _fail('missing_tesseract')
+        except subprocess.TimeoutExpired:
+            _fail('timeout')
+        except OSError:
+            _fail('process_failed')
+        recognized_at = time.perf_counter()
+        ocr_seconds += recognized_at-process_at
+        if process.returncode:
+            if b'eng.traineddata' in process.stderr or b"Failed loading language 'eng'" in process.stderr:
+                _fail('missing_eng')
+            _fail('process_failed')
+        words = parse_tsv(process.stdout, transform)
+        selection = select_word(words, point)
+        finished = time.perf_counter()
+        select_seconds += finished-recognized_at
+        if selection is not None:
+            break
     return Recognition(selection, {'prepare_image': (prepared_at-start)*1000,
-                                   'ocr': (recognized_at-prepared_at)*1000,
-                                   'select': (finished-recognized_at)*1000,
+                                   'ocr': ocr_seconds*1000,
+                                   'select': select_seconds*1000,
                                    'total': (finished-start)*1000})
