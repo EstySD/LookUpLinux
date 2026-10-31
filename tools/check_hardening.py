@@ -140,21 +140,72 @@ def stats_without_count(stats):
     return {key:value for key,value in stats.items() if key!='count'}
 
 
-def current_performance_report(rows,receipt):
-    """Bind unchanged physical criteria to the verified staged/installed build."""
+def _archive_hashes(data):
+    import hashlib,io,tarfile
+    _require(isinstance(data,bytes) and 0<len(data)<=64<<20,'raw_archive')
+    values={};total=0
+    with tarfile.open(fileobj=io.BytesIO(data),mode='r:*') as archive:
+        for member in archive:
+            if not member.isfile():continue
+            name=member.name.removeprefix('./');total+=member.size
+            _require(name not in values and '..' not in name.split('/') and member.size<=64<<20
+                and total<=128<<20 and len(values)<512,'archive_inventory')
+            values[name]=hashlib.sha256(archive.extractfile(member).read()).hexdigest()
+    return values
+
+
+def _package_member(name):
+    if name.startswith('lookup/'):return 'usr/lib/lookup/app/'+name
+    return {'packaging/lookup':'usr/bin/lookup',
+        'packaging/org.lookup.Linux.desktop':'usr/share/applications/org.lookup.Linux.desktop',
+        'packaging/org.lookup.Linux.autostart.desktop':'etc/xdg/autostart/org.lookup.Linux.desktop',
+        'packaging/THIRD-PARTY.md':'usr/share/licenses/lookup-linux/THIRD-PARTY.md'}[name]
+
+
+def current_performance_report(rows,receipt,artifacts=None):
+    """Use loaded archive/proc/trace bytes, never copied build summary labels."""
+    import base64,hashlib,json,tarfile
     report=performance_report(rows)
     try:
-        build=receipt['build'];source=receipt['source_members'];installed=receipt['installed_members']
+        _require(isinstance(artifacts,dict),'raw_build')
+        source_bytes=artifacts['source'];package_bytes=artifacts['package']
+        source_archive=_archive_hashes(source_bytes);package=_archive_hashes(package_bytes)
+        _require(source_archive and all(name.startswith('lookup-source/') for name in source_archive),'source_inventory')
+        source={name.removeprefix('lookup-source/'):value for name,value in source_archive.items()}
+        _require('lookup/ocr.py' in source and all(package.get(_package_member(name))==value for name,value in source.items()),'package_source')
+        build=receipt['build'];installed=receipt['installation']
         _require(isinstance(build,dict) and set(build)=={'source_sha256','package_sha256','ocr_sha256'}
             and all(_hash(value) for value in build.values()),'current_build')
-        _require(isinstance(source,dict) and source and source==installed
-            and all(_hash(value) for value in source.values())
-            and source.get('lookup/ocr.py')==build['ocr_sha256'],'installed_source')
+        _require(build==dict(source_sha256=hashlib.sha256(source_bytes).hexdigest(),
+            package_sha256=hashlib.sha256(package_bytes).hexdigest(),ocr_sha256=source['lookup/ocr.py'])
+            and installed['members']==source,'installed_source')
+        _require(isinstance(installed['boot_id'],str) and re.fullmatch(r'[0-9a-f-]{36}',installed['boot_id'])
+            and _integer(installed['completed_ns'],1),'installation_epoch')
         _require(all(type(receipt.get(key)) is int and receipt[key]==0
             for key in ('stage_exit','build_exit','install_exit')),'build_exit')
-        _require(isinstance(rows,list) and all(row.get('build')==build for row in rows),'old_build')
+        for row in rows:
+            raw=artifacts['runtime'][row['runtime_sha256']]
+            _require(isinstance(raw,bytes) and hashlib.sha256(raw).hexdigest()==row['runtime_sha256'],'runtime_artifact')
+            runtime=json.loads(raw);stat=runtime['stat'];fields=stat.rsplit(') ',1)[1].split()
+            pid=int(stat.split(' ',1)[0]);born=int(fields[19]);ticks=runtime['clock_ticks']
+            _require(_integer(ticks,1) and pid==row['pid'] and born==row['process_start'] and fields[0]!='Z','runtime_process')
+            uid=next(line for line in runtime['status'].splitlines() if line.startswith('Uid:')).split()[1:]
+            cmdline=base64.b64decode(runtime['cmdline_base64'],validate=True).rstrip(b'\0').split(b'\0')
+            _require(uid==['1001']*4 and cmdline==[b'/usr/bin/python',b'/usr/bin/lookup',b'--app'],'runtime_entrypoint')
+            _require(runtime['boot_id']==installed['boot_id'] and runtime['members']==source
+                and _integer(runtime['observed_ns'],1) and runtime['observed_ns']>=row['first_visible_end_ns']
+                and installed['completed_ns']<=born*1_000_000_000//ticks<=row['trigger_ns'],'runtime_epoch')
+            if row['group']=='cold':
+                _require(row.get('owner_absent_before_input') is True and row.get('process_born_after_input') is True
+                    and born*1_000_000_000//ticks>=row['input_ns'],'cold_runtime_birth')
+            trace=[json.loads(line.split(':',1)[1]) for line in runtime['timing_text'].splitlines() if line.startswith('lookup-timing:')]
+            events=[event for event in trace if all(event.get(key)==row[key] for key in ('pid','run','request'))]
+            triggers=[event for event in events if event.get('stage')==1]
+            _require(len(triggers)==1 and triggers[0]['mono_ns']==row['trigger_ns']
+                and any(event.get('stage')==4 and event.get('useful')==1 and row['trigger_ns']<=event['mono_ns']<=row['first_visible_end_ns']
+                    for event in events),'runtime_trace')
         report.update(source_bound=True,build=dict(build))
-    except (EvidenceError,KeyError,TypeError,AttributeError):
+    except (EvidenceError,KeyError,TypeError,AttributeError,ValueError,IndexError,StopIteration,tarfile.TarError):
         report.update(passed=False,source_bound=False,source_error='current_source_binding')
     return report
 

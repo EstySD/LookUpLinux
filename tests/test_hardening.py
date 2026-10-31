@@ -28,6 +28,37 @@ def performance():
     return rows
 
 
+def current_performance():
+    import base64,hashlib,io,tarfile
+    from tools.stage_package import stage
+    with tempfile.TemporaryDirectory() as directory:
+        destination=Path(directory)/'build';stage(destination)
+        source=(destination/'lookup-source.tar.gz').read_bytes()
+    members={};buffer=io.BytesIO()
+    with tarfile.open(fileobj=io.BytesIO(source),mode='r:gz') as original,tarfile.open(fileobj=buffer,mode='w:gz') as package:
+        for item in original.getmembers():
+            data=original.extractfile(item).read();name=item.name.removeprefix('lookup-source/')
+            members[name]=hashlib.sha256(data).hexdigest()
+            entry=tarfile.TarInfo(hardening._package_member(name));entry.size=len(data)
+            package.addfile(entry,io.BytesIO(data))
+    package=buffer.getvalue();boot='12345678-1234-1234-1234-123456789abc';rows=performance();runtime={}
+    for row in rows:
+        offset=(row['process_start']*10_000_000-25_000_000-row['input_ns']) if row['group']=='cold' else 30_000_000_000
+        for key in ('input_ns','receipt_ns','trigger_ns','last_not_visible_ns','first_visible_start_ns','first_visible_end_ns'):row[key]+=offset
+        row.update(owner_absent_before_input=True,process_born_after_input=True)
+        fields=['S']+['0']*51;fields[19]=str(row['process_start'])
+        trace=[dict(stage=1,mono_ns=row['trigger_ns']),dict(stage=4,useful=1,mono_ns=row['first_visible_start_ns'])]
+        for event in trace:event.update({key:row[key] for key in ('pid','run','request')})
+        raw=json.dumps(dict(stat=str(row['pid'])+' (lookup) '+' '.join(fields),status='Uid:\t1001\t1001\t1001\t1001\n',
+            cmdline_base64=base64.b64encode(b'/usr/bin/python\0/usr/bin/lookup\0--app\0').decode(),clock_ticks=100,
+            observed_ns=row['first_visible_end_ns']+10_000_000,boot_id=boot,members=dict(members),
+            timing_text='\n'.join('lookup-timing:'+json.dumps(event) for event in trace))).encode()
+        digest=hashlib.sha256(raw).hexdigest();runtime[digest]=raw;row['runtime_sha256']=digest
+    receipt=dict(build=dict(source_sha256=hashlib.sha256(source).hexdigest(),package_sha256=hashlib.sha256(package).hexdigest(),
+        ocr_sha256=members['lookup/ocr.py']),installation=dict(members=members,boot_id=boot,completed_ns=1_000_000_000),stage_exit=0,build_exit=0,install_exit=0)
+    return rows,receipt,dict(source=source,package=package,runtime=runtime)
+
+
 def stability():
     def resource(after):
         return dict(after=after,identity=[20,2000,20000],rss_bytes=100<<20,threads=5,fds=20,
@@ -55,21 +86,39 @@ class EvidenceTests(unittest.TestCase):
         self.assertFalse(hardening.current_performance_report(rows,receipt)['passed'])
 
     def test_current_performance_refuses_old_build_or_wrong_installed_ocr(self):
-        build=dict(source_sha256='a'*64,package_sha256='b'*64,ocr_sha256='c'*64)
-        members={'lookup/ocr.py':'c'*64,'lookup/app.py':'d'*64}
-        receipt=dict(build=build,source_members=members,installed_members=dict(members),stage_exit=0,build_exit=0,install_exit=0)
-        rows=performance()
-        for row in rows:row['build']=dict(build)
-        self.assertTrue(hardening.current_performance_report(rows,receipt)['passed'])
+        rows,receipt,artifacts=current_performance()
+        self.assertTrue(hardening.current_performance_report(rows,receipt,artifacts)['passed'])
         for change in ('old_rows','old_package','module','source','install_error'):
-            current=deepcopy(receipt);attempts=deepcopy(rows)
+            current=deepcopy(receipt);attempts=deepcopy(rows);loaded=deepcopy(artifacts)
             if change=='old_rows':
-                for row in attempts:row.pop('build')
-            elif change=='old_package':attempts[0]['build']['package_sha256']='e'*64
-            elif change=='module':current['installed_members']['lookup/ocr.py']='e'*64
-            elif change=='source':current['source_members']['lookup/ocr.py']='e'*64
+                for row in attempts:row.pop('runtime_sha256')
+            elif change=='old_package':current['build']['package_sha256']='e'*64
+            elif change=='module':current['installation']['members']['lookup/ocr.py']='e'*64
+            elif change=='source':loaded['source']=b'not the staged archive'
             else:current['install_exit']=1
-            self.assertFalse(hardening.current_performance_report(attempts,current)['passed'],change)
+            self.assertFalse(hardening.current_performance_report(attempts,current,loaded)['passed'],change)
+
+    def test_current_runtime_rejects_old_proc_identity_or_new_labels_on_wrong_raw_trace(self):
+        import hashlib
+        rows,receipt,artifacts=current_performance()
+        for change in ('pid','start','boot','uid','cmdline','modules','observed','trace','before_install'):
+            attempts=deepcopy(rows);current=deepcopy(receipt);loaded=deepcopy(artifacts)
+            raw=json.loads(loaded['runtime'][attempts[0]['runtime_sha256']])
+            if change=='pid':raw['stat']='999'+raw['stat'][raw['stat'].index(' '):]
+            elif change=='start':raw['stat']=raw['stat'].replace('2100','100')
+            elif change=='boot':raw['boot_id']='87654321-4321-4321-4321-cba987654321'
+            elif change=='uid':raw['status']='Uid:\t1000\t1000\t1000\t1000\n'
+            elif change=='cmdline':raw['cmdline_base64']='b2xk'
+            elif change=='modules':raw['members']={'lookup/ocr.py':current['build']['ocr_sha256']}
+            elif change=='observed':raw['observed_ns']=1
+            elif change=='trace':raw['timing_text']=raw['timing_text'].replace('"run": 21000','"run": 999')
+            else:current['installation']['completed_ns']=30_000_000_000
+            data=json.dumps(raw).encode();digest=hashlib.sha256(data).hexdigest()
+            loaded['runtime'][digest]=data;attempts[0]['runtime_sha256']=digest
+            self.assertFalse(hardening.current_performance_report(attempts,current,loaded)['passed'],change)
+        old=json.loads(Path('.planning/phases/08-vm/08-performance-final-attempts.json').read_text())
+        for row,label in zip(old,rows):row['runtime_sha256']=label['runtime_sha256']
+        self.assertFalse(hardening.current_performance_report(old,receipt,artifacts)['passed'])
 
     def test_final_aggregate_cannot_promote_summary_flags_or_missing_captured_game(self):
         result=hardening.aggregate_report(dict(passed=True,gates={'all_seven':True},games={'passed':True}))
