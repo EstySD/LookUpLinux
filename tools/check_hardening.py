@@ -162,6 +162,16 @@ def _package_member(name):
         'packaging/THIRD-PARTY.md':'usr/share/licenses/lookup-linux/THIRD-PARTY.md'}[name]
 
 
+def _expected_source_inventory():
+    """Independent current-repository inventory, matching the fixed staging seam."""
+    from pathlib import Path
+    root=Path(__file__).resolve().parents[1]
+    names={path.relative_to(root).as_posix() for path in (root/'lookup').rglob('*')
+        if path.is_file() and (path.suffix=='.py' or path.parent==root/'lookup/data' and path.suffix=='.txt')}
+    return names|{'packaging/lookup','packaging/org.lookup.Linux.desktop',
+        'packaging/org.lookup.Linux.autostart.desktop','packaging/THIRD-PARTY.md'}
+
+
 def current_performance_report(rows,receipt,artifacts=None):
     """Use loaded archive/proc/trace bytes, never copied build summary labels."""
     import base64,hashlib,json,tarfile
@@ -172,7 +182,8 @@ def current_performance_report(rows,receipt,artifacts=None):
         source_archive=_archive_hashes(source_bytes);package=_archive_hashes(package_bytes)
         _require(source_archive and all(name.startswith('lookup-source/') for name in source_archive),'source_inventory')
         source={name.removeprefix('lookup-source/'):value for name,value in source_archive.items()}
-        _require('lookup/ocr.py' in source and all(package.get(_package_member(name))==value for name,value in source.items()),'package_source')
+        _require(set(source)==_expected_source_inventory()
+            and all(package.get(_package_member(name))==value for name,value in source.items()),'package_source')
         build=receipt['build'];installed=receipt['installation']
         _require(isinstance(build,dict) and set(build)=={'source_sha256','package_sha256','ocr_sha256'}
             and all(_hash(value) for value in build.values()),'current_build')
