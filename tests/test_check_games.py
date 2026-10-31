@@ -6,6 +6,28 @@ from tests.test_hardening import sample
 from tools import check_games
 
 
+class ProcessObservationTests(unittest.TestCase):
+    def test_actual_tesseract_passes_keep_input_result_and_exception(self):
+        import subprocess
+        from unittest.mock import Mock
+        result=subprocess.CompletedProcess([],0,b'tsv',b'')
+        original=Mock(return_value=result);observations=[]
+        wrapped=check_games.observe_ocr_process(original,observations.append)
+        argv=['tesseract','stdin','stdout','-l','eng','--psm','11','tsv'];data=b'original-png'
+        self.assertIs(wrapped(argv,input=data,timeout=3),result)
+        original.assert_called_once_with(argv,input=data,timeout=3)
+        self.assertEqual(observations[0]['psm'],11)
+        self.assertEqual(observations[0]['returncode'],0)
+        self.assertGreaterEqual(observations[0]['end_ns'],observations[0]['start_ns'])
+        original.side_effect=subprocess.TimeoutExpired(argv,3)
+        with self.assertRaises(subprocess.TimeoutExpired):wrapped(argv,input=data,timeout=3)
+        self.assertEqual(observations[-1]['error'],'TimeoutExpired')
+        original.side_effect=None;wrapped(['kdotool','getactivewindow'])
+        self.assertEqual(len(observations),2)
+        broken=check_games.observe_ocr_process(original,Mock(side_effect=RuntimeError))
+        self.assertIs(broken(argv,input=data,timeout=3),result)
+
+
 def route(index):
     timing=sample(index,latency=1200)
     return dict(sequence=index,scene='tutorial_map_dialogue',game_pid=500,game_start=5000,
