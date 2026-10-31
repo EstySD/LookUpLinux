@@ -136,6 +136,25 @@ class EvidenceTests(unittest.TestCase):
             artifacts['runtime'][digest]=data;row['runtime_sha256']=digest
         self.assertFalse(hardening.current_performance_report(rows,receipt,artifacts)['passed'])
 
+    def test_full_archives_containing_actual_old_single_pass_ocr_are_not_current(self):
+        import hashlib,io,subprocess,tarfile
+        rows,receipt,artifacts=current_performance()
+        old=subprocess.check_output(['git','show','5d04a4c:lookup/ocr.py'])
+        for key in ('source','package'):
+            buffer=io.BytesIO()
+            with tarfile.open(fileobj=io.BytesIO(artifacts[key]),mode='r:*') as source,tarfile.open(fileobj=buffer,mode='w:gz') as output:
+                for member in source.getmembers():
+                    data=old if member.name.endswith('/lookup/ocr.py') else source.extractfile(member).read()
+                    member.size=len(data);output.addfile(member,io.BytesIO(data))
+            artifacts[key]=buffer.getvalue();receipt['build']['source_sha256' if key=='source' else 'package_sha256']=hashlib.sha256(buffer.getvalue()).hexdigest()
+        receipt['build']['ocr_sha256']=hashlib.sha256(old).hexdigest()
+        receipt['installation']['members']['lookup/ocr.py']=receipt['build']['ocr_sha256']
+        for row in rows:
+            raw=json.loads(artifacts['runtime'][row['runtime_sha256']]);raw['members']=receipt['installation']['members']
+            data=json.dumps(raw).encode();digest=hashlib.sha256(data).hexdigest()
+            artifacts['runtime'][digest]=data;row['runtime_sha256']=digest
+        self.assertFalse(hardening.current_performance_report(rows,receipt,artifacts)['passed'])
+
     def test_final_aggregate_cannot_promote_summary_flags_or_missing_captured_game(self):
         result=hardening.aggregate_report(dict(passed=True,gates={'all_seven':True},games={'passed':True}))
         self.assertFalse(result['passed']);self.assertFalse(result['game01_complete'])
