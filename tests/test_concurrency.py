@@ -106,6 +106,20 @@ class ConcurrentWriterTests(unittest.TestCase):
                 self._run_writers(path, reader=reader)
         self.assertIn("did not finish", str(ctx.exception))
 
+    def test_deadline_keeps_spawn_handles_alive_until_children_reaped(self):
+        import types
+        import weakref
+        references=[]
+        class Handle:pass
+        def handle(*args):
+            value=Handle();references.append(weakref.ref(value));return value
+        child=mock.Mock();child.is_alive.return_value=True
+        context=types.SimpleNamespace(Barrier=handle,Queue=handle,Process=lambda **kwargs:child)
+        with mock.patch.object(multiprocessing,'get_context',return_value=context),mock.patch(__name__+'._WRITERS_DEADLINE',-1):
+            with self.assertRaises(AssertionError):self._run_writers(self.root/'deadline-handles.db',n=1,reader=mock.Mock())
+        self.assertEqual(len(references),2)
+        self.assertTrue(all(reference() is not None for reference in references))
+
     def test_ten_writers_on_fresh_db(self):
         for round_no in range(3):
             with self.subTest(round=round_no):
