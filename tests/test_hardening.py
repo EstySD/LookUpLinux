@@ -76,6 +76,26 @@ def game(name,relative=False,multiline=False):
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_final_suite_metadata_cannot_replace_logs_or_same_revision(self):
+        claimed={name:dict(exit=0,count=999,skips=0,log_sha256='a'*64,revision='a'*40)
+            for name in ('host','target')}
+        self.assertFalse(hardening.closure_suites_report(claimed,{})['passed'])
+        import hashlib
+        raw=b'Ran 12 tests in 1.234s\n\nOK\n'
+        digest=hashlib.sha256(raw).hexdigest()
+        suites={name:dict(exit=0,count=12,skips=0,log_sha256=digest,revision='a'*40,tree='b'*40,
+            command=['python','-m','unittest','discover','-s','tests']) for name in ('host','target')}
+        suites['target']['ocr_enabled']=True;suites['target']['mueller_verified']=True
+        self.assertTrue(hardening.closure_suites_report(suites,{digest:raw})['passed'])
+        for change in ('count','revision','tree','exit','ocr','log'):
+            data=deepcopy(suites);logs={digest:raw}
+            if change=='count':data['host']['count']=13
+            elif change in ('revision','tree'):data['target'][change]='c'*40
+            elif change=='exit':data['target']['exit']=1
+            elif change=='ocr':data['target']['ocr_enabled']=False
+            else:logs[digest]=b'FAILED (errors=1)\n'
+            self.assertFalse(hardening.closure_suites_report(data,logs)['passed'],change)
+
     def test_exact_nested_owned_key_delta_and_actual_unrelated_markers(self):
         root=Path('.planning/phases/08-vm')
         read=lambda name:json.loads((root/name).read_text(encoding='utf-8'))
