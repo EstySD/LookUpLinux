@@ -29,6 +29,31 @@ def actual_install_fixture():
 
 
 class InstallEvidenceTests(unittest.TestCase):
+    def test_controller_finally_continues_after_transient_power_readback(self):
+        import ast,types
+        source=Path('.planning/phases/08-vm/08-07-controller.py').read_text(encoding='utf-8')
+        parsed=ast.parse(source);final=next(node for node in parsed.body if isinstance(node,ast.Try)).finalbody
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);(root/'08-07-guest-cleanup.py').write_text('pass')
+            saved={};calls=[];record={};counter=[0]
+            def info(identity):
+                counter[0]+=1
+                if counter[0]==1:raise RuntimeError('controlled transient readback')
+                return dict(UUID='"'+identity+'"',VMState='"poweroff"')
+            def run(*args):calls.append(args);return dict(exit=0)
+            def attempt(name,operation):
+                try:record[name]=dict(ok=True,result=operation())
+                except BaseException as error:record[name]=dict(ok=False,error=str(error))
+                return record[name]
+            env=dict(root=root,record=record,adapter=dict(inputs=lambda *a,**kw:None,guest=lambda *a,**kw:'{}'),
+                hashlib=hashlib,json=json,time=types.SimpleNamespace(monotonic=lambda:counter[0],sleep=lambda _:None),
+                attempt=attempt,info=info,run=run,save=lambda name,value:saved.update({name:deepcopy(value)}),
+                clone=install.CLONE,original='external',vbox='VBox',prior=dict(accelerate3d='"on"',clipboard='"bidirectional"'),actions=[])
+            tree=ast.Module(body=final,type_ignores=[]);exec(compile(tree,'owned-finally-test','exec'),env)
+            self.assertTrue(any('modifyvm' in call for call in calls))
+            self.assertEqual(saved['08-07-controller-state.json']['state'],'finished')
+            self.assertTrue(any(not row['ok'] for row in record.values() if isinstance(row,dict) and 'ok' in row))
+
     def test_assembler_binds_saved_build_and_negative_test_outcomes(self):
         source=Path('.planning/phases/08-vm')
         for change in ('build_exit','package_hash','source_hash','build_log','negative_log','negative_result'):
