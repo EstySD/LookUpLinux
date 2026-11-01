@@ -486,9 +486,10 @@ def final_cleanup_report(raw):
     except (KeyError,TypeError,AttributeError):return dict(passed=False,reason='missing_or_invalid_cleanup')
 
 
-def closure_suites_report(suites,logs):
+def closure_suites_report(suites,logs,*,repo=None):
     """Read the two actual unittest transcripts and require one closure tree."""
-    import hashlib
+    import hashlib,subprocess
+    from pathlib import Path
     try:
         _require(set(suites)=={'host','target'},'suite_roles')
         identities=set()
@@ -506,30 +507,71 @@ def closure_suites_report(suites,logs):
             identities.add((row['revision'],row['tree']))
         _require(len(identities)==1 and suites['target']['skips']==0
             and suites['target']['ocr_enabled'] is True and suites['target']['mueller_verified'] is True,'target_optins')
+        root=Path(repo) if repo is not None else Path(__file__).resolve().parents[1]
+        revision,tree=next(iter(identities))
+        def git(*args):
+            return subprocess.check_output(['git','-C',str(root),*args],stderr=subprocess.DEVNULL,timeout=10).decode().strip()
+        _require(git('rev-parse','--verify',revision+'^{commit}')==revision
+            and git('rev-parse','--verify',revision+'^{tree}')==tree,'actual_suite_revision')
+        paths=['lookup','tools','tests','packaging',':(glob).planning/phases/08-vm/*.py',
+            ':(glob).planning/phases/08-vm/*.ps1',':(glob).planning/phases/08-vm/*.sh']
+        _require(not git('diff','--name-only',revision,'--',*paths),'tested_code_changed')
+        untracked=git('ls-files','--others','-z','--',*paths).split('\0')
+        _require(not any(Path(name).suffix in ('.py','.c','.h','.sh','.ps1') or Path(name).name in ('PKGBUILD','lookup')
+            for name in untracked),'untested_code')
         return dict(passed=True,revision=suites['host']['revision'],tree=suites['host']['tree'])
-    except (EvidenceError,KeyError,TypeError,AttributeError,ValueError,UnicodeError):return dict(passed=False)
+    except (EvidenceError,KeyError,TypeError,AttributeError,ValueError,UnicodeError,OSError,subprocess.SubprocessError):return dict(passed=False)
 
 
-def current_privacy_report(data):
+def current_privacy_report(data,artifacts=None):
     """Reclassify retained clipboard errors and the changed OCR path."""
+    import hashlib,json
     try:
-        physical_latency(data['timing'])
-        passes=data['source']['ocr_passes']
+        timing=data['timing'];source=data['source'];physical_latency(timing)
+        _require(all(source[key]==timing[key] for key in ('pid','run','request'))
+            and source['mode']=='ocr' and source['backend']=='screenshot2' and source['unchanged_objects'] is True
+            and _hash(source['sha256']),'privacy_source_identity')
+        _require(isinstance(artifacts,dict) and hashlib.sha256(artifacts['source']).hexdigest()==source['sha256']
+            and hashlib.sha256(artifacts['frame']).hexdigest()==timing['frame_sha256'],'privacy_raw_images')
+        events=[json.loads(line.split(':',1)[1]) for line in artifacts['trace'].decode('utf-8').splitlines()
+            if line.startswith('lookup-timing:')]
+        events=[event for event in events if all(event.get(key)==timing[key] for key in ('pid','run','request'))]
+        triggers=[event for event in events if event.get('stage')==1]
+        _require(len(triggers)==1 and triggers[0]['mono_ns']==timing['trigger_ns']
+            and any(event.get('stage')==4 and event.get('useful')==1
+                and source['resolve_end_ns']<=event['mono_ns']<=timing['first_visible_end_ns'] for event in events),'privacy_raw_trace')
+        times=[timing['trigger_ns'],source['capture_start_ns'],source['capture_end_ns'],
+            source['resolve_start_ns'],source['resolve_end_ns'],timing['first_visible_end_ns']]
+        _require(all(_integer(value,1) for value in times) and times==sorted(times),'privacy_source_order')
+        passes=source['ocr_passes']
         _require([row['psm'] for row in passes]==[6,11]
             and all(row['returncode']==0 and 'error' not in row for row in passes),'privacy_ocr')
+        _require(_hash(passes[0]['input_sha256']) and passes[0]['input_sha256']==passes[1]['input_sha256'],'privacy_shared_input')
+        end=source['resolve_start_ns']
+        for row in passes:
+            _require(_integer(row['start_ns'],1) and _integer(row['end_ns'],1)
+                and end<=row['start_ns']<row['end_ns']<=source['resolve_end_ns']
+                and _hash(row['stdout_sha256']),'privacy_pass_order')
+            end=row['end_ns']
         for phase in ('before','after'):
             row=data[phase]
             _require(set(row['classified'])=={'primary','clipboard'},'clipboard_channels')
-            for observation in row['classified'].values():
-                _require(observation['socket_exists'] is True and _hash(observation['stdout_sha256'])
-                    and (observation['exit']==0 or observation['exit']==1
-                        and observation['stderr'].strip()=='Nothing is copied'),'classified_clipboard')
+            for name,observation in row['classified'].items():
+                # Retained current proof observes empty selections; nonempty data needs raw-content binding.
+                _require(observation['socket_exists'] is True and type(observation['exit']) is int
+                    and observation['exit']==row['typed'][name+'_exit']==1
+                    and observation['stdout_sha256']==hashlib.sha256(b'').hexdigest()
+                    and observation['stderr']=='Nothing is copied\n'
+                    and row['typed'][name]==hashlib.sha256(b'1\0').hexdigest(),'classified_clipboard')
             _require(row['typed']['png_files']==row['actual_data_scan']['png_files']==[]
                 and row['actual_data_scan']['scanned'] and row['typed']['scanned'],'capture_files')
+        _require(data['before']['actual_data_scan']['at_ns']<timing['input_ns']
+            and data['after']['actual_data_scan']['at_ns']>=timing['first_visible_end_ns']
+            and data['before']['classified']==data['after']['classified'],'privacy_observation_order')
         _require(all(_hash(data['before']['typed'][key]) and data['before']['typed'][key]==data['after']['typed'][key]
             for key in ('primary','clipboard','klipper')),'clipboard_preserved')
         return dict(passed=True)
-    except (EvidenceError,KeyError,TypeError,AttributeError):return dict(passed=False)
+    except (EvidenceError,KeyError,TypeError,AttributeError,UnicodeError):return dict(passed=False)
 
 
 def current_cleanup_report(controller,baseline,shortcuts):

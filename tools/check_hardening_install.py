@@ -206,7 +206,9 @@ def current_evidence(root,*,captured_game_report,current_cleanup):
     reports=dict(performance=check(performance),captured_game=check(captured),wesnoth_compatibility=check(compatibility),
         fallback=check(lambda:hardening.fallback_stability_report(read('08-09-fixture-support-attempts.json'))),
         burst=check(lambda:hardening.burst_report(read('08-09-burst-attempt.json'))),
-        privacy=check(lambda:hardening.current_privacy_report(read('08-09-privacy-proof.json'))))
+        privacy=check(lambda:hardening.current_privacy_report(read('08-09-privacy-proof.json'),
+            dict(source=raw('08-07-privacy-observed-source.png'),frame=raw('08-09-privacy-useful.png'),
+                trace=raw('08-07-privacy-observed-trace.log')))))
     history={name:check(lambda file=file:read(file)) for name,file in dict(doom='08-doom-final-report.json',
         cleanup06='08-06-cleanup-final.json',cleanup09='08-09-cleanup-final.json').items()}
     def cleanup():

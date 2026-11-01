@@ -78,20 +78,28 @@ def game(name,relative=False,multiline=False):
 
 class EvidenceTests(unittest.TestCase):
     def test_current_privacy_rejects_detached_source_pass_input_and_classified_contents(self):
-        original=json.loads(Path('.planning/phases/08-vm/08-09-privacy-proof.json').read_text())
-        self.assertTrue(hardening.current_privacy_report(original)['passed'])
-        for change in ('pid','run','request','start','source_time','pass_time','pass_input','classified_hash','typed_exit','typed_hash','stderr'):
-            data=deepcopy(original)
+        root=Path('.planning/phases/08-vm');original=json.loads((root/'08-09-privacy-proof.json').read_text())
+        artifacts=dict(source=(root/'08-07-privacy-observed-source.png').read_bytes(),
+            frame=(root/'08-09-privacy-useful.png').read_bytes(),trace=(root/'08-07-privacy-observed-trace.log').read_bytes())
+        self.assertTrue(hardening.current_privacy_report(original,artifacts)['passed'])
+        for change in ('pid','run','request','start','source_time','pass_time','nan','missing_time','pass_input',
+                'classified_hash','typed_exit','typed_hash','stderr','source_bytes','frame_bytes','trace'):
+            data=deepcopy(original);loaded=dict(artifacts)
             if change in ('pid','run','request'):data['source'][change]+=1
             elif change=='start':data['timing']['process_start']+=1
             elif change=='source_time':data['source']['capture_start_ns']=1
             elif change=='pass_time':data['source']['ocr_passes'][1]['start_ns']=1
+            elif change=='nan':data['source']['ocr_passes'][1]['end_ns']=float('nan')
+            elif change=='missing_time':data['source']['ocr_passes'][1].pop('start_ns')
             elif change=='pass_input':data['source']['ocr_passes'][1]['input_sha256']='a'*64
             elif change=='classified_hash':data['after']['classified']['primary']['stdout_sha256']='b'*64
             elif change=='typed_exit':data['after']['typed']['primary_exit']=0
             elif change=='typed_hash':data['before']['typed']['primary']=data['after']['typed']['primary']='c'*64
-            else:data['after']['classified']['primary']['stderr']='Nothing is copied\nprivate extra'
-            self.assertFalse(hardening.current_privacy_report(data)['passed'],change)
+            elif change=='stderr':data['after']['classified']['primary']['stderr']='Nothing is copied\nprivate extra'
+            elif change=='source_bytes':loaded['source']=b'changed source'
+            elif change=='frame_bytes':loaded['frame']=b'changed frame'
+            else:loaded['trace']=loaded['trace'].replace(b'"request":98',b'"request":999').replace(b'"request": 98',b'"request": 999')
+            self.assertFalse(hardening.current_privacy_report(data,loaded)['passed'],change)
 
     def test_suites_anchor_actual_git_code_allowing_only_metadata_after_tested_revision(self):
         import hashlib
