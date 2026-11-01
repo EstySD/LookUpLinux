@@ -1,0 +1,41 @@
+{
+  "role": "target",
+  "revision": "2dbd48c5dde58e09ae3eef661ecdf0cbf18cf5b9",
+  "tree": "8dcbe4961d7f4c9abae1b8e6357d375bc2c81486",
+  "command": [
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests"
+  ],
+  "exit": 1,
+  "count": 795,
+  "skips": 0,
+  "log_sha256": "3a20b7ea24b49bb182369372a1c296b23f43c2e3aa28f2a7bcc883a2678d5a75",
+  "ocr_enabled": true,
+  "mueller_verified": true,
+  "started_ns": 1793532321539661624,
+  "finished_ns": 1793532419082433622,
+  "log": "08-gap-final-target.log",
+  "uid": 1000,
+  "python": "3.14.8 (main, Oct  2 2026, 10:23:31) [GCC 16.2.1 20260810]",
+  "environment": {
+    "HOME": "/home/arch/lookup-final-07-suite-2dbd48c5dde5/home",
+    "XDG_CONFIG_HOME": "/home/arch/lookup-final-07-suite-2dbd48c5dde5/home/config",
+    "XDG_DATA_HOME": "/home/arch/lookup-final-07-suite-2dbd48c5dde5/home/data",
+    "XDG_CACHE_HOME": "/home/arch/lookup-final-07-suite-2dbd48c5dde5/home/cache",
+    "XDG_STATE_HOME": "/home/arch/lookup-final-07-suite-2dbd48c5dde5/home/state",
+    "XDG_RUNTIME_DIR": "/home/arch/lookup-final-07-suite-2dbd48c5dde5/home/runtime",
+    "LOOKUP_CONFIG": "/home/arch/lookup-final-07-suite-2dbd48c5dde5/home/config/lookup.json",
+    "LOOKUP_DB": "/home/arch/lookup-final-07-suite-2dbd48c5dde5/home/data/lookup.db",
+    "LOOKUP_CACHE": "/home/arch/lookup-final-07-suite-2dbd48c5dde5/home/cache/lookup",
+    "LOOKUP_DICTS": "/home/arch/lookup-final-07-suite-2dbd48c5dde5",
+    "LOOKUP_TEST_OCR": "1",
+    "LOOKUP_TEST_DICTS": "/home/arch/lookup-final-07-suite-2dbd48c5dde5/verified-mueller",
+    "QT_QPA_PLATFORM": "offscreen",
+    "DBUS_SESSION_BUS_ADDRESS": "unix:path=/tmp/dbus-qeoTErnL10,guid=8c63410af5e99efc10cdd95d6ae721a1",
+    "DBUS_SYSTEM_BUS_ADDRESS": "unix:path=/nonexistent/lookup-final-07-system-bus"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "role": "host",
+  "revision": "2dbd48c5dde58e09ae3eef661ecdf0cbf18cf5b9",
+  "tree": "8dcbe4961d7f4c9abae1b8e6357d375bc2c81486",
+  "command": [
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests"
+  ],
+  "exit": 0,
+  "count": null,
+  "skips": 0,
+  "log_sha256": "074b61a8bff068ab095c56f462027521c493c28b198af0e6759058e8e43e730b",
+  "ocr_enabled": false,
+  "mueller_verified": false,
+  "started_ns": 1793532121818124400,
+  "finished_ns": 1793532165314154000,
+  "log": "host-discovery.log",
+  "uid": null,
+  "python": "3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]",
+  "environment": {
+    "HOME": null,
+    "XDG_CONFIG_HOME": null,
+    "XDG_DATA_HOME": null,
+    "XDG_CACHE_HOME": null,
+    "XDG_STATE_HOME": null,
+    "XDG_RUNTIME_DIR": null,
+    "LOOKUP_CONFIG": null,
+    "LOOKUP_DB": null,
+    "LOOKUP_CACHE": null,
+    "LOOKUP_DICTS": null,
+    "LOOKUP_TEST_OCR": null,
+    "LOOKUP_TEST_DICTS": null,
+    "QT_QPA_PLATFORM": null,
+    "DBUS_SESSION_BUS_ADDRESS": null,
+    "DBUS_SYSTEM_BUS_ADDRESS": null
+  }
+}

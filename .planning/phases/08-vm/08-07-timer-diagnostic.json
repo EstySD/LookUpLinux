@@ -1,0 +1,5 @@
+{
+  "exit": 0,
+  "stdout": "[{\"blocked\": false, \"elapsed_ms\": 41.61787800001093, \"visible_after_qwait\": false, \"timer_active\": false, \"remaining_ms\": -1, \"visible_after_next_event_turn\": false}, {\"blocked\": true, \"elapsed_ms\": 383.9792010000451, \"visible_after_qwait\": true, \"timer_active\": true, \"remaining_ms\": 0, \"visible_after_next_event_turn\": false}]\n",
+  "stderr": ""
+}

@@ -1,0 +1,5 @@
+{
+  "exit": 0,
+  "stdout": "",
+  "stderr": "test_escape_timeout_and_programmatic_hide_have_distinct_effect (tests.test_app_gui.GuiTests.test_escape_timeout_and_programmatic_hide_have_distinct_effect) ... ok\ntest_timeout_dispatch_after_queued_gui_work (tests.test_app_gui.GuiTests.test_timeout_dispatch_after_queued_gui_work) ... ok\ntest_deadline_keeps_spawn_handles_alive_until_children_reaped (tests.test_concurrency.ConcurrentWriterTests.test_deadline_keeps_spawn_handles_alive_until_children_reaped) ... ok\ntest_reader_loop_has_deadline (tests.test_concurrency.ConcurrentWriterTests.test_reader_loop_has_deadline) ... ok\ntest_reader_loop_has_deadline (tests.test_concurrency.ConcurrentWriterTests.test_reader_loop_has_deadline) ... ok\ntest_reader_loop_has_deadline (tests.test_concurrency.ConcurrentWriterTests.test_reader_loop_has_deadline) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.974s\n\nOK\n"
+}

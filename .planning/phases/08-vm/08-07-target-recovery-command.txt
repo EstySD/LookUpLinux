@@ -1,0 +1,20 @@
+import ast,ctypes,hashlib,json
+from pathlib import Path
+root=Path('.planning/phases/08-vm')
+source=(root/'08-07-target-controller.py').read_text(encoding='utf-8')
+tree=ast.parse(source);position=next(i for i,node in enumerate(tree.body) if isinstance(node,ast.Try))
+kernel=ctypes.WinDLL('kernel32',use_last_error=True);kernel.OpenProcess.restype=ctypes.c_void_p
+handle=kernel.OpenProcess(0x1000,False,29428);error=ctypes.get_last_error()
+assert not handle and error==87,(handle,error)
+environment={};exec(compile(ast.Module(body=tree.body[:position],type_ignores=[]),'reviewed-recovery-prefix','exec'),environment)
+current=environment['prior'];clone=environment['clone']
+assert current['UUID']=='"'+clone+'"' and current['name']=='"lookup-gsd-07"' and current['VMState']=='"running"'
+assert current['"SATA-ImageUUID-0-0"']=='"2712d710-daaa-449c-843d-d570091127bc"' and current['macaddress1']=='"080027A05376"'
+assert current['Forwarding(0)']=='"lookup-gsd-07-ssh,tcp,127.0.0.1,2227,,22"'
+baseline=json.loads((root/'08-07-controller-observations.json').read_text())['final_clone']
+assert baseline['VMState']=='"poweroff"' and baseline['accelerate3d']=='"on"' and baseline['clipboard']=='"bidirectional"'
+stale=(root/'08-07-target-controller-state.json').read_bytes();(root/'08-07-target-controller-stale-state.json').write_bytes(stale)
+environment['prior']=baseline;environment['record']['prior']=baseline
+environment['record']['explicit_recovery']=dict(reason='Controller29428 absent after reset; no finally receipt. No new boot/test/query.',previous_state=json.loads(stale),process_open_error=error,source_sha256=hashlib.sha256(source.encode()).hexdigest(),observed_before_recovery=current,restoration_baseline='Actual saved last OFF snapshot before target boot:08-07-controller-observations.json/final_clone; original target in-memory context is not reconstructed.')
+exec(compile(ast.Module(body=tree.body[position].finalbody,type_ignores=[]),'exact-reviewed-target-finally','exec'),environment)
+print(json.dumps(dict(state=json.loads((root/'08-07-target-controller-state.json').read_text()),final={key:environment['record']['final_clone'][key] for key in ('VMState','accelerate3d','clipboard')})))

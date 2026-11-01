@@ -26,3 +26,7 @@
 08-07-*.txt -text whitespace=cr-at-eol
 08-gap-final-*.json -text whitespace=cr-at-eol
 08-gap-final-*.log -text whitespace=cr-at-eol
+# Final gate references hash these reports byte for byte.
+08-REVIEW.md -text whitespace=cr-at-eol
+08-VERIFICATION.md -text whitespace=cr-at-eol
+08-final-gates.json -text whitespace=cr-at-eol
