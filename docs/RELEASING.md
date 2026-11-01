@@ -6,9 +6,9 @@ It does not claim Windows/macOS support or automatically publish releases.
 ## Prepare
 
 1. Keep versions aligned in both package recipes, the changelog, release notes,
-   README install example and CI preview command. Initial version: `0.1.0`.
+   README install example and CI preview command. Current version: `0.2.0`.
 2. Run tests with PyQt6 installed and `QT_QPA_PLATFORM=offscreen`.
-3. Run `python tools/build_release.py --tag v0.1.0 --output dist` in a clean
+3. Run `python tools/build_release.py --tag v0.2.0 --output dist` in a clean
    checkout. The output directory must be empty. Assets use explicit source
    roots; agent logs, planning, research and personal dictionaries are excluded.
    `.gitattributes` also excludes workspace artifacts from GitHub's automatic
@@ -20,8 +20,8 @@ It does not claim Windows/macOS support or automatically publish releases.
 ## Build and review
 
 After committing and pushing the reviewed release changes, create and push the
-matching tag (`git tag -a v0.1.0 -m "LookUp Linux 0.1.0"`, then
-`git push origin v0.1.0`). This triggers **Prepare release**. Manual dispatch
+matching tag (`git tag -a v0.2.0 -m "LookUp Linux 0.2.0"`, then
+`git push origin v0.2.0`). This triggers **Prepare release**. Manual dispatch
 also accepts an existing release tag. An existing release is never overwritten;
 resolve a failed rerun explicitly after inspecting the original draft.
 

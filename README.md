@@ -1,13 +1,15 @@
 <p align="center"><img src="docs/assets/banner.svg" alt="LookUp Linux — Point. Press. Understand." width="900"></p>
 
-<p align="center"><strong>English → Russian. Right where you read.</strong><br>A cursor dictionary, OCR translator and vocabulary companion for KDE Plasma Wayland.</p>
+<p align="center"><strong>English → Russian. Right where you read.</strong><br>A cursor dictionary, OCR translator and vocabulary companion for KDE Plasma and GNOME Wayland.</p>
 
 Ubuntu 24.04 with GNOME Wayland: [setup and VM checks](docs/UBUNTU.md).
 
 <p align="center">
+<a href="https://github.com/EstySD/LookUpLinux/releases"><img src="https://img.shields.io/github/v/release/EstySD/LookUpLinux" alt="Latest release"></a>
 <a href="https://github.com/EstySD/LookUpLinux/actions/workflows/ci.yml"><img src="https://github.com/EstySD/LookUpLinux/actions/workflows/ci.yml/badge.svg" alt="Tests"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0--or--later-blue" alt="GPL-3.0-or-later"></a>
 <img src="https://img.shields.io/badge/desktop-KDE_Plasma_6-54a3d8" alt="KDE Plasma 6">
+<img src="https://img.shields.io/badge/desktop-GNOME_46_preview-4a86cf" alt="GNOME 46 preview">
 <img src="https://img.shields.io/badge/session-Wayland-efc354" alt="Wayland">
 </p>
 
@@ -27,15 +29,18 @@ without switching to a browser.
 - **Export your words:** CSV and Anki text files.
 - **Make it yours:** tray settings for shortcut, dictionary order, online access and autostart.
 
+<p align="center"><img src="docs/assets/ubuntu-gnome-popup.png" alt="LookUp Linux on Ubuntu GNOME: an English word translated into Russian beside the source text" width="760"><br><sub>Real Ubuntu 24.04 / GNOME Wayland capture. Local Mueller dictionary added separately; online translation disabled for this test.</sub></p>
+
 ## Platform support
 
 | Platform | Status | Distribution |
 | --- | --- | --- |
 | Arch Linux x86_64 · KDE Plasma 6 · Wayland | Target platform | Native `.pkg.tar.zst` and build kit |
+| Ubuntu 24.04 · GNOME 46 · Wayland | Agent-tested desktop preview | [Source + GNOME extension](docs/UBUNTU.md) |
 | Other Linux distributions / desktops, X11, ARM | Unsupported | Porting contributions welcome |
 | Windows / macOS | Unsupported | No application builds |
 
-Early **0.1.0** release. OCR depends on font size, contrast and application.
+Early **0.2.0** release. OCR depends on font size, contrast and application.
 Fullscreen games require individual testing. Cross-platform core tests do not
 imply desktop support on those operating systems.
 
@@ -47,7 +52,7 @@ is available. Download `SHA256SUMS` beside it, then run:
 
 ```bash
 sha256sum --ignore-missing -c SHA256SUMS
-sudo pacman -U ./lookup-linux-0.1.0-1-x86_64.pkg.tar.zst
+sudo pacman -U ./lookup-linux-0.2.0-1-x86_64.pkg.tar.zst
 lookup --app &
 ```
 

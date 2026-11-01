@@ -22,7 +22,7 @@ def archive(destination, files):
                     if path.is_symlink() or not path.is_file():
                         raise ValueError('unsafe release input: '+str(path))
                     data = path.read_bytes()
-                    if path.suffix in ('.py', '.sh', '.md', '.yml', '.svg', '.txt') or path.name.startswith('PKGBUILD') or path.name in ('lookup', 'LICENSE'):
+                    if path.suffix in ('.py', '.sh', '.js', '.xml', '.json', '.md', '.yml', '.svg', '.txt') or path.name.startswith('PKGBUILD') or path.name in ('lookup', 'LICENSE'):
                         data = data.replace(b'\r\n', b'\n')
                     info = tarfile.TarInfo(name)
                     info.size = len(data)
@@ -55,7 +55,7 @@ def build(output, tag):
                 continue
             if path.is_symlink():
                 raise ValueError('symlink in release input')
-            if path.is_file() and (path.suffix in ('.py', '.sh', '.md', '.txt', '.yml', '.svg', '.png', '.json', '.xml', '.in', '.desktop', '.public') or path.name == 'lookup'):
+            if path.is_file() and (path.suffix in ('.py', '.sh', '.js', '.md', '.txt', '.yml', '.svg', '.png', '.json', '.xml', '.in', '.desktop', '.public') or path.name == 'lookup'):
                 files.append((prefix+'/'+path.relative_to(ROOT).as_posix(), path))
     for name in ('LICENSE', 'COPYING.md', 'README.md', 'CONTRIBUTING.md', 'SECURITY.md', 'CHANGELOG.md', 'PKGBUILD',
                  'docs/README.ru.md', 'docs/DICTIONARIES.md', 'docs/RELEASING.md', 'docs/RELEASE_NOTES.md',

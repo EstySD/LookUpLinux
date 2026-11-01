@@ -1,51 +1,100 @@
-# LookUp Linux 0.1.0
+# LookUp Linux 0.2.0 — KDE + GNOME Wayland
 
 **English → Russian. Right where you read.**
 
-Point at a word, press **Meta+Shift+D**, and keep reading with a dictionary
-card beside your text. Save words to learning cards and revisit them later.
+Hover over a word, press **Meta+Shift+D**, and read its definition beside your
+text. Save learning cards, revisit your vocabulary and export to Anki.
 
-## Downloads by platform
+This release adds an **Ubuntu 24.04 / GNOME 46 desktop preview**, while preserving
+the existing **Arch Linux / KDE Plasma 6 Wayland** backend.
 
-| Platform | Download | Install |
+![LookUp translating a word on Ubuntu GNOME](https://raw.githubusercontent.com/EstySD/LookUpLinux/v0.2.0/docs/assets/ubuntu-gnome-popup.png)
+
+*Real GNOME screenshot with a separately added local dictionary. Online
+translation was disabled during this captured test; it is enabled by default.*
+
+## Choose your download
+
+| System | Asset | Install |
 | --- | --- | --- |
-| Arch Linux x86_64 · KDE Plasma 6 Wayland | `lookup-linux-0.1.0-1-x86_64.pkg.tar.zst` | `sudo pacman -U ./lookup-linux-0.1.0-1-x86_64.pkg.tar.zst` |
-| Arch Linux build from source | `lookup-linux-0.1.0-archlinux-x86_64-build-kit.tar.gz` | Extract, enter the build-kit directory, run `makepkg -si` |
-| Source for development | `lookup-linux-0.1.0-source.tar.gz` | See the included README and CONTRIBUTING |
-| Windows / macOS / other desktops | No supported application builds | Porting contributions welcome |
+| **Arch Linux x86_64 · KDE Plasma 6 Wayland** | `lookup-linux-0.2.0-1-x86_64.pkg.tar.zst` | `sudo pacman -U ./lookup-linux-0.2.0-1-x86_64.pkg.tar.zst` |
+| **Arch Linux · build locally** | `lookup-linux-0.2.0-archlinux-x86_64-build-kit.tar.gz` | Extract, enter the build-kit directory, run `makepkg -si` |
+| **Ubuntu 24.04 · GNOME 46 Wayland preview** | `lookup-linux-0.2.0-source.tar.gz` | Follow the Ubuntu instructions below; no `.deb` is provided |
+| **Development / other ports** | `lookup-linux-0.2.0-source.tar.gz` | See README and CONTRIBUTING; Windows/macOS/X11 are not supported application targets |
 
-Download `SHA256SUMS` and check your assets with
-`sha256sum --ignore-missing -c SHA256SUMS`. Checksums are not publisher signatures.
+Download `SHA256SUMS` and verify your files:
 
-## First run
+```bash
+sha256sum --ignore-missing -c SHA256SUMS
+```
 
-1. Start `lookup --app` and wait for the tray icon.
-2. [Download and add a dictionary](https://github.com/EstySD/LookUpLinux/blob/main/docs/DICTIONARIES.md).
-3. Apply Settings, then hover over text and press **Meta+Shift+D**.
-4. Use `lookup --doctor` if the shortcut or OCR needs attention.
+Checksums detect download corruption; they are not publisher signatures.
 
-**Dictionary databases are not bundled.** Mueller 7 is linked in the guide;
-StarDict, DSL and MDX dictionaries can be added by the user. Online translation
-is enabled by default; text and needed context may go to Google or MyMemory.
-Turn it off in Settings for offline use. OCR images stay local.
+## Ubuntu quick start
 
-## Included
+Extract the source archive, then run these commands **as your normal user inside
+the GNOME Wayland desktop**:
 
-- Cursor OCR and selected-text lookup, optional context translation.
-- StarDict / DSL / MDX readers and configurable dictionary order.
-- Lookup history, learning cards, scheduled review, CSV and Anki text export.
-- Tray settings, autostart control and read-only diagnostics.
+```bash
+sudo apt update
+sudo apt install python3-pyqt6 qt6-wayland tesseract-ocr tesseract-ocr-eng wl-clipboard
+cd lookup-linux-0.2.0
+python3 tools/install_ubuntu.py
+```
 
-## Known limits
+Log out and back in once, then:
 
-Early release for Arch Linux x86_64 / KDE Plasma 6 Wayland. OCR varies with
-fonts, contrast and application; fullscreen games require separate checks.
-Online endpoints may be unavailable or rate limited. Unit/headless GUI tests
-do not establish real-session desktop acceptance. The public package is checked
-by automated tests and by building, installing and launching its CLI in a clean
-Arch container. A fresh interactive KDE Wayland session check has not been
-performed for this release; please report desktop-specific problems with
-`lookup --doctor` output.
+```bash
+gnome-extensions enable lookup-linux@lookup.local
+python3 -m lookup --app
+```
 
-Original code: GPL-3.0-or-later. Third-party components retain their licenses.
-Report issues in English or Russian with version, reproduction and sanitized diagnostics.
+The source directory must stay in place because user launchers point to it.
+[Full Ubuntu setup and limits](https://github.com/EstySD/LookUpLinux/blob/v0.2.0/docs/UBUNTU.md).
+
+## What changed
+
+- Separate GNOME extension for cursor/monitor detection, in-memory screen
+  capture, popup placement and persistent shortcuts with conflict detection.
+- User-level Ubuntu installer, autostart entries and GNOME-aware `--doctor`.
+- Fix long popup cards reverting to the previous height under Mutter / Qt 6.4.
+- Include extension JavaScript, metadata and settings schema in source assets.
+- Keep KDE's KWin / ScreenShot2 / KGlobalAccel path and Arch packaging separate.
+
+Also included: StarDict, Lingvo DSL / compressed DSL and MDX readers, selected-text
+priority, optional online context translation, history, scheduled vocabulary
+review and CSV / Anki text export.
+
+## Add your dictionary
+
+**Dictionary databases are not bundled.** Open Settings and add your own using
+the [dictionary guide](https://github.com/EstySD/LookUpLinux/blob/v0.2.0/docs/DICTIONARIES.md).
+On Arch start with `lookup --app`; on Ubuntu use `python3 -m lookup --app`.
+Hover over English text and press **Meta+Shift+D**, or select fresh text first.
+
+Online translation is enabled by default. Text and needed context may be sent
+to Google or MyMemory; switch it off in Settings for offline use. OCR images
+stay local. Online endpoints may be unavailable or rate limited.
+
+## Validation and known limits
+
+Agent checks, **not human acceptance**:
+
+- Arch KDE regression: **814 tests, OK, 20 skipped**; real-session diagnostics
+  and a dictionary CLI lookup also passed.
+- Ubuntu: **118 targeted tests passed**, plus two physical-hotkey VM scenarios:
+  cursor OCR and PRIMARY selection, real dictionary articles, popup placement
+  and history persistence.
+- Ubuntu's full default-model run still has **11 failing OCR fixture subtests**.
+  Models and engine versions differ from Arch. This suite is not claimed green.
+- GNOME fullscreen games, multiple monitors, fractional scaling and versions
+  other than GNOME 46 remain unverified. There is no `.deb`, Windows or macOS build.
+- The VM used the existing local dictionary. A public-package install needs a
+  user-supplied dictionary; the container build does not establish desktop acceptance.
+
+[Detailed VM evidence](https://github.com/EstySD/LookUpLinux/blob/v0.2.0/docs/ubuntu-vm-validation.md)
+· [Changes since v0.1.0](https://github.com/EstySD/LookUpLinux/compare/v0.1.0...v0.2.0)
+
+Report issues in **English or Russian** with your desktop/session, reproduction
+and sanitized `--doctor` output. Original code is **GPL-3.0-or-later**; third-party
+components retain their licenses.
