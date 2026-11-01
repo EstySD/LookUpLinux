@@ -1,0 +1,11 @@
+{
+  "source_path": "/home/lookup07/.local/state/lookup-games-08/assaultcube/lookup/observations/source-7595-4291151853054140-98.png",
+  "source_sha256": "9cbc077f181e3c564d21e5d3ec88d68129630811972b12cc659558fc8723497e",
+  "trace_sha256": "b59c6e8ddb74aab272d91d14a03e9741020e5f435572b783b7249b30284e1efe",
+  "origin": "Retained original09 files retrieved readonly after manual; no new capture or input.",
+  "identity": {
+    "pid": 7595,
+    "run": 4291151853054140,
+    "request": 98
+  }
+}
