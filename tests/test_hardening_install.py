@@ -29,6 +29,42 @@ def actual_install_fixture():
 
 
 class InstallEvidenceTests(unittest.TestCase):
+    def test_current_selection_recomputes_real_receipts_and_keeps_cleanup_open(self):
+        root=Path('.planning/phases/08-vm')
+        data=install.current_evidence(root,captured_game_report='08-assaultcube-cascade-report.json',
+            current_cleanup='missing-current-cleanup.json')
+        self.assertTrue(data['reports']['performance']['passed'])
+        self.assertAlmostEqual(data['reports']['performance']['median_ms'],1088.2457725)
+        for name in ('captured_game','wesnoth_compatibility','fallback','burst','privacy'):
+            self.assertTrue(data['reports'][name]['passed'],name)
+        self.assertFalse(data['cleanup']['passed'])
+        self.assertFalse(data['passed'])
+        self.assertEqual(data['history']['cleanup09']['passed'],False)
+
+    def test_current_selection_rejects_swapped_candidate_missing_raw_and_old_thirty(self):
+        source=Path('.planning/phases/08-vm')
+        for change in ('candidate','report','route','performance','archive','privacy'):
+            with self.subTest(change=change),tempfile.TemporaryDirectory() as directory:
+                root=Path(directory)
+                # Symlinks would weaken the corruption test; copy only referenced artifacts.
+                for path in source.iterdir():
+                    if path.is_file():shutil.copyfile(path,root/path.name)
+                for name in ('08-09-build','08-09-runtime','08-09-game-raw'):
+                    shutil.copytree(source/name,root/name)
+                selected='08-assaultcube-cascade-report.json'
+                if change=='candidate':selected='08-doom-final-report.json'
+                elif change=='report':
+                    path=root/selected;record=json.loads(path.read_text());record['routes']=[];record['report']={'passed':True};path.write_text(json.dumps(record))
+                elif change=='route':(root/'08-09-game-route1-source.png').write_bytes(b'corrupt')
+                elif change=='performance':shutil.copyfile(root/'08-performance-final-attempts.json',root/'08-09-performance-attempts.json')
+                elif change=='archive':(root/'08-09-build/lookup-source.tar.gz').write_bytes(b'corrupt')
+                else:
+                    path=root/'08-09-privacy-proof.json';record=json.loads(path.read_text());record['after']['classified']['primary']['exit']=2;record['passed']=True;path.write_text(json.dumps(record))
+                data=install.current_evidence(root,captured_game_report=selected,current_cleanup='missing.json')
+                name={'candidate':'captured_game','report':'captured_game','route':'captured_game','performance':'performance','archive':'performance','privacy':'privacy'}[change]
+                self.assertFalse(data['reports'][name]['passed'])
+                self.assertFalse(data['passed'])
+
     def test_controller_finally_continues_after_transient_power_readback(self):
         import ast,types
         source=Path('.planning/phases/08-vm/08-07-controller.py').read_text(encoding='utf-8')
