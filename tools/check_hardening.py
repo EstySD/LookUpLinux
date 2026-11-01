@@ -486,6 +486,121 @@ def final_cleanup_report(raw):
     except (KeyError,TypeError,AttributeError):return dict(passed=False,reason='missing_or_invalid_cleanup')
 
 
+def closure_suites_report(suites,logs):
+    """Read the two actual unittest transcripts and require one closure tree."""
+    import hashlib
+    try:
+        _require(set(suites)=={'host','target'},'suite_roles')
+        identities=set()
+        for name,row in suites.items():
+            raw=logs[row['log_sha256']]
+            _require(hashlib.sha256(raw).hexdigest()==row['log_sha256'],'suite_log_hash')
+            text=raw.decode('utf-8-sig');runs=re.findall(r'^Ran (\d+) tests? in [\d.]+s\s*$',text,re.M)
+            endings=re.findall(r'^OK(?: \(skipped=(\d+)\))?\s*$',text,re.M)
+            _require(type(row['exit']) is int and row['exit']==0 and len(runs)==len(endings)==1
+                and type(row['count']) is int and row['count']==int(runs[0])>0
+                and row['skips']==int(endings[0] or 0)
+                and not re.search(r'^(FAILED|FAIL:|ERROR:|Traceback)',text,re.M),'suite_result')
+            _require(all(isinstance(row[key],str) and re.fullmatch('[0-9a-f]{40}',row[key]) for key in ('revision','tree'))
+                and row['command']==['python','-m','unittest','discover','-s','tests'],'suite_identity')
+            identities.add((row['revision'],row['tree']))
+        _require(len(identities)==1 and suites['target']['skips']==0
+            and suites['target']['ocr_enabled'] is True and suites['target']['mueller_verified'] is True,'target_optins')
+        return dict(passed=True,revision=suites['host']['revision'],tree=suites['host']['tree'])
+    except (EvidenceError,KeyError,TypeError,AttributeError,ValueError,UnicodeError):return dict(passed=False)
+
+
+def current_privacy_report(data):
+    """Reclassify retained clipboard errors and the changed OCR path."""
+    try:
+        physical_latency(data['timing'])
+        passes=data['source']['ocr_passes']
+        _require([row['psm'] for row in passes]==[6,11]
+            and all(row['returncode']==0 and 'error' not in row for row in passes),'privacy_ocr')
+        for phase in ('before','after'):
+            row=data[phase]
+            _require(set(row['classified'])=={'primary','clipboard'},'clipboard_channels')
+            for observation in row['classified'].values():
+                _require(observation['socket_exists'] is True and _hash(observation['stdout_sha256'])
+                    and (observation['exit']==0 or observation['exit']==1
+                        and observation['stderr'].strip()=='Nothing is copied'),'classified_clipboard')
+            _require(row['typed']['png_files']==row['actual_data_scan']['png_files']==[]
+                and row['actual_data_scan']['scanned'] and row['typed']['scanned'],'capture_files')
+        _require(all(_hash(data['before']['typed'][key]) and data['before']['typed'][key]==data['after']['typed'][key]
+            for key in ('primary','clipboard','klipper')),'clipboard_preserved')
+        return dict(passed=True)
+    except (EvidenceError,KeyError,TypeError,AttributeError):return dict(passed=False)
+
+
+def current_cleanup_report(controller,baseline,shortcuts):
+    """Validate current post-manual observations, independently of old09 flags."""
+    import json
+    clone='cf207909-94b5-4b49-8bd8-ccff973c1dc8';original='abc73254-ddf7-4f1f-9c66-7c2fcc5254d7'
+    try:
+        _require(shortcuts['passed'] is True and baseline['files'] and baseline['logical_counts'],'baseline_and_keys')
+        _require(controller['release']['ok'] is True and controller['mouse_release']['ok'] is True
+            and controller['guest_cleanup']['ok'] is True,'cleanup_operations')
+        guest=json.loads(controller['guest_cleanup']['result'])
+        stop=guest['fallback_stop_only_owned']
+        _require(guest['current_baseline_only'] is True and stop['ok'] is True
+            and stop['result']['remaining']==[] and isinstance(stop['result']['stopped'],list),'current_baseline')
+        files={name for name in baseline['files'] if '.db' not in __import__('pathlib').Path(name).name}
+        for name in ('postmanual_retention','post_removal_retention'):
+            observation=guest[name];value=observation['result']
+            _require(observation['ok'] is True and set(value['files'])==files
+                and all(item is True for item in value['files'].values())
+                and set(value['databases'])==set(baseline['logical_counts']),'retention_inventory')
+            for row in value['databases'].values():
+                _require(_hash(row['actual_logical_sha256']) and row['actual_logical_sha256']==row['postmanual_backup_sha256']
+                    and row['integrity']=='ok' and row['retained'] is True,'database_retention')
+        fixture=guest['fixture_restore'];package=guest['package_remove_preserve_profiles']
+        _require(fixture['ok'] is True and fixture['result']['removed'] is True
+            and package['ok'] is True and type(package['result']['exit']) is int and package['result']['exit']==0
+            and package['result']['absent'] is True,'fixture_and_package')
+        prior=controller['prior'];final=controller['final_clone'];restore=controller['restore']
+        _require(prior['UUID']==final['UUID']=='"'+clone+'"' and final['VMState']=='"poweroff"'
+            and final['accelerate3d']==prior['accelerate3d'] and final['clipboard']==prior['clipboard']
+            and restore['ok'] is True and restore['result']['exit']==0,'clone_final_state')
+        for name in ('original_before','original_after'):
+            _require(controller[name]['UUID']=='"'+original+'"' and controller[name]['VMState'] in
+                ('"running"','"poweroff"','"paused"','"saved"','"stopping"','"starting"'),'original_observation')
+        actions=controller['host_actions'];_require(isinstance(actions,list) and actions,'host_actions')
+        for action in actions:
+            argv=action['argv'];_require(len(argv)>=3 and argv[2] in (clone,original)
+                and (argv[1]=='showvminfo' or argv[2]==clone)
+                and action['mutating'] is (argv[1]!='showvminfo'),'owned_host_action')
+        return dict(passed=True,shortcuts=shortcuts,original_policy='USER_KEEP_RUNNING',original_state_respected=True)
+    except (EvidenceError,KeyError,TypeError,AttributeError,ValueError,IndexError):return dict(passed=False,reason='missing_or_invalid_current_cleanup')
+
+
+def closure_reviews_report(gates,artifacts,revision):
+    """Final frontmatter is authoritative; old scoped prose is not a closure gate."""
+    import hashlib
+    result={name:False for name in ('code_review','security_review','verifier')}
+    for name in result:
+        try:
+            row=gates[name];expected='08-VERIFICATION.md' if name=='verifier' else '08-REVIEW.md'
+            raw=artifacts[row['sha256']]
+            _require(row['file']==expected and row['revision']==revision
+                and hashlib.sha256(raw).hexdigest()==row['sha256'],'review_binding')
+            text=raw.decode('utf-8-sig');header=re.match(r'\A---\s*\n(.*?)\n---(?:\s*\n|$)',text,re.S)
+            _require(header is not None,'review_header')
+            fields={}
+            for line in header[1].splitlines():
+                match=re.fullmatch(r'([a-z_]+):\s*([^\r\n]+)',line)
+                if match:
+                    _require(match[1] not in fields,'duplicate_review_header')
+                    fields[match[1]]=match[2].strip().strip('"\'')
+            if name=='verifier':
+                _require(fields.get('status')=='passed' and fields.get('verified_revision')==revision,'final_verifier')
+            else:
+                _require(fields.get('phase_review_complete')=='true' and fields.get(name)=='passed'
+                    and fields.get('review_head')==revision,'final_review')
+            result[name]=True
+        except (EvidenceError,KeyError,TypeError,AttributeError,ValueError,UnicodeError):pass
+    return result
+
+
 def aggregate_report(data):
     """Recompute the seven groups from raw records; summary booleans never substitute."""
     from tools.check_games import game_report,captured_game_report
@@ -516,8 +631,24 @@ def aggregate_report(data):
     review=data.get('independent',{})
     reviewed=all(review.get(key)=='passed' for key in ('code_review','security_review','verifier'))
     cleanup=final_cleanup_report(data.get('cleanup',{}))
-    passed=all(criteria.values()) and historical_valid and suites_ok and reviewed and cleanup['passed']
-    return dict(passed=passed,game01_complete=criteria['games'] and reviewed,criteria=criteria,reports=reports,
+    current=data.get('current')
+    if current is not None:
+        reports.update(current['reports'])
+        criteria['performance']=reports['performance'].get('passed') is True
+        criteria['games']=reports['wesnoth'].get('passed') is True and all(reports[name].get('passed') is True
+            for name in ('captured_game','wesnoth_compatibility'))
+        criteria['stability_burst']=criteria['stability_burst'] and all(reports[name].get('passed') is True for name in ('fallback','burst'))
+        criteria['privacy_faults']=criteria['privacy_faults'] and reports['privacy'].get('passed') is True
+        suites_ok=closure_suites_report(suites,data.get('suite_logs',{}))['passed']
+        gates=closure_reviews_report(data.get('final_gates',{}),data.get('gate_artifacts',{}),
+            suites.get('host',{}).get('revision'))
+        reviewed=all(gates.values())
+        cleanup=current['cleanup']
+    evidence_passed=all(criteria.values()) and historical_valid and suites_ok and cleanup['passed']
+    ready=evidence_passed and (all(gates[key] for key in ('code_review','security_review')) if current is not None else reviewed)
+    passed=evidence_passed and reviewed
+    return dict(passed=passed,game01_complete=passed and criteria['games'],criteria=criteria,reports=reports,
+        evidence_passed=evidence_passed,ready_for_verification=ready,
         suites_valid=suites_ok,independent_complete=reviewed,historical_phase7=historical,
         historical_valid=historical_valid,human_acceptance=False,cleanup=cleanup)
 

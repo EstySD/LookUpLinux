@@ -76,6 +76,55 @@ def game(name,relative=False,multiline=False):
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_final_review_requires_exact_current_headers_not_old_scoped_prose(self):
+        import hashlib
+        revision='a'*40
+        review=('---\nphase_review_complete: true\ncode_review: passed\nsecurity_review: passed\nreview_head: '+revision+'\n---\n').encode()
+        verifier=('---\nstatus: passed\nverified_revision: '+revision+'\n---\n').encode()
+        artifacts={hashlib.sha256(raw).hexdigest():raw for raw in (review,verifier)}
+        gates={name:dict(file='08-VERIFICATION.md' if name=='verifier' else '08-REVIEW.md',revision=revision,
+            sha256=hashlib.sha256(verifier if name=='verifier' else review).hexdigest()) for name in ('code_review','security_review','verifier')}
+        self.assertTrue(all(hardening.closure_reviews_report(gates,artifacts,revision).values()))
+        for change in ('hash','revision','file','scope'):
+            rows=deepcopy(gates);loaded=dict(artifacts)
+            if change=='hash':rows['code_review']['sha256']='0'*64
+            elif change=='revision':rows['code_review']['revision']='b'*40
+            elif change=='file':rows['code_review']['file']='other.md'
+            else:
+                raw=review.replace(b'phase_review_complete: true',b'phase_review_complete: false').replace(b'code_review: passed',b'code_review: passed_in_reviewed_scope')
+                digest=hashlib.sha256(raw).hexdigest();loaded[digest]=raw;rows['code_review']['sha256']=digest
+            self.assertFalse(hardening.closure_reviews_report(rows,loaded,revision)['code_review'],change)
+
+    def test_current_cleanup_requires_observed_postmanual_state_and_all_retained_data(self):
+        clone='cf207909-94b5-4b49-8bd8-ccff973c1dc8';original='abc73254-ddf7-4f1f-9c66-7c2fcc5254d7'
+        baseline=dict(files={'/config.json':{'sha256':'a'*64},'/history.db':{'sha256':'b'*64}},
+            logical_counts={'/history.db':dict(integrity='ok')})
+        retention=dict(files={'/config.json':True},databases={'/history.db':dict(actual_logical_sha256='b'*64,
+            postmanual_backup_sha256='b'*64,integrity='ok',retained=True)})
+        guest=dict(current_baseline_only=True,fallback_stop_only_owned=dict(ok=True,result=dict(stopped=[],remaining=[])),
+            postmanual_retention=dict(ok=True,result=deepcopy(retention)),post_removal_retention=dict(ok=True,result=deepcopy(retention)),
+            fixture_restore=dict(ok=True,result=dict(removed=True)),package_remove_preserve_profiles=dict(ok=True,result=dict(exit=0,absent=True)))
+        state=dict(UUID='"'+clone+'"',VMState='"poweroff"',accelerate3d='"on"',clipboard='"disabled"')
+        controller=dict(prior=deepcopy(state),final_clone=deepcopy(state),release=dict(ok=True),mouse_release=dict(ok=True),
+            guest_cleanup=dict(ok=True,result=json.dumps(guest)),restore=dict(ok=True,result=dict(exit=0)),
+            original_before=dict(UUID='"'+original+'"',VMState='"running"'),
+            original_after=dict(UUID='"'+original+'"',VMState='"poweroff"'),
+            host_actions=[dict(argv=['VBoxManage','modifyvm',clone],exit=0,mutating=True)])
+        self.assertTrue(hardening.current_cleanup_report(controller,baseline,{'passed':True})['passed'])
+        for change in ('original_action','wrong_clone','on_restore','database','missing_file','fixture','package','release','keys'):
+            row=deepcopy(controller);saved=deepcopy(guest);keys={'passed':True}
+            if change=='original_action':row['host_actions'][0]['argv'][2]=original
+            elif change=='wrong_clone':row['final_clone']['UUID']='"other"'
+            elif change=='on_restore':row['final_clone']['VMState']='"running"'
+            elif change=='database':saved['post_removal_retention']['result']['databases']['/history.db']['actual_logical_sha256']='c'*64
+            elif change=='missing_file':saved['postmanual_retention']['result']['files']={}
+            elif change=='fixture':saved['fixture_restore']['result']['removed']=False
+            elif change=='package':saved['package_remove_preserve_profiles']['result']['absent']=False
+            elif change=='release':row['release']['ok']=False
+            else:keys={'passed':False}
+            row['guest_cleanup']['result']=json.dumps(saved)
+            self.assertFalse(hardening.current_cleanup_report(row,baseline,keys)['passed'],change)
+
     def test_final_suite_metadata_cannot_replace_logs_or_same_revision(self):
         claimed={name:dict(exit=0,count=999,skips=0,log_sha256='a'*64,revision='a'*40)
             for name in ('host','target')}

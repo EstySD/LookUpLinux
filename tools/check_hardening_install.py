@@ -129,7 +129,108 @@ print(json.dumps(dict(same_members=set(a)==set(b),differences={name:[a.get(name)
     return json.loads(ssh('python -c '+shlex.quote(program)))
 
 
-def assemble_reports(root):
+def current_evidence(root,*,captured_game_report,current_cleanup):
+    """Load and recompute the explicitly selected current evidence, without writes."""
+    import hashlib
+    from tools import check_hardening as hardening
+    from tools.check_games import captured_game_report as captured_check,game_report
+    root=Path(root).resolve();sources={}
+    def raw(name):
+        path=(root/name).resolve()
+        hardening._require(path.is_relative_to(root) and not (root/name).is_symlink(),'artifact_path')
+        value=path.read_bytes();sources[name]=dict(file=name,sha256=hashlib.sha256(value).hexdigest())
+        return value
+    def read(name):return json.loads(raw(name))
+    def digest(name):return hashlib.sha256(raw(name)).hexdigest()
+    def check(operation):
+        try:return operation()
+        except (OSError,ValueError,TypeError,KeyError,AttributeError,IndexError,StopIteration):return dict(passed=False,reason='missing_or_invalid_raw')
+    receipt=check(lambda:read('08-09-package-receipt.json'))
+    def performance():
+        rows=read('08-09-performance-attempts.json')
+        artifacts=dict(source=raw('08-09-build/lookup-source.tar.gz'),
+            package=raw('08-09-build/lookup-linux-0.1.0-1-x86_64.pkg.tar.zst'),
+            runtime={row['runtime_sha256']:raw('08-09-runtime/'+row['runtime_sha256']+'.json') for row in rows})
+        report=hardening.current_performance_report(rows,receipt,artifacts)
+        build=read('08-09-actual-build.json');stage=read('08-09-build/SOURCE.json')
+        hardening._require(build['source_sha256']==stage['archive_sha256']==receipt['build']['source_sha256']
+            and build['package_sha256']==receipt['build']['package_sha256']
+            and all(type(build[key]) is int and build[key]==0 for key in ('build_exit','install_exit'))
+            and build['completed_ns']==receipt['installation']['completed_ns']
+            and build['boot_id']==receipt['installation']['boot_id']
+            and 'Finished making: lookup-linux' in build['log'] and 'installing lookup-linux...' in build['log']
+            and '==> ERROR:' not in build['log'],'actual_build')
+        return report
+    def captured():
+        data=read(captured_game_report);report=captured_check(data)
+        hardening._require(report['passed'] and data['engine']=='AssaultCube'
+            and data['package_receipt']=='08-09-package-receipt.json','selected_current_candidate')
+        process=read('08-09-game-runtime-final.json')['process']
+        hardening._require(data['process']==process and process['boot_id']==receipt['installation']['boot_id'],'current_game_process')
+        runtime=read('08-09-game-runtime-final.json')
+        gl=next(row for row in runtime['renderer'] if row['operation']=='gl_context')
+        hardening._require(data['renderer']['record']==gl and data['renderer']['name']==gl['renderer'],'actual_gl_record')
+        events=[json.loads(line) for line in raw('08-09-game-raw/sdl-observer.jsonl').decode().splitlines() if line.strip()]
+        hardening._require(gl in events,'actual_gl_log')
+        for index,row in enumerate(data['routes'],1):
+            saved=read('08-09-game-route'+str(index)+'.json')
+            for key in ('source','timing','overlay','dismissal'):
+                hardening._require(row[key]==saved['route'][key],'route_swap')
+            for suffix,key in (('source','source'),('overlay','overlay')):
+                hardening._require(digest('08-09-game-route'+str(index)+'-'+suffix+'.png')==row[key]['sha256'],'route_image')
+            source=saved['lookup_observation']['source_observation']
+            hardening._require(all(row['source'][key]==value for key,value in source.items()),'observed_source')
+            prepared=digest('08-09-game-route'+str(index)+'-prepared.png')
+            hardening._require(all(item['input_sha256']==prepared and item['returncode']==0 and 'error' not in item
+                for item in source['ocr_passes']),'ocr_input')
+            for name in ('movement','camera'):
+                proof=read('08-09-game-'+name+str(index)+'.json')['observation']['proof']
+                hardening._require(row['gameplay'][name]==proof,'return_control_swap')
+                for phase in ('before','after'):
+                    hardening._require(digest('08-09-game-raw/'+Path(proof[phase+'_path']).name)==proof[phase+'_sha256'],'control_image')
+        return dict(report,identity=dict(engine=data['engine'],pid=process['pid'],start=process['start']))
+    def compatibility():
+        historical=read('08-wesnoth-final-report.json');hardening._require(game_report(historical)['passed'],'wesnoth')
+        observed=read('08-09-current-installed-readonly.json');rows=observed['compatibility']
+        hardening._require(len(rows)==len(historical['routes'])==2,'compatibility_routes')
+        for row,old in zip(rows,historical['routes']):
+            selected=row['selected'];source=old['source']
+            hardening._require(digest(row['source_file'])==row['source_sha256']==source['sha256']
+                and row['query']==source['query']==selected['word']
+                and row['cursor']==source['cursor'] and selected['context']==source['context']
+                and selected['span']==source['span'] and selected['origin']=='actual_recognize_image_return'
+                and row['passes'] and all(item['returncode']==0 and 'error' not in item for item in row['passes']),'compatibility_selection')
+        hardening._require(all(type(observed['installed_checks'][key]['exit']) is int and observed['installed_checks'][key]['exit']==0
+            for key in ('doctor','smoke')),'installed_smoke')
+        return dict(passed=True,scope='historical fullscreen routes with current-source exact-source recognition replay')
+    reports=dict(performance=check(performance),captured_game=check(captured),wesnoth_compatibility=check(compatibility),
+        fallback=check(lambda:hardening.fallback_stability_report(read('08-09-fixture-support-attempts.json'))),
+        burst=check(lambda:hardening.burst_report(read('08-09-burst-attempt.json'))),
+        privacy=check(lambda:hardening.current_privacy_report(read('08-09-privacy-proof.json'))))
+    history={name:check(lambda file=file:read(file)) for name,file in dict(doom='08-doom-final-report.json',
+        cleanup06='08-06-cleanup-final.json',cleanup09='08-09-cleanup-final.json').items()}
+    def cleanup():
+        descriptor=read(current_cleanup)
+        hardening._require(descriptor['controller']=='08-07-controller-observations.json'
+            and descriptor['captured_game_report']==captured_game_report
+            and descriptor['captured_game_sha256']==digest(captured_game_report)
+            and descriptor['package_sha256']==receipt['build']['package_sha256'],'current_cleanup_selection')
+        controller=read(descriptor['controller']);source=raw('08-07-guest-cleanup.py').decode('utf-8-sig')
+        hardening._require(hashlib.sha256(source.encode()).hexdigest()==controller['cleanup_source_sha256'],'cleanup_source')
+        proof=dict(registry=read('08-07-registry-clear-product.json'),baseline=read('08-07-postmanual-registry.json'),
+            physical_before=read('08-07-unrelated-marker-before.json'),physical_after=read('08-07-unrelated-marker-after.json'))
+        preservation=hardening.shortcut_preservation_report(proof)
+        return hardening.current_cleanup_report(controller,read('08-07-postmanual-baseline.json'),preservation)
+    final_cleanup=check(cleanup)
+    return dict(passed=all(row['passed'] for row in reports.values()) and final_cleanup['passed'],
+        reports=reports,cleanup=final_cleanup,history=history,raw_sources=sources,
+        reuse=dict(stability='Historical320 single-pass workload retained; current20 fallback resources and current burst cover changed path.',
+            scales='Historical four scales retained for unchanged geometry; final current-source OCR/context/geometry suites still required.',
+            installation='Historical clean install/login/remove retained; current raw archive/install receipt and installed doctor/Mueller smoke supplement it.',
+            faults_meaning='Historical bounded transport faults and observed unavailable live meaning retained; no new availability claim.'))
+
+
+def assemble_reports(root,*,captured_game_report=None,current_cleanup=None):
     """Bind fixed retained raw evidence; the missing captured route stays missing."""
     import hashlib
     from tools.check_hardening import aggregate_report
@@ -155,12 +256,35 @@ def assemble_reports(root):
         independent=dict(code_review='pending_parent',security_review='pending_parent',verifier='pending_parent'))
     data['cleanup']=dict(native=read('08-native-final-report.json')['cleanup'],wesnoth=read('08-wesnoth-cleanup-final.json'),
         doom=read('08-doom-cleanup-final.json'),installation=read('08-install-cleanup-final.json') if (root/'08-install-cleanup-final.json').exists() else dict(gates=cleanup))
+    if captured_game_report is not None:
+        data['captured_game']=read(captured_game_report)
+        sources['captured_game']=captured_game_report
+        data['current']=current_evidence(root,captured_game_report=captured_game_report,current_cleanup=current_cleanup or '')
+        data['suites']=read('08-gap-final-suites.json') if (root/'08-gap-final-suites.json').exists() else {}
+        data['suite_logs']={}
+        for row in data['suites'].values():
+            try:
+                log=(root/row['log']).resolve()
+                if log.is_relative_to(root.resolve()):data['suite_logs'][row['log_sha256']]=log.read_bytes()
+            except (OSError,KeyError,TypeError):pass
+        data['final_gates']=read('08-final-gates.json') if (root/'08-final-gates.json').exists() else {}
+        data['gate_artifacts']={}
+        for row in data['final_gates'].values():
+            try:
+                if row['file'] in ('08-REVIEW.md','08-VERIFICATION.md'):
+                    data['gate_artifacts'][row['sha256']]=(root/row['file']).read_bytes()
+            except (OSError,KeyError,TypeError):pass
     result=aggregate_report(data)
     result.update(schema='lookup-phase08-final-v1',raw_sources={name:dict(file=file,sha256=digest(file)) for name,file in sources.items()},
         installation_source='08-install-native-report.json',limits=['Mandatory captured useful game route absent; GAME-01 remains open.',
             'Independent final review/verifier belong to parent.','Historical phase07 exception retained unchanged; no blanket waiver.',
             'Meaning availability0/6; conditional/UI latency null.','Second output/borderless unverified.'])
-    (root/'08-final-aggregate.json').write_text(json.dumps(result,indent=2))
+    if captured_game_report is not None:
+        result.update(schema='lookup-phase08-current-closure-v1',current=data['current'],
+            limits=['Current native criteria are recomputed; final closure also requires same-revision suites and parent independent gates.',
+                'Historical Doom/06 failures and frozen09 false unrelated-key cleanup remain history; no waiver.',
+                'Historical phase07 exception retained unchanged; no human testing claim.'])
+    (root/('08-gap-final-aggregate.json' if captured_game_report is not None else '08-final-aggregate.json')).write_text(json.dumps(result,indent=2))
     return dict(native=native['report'],aggregate=result['passed'],criteria=result['criteria'])
 
 
