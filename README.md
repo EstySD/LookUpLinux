@@ -2,6 +2,8 @@
 
 <p align="center"><strong>English → Russian. Right where you read.</strong><br>A cursor dictionary, OCR translator and vocabulary companion for KDE Plasma Wayland.</p>
 
+Ubuntu 24.04 with GNOME Wayland: [setup and VM checks](docs/UBUNTU.md).
+
 <p align="center">
 <a href="https://github.com/EstySD/LookUpLinux/actions/workflows/ci.yml"><img src="https://github.com/EstySD/LookUpLinux/actions/workflows/ci.yml/badge.svg" alt="Tests"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0--or--later-blue" alt="GPL-3.0-or-later"></a>

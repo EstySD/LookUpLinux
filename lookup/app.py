@@ -74,6 +74,7 @@ class Source:
         try:
             point=platform.cursor_position(self.env)
         except platform.PlatformError as error:
+            if error.reason=='gnome_extension_unavailable':raise AppError('missing_gnome_extension') from None
             raise AppError('missing_kdotool' if error.reason=='missing_command' else 'cursor_failed') from None
         try:
             monitor=platform.monitor_at(point,platform.monitors(self.env))

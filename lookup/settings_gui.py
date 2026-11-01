@@ -55,7 +55,7 @@ def components():
         def __init__(self,engine,parent=None,*,registry=None,load=None,save=None,restore=None,discover=None,ack_timeout=8000):
             super().__init__(parent)
             self.engine=engine
-            self.registry=registry or lifecycle.ShortcutRegistry()
+            self.registry=registry or lifecycle.shortcut_registry()
             self._load=load or config.load
             self._save=save or config.save
             self._restore=restore or (lambda changes:config.save(changes,retain_missing=False))

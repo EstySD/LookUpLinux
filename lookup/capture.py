@@ -147,7 +147,11 @@ def _screenshot2(name):
 def capture_monitor(monitor, env, backend='screenshot2'):
     start = time.perf_counter()
     try:
-        if backend == 'spectacle':
+        from . import gnome
+        if backend=='screenshot2' and gnome.active(env):
+            png,w,h=gnome.capture(monitor)
+            backend='gnome'
+        elif backend == 'spectacle':
             with tempfile.TemporaryDirectory(prefix='lookup-capture-') as folder:
                 path = Path(folder) / 'frame.png'
                 run(['spectacle', '-b', '-n', '-m', '-o', str(path)], env, timeout=3, limit=4096)

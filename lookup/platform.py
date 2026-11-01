@@ -1,4 +1,4 @@
-"""Small, bounded KDE session probes. Importing this module needs only stdlib."""
+"""Bounded Wayland session probes; the optional GNOME bridge is loaded lazily."""
 from dataclasses import dataclass
 import json
 import math
@@ -183,6 +183,14 @@ def panel_rects(env):
 
 
 def work_area(env,monitor):
+    from . import gnome
+    if gnome.active(env):
+        for item in gnome.state()['monitors']:
+            if item['name']==monitor.name:
+                rect=tuple(item['available']);_numbers(rect)
+                if len(rect)!=4 or min(rect[2:])<=0:raise PlatformError('invalid_geometry')
+                return rect
+        raise PlatformError('outside_monitor')
     return available_rect(monitor,panel_rects(env))
 
 
@@ -204,10 +212,19 @@ def session_env():
                QT_QPA_PLATFORMTHEME='kde')
     env.pop('XDG_ACTIVATION_TOKEN', None)
     env.pop('DESKTOP_STARTUP_ID', None)
+    from . import gnome
+    if gnome.active(env):
+        env.pop('KDE_SESSION_VERSION',None)
+        env.pop('QT_QPA_PLATFORMTHEME',None)
     return env
 
 
 def cursor_position(env):
+    from . import gnome
+    if gnome.active(env):
+        point=tuple(gnome.state()['point']);_numbers(point)
+        if len(point)!=2:raise PlatformError('bad_output')
+        return point
     try:
         output = run(['kdotool', 'getmouselocation'], env, limit=1024).decode('ascii', 'strict')
     except UnicodeError:
@@ -240,6 +257,10 @@ def parse_monitors(data):
 
 
 def monitors(env):
+    from . import gnome
+    if gnome.active(env):
+        return tuple(Monitor(*(item[key] for key in ('name','x','y','width','height','scale')))
+                     for item in gnome.state()['monitors'])
     return parse_monitors(run(['kscreen-doctor', '-j'], env))
 
 

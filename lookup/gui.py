@@ -19,6 +19,7 @@ DESKTOP='org.lookup.Linux.desktop'
 _components=None
 
 REASONS={
+    'missing_gnome_extension':('Недоступно расширение LookUp Linux для GNOME','Установите и включите расширение по инструкции docs/UBUNTU.md, затем войдите в сеанс снова.'),
     'placement_failed':('Не удалось разместить окно перевода','Повторите поиск.'),
     'ocr_timeout':('Не удалось распознать текст вовремя','Наведите курсор на слово или выделите текст и повторите поиск.'),
     'ocr_failed':('Не удалось распознать текст','Наведите курсор на слово или выделите текст и повторите поиск.'),
@@ -347,6 +348,10 @@ def components():
             self.cache_warning.setText(CACHE_ERROR if value.cache_error else '')
             self.cache_warning.setVisible(bool(value.cache_error))
         def size_for(self,available):
+            from . import gnome
+            if gnome.active():
+                self.setMinimumHeight(0)
+                self.setMaximumHeight(16777215)
             width=min(440,max(1,available.width()-32) if available.width()>64 else available.width())
             self.setFixedWidth(width)
             self.layout_box.activate()
@@ -358,10 +363,16 @@ def components():
             content_height=self.content_layout.heightForWidth(body_width)
             if content_height<0:
                 content_height=self.content_layout.sizeHint().height()
+            if gnome.active():
+                # Qt 6.4 can retain a stale height-for-width after replacing nested blocks.
+                content_height=max(content_height,self.content_layout.minimumSize().height())
             chrome=self.title.heightForWidth(max(1,body_width-self.close_button.sizeHint().width()-8))
             chrome=max(chrome,self.close_button.sizeHint().height())+self.footer.sizeHint().height()+56
             limit=min(540,max(1,available.height()-32) if available.height()>64 else available.height())
-            self.resize(width,min(limit,max(140,content_height+chrome)))
+            height=min(limit,max(140,content_height+chrome))
+            # Mutter's move configure must not restore the previous card's height.
+            if gnome.active():self.setFixedHeight(height)
+            self.resize(width,height)
         def hide_for_capture(self):
             self._armed=False
             self.timer.stop()
@@ -618,8 +629,9 @@ def components():
                         self.popup.timer.stop()
                         QTimer.singleShot(10,self.ready_when_exposed)
                         return
-                    # Retain the loading buffer until KWin has moved the resized card.
-                    self.popup.setUpdatesEnabled(False)
+                    # Mutter needs a committed buffer to acknowledge a Wayland resize.
+                    from . import gnome
+                    if not gnome.active(self.env):self.popup.setUpdatesEnabled(False)
                 if timing.useful(event.result):
                     self._time('useful_ready',event.id,engine_ms=event.elapsed_ms,**event.result.timings)
                 self.popup.result(event.result,event.context,event.save_error)
@@ -629,7 +641,11 @@ def components():
                 self._time('error',event.id,engine_ms=event.elapsed_ms)
                 self._clear_displayed()
                 self.popup.error(event.error)
-            self.present(event)
+            from . import gnome
+            if event.stage=='ready' and gnome.active(self.env):
+                # Qt 6.4 queues nested text/layout sizes until the next event turn.
+                QTimer.singleShot(0,lambda:self.present(event) if not self._stopping and self.engine.current(event.id) else None)
+            else:self.present(event)
         def ready_when_exposed(self):
             if self._waiting_ready is None:return
             event,deadline=self._waiting_ready
@@ -681,11 +697,15 @@ def components():
                 uuid,error=None,None
                 try:
                     if self.engine.current(identity):
-                        values=platform.run(['kdotool','search','--pid',str(os.getpid()),'--name',TITLE],self.env,limit=4096).decode().split()
-                        uuid=values[0]
-                        for action,args in (('windowmove',target[:2]),('windowraise',()),('windowactivate',())):
-                            if not self.engine.current(identity):break
-                            platform.window_action(self.env,os.getpid(),uuid,action,*args)
+                        from . import gnome
+                        if gnome.active(self.env):
+                            gnome.place(os.getpid(),TITLE,*target[:2])
+                        else:
+                            values=platform.run(['kdotool','search','--pid',str(os.getpid()),'--name',TITLE],self.env,limit=4096).decode().split()
+                            uuid=values[0]
+                            for action,args in (('windowmove',target[:2]),('windowraise',()),('windowactivate',())):
+                                if not self.engine.current(identity):break
+                                platform.window_action(self.env,os.getpid(),uuid,action,*args)
                 except Exception:
                     error='focus_failed'
                 self.bridge.focus_done.emit((identity,revision,uuid,error))

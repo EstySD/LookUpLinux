@@ -159,12 +159,17 @@ class ShortcutTransaction:
 
 def inspect_shortcut(registry=None):
     """Read-only diagnostic seam: never registers entries or changes keys."""
-    return (registry or ShortcutRegistry()).inspect()
+    return (registry or shortcut_registry()).inspect()
+
+
+def shortcut_registry():
+    from . import gnome
+    return gnome.ShortcutRegistry() if gnome.active() else ShortcutRegistry()
 
 
 def ensure_shortcut(registry=None):
     """Restore an empty KDE binding without replacing the user's active keys."""
-    registry=registry or ShortcutRegistry()
+    registry=registry or shortcut_registry()
     if registry.inspect().keys:
         return
     transaction=registry.change(config.load().shortcut)
@@ -215,7 +220,9 @@ def desktop_text(python=None,directory=None,*,installed=False,autostart=False,sh
     if autostart:
         # TryExec is one Desktop Entry string, not a shell command.
         attempt='/usr/bin/lookup' if installed else _entry_value(python or sys.executable)
-        return text+'OnlyShowIn=KDE;\nTryExec='+attempt+'\nStartupNotify=false\n'
+        from . import gnome
+        desktops='GNOME;Unity;' if gnome.active() else 'KDE;'
+        return text+'OnlyShowIn='+desktops+'\nTryExec='+attempt+'\nStartupNotify=false\n'
     return text+'StartupNotify=true\nX-KDE-Shortcuts='+shortcut.replace('\\','\\\\')+'\n'
 
 
@@ -291,5 +298,7 @@ def ensure_entries(*,python=None,directory=None,shortcut=None):
 
 
 def _refresh():
+    from . import gnome
+    if gnome.active():return
     try:platform.run(['kbuildsycoca6'],timeout=3,limit=4096)
     except platform.PlatformError:raise LifecycleError('registration_failed') from None

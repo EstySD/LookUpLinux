@@ -24,6 +24,8 @@ class ReleaseTests(unittest.TestCase):
                 names = archive.getnames()
                 self.assertIn('lookup-linux-0.1.0/LICENSE', names)
                 self.assertIn('lookup-linux-0.1.0/docs/DICTIONARIES.md', names)
+                self.assertIn('lookup-linux-0.1.0/docs/UBUNTU.md', names)
+                self.assertIn('lookup-linux-0.1.0/packaging/gnome/schemas/org.gnome.shell.extensions.lookup-linux.gschema.xml', names)
                 self.assertFalse(any('/.omx/' in n or '/.planning/' in n or '/lookupper/' in n or n.endswith(('.db', '.pyc')) for n in names))
             with tarfile.open(first/'lookup-linux-0.1.0-archlinux-x86_64-build-kit.tar.gz') as archive:
                 recipe = archive.extractfile('lookup-linux-0.1.0-build-kit/PKGBUILD').read()

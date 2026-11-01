@@ -1,0 +1,8 @@
+{
+  "uuid": "lookup-linux@lookup.local",
+  "name": "LookUp Linux",
+  "description": "Cursor, monitor capture, popup placement and shortcut support for LookUp Linux.",
+  "shell-version": ["46"],
+  "version": 1,
+  "settings-schema": "org.gnome.shell.extensions.lookup-linux"
+}

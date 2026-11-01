@@ -1,0 +1,6 @@
+<schemalist>
+  <schema id="org.gnome.shell.extensions.lookup-linux" path="/org/gnome/shell/extensions/lookup-linux/">
+    <key name="shortcut" type="s"><default>'Meta+Shift+D'</default></key>
+    <key name="accelerator" type="s"><default>'&lt;Super&gt;&lt;Shift&gt;d'</default></key>
+  </schema>
+</schemalist>

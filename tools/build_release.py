@@ -55,10 +55,11 @@ def build(output, tag):
                 continue
             if path.is_symlink():
                 raise ValueError('symlink in release input')
-            if path.is_file() and (path.suffix in ('.py', '.sh', '.md', '.txt', '.yml', '.svg', '.png', '.json', '.in', '.desktop', '.public') or path.name == 'lookup'):
+            if path.is_file() and (path.suffix in ('.py', '.sh', '.md', '.txt', '.yml', '.svg', '.png', '.json', '.xml', '.in', '.desktop', '.public') or path.name == 'lookup'):
                 files.append((prefix+'/'+path.relative_to(ROOT).as_posix(), path))
     for name in ('LICENSE', 'COPYING.md', 'README.md', 'CONTRIBUTING.md', 'SECURITY.md', 'CHANGELOG.md', 'PKGBUILD',
-                 'docs/README.ru.md', 'docs/DICTIONARIES.md', 'docs/RELEASING.md', 'docs/RELEASE_NOTES.md'):
+                 'docs/README.ru.md', 'docs/DICTIONARIES.md', 'docs/RELEASING.md', 'docs/RELEASE_NOTES.md',
+                 'docs/UBUNTU.md', 'docs/ubuntu-vm-validation.md'):
         files.append((prefix+'/'+name, ROOT/name))
     archive(output/(prefix+'-source.tar.gz'), files)
     (output/'SHA256SUMS').write_text(''.join(

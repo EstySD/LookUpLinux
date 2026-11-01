@@ -108,22 +108,25 @@ def _dictionary_checks(cfg,roots):
 
 def _tool_checks():
     rows=[]
+    from . import gnome
+    is_gnome=gnome.active()
     try:env=platform.session_env()
     except Exception:env=None
     try:qt=importlib.util.find_spec('PyQt6.QtDBus') is not None
     except (ImportError,ValueError):qt=False
     rows.append(Diagnostic('pyqt6',qt,'Python/QtDBus доступны.' if qt else 'Установите python-pyqt6.'))
-    for command,package in (('kscreen-doctor','libkscreen'),('kbuildsycoca6','kservice')):
+    for command,package in (() if is_gnome else (('kscreen-doctor','libkscreen'),('kbuildsycoca6','kservice'))):
         found=shutil.which(command) is not None
         rows.append(Diagnostic(command,found,command+' найден.' if found else 'Не найден '+command+'. Установите '+package+'.'))
     for command,args,package in (('kdotool',['--version'],'lookup-linux (или kdotool для запуска из исходников)'),
                                  ('wl-paste',['--version'],'wl-clipboard >= 2.3'),
                                  ('tesseract',['--list-langs'],'tesseract и tesseract-data-eng')):
+        if is_gnome and command=='kdotool':continue
         try:
             output=platform.run([command,*args],env=env,timeout=2,limit=65536).decode('utf-8','replace')
             if command=='tesseract':ok='eng' in output.splitlines()
             elif command=='wl-paste':
-                match=re.search(r'\b(\d+)\.(\d+)',output);ok=bool(match and tuple(map(int,match.groups()))>=(2,3))
+                match=re.search(r'\b(\d+)\.(\d+)',output);ok=bool(match and tuple(map(int,match.groups()))>=((2,0) if is_gnome else (2,3)))
             else:
                 match=re.search(r'\bkdotool\s+v?(\d+)\.(\d+)',output)
                 ok=bool(match and tuple(map(int,match.groups()))>=(0,3))
@@ -134,6 +137,15 @@ def _tool_checks():
 
 def _session_checks():
     global _application
+    from . import gnome
+    if gnome.active():
+        try:
+            state=gnome.state()
+            binding=lifecycle.inspect_shortcut()
+            return [Diagnostic('session',bool(state['monitors']),'GNOME Wayland: расширение LookUp Linux доступно; захват не выполнялся.'),
+                    Diagnostic('shortcut',bool(binding.keys),'Хоткей GNOME: '+state['shortcut'])]
+        except Exception:
+            return [Diagnostic('session',False,'Недоступно расширение LookUp Linux для GNOME. Выполните python3 tools/install_ubuntu.py, затем выйдите из сеанса и войдите снова.')]
     before=dict(os.environ)
     try:
         os.environ.update(platform.session_env())
