@@ -27,7 +27,8 @@ class ConcurrentWriterTests(unittest.TestCase):
             for i in range(n)
         ]
 
-        def _reap():
+        # Keep spawn synchronization handles alive until every child is joined.
+        def _reap(_barrier=barrier,_queue=queue):
             for p in procs:
                 if p.is_alive():
                     p.terminate()

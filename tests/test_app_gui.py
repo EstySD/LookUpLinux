@@ -111,6 +111,11 @@ class GuiTests(unittest.TestCase):
         self.monitor=Monitor('public',0,0,1000,800,1)
     def event(self,stage='ready',result=None,**kwargs):
         return app.Event(self.identity,stage,result=result,point=(100,100),monitor=self.monitor,mode='primary',**kwargs)
+    def wait_for_dismissal(self):
+        deadline=time.monotonic()+1
+        while (self.owner.popup.isVisible() or self.owner.engine.current(self.identity)) and time.monotonic()<deadline:
+            self.application.processEvents()
+            QTest.qWait(1)
     def result(self):
         first=Article('First','word','wɜːd',(('noun',('значение','слово')),),'<img src="file:///private"> literal article')
         second=Article('Second','word',None,(), 'Другой словарь')
@@ -292,7 +297,7 @@ class GuiTests(unittest.TestCase):
         self.identity=self.owner.engine.generation
         self.owner.receive(self.event('frozen'))
         self.owner.popup.timer.start(20)
-        QTest.qWait(40)
+        self.wait_for_dismissal()
         self.assertFalse(self.owner.popup.isVisible())
         self.assertFalse(self.owner.engine.current(self.identity))
 
@@ -300,7 +305,7 @@ class GuiTests(unittest.TestCase):
         self.owner.receive(self.event('frozen'))
         QTimer.singleShot(0,lambda:time.sleep(.08))
         self.owner.popup.timer.start(20)
-        QTest.qWait(40)
+        self.wait_for_dismissal()
         self.assertFalse(self.owner.popup.isVisible())
         self.assertFalse(self.owner.engine.current(self.identity))
 

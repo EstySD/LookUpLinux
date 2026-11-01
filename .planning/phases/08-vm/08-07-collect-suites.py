@@ -9,7 +9,7 @@ if args.host:
     assert hashlib.sha256(data).hexdigest()==record['log_sha256']
     record['log']='08-gap-final-host.log';(root/record['log']).write_bytes(data);suites['host']=record
 else:
-    launch=json.loads((root/'08-07-target-launch.json').read_text());directory=Path(launch['home'])/'results'
+    launch=json.loads((root/'08-07-target-launch.json').read_text());directory=launch['home'].rstrip('/')+'/results'
     script='''import base64,json
 from pathlib import Path
 root=Path('''+repr(str(directory))+''');receipt=root/'target-suite.json'

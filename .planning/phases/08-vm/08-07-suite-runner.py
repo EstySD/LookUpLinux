@@ -19,9 +19,9 @@ if args.role=='target':
 command=['python','-m','unittest','discover','-s','tests'];log=args.output/(args.role+'-discovery.log')
 started=time.time_ns();env=dict(os.environ,QT_QPA_PLATFORM='offscreen',PYTHONIOENCODING='utf-8')
 with log.open('wb') as output:child=subprocess.run(command,stdout=output,stderr=subprocess.STDOUT,env=env,timeout=900)
-raw=log.read_bytes();text=raw.decode('utf-8','replace');matches=re.findall(r'^Ran (\d+) tests? in ([0-9.]+)s$',text,re.M)
+raw=log.read_bytes();text=raw.decode('utf-8','replace');matches=re.findall(r'^Ran (\d+) tests? in ([0-9.]+)s\s*$',text,re.M)
 count=int(matches[-1][0]) if len(matches)==1 else None
-skip=re.search(r'^OK \(skipped=(\d+)\)$',text,re.M);skips=int(skip[1]) if skip else 0
+skip=re.search(r'^OK \(skipped=(\d+)\)\s*$',text,re.M);skips=int(skip[1]) if skip else 0
 record=dict(role=args.role,revision=revision,tree=tree,command=command,exit=child.returncode,count=count,skips=skips,log_sha256=hashlib.sha256(raw).hexdigest(),ocr_enabled=os.environ.get('LOOKUP_TEST_OCR')=='1',mueller_verified=mueller_verified,
     started_ns=started,finished_ns=time.time_ns(),log=log.name,uid=os.getuid() if hasattr(os,'getuid') else None,
     python=sys.version,environment={key:os.environ.get(key) for key in ('HOME','XDG_CONFIG_HOME','XDG_DATA_HOME','XDG_CACHE_HOME','XDG_STATE_HOME','XDG_RUNTIME_DIR','LOOKUP_CONFIG','LOOKUP_DB','LOOKUP_CACHE','LOOKUP_DICTS','LOOKUP_TEST_OCR','LOOKUP_TEST_DICTS','QT_QPA_PLATFORM','DBUS_SESSION_BUS_ADDRESS','DBUS_SYSTEM_BUS_ADDRESS')})
