@@ -3,6 +3,7 @@ from copy import deepcopy
 import json
 from pathlib import Path
 import tempfile
+import subprocess
 import unittest
 
 from tools import check_hardening as hardening
@@ -76,6 +77,55 @@ def game(name,relative=False,multiline=False):
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_current_privacy_rejects_detached_source_pass_input_and_classified_contents(self):
+        original=json.loads(Path('.planning/phases/08-vm/08-09-privacy-proof.json').read_text())
+        self.assertTrue(hardening.current_privacy_report(original)['passed'])
+        for change in ('pid','run','request','start','source_time','pass_time','pass_input','classified_hash','typed_exit','typed_hash','stderr'):
+            data=deepcopy(original)
+            if change in ('pid','run','request'):data['source'][change]+=1
+            elif change=='start':data['timing']['process_start']+=1
+            elif change=='source_time':data['source']['capture_start_ns']=1
+            elif change=='pass_time':data['source']['ocr_passes'][1]['start_ns']=1
+            elif change=='pass_input':data['source']['ocr_passes'][1]['input_sha256']='a'*64
+            elif change=='classified_hash':data['after']['classified']['primary']['stdout_sha256']='b'*64
+            elif change=='typed_exit':data['after']['typed']['primary_exit']=0
+            elif change=='typed_hash':data['before']['typed']['primary']=data['after']['typed']['primary']='c'*64
+            else:data['after']['classified']['primary']['stderr']='Nothing is copied\nprivate extra'
+            self.assertFalse(hardening.current_privacy_report(data)['passed'],change)
+
+    def test_suites_anchor_actual_git_code_allowing_only_metadata_after_tested_revision(self):
+        import hashlib
+        raw=b'Ran 12 tests in 1.234s\n\nOK\n';digest=hashlib.sha256(raw).hexdigest()
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            def git(*args):
+                return subprocess.check_output(['git','-C',str(root),*args],stderr=subprocess.DEVNULL,text=True).strip()
+            git('init','-q');(root/'lookup').mkdir();(root/'lookup/app.py').write_text('original=1\n')
+            git('add','lookup/app.py');git('-c','user.name=Test','-c','user.email=test@example.invalid','commit','-qm','source')
+            revision=git('rev-parse','HEAD');tree=git('rev-parse','HEAD^{tree}')
+            suites={name:dict(exit=0,count=12,skips=0,log_sha256=digest,revision=revision,tree=tree,
+                command=['python','-m','unittest','discover','-s','tests']) for name in ('host','target')}
+            suites['target'].update(ocr_enabled=True,mueller_verified=True)
+            self.assertTrue(hardening.closure_suites_report(suites,{digest:raw},repo=root)['passed'])
+            for change in ('revision','tree','dirty','untracked','native'):
+                data=deepcopy(suites)
+                if change in ('revision','tree'):
+                    for row in data.values():row[change]='a'*40
+                elif change=='dirty':(root/'lookup/app.py').write_text('changed=2\n')
+                elif change=='untracked':(root/'lookup/new.py').write_text('new=3\n')
+                else:
+                    path=root/'.planning/phases/08-vm/08-07-controller.py';path.parent.mkdir(parents=True);path.write_text('changed=4\n')
+                self.assertFalse(hardening.closure_suites_report(data,{digest:raw},repo=root)['passed'],change)
+                if change=='dirty':(root/'lookup/app.py').write_text('original=1\n')
+                elif change=='untracked':(root/'lookup/new.py').unlink()
+                elif change=='native':path.unlink()
+            (root/'report.md').write_text('actual metadata\n');git('add','report.md')
+            git('-c','user.name=Test','-c','user.email=test@example.invalid','commit','-qm','metadata')
+            self.assertTrue(hardening.closure_suites_report(suites,{digest:raw},repo=root)['passed'])
+            (root/'lookup/app.py').write_text('new_code=5\n');git('add','lookup/app.py')
+            git('-c','user.name=Test','-c','user.email=test@example.invalid','commit','-qm','code')
+            self.assertFalse(hardening.closure_suites_report(suites,{digest:raw},repo=root)['passed'])
+
     def test_final_review_requires_exact_current_headers_not_old_scoped_prose(self):
         import hashlib
         revision='a'*40
@@ -135,7 +185,7 @@ class EvidenceTests(unittest.TestCase):
         suites={name:dict(exit=0,count=12,skips=0,log_sha256=digest,revision='a'*40,tree='b'*40,
             command=['python','-m','unittest','discover','-s','tests']) for name in ('host','target')}
         suites['target']['ocr_enabled']=True;suites['target']['mueller_verified']=True
-        self.assertTrue(hardening.closure_suites_report(suites,{digest:raw})['passed'])
+        self.assertFalse(hardening.closure_suites_report(suites,{digest:raw})['passed'])
         for change in ('count','revision','tree','exit','ocr','log'):
             data=deepcopy(suites);logs={digest:raw}
             if change=='count':data['host']['count']=13
