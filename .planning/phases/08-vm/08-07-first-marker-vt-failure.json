@@ -1,0 +1,1 @@
+{"before": "tty11\n", "after": "tty1\n", "reason": "First free fixture CtrlAltFn was intercepted as VT switch; no marker executed."}

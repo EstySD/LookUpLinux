@@ -1,0 +1,42 @@
+{
+  "phase": "before",
+  "fixture": {
+    "action": [
+      "lookup-final-probe-07.desktop",
+      "_launch",
+      "Owned final unrelated marker",
+      "Owned final unrelated marker"
+    ],
+    "key": "Meta+Ctrl+Shift+F11",
+    "desktop": "/home/lookup07/.local/share/applications/lookup-final-probe-07.desktop",
+    "desktop_sha256": "d2cb9eadbed2d9e36d44347a9afb3dbd0b6f6aaf41b2300e69319e35a4bc87f3",
+    "marker_sha256": "930112234562b543ed6ed67f994712a5d9e851539dc5946ee95ddf455fc96789"
+  },
+  "input": {
+    "target": "cf207909-94b5-4b49-8bd8-ccff973c1dc8",
+    "codes": "e0 5b 1d 2a 57 d7 aa 9d e0 db",
+    "dispatch_host_wall_ns": 1793512390106478900,
+    "exit": 0
+  },
+  "before": {
+    "at_ns": 420389648129,
+    "rows": []
+  },
+  "after": {
+    "at_ns": 420791492385,
+    "rows": [
+      {
+        "at_ns": 420655529628,
+        "pid": 1395,
+        "uid": 1001,
+        "start": 42061
+      }
+    ]
+  },
+  "marker": {
+    "at_ns": 420655529628,
+    "pid": 1395,
+    "uid": 1001,
+    "start": 42061
+  }
+}

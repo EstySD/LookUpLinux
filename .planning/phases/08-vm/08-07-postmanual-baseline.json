@@ -1,0 +1,85 @@
+{
+  "files": {
+    "/home/lookup07/.config/lookup/config.json": {
+      "sha256": "4ab363d4620fd51d0a80f409cfc5d1ce0e636c69c87033da5d3ec23b9b67d014",
+      "bytes": 471
+    },
+    "/home/lookup07/.local/share/lookup/lookup.db": {
+      "sha256": "698d78287477e482a6bf5a8d3c8de58556735db4af35c9fc041f17b2f97f90c0",
+      "bytes": 49152
+    },
+    "/home/lookup07/.local/share/lookup/lookup.db-wal": {
+      "sha256": "09602382819505f5e21821ca33b6b128eb1dd8603d5826f64beec0be97ec56db",
+      "bytes": 74192
+    },
+    "/home/lookup07/.local/share/lookup/lookup.db-shm": {
+      "sha256": "cb3557c539e6cba03fae213861447e7191e3ab1d5cfcf8a27a7b914e4863bc7a",
+      "bytes": 32768
+    },
+    "/home/lookup07/.local/share/lookup/dicts/public-first/public-first.dict": {
+      "sha256": "5486f1c4d2869ce91517780691f9d82b1b601732936ef5b6350b919466ad8ee1",
+      "bytes": 17
+    },
+    "/home/lookup07/.local/share/lookup/dicts/public-first/public-first.idx": {
+      "sha256": "f3d263601670743d7ab051519a6c7618e91ee8d4b62a8d710a30d9aaf95e9a74",
+      "bytes": 13
+    },
+    "/home/lookup07/.local/share/lookup/dicts/public-first/public-first.ifo": {
+      "sha256": "f9e4929016bf7074efccd01c38ae0af9b9adacf9d2d142f3058a550cab321b6b",
+      "bytes": 107
+    },
+    "/home/lookup07/.local/share/lookup/dicts/public-second/public-second.dict": {
+      "sha256": "4f50e14babe251bfcacedabbb0d1ad78fb30122702fb9acd90057664584e6409",
+      "bytes": 18
+    },
+    "/home/lookup07/.local/share/lookup/dicts/public-second/public-second.idx": {
+      "sha256": "7540f04923a35719b6250fb032f1ac00ea1f880e7fc76e54f56473181b7ff3dc",
+      "bytes": 13
+    },
+    "/home/lookup07/.local/share/lookup/dicts/public-second/public-second.ifo": {
+      "sha256": "f260d8622a9ea32c496aa50a4e75dc226044d9e0361dcfad69c956c0e2c1d6b5",
+      "bytes": 108
+    }
+  },
+  "logical_counts": {
+    "/home/lookup07/.local/share/lookup/lookup.db": {
+      "integrity": "ok",
+      "rows": {
+        "words": 16,
+        "meta": 0,
+        "cards": 1,
+        "translations": 0,
+        "contextual_translations": 0
+      }
+    }
+  },
+  "config": {
+    "online": false,
+    "popup_timeout": 5,
+    "autostart": true,
+    "dictionaries": [
+      {
+        "id": "public-second/public-second.ifo",
+        "enabled": true
+      },
+      {
+        "id": "public-first/public-first.ifo",
+        "enabled": false
+      },
+      {
+        "id": "mueller7/mueller7.ifo",
+        "enabled": true
+      },
+      {
+        "id": "public-missing/public-missing.ifo",
+        "enabled": false
+      }
+    ],
+    "shortcut": "Meta+Shift+E",
+    "public_retention": "retain"
+  },
+  "shortcut_file_sha256": "3948c2a4962da3699f5ae0269d055fd9b1db65e7a487097f915f060fdb508768",
+  "package_present": true,
+  "at_ns": 27677672736,
+  "boot_id": "cb6a0c74-394e-40c1-9a66-ef83cc80e736"
+}

@@ -16,3 +16,13 @@
 08-09-runtime/** -text whitespace=cr-at-eol
 08-09-build/** -text whitespace=cr-at-eol
 08-assaultcube-cascade-report.json -text whitespace=cr-at-eol
+# Final post-manual native evidence and source helpers preserve exact bytes.
+08-07-*.json -text whitespace=cr-at-eol
+08-07-*.jsonl -text whitespace=cr-at-eol
+08-07-*.py -text whitespace=cr-at-eol
+08-07-*.xml -text whitespace=cr-at-eol
+08-07-*.diff -text whitespace=cr-at-eol
+08-07-*.log -text whitespace=cr-at-eol
+08-07-*.txt -text whitespace=cr-at-eol
+08-gap-final-*.json -text whitespace=cr-at-eol
+08-gap-final-*.log -text whitespace=cr-at-eol

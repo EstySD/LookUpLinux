@@ -1,0 +1,8 @@
+--- before
++++ after
+@@ -302,4 +302,4 @@
+ _launch=Meta+Ctrl+Shift+F11
+ 
+ [services][org.lookup.Linux.desktop]
+-_launch=Meta+Shift+E
++_launch=none

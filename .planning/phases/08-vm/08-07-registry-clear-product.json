@@ -1,0 +1,5889 @@
+{
+  "before": {
+    "at_ns": 421294035640,
+    "components": [
+      [
+        "kwin",
+        "KWin",
+        "",
+        ""
+      ],
+      [
+        "mediacontrol",
+        "Media Controller",
+        "",
+        ""
+      ],
+      [
+        "kmix",
+        "Audio Volume",
+        "",
+        ""
+      ],
+      [
+        "KDE Keyboard Layout Switcher",
+        "Keyboard Layout Switcher",
+        "",
+        ""
+      ],
+      [
+        "org_kde_powerdevil",
+        "Power Management",
+        "",
+        ""
+      ],
+      [
+        "ksmserver",
+        "Session Management",
+        "",
+        ""
+      ],
+      [
+        "plasmashell",
+        "plasmashell",
+        "",
+        ""
+      ],
+      [
+        "ActivityManager",
+        "Activity Manager",
+        "",
+        ""
+      ],
+      [
+        "org.lookup.Linux.desktop",
+        "LookUp Linux",
+        "",
+        ""
+      ],
+      [
+        "org.kde.krunner.desktop",
+        "KRunner",
+        "",
+        ""
+      ],
+      [
+        "systemsettings.desktop",
+        "System Settings",
+        "",
+        ""
+      ],
+      [
+        "org.kde.kscreen.desktop",
+        "Display Configuration",
+        "",
+        ""
+      ],
+      [
+        "org.kde.plasma.emojier.desktop",
+        "Emoji Selector",
+        "",
+        ""
+      ],
+      [
+        "org.kde.screenreader.desktop",
+        "Accessibility",
+        "",
+        ""
+      ],
+      [
+        "org.kde.touchpadshortcuts.desktop",
+        "Touchpad",
+        "",
+        ""
+      ],
+      [
+        "org.kde.plasma-systemmonitor.desktop",
+        "System Monitor",
+        "",
+        ""
+      ],
+      [
+        "org.kde.spectacle.desktop",
+        "Spectacle",
+        "",
+        ""
+      ],
+      [
+        "org.kde.konsole.desktop",
+        "Konsole",
+        "",
+        ""
+      ],
+      [
+        "org.kde.dolphin.desktop",
+        "Dolphin",
+        "",
+        ""
+      ],
+      [
+        "lookup-gsd-unrelated.desktop",
+        "Public unrelated key",
+        "",
+        ""
+      ],
+      [
+        "lookup-final-probe-07.desktop",
+        "Owned final unrelated marker",
+        "",
+        ""
+      ]
+    ],
+    "bindings": [
+      {
+        "action": [
+          "ActivityManager",
+          "switch-to-activity-d3ff151d-fc21-4f02-ab71-65e8ac09a4a5",
+          "Activity Manager",
+          "Switch to activity \"Default\""
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "KDE Keyboard Layout Switcher",
+          "Switch to Last-Used Keyboard Layout",
+          "Keyboard Layout Switcher",
+          ""
+        ],
+        "keys": [
+          402653260
+        ]
+      },
+      {
+        "action": [
+          "KDE Keyboard Layout Switcher",
+          "Switch to Next Keyboard Layout",
+          "Keyboard Layout Switcher",
+          ""
+        ],
+        "keys": [
+          402653259
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "decrease_microphone_volume",
+          "Audio Volume",
+          "Decrease Microphone Volume"
+        ],
+        "keys": [
+          16777502
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "decrease_volume",
+          "Audio Volume",
+          "Decrease Volume"
+        ],
+        "keys": [
+          16777328
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "decrease_volume_small",
+          "Audio Volume",
+          "Decrease Volume by 1%"
+        ],
+        "keys": [
+          50331760
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "increase_microphone_volume",
+          "Audio Volume",
+          "Increase Microphone Volume"
+        ],
+        "keys": [
+          16777501
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "increase_volume",
+          "Audio Volume",
+          "Increase Volume"
+        ],
+        "keys": [
+          16777330
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "increase_volume_small",
+          "Audio Volume",
+          "Increase Volume by 1%"
+        ],
+        "keys": [
+          50331762
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "mic_mute",
+          "Audio Volume",
+          "Mute Microphone"
+        ],
+        "keys": [
+          16777491,
+          285212785
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "mute",
+          "Audio Volume",
+          "Mute"
+        ],
+        "keys": [
+          16777329
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "push_to_talk",
+          "Audio Volume",
+          "Push to talk"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "ksmserver",
+          "Halt Without Confirmation",
+          "Session Management",
+          "Shut Down Without Confirmation"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "ksmserver",
+          "Lock Session",
+          "Session Management",
+          "Lock Session"
+        ],
+        "keys": [
+          16777402,
+          268435532
+        ]
+      },
+      {
+        "action": [
+          "ksmserver",
+          "Log Out",
+          "Session Management",
+          "Show Logout Screen"
+        ],
+        "keys": [
+          218103815
+        ]
+      },
+      {
+        "action": [
+          "ksmserver",
+          "Log Out Without Confirmation",
+          "Session Management",
+          "Log Out Without Confirmation"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "ksmserver",
+          "LogOut",
+          "Session Management",
+          "Log Out"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "ksmserver",
+          "Reboot",
+          "Session Management",
+          "Reboot"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "ksmserver",
+          "Reboot Without Confirmation",
+          "Session Management",
+          "Reboot Without Confirmation"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "ksmserver",
+          "Shut Down",
+          "Session Management",
+          "Shut Down"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Activate Window Demanding Attention",
+          "KWin",
+          "Activate Window Demanding Attention"
+        ],
+        "keys": [
+          335544385
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Cycle Overview",
+          "KWin",
+          "Cycle through Overview and Grid View"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Cycle Overview Opposite",
+          "KWin",
+          "Cycle through Grid View and Overview"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Decrease Opacity",
+          "KWin",
+          "Decrease Opacity of Active Window by 5%"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Edit Tiles",
+          "KWin",
+          "Toggle Tiles Editor"
+        ],
+        "keys": [
+          268435540
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Expose",
+          "KWin",
+          "Toggle Present Windows (Current desktop)"
+        ],
+        "keys": [
+          285212728,
+          83886136
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "ExposeAll",
+          "KWin",
+          "Toggle Present Windows (All desktops)"
+        ],
+        "keys": [
+          83886137,
+          16777390,
+          285212729
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "ExposeClass",
+          "KWin",
+          "Toggle Present Windows (Window class)"
+        ],
+        "keys": [
+          285212726,
+          83886134
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "ExposeClassCurrentDesktop",
+          "KWin",
+          "Toggle Present Windows (Window class on current desktop)"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Grid View",
+          "KWin",
+          "Toggle Grid View"
+        ],
+        "keys": [
+          268435527
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Increase Opacity",
+          "KWin",
+          "Increase Opacity of Active Window by 5%"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Kill Window",
+          "KWin",
+          "Kill Window"
+        ],
+        "keys": [
+          352321536
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Move Tablet to Next LogicalOutput",
+          "KWin",
+          "Move the tablet to the next output"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "MoveMouseToCenter",
+          "KWin",
+          "Center Pointer in Screen"
+        ],
+        "keys": [
+          285212725
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "MoveMouseToFocus",
+          "KWin",
+          "Center Pointer in Focused Window"
+        ],
+        "keys": [
+          285212724
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "MoveZoomDown",
+          "KWin",
+          "Move Zoomed Area Downwards"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "MoveZoomLeft",
+          "KWin",
+          "Move Zoomed Area to Left"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "MoveZoomRight",
+          "KWin",
+          "Move Zoomed Area to Right"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "MoveZoomUp",
+          "KWin",
+          "Move Zoomed Area Upwards"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Overview",
+          "KWin",
+          "Toggle Overview"
+        ],
+        "keys": [
+          268435543
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Setup Window Shortcut",
+          "KWin",
+          "Setup Window Shortcut"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Show Desktop",
+          "KWin",
+          "Peek at Desktop"
+        ],
+        "keys": [
+          268435524
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch One Desktop Down",
+          "KWin",
+          "Switch One Desktop Down"
+        ],
+        "keys": [
+          352321557
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch One Desktop Up",
+          "KWin",
+          "Switch One Desktop Up"
+        ],
+        "keys": [
+          352321555
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch One Desktop to the Left",
+          "KWin",
+          "Switch One Desktop to the Left"
+        ],
+        "keys": [
+          352321554
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch One Desktop to the Right",
+          "KWin",
+          "Switch One Desktop to the Right"
+        ],
+        "keys": [
+          352321556
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch Window Down",
+          "KWin",
+          "Switch to Window Below"
+        ],
+        "keys": [
+          419430421
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch Window Left",
+          "KWin",
+          "Switch to Window to the Left"
+        ],
+        "keys": [
+          419430418
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch Window Right",
+          "KWin",
+          "Switch to Window to the Right"
+        ],
+        "keys": [
+          419430420
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch Window Up",
+          "KWin",
+          "Switch to Window Above"
+        ],
+        "keys": [
+          419430419
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 1",
+          "KWin",
+          "Switch to Desktop 1"
+        ],
+        "keys": [
+          285212720,
+          83886128
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 10",
+          "KWin",
+          "Switch to Desktop 10"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 11",
+          "KWin",
+          "Switch to Desktop 11"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 12",
+          "KWin",
+          "Switch to Desktop 12"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 13",
+          "KWin",
+          "Switch to Desktop 13"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 14",
+          "KWin",
+          "Switch to Desktop 14"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 15",
+          "KWin",
+          "Switch to Desktop 15"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 16",
+          "KWin",
+          "Switch to Desktop 16"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 17",
+          "KWin",
+          "Switch to Desktop 17"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 18",
+          "KWin",
+          "Switch to Desktop 18"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 19",
+          "KWin",
+          "Switch to Desktop 19"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 2",
+          "KWin",
+          "Switch to Desktop 2"
+        ],
+        "keys": [
+          285212721,
+          83886129
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 20",
+          "KWin",
+          "Switch to Desktop 20"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 21",
+          "KWin",
+          "Switch to Desktop 21"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 22",
+          "KWin",
+          "Switch to Desktop 22"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 23",
+          "KWin",
+          "Switch to Desktop 23"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 24",
+          "KWin",
+          "Switch to Desktop 24"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 25",
+          "KWin",
+          "Switch to Desktop 25"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 3",
+          "KWin",
+          "Switch to Desktop 3"
+        ],
+        "keys": [
+          83886130,
+          285212722
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 4",
+          "KWin",
+          "Switch to Desktop 4"
+        ],
+        "keys": [
+          83886131,
+          285212723
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 5",
+          "KWin",
+          "Switch to Desktop 5"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 6",
+          "KWin",
+          "Switch to Desktop 6"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 7",
+          "KWin",
+          "Switch to Desktop 7"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 8",
+          "KWin",
+          "Switch to Desktop 8"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 9",
+          "KWin",
+          "Switch to Desktop 9"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Next Desktop",
+          "KWin",
+          "Switch to Next Desktop"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Next Screen",
+          "KWin",
+          "Switch to Next Screen"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Previous Desktop",
+          "KWin",
+          "Switch to Previous Desktop"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Previous Screen",
+          "KWin",
+          "Switch to Previous Screen"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen 0",
+          "KWin",
+          "Switch to Screen 0"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen 1",
+          "KWin",
+          "Switch to Screen 1"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen 2",
+          "KWin",
+          "Switch to Screen 2"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen 3",
+          "KWin",
+          "Switch to Screen 3"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen 4",
+          "KWin",
+          "Switch to Screen 4"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen 5",
+          "KWin",
+          "Switch to Screen 5"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen 6",
+          "KWin",
+          "Switch to Screen 6"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen 7",
+          "KWin",
+          "Switch to Screen 7"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen Above",
+          "KWin",
+          "Switch to Screen Above"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen Below",
+          "KWin",
+          "Switch to Screen Below"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen to the Left",
+          "KWin",
+          "Switch to Screen to the Left"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen to the Right",
+          "KWin",
+          "Switch to Screen to the Right"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Toggle Night Color",
+          "KWin",
+          "Suspend/Resume Night Light"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Toggle Show Compositing",
+          "KWin",
+          "Toggle \u201cShow Compositing\u201d effect"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Toggle Window Raise/Lower",
+          "KWin",
+          "Toggle Window Raise/Lower"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Walk Through Windows",
+          "KWin",
+          "Walk Through Windows"
+        ],
+        "keys": [
+          150994945,
+          285212673
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Walk Through Windows (Reverse)",
+          "KWin",
+          "Walk Through Windows (Reverse)"
+        ],
+        "keys": [
+          184549377,
+          318767105
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Walk Through Windows Alternative",
+          "KWin",
+          "Walk Through Windows Alternative"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Walk Through Windows Alternative (Reverse)",
+          "KWin",
+          "Walk Through Windows Alternative (Reverse)"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Walk Through Windows of Current Application",
+          "KWin",
+          "Walk Through Windows of Current Application"
+        ],
+        "keys": [
+          134217824,
+          268435552
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Walk Through Windows of Current Application (Reverse)",
+          "KWin",
+          "Walk Through Windows of Current Application (Reverse)"
+        ],
+        "keys": [
+          268435582,
+          134217854
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Walk Through Windows of Current Application Alternative",
+          "KWin",
+          "Walk Through Windows of Current Application Alternative"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Walk Through Windows of Current Application Alternative (Reverse)",
+          "KWin",
+          "Walk Through Windows of Current Application Alternative (Reverse)"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Above Other Windows",
+          "KWin",
+          "Keep Window Above Others"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Below Other Windows",
+          "KWin",
+          "Keep Window Below Others"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Close",
+          "KWin",
+          "Close Window"
+        ],
+        "keys": [
+          150994995
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Custom Quick Tile Bottom",
+          "KWin",
+          "Custom Quick Tile Window to the Bottom"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Custom Quick Tile Left",
+          "KWin",
+          "Custom Quick Tile Window to the Left"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Custom Quick Tile Right",
+          "KWin",
+          "Custom Quick Tile Window to the Right"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Custom Quick Tile Top",
+          "KWin",
+          "Custom Quick Tile Window to the Top"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Fullscreen",
+          "KWin",
+          "Make Window Fullscreen"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Grow Horizontal",
+          "KWin",
+          "Expand Window Horizontally"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Grow Vertical",
+          "KWin",
+          "Expand Window Vertically"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Lower",
+          "KWin",
+          "Lower Window"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Maximize",
+          "KWin",
+          "Maximize Window"
+        ],
+        "keys": [
+          285212694
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Maximize Horizontal",
+          "KWin",
+          "Maximize Window Horizontally"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Maximize Vertical",
+          "KWin",
+          "Maximize Window Vertically"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Minimize",
+          "KWin",
+          "Minimize Window"
+        ],
+        "keys": [
+          285212695
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Move",
+          "KWin",
+          "Move Window"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Move Center",
+          "KWin",
+          "Move Window to the Center"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window No Border",
+          "KWin",
+          "Toggle Window Titlebar and Frame"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window On All Desktops",
+          "KWin",
+          "Keep Window on All Desktops"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window One Desktop Down",
+          "KWin",
+          "Window One Desktop Down"
+        ],
+        "keys": [
+          385875989
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window One Desktop Up",
+          "KWin",
+          "Window One Desktop Up"
+        ],
+        "keys": [
+          385875987
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window One Desktop to the Left",
+          "KWin",
+          "Window One Desktop to the Left"
+        ],
+        "keys": [
+          385875986
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window One Desktop to the Right",
+          "KWin",
+          "Window One Desktop to the Right"
+        ],
+        "keys": [
+          385875988
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window One Screen Down",
+          "KWin",
+          "Move Window One Screen Down"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window One Screen Up",
+          "KWin",
+          "Move Window One Screen Up"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window One Screen to the Left",
+          "KWin",
+          "Move Window One Screen to the Left"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window One Screen to the Right",
+          "KWin",
+          "Move Window One Screen to the Right"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Operations Menu",
+          "KWin",
+          "Window Menu"
+        ],
+        "keys": [
+          150994994
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Pack Down",
+          "KWin",
+          "Move Window Down"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Pack Left",
+          "KWin",
+          "Move Window Left"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Pack Right",
+          "KWin",
+          "Move Window Right"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Pack Up",
+          "KWin",
+          "Move Window Up"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Quick Tile Bottom",
+          "KWin",
+          "Quick Tile Window to the Bottom"
+        ],
+        "keys": [
+          285212693
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Quick Tile Bottom Left",
+          "KWin",
+          "Quick Tile Window to the Bottom Left"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Quick Tile Bottom Right",
+          "KWin",
+          "Quick Tile Window to the Bottom Right"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Quick Tile Left",
+          "KWin",
+          "Quick Tile Window to the Left"
+        ],
+        "keys": [
+          285212690
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Quick Tile Right",
+          "KWin",
+          "Quick Tile Window to the Right"
+        ],
+        "keys": [
+          285212692
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Quick Tile Top",
+          "KWin",
+          "Quick Tile Window to the Top"
+        ],
+        "keys": [
+          285212691
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Quick Tile Top Left",
+          "KWin",
+          "Quick Tile Window to the Top Left"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Quick Tile Top Right",
+          "KWin",
+          "Quick Tile Window to the Top Right"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Raise",
+          "KWin",
+          "Raise Window"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Resize",
+          "KWin",
+          "Resize Window"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Restore",
+          "KWin",
+          "Restore Window"
+        ],
+        "keys": [
+          285212675
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Shrink Horizontal",
+          "KWin",
+          "Shrink Window Horizontally"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Shrink Vertical",
+          "KWin",
+          "Shrink Window Vertically"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 1",
+          "KWin",
+          "Window to Desktop 1"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 10",
+          "KWin",
+          "Window to Desktop 10"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 11",
+          "KWin",
+          "Window to Desktop 11"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 12",
+          "KWin",
+          "Window to Desktop 12"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 13",
+          "KWin",
+          "Window to Desktop 13"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 14",
+          "KWin",
+          "Window to Desktop 14"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 15",
+          "KWin",
+          "Window to Desktop 15"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 16",
+          "KWin",
+          "Window to Desktop 16"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 17",
+          "KWin",
+          "Window to Desktop 17"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 18",
+          "KWin",
+          "Window to Desktop 18"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 19",
+          "KWin",
+          "Window to Desktop 19"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 2",
+          "KWin",
+          "Window to Desktop 2"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 20",
+          "KWin",
+          "Window to Desktop 20"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 21",
+          "KWin",
+          "Window to Desktop 21"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 22",
+          "KWin",
+          "Window to Desktop 22"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 23",
+          "KWin",
+          "Window to Desktop 23"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 24",
+          "KWin",
+          "Window to Desktop 24"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 25",
+          "KWin",
+          "Window to Desktop 25"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 3",
+          "KWin",
+          "Window to Desktop 3"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 4",
+          "KWin",
+          "Window to Desktop 4"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 5",
+          "KWin",
+          "Window to Desktop 5"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 6",
+          "KWin",
+          "Window to Desktop 6"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 7",
+          "KWin",
+          "Window to Desktop 7"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 8",
+          "KWin",
+          "Window to Desktop 8"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 9",
+          "KWin",
+          "Window to Desktop 9"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Next Desktop",
+          "KWin",
+          "Window to Next Desktop"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Next Screen",
+          "KWin",
+          "Move Window to Next Screen"
+        ],
+        "keys": [
+          318767124
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Previous Desktop",
+          "KWin",
+          "Window to Previous Desktop"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Previous Screen",
+          "KWin",
+          "Move Window to Previous Screen"
+        ],
+        "keys": [
+          318767122
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Screen 0",
+          "KWin",
+          "Move Window to Screen 0"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Screen 1",
+          "KWin",
+          "Move Window to Screen 1"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Screen 2",
+          "KWin",
+          "Move Window to Screen 2"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Screen 3",
+          "KWin",
+          "Move Window to Screen 3"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Screen 4",
+          "KWin",
+          "Move Window to Screen 4"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Screen 5",
+          "KWin",
+          "Move Window to Screen 5"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Screen 6",
+          "KWin",
+          "Move Window to Screen 6"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Screen 7",
+          "KWin",
+          "Move Window to Screen 7"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "disableInputCapture",
+          "KWin",
+          "Disable Active Input Capture"
+        ],
+        "keys": [
+          318767104
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "view_actual_size",
+          "KWin",
+          "Zoom to Actual Size"
+        ],
+        "keys": [
+          268435504
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "view_zoom_in",
+          "KWin",
+          "Zoom In"
+        ],
+        "keys": [
+          268435499,
+          268435517
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "view_zoom_out",
+          "KWin",
+          "Zoom Out"
+        ],
+        "keys": [
+          268435501
+        ]
+      },
+      {
+        "action": [
+          "lookup-final-probe-07.desktop",
+          "_launch",
+          "Owned final unrelated marker",
+          "Owned final unrelated marker"
+        ],
+        "keys": [
+          385876026
+        ]
+      },
+      {
+        "action": [
+          "lookup-gsd-unrelated.desktop",
+          "_launch",
+          "Public unrelated key",
+          "Public unrelated key"
+        ],
+        "keys": [
+          301989973
+        ]
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "mediavolumedown",
+          "Media Controller",
+          "Media volume down"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "mediavolumeup",
+          "Media Controller",
+          "Media volume up"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "nextmedia",
+          "Media Controller",
+          "Media playback next"
+        ],
+        "keys": [
+          16777347
+        ]
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "pausemedia",
+          "Media Controller",
+          "Pause media playback"
+        ],
+        "keys": [
+          16777349
+        ]
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "playmedia",
+          "Media Controller",
+          "Play media playback"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "playpausemedia",
+          "Media Controller",
+          "Play/Pause media playback"
+        ],
+        "keys": [
+          16777344
+        ]
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "previousmedia",
+          "Media Controller",
+          "Media playback previous"
+        ],
+        "keys": [
+          16777346
+        ]
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "seekbackwardmedia",
+          "Media Controller",
+          "Media playback seek backward 5s"
+        ],
+        "keys": [
+          16777413
+        ]
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "seekbackwardmedialong",
+          "Media Controller",
+          "Media playback seek backward 30s"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "seekforwardmedia",
+          "Media Controller",
+          "Media playback seek forward 5s"
+        ],
+        "keys": [
+          16777474
+        ]
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "seekforwardmedialong",
+          "Media Controller",
+          "Media playback seek forward 30s"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "stopmedia",
+          "Media Controller",
+          "Stop media playback"
+        ],
+        "keys": [
+          16777345
+        ]
+      },
+      {
+        "action": [
+          "org.kde.dolphin.desktop",
+          "_launch",
+          "Dolphin",
+          "Dolphin"
+        ],
+        "keys": [
+          268435525
+        ]
+      },
+      {
+        "action": [
+          "org.kde.konsole.desktop",
+          "NewTab",
+          "Konsole",
+          "Open New Tab"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org.kde.konsole.desktop",
+          "NewWindow",
+          "Konsole",
+          "Open New Window"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org.kde.konsole.desktop",
+          "_launch",
+          "Konsole",
+          "Konsole"
+        ],
+        "keys": [
+          201326676
+        ]
+      },
+      {
+        "action": [
+          "org.kde.krunner.desktop",
+          "RunClipboard",
+          "KRunner",
+          "Run command on clipboard contents"
+        ],
+        "keys": [
+          184549425
+        ]
+      },
+      {
+        "action": [
+          "org.kde.krunner.desktop",
+          "_launch",
+          "KRunner",
+          "KRunner"
+        ],
+        "keys": [
+          16777362,
+          134217760,
+          150994993
+        ]
+      },
+      {
+        "action": [
+          "org.kde.kscreen.desktop",
+          "ShowOSD",
+          "Display Configuration",
+          "Switch Display"
+        ],
+        "keys": [
+          268435536,
+          16777425
+        ]
+      },
+      {
+        "action": [
+          "org.kde.plasma-systemmonitor.desktop",
+          "_launch",
+          "System Monitor",
+          "System Monitor"
+        ],
+        "keys": [
+          285212672
+        ]
+      },
+      {
+        "action": [
+          "org.kde.plasma-systemmonitor.desktop",
+          "applications",
+          "System Monitor",
+          "Open Applications Page"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org.kde.plasma-systemmonitor.desktop",
+          "history",
+          "System Monitor",
+          "Open History Page"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org.kde.plasma-systemmonitor.desktop",
+          "overview",
+          "System Monitor",
+          "Open Overview Page"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org.kde.plasma-systemmonitor.desktop",
+          "processes",
+          "System Monitor",
+          "Open Processes Page"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org.kde.plasma.emojier.desktop",
+          "_launch",
+          "Emoji Selector",
+          "Emoji Selector"
+        ],
+        "keys": [
+          268435502,
+          503316512
+        ]
+      },
+      {
+        "action": [
+          "org.kde.screenreader.desktop",
+          "toggleScreenReader",
+          "Accessibility",
+          "Toggle Screen Reader On and Off"
+        ],
+        "keys": [
+          402653267
+        ]
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "ActiveWindowScreenShot",
+          "Spectacle",
+          "Capture Active Window"
+        ],
+        "keys": [
+          285212681
+        ]
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "CurrentMonitorScreenShot",
+          "Spectacle",
+          "Capture Current Monitor"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "FullScreenScreenShot",
+          "Spectacle",
+          "Capture Entire Desktop"
+        ],
+        "keys": [
+          50331657
+        ]
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "OpenWithoutScreenshot",
+          "Spectacle",
+          "Launch without taking a screenshot"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "RecordRegion",
+          "Spectacle",
+          "Start/Stop Region Recording"
+        ],
+        "keys": [
+          268435538,
+          301989970
+        ]
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "RecordScreen",
+          "Spectacle",
+          "Start/Stop Screen Recording"
+        ],
+        "keys": [
+          402653266
+        ]
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "RecordWindow",
+          "Spectacle",
+          "Start/Stop Window Recording"
+        ],
+        "keys": [
+          335544402
+        ]
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "RectangularRegionScreenShot",
+          "Spectacle",
+          "Capture Rectangular Region"
+        ],
+        "keys": [
+          318767113
+        ]
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "WindowUnderCursorScreenShot",
+          "Spectacle",
+          "Capture Window Under Cursor"
+        ],
+        "keys": [
+          352321545
+        ]
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "_launch",
+          "Spectacle",
+          "Spectacle"
+        ],
+        "keys": [
+          301989971,
+          16777225
+        ]
+      },
+      {
+        "action": [
+          "org.kde.touchpadshortcuts.desktop",
+          "DisableTouchpad",
+          "Touchpad",
+          "Disable Touchpad"
+        ],
+        "keys": [
+          16777490
+        ]
+      },
+      {
+        "action": [
+          "org.kde.touchpadshortcuts.desktop",
+          "EnableTouchpad",
+          "Touchpad",
+          "Enable Touchpad"
+        ],
+        "keys": [
+          16777489
+        ]
+      },
+      {
+        "action": [
+          "org.kde.touchpadshortcuts.desktop",
+          "ToggleTouchpad",
+          "Touchpad",
+          "Toggle Touchpad"
+        ],
+        "keys": [
+          16777488,
+          352321808,
+          352325930
+        ]
+      },
+      {
+        "action": [
+          "org.lookup.Linux.desktop",
+          "_launch",
+          "LookUp Linux",
+          "LookUp Linux"
+        ],
+        "keys": [
+          301989957
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Decrease Keyboard Brightness",
+          "Power Management",
+          "Decrease Keyboard Brightness"
+        ],
+        "keys": [
+          16777398
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Decrease Screen Brightness",
+          "Power Management",
+          "Decrease Screen Brightness"
+        ],
+        "keys": [
+          16777395
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Decrease Screen Brightness Small",
+          "Power Management",
+          "Decrease Screen Brightness by 1%"
+        ],
+        "keys": [
+          50331827
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Hibernate",
+          "Power Management",
+          "Hibernate"
+        ],
+        "keys": [
+          16777480
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Increase Keyboard Brightness",
+          "Power Management",
+          "Increase Keyboard Brightness"
+        ],
+        "keys": [
+          16777397
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Increase Screen Brightness",
+          "Power Management",
+          "Increase Screen Brightness"
+        ],
+        "keys": [
+          16777394
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Increase Screen Brightness Small",
+          "Power Management",
+          "Increase Screen Brightness by 1%"
+        ],
+        "keys": [
+          50331826
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "PowerDown",
+          "Power Management",
+          "Power Down"
+        ],
+        "keys": [
+          16777483
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "PowerOff",
+          "Power Management",
+          "Power Off"
+        ],
+        "keys": [
+          16777399
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Sleep",
+          "Power Management",
+          "Suspend"
+        ],
+        "keys": [
+          16908292
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Toggle Keyboard Backlight",
+          "Power Management",
+          "Toggle Keyboard Backlight"
+        ],
+        "keys": [
+          16777396
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Turn Off Screen",
+          "Power Management",
+          "Turn Off Screen"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "powerProfile",
+          "Power Management",
+          "Switch Power Profile"
+        ],
+        "keys": [
+          16777470,
+          268435522
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "Slideshow Wallpaper Next Image",
+          "plasmashell",
+          "Next Wallpaper Image"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate application launcher",
+          "plasmashell",
+          "Activate Application Launcher"
+        ],
+        "keys": [
+          16777250,
+          150994992
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate next task manager entry",
+          "plasmashell",
+          "Activate Next Task Manager Entry"
+        ],
+        "keys": [
+          352321559
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate previous task manager entry",
+          "plasmashell",
+          "Activate Previous Task Manager Entry"
+        ],
+        "keys": [
+          352321558
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 1",
+          "plasmashell",
+          "Activate Task Manager Entry 1"
+        ],
+        "keys": [
+          268435505
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 10",
+          "plasmashell",
+          "Activate Task Manager Entry 10"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 2",
+          "plasmashell",
+          "Activate Task Manager Entry 2"
+        ],
+        "keys": [
+          268435506
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 3",
+          "plasmashell",
+          "Activate Task Manager Entry 3"
+        ],
+        "keys": [
+          268435507
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 4",
+          "plasmashell",
+          "Activate Task Manager Entry 4"
+        ],
+        "keys": [
+          268435508
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 5",
+          "plasmashell",
+          "Activate Task Manager Entry 5"
+        ],
+        "keys": [
+          268435509
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 6",
+          "plasmashell",
+          "Activate Task Manager Entry 6"
+        ],
+        "keys": [
+          268435510
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 7",
+          "plasmashell",
+          "Activate Task Manager Entry 7"
+        ],
+        "keys": [
+          268435511
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 8",
+          "plasmashell",
+          "Activate Task Manager Entry 8"
+        ],
+        "keys": [
+          268435512
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 9",
+          "plasmashell",
+          "Activate Task Manager Entry 9"
+        ],
+        "keys": [
+          268435513
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "clear history",
+          "plasmashell",
+          "Clear Notification History"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "clear-history",
+          "plasmashell",
+          "Clear Clipboard History"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "clipboard_action",
+          "plasmashell",
+          "Toggle Automatic Popping Up of Action Menu"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "cycle-panels",
+          "plasmashell",
+          "Move keyboard focus between panels"
+        ],
+        "keys": [
+          402653264
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "cycleNextAction",
+          "plasmashell",
+          "Next History Item"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "cyclePrevAction",
+          "plasmashell",
+          "Previous History Item"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "edit_clipboard",
+          "plasmashell",
+          "Edit Contents\u2026"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "manage activities",
+          "plasmashell",
+          "Show Activity Switcher"
+        ],
+        "keys": [
+          268435537
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "move active task to left",
+          "plasmashell",
+          "Move Active Task Manager Entry Backward"
+        ],
+        "keys": [
+          385875990
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "move active task to right",
+          "plasmashell",
+          "Move Active Task Manager Entry Forward"
+        ],
+        "keys": [
+          385875991
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "next activity",
+          "plasmashell",
+          "Walk through activities"
+        ],
+        "keys": [
+          268435521
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "previous activity",
+          "plasmashell",
+          "Walk through activities (Reverse)"
+        ],
+        "keys": [
+          301989953
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "repeat_action",
+          "plasmashell",
+          "Manually Invoke Action on Current Clipboard"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "show dashboard",
+          "plasmashell",
+          "Show Desktop"
+        ],
+        "keys": [
+          83886139
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "show-barcode",
+          "plasmashell",
+          "Show Barcode\u2026"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "show-on-mouse-pos",
+          "plasmashell",
+          "Show Clipboard Items at Mouse Position"
+        ],
+        "keys": [
+          268435542
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "switch to next activity",
+          "plasmashell",
+          "Switch to Next Activity"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "switch to previous activity",
+          "plasmashell",
+          "Switch to Previous Activity"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "toggle do not disturb",
+          "plasmashell",
+          "Toggle do not disturb"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "systemsettings.desktop",
+          "_launch",
+          "System Settings",
+          "System Settings"
+        ],
+        "keys": [
+          16777457,
+          268435529
+        ]
+      },
+      {
+        "action": [
+          "systemsettings.desktop",
+          "kcm-kscreen",
+          "System Settings",
+          "Display Configuration"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "systemsettings.desktop",
+          "kcm-lookandfeel",
+          "System Settings",
+          "Global Theme"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "systemsettings.desktop",
+          "kcm-powerdevilprofilesconfig",
+          "System Settings",
+          "Power Management"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "systemsettings.desktop",
+          "kcm-screenlocker",
+          "System Settings",
+          "Screen Locking"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "systemsettings.desktop",
+          "kcm-users",
+          "System Settings",
+          "Users"
+        ],
+        "keys": []
+      }
+    ],
+    "kconfig_base64": "W0FjdGl2aXR5TWFuYWdlcl0KX2tfZnJpZW5kbHlfbmFtZT1BY3Rpdml0eSBNYW5hZ2VyCnN3aXRjaC10by1hY3Rpdml0eS1kM2ZmMTUxZC1mYzIxLTRmMDItYWI3MS02NWU4YWMwOWE0YTU9bm9uZSxub25lLFN3aXRjaCB0byBhY3Rpdml0eSAiRGVmYXVsdCIKCltLREUgS2V5Ym9hcmQgTGF5b3V0IFN3aXRjaGVyXQpTd2l0Y2ggdG8gTGFzdC1Vc2VkIEtleWJvYXJkIExheW91dD1NZXRhK0FsdCtMLE1ldGErQWx0K0wsClN3aXRjaCB0byBOZXh0IEtleWJvYXJkIExheW91dD1NZXRhK0FsdCtLLE1ldGErQWx0K0ssCl9rX2ZyaWVuZGx5X25hbWU9S2V5Ym9hcmQgTGF5b3V0IFN3aXRjaGVyCgpba21peF0KX2tfZnJpZW5kbHlfbmFtZT1BdWRpbyBWb2x1bWUKZGVjcmVhc2VfbWljcm9waG9uZV92b2x1bWU9TWljcm9waG9uZSBWb2x1bWUgRG93bixNaWNyb3Bob25lIFZvbHVtZSBEb3duLERlY3JlYXNlIE1pY3JvcGhvbmUgVm9sdW1lCmRlY3JlYXNlX3ZvbHVtZT1Wb2x1bWUgRG93bixWb2x1bWUgRG93bixEZWNyZWFzZSBWb2x1bWUKZGVjcmVhc2Vfdm9sdW1lX3NtYWxsPVNoaWZ0K1ZvbHVtZSBEb3duLFNoaWZ0K1ZvbHVtZSBEb3duLERlY3JlYXNlIFZvbHVtZSBieSAxJQppbmNyZWFzZV9taWNyb3Bob25lX3ZvbHVtZT1NaWNyb3Bob25lIFZvbHVtZSBVcCxNaWNyb3Bob25lIFZvbHVtZSBVcCxJbmNyZWFzZSBNaWNyb3Bob25lIFZvbHVtZQppbmNyZWFzZV92b2x1bWU9Vm9sdW1lIFVwLFZvbHVtZSBVcCxJbmNyZWFzZSBWb2x1bWUKaW5jcmVhc2Vfdm9sdW1lX3NtYWxsPVNoaWZ0K1ZvbHVtZSBVcCxTaGlmdCtWb2x1bWUgVXAsSW5jcmVhc2UgVm9sdW1lIGJ5IDElCm1pY19tdXRlPU1pY3JvcGhvbmUgTXV0ZVx0TWV0YStWb2x1bWUgTXV0ZSxNaWNyb3Bob25lIE11dGVcdE1ldGErVm9sdW1lIE11dGUsTXV0ZSBNaWNyb3Bob25lCm11dGU9Vm9sdW1lIE11dGUsVm9sdW1lIE11dGUsTXV0ZQpwdXNoX3RvX3RhbGs9bm9uZSxub25lLFB1c2ggdG8gdGFsawoKW2tzbXNlcnZlcl0KSGFsdCBXaXRob3V0IENvbmZpcm1hdGlvbj1ub25lLG5vbmUsU2h1dCBEb3duIFdpdGhvdXQgQ29uZmlybWF0aW9uCkxvY2sgU2Vzc2lvbj1TY3JlZW5zYXZlclx0TWV0YStMLFNjcmVlbnNhdmVyXHRNZXRhK0wsTG9jayBTZXNzaW9uCkxvZyBPdXQ9Q3RybCtBbHQrRGVsLEN0cmwrQWx0K0RlbCxTaG93IExvZ291dCBTY3JlZW4KTG9nIE91dCBXaXRob3V0IENvbmZpcm1hdGlvbj1ub25lLG5vbmUsTG9nIE91dCBXaXRob3V0IENvbmZpcm1hdGlvbgpMb2dPdXQ9bm9uZSxub25lLExvZyBPdXQKUmVib290PW5vbmUsbm9uZSxSZWJvb3QKUmVib290IFdpdGhvdXQgQ29uZmlybWF0aW9uPW5vbmUsbm9uZSxSZWJvb3QgV2l0aG91dCBDb25maXJtYXRpb24KU2h1dCBEb3duPW5vbmUsbm9uZSxTaHV0IERvd24KX2tfZnJpZW5kbHlfbmFtZT1TZXNzaW9uIE1hbmFnZW1lbnQKCltrd2luXQpBY3RpdmF0ZSBXaW5kb3cgRGVtYW5kaW5nIEF0dGVudGlvbj1NZXRhK0N0cmwrQSxNZXRhK0N0cmwrQSxBY3RpdmF0ZSBXaW5kb3cgRGVtYW5kaW5nIEF0dGVudGlvbgpDeWNsZSBPdmVydmlldz1ub25lLG5vbmUsQ3ljbGUgdGhyb3VnaCBPdmVydmlldyBhbmQgR3JpZCBWaWV3CkN5Y2xlIE92ZXJ2aWV3IE9wcG9zaXRlPW5vbmUsbm9uZSxDeWNsZSB0aHJvdWdoIEdyaWQgVmlldyBhbmQgT3ZlcnZpZXcKRGVjcmVhc2UgT3BhY2l0eT1ub25lLG5vbmUsRGVjcmVhc2UgT3BhY2l0eSBvZiBBY3RpdmUgV2luZG93IGJ5IDUlCkVkaXQgVGlsZXM9TWV0YStULE1ldGErVCxUb2dnbGUgVGlsZXMgRWRpdG9yCkV4cG9zZT1DdHJsK0Y5XHRNZXRhK0Y5LEN0cmwrRjlcdE1ldGErRjksVG9nZ2xlIFByZXNlbnQgV2luZG93cyAoQ3VycmVudCBkZXNrdG9wKQpFeHBvc2VBbGw9TGF1bmNoIChDKVx0Q3RybCtGMTBcdE1ldGErRjEwLExhdW5jaCAoQylcdEN0cmwrRjEwXHRNZXRhK0YxMCxUb2dnbGUgUHJlc2VudCBXaW5kb3dzIChBbGwgZGVza3RvcHMpCkV4cG9zZUNsYXNzPUN0cmwrRjdcdE1ldGErRjcsQ3RybCtGN1x0TWV0YStGNyxUb2dnbGUgUHJlc2VudCBXaW5kb3dzIChXaW5kb3cgY2xhc3MpCkV4cG9zZUNsYXNzQ3VycmVudERlc2t0b3A9bm9uZSxub25lLFRvZ2dsZSBQcmVzZW50IFdpbmRvd3MgKFdpbmRvdyBjbGFzcyBvbiBjdXJyZW50IGRlc2t0b3ApCkdyaWQgVmlldz1NZXRhK0csTWV0YStHLFRvZ2dsZSBHcmlkIFZpZXcKSW5jcmVhc2UgT3BhY2l0eT1ub25lLG5vbmUsSW5jcmVhc2UgT3BhY2l0eSBvZiBBY3RpdmUgV2luZG93IGJ5IDUlCktpbGwgV2luZG93PU1ldGErQ3RybCtFc2MsTWV0YStDdHJsK0VzYyxLaWxsIFdpbmRvdwpNb3ZlIFRhYmxldCB0byBOZXh0IExvZ2ljYWxPdXRwdXQ9bm9uZSxub25lLE1vdmUgdGhlIHRhYmxldCB0byB0aGUgbmV4dCBvdXRwdXQKTW92ZU1vdXNlVG9DZW50ZXI9TWV0YStGNixNZXRhK0Y2LENlbnRlciBQb2ludGVyIGluIFNjcmVlbgpNb3ZlTW91c2VUb0ZvY3VzPU1ldGErRjUsTWV0YStGNSxDZW50ZXIgUG9pbnRlciBpbiBGb2N1c2VkIFdpbmRvdwpNb3ZlWm9vbURvd249bm9uZSxub25lLE1vdmUgWm9vbWVkIEFyZWEgRG93bndhcmRzCk1vdmVab29tTGVmdD1ub25lLG5vbmUsTW92ZSBab29tZWQgQXJlYSB0byBMZWZ0Ck1vdmVab29tUmlnaHQ9bm9uZSxub25lLE1vdmUgWm9vbWVkIEFyZWEgdG8gUmlnaHQKTW92ZVpvb21VcD1ub25lLG5vbmUsTW92ZSBab29tZWQgQXJlYSBVcHdhcmRzCk92ZXJ2aWV3PU1ldGErVyxNZXRhK1csVG9nZ2xlIE92ZXJ2aWV3ClNldHVwIFdpbmRvdyBTaG9ydGN1dD1ub25lLG5vbmUsU2V0dXAgV2luZG93IFNob3J0Y3V0ClNob3cgRGVza3RvcD1NZXRhK0QsTWV0YStELFBlZWsgYXQgRGVza3RvcApTd2l0Y2ggT25lIERlc2t0b3AgRG93bj1NZXRhK0N0cmwrRG93bixNZXRhK0N0cmwrRG93bixTd2l0Y2ggT25lIERlc2t0b3AgRG93bgpTd2l0Y2ggT25lIERlc2t0b3AgVXA9TWV0YStDdHJsK1VwLE1ldGErQ3RybCtVcCxTd2l0Y2ggT25lIERlc2t0b3AgVXAKU3dpdGNoIE9uZSBEZXNrdG9wIHRvIHRoZSBMZWZ0PU1ldGErQ3RybCtMZWZ0LE1ldGErQ3RybCtMZWZ0LFN3aXRjaCBPbmUgRGVza3RvcCB0byB0aGUgTGVmdApTd2l0Y2ggT25lIERlc2t0b3AgdG8gdGhlIFJpZ2h0PU1ldGErQ3RybCtSaWdodCxNZXRhK0N0cmwrUmlnaHQsU3dpdGNoIE9uZSBEZXNrdG9wIHRvIHRoZSBSaWdodApTd2l0Y2ggV2luZG93IERvd249TWV0YStBbHQrRG93bixNZXRhK0FsdCtEb3duLFN3aXRjaCB0byBXaW5kb3cgQmVsb3cKU3dpdGNoIFdpbmRvdyBMZWZ0PU1ldGErQWx0K0xlZnQsTWV0YStBbHQrTGVmdCxTd2l0Y2ggdG8gV2luZG93IHRvIHRoZSBMZWZ0ClN3aXRjaCBXaW5kb3cgUmlnaHQ9TWV0YStBbHQrUmlnaHQsTWV0YStBbHQrUmlnaHQsU3dpdGNoIHRvIFdpbmRvdyB0byB0aGUgUmlnaHQKU3dpdGNoIFdpbmRvdyBVcD1NZXRhK0FsdCtVcCxNZXRhK0FsdCtVcCxTd2l0Y2ggdG8gV2luZG93IEFib3ZlClN3aXRjaCB0byBEZXNrdG9wIDE9Q3RybCtGMVx0TWV0YStGMSxDdHJsK0YxXHRNZXRhK0YxLFN3aXRjaCB0byBEZXNrdG9wIDEKU3dpdGNoIHRvIERlc2t0b3AgMTA9bm9uZSxub25lLFN3aXRjaCB0byBEZXNrdG9wIDEwClN3aXRjaCB0byBEZXNrdG9wIDExPW5vbmUsbm9uZSxTd2l0Y2ggdG8gRGVza3RvcCAxMQpTd2l0Y2ggdG8gRGVza3RvcCAxMj1ub25lLG5vbmUsU3dpdGNoIHRvIERlc2t0b3AgMTIKU3dpdGNoIHRvIERlc2t0b3AgMTM9bm9uZSxub25lLFN3aXRjaCB0byBEZXNrdG9wIDEzClN3aXRjaCB0byBEZXNrdG9wIDE0PW5vbmUsbm9uZSxTd2l0Y2ggdG8gRGVza3RvcCAxNApTd2l0Y2ggdG8gRGVza3RvcCAxNT1ub25lLG5vbmUsU3dpdGNoIHRvIERlc2t0b3AgMTUKU3dpdGNoIHRvIERlc2t0b3AgMTY9bm9uZSxub25lLFN3aXRjaCB0byBEZXNrdG9wIDE2ClN3aXRjaCB0byBEZXNrdG9wIDE3PW5vbmUsbm9uZSxTd2l0Y2ggdG8gRGVza3RvcCAxNwpTd2l0Y2ggdG8gRGVza3RvcCAxOD1ub25lLG5vbmUsU3dpdGNoIHRvIERlc2t0b3AgMTgKU3dpdGNoIHRvIERlc2t0b3AgMTk9bm9uZSxub25lLFN3aXRjaCB0byBEZXNrdG9wIDE5ClN3aXRjaCB0byBEZXNrdG9wIDI9Q3RybCtGMlx0TWV0YStGMixDdHJsK0YyXHRNZXRhK0YyLFN3aXRjaCB0byBEZXNrdG9wIDIKU3dpdGNoIHRvIERlc2t0b3AgMjA9bm9uZSxub25lLFN3aXRjaCB0byBEZXNrdG9wIDIwClN3aXRjaCB0byBEZXNrdG9wIDIxPW5vbmUsbm9uZSxTd2l0Y2ggdG8gRGVza3RvcCAyMQpTd2l0Y2ggdG8gRGVza3RvcCAyMj1ub25lLG5vbmUsU3dpdGNoIHRvIERlc2t0b3AgMjIKU3dpdGNoIHRvIERlc2t0b3AgMjM9bm9uZSxub25lLFN3aXRjaCB0byBEZXNrdG9wIDIzClN3aXRjaCB0byBEZXNrdG9wIDI0PW5vbmUsbm9uZSxTd2l0Y2ggdG8gRGVza3RvcCAyNApTd2l0Y2ggdG8gRGVza3RvcCAyNT1ub25lLG5vbmUsU3dpdGNoIHRvIERlc2t0b3AgMjUKU3dpdGNoIHRvIERlc2t0b3AgMz1DdHJsK0YzXHRNZXRhK0YzLEN0cmwrRjNcdE1ldGErRjMsU3dpdGNoIHRvIERlc2t0b3AgMwpTd2l0Y2ggdG8gRGVza3RvcCA0PUN0cmwrRjRcdE1ldGErRjQsQ3RybCtGNFx0TWV0YStGNCxTd2l0Y2ggdG8gRGVza3RvcCA0ClN3aXRjaCB0byBEZXNrdG9wIDU9bm9uZSxub25lLFN3aXRjaCB0byBEZXNrdG9wIDUKU3dpdGNoIHRvIERlc2t0b3AgNj1ub25lLG5vbmUsU3dpdGNoIHRvIERlc2t0b3AgNgpTd2l0Y2ggdG8gRGVza3RvcCA3PW5vbmUsbm9uZSxTd2l0Y2ggdG8gRGVza3RvcCA3ClN3aXRjaCB0byBEZXNrdG9wIDg9bm9uZSxub25lLFN3aXRjaCB0byBEZXNrdG9wIDgKU3dpdGNoIHRvIERlc2t0b3AgOT1ub25lLG5vbmUsU3dpdGNoIHRvIERlc2t0b3AgOQpTd2l0Y2ggdG8gTmV4dCBEZXNrdG9wPW5vbmUsbm9uZSxTd2l0Y2ggdG8gTmV4dCBEZXNrdG9wClN3aXRjaCB0byBOZXh0IFNjcmVlbj1ub25lLG5vbmUsU3dpdGNoIHRvIE5leHQgU2NyZWVuClN3aXRjaCB0byBQcmV2aW91cyBEZXNrdG9wPW5vbmUsbm9uZSxTd2l0Y2ggdG8gUHJldmlvdXMgRGVza3RvcApTd2l0Y2ggdG8gUHJldmlvdXMgU2NyZWVuPW5vbmUsbm9uZSxTd2l0Y2ggdG8gUHJldmlvdXMgU2NyZWVuClN3aXRjaCB0byBTY3JlZW4gMD1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiAwClN3aXRjaCB0byBTY3JlZW4gMT1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiAxClN3aXRjaCB0byBTY3JlZW4gMj1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiAyClN3aXRjaCB0byBTY3JlZW4gMz1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiAzClN3aXRjaCB0byBTY3JlZW4gND1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiA0ClN3aXRjaCB0byBTY3JlZW4gNT1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiA1ClN3aXRjaCB0byBTY3JlZW4gNj1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiA2ClN3aXRjaCB0byBTY3JlZW4gNz1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiA3ClN3aXRjaCB0byBTY3JlZW4gQWJvdmU9bm9uZSxub25lLFN3aXRjaCB0byBTY3JlZW4gQWJvdmUKU3dpdGNoIHRvIFNjcmVlbiBCZWxvdz1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiBCZWxvdwpTd2l0Y2ggdG8gU2NyZWVuIHRvIHRoZSBMZWZ0PW5vbmUsbm9uZSxTd2l0Y2ggdG8gU2NyZWVuIHRvIHRoZSBMZWZ0ClN3aXRjaCB0byBTY3JlZW4gdG8gdGhlIFJpZ2h0PW5vbmUsbm9uZSxTd2l0Y2ggdG8gU2NyZWVuIHRvIHRoZSBSaWdodApUb2dnbGUgTmlnaHQgQ29sb3I9bm9uZSxub25lLFN1c3BlbmQvUmVzdW1lIE5pZ2h0IExpZ2h0ClRvZ2dsZSBTaG93IENvbXBvc2l0aW5nPW5vbmUsbm9uZSxUb2dnbGUg4oCcU2hvdyBDb21wb3NpdGluZ+KAnSBlZmZlY3QKVG9nZ2xlIFdpbmRvdyBSYWlzZS9Mb3dlcj1ub25lLG5vbmUsVG9nZ2xlIFdpbmRvdyBSYWlzZS9Mb3dlcgpXYWxrIFRocm91Z2ggV2luZG93cz1BbHQrVGFiXHRNZXRhK1RhYixBbHQrVGFiXHRNZXRhK1RhYixXYWxrIFRocm91Z2ggV2luZG93cwpXYWxrIFRocm91Z2ggV2luZG93cyAoUmV2ZXJzZSk9QWx0K1NoaWZ0K1RhYlx0TWV0YStTaGlmdCtUYWIsQWx0K1NoaWZ0K1RhYlx0TWV0YStTaGlmdCtUYWIsV2FsayBUaHJvdWdoIFdpbmRvd3MgKFJldmVyc2UpCldhbGsgVGhyb3VnaCBXaW5kb3dzIEFsdGVybmF0aXZlPW5vbmUsbm9uZSxXYWxrIFRocm91Z2ggV2luZG93cyBBbHRlcm5hdGl2ZQpXYWxrIFRocm91Z2ggV2luZG93cyBBbHRlcm5hdGl2ZSAoUmV2ZXJzZSk9bm9uZSxub25lLFdhbGsgVGhyb3VnaCBXaW5kb3dzIEFsdGVybmF0aXZlIChSZXZlcnNlKQpXYWxrIFRocm91Z2ggV2luZG93cyBvZiBDdXJyZW50IEFwcGxpY2F0aW9uPUFsdCtgXHRNZXRhK2AsQWx0K2BcdE1ldGErYCxXYWxrIFRocm91Z2ggV2luZG93cyBvZiBDdXJyZW50IEFwcGxpY2F0aW9uCldhbGsgVGhyb3VnaCBXaW5kb3dzIG9mIEN1cnJlbnQgQXBwbGljYXRpb24gKFJldmVyc2UpPUFsdCt+XHRNZXRhK34sQWx0K35cdE1ldGErfixXYWxrIFRocm91Z2ggV2luZG93cyBvZiBDdXJyZW50IEFwcGxpY2F0aW9uIChSZXZlcnNlKQpXYWxrIFRocm91Z2ggV2luZG93cyBvZiBDdXJyZW50IEFwcGxpY2F0aW9uIEFsdGVybmF0aXZlPW5vbmUsbm9uZSxXYWxrIFRocm91Z2ggV2luZG93cyBvZiBDdXJyZW50IEFwcGxpY2F0aW9uIEFsdGVybmF0aXZlCldhbGsgVGhyb3VnaCBXaW5kb3dzIG9mIEN1cnJlbnQgQXBwbGljYXRpb24gQWx0ZXJuYXRpdmUgKFJldmVyc2UpPW5vbmUsbm9uZSxXYWxrIFRocm91Z2ggV2luZG93cyBvZiBDdXJyZW50IEFwcGxpY2F0aW9uIEFsdGVybmF0aXZlIChSZXZlcnNlKQpXaW5kb3cgQWJvdmUgT3RoZXIgV2luZG93cz1ub25lLG5vbmUsS2VlcCBXaW5kb3cgQWJvdmUgT3RoZXJzCldpbmRvdyBCZWxvdyBPdGhlciBXaW5kb3dzPW5vbmUsbm9uZSxLZWVwIFdpbmRvdyBCZWxvdyBPdGhlcnMKV2luZG93IENsb3NlPUFsdCtGNCxBbHQrRjQsQ2xvc2UgV2luZG93CldpbmRvdyBDdXN0b20gUXVpY2sgVGlsZSBCb3R0b209bm9uZSxub25lLEN1c3RvbSBRdWljayBUaWxlIFdpbmRvdyB0byB0aGUgQm90dG9tCldpbmRvdyBDdXN0b20gUXVpY2sgVGlsZSBMZWZ0PW5vbmUsbm9uZSxDdXN0b20gUXVpY2sgVGlsZSBXaW5kb3cgdG8gdGhlIExlZnQKV2luZG93IEN1c3RvbSBRdWljayBUaWxlIFJpZ2h0PW5vbmUsbm9uZSxDdXN0b20gUXVpY2sgVGlsZSBXaW5kb3cgdG8gdGhlIFJpZ2h0CldpbmRvdyBDdXN0b20gUXVpY2sgVGlsZSBUb3A9bm9uZSxub25lLEN1c3RvbSBRdWljayBUaWxlIFdpbmRvdyB0byB0aGUgVG9wCldpbmRvdyBGdWxsc2NyZWVuPW5vbmUsbm9uZSxNYWtlIFdpbmRvdyBGdWxsc2NyZWVuCldpbmRvdyBHcm93IEhvcml6b250YWw9bm9uZSxub25lLEV4cGFuZCBXaW5kb3cgSG9yaXpvbnRhbGx5CldpbmRvdyBHcm93IFZlcnRpY2FsPW5vbmUsbm9uZSxFeHBhbmQgV2luZG93IFZlcnRpY2FsbHkKV2luZG93IExvd2VyPW5vbmUsbm9uZSxMb3dlciBXaW5kb3cKV2luZG93IE1heGltaXplPU1ldGErUGdVcCxNZXRhK1BnVXAsTWF4aW1pemUgV2luZG93CldpbmRvdyBNYXhpbWl6ZSBIb3Jpem9udGFsPW5vbmUsbm9uZSxNYXhpbWl6ZSBXaW5kb3cgSG9yaXpvbnRhbGx5CldpbmRvdyBNYXhpbWl6ZSBWZXJ0aWNhbD1ub25lLG5vbmUsTWF4aW1pemUgV2luZG93IFZlcnRpY2FsbHkKV2luZG93IE1pbmltaXplPU1ldGErUGdEb3duLE1ldGErUGdEb3duLE1pbmltaXplIFdpbmRvdwpXaW5kb3cgTW92ZT1ub25lLG5vbmUsTW92ZSBXaW5kb3cKV2luZG93IE1vdmUgQ2VudGVyPW5vbmUsbm9uZSxNb3ZlIFdpbmRvdyB0byB0aGUgQ2VudGVyCldpbmRvdyBObyBCb3JkZXI9bm9uZSxub25lLFRvZ2dsZSBXaW5kb3cgVGl0bGViYXIgYW5kIEZyYW1lCldpbmRvdyBPbiBBbGwgRGVza3RvcHM9bm9uZSxub25lLEtlZXAgV2luZG93IG9uIEFsbCBEZXNrdG9wcwpXaW5kb3cgT25lIERlc2t0b3AgRG93bj1NZXRhK0N0cmwrU2hpZnQrRG93bixNZXRhK0N0cmwrU2hpZnQrRG93bixXaW5kb3cgT25lIERlc2t0b3AgRG93bgpXaW5kb3cgT25lIERlc2t0b3AgVXA9TWV0YStDdHJsK1NoaWZ0K1VwLE1ldGErQ3RybCtTaGlmdCtVcCxXaW5kb3cgT25lIERlc2t0b3AgVXAKV2luZG93IE9uZSBEZXNrdG9wIHRvIHRoZSBMZWZ0PU1ldGErQ3RybCtTaGlmdCtMZWZ0LE1ldGErQ3RybCtTaGlmdCtMZWZ0LFdpbmRvdyBPbmUgRGVza3RvcCB0byB0aGUgTGVmdApXaW5kb3cgT25lIERlc2t0b3AgdG8gdGhlIFJpZ2h0PU1ldGErQ3RybCtTaGlmdCtSaWdodCxNZXRhK0N0cmwrU2hpZnQrUmlnaHQsV2luZG93IE9uZSBEZXNrdG9wIHRvIHRoZSBSaWdodApXaW5kb3cgT25lIFNjcmVlbiBEb3duPW5vbmUsbm9uZSxNb3ZlIFdpbmRvdyBPbmUgU2NyZWVuIERvd24KV2luZG93IE9uZSBTY3JlZW4gVXA9bm9uZSxub25lLE1vdmUgV2luZG93IE9uZSBTY3JlZW4gVXAKV2luZG93IE9uZSBTY3JlZW4gdG8gdGhlIExlZnQ9bm9uZSxub25lLE1vdmUgV2luZG93IE9uZSBTY3JlZW4gdG8gdGhlIExlZnQKV2luZG93IE9uZSBTY3JlZW4gdG8gdGhlIFJpZ2h0PW5vbmUsbm9uZSxNb3ZlIFdpbmRvdyBPbmUgU2NyZWVuIHRvIHRoZSBSaWdodApXaW5kb3cgT3BlcmF0aW9ucyBNZW51PUFsdCtGMyxBbHQrRjMsV2luZG93IE1lbnUKV2luZG93IFBhY2sgRG93bj1ub25lLG5vbmUsTW92ZSBXaW5kb3cgRG93bgpXaW5kb3cgUGFjayBMZWZ0PW5vbmUsbm9uZSxNb3ZlIFdpbmRvdyBMZWZ0CldpbmRvdyBQYWNrIFJpZ2h0PW5vbmUsbm9uZSxNb3ZlIFdpbmRvdyBSaWdodApXaW5kb3cgUGFjayBVcD1ub25lLG5vbmUsTW92ZSBXaW5kb3cgVXAKV2luZG93IFF1aWNrIFRpbGUgQm90dG9tPU1ldGErRG93bixNZXRhK0Rvd24sUXVpY2sgVGlsZSBXaW5kb3cgdG8gdGhlIEJvdHRvbQpXaW5kb3cgUXVpY2sgVGlsZSBCb3R0b20gTGVmdD1ub25lLG5vbmUsUXVpY2sgVGlsZSBXaW5kb3cgdG8gdGhlIEJvdHRvbSBMZWZ0CldpbmRvdyBRdWljayBUaWxlIEJvdHRvbSBSaWdodD1ub25lLG5vbmUsUXVpY2sgVGlsZSBXaW5kb3cgdG8gdGhlIEJvdHRvbSBSaWdodApXaW5kb3cgUXVpY2sgVGlsZSBMZWZ0PU1ldGErTGVmdCxNZXRhK0xlZnQsUXVpY2sgVGlsZSBXaW5kb3cgdG8gdGhlIExlZnQKV2luZG93IFF1aWNrIFRpbGUgUmlnaHQ9TWV0YStSaWdodCxNZXRhK1JpZ2h0LFF1aWNrIFRpbGUgV2luZG93IHRvIHRoZSBSaWdodApXaW5kb3cgUXVpY2sgVGlsZSBUb3A9TWV0YStVcCxNZXRhK1VwLFF1aWNrIFRpbGUgV2luZG93IHRvIHRoZSBUb3AKV2luZG93IFF1aWNrIFRpbGUgVG9wIExlZnQ9bm9uZSxub25lLFF1aWNrIFRpbGUgV2luZG93IHRvIHRoZSBUb3AgTGVmdApXaW5kb3cgUXVpY2sgVGlsZSBUb3AgUmlnaHQ9bm9uZSxub25lLFF1aWNrIFRpbGUgV2luZG93IHRvIHRoZSBUb3AgUmlnaHQKV2luZG93IFJhaXNlPW5vbmUsbm9uZSxSYWlzZSBXaW5kb3cKV2luZG93IFJlc2l6ZT1ub25lLG5vbmUsUmVzaXplIFdpbmRvdwpXaW5kb3cgUmVzdG9yZT1NZXRhK0JhY2tzcGFjZSxNZXRhK0JhY2tzcGFjZSxSZXN0b3JlIFdpbmRvdwpXaW5kb3cgU2hyaW5rIEhvcml6b250YWw9bm9uZSxub25lLFNocmluayBXaW5kb3cgSG9yaXpvbnRhbGx5CldpbmRvdyBTaHJpbmsgVmVydGljYWw9bm9uZSxub25lLFNocmluayBXaW5kb3cgVmVydGljYWxseQpXaW5kb3cgdG8gRGVza3RvcCAxPW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCAxCldpbmRvdyB0byBEZXNrdG9wIDEwPW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCAxMApXaW5kb3cgdG8gRGVza3RvcCAxMT1ub25lLG5vbmUsV2luZG93IHRvIERlc2t0b3AgMTEKV2luZG93IHRvIERlc2t0b3AgMTI9bm9uZSxub25lLFdpbmRvdyB0byBEZXNrdG9wIDEyCldpbmRvdyB0byBEZXNrdG9wIDEzPW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCAxMwpXaW5kb3cgdG8gRGVza3RvcCAxND1ub25lLG5vbmUsV2luZG93IHRvIERlc2t0b3AgMTQKV2luZG93IHRvIERlc2t0b3AgMTU9bm9uZSxub25lLFdpbmRvdyB0byBEZXNrdG9wIDE1CldpbmRvdyB0byBEZXNrdG9wIDE2PW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCAxNgpXaW5kb3cgdG8gRGVza3RvcCAxNz1ub25lLG5vbmUsV2luZG93IHRvIERlc2t0b3AgMTcKV2luZG93IHRvIERlc2t0b3AgMTg9bm9uZSxub25lLFdpbmRvdyB0byBEZXNrdG9wIDE4CldpbmRvdyB0byBEZXNrdG9wIDE5PW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCAxOQpXaW5kb3cgdG8gRGVza3RvcCAyPW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCAyCldpbmRvdyB0byBEZXNrdG9wIDIwPW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCAyMApXaW5kb3cgdG8gRGVza3RvcCAyMT1ub25lLG5vbmUsV2luZG93IHRvIERlc2t0b3AgMjEKV2luZG93IHRvIERlc2t0b3AgMjI9bm9uZSxub25lLFdpbmRvdyB0byBEZXNrdG9wIDIyCldpbmRvdyB0byBEZXNrdG9wIDIzPW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCAyMwpXaW5kb3cgdG8gRGVza3RvcCAyND1ub25lLG5vbmUsV2luZG93IHRvIERlc2t0b3AgMjQKV2luZG93IHRvIERlc2t0b3AgMjU9bm9uZSxub25lLFdpbmRvdyB0byBEZXNrdG9wIDI1CldpbmRvdyB0byBEZXNrdG9wIDM9bm9uZSxub25lLFdpbmRvdyB0byBEZXNrdG9wIDMKV2luZG93IHRvIERlc2t0b3AgND1ub25lLG5vbmUsV2luZG93IHRvIERlc2t0b3AgNApXaW5kb3cgdG8gRGVza3RvcCA1PW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCA1CldpbmRvdyB0byBEZXNrdG9wIDY9bm9uZSxub25lLFdpbmRvdyB0byBEZXNrdG9wIDYKV2luZG93IHRvIERlc2t0b3AgNz1ub25lLG5vbmUsV2luZG93IHRvIERlc2t0b3AgNwpXaW5kb3cgdG8gRGVza3RvcCA4PW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCA4CldpbmRvdyB0byBEZXNrdG9wIDk9bm9uZSxub25lLFdpbmRvdyB0byBEZXNrdG9wIDkKV2luZG93IHRvIE5leHQgRGVza3RvcD1ub25lLG5vbmUsV2luZG93IHRvIE5leHQgRGVza3RvcApXaW5kb3cgdG8gTmV4dCBTY3JlZW49TWV0YStTaGlmdCtSaWdodCxNZXRhK1NoaWZ0K1JpZ2h0LE1vdmUgV2luZG93IHRvIE5leHQgU2NyZWVuCldpbmRvdyB0byBQcmV2aW91cyBEZXNrdG9wPW5vbmUsbm9uZSxXaW5kb3cgdG8gUHJldmlvdXMgRGVza3RvcApXaW5kb3cgdG8gUHJldmlvdXMgU2NyZWVuPU1ldGErU2hpZnQrTGVmdCxNZXRhK1NoaWZ0K0xlZnQsTW92ZSBXaW5kb3cgdG8gUHJldmlvdXMgU2NyZWVuCldpbmRvdyB0byBTY3JlZW4gMD1ub25lLG5vbmUsTW92ZSBXaW5kb3cgdG8gU2NyZWVuIDAKV2luZG93IHRvIFNjcmVlbiAxPW5vbmUsbm9uZSxNb3ZlIFdpbmRvdyB0byBTY3JlZW4gMQpXaW5kb3cgdG8gU2NyZWVuIDI9bm9uZSxub25lLE1vdmUgV2luZG93IHRvIFNjcmVlbiAyCldpbmRvdyB0byBTY3JlZW4gMz1ub25lLG5vbmUsTW92ZSBXaW5kb3cgdG8gU2NyZWVuIDMKV2luZG93IHRvIFNjcmVlbiA0PW5vbmUsbm9uZSxNb3ZlIFdpbmRvdyB0byBTY3JlZW4gNApXaW5kb3cgdG8gU2NyZWVuIDU9bm9uZSxub25lLE1vdmUgV2luZG93IHRvIFNjcmVlbiA1CldpbmRvdyB0byBTY3JlZW4gNj1ub25lLG5vbmUsTW92ZSBXaW5kb3cgdG8gU2NyZWVuIDYKV2luZG93IHRvIFNjcmVlbiA3PW5vbmUsbm9uZSxNb3ZlIFdpbmRvdyB0byBTY3JlZW4gNwpfa19mcmllbmRseV9uYW1lPUtXaW4KZGlzYWJsZUlucHV0Q2FwdHVyZT1NZXRhK1NoaWZ0K0VzYyxNZXRhK1NoaWZ0K0VzYyxEaXNhYmxlIEFjdGl2ZSBJbnB1dCBDYXB0dXJlCnZpZXdfYWN0dWFsX3NpemU9TWV0YSswLE1ldGErMCxab29tIHRvIEFjdHVhbCBTaXplCnZpZXdfem9vbV9pbj1NZXRhKytcdE1ldGErPSxNZXRhKytcdE1ldGErPSxab29tIEluCnZpZXdfem9vbV9vdXQ9TWV0YSstLE1ldGErLSxab29tIE91dAoKW2t3aW5dWyRJbnZlcnNlQWN0aW9uXQpDeWNsZSBPdmVydmlldyBPcHBvc2l0ZT1DeWNsZSBPdmVydmlldwpEZWNyZWFzZSBPcGFjaXR5PUluY3JlYXNlIE9wYWNpdHkKTW92ZVpvb21Eb3duPU1vdmVab29tVXAKTW92ZVpvb21MZWZ0PU1vdmVab29tUmlnaHQKU3dpdGNoIE9uZSBEZXNrdG9wIFVwPVN3aXRjaCBPbmUgRGVza3RvcCBEb3duClN3aXRjaCBPbmUgRGVza3RvcCB0byB0aGUgUmlnaHQ9U3dpdGNoIE9uZSBEZXNrdG9wIHRvIHRoZSBMZWZ0ClN3aXRjaCBXaW5kb3cgUmlnaHQ9U3dpdGNoIFdpbmRvdyBMZWZ0ClN3aXRjaCBXaW5kb3cgVXA9U3dpdGNoIFdpbmRvdyBEb3duClN3aXRjaCB0byBOZXh0IERlc2t0b3A9U3dpdGNoIHRvIFByZXZpb3VzIERlc2t0b3AKU3dpdGNoIHRvIE5leHQgU2NyZWVuPVN3aXRjaCB0byBQcmV2aW91cyBTY3JlZW4KU3dpdGNoIHRvIFNjcmVlbiBBYm92ZT1Td2l0Y2ggdG8gU2NyZWVuIEJlbG93ClN3aXRjaCB0byBTY3JlZW4gdG8gdGhlIExlZnQ9U3dpdGNoIHRvIFNjcmVlbiB0byB0aGUgUmlnaHQKV2FsayBUaHJvdWdoIFdpbmRvd3MgKFJldmVyc2UpPVdhbGsgVGhyb3VnaCBXaW5kb3dzCldhbGsgVGhyb3VnaCBXaW5kb3dzIEFsdGVybmF0aXZlIChSZXZlcnNlKT1XYWxrIFRocm91Z2ggV2luZG93cyBBbHRlcm5hdGl2ZQpXYWxrIFRocm91Z2ggV2luZG93cyBvZiBDdXJyZW50IEFwcGxpY2F0aW9uPVdhbGsgVGhyb3VnaCBXaW5kb3dzIG9mIEN1cnJlbnQgQXBwbGljYXRpb24gKFJldmVyc2UpCldhbGsgVGhyb3VnaCBXaW5kb3dzIG9mIEN1cnJlbnQgQXBwbGljYXRpb24gQWx0ZXJuYXRpdmUgKFJldmVyc2UpPVdhbGsgVGhyb3VnaCBXaW5kb3dzIG9mIEN1cnJlbnQgQXBwbGljYXRpb24gQWx0ZXJuYXRpdmUKV2luZG93IEdyb3cgVmVydGljYWw9V2luZG93IFNocmluayBWZXJ0aWNhbApXaW5kb3cgTG93ZXI9V2luZG93IFJhaXNlCldpbmRvdyBPbmUgRGVza3RvcCBVcD1XaW5kb3cgT25lIERlc2t0b3AgRG93bgpXaW5kb3cgT25lIERlc2t0b3AgdG8gdGhlIFJpZ2h0PVdpbmRvdyBPbmUgRGVza3RvcCB0byB0aGUgTGVmdApXaW5kb3cgT25lIFNjcmVlbiBEb3duPVdpbmRvdyBPbmUgU2NyZWVuIFVwCldpbmRvdyBPbmUgU2NyZWVuIHRvIHRoZSBSaWdodD1XaW5kb3cgT25lIFNjcmVlbiB0byB0aGUgTGVmdApXaW5kb3cgUGFjayBEb3duPVdpbmRvdyBQYWNrIFVwCldpbmRvdyBQYWNrIFJpZ2h0PVdpbmRvdyBQYWNrIExlZnQKV2luZG93IFNocmluayBIb3Jpem9udGFsPVdpbmRvdyBHcm93IEhvcml6b250YWwKV2luZG93IHRvIFByZXZpb3VzIERlc2t0b3A9V2luZG93IHRvIE5leHQgRGVza3RvcApXaW5kb3cgdG8gUHJldmlvdXMgU2NyZWVuPVdpbmRvdyB0byBOZXh0IFNjcmVlbgp2aWV3X3pvb21faW49dmlld196b29tX291dAoKW21lZGlhY29udHJvbF0KX2tfZnJpZW5kbHlfbmFtZT1NZWRpYSBDb250cm9sbGVyCm1lZGlhdm9sdW1lZG93bj1ub25lLG5vbmUsTWVkaWEgdm9sdW1lIGRvd24KbWVkaWF2b2x1bWV1cD1ub25lLG5vbmUsTWVkaWEgdm9sdW1lIHVwCm5leHRtZWRpYT1NZWRpYSBOZXh0LE1lZGlhIE5leHQsTWVkaWEgcGxheWJhY2sgbmV4dApwYXVzZW1lZGlhPU1lZGlhIFBhdXNlLE1lZGlhIFBhdXNlLFBhdXNlIG1lZGlhIHBsYXliYWNrCnBsYXltZWRpYT1ub25lLG5vbmUsUGxheSBtZWRpYSBwbGF5YmFjawpwbGF5cGF1c2VtZWRpYT1NZWRpYSBQbGF5LE1lZGlhIFBsYXksUGxheS9QYXVzZSBtZWRpYSBwbGF5YmFjawpwcmV2aW91c21lZGlhPU1lZGlhIFByZXZpb3VzLE1lZGlhIFByZXZpb3VzLE1lZGlhIHBsYXliYWNrIHByZXZpb3VzCnNlZWtiYWNrd2FyZG1lZGlhPU1lZGlhIFJld2luZCxNZWRpYSBSZXdpbmQsTWVkaWEgcGxheWJhY2sgc2VlayBiYWNrd2FyZCA1cwpzZWVrYmFja3dhcmRtZWRpYWxvbmc9bm9uZSxub25lLE1lZGlhIHBsYXliYWNrIHNlZWsgYmFja3dhcmQgMzBzCnNlZWtmb3J3YXJkbWVkaWE9TWVkaWEgRmFzdCBGb3J3YXJkLE1lZGlhIEZhc3QgRm9yd2FyZCxNZWRpYSBwbGF5YmFjayBzZWVrIGZvcndhcmQgNXMKc2Vla2ZvcndhcmRtZWRpYWxvbmc9bm9uZSxub25lLE1lZGlhIHBsYXliYWNrIHNlZWsgZm9yd2FyZCAzMHMKc3RvcG1lZGlhPU1lZGlhIFN0b3AsTWVkaWEgU3RvcCxTdG9wIG1lZGlhIHBsYXliYWNrCgpbb3JnX2tkZV9wb3dlcmRldmlsXQpEZWNyZWFzZSBLZXlib2FyZCBCcmlnaHRuZXNzPUtleWJvYXJkIEJyaWdodG5lc3MgRG93bixLZXlib2FyZCBCcmlnaHRuZXNzIERvd24sRGVjcmVhc2UgS2V5Ym9hcmQgQnJpZ2h0bmVzcwpEZWNyZWFzZSBTY3JlZW4gQnJpZ2h0bmVzcz1Nb25pdG9yIEJyaWdodG5lc3MgRG93bixNb25pdG9yIEJyaWdodG5lc3MgRG93bixEZWNyZWFzZSBTY3JlZW4gQnJpZ2h0bmVzcwpEZWNyZWFzZSBTY3JlZW4gQnJpZ2h0bmVzcyBTbWFsbD1TaGlmdCtNb25pdG9yIEJyaWdodG5lc3MgRG93bixTaGlmdCtNb25pdG9yIEJyaWdodG5lc3MgRG93bixEZWNyZWFzZSBTY3JlZW4gQnJpZ2h0bmVzcyBieSAxJQpIaWJlcm5hdGU9SGliZXJuYXRlLEhpYmVybmF0ZSxIaWJlcm5hdGUKSW5jcmVhc2UgS2V5Ym9hcmQgQnJpZ2h0bmVzcz1LZXlib2FyZCBCcmlnaHRuZXNzIFVwLEtleWJvYXJkIEJyaWdodG5lc3MgVXAsSW5jcmVhc2UgS2V5Ym9hcmQgQnJpZ2h0bmVzcwpJbmNyZWFzZSBTY3JlZW4gQnJpZ2h0bmVzcz1Nb25pdG9yIEJyaWdodG5lc3MgVXAsTW9uaXRvciBCcmlnaHRuZXNzIFVwLEluY3JlYXNlIFNjcmVlbiBCcmlnaHRuZXNzCkluY3JlYXNlIFNjcmVlbiBCcmlnaHRuZXNzIFNtYWxsPVNoaWZ0K01vbml0b3IgQnJpZ2h0bmVzcyBVcCxTaGlmdCtNb25pdG9yIEJyaWdodG5lc3MgVXAsSW5jcmVhc2UgU2NyZWVuIEJyaWdodG5lc3MgYnkgMSUKUG93ZXJEb3duPVBvd2VyIERvd24sUG93ZXIgRG93bixQb3dlciBEb3duClBvd2VyT2ZmPVBvd2VyIE9mZixQb3dlciBPZmYsUG93ZXIgT2ZmClNsZWVwPVNsZWVwLFNsZWVwLFN1c3BlbmQKVG9nZ2xlIEtleWJvYXJkIEJhY2tsaWdodD1LZXlib2FyZCBMaWdodCBPbi9PZmYsS2V5Ym9hcmQgTGlnaHQgT24vT2ZmLFRvZ2dsZSBLZXlib2FyZCBCYWNrbGlnaHQKVHVybiBPZmYgU2NyZWVuPW5vbmUsbm9uZSxUdXJuIE9mZiBTY3JlZW4KX2tfZnJpZW5kbHlfbmFtZT1Qb3dlciBNYW5hZ2VtZW50CnBvd2VyUHJvZmlsZT1CYXR0ZXJ5XHRNZXRhK0IsQmF0dGVyeVx0TWV0YStCLFN3aXRjaCBQb3dlciBQcm9maWxlCgpbcGxhc21hc2hlbGxdClNsaWRlc2hvdyBXYWxscGFwZXIgTmV4dCBJbWFnZT1ub25lLG5vbmUsTmV4dCBXYWxscGFwZXIgSW1hZ2UKX2tfZnJpZW5kbHlfbmFtZT1wbGFzbWFzaGVsbAphY3RpdmF0ZSBhcHBsaWNhdGlvbiBsYXVuY2hlcj1NZXRhXHRBbHQrRjEsTWV0YVx0QWx0K0YxLEFjdGl2YXRlIEFwcGxpY2F0aW9uIExhdW5jaGVyCmFjdGl2YXRlIG5leHQgdGFzayBtYW5hZ2VyIGVudHJ5PU1ldGErQ3RybCtQZ0Rvd24sTWV0YStDdHJsK1BnRG93bixBY3RpdmF0ZSBOZXh0IFRhc2sgTWFuYWdlciBFbnRyeQphY3RpdmF0ZSBwcmV2aW91cyB0YXNrIG1hbmFnZXIgZW50cnk9TWV0YStDdHJsK1BnVXAsTWV0YStDdHJsK1BnVXAsQWN0aXZhdGUgUHJldmlvdXMgVGFzayBNYW5hZ2VyIEVudHJ5CmFjdGl2YXRlIHRhc2sgbWFuYWdlciBlbnRyeSAxPU1ldGErMSxNZXRhKzEsQWN0aXZhdGUgVGFzayBNYW5hZ2VyIEVudHJ5IDEKYWN0aXZhdGUgdGFzayBtYW5hZ2VyIGVudHJ5IDEwPW5vbmUsbm9uZSxBY3RpdmF0ZSBUYXNrIE1hbmFnZXIgRW50cnkgMTAKYWN0aXZhdGUgdGFzayBtYW5hZ2VyIGVudHJ5IDI9TWV0YSsyLE1ldGErMixBY3RpdmF0ZSBUYXNrIE1hbmFnZXIgRW50cnkgMgphY3RpdmF0ZSB0YXNrIG1hbmFnZXIgZW50cnkgMz1NZXRhKzMsTWV0YSszLEFjdGl2YXRlIFRhc2sgTWFuYWdlciBFbnRyeSAzCmFjdGl2YXRlIHRhc2sgbWFuYWdlciBlbnRyeSA0PU1ldGErNCxNZXRhKzQsQWN0aXZhdGUgVGFzayBNYW5hZ2VyIEVudHJ5IDQKYWN0aXZhdGUgdGFzayBtYW5hZ2VyIGVudHJ5IDU9TWV0YSs1LE1ldGErNSxBY3RpdmF0ZSBUYXNrIE1hbmFnZXIgRW50cnkgNQphY3RpdmF0ZSB0YXNrIG1hbmFnZXIgZW50cnkgNj1NZXRhKzYsTWV0YSs2LEFjdGl2YXRlIFRhc2sgTWFuYWdlciBFbnRyeSA2CmFjdGl2YXRlIHRhc2sgbWFuYWdlciBlbnRyeSA3PU1ldGErNyxNZXRhKzcsQWN0aXZhdGUgVGFzayBNYW5hZ2VyIEVudHJ5IDcKYWN0aXZhdGUgdGFzayBtYW5hZ2VyIGVudHJ5IDg9TWV0YSs4LE1ldGErOCxBY3RpdmF0ZSBUYXNrIE1hbmFnZXIgRW50cnkgOAphY3RpdmF0ZSB0YXNrIG1hbmFnZXIgZW50cnkgOT1NZXRhKzksTWV0YSs5LEFjdGl2YXRlIFRhc2sgTWFuYWdlciBFbnRyeSA5CmNsZWFyIGhpc3Rvcnk9bm9uZSxub25lLENsZWFyIE5vdGlmaWNhdGlvbiBIaXN0b3J5CmNsZWFyLWhpc3Rvcnk9bm9uZSxub25lLENsZWFyIENsaXBib2FyZCBIaXN0b3J5CmNsaXBib2FyZF9hY3Rpb249bm9uZSxub25lLFRvZ2dsZSBBdXRvbWF0aWMgUG9wcGluZyBVcCBvZiBBY3Rpb24gTWVudQpjeWNsZS1wYW5lbHM9TWV0YStBbHQrUCxNZXRhK0FsdCtQLE1vdmUga2V5Ym9hcmQgZm9jdXMgYmV0d2VlbiBwYW5lbHMKY3ljbGVOZXh0QWN0aW9uPW5vbmUsbm9uZSxOZXh0IEhpc3RvcnkgSXRlbQpjeWNsZVByZXZBY3Rpb249bm9uZSxub25lLFByZXZpb3VzIEhpc3RvcnkgSXRlbQplZGl0X2NsaXBib2FyZD1ub25lLG5vbmUsRWRpdCBDb250ZW50c+KApgptYW5hZ2UgYWN0aXZpdGllcz1NZXRhK1EsTWV0YStRLFNob3cgQWN0aXZpdHkgU3dpdGNoZXIKbW92ZSBhY3RpdmUgdGFzayB0byBsZWZ0PU1ldGErQ3RybCtTaGlmdCtQZ1VwLE1ldGErQ3RybCtTaGlmdCtQZ1VwLE1vdmUgQWN0aXZlIFRhc2sgTWFuYWdlciBFbnRyeSBCYWNrd2FyZAptb3ZlIGFjdGl2ZSB0YXNrIHRvIHJpZ2h0PU1ldGErQ3RybCtTaGlmdCtQZ0Rvd24sTWV0YStDdHJsK1NoaWZ0K1BnRG93bixNb3ZlIEFjdGl2ZSBUYXNrIE1hbmFnZXIgRW50cnkgRm9yd2FyZApuZXh0IGFjdGl2aXR5PU1ldGErQSxub25lLFdhbGsgdGhyb3VnaCBhY3Rpdml0aWVzCnByZXZpb3VzIGFjdGl2aXR5PU1ldGErU2hpZnQrQSxub25lLFdhbGsgdGhyb3VnaCBhY3Rpdml0aWVzIChSZXZlcnNlKQpyZXBlYXRfYWN0aW9uPW5vbmUsbm9uZSxNYW51YWxseSBJbnZva2UgQWN0aW9uIG9uIEN1cnJlbnQgQ2xpcGJvYXJkCnNob3cgZGFzaGJvYXJkPUN0cmwrRjEyLEN0cmwrRjEyLFNob3cgRGVza3RvcApzaG93LWJhcmNvZGU9bm9uZSxub25lLFNob3cgQmFyY29kZeKApgpzaG93LW9uLW1vdXNlLXBvcz1NZXRhK1YsTWV0YStWLFNob3cgQ2xpcGJvYXJkIEl0ZW1zIGF0IE1vdXNlIFBvc2l0aW9uCnN3aXRjaCB0byBuZXh0IGFjdGl2aXR5PW5vbmUsbm9uZSxTd2l0Y2ggdG8gTmV4dCBBY3Rpdml0eQpzd2l0Y2ggdG8gcHJldmlvdXMgYWN0aXZpdHk9bm9uZSxub25lLFN3aXRjaCB0byBQcmV2aW91cyBBY3Rpdml0eQp0b2dnbGUgZG8gbm90IGRpc3R1cmI9bm9uZSxub25lLFRvZ2dsZSBkbyBub3QgZGlzdHVyYgoKW3NlcnZpY2VzXVtsb29rdXAtZmluYWwtcHJvYmUtMDcuZGVza3RvcF0KX2xhdW5jaD1NZXRhK0N0cmwrU2hpZnQrRjExCgpbc2VydmljZXNdW29yZy5sb29rdXAuTGludXguZGVza3RvcF0KX2xhdW5jaD1NZXRhK1NoaWZ0K0UK",
+    "kconfig_sha256": "b558a56130719bf1bb237eec918adb78faf1412715a478d313e6312acfcc6821"
+  },
+  "after": {
+    "at_ns": 422103651746,
+    "components": [
+      [
+        "kwin",
+        "KWin",
+        "",
+        ""
+      ],
+      [
+        "mediacontrol",
+        "Media Controller",
+        "",
+        ""
+      ],
+      [
+        "kmix",
+        "Audio Volume",
+        "",
+        ""
+      ],
+      [
+        "KDE Keyboard Layout Switcher",
+        "Keyboard Layout Switcher",
+        "",
+        ""
+      ],
+      [
+        "org_kde_powerdevil",
+        "Power Management",
+        "",
+        ""
+      ],
+      [
+        "ksmserver",
+        "Session Management",
+        "",
+        ""
+      ],
+      [
+        "plasmashell",
+        "plasmashell",
+        "",
+        ""
+      ],
+      [
+        "ActivityManager",
+        "Activity Manager",
+        "",
+        ""
+      ],
+      [
+        "org.lookup.Linux.desktop",
+        "LookUp Linux",
+        "",
+        ""
+      ],
+      [
+        "org.kde.krunner.desktop",
+        "KRunner",
+        "",
+        ""
+      ],
+      [
+        "systemsettings.desktop",
+        "System Settings",
+        "",
+        ""
+      ],
+      [
+        "org.kde.kscreen.desktop",
+        "Display Configuration",
+        "",
+        ""
+      ],
+      [
+        "org.kde.plasma.emojier.desktop",
+        "Emoji Selector",
+        "",
+        ""
+      ],
+      [
+        "org.kde.screenreader.desktop",
+        "Accessibility",
+        "",
+        ""
+      ],
+      [
+        "org.kde.touchpadshortcuts.desktop",
+        "Touchpad",
+        "",
+        ""
+      ],
+      [
+        "org.kde.plasma-systemmonitor.desktop",
+        "System Monitor",
+        "",
+        ""
+      ],
+      [
+        "org.kde.spectacle.desktop",
+        "Spectacle",
+        "",
+        ""
+      ],
+      [
+        "org.kde.konsole.desktop",
+        "Konsole",
+        "",
+        ""
+      ],
+      [
+        "org.kde.dolphin.desktop",
+        "Dolphin",
+        "",
+        ""
+      ],
+      [
+        "lookup-gsd-unrelated.desktop",
+        "Public unrelated key",
+        "",
+        ""
+      ],
+      [
+        "lookup-final-probe-07.desktop",
+        "Owned final unrelated marker",
+        "",
+        ""
+      ]
+    ],
+    "bindings": [
+      {
+        "action": [
+          "ActivityManager",
+          "switch-to-activity-d3ff151d-fc21-4f02-ab71-65e8ac09a4a5",
+          "Activity Manager",
+          "Switch to activity \"Default\""
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "KDE Keyboard Layout Switcher",
+          "Switch to Last-Used Keyboard Layout",
+          "Keyboard Layout Switcher",
+          ""
+        ],
+        "keys": [
+          402653260
+        ]
+      },
+      {
+        "action": [
+          "KDE Keyboard Layout Switcher",
+          "Switch to Next Keyboard Layout",
+          "Keyboard Layout Switcher",
+          ""
+        ],
+        "keys": [
+          402653259
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "decrease_microphone_volume",
+          "Audio Volume",
+          "Decrease Microphone Volume"
+        ],
+        "keys": [
+          16777502
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "decrease_volume",
+          "Audio Volume",
+          "Decrease Volume"
+        ],
+        "keys": [
+          16777328
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "decrease_volume_small",
+          "Audio Volume",
+          "Decrease Volume by 1%"
+        ],
+        "keys": [
+          50331760
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "increase_microphone_volume",
+          "Audio Volume",
+          "Increase Microphone Volume"
+        ],
+        "keys": [
+          16777501
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "increase_volume",
+          "Audio Volume",
+          "Increase Volume"
+        ],
+        "keys": [
+          16777330
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "increase_volume_small",
+          "Audio Volume",
+          "Increase Volume by 1%"
+        ],
+        "keys": [
+          50331762
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "mic_mute",
+          "Audio Volume",
+          "Mute Microphone"
+        ],
+        "keys": [
+          16777491,
+          285212785
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "mute",
+          "Audio Volume",
+          "Mute"
+        ],
+        "keys": [
+          16777329
+        ]
+      },
+      {
+        "action": [
+          "kmix",
+          "push_to_talk",
+          "Audio Volume",
+          "Push to talk"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "ksmserver",
+          "Halt Without Confirmation",
+          "Session Management",
+          "Shut Down Without Confirmation"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "ksmserver",
+          "Lock Session",
+          "Session Management",
+          "Lock Session"
+        ],
+        "keys": [
+          16777402,
+          268435532
+        ]
+      },
+      {
+        "action": [
+          "ksmserver",
+          "Log Out",
+          "Session Management",
+          "Show Logout Screen"
+        ],
+        "keys": [
+          218103815
+        ]
+      },
+      {
+        "action": [
+          "ksmserver",
+          "Log Out Without Confirmation",
+          "Session Management",
+          "Log Out Without Confirmation"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "ksmserver",
+          "LogOut",
+          "Session Management",
+          "Log Out"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "ksmserver",
+          "Reboot",
+          "Session Management",
+          "Reboot"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "ksmserver",
+          "Reboot Without Confirmation",
+          "Session Management",
+          "Reboot Without Confirmation"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "ksmserver",
+          "Shut Down",
+          "Session Management",
+          "Shut Down"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Activate Window Demanding Attention",
+          "KWin",
+          "Activate Window Demanding Attention"
+        ],
+        "keys": [
+          335544385
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Cycle Overview",
+          "KWin",
+          "Cycle through Overview and Grid View"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Cycle Overview Opposite",
+          "KWin",
+          "Cycle through Grid View and Overview"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Decrease Opacity",
+          "KWin",
+          "Decrease Opacity of Active Window by 5%"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Edit Tiles",
+          "KWin",
+          "Toggle Tiles Editor"
+        ],
+        "keys": [
+          268435540
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Expose",
+          "KWin",
+          "Toggle Present Windows (Current desktop)"
+        ],
+        "keys": [
+          285212728,
+          83886136
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "ExposeAll",
+          "KWin",
+          "Toggle Present Windows (All desktops)"
+        ],
+        "keys": [
+          83886137,
+          16777390,
+          285212729
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "ExposeClass",
+          "KWin",
+          "Toggle Present Windows (Window class)"
+        ],
+        "keys": [
+          285212726,
+          83886134
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "ExposeClassCurrentDesktop",
+          "KWin",
+          "Toggle Present Windows (Window class on current desktop)"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Grid View",
+          "KWin",
+          "Toggle Grid View"
+        ],
+        "keys": [
+          268435527
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Increase Opacity",
+          "KWin",
+          "Increase Opacity of Active Window by 5%"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Kill Window",
+          "KWin",
+          "Kill Window"
+        ],
+        "keys": [
+          352321536
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Move Tablet to Next LogicalOutput",
+          "KWin",
+          "Move the tablet to the next output"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "MoveMouseToCenter",
+          "KWin",
+          "Center Pointer in Screen"
+        ],
+        "keys": [
+          285212725
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "MoveMouseToFocus",
+          "KWin",
+          "Center Pointer in Focused Window"
+        ],
+        "keys": [
+          285212724
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "MoveZoomDown",
+          "KWin",
+          "Move Zoomed Area Downwards"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "MoveZoomLeft",
+          "KWin",
+          "Move Zoomed Area to Left"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "MoveZoomRight",
+          "KWin",
+          "Move Zoomed Area to Right"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "MoveZoomUp",
+          "KWin",
+          "Move Zoomed Area Upwards"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Overview",
+          "KWin",
+          "Toggle Overview"
+        ],
+        "keys": [
+          268435543
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Setup Window Shortcut",
+          "KWin",
+          "Setup Window Shortcut"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Show Desktop",
+          "KWin",
+          "Peek at Desktop"
+        ],
+        "keys": [
+          268435524
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch One Desktop Down",
+          "KWin",
+          "Switch One Desktop Down"
+        ],
+        "keys": [
+          352321557
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch One Desktop Up",
+          "KWin",
+          "Switch One Desktop Up"
+        ],
+        "keys": [
+          352321555
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch One Desktop to the Left",
+          "KWin",
+          "Switch One Desktop to the Left"
+        ],
+        "keys": [
+          352321554
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch One Desktop to the Right",
+          "KWin",
+          "Switch One Desktop to the Right"
+        ],
+        "keys": [
+          352321556
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch Window Down",
+          "KWin",
+          "Switch to Window Below"
+        ],
+        "keys": [
+          419430421
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch Window Left",
+          "KWin",
+          "Switch to Window to the Left"
+        ],
+        "keys": [
+          419430418
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch Window Right",
+          "KWin",
+          "Switch to Window to the Right"
+        ],
+        "keys": [
+          419430420
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch Window Up",
+          "KWin",
+          "Switch to Window Above"
+        ],
+        "keys": [
+          419430419
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 1",
+          "KWin",
+          "Switch to Desktop 1"
+        ],
+        "keys": [
+          285212720,
+          83886128
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 10",
+          "KWin",
+          "Switch to Desktop 10"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 11",
+          "KWin",
+          "Switch to Desktop 11"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 12",
+          "KWin",
+          "Switch to Desktop 12"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 13",
+          "KWin",
+          "Switch to Desktop 13"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 14",
+          "KWin",
+          "Switch to Desktop 14"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 15",
+          "KWin",
+          "Switch to Desktop 15"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 16",
+          "KWin",
+          "Switch to Desktop 16"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 17",
+          "KWin",
+          "Switch to Desktop 17"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 18",
+          "KWin",
+          "Switch to Desktop 18"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 19",
+          "KWin",
+          "Switch to Desktop 19"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 2",
+          "KWin",
+          "Switch to Desktop 2"
+        ],
+        "keys": [
+          285212721,
+          83886129
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 20",
+          "KWin",
+          "Switch to Desktop 20"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 21",
+          "KWin",
+          "Switch to Desktop 21"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 22",
+          "KWin",
+          "Switch to Desktop 22"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 23",
+          "KWin",
+          "Switch to Desktop 23"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 24",
+          "KWin",
+          "Switch to Desktop 24"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 25",
+          "KWin",
+          "Switch to Desktop 25"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 3",
+          "KWin",
+          "Switch to Desktop 3"
+        ],
+        "keys": [
+          83886130,
+          285212722
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 4",
+          "KWin",
+          "Switch to Desktop 4"
+        ],
+        "keys": [
+          83886131,
+          285212723
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 5",
+          "KWin",
+          "Switch to Desktop 5"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 6",
+          "KWin",
+          "Switch to Desktop 6"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 7",
+          "KWin",
+          "Switch to Desktop 7"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 8",
+          "KWin",
+          "Switch to Desktop 8"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Desktop 9",
+          "KWin",
+          "Switch to Desktop 9"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Next Desktop",
+          "KWin",
+          "Switch to Next Desktop"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Next Screen",
+          "KWin",
+          "Switch to Next Screen"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Previous Desktop",
+          "KWin",
+          "Switch to Previous Desktop"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Previous Screen",
+          "KWin",
+          "Switch to Previous Screen"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen 0",
+          "KWin",
+          "Switch to Screen 0"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen 1",
+          "KWin",
+          "Switch to Screen 1"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen 2",
+          "KWin",
+          "Switch to Screen 2"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen 3",
+          "KWin",
+          "Switch to Screen 3"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen 4",
+          "KWin",
+          "Switch to Screen 4"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen 5",
+          "KWin",
+          "Switch to Screen 5"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen 6",
+          "KWin",
+          "Switch to Screen 6"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen 7",
+          "KWin",
+          "Switch to Screen 7"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen Above",
+          "KWin",
+          "Switch to Screen Above"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen Below",
+          "KWin",
+          "Switch to Screen Below"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen to the Left",
+          "KWin",
+          "Switch to Screen to the Left"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Switch to Screen to the Right",
+          "KWin",
+          "Switch to Screen to the Right"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Toggle Night Color",
+          "KWin",
+          "Suspend/Resume Night Light"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Toggle Show Compositing",
+          "KWin",
+          "Toggle \u201cShow Compositing\u201d effect"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Toggle Window Raise/Lower",
+          "KWin",
+          "Toggle Window Raise/Lower"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Walk Through Windows",
+          "KWin",
+          "Walk Through Windows"
+        ],
+        "keys": [
+          150994945,
+          285212673
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Walk Through Windows (Reverse)",
+          "KWin",
+          "Walk Through Windows (Reverse)"
+        ],
+        "keys": [
+          184549377,
+          318767105
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Walk Through Windows Alternative",
+          "KWin",
+          "Walk Through Windows Alternative"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Walk Through Windows Alternative (Reverse)",
+          "KWin",
+          "Walk Through Windows Alternative (Reverse)"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Walk Through Windows of Current Application",
+          "KWin",
+          "Walk Through Windows of Current Application"
+        ],
+        "keys": [
+          134217824,
+          268435552
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Walk Through Windows of Current Application (Reverse)",
+          "KWin",
+          "Walk Through Windows of Current Application (Reverse)"
+        ],
+        "keys": [
+          268435582,
+          134217854
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Walk Through Windows of Current Application Alternative",
+          "KWin",
+          "Walk Through Windows of Current Application Alternative"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Walk Through Windows of Current Application Alternative (Reverse)",
+          "KWin",
+          "Walk Through Windows of Current Application Alternative (Reverse)"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Above Other Windows",
+          "KWin",
+          "Keep Window Above Others"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Below Other Windows",
+          "KWin",
+          "Keep Window Below Others"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Close",
+          "KWin",
+          "Close Window"
+        ],
+        "keys": [
+          150994995
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Custom Quick Tile Bottom",
+          "KWin",
+          "Custom Quick Tile Window to the Bottom"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Custom Quick Tile Left",
+          "KWin",
+          "Custom Quick Tile Window to the Left"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Custom Quick Tile Right",
+          "KWin",
+          "Custom Quick Tile Window to the Right"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Custom Quick Tile Top",
+          "KWin",
+          "Custom Quick Tile Window to the Top"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Fullscreen",
+          "KWin",
+          "Make Window Fullscreen"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Grow Horizontal",
+          "KWin",
+          "Expand Window Horizontally"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Grow Vertical",
+          "KWin",
+          "Expand Window Vertically"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Lower",
+          "KWin",
+          "Lower Window"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Maximize",
+          "KWin",
+          "Maximize Window"
+        ],
+        "keys": [
+          285212694
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Maximize Horizontal",
+          "KWin",
+          "Maximize Window Horizontally"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Maximize Vertical",
+          "KWin",
+          "Maximize Window Vertically"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Minimize",
+          "KWin",
+          "Minimize Window"
+        ],
+        "keys": [
+          285212695
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Move",
+          "KWin",
+          "Move Window"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Move Center",
+          "KWin",
+          "Move Window to the Center"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window No Border",
+          "KWin",
+          "Toggle Window Titlebar and Frame"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window On All Desktops",
+          "KWin",
+          "Keep Window on All Desktops"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window One Desktop Down",
+          "KWin",
+          "Window One Desktop Down"
+        ],
+        "keys": [
+          385875989
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window One Desktop Up",
+          "KWin",
+          "Window One Desktop Up"
+        ],
+        "keys": [
+          385875987
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window One Desktop to the Left",
+          "KWin",
+          "Window One Desktop to the Left"
+        ],
+        "keys": [
+          385875986
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window One Desktop to the Right",
+          "KWin",
+          "Window One Desktop to the Right"
+        ],
+        "keys": [
+          385875988
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window One Screen Down",
+          "KWin",
+          "Move Window One Screen Down"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window One Screen Up",
+          "KWin",
+          "Move Window One Screen Up"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window One Screen to the Left",
+          "KWin",
+          "Move Window One Screen to the Left"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window One Screen to the Right",
+          "KWin",
+          "Move Window One Screen to the Right"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Operations Menu",
+          "KWin",
+          "Window Menu"
+        ],
+        "keys": [
+          150994994
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Pack Down",
+          "KWin",
+          "Move Window Down"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Pack Left",
+          "KWin",
+          "Move Window Left"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Pack Right",
+          "KWin",
+          "Move Window Right"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Pack Up",
+          "KWin",
+          "Move Window Up"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Quick Tile Bottom",
+          "KWin",
+          "Quick Tile Window to the Bottom"
+        ],
+        "keys": [
+          285212693
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Quick Tile Bottom Left",
+          "KWin",
+          "Quick Tile Window to the Bottom Left"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Quick Tile Bottom Right",
+          "KWin",
+          "Quick Tile Window to the Bottom Right"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Quick Tile Left",
+          "KWin",
+          "Quick Tile Window to the Left"
+        ],
+        "keys": [
+          285212690
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Quick Tile Right",
+          "KWin",
+          "Quick Tile Window to the Right"
+        ],
+        "keys": [
+          285212692
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Quick Tile Top",
+          "KWin",
+          "Quick Tile Window to the Top"
+        ],
+        "keys": [
+          285212691
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Quick Tile Top Left",
+          "KWin",
+          "Quick Tile Window to the Top Left"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Quick Tile Top Right",
+          "KWin",
+          "Quick Tile Window to the Top Right"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Raise",
+          "KWin",
+          "Raise Window"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Resize",
+          "KWin",
+          "Resize Window"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Restore",
+          "KWin",
+          "Restore Window"
+        ],
+        "keys": [
+          285212675
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Shrink Horizontal",
+          "KWin",
+          "Shrink Window Horizontally"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window Shrink Vertical",
+          "KWin",
+          "Shrink Window Vertically"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 1",
+          "KWin",
+          "Window to Desktop 1"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 10",
+          "KWin",
+          "Window to Desktop 10"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 11",
+          "KWin",
+          "Window to Desktop 11"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 12",
+          "KWin",
+          "Window to Desktop 12"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 13",
+          "KWin",
+          "Window to Desktop 13"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 14",
+          "KWin",
+          "Window to Desktop 14"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 15",
+          "KWin",
+          "Window to Desktop 15"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 16",
+          "KWin",
+          "Window to Desktop 16"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 17",
+          "KWin",
+          "Window to Desktop 17"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 18",
+          "KWin",
+          "Window to Desktop 18"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 19",
+          "KWin",
+          "Window to Desktop 19"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 2",
+          "KWin",
+          "Window to Desktop 2"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 20",
+          "KWin",
+          "Window to Desktop 20"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 21",
+          "KWin",
+          "Window to Desktop 21"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 22",
+          "KWin",
+          "Window to Desktop 22"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 23",
+          "KWin",
+          "Window to Desktop 23"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 24",
+          "KWin",
+          "Window to Desktop 24"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 25",
+          "KWin",
+          "Window to Desktop 25"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 3",
+          "KWin",
+          "Window to Desktop 3"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 4",
+          "KWin",
+          "Window to Desktop 4"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 5",
+          "KWin",
+          "Window to Desktop 5"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 6",
+          "KWin",
+          "Window to Desktop 6"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 7",
+          "KWin",
+          "Window to Desktop 7"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 8",
+          "KWin",
+          "Window to Desktop 8"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Desktop 9",
+          "KWin",
+          "Window to Desktop 9"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Next Desktop",
+          "KWin",
+          "Window to Next Desktop"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Next Screen",
+          "KWin",
+          "Move Window to Next Screen"
+        ],
+        "keys": [
+          318767124
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Previous Desktop",
+          "KWin",
+          "Window to Previous Desktop"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Previous Screen",
+          "KWin",
+          "Move Window to Previous Screen"
+        ],
+        "keys": [
+          318767122
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Screen 0",
+          "KWin",
+          "Move Window to Screen 0"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Screen 1",
+          "KWin",
+          "Move Window to Screen 1"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Screen 2",
+          "KWin",
+          "Move Window to Screen 2"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Screen 3",
+          "KWin",
+          "Move Window to Screen 3"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Screen 4",
+          "KWin",
+          "Move Window to Screen 4"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Screen 5",
+          "KWin",
+          "Move Window to Screen 5"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Screen 6",
+          "KWin",
+          "Move Window to Screen 6"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "Window to Screen 7",
+          "KWin",
+          "Move Window to Screen 7"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "kwin",
+          "disableInputCapture",
+          "KWin",
+          "Disable Active Input Capture"
+        ],
+        "keys": [
+          318767104
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "view_actual_size",
+          "KWin",
+          "Zoom to Actual Size"
+        ],
+        "keys": [
+          268435504
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "view_zoom_in",
+          "KWin",
+          "Zoom In"
+        ],
+        "keys": [
+          268435499,
+          268435517
+        ]
+      },
+      {
+        "action": [
+          "kwin",
+          "view_zoom_out",
+          "KWin",
+          "Zoom Out"
+        ],
+        "keys": [
+          268435501
+        ]
+      },
+      {
+        "action": [
+          "lookup-final-probe-07.desktop",
+          "_launch",
+          "Owned final unrelated marker",
+          "Owned final unrelated marker"
+        ],
+        "keys": [
+          385876026
+        ]
+      },
+      {
+        "action": [
+          "lookup-gsd-unrelated.desktop",
+          "_launch",
+          "Public unrelated key",
+          "Public unrelated key"
+        ],
+        "keys": [
+          301989973
+        ]
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "mediavolumedown",
+          "Media Controller",
+          "Media volume down"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "mediavolumeup",
+          "Media Controller",
+          "Media volume up"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "nextmedia",
+          "Media Controller",
+          "Media playback next"
+        ],
+        "keys": [
+          16777347
+        ]
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "pausemedia",
+          "Media Controller",
+          "Pause media playback"
+        ],
+        "keys": [
+          16777349
+        ]
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "playmedia",
+          "Media Controller",
+          "Play media playback"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "playpausemedia",
+          "Media Controller",
+          "Play/Pause media playback"
+        ],
+        "keys": [
+          16777344
+        ]
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "previousmedia",
+          "Media Controller",
+          "Media playback previous"
+        ],
+        "keys": [
+          16777346
+        ]
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "seekbackwardmedia",
+          "Media Controller",
+          "Media playback seek backward 5s"
+        ],
+        "keys": [
+          16777413
+        ]
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "seekbackwardmedialong",
+          "Media Controller",
+          "Media playback seek backward 30s"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "seekforwardmedia",
+          "Media Controller",
+          "Media playback seek forward 5s"
+        ],
+        "keys": [
+          16777474
+        ]
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "seekforwardmedialong",
+          "Media Controller",
+          "Media playback seek forward 30s"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "mediacontrol",
+          "stopmedia",
+          "Media Controller",
+          "Stop media playback"
+        ],
+        "keys": [
+          16777345
+        ]
+      },
+      {
+        "action": [
+          "org.kde.dolphin.desktop",
+          "_launch",
+          "Dolphin",
+          "Dolphin"
+        ],
+        "keys": [
+          268435525
+        ]
+      },
+      {
+        "action": [
+          "org.kde.konsole.desktop",
+          "NewTab",
+          "Konsole",
+          "Open New Tab"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org.kde.konsole.desktop",
+          "NewWindow",
+          "Konsole",
+          "Open New Window"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org.kde.konsole.desktop",
+          "_launch",
+          "Konsole",
+          "Konsole"
+        ],
+        "keys": [
+          201326676
+        ]
+      },
+      {
+        "action": [
+          "org.kde.krunner.desktop",
+          "RunClipboard",
+          "KRunner",
+          "Run command on clipboard contents"
+        ],
+        "keys": [
+          184549425
+        ]
+      },
+      {
+        "action": [
+          "org.kde.krunner.desktop",
+          "_launch",
+          "KRunner",
+          "KRunner"
+        ],
+        "keys": [
+          16777362,
+          134217760,
+          150994993
+        ]
+      },
+      {
+        "action": [
+          "org.kde.kscreen.desktop",
+          "ShowOSD",
+          "Display Configuration",
+          "Switch Display"
+        ],
+        "keys": [
+          268435536,
+          16777425
+        ]
+      },
+      {
+        "action": [
+          "org.kde.plasma-systemmonitor.desktop",
+          "_launch",
+          "System Monitor",
+          "System Monitor"
+        ],
+        "keys": [
+          285212672
+        ]
+      },
+      {
+        "action": [
+          "org.kde.plasma-systemmonitor.desktop",
+          "applications",
+          "System Monitor",
+          "Open Applications Page"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org.kde.plasma-systemmonitor.desktop",
+          "history",
+          "System Monitor",
+          "Open History Page"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org.kde.plasma-systemmonitor.desktop",
+          "overview",
+          "System Monitor",
+          "Open Overview Page"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org.kde.plasma-systemmonitor.desktop",
+          "processes",
+          "System Monitor",
+          "Open Processes Page"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org.kde.plasma.emojier.desktop",
+          "_launch",
+          "Emoji Selector",
+          "Emoji Selector"
+        ],
+        "keys": [
+          268435502,
+          503316512
+        ]
+      },
+      {
+        "action": [
+          "org.kde.screenreader.desktop",
+          "toggleScreenReader",
+          "Accessibility",
+          "Toggle Screen Reader On and Off"
+        ],
+        "keys": [
+          402653267
+        ]
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "ActiveWindowScreenShot",
+          "Spectacle",
+          "Capture Active Window"
+        ],
+        "keys": [
+          285212681
+        ]
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "CurrentMonitorScreenShot",
+          "Spectacle",
+          "Capture Current Monitor"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "FullScreenScreenShot",
+          "Spectacle",
+          "Capture Entire Desktop"
+        ],
+        "keys": [
+          50331657
+        ]
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "OpenWithoutScreenshot",
+          "Spectacle",
+          "Launch without taking a screenshot"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "RecordRegion",
+          "Spectacle",
+          "Start/Stop Region Recording"
+        ],
+        "keys": [
+          268435538,
+          301989970
+        ]
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "RecordScreen",
+          "Spectacle",
+          "Start/Stop Screen Recording"
+        ],
+        "keys": [
+          402653266
+        ]
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "RecordWindow",
+          "Spectacle",
+          "Start/Stop Window Recording"
+        ],
+        "keys": [
+          335544402
+        ]
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "RectangularRegionScreenShot",
+          "Spectacle",
+          "Capture Rectangular Region"
+        ],
+        "keys": [
+          318767113
+        ]
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "WindowUnderCursorScreenShot",
+          "Spectacle",
+          "Capture Window Under Cursor"
+        ],
+        "keys": [
+          352321545
+        ]
+      },
+      {
+        "action": [
+          "org.kde.spectacle.desktop",
+          "_launch",
+          "Spectacle",
+          "Spectacle"
+        ],
+        "keys": [
+          301989971,
+          16777225
+        ]
+      },
+      {
+        "action": [
+          "org.kde.touchpadshortcuts.desktop",
+          "DisableTouchpad",
+          "Touchpad",
+          "Disable Touchpad"
+        ],
+        "keys": [
+          16777490
+        ]
+      },
+      {
+        "action": [
+          "org.kde.touchpadshortcuts.desktop",
+          "EnableTouchpad",
+          "Touchpad",
+          "Enable Touchpad"
+        ],
+        "keys": [
+          16777489
+        ]
+      },
+      {
+        "action": [
+          "org.kde.touchpadshortcuts.desktop",
+          "ToggleTouchpad",
+          "Touchpad",
+          "Toggle Touchpad"
+        ],
+        "keys": [
+          16777488,
+          352321808,
+          352325930
+        ]
+      },
+      {
+        "action": [
+          "org.lookup.Linux.desktop",
+          "_launch",
+          "LookUp Linux",
+          "LookUp Linux"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Decrease Keyboard Brightness",
+          "Power Management",
+          "Decrease Keyboard Brightness"
+        ],
+        "keys": [
+          16777398
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Decrease Screen Brightness",
+          "Power Management",
+          "Decrease Screen Brightness"
+        ],
+        "keys": [
+          16777395
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Decrease Screen Brightness Small",
+          "Power Management",
+          "Decrease Screen Brightness by 1%"
+        ],
+        "keys": [
+          50331827
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Hibernate",
+          "Power Management",
+          "Hibernate"
+        ],
+        "keys": [
+          16777480
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Increase Keyboard Brightness",
+          "Power Management",
+          "Increase Keyboard Brightness"
+        ],
+        "keys": [
+          16777397
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Increase Screen Brightness",
+          "Power Management",
+          "Increase Screen Brightness"
+        ],
+        "keys": [
+          16777394
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Increase Screen Brightness Small",
+          "Power Management",
+          "Increase Screen Brightness by 1%"
+        ],
+        "keys": [
+          50331826
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "PowerDown",
+          "Power Management",
+          "Power Down"
+        ],
+        "keys": [
+          16777483
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "PowerOff",
+          "Power Management",
+          "Power Off"
+        ],
+        "keys": [
+          16777399
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Sleep",
+          "Power Management",
+          "Suspend"
+        ],
+        "keys": [
+          16908292
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Toggle Keyboard Backlight",
+          "Power Management",
+          "Toggle Keyboard Backlight"
+        ],
+        "keys": [
+          16777396
+        ]
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "Turn Off Screen",
+          "Power Management",
+          "Turn Off Screen"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "org_kde_powerdevil",
+          "powerProfile",
+          "Power Management",
+          "Switch Power Profile"
+        ],
+        "keys": [
+          16777470,
+          268435522
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "Slideshow Wallpaper Next Image",
+          "plasmashell",
+          "Next Wallpaper Image"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate application launcher",
+          "plasmashell",
+          "Activate Application Launcher"
+        ],
+        "keys": [
+          16777250,
+          150994992
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate next task manager entry",
+          "plasmashell",
+          "Activate Next Task Manager Entry"
+        ],
+        "keys": [
+          352321559
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate previous task manager entry",
+          "plasmashell",
+          "Activate Previous Task Manager Entry"
+        ],
+        "keys": [
+          352321558
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 1",
+          "plasmashell",
+          "Activate Task Manager Entry 1"
+        ],
+        "keys": [
+          268435505
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 10",
+          "plasmashell",
+          "Activate Task Manager Entry 10"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 2",
+          "plasmashell",
+          "Activate Task Manager Entry 2"
+        ],
+        "keys": [
+          268435506
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 3",
+          "plasmashell",
+          "Activate Task Manager Entry 3"
+        ],
+        "keys": [
+          268435507
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 4",
+          "plasmashell",
+          "Activate Task Manager Entry 4"
+        ],
+        "keys": [
+          268435508
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 5",
+          "plasmashell",
+          "Activate Task Manager Entry 5"
+        ],
+        "keys": [
+          268435509
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 6",
+          "plasmashell",
+          "Activate Task Manager Entry 6"
+        ],
+        "keys": [
+          268435510
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 7",
+          "plasmashell",
+          "Activate Task Manager Entry 7"
+        ],
+        "keys": [
+          268435511
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 8",
+          "plasmashell",
+          "Activate Task Manager Entry 8"
+        ],
+        "keys": [
+          268435512
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "activate task manager entry 9",
+          "plasmashell",
+          "Activate Task Manager Entry 9"
+        ],
+        "keys": [
+          268435513
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "clear history",
+          "plasmashell",
+          "Clear Notification History"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "clear-history",
+          "plasmashell",
+          "Clear Clipboard History"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "clipboard_action",
+          "plasmashell",
+          "Toggle Automatic Popping Up of Action Menu"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "cycle-panels",
+          "plasmashell",
+          "Move keyboard focus between panels"
+        ],
+        "keys": [
+          402653264
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "cycleNextAction",
+          "plasmashell",
+          "Next History Item"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "cyclePrevAction",
+          "plasmashell",
+          "Previous History Item"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "edit_clipboard",
+          "plasmashell",
+          "Edit Contents\u2026"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "manage activities",
+          "plasmashell",
+          "Show Activity Switcher"
+        ],
+        "keys": [
+          268435537
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "move active task to left",
+          "plasmashell",
+          "Move Active Task Manager Entry Backward"
+        ],
+        "keys": [
+          385875990
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "move active task to right",
+          "plasmashell",
+          "Move Active Task Manager Entry Forward"
+        ],
+        "keys": [
+          385875991
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "next activity",
+          "plasmashell",
+          "Walk through activities"
+        ],
+        "keys": [
+          268435521
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "previous activity",
+          "plasmashell",
+          "Walk through activities (Reverse)"
+        ],
+        "keys": [
+          301989953
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "repeat_action",
+          "plasmashell",
+          "Manually Invoke Action on Current Clipboard"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "show dashboard",
+          "plasmashell",
+          "Show Desktop"
+        ],
+        "keys": [
+          83886139
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "show-barcode",
+          "plasmashell",
+          "Show Barcode\u2026"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "show-on-mouse-pos",
+          "plasmashell",
+          "Show Clipboard Items at Mouse Position"
+        ],
+        "keys": [
+          268435542
+        ]
+      },
+      {
+        "action": [
+          "plasmashell",
+          "switch to next activity",
+          "plasmashell",
+          "Switch to Next Activity"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "switch to previous activity",
+          "plasmashell",
+          "Switch to Previous Activity"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "plasmashell",
+          "toggle do not disturb",
+          "plasmashell",
+          "Toggle do not disturb"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "systemsettings.desktop",
+          "_launch",
+          "System Settings",
+          "System Settings"
+        ],
+        "keys": [
+          16777457,
+          268435529
+        ]
+      },
+      {
+        "action": [
+          "systemsettings.desktop",
+          "kcm-kscreen",
+          "System Settings",
+          "Display Configuration"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "systemsettings.desktop",
+          "kcm-lookandfeel",
+          "System Settings",
+          "Global Theme"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "systemsettings.desktop",
+          "kcm-powerdevilprofilesconfig",
+          "System Settings",
+          "Power Management"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "systemsettings.desktop",
+          "kcm-screenlocker",
+          "System Settings",
+          "Screen Locking"
+        ],
+        "keys": []
+      },
+      {
+        "action": [
+          "systemsettings.desktop",
+          "kcm-users",
+          "System Settings",
+          "Users"
+        ],
+        "keys": []
+      }
+    ],
+    "kconfig_base64": "W0FjdGl2aXR5TWFuYWdlcl0KX2tfZnJpZW5kbHlfbmFtZT1BY3Rpdml0eSBNYW5hZ2VyCnN3aXRjaC10by1hY3Rpdml0eS1kM2ZmMTUxZC1mYzIxLTRmMDItYWI3MS02NWU4YWMwOWE0YTU9bm9uZSxub25lLFN3aXRjaCB0byBhY3Rpdml0eSAiRGVmYXVsdCIKCltLREUgS2V5Ym9hcmQgTGF5b3V0IFN3aXRjaGVyXQpTd2l0Y2ggdG8gTGFzdC1Vc2VkIEtleWJvYXJkIExheW91dD1NZXRhK0FsdCtMLE1ldGErQWx0K0wsClN3aXRjaCB0byBOZXh0IEtleWJvYXJkIExheW91dD1NZXRhK0FsdCtLLE1ldGErQWx0K0ssCl9rX2ZyaWVuZGx5X25hbWU9S2V5Ym9hcmQgTGF5b3V0IFN3aXRjaGVyCgpba21peF0KX2tfZnJpZW5kbHlfbmFtZT1BdWRpbyBWb2x1bWUKZGVjcmVhc2VfbWljcm9waG9uZV92b2x1bWU9TWljcm9waG9uZSBWb2x1bWUgRG93bixNaWNyb3Bob25lIFZvbHVtZSBEb3duLERlY3JlYXNlIE1pY3JvcGhvbmUgVm9sdW1lCmRlY3JlYXNlX3ZvbHVtZT1Wb2x1bWUgRG93bixWb2x1bWUgRG93bixEZWNyZWFzZSBWb2x1bWUKZGVjcmVhc2Vfdm9sdW1lX3NtYWxsPVNoaWZ0K1ZvbHVtZSBEb3duLFNoaWZ0K1ZvbHVtZSBEb3duLERlY3JlYXNlIFZvbHVtZSBieSAxJQppbmNyZWFzZV9taWNyb3Bob25lX3ZvbHVtZT1NaWNyb3Bob25lIFZvbHVtZSBVcCxNaWNyb3Bob25lIFZvbHVtZSBVcCxJbmNyZWFzZSBNaWNyb3Bob25lIFZvbHVtZQppbmNyZWFzZV92b2x1bWU9Vm9sdW1lIFVwLFZvbHVtZSBVcCxJbmNyZWFzZSBWb2x1bWUKaW5jcmVhc2Vfdm9sdW1lX3NtYWxsPVNoaWZ0K1ZvbHVtZSBVcCxTaGlmdCtWb2x1bWUgVXAsSW5jcmVhc2UgVm9sdW1lIGJ5IDElCm1pY19tdXRlPU1pY3JvcGhvbmUgTXV0ZVx0TWV0YStWb2x1bWUgTXV0ZSxNaWNyb3Bob25lIE11dGVcdE1ldGErVm9sdW1lIE11dGUsTXV0ZSBNaWNyb3Bob25lCm11dGU9Vm9sdW1lIE11dGUsVm9sdW1lIE11dGUsTXV0ZQpwdXNoX3RvX3RhbGs9bm9uZSxub25lLFB1c2ggdG8gdGFsawoKW2tzbXNlcnZlcl0KSGFsdCBXaXRob3V0IENvbmZpcm1hdGlvbj1ub25lLG5vbmUsU2h1dCBEb3duIFdpdGhvdXQgQ29uZmlybWF0aW9uCkxvY2sgU2Vzc2lvbj1TY3JlZW5zYXZlclx0TWV0YStMLFNjcmVlbnNhdmVyXHRNZXRhK0wsTG9jayBTZXNzaW9uCkxvZyBPdXQ9Q3RybCtBbHQrRGVsLEN0cmwrQWx0K0RlbCxTaG93IExvZ291dCBTY3JlZW4KTG9nIE91dCBXaXRob3V0IENvbmZpcm1hdGlvbj1ub25lLG5vbmUsTG9nIE91dCBXaXRob3V0IENvbmZpcm1hdGlvbgpMb2dPdXQ9bm9uZSxub25lLExvZyBPdXQKUmVib290PW5vbmUsbm9uZSxSZWJvb3QKUmVib290IFdpdGhvdXQgQ29uZmlybWF0aW9uPW5vbmUsbm9uZSxSZWJvb3QgV2l0aG91dCBDb25maXJtYXRpb24KU2h1dCBEb3duPW5vbmUsbm9uZSxTaHV0IERvd24KX2tfZnJpZW5kbHlfbmFtZT1TZXNzaW9uIE1hbmFnZW1lbnQKCltrd2luXQpBY3RpdmF0ZSBXaW5kb3cgRGVtYW5kaW5nIEF0dGVudGlvbj1NZXRhK0N0cmwrQSxNZXRhK0N0cmwrQSxBY3RpdmF0ZSBXaW5kb3cgRGVtYW5kaW5nIEF0dGVudGlvbgpDeWNsZSBPdmVydmlldz1ub25lLG5vbmUsQ3ljbGUgdGhyb3VnaCBPdmVydmlldyBhbmQgR3JpZCBWaWV3CkN5Y2xlIE92ZXJ2aWV3IE9wcG9zaXRlPW5vbmUsbm9uZSxDeWNsZSB0aHJvdWdoIEdyaWQgVmlldyBhbmQgT3ZlcnZpZXcKRGVjcmVhc2UgT3BhY2l0eT1ub25lLG5vbmUsRGVjcmVhc2UgT3BhY2l0eSBvZiBBY3RpdmUgV2luZG93IGJ5IDUlCkVkaXQgVGlsZXM9TWV0YStULE1ldGErVCxUb2dnbGUgVGlsZXMgRWRpdG9yCkV4cG9zZT1DdHJsK0Y5XHRNZXRhK0Y5LEN0cmwrRjlcdE1ldGErRjksVG9nZ2xlIFByZXNlbnQgV2luZG93cyAoQ3VycmVudCBkZXNrdG9wKQpFeHBvc2VBbGw9TGF1bmNoIChDKVx0Q3RybCtGMTBcdE1ldGErRjEwLExhdW5jaCAoQylcdEN0cmwrRjEwXHRNZXRhK0YxMCxUb2dnbGUgUHJlc2VudCBXaW5kb3dzIChBbGwgZGVza3RvcHMpCkV4cG9zZUNsYXNzPUN0cmwrRjdcdE1ldGErRjcsQ3RybCtGN1x0TWV0YStGNyxUb2dnbGUgUHJlc2VudCBXaW5kb3dzIChXaW5kb3cgY2xhc3MpCkV4cG9zZUNsYXNzQ3VycmVudERlc2t0b3A9bm9uZSxub25lLFRvZ2dsZSBQcmVzZW50IFdpbmRvd3MgKFdpbmRvdyBjbGFzcyBvbiBjdXJyZW50IGRlc2t0b3ApCkdyaWQgVmlldz1NZXRhK0csTWV0YStHLFRvZ2dsZSBHcmlkIFZpZXcKSW5jcmVhc2UgT3BhY2l0eT1ub25lLG5vbmUsSW5jcmVhc2UgT3BhY2l0eSBvZiBBY3RpdmUgV2luZG93IGJ5IDUlCktpbGwgV2luZG93PU1ldGErQ3RybCtFc2MsTWV0YStDdHJsK0VzYyxLaWxsIFdpbmRvdwpNb3ZlIFRhYmxldCB0byBOZXh0IExvZ2ljYWxPdXRwdXQ9bm9uZSxub25lLE1vdmUgdGhlIHRhYmxldCB0byB0aGUgbmV4dCBvdXRwdXQKTW92ZU1vdXNlVG9DZW50ZXI9TWV0YStGNixNZXRhK0Y2LENlbnRlciBQb2ludGVyIGluIFNjcmVlbgpNb3ZlTW91c2VUb0ZvY3VzPU1ldGErRjUsTWV0YStGNSxDZW50ZXIgUG9pbnRlciBpbiBGb2N1c2VkIFdpbmRvdwpNb3ZlWm9vbURvd249bm9uZSxub25lLE1vdmUgWm9vbWVkIEFyZWEgRG93bndhcmRzCk1vdmVab29tTGVmdD1ub25lLG5vbmUsTW92ZSBab29tZWQgQXJlYSB0byBMZWZ0Ck1vdmVab29tUmlnaHQ9bm9uZSxub25lLE1vdmUgWm9vbWVkIEFyZWEgdG8gUmlnaHQKTW92ZVpvb21VcD1ub25lLG5vbmUsTW92ZSBab29tZWQgQXJlYSBVcHdhcmRzCk92ZXJ2aWV3PU1ldGErVyxNZXRhK1csVG9nZ2xlIE92ZXJ2aWV3ClNldHVwIFdpbmRvdyBTaG9ydGN1dD1ub25lLG5vbmUsU2V0dXAgV2luZG93IFNob3J0Y3V0ClNob3cgRGVza3RvcD1NZXRhK0QsTWV0YStELFBlZWsgYXQgRGVza3RvcApTd2l0Y2ggT25lIERlc2t0b3AgRG93bj1NZXRhK0N0cmwrRG93bixNZXRhK0N0cmwrRG93bixTd2l0Y2ggT25lIERlc2t0b3AgRG93bgpTd2l0Y2ggT25lIERlc2t0b3AgVXA9TWV0YStDdHJsK1VwLE1ldGErQ3RybCtVcCxTd2l0Y2ggT25lIERlc2t0b3AgVXAKU3dpdGNoIE9uZSBEZXNrdG9wIHRvIHRoZSBMZWZ0PU1ldGErQ3RybCtMZWZ0LE1ldGErQ3RybCtMZWZ0LFN3aXRjaCBPbmUgRGVza3RvcCB0byB0aGUgTGVmdApTd2l0Y2ggT25lIERlc2t0b3AgdG8gdGhlIFJpZ2h0PU1ldGErQ3RybCtSaWdodCxNZXRhK0N0cmwrUmlnaHQsU3dpdGNoIE9uZSBEZXNrdG9wIHRvIHRoZSBSaWdodApTd2l0Y2ggV2luZG93IERvd249TWV0YStBbHQrRG93bixNZXRhK0FsdCtEb3duLFN3aXRjaCB0byBXaW5kb3cgQmVsb3cKU3dpdGNoIFdpbmRvdyBMZWZ0PU1ldGErQWx0K0xlZnQsTWV0YStBbHQrTGVmdCxTd2l0Y2ggdG8gV2luZG93IHRvIHRoZSBMZWZ0ClN3aXRjaCBXaW5kb3cgUmlnaHQ9TWV0YStBbHQrUmlnaHQsTWV0YStBbHQrUmlnaHQsU3dpdGNoIHRvIFdpbmRvdyB0byB0aGUgUmlnaHQKU3dpdGNoIFdpbmRvdyBVcD1NZXRhK0FsdCtVcCxNZXRhK0FsdCtVcCxTd2l0Y2ggdG8gV2luZG93IEFib3ZlClN3aXRjaCB0byBEZXNrdG9wIDE9Q3RybCtGMVx0TWV0YStGMSxDdHJsK0YxXHRNZXRhK0YxLFN3aXRjaCB0byBEZXNrdG9wIDEKU3dpdGNoIHRvIERlc2t0b3AgMTA9bm9uZSxub25lLFN3aXRjaCB0byBEZXNrdG9wIDEwClN3aXRjaCB0byBEZXNrdG9wIDExPW5vbmUsbm9uZSxTd2l0Y2ggdG8gRGVza3RvcCAxMQpTd2l0Y2ggdG8gRGVza3RvcCAxMj1ub25lLG5vbmUsU3dpdGNoIHRvIERlc2t0b3AgMTIKU3dpdGNoIHRvIERlc2t0b3AgMTM9bm9uZSxub25lLFN3aXRjaCB0byBEZXNrdG9wIDEzClN3aXRjaCB0byBEZXNrdG9wIDE0PW5vbmUsbm9uZSxTd2l0Y2ggdG8gRGVza3RvcCAxNApTd2l0Y2ggdG8gRGVza3RvcCAxNT1ub25lLG5vbmUsU3dpdGNoIHRvIERlc2t0b3AgMTUKU3dpdGNoIHRvIERlc2t0b3AgMTY9bm9uZSxub25lLFN3aXRjaCB0byBEZXNrdG9wIDE2ClN3aXRjaCB0byBEZXNrdG9wIDE3PW5vbmUsbm9uZSxTd2l0Y2ggdG8gRGVza3RvcCAxNwpTd2l0Y2ggdG8gRGVza3RvcCAxOD1ub25lLG5vbmUsU3dpdGNoIHRvIERlc2t0b3AgMTgKU3dpdGNoIHRvIERlc2t0b3AgMTk9bm9uZSxub25lLFN3aXRjaCB0byBEZXNrdG9wIDE5ClN3aXRjaCB0byBEZXNrdG9wIDI9Q3RybCtGMlx0TWV0YStGMixDdHJsK0YyXHRNZXRhK0YyLFN3aXRjaCB0byBEZXNrdG9wIDIKU3dpdGNoIHRvIERlc2t0b3AgMjA9bm9uZSxub25lLFN3aXRjaCB0byBEZXNrdG9wIDIwClN3aXRjaCB0byBEZXNrdG9wIDIxPW5vbmUsbm9uZSxTd2l0Y2ggdG8gRGVza3RvcCAyMQpTd2l0Y2ggdG8gRGVza3RvcCAyMj1ub25lLG5vbmUsU3dpdGNoIHRvIERlc2t0b3AgMjIKU3dpdGNoIHRvIERlc2t0b3AgMjM9bm9uZSxub25lLFN3aXRjaCB0byBEZXNrdG9wIDIzClN3aXRjaCB0byBEZXNrdG9wIDI0PW5vbmUsbm9uZSxTd2l0Y2ggdG8gRGVza3RvcCAyNApTd2l0Y2ggdG8gRGVza3RvcCAyNT1ub25lLG5vbmUsU3dpdGNoIHRvIERlc2t0b3AgMjUKU3dpdGNoIHRvIERlc2t0b3AgMz1DdHJsK0YzXHRNZXRhK0YzLEN0cmwrRjNcdE1ldGErRjMsU3dpdGNoIHRvIERlc2t0b3AgMwpTd2l0Y2ggdG8gRGVza3RvcCA0PUN0cmwrRjRcdE1ldGErRjQsQ3RybCtGNFx0TWV0YStGNCxTd2l0Y2ggdG8gRGVza3RvcCA0ClN3aXRjaCB0byBEZXNrdG9wIDU9bm9uZSxub25lLFN3aXRjaCB0byBEZXNrdG9wIDUKU3dpdGNoIHRvIERlc2t0b3AgNj1ub25lLG5vbmUsU3dpdGNoIHRvIERlc2t0b3AgNgpTd2l0Y2ggdG8gRGVza3RvcCA3PW5vbmUsbm9uZSxTd2l0Y2ggdG8gRGVza3RvcCA3ClN3aXRjaCB0byBEZXNrdG9wIDg9bm9uZSxub25lLFN3aXRjaCB0byBEZXNrdG9wIDgKU3dpdGNoIHRvIERlc2t0b3AgOT1ub25lLG5vbmUsU3dpdGNoIHRvIERlc2t0b3AgOQpTd2l0Y2ggdG8gTmV4dCBEZXNrdG9wPW5vbmUsbm9uZSxTd2l0Y2ggdG8gTmV4dCBEZXNrdG9wClN3aXRjaCB0byBOZXh0IFNjcmVlbj1ub25lLG5vbmUsU3dpdGNoIHRvIE5leHQgU2NyZWVuClN3aXRjaCB0byBQcmV2aW91cyBEZXNrdG9wPW5vbmUsbm9uZSxTd2l0Y2ggdG8gUHJldmlvdXMgRGVza3RvcApTd2l0Y2ggdG8gUHJldmlvdXMgU2NyZWVuPW5vbmUsbm9uZSxTd2l0Y2ggdG8gUHJldmlvdXMgU2NyZWVuClN3aXRjaCB0byBTY3JlZW4gMD1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiAwClN3aXRjaCB0byBTY3JlZW4gMT1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiAxClN3aXRjaCB0byBTY3JlZW4gMj1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiAyClN3aXRjaCB0byBTY3JlZW4gMz1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiAzClN3aXRjaCB0byBTY3JlZW4gND1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiA0ClN3aXRjaCB0byBTY3JlZW4gNT1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiA1ClN3aXRjaCB0byBTY3JlZW4gNj1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiA2ClN3aXRjaCB0byBTY3JlZW4gNz1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiA3ClN3aXRjaCB0byBTY3JlZW4gQWJvdmU9bm9uZSxub25lLFN3aXRjaCB0byBTY3JlZW4gQWJvdmUKU3dpdGNoIHRvIFNjcmVlbiBCZWxvdz1ub25lLG5vbmUsU3dpdGNoIHRvIFNjcmVlbiBCZWxvdwpTd2l0Y2ggdG8gU2NyZWVuIHRvIHRoZSBMZWZ0PW5vbmUsbm9uZSxTd2l0Y2ggdG8gU2NyZWVuIHRvIHRoZSBMZWZ0ClN3aXRjaCB0byBTY3JlZW4gdG8gdGhlIFJpZ2h0PW5vbmUsbm9uZSxTd2l0Y2ggdG8gU2NyZWVuIHRvIHRoZSBSaWdodApUb2dnbGUgTmlnaHQgQ29sb3I9bm9uZSxub25lLFN1c3BlbmQvUmVzdW1lIE5pZ2h0IExpZ2h0ClRvZ2dsZSBTaG93IENvbXBvc2l0aW5nPW5vbmUsbm9uZSxUb2dnbGUg4oCcU2hvdyBDb21wb3NpdGluZ+KAnSBlZmZlY3QKVG9nZ2xlIFdpbmRvdyBSYWlzZS9Mb3dlcj1ub25lLG5vbmUsVG9nZ2xlIFdpbmRvdyBSYWlzZS9Mb3dlcgpXYWxrIFRocm91Z2ggV2luZG93cz1BbHQrVGFiXHRNZXRhK1RhYixBbHQrVGFiXHRNZXRhK1RhYixXYWxrIFRocm91Z2ggV2luZG93cwpXYWxrIFRocm91Z2ggV2luZG93cyAoUmV2ZXJzZSk9QWx0K1NoaWZ0K1RhYlx0TWV0YStTaGlmdCtUYWIsQWx0K1NoaWZ0K1RhYlx0TWV0YStTaGlmdCtUYWIsV2FsayBUaHJvdWdoIFdpbmRvd3MgKFJldmVyc2UpCldhbGsgVGhyb3VnaCBXaW5kb3dzIEFsdGVybmF0aXZlPW5vbmUsbm9uZSxXYWxrIFRocm91Z2ggV2luZG93cyBBbHRlcm5hdGl2ZQpXYWxrIFRocm91Z2ggV2luZG93cyBBbHRlcm5hdGl2ZSAoUmV2ZXJzZSk9bm9uZSxub25lLFdhbGsgVGhyb3VnaCBXaW5kb3dzIEFsdGVybmF0aXZlIChSZXZlcnNlKQpXYWxrIFRocm91Z2ggV2luZG93cyBvZiBDdXJyZW50IEFwcGxpY2F0aW9uPUFsdCtgXHRNZXRhK2AsQWx0K2BcdE1ldGErYCxXYWxrIFRocm91Z2ggV2luZG93cyBvZiBDdXJyZW50IEFwcGxpY2F0aW9uCldhbGsgVGhyb3VnaCBXaW5kb3dzIG9mIEN1cnJlbnQgQXBwbGljYXRpb24gKFJldmVyc2UpPUFsdCt+XHRNZXRhK34sQWx0K35cdE1ldGErfixXYWxrIFRocm91Z2ggV2luZG93cyBvZiBDdXJyZW50IEFwcGxpY2F0aW9uIChSZXZlcnNlKQpXYWxrIFRocm91Z2ggV2luZG93cyBvZiBDdXJyZW50IEFwcGxpY2F0aW9uIEFsdGVybmF0aXZlPW5vbmUsbm9uZSxXYWxrIFRocm91Z2ggV2luZG93cyBvZiBDdXJyZW50IEFwcGxpY2F0aW9uIEFsdGVybmF0aXZlCldhbGsgVGhyb3VnaCBXaW5kb3dzIG9mIEN1cnJlbnQgQXBwbGljYXRpb24gQWx0ZXJuYXRpdmUgKFJldmVyc2UpPW5vbmUsbm9uZSxXYWxrIFRocm91Z2ggV2luZG93cyBvZiBDdXJyZW50IEFwcGxpY2F0aW9uIEFsdGVybmF0aXZlIChSZXZlcnNlKQpXaW5kb3cgQWJvdmUgT3RoZXIgV2luZG93cz1ub25lLG5vbmUsS2VlcCBXaW5kb3cgQWJvdmUgT3RoZXJzCldpbmRvdyBCZWxvdyBPdGhlciBXaW5kb3dzPW5vbmUsbm9uZSxLZWVwIFdpbmRvdyBCZWxvdyBPdGhlcnMKV2luZG93IENsb3NlPUFsdCtGNCxBbHQrRjQsQ2xvc2UgV2luZG93CldpbmRvdyBDdXN0b20gUXVpY2sgVGlsZSBCb3R0b209bm9uZSxub25lLEN1c3RvbSBRdWljayBUaWxlIFdpbmRvdyB0byB0aGUgQm90dG9tCldpbmRvdyBDdXN0b20gUXVpY2sgVGlsZSBMZWZ0PW5vbmUsbm9uZSxDdXN0b20gUXVpY2sgVGlsZSBXaW5kb3cgdG8gdGhlIExlZnQKV2luZG93IEN1c3RvbSBRdWljayBUaWxlIFJpZ2h0PW5vbmUsbm9uZSxDdXN0b20gUXVpY2sgVGlsZSBXaW5kb3cgdG8gdGhlIFJpZ2h0CldpbmRvdyBDdXN0b20gUXVpY2sgVGlsZSBUb3A9bm9uZSxub25lLEN1c3RvbSBRdWljayBUaWxlIFdpbmRvdyB0byB0aGUgVG9wCldpbmRvdyBGdWxsc2NyZWVuPW5vbmUsbm9uZSxNYWtlIFdpbmRvdyBGdWxsc2NyZWVuCldpbmRvdyBHcm93IEhvcml6b250YWw9bm9uZSxub25lLEV4cGFuZCBXaW5kb3cgSG9yaXpvbnRhbGx5CldpbmRvdyBHcm93IFZlcnRpY2FsPW5vbmUsbm9uZSxFeHBhbmQgV2luZG93IFZlcnRpY2FsbHkKV2luZG93IExvd2VyPW5vbmUsbm9uZSxMb3dlciBXaW5kb3cKV2luZG93IE1heGltaXplPU1ldGErUGdVcCxNZXRhK1BnVXAsTWF4aW1pemUgV2luZG93CldpbmRvdyBNYXhpbWl6ZSBIb3Jpem9udGFsPW5vbmUsbm9uZSxNYXhpbWl6ZSBXaW5kb3cgSG9yaXpvbnRhbGx5CldpbmRvdyBNYXhpbWl6ZSBWZXJ0aWNhbD1ub25lLG5vbmUsTWF4aW1pemUgV2luZG93IFZlcnRpY2FsbHkKV2luZG93IE1pbmltaXplPU1ldGErUGdEb3duLE1ldGErUGdEb3duLE1pbmltaXplIFdpbmRvdwpXaW5kb3cgTW92ZT1ub25lLG5vbmUsTW92ZSBXaW5kb3cKV2luZG93IE1vdmUgQ2VudGVyPW5vbmUsbm9uZSxNb3ZlIFdpbmRvdyB0byB0aGUgQ2VudGVyCldpbmRvdyBObyBCb3JkZXI9bm9uZSxub25lLFRvZ2dsZSBXaW5kb3cgVGl0bGViYXIgYW5kIEZyYW1lCldpbmRvdyBPbiBBbGwgRGVza3RvcHM9bm9uZSxub25lLEtlZXAgV2luZG93IG9uIEFsbCBEZXNrdG9wcwpXaW5kb3cgT25lIERlc2t0b3AgRG93bj1NZXRhK0N0cmwrU2hpZnQrRG93bixNZXRhK0N0cmwrU2hpZnQrRG93bixXaW5kb3cgT25lIERlc2t0b3AgRG93bgpXaW5kb3cgT25lIERlc2t0b3AgVXA9TWV0YStDdHJsK1NoaWZ0K1VwLE1ldGErQ3RybCtTaGlmdCtVcCxXaW5kb3cgT25lIERlc2t0b3AgVXAKV2luZG93IE9uZSBEZXNrdG9wIHRvIHRoZSBMZWZ0PU1ldGErQ3RybCtTaGlmdCtMZWZ0LE1ldGErQ3RybCtTaGlmdCtMZWZ0LFdpbmRvdyBPbmUgRGVza3RvcCB0byB0aGUgTGVmdApXaW5kb3cgT25lIERlc2t0b3AgdG8gdGhlIFJpZ2h0PU1ldGErQ3RybCtTaGlmdCtSaWdodCxNZXRhK0N0cmwrU2hpZnQrUmlnaHQsV2luZG93IE9uZSBEZXNrdG9wIHRvIHRoZSBSaWdodApXaW5kb3cgT25lIFNjcmVlbiBEb3duPW5vbmUsbm9uZSxNb3ZlIFdpbmRvdyBPbmUgU2NyZWVuIERvd24KV2luZG93IE9uZSBTY3JlZW4gVXA9bm9uZSxub25lLE1vdmUgV2luZG93IE9uZSBTY3JlZW4gVXAKV2luZG93IE9uZSBTY3JlZW4gdG8gdGhlIExlZnQ9bm9uZSxub25lLE1vdmUgV2luZG93IE9uZSBTY3JlZW4gdG8gdGhlIExlZnQKV2luZG93IE9uZSBTY3JlZW4gdG8gdGhlIFJpZ2h0PW5vbmUsbm9uZSxNb3ZlIFdpbmRvdyBPbmUgU2NyZWVuIHRvIHRoZSBSaWdodApXaW5kb3cgT3BlcmF0aW9ucyBNZW51PUFsdCtGMyxBbHQrRjMsV2luZG93IE1lbnUKV2luZG93IFBhY2sgRG93bj1ub25lLG5vbmUsTW92ZSBXaW5kb3cgRG93bgpXaW5kb3cgUGFjayBMZWZ0PW5vbmUsbm9uZSxNb3ZlIFdpbmRvdyBMZWZ0CldpbmRvdyBQYWNrIFJpZ2h0PW5vbmUsbm9uZSxNb3ZlIFdpbmRvdyBSaWdodApXaW5kb3cgUGFjayBVcD1ub25lLG5vbmUsTW92ZSBXaW5kb3cgVXAKV2luZG93IFF1aWNrIFRpbGUgQm90dG9tPU1ldGErRG93bixNZXRhK0Rvd24sUXVpY2sgVGlsZSBXaW5kb3cgdG8gdGhlIEJvdHRvbQpXaW5kb3cgUXVpY2sgVGlsZSBCb3R0b20gTGVmdD1ub25lLG5vbmUsUXVpY2sgVGlsZSBXaW5kb3cgdG8gdGhlIEJvdHRvbSBMZWZ0CldpbmRvdyBRdWljayBUaWxlIEJvdHRvbSBSaWdodD1ub25lLG5vbmUsUXVpY2sgVGlsZSBXaW5kb3cgdG8gdGhlIEJvdHRvbSBSaWdodApXaW5kb3cgUXVpY2sgVGlsZSBMZWZ0PU1ldGErTGVmdCxNZXRhK0xlZnQsUXVpY2sgVGlsZSBXaW5kb3cgdG8gdGhlIExlZnQKV2luZG93IFF1aWNrIFRpbGUgUmlnaHQ9TWV0YStSaWdodCxNZXRhK1JpZ2h0LFF1aWNrIFRpbGUgV2luZG93IHRvIHRoZSBSaWdodApXaW5kb3cgUXVpY2sgVGlsZSBUb3A9TWV0YStVcCxNZXRhK1VwLFF1aWNrIFRpbGUgV2luZG93IHRvIHRoZSBUb3AKV2luZG93IFF1aWNrIFRpbGUgVG9wIExlZnQ9bm9uZSxub25lLFF1aWNrIFRpbGUgV2luZG93IHRvIHRoZSBUb3AgTGVmdApXaW5kb3cgUXVpY2sgVGlsZSBUb3AgUmlnaHQ9bm9uZSxub25lLFF1aWNrIFRpbGUgV2luZG93IHRvIHRoZSBUb3AgUmlnaHQKV2luZG93IFJhaXNlPW5vbmUsbm9uZSxSYWlzZSBXaW5kb3cKV2luZG93IFJlc2l6ZT1ub25lLG5vbmUsUmVzaXplIFdpbmRvdwpXaW5kb3cgUmVzdG9yZT1NZXRhK0JhY2tzcGFjZSxNZXRhK0JhY2tzcGFjZSxSZXN0b3JlIFdpbmRvdwpXaW5kb3cgU2hyaW5rIEhvcml6b250YWw9bm9uZSxub25lLFNocmluayBXaW5kb3cgSG9yaXpvbnRhbGx5CldpbmRvdyBTaHJpbmsgVmVydGljYWw9bm9uZSxub25lLFNocmluayBXaW5kb3cgVmVydGljYWxseQpXaW5kb3cgdG8gRGVza3RvcCAxPW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCAxCldpbmRvdyB0byBEZXNrdG9wIDEwPW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCAxMApXaW5kb3cgdG8gRGVza3RvcCAxMT1ub25lLG5vbmUsV2luZG93IHRvIERlc2t0b3AgMTEKV2luZG93IHRvIERlc2t0b3AgMTI9bm9uZSxub25lLFdpbmRvdyB0byBEZXNrdG9wIDEyCldpbmRvdyB0byBEZXNrdG9wIDEzPW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCAxMwpXaW5kb3cgdG8gRGVza3RvcCAxND1ub25lLG5vbmUsV2luZG93IHRvIERlc2t0b3AgMTQKV2luZG93IHRvIERlc2t0b3AgMTU9bm9uZSxub25lLFdpbmRvdyB0byBEZXNrdG9wIDE1CldpbmRvdyB0byBEZXNrdG9wIDE2PW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCAxNgpXaW5kb3cgdG8gRGVza3RvcCAxNz1ub25lLG5vbmUsV2luZG93IHRvIERlc2t0b3AgMTcKV2luZG93IHRvIERlc2t0b3AgMTg9bm9uZSxub25lLFdpbmRvdyB0byBEZXNrdG9wIDE4CldpbmRvdyB0byBEZXNrdG9wIDE5PW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCAxOQpXaW5kb3cgdG8gRGVza3RvcCAyPW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCAyCldpbmRvdyB0byBEZXNrdG9wIDIwPW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCAyMApXaW5kb3cgdG8gRGVza3RvcCAyMT1ub25lLG5vbmUsV2luZG93IHRvIERlc2t0b3AgMjEKV2luZG93IHRvIERlc2t0b3AgMjI9bm9uZSxub25lLFdpbmRvdyB0byBEZXNrdG9wIDIyCldpbmRvdyB0byBEZXNrdG9wIDIzPW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCAyMwpXaW5kb3cgdG8gRGVza3RvcCAyND1ub25lLG5vbmUsV2luZG93IHRvIERlc2t0b3AgMjQKV2luZG93IHRvIERlc2t0b3AgMjU9bm9uZSxub25lLFdpbmRvdyB0byBEZXNrdG9wIDI1CldpbmRvdyB0byBEZXNrdG9wIDM9bm9uZSxub25lLFdpbmRvdyB0byBEZXNrdG9wIDMKV2luZG93IHRvIERlc2t0b3AgND1ub25lLG5vbmUsV2luZG93IHRvIERlc2t0b3AgNApXaW5kb3cgdG8gRGVza3RvcCA1PW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCA1CldpbmRvdyB0byBEZXNrdG9wIDY9bm9uZSxub25lLFdpbmRvdyB0byBEZXNrdG9wIDYKV2luZG93IHRvIERlc2t0b3AgNz1ub25lLG5vbmUsV2luZG93IHRvIERlc2t0b3AgNwpXaW5kb3cgdG8gRGVza3RvcCA4PW5vbmUsbm9uZSxXaW5kb3cgdG8gRGVza3RvcCA4CldpbmRvdyB0byBEZXNrdG9wIDk9bm9uZSxub25lLFdpbmRvdyB0byBEZXNrdG9wIDkKV2luZG93IHRvIE5leHQgRGVza3RvcD1ub25lLG5vbmUsV2luZG93IHRvIE5leHQgRGVza3RvcApXaW5kb3cgdG8gTmV4dCBTY3JlZW49TWV0YStTaGlmdCtSaWdodCxNZXRhK1NoaWZ0K1JpZ2h0LE1vdmUgV2luZG93IHRvIE5leHQgU2NyZWVuCldpbmRvdyB0byBQcmV2aW91cyBEZXNrdG9wPW5vbmUsbm9uZSxXaW5kb3cgdG8gUHJldmlvdXMgRGVza3RvcApXaW5kb3cgdG8gUHJldmlvdXMgU2NyZWVuPU1ldGErU2hpZnQrTGVmdCxNZXRhK1NoaWZ0K0xlZnQsTW92ZSBXaW5kb3cgdG8gUHJldmlvdXMgU2NyZWVuCldpbmRvdyB0byBTY3JlZW4gMD1ub25lLG5vbmUsTW92ZSBXaW5kb3cgdG8gU2NyZWVuIDAKV2luZG93IHRvIFNjcmVlbiAxPW5vbmUsbm9uZSxNb3ZlIFdpbmRvdyB0byBTY3JlZW4gMQpXaW5kb3cgdG8gU2NyZWVuIDI9bm9uZSxub25lLE1vdmUgV2luZG93IHRvIFNjcmVlbiAyCldpbmRvdyB0byBTY3JlZW4gMz1ub25lLG5vbmUsTW92ZSBXaW5kb3cgdG8gU2NyZWVuIDMKV2luZG93IHRvIFNjcmVlbiA0PW5vbmUsbm9uZSxNb3ZlIFdpbmRvdyB0byBTY3JlZW4gNApXaW5kb3cgdG8gU2NyZWVuIDU9bm9uZSxub25lLE1vdmUgV2luZG93IHRvIFNjcmVlbiA1CldpbmRvdyB0byBTY3JlZW4gNj1ub25lLG5vbmUsTW92ZSBXaW5kb3cgdG8gU2NyZWVuIDYKV2luZG93IHRvIFNjcmVlbiA3PW5vbmUsbm9uZSxNb3ZlIFdpbmRvdyB0byBTY3JlZW4gNwpfa19mcmllbmRseV9uYW1lPUtXaW4KZGlzYWJsZUlucHV0Q2FwdHVyZT1NZXRhK1NoaWZ0K0VzYyxNZXRhK1NoaWZ0K0VzYyxEaXNhYmxlIEFjdGl2ZSBJbnB1dCBDYXB0dXJlCnZpZXdfYWN0dWFsX3NpemU9TWV0YSswLE1ldGErMCxab29tIHRvIEFjdHVhbCBTaXplCnZpZXdfem9vbV9pbj1NZXRhKytcdE1ldGErPSxNZXRhKytcdE1ldGErPSxab29tIEluCnZpZXdfem9vbV9vdXQ9TWV0YSstLE1ldGErLSxab29tIE91dAoKW2t3aW5dWyRJbnZlcnNlQWN0aW9uXQpDeWNsZSBPdmVydmlldyBPcHBvc2l0ZT1DeWNsZSBPdmVydmlldwpEZWNyZWFzZSBPcGFjaXR5PUluY3JlYXNlIE9wYWNpdHkKTW92ZVpvb21Eb3duPU1vdmVab29tVXAKTW92ZVpvb21MZWZ0PU1vdmVab29tUmlnaHQKU3dpdGNoIE9uZSBEZXNrdG9wIFVwPVN3aXRjaCBPbmUgRGVza3RvcCBEb3duClN3aXRjaCBPbmUgRGVza3RvcCB0byB0aGUgUmlnaHQ9U3dpdGNoIE9uZSBEZXNrdG9wIHRvIHRoZSBMZWZ0ClN3aXRjaCBXaW5kb3cgUmlnaHQ9U3dpdGNoIFdpbmRvdyBMZWZ0ClN3aXRjaCBXaW5kb3cgVXA9U3dpdGNoIFdpbmRvdyBEb3duClN3aXRjaCB0byBOZXh0IERlc2t0b3A9U3dpdGNoIHRvIFByZXZpb3VzIERlc2t0b3AKU3dpdGNoIHRvIE5leHQgU2NyZWVuPVN3aXRjaCB0byBQcmV2aW91cyBTY3JlZW4KU3dpdGNoIHRvIFNjcmVlbiBBYm92ZT1Td2l0Y2ggdG8gU2NyZWVuIEJlbG93ClN3aXRjaCB0byBTY3JlZW4gdG8gdGhlIExlZnQ9U3dpdGNoIHRvIFNjcmVlbiB0byB0aGUgUmlnaHQKV2FsayBUaHJvdWdoIFdpbmRvd3MgKFJldmVyc2UpPVdhbGsgVGhyb3VnaCBXaW5kb3dzCldhbGsgVGhyb3VnaCBXaW5kb3dzIEFsdGVybmF0aXZlIChSZXZlcnNlKT1XYWxrIFRocm91Z2ggV2luZG93cyBBbHRlcm5hdGl2ZQpXYWxrIFRocm91Z2ggV2luZG93cyBvZiBDdXJyZW50IEFwcGxpY2F0aW9uPVdhbGsgVGhyb3VnaCBXaW5kb3dzIG9mIEN1cnJlbnQgQXBwbGljYXRpb24gKFJldmVyc2UpCldhbGsgVGhyb3VnaCBXaW5kb3dzIG9mIEN1cnJlbnQgQXBwbGljYXRpb24gQWx0ZXJuYXRpdmUgKFJldmVyc2UpPVdhbGsgVGhyb3VnaCBXaW5kb3dzIG9mIEN1cnJlbnQgQXBwbGljYXRpb24gQWx0ZXJuYXRpdmUKV2luZG93IEdyb3cgVmVydGljYWw9V2luZG93IFNocmluayBWZXJ0aWNhbApXaW5kb3cgTG93ZXI9V2luZG93IFJhaXNlCldpbmRvdyBPbmUgRGVza3RvcCBVcD1XaW5kb3cgT25lIERlc2t0b3AgRG93bgpXaW5kb3cgT25lIERlc2t0b3AgdG8gdGhlIFJpZ2h0PVdpbmRvdyBPbmUgRGVza3RvcCB0byB0aGUgTGVmdApXaW5kb3cgT25lIFNjcmVlbiBEb3duPVdpbmRvdyBPbmUgU2NyZWVuIFVwCldpbmRvdyBPbmUgU2NyZWVuIHRvIHRoZSBSaWdodD1XaW5kb3cgT25lIFNjcmVlbiB0byB0aGUgTGVmdApXaW5kb3cgUGFjayBEb3duPVdpbmRvdyBQYWNrIFVwCldpbmRvdyBQYWNrIFJpZ2h0PVdpbmRvdyBQYWNrIExlZnQKV2luZG93IFNocmluayBIb3Jpem9udGFsPVdpbmRvdyBHcm93IEhvcml6b250YWwKV2luZG93IHRvIFByZXZpb3VzIERlc2t0b3A9V2luZG93IHRvIE5leHQgRGVza3RvcApXaW5kb3cgdG8gUHJldmlvdXMgU2NyZWVuPVdpbmRvdyB0byBOZXh0IFNjcmVlbgp2aWV3X3pvb21faW49dmlld196b29tX291dAoKW21lZGlhY29udHJvbF0KX2tfZnJpZW5kbHlfbmFtZT1NZWRpYSBDb250cm9sbGVyCm1lZGlhdm9sdW1lZG93bj1ub25lLG5vbmUsTWVkaWEgdm9sdW1lIGRvd24KbWVkaWF2b2x1bWV1cD1ub25lLG5vbmUsTWVkaWEgdm9sdW1lIHVwCm5leHRtZWRpYT1NZWRpYSBOZXh0LE1lZGlhIE5leHQsTWVkaWEgcGxheWJhY2sgbmV4dApwYXVzZW1lZGlhPU1lZGlhIFBhdXNlLE1lZGlhIFBhdXNlLFBhdXNlIG1lZGlhIHBsYXliYWNrCnBsYXltZWRpYT1ub25lLG5vbmUsUGxheSBtZWRpYSBwbGF5YmFjawpwbGF5cGF1c2VtZWRpYT1NZWRpYSBQbGF5LE1lZGlhIFBsYXksUGxheS9QYXVzZSBtZWRpYSBwbGF5YmFjawpwcmV2aW91c21lZGlhPU1lZGlhIFByZXZpb3VzLE1lZGlhIFByZXZpb3VzLE1lZGlhIHBsYXliYWNrIHByZXZpb3VzCnNlZWtiYWNrd2FyZG1lZGlhPU1lZGlhIFJld2luZCxNZWRpYSBSZXdpbmQsTWVkaWEgcGxheWJhY2sgc2VlayBiYWNrd2FyZCA1cwpzZWVrYmFja3dhcmRtZWRpYWxvbmc9bm9uZSxub25lLE1lZGlhIHBsYXliYWNrIHNlZWsgYmFja3dhcmQgMzBzCnNlZWtmb3J3YXJkbWVkaWE9TWVkaWEgRmFzdCBGb3J3YXJkLE1lZGlhIEZhc3QgRm9yd2FyZCxNZWRpYSBwbGF5YmFjayBzZWVrIGZvcndhcmQgNXMKc2Vla2ZvcndhcmRtZWRpYWxvbmc9bm9uZSxub25lLE1lZGlhIHBsYXliYWNrIHNlZWsgZm9yd2FyZCAzMHMKc3RvcG1lZGlhPU1lZGlhIFN0b3AsTWVkaWEgU3RvcCxTdG9wIG1lZGlhIHBsYXliYWNrCgpbb3JnX2tkZV9wb3dlcmRldmlsXQpEZWNyZWFzZSBLZXlib2FyZCBCcmlnaHRuZXNzPUtleWJvYXJkIEJyaWdodG5lc3MgRG93bixLZXlib2FyZCBCcmlnaHRuZXNzIERvd24sRGVjcmVhc2UgS2V5Ym9hcmQgQnJpZ2h0bmVzcwpEZWNyZWFzZSBTY3JlZW4gQnJpZ2h0bmVzcz1Nb25pdG9yIEJyaWdodG5lc3MgRG93bixNb25pdG9yIEJyaWdodG5lc3MgRG93bixEZWNyZWFzZSBTY3JlZW4gQnJpZ2h0bmVzcwpEZWNyZWFzZSBTY3JlZW4gQnJpZ2h0bmVzcyBTbWFsbD1TaGlmdCtNb25pdG9yIEJyaWdodG5lc3MgRG93bixTaGlmdCtNb25pdG9yIEJyaWdodG5lc3MgRG93bixEZWNyZWFzZSBTY3JlZW4gQnJpZ2h0bmVzcyBieSAxJQpIaWJlcm5hdGU9SGliZXJuYXRlLEhpYmVybmF0ZSxIaWJlcm5hdGUKSW5jcmVhc2UgS2V5Ym9hcmQgQnJpZ2h0bmVzcz1LZXlib2FyZCBCcmlnaHRuZXNzIFVwLEtleWJvYXJkIEJyaWdodG5lc3MgVXAsSW5jcmVhc2UgS2V5Ym9hcmQgQnJpZ2h0bmVzcwpJbmNyZWFzZSBTY3JlZW4gQnJpZ2h0bmVzcz1Nb25pdG9yIEJyaWdodG5lc3MgVXAsTW9uaXRvciBCcmlnaHRuZXNzIFVwLEluY3JlYXNlIFNjcmVlbiBCcmlnaHRuZXNzCkluY3JlYXNlIFNjcmVlbiBCcmlnaHRuZXNzIFNtYWxsPVNoaWZ0K01vbml0b3IgQnJpZ2h0bmVzcyBVcCxTaGlmdCtNb25pdG9yIEJyaWdodG5lc3MgVXAsSW5jcmVhc2UgU2NyZWVuIEJyaWdodG5lc3MgYnkgMSUKUG93ZXJEb3duPVBvd2VyIERvd24sUG93ZXIgRG93bixQb3dlciBEb3duClBvd2VyT2ZmPVBvd2VyIE9mZixQb3dlciBPZmYsUG93ZXIgT2ZmClNsZWVwPVNsZWVwLFNsZWVwLFN1c3BlbmQKVG9nZ2xlIEtleWJvYXJkIEJhY2tsaWdodD1LZXlib2FyZCBMaWdodCBPbi9PZmYsS2V5Ym9hcmQgTGlnaHQgT24vT2ZmLFRvZ2dsZSBLZXlib2FyZCBCYWNrbGlnaHQKVHVybiBPZmYgU2NyZWVuPW5vbmUsbm9uZSxUdXJuIE9mZiBTY3JlZW4KX2tfZnJpZW5kbHlfbmFtZT1Qb3dlciBNYW5hZ2VtZW50CnBvd2VyUHJvZmlsZT1CYXR0ZXJ5XHRNZXRhK0IsQmF0dGVyeVx0TWV0YStCLFN3aXRjaCBQb3dlciBQcm9maWxlCgpbcGxhc21hc2hlbGxdClNsaWRlc2hvdyBXYWxscGFwZXIgTmV4dCBJbWFnZT1ub25lLG5vbmUsTmV4dCBXYWxscGFwZXIgSW1hZ2UKX2tfZnJpZW5kbHlfbmFtZT1wbGFzbWFzaGVsbAphY3RpdmF0ZSBhcHBsaWNhdGlvbiBsYXVuY2hlcj1NZXRhXHRBbHQrRjEsTWV0YVx0QWx0K0YxLEFjdGl2YXRlIEFwcGxpY2F0aW9uIExhdW5jaGVyCmFjdGl2YXRlIG5leHQgdGFzayBtYW5hZ2VyIGVudHJ5PU1ldGErQ3RybCtQZ0Rvd24sTWV0YStDdHJsK1BnRG93bixBY3RpdmF0ZSBOZXh0IFRhc2sgTWFuYWdlciBFbnRyeQphY3RpdmF0ZSBwcmV2aW91cyB0YXNrIG1hbmFnZXIgZW50cnk9TWV0YStDdHJsK1BnVXAsTWV0YStDdHJsK1BnVXAsQWN0aXZhdGUgUHJldmlvdXMgVGFzayBNYW5hZ2VyIEVudHJ5CmFjdGl2YXRlIHRhc2sgbWFuYWdlciBlbnRyeSAxPU1ldGErMSxNZXRhKzEsQWN0aXZhdGUgVGFzayBNYW5hZ2VyIEVudHJ5IDEKYWN0aXZhdGUgdGFzayBtYW5hZ2VyIGVudHJ5IDEwPW5vbmUsbm9uZSxBY3RpdmF0ZSBUYXNrIE1hbmFnZXIgRW50cnkgMTAKYWN0aXZhdGUgdGFzayBtYW5hZ2VyIGVudHJ5IDI9TWV0YSsyLE1ldGErMixBY3RpdmF0ZSBUYXNrIE1hbmFnZXIgRW50cnkgMgphY3RpdmF0ZSB0YXNrIG1hbmFnZXIgZW50cnkgMz1NZXRhKzMsTWV0YSszLEFjdGl2YXRlIFRhc2sgTWFuYWdlciBFbnRyeSAzCmFjdGl2YXRlIHRhc2sgbWFuYWdlciBlbnRyeSA0PU1ldGErNCxNZXRhKzQsQWN0aXZhdGUgVGFzayBNYW5hZ2VyIEVudHJ5IDQKYWN0aXZhdGUgdGFzayBtYW5hZ2VyIGVudHJ5IDU9TWV0YSs1LE1ldGErNSxBY3RpdmF0ZSBUYXNrIE1hbmFnZXIgRW50cnkgNQphY3RpdmF0ZSB0YXNrIG1hbmFnZXIgZW50cnkgNj1NZXRhKzYsTWV0YSs2LEFjdGl2YXRlIFRhc2sgTWFuYWdlciBFbnRyeSA2CmFjdGl2YXRlIHRhc2sgbWFuYWdlciBlbnRyeSA3PU1ldGErNyxNZXRhKzcsQWN0aXZhdGUgVGFzayBNYW5hZ2VyIEVudHJ5IDcKYWN0aXZhdGUgdGFzayBtYW5hZ2VyIGVudHJ5IDg9TWV0YSs4LE1ldGErOCxBY3RpdmF0ZSBUYXNrIE1hbmFnZXIgRW50cnkgOAphY3RpdmF0ZSB0YXNrIG1hbmFnZXIgZW50cnkgOT1NZXRhKzksTWV0YSs5LEFjdGl2YXRlIFRhc2sgTWFuYWdlciBFbnRyeSA5CmNsZWFyIGhpc3Rvcnk9bm9uZSxub25lLENsZWFyIE5vdGlmaWNhdGlvbiBIaXN0b3J5CmNsZWFyLWhpc3Rvcnk9bm9uZSxub25lLENsZWFyIENsaXBib2FyZCBIaXN0b3J5CmNsaXBib2FyZF9hY3Rpb249bm9uZSxub25lLFRvZ2dsZSBBdXRvbWF0aWMgUG9wcGluZyBVcCBvZiBBY3Rpb24gTWVudQpjeWNsZS1wYW5lbHM9TWV0YStBbHQrUCxNZXRhK0FsdCtQLE1vdmUga2V5Ym9hcmQgZm9jdXMgYmV0d2VlbiBwYW5lbHMKY3ljbGVOZXh0QWN0aW9uPW5vbmUsbm9uZSxOZXh0IEhpc3RvcnkgSXRlbQpjeWNsZVByZXZBY3Rpb249bm9uZSxub25lLFByZXZpb3VzIEhpc3RvcnkgSXRlbQplZGl0X2NsaXBib2FyZD1ub25lLG5vbmUsRWRpdCBDb250ZW50c+KApgptYW5hZ2UgYWN0aXZpdGllcz1NZXRhK1EsTWV0YStRLFNob3cgQWN0aXZpdHkgU3dpdGNoZXIKbW92ZSBhY3RpdmUgdGFzayB0byBsZWZ0PU1ldGErQ3RybCtTaGlmdCtQZ1VwLE1ldGErQ3RybCtTaGlmdCtQZ1VwLE1vdmUgQWN0aXZlIFRhc2sgTWFuYWdlciBFbnRyeSBCYWNrd2FyZAptb3ZlIGFjdGl2ZSB0YXNrIHRvIHJpZ2h0PU1ldGErQ3RybCtTaGlmdCtQZ0Rvd24sTWV0YStDdHJsK1NoaWZ0K1BnRG93bixNb3ZlIEFjdGl2ZSBUYXNrIE1hbmFnZXIgRW50cnkgRm9yd2FyZApuZXh0IGFjdGl2aXR5PU1ldGErQSxub25lLFdhbGsgdGhyb3VnaCBhY3Rpdml0aWVzCnByZXZpb3VzIGFjdGl2aXR5PU1ldGErU2hpZnQrQSxub25lLFdhbGsgdGhyb3VnaCBhY3Rpdml0aWVzIChSZXZlcnNlKQpyZXBlYXRfYWN0aW9uPW5vbmUsbm9uZSxNYW51YWxseSBJbnZva2UgQWN0aW9uIG9uIEN1cnJlbnQgQ2xpcGJvYXJkCnNob3cgZGFzaGJvYXJkPUN0cmwrRjEyLEN0cmwrRjEyLFNob3cgRGVza3RvcApzaG93LWJhcmNvZGU9bm9uZSxub25lLFNob3cgQmFyY29kZeKApgpzaG93LW9uLW1vdXNlLXBvcz1NZXRhK1YsTWV0YStWLFNob3cgQ2xpcGJvYXJkIEl0ZW1zIGF0IE1vdXNlIFBvc2l0aW9uCnN3aXRjaCB0byBuZXh0IGFjdGl2aXR5PW5vbmUsbm9uZSxTd2l0Y2ggdG8gTmV4dCBBY3Rpdml0eQpzd2l0Y2ggdG8gcHJldmlvdXMgYWN0aXZpdHk9bm9uZSxub25lLFN3aXRjaCB0byBQcmV2aW91cyBBY3Rpdml0eQp0b2dnbGUgZG8gbm90IGRpc3R1cmI9bm9uZSxub25lLFRvZ2dsZSBkbyBub3QgZGlzdHVyYgoKW3NlcnZpY2VzXVtsb29rdXAtZmluYWwtcHJvYmUtMDcuZGVza3RvcF0KX2xhdW5jaD1NZXRhK0N0cmwrU2hpZnQrRjExCgpbc2VydmljZXNdW29yZy5sb29rdXAuTGludXguZGVza3RvcF0KX2xhdW5jaD1ub25lCg==",
+    "kconfig_sha256": "7247835adf937c7b7c5dfe127a16f5be87e55d97d08a82568845286e0f7cf394"
+  },
+  "product_action": [
+    "org.lookup.Linux.desktop",
+    "_launch",
+    "LookUp Linux",
+    "LookUp Linux"
+  ],
+  "product_before": [
+    301989957
+  ],
+  "product_after": [],
+  "unrelated_typed_unchanged": true
+}
