@@ -109,24 +109,27 @@ class EvidenceTests(unittest.TestCase):
             def git(*args):
                 return subprocess.check_output(['git','-C',str(root),*args],stderr=subprocess.DEVNULL,text=True).strip()
             git('init','-q');(root/'lookup').mkdir();(root/'lookup/app.py').write_text('original=1\n')
-            git('add','lookup/app.py');git('-c','user.name=Test','-c','user.email=test@example.invalid','commit','-qm','source')
+            (root/'PKGBUILD').write_text('pkgname=lookup-linux\n')
+            git('add','lookup/app.py','PKGBUILD');git('-c','user.name=Test','-c','user.email=test@example.invalid','commit','-qm','source')
             revision=git('rev-parse','HEAD');tree=git('rev-parse','HEAD^{tree}')
             suites={name:dict(exit=0,count=12,skips=0,log_sha256=digest,revision=revision,tree=tree,
                 command=['python','-m','unittest','discover','-s','tests']) for name in ('host','target')}
             suites['target'].update(ocr_enabled=True,mueller_verified=True)
             self.assertTrue(hardening.closure_suites_report(suites,{digest:raw},repo=root)['passed'])
-            for change in ('revision','tree','dirty','untracked','native'):
+            for change in ('revision','tree','dirty','untracked','native','pkgbuild'):
                 data=deepcopy(suites)
                 if change in ('revision','tree'):
                     for row in data.values():row[change]='a'*40
                 elif change=='dirty':(root/'lookup/app.py').write_text('changed=2\n')
                 elif change=='untracked':(root/'lookup/new.py').write_text('new=3\n')
+                elif change=='pkgbuild':(root/'PKGBUILD').write_text('pkgname=changed-after-suite\n')
                 else:
                     path=root/'.planning/phases/08-vm/08-07-controller.py';path.parent.mkdir(parents=True);path.write_text('changed=4\n')
                 self.assertFalse(hardening.closure_suites_report(data,{digest:raw},repo=root)['passed'],change)
                 if change=='dirty':(root/'lookup/app.py').write_text('original=1\n')
                 elif change=='untracked':(root/'lookup/new.py').unlink()
                 elif change=='native':path.unlink()
+                elif change=='pkgbuild':(root/'PKGBUILD').write_text('pkgname=lookup-linux\n')
             (root/'report.md').write_text('actual metadata\n');git('add','report.md')
             git('-c','user.name=Test','-c','user.email=test@example.invalid','commit','-qm','metadata')
             self.assertTrue(hardening.closure_suites_report(suites,{digest:raw},repo=root)['passed'])
