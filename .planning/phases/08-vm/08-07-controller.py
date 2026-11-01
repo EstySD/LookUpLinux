@@ -11,7 +11,13 @@ def info(identity):
     result=run(vbox,'showvminfo',identity,'--machinereadable');assert result['exit']==0
     value=dict(line.split('=',1) for line in result['stdout'].splitlines() if '=' in line)
     return {key:value.get(key) for key in ('UUID','VMState')} if identity==original else value
-def save(name,value):(root/name).write_text(json.dumps(value,indent=2))
+def save(name,value):
+    try:(root/name).write_text(json.dumps(value,indent=2));return True
+    except BaseException as error:
+        record.setdefault('persistence_errors',[]).append(dict(file=name,error=repr(error)))
+        try:print('Cleanup evidence persistence error: '+repr(error),file=__import__('sys').stderr)
+        except BaseException:pass
+        return False
 def attempt(name,operation):
     try:record[name]=dict(ok=True,result=operation())
     except BaseException as error:record[name]=dict(ok=False,error=repr(error))
@@ -29,11 +35,11 @@ try:
 finally:
     attempt('release',lambda:adapter['inputs']('Keys',Codes='8f 81 91 9f 9e a0 aa b6 e0 db e0 dc'))
     attempt('mouse_release',lambda:adapter['inputs']('Pointer',X=640,Y=400,Buttons=0))
-    cleanup=root/'08-07-guest-cleanup.py'
-    if cleanup.exists():
-        source=cleanup.read_text(encoding='utf-8');record['cleanup_source_sha256']=hashlib.sha256(source.encode()).hexdigest()
-        attempt('guest_cleanup',lambda:adapter['guest'](source,timeout=60))
-    else:record['guest_cleanup']=dict(ok=False,error='No post-manual cleanup source established; no stale profile restore attempted.')
+    def guest_cleanup():
+        source=(root/'08-07-guest-cleanup.py').read_text(encoding='utf-8')
+        record['cleanup_source_sha256']=hashlib.sha256(source.encode()).hexdigest()
+        return adapter['guest'](source,timeout=60)
+    attempt('guest_cleanup',guest_cleanup)
     attempt('shutdown',lambda:adapter['guest']("import subprocess;subprocess.run(['systemctl','poweroff'],check=True,timeout=10)"))
     deadline=time.monotonic()+45
     poll=0
@@ -49,4 +55,6 @@ finally:
     record['final_clone']=attempt('final_clone_readback',lambda:info(clone)).get('result',{})
     record['original_after']=attempt('original_readback',lambda:info(original)).get('result',{})
     record['original_state_respected']=all(row['argv'][2]==clone for row in actions if row['mutating'])
-    save('08-07-controller-observations.json',record);save('08-07-controller-state.json',dict(state='finished'))
+    save('08-07-controller-observations.json',record)
+    save('08-07-controller-state.json',dict(state='finished_with_evidence_errors' if record.get('persistence_errors') else 'finished'))
+    if record.get('persistence_errors'):raise RuntimeError('Cleanup actions attempted; evidence persistence failed')

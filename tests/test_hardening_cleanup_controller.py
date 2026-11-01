@@ -1,7 +1,9 @@
 """Dependency I/O failures must not skip later owned-clone cleanup actions."""
 import ast
 import hashlib
+import io
 import json
+from contextlib import redirect_stderr
 from pathlib import Path
 import tempfile
 import types
@@ -39,9 +41,11 @@ class CleanupDependencyTests(unittest.TestCase):
     def test_report_write_error_does_not_prevent_shutdown_or_restore(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory);(root/'08-07-guest-cleanup.py').write_text('pass');record={};calls=[]
-            with patch.object(Path,'write_text',side_effect=OSError('controlled persistence')):
+            errors=io.StringIO()
+            with patch.object(Path,'write_text',side_effect=OSError('controlled persistence')),redirect_stderr(errors):
                 try:self.execute(root,record,calls)
                 except (OSError,RuntimeError):pass
             self.assertTrue(any('modifyvm' in call for call in calls))
             self.assertTrue(any(call[0]=='guest' and 'poweroff' in call[1] for call in calls))
             self.assertTrue(record.get('persistence_errors'))
+            self.assertIn('evidence persistence error',errors.getvalue())
