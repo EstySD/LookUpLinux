@@ -76,6 +76,26 @@ def game(name,relative=False,multiline=False):
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_exact_nested_owned_key_delta_and_actual_unrelated_markers(self):
+        root=Path('.planning/phases/08-vm')
+        read=lambda name:json.loads((root/name).read_text(encoding='utf-8'))
+        proof=dict(registry=read('08-07-registry-clear-product.json'),baseline=read('08-07-postmanual-registry.json'),
+            physical_before=read('08-07-unrelated-marker-before.json'),physical_after=read('08-07-unrelated-marker-after.json'))
+        self.assertTrue(hardening.shortcut_preservation_report(proof)['passed'])
+        for change in ('unrelated_key','missing_component','raw_hash','raw_unrelated','wrong_owned_action','missing_marker','reused_marker'):
+            data=deepcopy(proof)
+            if change=='unrelated_key':data['registry']['after']['bindings'][0]['keys']=[123]
+            elif change=='missing_component':data['registry']['after']['components'].pop()
+            elif change=='raw_hash':data['registry']['after']['kconfig_sha256']='0'*64
+            elif change=='raw_unrelated':
+                import base64,hashlib
+                raw=base64.b64decode(data['registry']['after']['kconfig_base64'])+b'\n[unrelated.extra]\naction=Ctrl+Q\n'
+                data['registry']['after'].update(kconfig_base64=base64.b64encode(raw).decode(),kconfig_sha256=hashlib.sha256(raw).hexdigest())
+            elif change=='wrong_owned_action':data['registry']['product_action'][1]='other'
+            elif change=='missing_marker':data['physical_after']['after']['rows']=[]
+            else:data['physical_after']=deepcopy(data['physical_before'])
+            self.assertFalse(hardening.shortcut_preservation_report(data)['passed'],change)
+
     def test_fallback_stability_requires_twenty_actual_completions_and_real_retry(self):
         from tools.check_hardening import fallback_stability_report
         rows=[]
