@@ -9,7 +9,7 @@ from unittest import mock
 
 os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
 try:
-    from PyQt6.QtCore import Qt, QEvent
+    from PyQt6.QtCore import Qt, QEvent, QTimer
     from PyQt6.QtGui import QFont, QPalette, QColor,QDesktopServices
     from PyQt6.QtWidgets import QApplication, QLabel, QTextEdit
     from PyQt6.QtTest import QTest
@@ -291,6 +291,14 @@ class GuiTests(unittest.TestCase):
         self.owner.Trigger('')
         self.identity=self.owner.engine.generation
         self.owner.receive(self.event('frozen'))
+        self.owner.popup.timer.start(20)
+        QTest.qWait(40)
+        self.assertFalse(self.owner.popup.isVisible())
+        self.assertFalse(self.owner.engine.current(self.identity))
+
+    def test_timeout_dispatch_after_queued_gui_work(self):
+        self.owner.receive(self.event('frozen'))
+        QTimer.singleShot(0,lambda:time.sleep(.08))
         self.owner.popup.timer.start(20)
         QTest.qWait(40)
         self.assertFalse(self.owner.popup.isVisible())
