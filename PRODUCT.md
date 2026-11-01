@@ -28,6 +28,13 @@ Arch packaging. Existing CLI/core behavior remains supported. Audio, screen
 translation, screenshots in study cards, CEFR, cloud sync and other languages
 are deferred. Source: .planning/PROJECT.md, REQUIREMENTS.md and ROADMAP.md.
 
+V1 scope expanded by Denis on 2026-10-27: reconstruct sentence context across
+multiple lines in one text block (CAPT-05), translate the selected word's sense
+using that context (TRAN-06), and verify actual fullscreen games (GAME-01).
+Phase 5.1 implements context/sense before Phase 6 study cards; Phase 8 verifies
+at least two real games, fullscreen and borderless where available. Unsupported
+VM modes remain unverified. These are pending requirements, not existing features.
+
 ## Brand commitments
 
 Native KDE Breeze, including the user's light/dark palette, fonts, icons and

@@ -1,0 +1,279 @@
+{
+    "timestamp_utc":  "2026-10-26T04:13:09.3012577Z",
+    "target_version":  "2.0.6.0",
+    "pages":  [
+                  {
+                      "page":  "Слова",
+                      "authority":  "shell-windows-uia",
+                      "scope":  "Allowlisted structural controls only; no user library contents, game profile names or edit values",
+                      "controls":  [
+                                       {
+                                           "type":  "ControlType.Custom",
+                                           "name":  "",
+                                           "id":  "RootNavigationView",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.TabItem",
+                                           "name":  "Слова",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.TabItem",
+                                           "name":  "Словари",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.TabItem",
+                                           "name":  "Настройки",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Group",
+                                           "name":  "",
+                                           "id":  "SearchBox",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Edit",
+                                           "name":  "Поиск по словам, переводам, контексту…",
+                                           "id":  "TextBox",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Text",
+                                           "name":  "Поиск по словам, переводам, контексту…",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Button",
+                                           "name":  "Сначала новые",
+                                           "id":  "SortButton",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Text",
+                                           "name":  "Сначала новые",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.SplitButton",
+                                           "name":  "",
+                                           "id":  "AnkiSyncButton",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Text",
+                                           "name":  "Синхронизировать с Anki",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Button",
+                                           "name":  "",
+                                           "id":  "ExportButton",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Text",
+                                           "name":  "Экспорт",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.List",
+                                           "name":  "",
+                                           "id":  "WordsListView",
+                                           "toggle":  null
+                                       }
+                                   ]
+                  },
+                  {
+                      "page":  "Настройки",
+                      "authority":  "shell-windows-uia",
+                      "scope":  "Allowlisted structural controls only; no user library contents, game profile names or edit values",
+                      "controls":  [
+                                       {
+                                           "type":  "ControlType.Custom",
+                                           "name":  "",
+                                           "id":  "RootNavigationView",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.TabItem",
+                                           "name":  "Слова",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.TabItem",
+                                           "name":  "Словари",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.TabItem",
+                                           "name":  "Настройки",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Text",
+                                           "name":  "Язык распознавания",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Text",
+                                           "name":  "Язык текста на экране",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Group",
+                                           "name":  "Язык распознавания",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.ComboBox",
+                                           "name":  "",
+                                           "id":  "LanguagesComboBox",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Group",
+                                           "name":  "",
+                                           "id":  "AppModeCard",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Text",
+                                           "name":  "Режим Lookupper",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Group",
+                                           "name":  "Режим Lookupper",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Text",
+                                           "name":  "Всплывающий словарь",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Text",
+                                           "name":  "Экранный переводчик",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Text",
+                                           "name":  "Сохранять слова автоматически",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Button",
+                                           "name":  "Сохранять слова автоматически",
+                                           "id":  "",
+                                           "toggle":  "On"
+                                       },
+                                       {
+                                           "type":  "ControlType.Text",
+                                           "name":  "Горячие клавиши",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Group",
+                                           "name":  "",
+                                           "id":  "KeyboardHotkeyCard",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Text",
+                                           "name":  "Alt + Q",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Text",
+                                           "name":  "Мышь",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Group",
+                                           "name":  "Мышь",
+                                           "id":  "",
+                                           "toggle":  null
+                                       }
+                                   ]
+                  },
+                  {
+                      "page":  "Словари",
+                      "authority":  "shell-windows-uia",
+                      "scope":  "Allowlisted structural controls only; no user library contents, game profile names or edit values",
+                      "controls":  [
+                                       {
+                                           "type":  "ControlType.Custom",
+                                           "name":  "",
+                                           "id":  "RootNavigationView",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.TabItem",
+                                           "name":  "Слова",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.TabItem",
+                                           "name":  "Словари",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.TabItem",
+                                           "name":  "Настройки",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Text",
+                                           "name":  "Добавить словарь",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Text",
+                                           "name":  "Контекстный переводчик",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.Text",
+                                           "name":  "Контекстный переводчик",
+                                           "id":  "",
+                                           "toggle":  null
+                                       },
+                                       {
+                                           "type":  "ControlType.ComboBox",
+                                           "name":  "",
+                                           "id":  "LanguagesComboBox",
+                                           "toggle":  null
+                                       }
+                                   ]
+                  }
+              ]
+}

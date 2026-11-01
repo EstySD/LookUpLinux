@@ -1,0 +1,17 @@
+{
+    "handle":  722758,
+    "process_id":  19416,
+    "y":  209,
+    "x":  100,
+    "coordinate_space":  "physical pixels; per-monitor-aware thread",
+    "points":  {
+                   "bright":  {
+                                  "y":  237,
+                                  "x":  686
+                              },
+                   "children":  {
+                                    "y":  237,
+                                    "x":  296
+                                }
+               }
+}

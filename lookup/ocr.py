@@ -304,6 +304,21 @@ def _context(all_units, selected, candidates):
 
 def select_word(words, point) -> Selection | None:
     x, y = _point(point)
+    # Filename components have no sentence context. TSV supplies token boxes only;
+    # shortcut: estimate character widths until symbol-level OCR is available.
+    for word in words:
+        if (_distance(word,x,y)==(0,0) and word.confidence>=MIN_CONFIDENCE
+                and re.search(r'\w\.[A-Za-z]{2,8}$|\w_\w|\w[/\\]\w|-\d|\d-',word.text)):
+            left,top,width,height=word.box
+            offset=min(int((x-left)/width*len(word.text)),len(word.text)-1)
+            for match in re.finditer(r"[^\W\d_]+(?:'[^\W\d_]+)*",word.text):
+                if match.start()<=offset<match.end():
+                    key=normalize(match.group())
+                    if key is not None:
+                        box=(left+width*match.start()/len(word.text),top,
+                             width*(match.end()-match.start())/len(word.text),height)
+                        return Selection(key,word.text,(),box,word.confidence)
+            return None
     lines = {}
     for word in words:
         lines.setdefault(word.line_id, []).append(word)

@@ -1,0 +1,190 @@
+{
+  "root": "C:\\Program Files\\WindowsApps\\41543AlekseiVekhov.1221837D05F64_2.0.6.0_x64__jc457vfyf253m",
+  "files": [
+    {
+      "path": "Lookupper.exe",
+      "bytes": 39539712,
+      "sha256": "16af03f18ddc75547683895c2d59bc25d053a311626710b51aaebe9547c7d5e8"
+    },
+    {
+      "path": "AppxManifest.xml",
+      "bytes": 3337,
+      "sha256": "2db8e348317deb8398e6d9039b608b9bb43a69ef51cb720e14e9dda9c11c776d"
+    },
+    {
+      "path": "Lookupper.deps.json",
+      "bytes": 68695,
+      "sha256": "c59ad7c51e87ca1daf8e836e093857142cfd6701ea6fc88a80fddb8faf7107c5"
+    },
+    {
+      "path": "Lookupper.runtimeconfig.json",
+      "bytes": 2190,
+      "sha256": "788ef45c193c55576babac95508d59a37dbe20b7f2927a482aa022e204207ee8"
+    },
+    {
+      "path": "Database\\Migrations\\20250201215015_InitMigration.sql",
+      "bytes": 2465,
+      "sha256": "cc1c0f1a4b549e95cdcb10e1a86225ef41833bca5e88caa96484542c56fa1015"
+    },
+    {
+      "path": "Database\\Migrations\\20250202144921_Card-AddGuidAndLookupperVersion.sql",
+      "bytes": 753,
+      "sha256": "838b242d928402fd2484f82d4f7bb4846b8d47be17b47ce67145ff2701879a87"
+    },
+    {
+      "path": "Database\\Migrations\\20250204001421_RemoveSavedWordFieldsMaxLength.sql",
+      "bytes": 777,
+      "sha256": "8975b3ec5b03d1be34e89c57fcd5d4053e87a2c3a9e9a6fb68d6dddc32dc402c"
+    },
+    {
+      "path": "Database\\Migrations\\20250324073004_150RefactoringWords.sql",
+      "bytes": 5211,
+      "sha256": "b0a77ccfd4e09a308823d1a8b4465a8f4a9144223e07a09f9fff77da5e2cb708"
+    },
+    {
+      "path": "Database\\Migrations\\20250324073005_150DropTables.sql",
+      "bytes": 1599,
+      "sha256": "2b1eb092f92320a0b568b1c1c3eaa0a9c85cf1f656065753a34e59cb620d9cb7"
+    },
+    {
+      "path": "Database\\Migrations\\20251119000001_SplitExecutableAndWindowTitle.sql",
+      "bytes": 1098,
+      "sha256": "d38debfbca9d1bf1954e22f80459b2dfbf0605ba178173198bb8befd2c98ca39"
+    },
+    {
+      "path": "Database\\Migrations\\20260316120721_AddLooktionaryFieldsToCards.sql",
+      "bytes": 649,
+      "sha256": "b47fe0f8ad7378677e851879118d3040fabd8ebf0d491b126ffdce490b7a87bd"
+    },
+    {
+      "path": "Database\\Migrations\\20260812094500_AddGenderAndArticleToCards.sql",
+      "bytes": 301,
+      "sha256": "7376dbc98b90ba1f6f6fce9e7083f3252d894917aafe9cd05aaa6bf530544765"
+    },
+    {
+      "path": "Database\\Migrations\\20260825120000_AddScreencropCrop.sql",
+      "bytes": 306,
+      "sha256": "4b676e965b96b0348dce9ac48af28e306f228aeff9c4c92d28eb4481e971ba07"
+    },
+    {
+      "path": "Database\\Migrations\\20260827120000_AddExplanationToCards.sql",
+      "bytes": 248,
+      "sha256": "552251b085d300c16fd0a7ce2cdf10214da5c86e1dfaffb261237659e4e09219"
+    },
+    {
+      "path": "Database\\Migrations\\20260904120000_RenameFuriganaOrPinyinToReading.sql",
+      "bytes": 269,
+      "sha256": "6946190181e8ca4f914875cbaa4612741bf5358f2c017b1757d8ae50dc2597ed"
+    },
+    {
+      "path": "Database\\Migrations\\20260905120000_AddLearnerFieldsToCards.sql",
+      "bytes": 355,
+      "sha256": "a1346d1b3d57de6aa959e4fce4d11fc11e047a97318901c6cdc7d4a286e88526"
+    },
+    {
+      "path": "CollectionFile\\Database\\Sql\\CardsTable.sql",
+      "bytes": 622,
+      "sha256": "df350608db816d9e42311a9b995f85b928c0c45ca7bbcb90edac66384f749d66"
+    },
+    {
+      "path": "CollectionFile\\Database\\Sql\\ColTable.sql",
+      "bytes": 458,
+      "sha256": "b625e1ccc34ead4ae0afb922d5afcf024e862a2254133cbbfedfa92099f18c48"
+    },
+    {
+      "path": "CollectionFile\\Database\\Sql\\GravesTable.sql",
+      "bytes": 134,
+      "sha256": "77569ff03bdebbd27e13cf5bfc2fa66a4b0fa4f46ff4e7762bb09e6092b78086"
+    },
+    {
+      "path": "CollectionFile\\Database\\Sql\\Indexes.sql",
+      "bytes": 336,
+      "sha256": "1f082f52d5a33b3f8f883d6560382e7071002ec4d21db61a0db85a262bf90d4c"
+    },
+    {
+      "path": "CollectionFile\\Database\\Sql\\NotesTable.sql",
+      "bytes": 387,
+      "sha256": "44a3b49dc8ecc8f1c181a24ac42430455cf7351b55d173a1064b4802c46aa436"
+    },
+    {
+      "path": "CollectionFile\\Database\\Sql\\RevLogTable.sql",
+      "bytes": 344,
+      "sha256": "d9b3fee727c1357ab57f76a251fb871154437061b50894e5a45877497581e7a1"
+    },
+    {
+      "path": "Assets\\Scripts\\article.js",
+      "bytes": 3059,
+      "sha256": "fc3b6be0ae5935d127806e967315ae691963df68484b398e7ede315450619346"
+    },
+    {
+      "path": "Assets\\OcrModels\\Detection\\PP-OCRv6_det_small.onnx",
+      "bytes": 9929594,
+      "sha256": "090f04abcd9d9a7498bc4ebf677e4cb9bdce1fe4197ddb7e529f1ef44e1ff94f"
+    },
+    {
+      "path": "Assets\\OcrModels\\Detection\\PP-OCRv6_det_tiny.onnx",
+      "bytes": 1829618,
+      "sha256": "f42c0fbd294d95eac1a550e131b277dac97462c8025fa4b6c3cec1b7894bd3d5"
+    },
+    {
+      "path": "Assets\\OcrModels\\Dicts\\ppocrv5_arabic_dict.txt",
+      "bytes": 3116,
+      "sha256": "1dc997ab937ab0348b172dbd8a5346426f737958b942ff77c90cb356fde89651"
+    },
+    {
+      "path": "Assets\\OcrModels\\Dicts\\ppocrv5_cyrillic_dict.txt",
+      "bytes": 3631,
+      "sha256": "54d92ec6d2873654d1def513c7a95951402eac2f3b90f5c9c382640bb3f6bbb5"
+    },
+    {
+      "path": "Assets\\OcrModels\\Dicts\\ppocrv5_el_dict.txt",
+      "bytes": 1457,
+      "sha256": "3e67d52a7e9ebc207160143ba1a128eef4923b995a0d65c10308d9158fc6dccb"
+    },
+    {
+      "path": "Assets\\OcrModels\\Dicts\\ppocrv5_korean_dict.txt",
+      "bytes": 59396,
+      "sha256": "2193f5dd0c62a4f268902b5d96dadfec3908d299afa9a6e5cad2c6a96c772828"
+    },
+    {
+      "path": "Assets\\OcrModels\\Dicts\\ppocrv6_dict.txt",
+      "bytes": 93658,
+      "sha256": "19361c14e62313c78c7549a907750dfbe4aef586f4586a9d3e353fb90689dfc1"
+    },
+    {
+      "path": "Assets\\OcrModels\\Dicts\\ppocrv6_tiny_dict.txt",
+      "bytes": 34063,
+      "sha256": "d1f854b8467a5c926b3ebda23ca0687c8608a96bc32133304a177699fcc657e8"
+    },
+    {
+      "path": "Assets\\OcrModels\\Recognition\\arabic_PP-OCRv5_rec_mobile_infer.onnx",
+      "bytes": 8024047,
+      "sha256": "e39c6fdff61647b0b4cabfd825401ec43e381fd15ddde314c4749275ff80e238"
+    },
+    {
+      "path": "Assets\\OcrModels\\Recognition\\cyrillic_PP-OCRv5_rec_mobile_infer.onnx",
+      "bytes": 8074311,
+      "sha256": "af13e59af7175d1dbb79c65d62002f80d11417d5b17e6c4e0a247289111db84e"
+    },
+    {
+      "path": "Assets\\OcrModels\\Recognition\\el_PP-OCRv5_rec_mobile_infer.onnx",
+      "bytes": 7832569,
+      "sha256": "79adf379ee35b62eddb126ce9ff7951ec009f3ec75721106ad94126862da1b8f"
+    },
+    {
+      "path": "Assets\\OcrModels\\Recognition\\korean_PP-OCRv5_rec_mobile_infer.onnx",
+      "bytes": 13488967,
+      "sha256": "274ef34326ff9bb310ca23f625dbfde0fe2ad6a7164f6c2b78baf09b8f46ba06"
+    },
+    {
+      "path": "Assets\\OcrModels\\Recognition\\PP-OCRv6_rec_small.onnx",
+      "bytes": 21234601,
+      "sha256": "6babf3e1a269187ff3271d6cb804b0045a01b207050d5d027ae5684fc43d7333"
+    },
+    {
+      "path": "Assets\\OcrModels\\Recognition\\PP-OCRv6_rec_tiny.onnx",
+      "bytes": 4490075,
+      "sha256": "277b8af9af55ec37c0aed08942d7beba05379f9fbb4250d914c36034b6125868"
+    }
+  ]
+}

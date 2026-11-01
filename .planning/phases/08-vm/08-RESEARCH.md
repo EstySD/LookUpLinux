@@ -108,4 +108,3 @@ Primary sources fetched:
 - https://www.chocolate-doom.org/wiki/index.php/Command_line_arguments ; https://docs.kernel.org/input/event-codes.html .
 
 [VERIFIED: research scope] No VM boot/build/install/game run or original mutation occurred. Unresolved gates: actual game renderer/OCR/locked-cursor targeting, passive input clock/capture overhead, throughput/RSS/privacy/fault observations and full clean-cycle acceptance. These are concrete execution tests, not assumed passes; no credential or user decision is needed to begin.
-

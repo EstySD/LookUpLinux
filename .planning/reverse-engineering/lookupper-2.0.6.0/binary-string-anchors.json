@@ -1,0 +1,2096 @@
+{
+  "exe_sha256": "16af03f18ddc75547683895c2d59bc25d053a311626710b51aaebe9547c7d5e8",
+  "scope": "ASCII and ASCII-subset UTF-16LE runs >=6; filtered anchors; strings alone do not prove behavior",
+  "strings": [
+    {
+      "offset": "0xf6bb3f",
+      "encoding": "ascii",
+      "value": "HunspellSharp"
+    },
+    {
+      "offset": "0xf6bbc0",
+      "encoding": "ascii",
+      "value": "\"HunspellSharp.dll"
+    },
+    {
+      "offset": "0xf6bca1",
+      "encoding": "ascii",
+      "value": "Lookupper.dllRMicrosoft.Windows.AppLifecycle.Projection"
+    },
+    {
+      "offset": "0xf6c3cc",
+      "encoding": "ascii",
+      "value": "XpressOCR"
+    },
+    {
+      "offset": "0xf6c436",
+      "encoding": "ascii",
+      "value": "XpressOCR.dll*System.IO.Compression"
+    },
+    {
+      "offset": "0xf7000b",
+      "encoding": "ascii",
+      "value": "Sergey NozhenkoDCopyright (C) 2025 Sergey Nozhenko6C# port of Hunspell library"
+    },
+    {
+      "offset": "0xf7005a",
+      "encoding": "ascii",
+      "value": "1.0.3.0\\1.0.3+3cf693e538384bdcfe42325541f81ec8f77fd7c1(HunspellSharp/net8.0Rhttps://github.com/snnz/HunspellSharp.git"
+    },
+    {
+      "offset": "0xf74c45",
+      "encoding": "ascii",
+      "value": "fD:\\Developer\\VSProjects\\LookupperWindows\\XpressOCR\\"
+    },
+    {
+      "offset": "0xf8b686",
+      "encoding": "ascii",
+      "value": "Hunspell"
+    },
+    {
+      "offset": "0xf8b758",
+      "encoding": "ascii",
+      "value": "hentry\"HunspellException"
+    },
+    {
+      "offset": "0xf8b791",
+      "encoding": "ascii",
+      "value": ".IHunspellWarningHandler"
+    },
+    {
+      "offset": "0xf9289c",
+      "encoding": "ascii",
+      "value": "XPressOCR"
+    },
+    {
+      "offset": "0xfafd0d",
+      "encoding": "ascii",
+      "value": "*HunspellEngineService"
+    },
+    {
+      "offset": "0xfb1af5",
+      "encoding": "ascii",
+      "value": "DXGIScreenshot"
+    },
+    {
+      "offset": "0xfbe15c",
+      "encoding": "ascii",
+      "value": " XpressOCROptions"
+    },
+    {
+      "offset": "0xff140a",
+      "encoding": "ascii",
+      "value": "%&LooktionaryTemplate"
+    },
+    {
+      "offset": "0x102a1a7",
+      "encoding": "ascii",
+      "value": "<GetQuota>d__32$<Looktionary>d__362<LooktionaryExplain>d__37"
+    },
+    {
+      "offset": "0x102c1c5",
+      "encoding": "ascii",
+      "value": "4LicenseHeaderCtorParamInitRLooktionaryExplainRequestSerializeHandler@"
+    },
+    {
+      "offset": "0x102c21a",
+      "encoding": "ascii",
+      "value": "LLooktionaryExplainRequestCtorParamInitDLooktionaryRequestSerializeHandler@"
+    },
+    {
+      "offset": "0x102c274",
+      "encoding": "ascii",
+      "value": ">LooktionaryRequestCtorParamInitFLooktionaryResponseSerializeHandler@"
+    },
+    {
+      "offset": "0x102c2c8",
+      "encoding": "ascii",
+      "value": "@LooktionaryResponseCtorParamInitRParagraphTranslateRequestSerializeHandler@"
+    },
+    {
+      "offset": "0x102d2c4",
+      "encoding": "ascii",
+      "value": "LicenseHeader2LooktionaryExplainRequest"
+    },
+    {
+      "offset": "0x102d40a",
+      "encoding": "ascii",
+      "value": "$LooktionaryRequest"
+    },
+    {
+      "offset": "0x102d4f9",
+      "encoding": "ascii",
+      "value": "&LooktionaryResponse"
+    },
+    {
+      "offset": "0x10325a2",
+      "encoding": "ascii",
+      "value": "LooktionaryData*LooktionaryDictionary"
+    },
+    {
+      "offset": "0x10329bb",
+      "encoding": "ascii",
+      "value": "4LooktionarySettingsControl"
+    },
+    {
+      "offset": "0x103493b",
+      "encoding": "ascii",
+      "value": ",SudachiDictionaryModel"
+    },
+    {
+      "offset": "0x1034976",
+      "encoding": "ascii",
+      "value": "Sudachi"
+    },
+    {
+      "offset": "0x1035cb2",
+      "encoding": "ascii",
+      "value": "I#rMicrosoft.UI.Xaml.Controls.IDataTemplateSelectorOverridesVGameInFullscreenWarningDialog_obj1_Bindings2<ExplainButton_Click>d__7DLooktionaryTemplate_obj18_BindingsDLooktionaryTemplate_obj29_BindingsBLooktionaryTemplate_obj1_Bindings"
+    },
+    {
+      "offset": "0x1038b12",
+      "encoding": "ascii",
+      "value": "ID3D11Texture2Dg"
+    },
+    {
+      "offset": "0x1038b4d",
+      "encoding": "ascii",
+      "value": "IDXGIFactory1g"
+    },
+    {
+      "offset": "0x1038b65",
+      "encoding": "ascii",
+      "value": "IDXGIOutput1g"
+    },
+    {
+      "offset": "0x1064ce6",
+      "encoding": "ascii",
+      "value": ":<Create_LicenseHeader>b__96_2<<LicenseHeaderPropInit>b__97_0<<LicenseHeaderPropInit>b__97_1<<LicenseHeaderPropInit>b__97_2T<Create_LooktionaryExplainRequest>b__103_0@"
+    },
+    {
+      "offset": "0x1065701",
+      "encoding": "ascii",
+      "value": "L<LooktionaryResponsePropInit>b__118_19@"
+    },
+    {
+      "offset": "0x1065738",
+      "encoding": "ascii",
+      "value": "L<LooktionaryResponsePropInit>b__118_20L<LooktionaryResponsePropInit>b__118_21@"
+    },
+    {
+      "offset": "0x1065792",
+      "encoding": "ascii",
+      "value": "L<LooktionaryResponsePropInit>b__118_22@"
+    },
+    {
+      "offset": "0x10657c9",
+      "encoding": "ascii",
+      "value": "L<LooktionaryResponsePropInit>b__118_23L<LooktionaryResponsePropInit>b__118_24L<LooktionaryResponsePropInit>b__118_25L<LooktionaryResponsePropInit>b__118_26L<LooktionaryResponsePropInit>b__118_27L<LooktionaryResponsePropInit>b__118_28L<LooktionaryResponsePropInit>b__118_29L<LooktionaryResponsePropInit>b__118_30@"
+    },
+    {
+      "offset": "0x106590d",
+      "encoding": "ascii",
+      "value": "L<LooktionaryResponsePropInit>b__118_31@"
+    },
+    {
+      "offset": "0x1065944",
+      "encoding": "ascii",
+      "value": "L<LooktionaryResponsePropInit>b__118_32L<LooktionaryResponsePropInit>b__118_33@"
+    },
+    {
+      "offset": "0x106599e",
+      "encoding": "ascii",
+      "value": "L<LooktionaryResponsePropInit>b__118_34@"
+    },
+    {
+      "offset": "0x10659d5",
+      "encoding": "ascii",
+      "value": "L<LooktionaryResponsePropInit>b__118_35L<LooktionaryResponsePropInit>b__118_36L<LooktionaryResponsePropInit>b__118_37L<LooktionaryResponsePropInit>b__118_38L<LooktionaryResponsePropInit>b__118_39L<LooktionaryResponsePropInit>b__118_40L<LooktionaryResponsePropInit>b__118_41L<LooktionaryResponsePropInit>b__118_42@"
+    },
+    {
+      "offset": "0x1065b19",
+      "encoding": "ascii",
+      "value": "L<LooktionaryResponsePropInit>b__118_43@"
+    },
+    {
+      "offset": "0x1065b50",
+      "encoding": "ascii",
+      "value": "L<LooktionaryResponsePropInit>b__118_44L<LooktionaryResponsePropInit>b__118_45@"
+    },
+    {
+      "offset": "0x1065baa",
+      "encoding": "ascii",
+      "value": "L<LooktionaryResponsePropInit>b__118_46@"
+    },
+    {
+      "offset": "0x1065be1",
+      "encoding": "ascii",
+      "value": "L<LooktionaryResponsePropInit>b__118_47L<LooktionaryResponsePropInit>b__118_48@"
+    },
+    {
+      "offset": "0x1065c3b",
+      "encoding": "ascii",
+      "value": "L<LooktionaryResponsePropInit>b__118_49@"
+    },
+    {
+      "offset": "0x1065c72",
+      "encoding": "ascii",
+      "value": "L<LooktionaryResponsePropInit>b__118_50T<Create_ParagraphTranslateRequest>b__124_0@"
+    },
+    {
+      "offset": "0x106e018",
+      "encoding": "ascii",
+      "value": ">DescriptionExpanderButton_ClickRDescriptionTextBlock_IsTextTrimmedChanged$ResumeButton_ClickPLooktionarySettingsControl_obj6_BindingsRLooktionarySettingsControl_obj11_BindingsPLooktionarySettingsControl_obj1_Bindings"
+    },
+    {
+      "offset": "0x106f6fd",
+      "encoding": "ascii",
+      "value": "InputText\"SudachiNormalizer"
+    },
+    {
+      "offset": "0x106f79c",
+      "encoding": "ascii",
+      "value": "\"SudachiDictionary"
+    },
+    {
+      "offset": "0x106f7cb",
+      "encoding": "ascii",
+      "value": " SudachiTokenizer"
+    },
+    {
+      "offset": "0x10703cb",
+      "encoding": "ascii",
+      "value": "RLooktionaryTemplate_obj1_BindingsTracking"
+    },
+    {
+      "offset": "0x1071a69",
+      "encoding": "ascii",
+      "value": "DXGI_FORMAT"
+    },
+    {
+      "offset": "0x108d2e4",
+      "encoding": "ascii",
+      "value": "<.cctor>b__35_0`LooktionarySettingsControl_obj1_BindingsTracking"
+    },
+    {
+      "offset": "0x108dca1",
+      "encoding": "ascii",
+      "value": "<Build>b__3_5 <TryOpen>b__16_0t<Lookupper.Core.Segmentation.IWordAnalyzer.Analyze>b__17_0@"
+    },
+    {
+      "offset": "0x108e24c",
+      "encoding": "ascii",
+      "value": "@<RegisterTwoWayListener_2>b__7_0JDependencyPropertyChanged_IsCapturing>DependencyPropertyChanged_GlyphRDependencyPropertyChanged_PlaceholderTextNDependencyPropertyChanged_ActionContent _Range_e__Struct&_NotRange_e__Struct(_Anonymous_e__Struct>_AdditionalSignalInfo_e__Struct&DXGI_FORMAT_UNKNOWN"
+    },
+    {
+      "offset": "0x108ee92",
+      "encoding": "ascii",
+      "value": "DXGI_FORMAT_P8 DXGI_FORMAT_A8P84DXGI_FORMAT_B4G4R4A4_UNORM DXGI_FORMAT_P208 DXGI_FORMAT_V208 DXGI_FORMAT_V408VDXGI_FORMAT_SAMPLER_FEEDBACK_MIN_MIP_OPAQUE"
+    },
+    {
+      "offset": "0x108ef2d",
+      "encoding": "ascii",
+      "value": "fDXGI_FORMAT_SAMPLER_FEEDBACK_MIP_REGION_USED_OPAQUE"
+    },
+    {
+      "offset": "0x108ef63",
+      "encoding": "ascii",
+      "value": "4DXGI_FORMAT_A4B4G4R4_UNORM"
+    },
+    {
+      "offset": "0x109c5eb",
+      "encoding": "ascii",
+      "value": " HUNSPELL_WARNING"
+    },
+    {
+      "offset": "0x109ca99",
+      "encoding": "ascii",
+      "value": "global::Lookupper.Extensions.MatExtensions.IMemoryBufferByteAccess.GetBuffer@"
+    },
+    {
+      "offset": "0x109d063",
+      "encoding": "ascii",
+      "value": " SetWindowsHookEx"
+    },
+    {
+      "offset": "0x109d0c2",
+      "encoding": "ascii",
+      "value": "RegisterHotKey"
+    },
+    {
+      "offset": "0x109d0e8",
+      "encoding": "ascii",
+      "value": " UnregisterHotKey"
+    },
+    {
+      "offset": "0x109d969",
+      "encoding": "ascii",
+      "value": "@WTSUnRegisterSessionNotification$CreateDXGIFactory1"
+    },
+    {
+      "offset": "0x109d9d7",
+      "encoding": "ascii",
+      "value": "\"D3D11CreateDevice"
+    },
+    {
+      "offset": "0x109dc3f",
+      "encoding": "ascii",
+      "value": "H<SetMenu>g__LocalExternFunction|13_0R<GetClassName>g__LocalExternFunction|15_0n<SetLayeredWindowAttributes>g__LocalExternFunction|17_0T<GetWindowText>g__LocalExternFunction|23_0`<GetWindowTextLength>g__LocalExternFunction|24_0P<SendMessage>g__LocalExternFunction|26_0P<EnumWindows>g__LocalExternFunction|27_0T<GetClientRect>g__LocalExternFunction|30_0`<UnhookWindowsHookEx>g__LocalExternFunction|39_0Z<SetWindowsHookEx>g__LocalExternFunction|43_0V<RegisterHotKey>g__LocalExternFunction|45_0Z<UnregisterHotKey>g__LocalExternFunction|46_0L<LoadImage>g__LocalExternFunction|49_0"
+    },
+    {
+      "offset": "0x109e96a",
+      "encoding": "ascii",
+      "value": "Looktionary@"
+    },
+    {
+      "offset": "0x109e9a1",
+      "encoding": "ascii",
+      "value": "$LooktionaryExplain@"
+    },
+    {
+      "offset": "0x109f2e4",
+      "encoding": "ascii",
+      "value": "*LicenseHeaderPropInit:get_LooktionaryExplainRequest@"
+    },
+    {
+      "offset": "0x109f320",
+      "encoding": "ascii",
+      "value": "@Create_LooktionaryExplainRequest@"
+    },
+    {
+      "offset": "0x109f34d",
+      "encoding": "ascii",
+      "value": "BLooktionaryExplainRequestPropInit,get_LooktionaryRequest@"
+    },
+    {
+      "offset": "0x109f38e",
+      "encoding": "ascii",
+      "value": "2Create_LooktionaryRequest@"
+    },
+    {
+      "offset": "0x109f3b4",
+      "encoding": "ascii",
+      "value": "4LooktionaryRequestPropInit.get_LooktionaryResponse@"
+    },
+    {
+      "offset": "0x109f3ef",
+      "encoding": "ascii",
+      "value": "4Create_LooktionaryResponse@"
+    },
+    {
+      "offset": "0x109f416",
+      "encoding": "ascii",
+      "value": "6LooktionaryResponsePropInit:get_ParagraphTranslateRequest@"
+    },
+    {
+      "offset": "0x10a164f",
+      "encoding": "ascii",
+      "value": "*set_HasNoDictionaries set_HasNoResults2set_CanSuggestLooktionary"
+    },
+    {
+      "offset": "0x10a3aab",
+      "encoding": "ascii",
+      "value": "6get_LookupContentZoomFactor6set_LookupContentZoomFactor,get_LookupContentWidth,set_LookupContentWidth4get_LookupContentMaxHeight4set_LookupContentMaxHeight$get_SkipOnboarding$set_SkipOnboarding<get_TranslatorHideTranslations<set_TranslatorHideTranslations>get_LooktionaryHideTranslations>set_LooktionaryHideTranslations8get_LooktionaryAutoplayAudio8set_LooktionaryAutoplayAudio*get_TranslationEngine@"
+    },
+    {
+      "offset": "0x10a3e75",
+      "encoding": "ascii",
+      "value": "0get_LDDefinitionLanguage0set_LDDefinitionLanguageTget_SelectedLooktionaryTranslationLanguageTset_SelectedLooktionaryTranslationLanguage:get_ExportIncludeReverseCards:set_ExportIncludeReverseCards,get_AnkiSyncWordAudios,set_AnkiSyncWordAudios0get_AnkiSyncReverseCards0set_AnkiSyncReverseCards4get_AnkiSyncScreenshotMode@"
+    },
+    {
+      "offset": "0x10a4520",
+      "encoding": "ascii",
+      "value": "bLookupper.Core.Segmentation.IWordAnalyzer.Analyze"
+    },
+    {
+      "offset": "0x10a6c31",
+      "encoding": "ascii",
+      "value": "HasSideButtonsHRegisterHotkeyModifiersToKeyCodeList@"
+    },
+    {
+      "offset": "0x10a9a29",
+      "encoding": "ascii",
+      "value": "System.Collections.Generic.IAsyncEnumerable<Lookupper.Utils.GatewayAPI.Models.ScreenTranslateItem>.GetAsyncEnumerator@"
+    },
+    {
+      "offset": "0x10a9aab",
+      "encoding": "ascii",
+      "value": "System.Collections.Generic.IAsyncEnumerator<Lookupper.Utils.GatewayAPI.Models.ScreenTranslateItem>.MoveNextAsync"
+    },
+    {
+      "offset": "0x10a9b1c",
+      "encoding": "ascii",
+      "value": "System.Collections.Generic.IAsyncEnumerator<Lookupper.Utils.GatewayAPI.Models.ScreenTranslateItem>.get_Current@"
+    },
+    {
+      "offset": "0x10aa0a9",
+      "encoding": "ascii",
+      "value": ":Update_ViewModel_HasNoResultsDUpdate_ViewModel_HasNoDictionariesLUpdate_ViewModel_CanSuggestLooktionary"
+    },
+    {
+      "offset": "0x10aa289",
+      "encoding": "ascii",
+      "value": "TryGet_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Headword@"
+    },
+    {
+      "offset": "0x10aa2e2",
+      "encoding": "ascii",
+      "value": "TryGet_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse@"
+    },
+    {
+      "offset": "0x10aa331",
+      "encoding": "ascii",
+      "value": "^TryGet_DictionaryEntryViewModel_LooktionaryData@"
+    },
+    {
+      "offset": "0x10aa39a",
+      "encoding": "ascii",
+      "value": "TryGet_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Synonyms@"
+    },
+    {
+      "offset": "0x10aa3f3",
+      "encoding": "ascii",
+      "value": "TryGet_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_LanguageTag"
+    },
+    {
+      "offset": "0x10aa443",
+      "encoding": "ascii",
+      "value": "TryGet_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Ipa"
+    },
+    {
+      "offset": "0x10aa48b",
+      "encoding": "ascii",
+      "value": "TryGet_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Transliteration"
+    },
+    {
+      "offset": "0x10aa4df",
+      "encoding": "ascii",
+      "value": "TryGet_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Article"
+    },
+    {
+      "offset": "0x10aa52b",
+      "encoding": "ascii",
+      "value": "TryGet_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_DisplayForm"
+    },
+    {
+      "offset": "0x10aa599",
+      "encoding": "ascii",
+      "value": "^Update_DictionaryEntryViewModel_LooktionaryData@"
+    },
+    {
+      "offset": "0x10aa5da",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse@"
+    },
+    {
+      "offset": "0x10aa62e",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_LanguageTag"
+    },
+    {
+      "offset": "0x10aa69d",
+      "encoding": "ascii",
+      "value": "lUpdate_Settings_SelectedLooktionaryTranslationLanguage@"
+    },
+    {
+      "offset": "0x10aa6e5",
+      "encoding": "ascii",
+      "value": "Update_Settings_SelectedLooktionaryTranslationLanguage_LanguageTagHUpdate_Settings_LDDefinitionLanguage`Update_Settings_LDDefinitionLanguage_LanguageTag"
+    },
+    {
+      "offset": "0x10aa77e",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Synonyms@"
+    },
+    {
+      "offset": "0x10aa7db",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Parts@"
+    },
+    {
+      "offset": "0x10aa87d",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_HeadwordDUpdate_M_FormatListenTo_1600525429DUpdate_M_FormatSynonyms_2020641317"
+    },
+    {
+      "offset": "0x10aa910",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_CefrLevel@"
+    },
+    {
+      "offset": "0x10aa96e",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Reading"
+    },
+    {
+      "offset": "0x10aa9ba",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Ipa"
+    },
+    {
+      "offset": "0x10aaa02",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Transliteration6Update_M_GetTags_2688490535VUpdate_M_HasIpaOrTransliteration_3614181716pUpdate_DictionaryEntryViewModel_PlayHeadwordAudioCommandlUpdate_M_FormatListenToHeadwordWithShortcut_2646558449zUpdate_DictionaryEntryViewModel_PlayOriginallWordAudioCommandDUpdate_M_FormatListenTo_3288491483HUpdate_M_IsLemmaDifferent_3817827563BUpdate_M_FormatArticle_2354345612"
+    },
+    {
+      "offset": "0x10aabb6",
+      "encoding": "ascii",
+      "value": "UpdateFallback_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Translation"
+    },
+    {
+      "offset": "0x10ad22c",
+      "encoding": "ascii",
+      "value": "System.Collections.Generic.IEnumerator<Lookupper.Core.SavedWords.Search.FieldMatch>.get_Current@"
+    },
+    {
+      "offset": "0x10ad294",
+      "encoding": "ascii",
+      "value": "System.Collections.Generic.IEnumerable<Lookupper.Core.SavedWords.Search.FieldMatch>.GetEnumerator@"
+    },
+    {
+      "offset": "0x10ec340",
+      "encoding": "ascii",
+      "value": ".RequestRequiresForceGet"
+    },
+    {
+      "offset": "0x11220d2",
+      "encoding": "ascii",
+      "value": "H<CreateDXGIFactory1>g____PInvoke|8_0"
+    },
+    {
+      "offset": "0x113fe40",
+      "encoding": "ascii",
+      "value": "G0D3D11_CREATE_DEVICE_FLAG"
+    },
+    {
+      "offset": "0x113fec8",
+      "encoding": "ascii",
+      "value": "G DXGI_OUTPUT_DESC6WinUI3TransparentBackground"
+    },
+    {
+      "offset": "0x1146e08",
+      "encoding": "ascii",
+      "value": "IDXGIAdapter"
+    },
+    {
+      "offset": "0x1146ef2",
+      "encoding": "ascii",
+      "value": "IDXGIAdapter1"
+    },
+    {
+      "offset": "0x1147c6a",
+      "encoding": "ascii",
+      "value": "ID3D11Device&ID3D11DeviceContext"
+    },
+    {
+      "offset": "0x11f8d87",
+      "encoding": "ascii",
+      "value": "HunspellSharp, Version=1.0.3.0, Culture=neutral, PublicKeyToken=d0a06a02b6cc4c0cXHunspellSharp.Properties.Resources.resources"
+    },
+    {
+      "offset": "0x126ac16",
+      "encoding": "ascii",
+      "value": ".RequestedIssuancePolicy@*dwUrlRetrievalTimeoutp:fCheckRevocationFreshnessTimex2dwRevocationFreshnessTime"
+    },
+    {
+      "offset": "0x1534b99",
+      "encoding": "ascii",
+      "value": "CreateDXGIFactory1"
+    },
+    {
+      "offset": "0x1534cde",
+      "encoding": "ascii",
+      "value": "D3D11CreateDevice"
+    },
+    {
+      "offset": "0x153560e",
+      "encoding": "ascii",
+      "value": "RegisterHotKey"
+    },
+    {
+      "offset": "0x1535821",
+      "encoding": "ascii",
+      "value": "SetWindowsHookExW"
+    },
+    {
+      "offset": "0x15358fb",
+      "encoding": "ascii",
+      "value": "UnregisterHotKey"
+    },
+    {
+      "offset": "0x1535e72",
+      "encoding": "ascii",
+      "value": "d3d11.dll"
+    },
+    {
+      "offset": "0x1535e91",
+      "encoding": "ascii",
+      "value": "dxgi.dll"
+    },
+    {
+      "offset": "0x1ece00c",
+      "encoding": "ascii",
+      "value": "D:\\Developer\\VSProjects\\LookupperWindows\\Lookupper\\bin\\x64\\Release\\net10.0-windows10.0.26100.0\\win-x64\\native\\Lookupper.pdb"
+    },
+    {
+      "offset": "0x20d6d3e",
+      "encoding": "ascii",
+      "value": "Lookupper.exe"
+    },
+    {
+      "offset": "0x1cc2030",
+      "encoding": "utf16le",
+      "value": "Duplicated frame format  is neither BGRA8 nor FPDuplicated frame, expectNo DXGI output c"
+    },
+    {
+      "offset": "0x1cc3e20",
+      "encoding": "utf16le",
+      "value": "lookup.r.requestfile.reqaudio.revideo.refavicon.icon.ico"
+    },
+    {
+      "offset": "0x20e9b08",
+      "encoding": "utf16le",
+      "value": "If this keeps happening, contact creator@lookupper.com and include this text."
+    },
+    {
+      "offset": "0x20e9c02",
+      "encoding": "utf16le",
+      "value": " creator@lookupper.ru "
+    },
+    {
+      "offset": "0x20e9c8c",
+      "encoding": "utf16le",
+      "value": " creator@lookupper.com "
+    },
+    {
+      "offset": "0x20f04bc",
+      "encoding": "utf16le",
+      "value": "' is not a Sudachi system dictionary."
+    },
+    {
+      "offset": "0x20f5d74",
+      "encoding": "utf16le",
+      "value": "*://*.request/*"
+    },
+    {
+      "offset": "0x20fcc3c",
+      "encoding": "utf16le",
+      "value": "/looktionary/v2"
+    },
+    {
+      "offset": "0x20fcc74",
+      "encoding": "utf16le",
+      "value": "/looktionary/v2/explain"
+    },
+    {
+      "offset": "0x20fcd7c",
+      "encoding": "utf16le",
+      "value": "/models/sudachi/sudachi-dictionary-latest-core.zip"
+    },
+    {
+      "offset": "0x2107f04",
+      "encoding": "utf16le",
+      "value": "ABI.System.Collections.Generic.ConstantSplittableMap`2[Lookupper.Core.Dictionaries.Engine.BlockRole,Lookupper.Core.Dictionaries.Engine.HtmlTag]"
+    },
+    {
+      "offset": "0x210803c",
+      "encoding": "utf16le",
+      "value": "ABI.System.Collections.Generic.ConstantSplittableMap`2[Lookupper.Core.Dictionaries.Engine.InlineRole,Lookupper.Core.Dictionaries.Engine.HtmlTag]"
+    },
+    {
+      "offset": "0x2108174",
+      "encoding": "utf16le",
+      "value": "ABI.System.Collections.Generic.ConstantSplittableMap`2[Lookupper.Core.Segmentation.Japanese.Sudachi.CategoryType,Lookupper.Core.Segmentation.Japanese.Sudachi.CategoryInfo]"
+    },
+    {
+      "offset": "0x21170dc",
+      "encoding": "utf16le",
+      "value": "CanSuggestLooktionary"
+    },
+    {
+      "offset": "0x2134bb4",
+      "encoding": "utf16le",
+      "value": "Failed to read Looktionary response. Please try again."
+    },
+    {
+      "offset": "0x213ce6c",
+      "encoding": "utf16le",
+      "value": "HunspellSharp.Hunspell"
+    },
+    {
+      "offset": "0x213ceb4",
+      "encoding": "utf16le",
+      "value": "HunspellSharp.Properties.Resources"
+    },
+    {
+      "offset": "0x214cb94",
+      "encoding": "utf16le",
+      "value": "Looktionary"
+    },
+    {
+      "offset": "0x214cbc4",
+      "encoding": "utf16le",
+      "value": "Looktionary Pro AI magic ended."
+    },
+    {
+      "offset": "0x214cc1c",
+      "encoding": "utf16le",
+      "value": "Looktionary "
+    },
+    {
+      "offset": "0x214cc6c",
+      "encoding": "utf16le",
+      "value": "LooktionaryAutoplayAudio"
+    },
+    {
+      "offset": "0x214ccb4",
+      "encoding": "utf16le",
+      "value": "LooktionaryData"
+    },
+    {
+      "offset": "0x214ccec",
+      "encoding": "utf16le",
+      "value": "LooktionaryHideTranslations"
+    },
+    {
+      "offset": "0x214cd3c",
+      "encoding": "utf16le",
+      "value": "LooktionaryTemplate_ListenToAudioFormat"
+    },
+    {
+      "offset": "0x214d4c6",
+      "encoding": "utf16le",
+      "value": "Add-AppxPackage -Path Lookupper.msix"
+    },
+    {
+      "offset": "0x214dab4",
+      "encoding": "utf16le",
+      "value": "Add-AppxPackage -Path Lookupper.msix"
+    },
+    {
+      "offset": "0x214e102",
+      "encoding": "utf16le",
+      "value": "Add-AppxPackage -Path Lookupper.msix"
+    },
+    {
+      "offset": "0x214e2e4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.AiReportDialog"
+    },
+    {
+      "offset": "0x214e344",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.AnimatedPanelSwitcher"
+    },
+    {
+      "offset": "0x214e3b4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.AppModeSwitcher"
+    },
+    {
+      "offset": "0x214e414",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.AutostartToggle"
+    },
+    {
+      "offset": "0x214e474",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.CefrBadge"
+    },
+    {
+      "offset": "0x214e4cc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.CefrBadge.Level"
+    },
+    {
+      "offset": "0x214e52c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.CroppedImage"
+    },
+    {
+      "offset": "0x214e584",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.CroppedImage.Source"
+    },
+    {
+      "offset": "0x214e5ec",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.CroppedImage.SourceRect"
+    },
+    {
+      "offset": "0x214e65c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.HighlightEditBox"
+    },
+    {
+      "offset": "0x214e6bc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.HighlightEditBox.TaggedText"
+    },
+    {
+      "offset": "0x214e734",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.HighlightedTextBlock"
+    },
+    {
+      "offset": "0x214e79c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.HighlightedTextBlock.Text"
+    },
+    {
+      "offset": "0x214e814",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.GamepadHotkeyBox"
+    },
+    {
+      "offset": "0x214e884",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.HotkeyCaptureBox"
+    },
+    {
+      "offset": "0x214e8f4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.HotkeyCaptureBox.ActionContent"
+    },
+    {
+      "offset": "0x214e984",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.HotkeyCaptureBox.Glyph"
+    },
+    {
+      "offset": "0x214ea04",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.HotkeyCaptureBox.IsCapturing"
+    },
+    {
+      "offset": "0x214ea8c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.HotkeyCaptureBox.PlaceholderText"
+    },
+    {
+      "offset": "0x214eb1c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.HotkeyCaptureBox.Text"
+    },
+    {
+      "offset": "0x214eb9c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.KeyboardHotkeyBox"
+    },
+    {
+      "offset": "0x214ec14",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.MouseHotkeyBox"
+    },
+    {
+      "offset": "0x214ec84",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.OcrLanguagePicker"
+    },
+    {
+      "offset": "0x214ecec",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.OcrLanguagePicker.SelectedChoice"
+    },
+    {
+      "offset": "0x214ed6c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.ReviewDialog"
+    },
+    {
+      "offset": "0x214edc4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.SpoilerTextBlock"
+    },
+    {
+      "offset": "0x214ee24",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.SpoilerTextBlock.IsContentHidden"
+    },
+    {
+      "offset": "0x214eea4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.SpoilerTextBlock.RevealCommand"
+    },
+    {
+      "offset": "0x214ef24",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.SpoilerTextBlock.Text"
+    },
+    {
+      "offset": "0x214ef94",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.StorageUsageView"
+    },
+    {
+      "offset": "0x214eff4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.TranslateToLanguagePicker"
+    },
+    {
+      "offset": "0x214f06c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.ZoomBar"
+    },
+    {
+      "offset": "0x214f0bc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Models.Dictionary"
+    },
+    {
+      "offset": "0x214f12c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Views.DictionariesView"
+    },
+    {
+      "offset": "0x214f1ac",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Views.DictionaryInfoControl"
+    },
+    {
+      "offset": "0x214f234",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Views.DictionaryInfoControl.Dict"
+    },
+    {
+      "offset": "0x214f2c4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Views.DictionaryInfoControl.HideControls"
+    },
+    {
+      "offset": "0x214f364",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Views.LooktionarySettingsControl"
+    },
+    {
+      "offset": "0x214f3f4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Views.ManageDictionariesContentDialog"
+    },
+    {
+      "offset": "0x214f48c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Views.TranslatorSettingsControl"
+    },
+    {
+      "offset": "0x214f51c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Views.TreeViewTemplateSelector"
+    },
+    {
+      "offset": "0x214f5ac",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Views.TreeViewTemplateSelector.DictionaryTemplate"
+    },
+    {
+      "offset": "0x214f65c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Views.TreeViewTemplateSelector.RootFolderTemplate"
+    },
+    {
+      "offset": "0x214f70c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Views.TreeViewTemplateSelector.SubFolderTemplate"
+    },
+    {
+      "offset": "0x214f7bc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.LookupperPro.Views.ActivateKeyDialog"
+    },
+    {
+      "offset": "0x214f83c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.LookupperPro.Views.ActivateKeyDialog.CancelText"
+    },
+    {
+      "offset": "0x214f8d4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.LookupperPro.Views.ActivateKeyDialog.PrimaryText"
+    },
+    {
+      "offset": "0x214f96c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.LookupperPro.Views.ActivateKeyDialog.TitleText"
+    },
+    {
+      "offset": "0x214f9fc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.LookupperPro.Views.LicenseRevokedDialog"
+    },
+    {
+      "offset": "0x214fa84",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.LookupperPro.Views.LicenseRevokedDialog.CloseText"
+    },
+    {
+      "offset": "0x214fb1c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.LookupperPro.Views.LicenseRevokedDialog.MessageText"
+    },
+    {
+      "offset": "0x214fbbc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.LookupperPro.Views.LicenseRevokedDialog.PrimaryText"
+    },
+    {
+      "offset": "0x214fc5c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.LookupperPro.Views.LicenseRevokedDialog.TitleText"
+    },
+    {
+      "offset": "0x214fcf4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.LookupperPro.Views.ProUsageButton"
+    },
+    {
+      "offset": "0x214fd6c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.LookupperPro.Views.ThankYouDialog"
+    },
+    {
+      "offset": "0x214fde4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.LookupperPro.Views.ThankYouDialog.CloseText"
+    },
+    {
+      "offset": "0x214fe74",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.MainWindow"
+    },
+    {
+      "offset": "0x214febc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.ViewModels.CardViewModel"
+    },
+    {
+      "offset": "0x214ff3c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.ViewModels.ICardContentOptions"
+    },
+    {
+      "offset": "0x214ffc4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.AnkiSyncDialog"
+    },
+    {
+      "offset": "0x215003c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.CardContentOptions"
+    },
+    {
+      "offset": "0x21500bc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.CardContentOptions.Options"
+    },
+    {
+      "offset": "0x215014c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.EditCardField"
+    },
+    {
+      "offset": "0x21501bc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.EditCardField.FieldContent"
+    },
+    {
+      "offset": "0x215024c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.EditCardField.Header"
+    },
+    {
+      "offset": "0x21502cc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.EditCardField.IsAiFilled"
+    },
+    {
+      "offset": "0x2150354",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.EditCardField.IsExpanded"
+    },
+    {
+      "offset": "0x21503dc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.EditCardField.IsLoading"
+    },
+    {
+      "offset": "0x2150464",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.EditCardField.IsMissing"
+    },
+    {
+      "offset": "0x21504ec",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.EditCardField.IsRequired"
+    },
+    {
+      "offset": "0x2150574",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.EditCardView"
+    },
+    {
+      "offset": "0x21505e4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.EditCardView.CardVM"
+    },
+    {
+      "offset": "0x2150664",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.EditCardView.GenderNames"
+    },
+    {
+      "offset": "0x21506ec",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.EditCardView.PartOfSpeechNames"
+    },
+    {
+      "offset": "0x2150784",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.ExportDialog"
+    },
+    {
+      "offset": "0x21507f4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.SavedWordListItem"
+    },
+    {
+      "offset": "0x215086c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.SavedWordListItem.CardVM"
+    },
+    {
+      "offset": "0x21508f4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.SavedWordsView"
+    },
+    {
+      "offset": "0x215096c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.SavedWordsView.SyncService"
+    },
+    {
+      "offset": "0x21509fc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Settings.Views.AnalyzerModelDownloadDialog"
+    },
+    {
+      "offset": "0x2150a84",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Settings.Views.GamepadLegendControl"
+    },
+    {
+      "offset": "0x2150b04",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Settings.Views.SettingsView"
+    },
+    {
+      "offset": "0x2150b74",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Settings.Views.TranslateGemmaDownloadDialog"
+    },
+    {
+      "offset": "0x2150c04",
+      "encoding": "utf16le",
+      "value": "Lookupper.Extensions.CursorAccessGrid"
+    },
+    {
+      "offset": "0x2150c64",
+      "encoding": "utf16le",
+      "value": "Lookupper.Extensions.CursorAccessGrid.CursorShape"
+    },
+    {
+      "offset": "0x2150cdc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Extensions.CursorAccessGrid.InputCursor"
+    },
+    {
+      "offset": "0x2150d54",
+      "encoding": "utf16le",
+      "value": "Lookupper.Freeze."
+    },
+    {
+      "offset": "0x2150d8c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Helpers.ObservableCollectionEx`1[Lookupper.Core.SavedWords.Models.Card]"
+    },
+    {
+      "offset": "0x2150e44",
+      "encoding": "utf16le",
+      "value": "Lookupper.Helpers.ObservableCollectionEx`1[Lookupper.Lookups.ViewModels.CursorRectangle]"
+    },
+    {
+      "offset": "0x2150f0c",
+      "encoding": "utf16le",
+      "value": "Lookupper.HidGamepadListener"
+    },
+    {
+      "offset": "0x2150f5c",
+      "encoding": "utf16le",
+      "value": "Lookupper.HidGamepadListener.Window"
+    },
+    {
+      "offset": "0x2150fbc",
+      "encoding": "utf16le",
+      "value": "Lookupper.InputThread"
+    },
+    {
+      "offset": "0x2150ffc",
+      "encoding": "utf16le",
+      "value": "Lookupper.InputThread.Window"
+    },
+    {
+      "offset": "0x215104c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Rendering.ArticleWebView"
+    },
+    {
+      "offset": "0x21510bc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Rendering.ArticleXamlView"
+    },
+    {
+      "offset": "0x215112c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.ViewModels.DictionaryEntryViewModel"
+    },
+    {
+      "offset": "0x21511ac",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.ViewModels.EntriesItemsViewModel"
+    },
+    {
+      "offset": "0x215122c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.ViewModels.LookupViewModel"
+    },
+    {
+      "offset": "0x215129c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.ViewModels.OverlayViewModel"
+    },
+    {
+      "offset": "0x215130c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.ArticleTemplate"
+    },
+    {
+      "offset": "0x2151374",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.ArticleTemplate.DictionaryEntryViewModel"
+    },
+    {
+      "offset": "0x215140c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.BaseTemplate"
+    },
+    {
+      "offset": "0x215146c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.BaseTemplate.ContentPresenter"
+    },
+    {
+      "offset": "0x21514ec",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.BaseTemplate.DEViewModel"
+    },
+    {
+      "offset": "0x2151564",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.CursorRectangleControl"
+    },
+    {
+      "offset": "0x21515dc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.DictionaryEntryDataTemplateSelector"
+    },
+    {
+      "offset": "0x215166c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.DictionaryEntryDataTemplateSelector.Article"
+    },
+    {
+      "offset": "0x215170c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.DictionaryEntryDataTemplateSelector.Looktionary"
+    },
+    {
+      "offset": "0x21517b4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.DictionaryEntryDataTemplateSelector.Translator"
+    },
+    {
+      "offset": "0x215185c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.EntriesItemsControl"
+    },
+    {
+      "offset": "0x21518cc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.EntriesItemsControl.ViewModel"
+    },
+    {
+      "offset": "0x215194c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.GameInFullscreenWarningDialog"
+    },
+    {
+      "offset": "0x21519cc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.GameInFullscreenWarningDialog.CloseText"
+    },
+    {
+      "offset": "0x2151a64",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.GameInFullscreenWarningDialog.MessageText"
+    },
+    {
+      "offset": "0x2151afc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.GameInFullscreenWarningDialog.TitleText"
+    },
+    {
+      "offset": "0x2151b94",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.LooktionaryTemplate"
+    },
+    {
+      "offset": "0x2151c04",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.LooktionaryTemplate.DictionaryEntryViewModel"
+    },
+    {
+      "offset": "0x2151ca4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.OCRSettingsControl"
+    },
+    {
+      "offset": "0x2151d14",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.OverlayView"
+    },
+    {
+      "offset": "0x2151d74",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.OverlayView.VM"
+    },
+    {
+      "offset": "0x2151ddc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.OverlayWindow"
+    },
+    {
+      "offset": "0x2151e3c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.OverlayWindow.HWND"
+    },
+    {
+      "offset": "0x2151eac",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.OverlayWindow.IsVisible"
+    },
+    {
+      "offset": "0x2151f24",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.OverlayWindow.View"
+    },
+    {
+      "offset": "0x2151f94",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.TranslationRectangleControl"
+    },
+    {
+      "offset": "0x2152014",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.TranslatorTemplate"
+    },
+    {
+      "offset": "0x2152084",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.TranslatorTemplate.DictionaryEntryViewModel"
+    },
+    {
+      "offset": "0x2152124",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.WordTeachingTip"
+    },
+    {
+      "offset": "0x215218c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.WordTeachingTip.VM"
+    },
+    {
+      "offset": "0x21521fc",
+      "encoding": "utf16le",
+      "value": "Lookupper.OCR.Models.OcrLanguageChoice"
+    },
+    {
+      "offset": "0x2152264",
+      "encoding": "utf16le",
+      "value": "Lookupper.Onboarding.Views.HotkeyStepPage"
+    },
+    {
+      "offset": "0x21522cc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Onboarding.Views.LanguagesStepPage"
+    },
+    {
+      "offset": "0x215233c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Onboarding.Views.ModeStepPage"
+    },
+    {
+      "offset": "0x21523a4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Onboarding.Views.TriggerKeysControl"
+    },
+    {
+      "offset": "0x2152414",
+      "encoding": "utf16le",
+      "value": "Lookupper.Onboarding.Views.TriggerKeysControl.IsEmpty"
+    },
+    {
+      "offset": "0x2152494",
+      "encoding": "utf16le",
+      "value": "Lookupper.Onboarding.Views.TriggerKeysControl.KeyFontSize"
+    },
+    {
+      "offset": "0x215251c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Onboarding.Views.TryItStepPage"
+    },
+    {
+      "offset": "0x2152584",
+      "encoding": "utf16le",
+      "value": "Lookupper.Onboarding.Windows.OnboardingWindow"
+    },
+    {
+      "offset": "0x21525f4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Onboarding.Windows.TrayTipWindow"
+    },
+    {
+      "offset": "0x2152664",
+      "encoding": "utf16le",
+      "value": "Lookupper.Services.AnkiSyncService"
+    },
+    {
+      "offset": "0x21526c4",
+      "encoding": "utf16le",
+      "value": "Lookupper.ValueConverters.BoolNegationConverter"
+    },
+    {
+      "offset": "0x215273c",
+      "encoding": "utf16le",
+      "value": "Lookupper.ValueConverters.DateTimeOffsetToStringConverter"
+    },
+    {
+      "offset": "0x21527c4",
+      "encoding": "utf16le",
+      "value": "Lookupper.ValueConverters.DownloadProgressToStringConverter"
+    },
+    {
+      "offset": "0x2152854",
+      "encoding": "utf16le",
+      "value": "Lookupper.ValueConverters.IntToDoubleConverter"
+    },
+    {
+      "offset": "0x21528cc",
+      "encoding": "utf16le",
+      "value": "Lookupper.ValueConverters.LanguageTagToFlagConverter"
+    },
+    {
+      "offset": "0x215294c",
+      "encoding": "utf16le",
+      "value": "Lookupper.ValueConverters.LanguageTagToFlowDirectionConverter"
+    },
+    {
+      "offset": "0x21529dc",
+      "encoding": "utf16le",
+      "value": "Lookupper.ValueConverters.MbToStringConverter"
+    },
+    {
+      "offset": "0x2152a4c",
+      "encoding": "utf16le",
+      "value": "Lookupper.ValueConverters.ObjectToBoolConverter"
+    },
+    {
+      "offset": "0x2152ac4",
+      "encoding": "utf16le",
+      "value": "Lookupper.ValueConverters.ResetSecondsToDateTimeStringConverter"
+    },
+    {
+      "offset": "0x2152b5c",
+      "encoding": "utf16le",
+      "value": "Lookupper.ValueConverters.StringVisibilityConverter"
+    },
+    {
+      "offset": "0x2152bdc",
+      "encoding": "utf16le",
+      "value": "Lookupper.ValueConverters.VisibilityConverter"
+    },
+    {
+      "offset": "0x2152c4c",
+      "encoding": "utf16le",
+      "value": "Lookupper.ValueConverters.VisibilityNegationConverter"
+    },
+    {
+      "offset": "0x2152ccc",
+      "encoding": "utf16le",
+      "value": "Lookupper.XInputPoller"
+    },
+    {
+      "offset": "0x2152d14",
+      "encoding": "utf16le",
+      "value": "Lookupper.exe"
+    },
+    {
+      "offset": "0x215721c",
+      "encoding": "utf16le",
+      "value": "Microsoft.AspNetCore/Microsoft.AspNetCore.Hosting.BeginRequest@Activity1Start:-httpContext.Request.Method;httpContext.Request.Host;httpContext.Request.Path;httpContext.Request.QueryString"
+    },
+    {
+      "offset": "0x217c74c",
+      "encoding": "utf16le",
+      "value": "No DXGI output covers "
+    },
+    {
+      "offset": "0x2183c94",
+      "encoding": "utf16le",
+      "value": "PP-OCRv6_det_small.onnx"
+    },
+    {
+      "offset": "0x2183cdc",
+      "encoding": "utf16le",
+      "value": "PP-OCRv6_det_tiny.onnx"
+    },
+    {
+      "offset": "0x2183d24",
+      "encoding": "utf16le",
+      "value": "PP-OCRv6_rec_small.onnx"
+    },
+    {
+      "offset": "0x2183d6c",
+      "encoding": "utf16le",
+      "value": "PP-OCRv6_rec_tiny.onnx"
+    },
+    {
+      "offset": "0x218a49c",
+      "encoding": "utf16le",
+      "value": "RegisterHotKey"
+    },
+    {
+      "offset": "0x218f81c",
+      "encoding": "utf16le",
+      "value": "SelectedLooktionaryTranslationLanguage"
+    },
+    {
+      "offset": "0x21960cc",
+      "encoding": "utf16le",
+      "value": "Sudachi"
+    },
+    {
+      "offset": "0x21977c4",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.Dictionary`2[Lookupper.Core.Dictionaries.Engine.BlockRole,Lookupper.Core.Dictionaries.Engine.HtmlTag]"
+    },
+    {
+      "offset": "0x21978dc",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.Dictionary`2[Lookupper.Core.Dictionaries.Engine.InlineRole,Lookupper.Core.Dictionaries.Engine.HtmlTag]"
+    },
+    {
+      "offset": "0x21979f4",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.Dictionary`2[Lookupper.Core.Segmentation.Japanese.Sudachi.CategoryType,Lookupper.Core.Segmentation.Japanese.Sudachi.CategoryInfo]"
+    },
+    {
+      "offset": "0x2198624",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.Dictionaries.Engine.ArticleBlock]"
+    },
+    {
+      "offset": "0x21986e4",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.Dictionaries.Engine.ArticleInline]"
+    },
+    {
+      "offset": "0x21987a4",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.Dictionaries.Engine.YomitanReader+Bank]"
+    },
+    {
+      "offset": "0x219886c",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.Dictionaries.ImportedDictionaryResult]"
+    },
+    {
+      "offset": "0x2198934",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.Dictionaries.Models.RootFolder]"
+    },
+    {
+      "offset": "0x21989ec",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.SavedWords.Models.Card]"
+    },
+    {
+      "offset": "0x2198a94",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.SavedWords.ViewModels.CardViewModel]"
+    },
+    {
+      "offset": "0x2198b54",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.Segmentation.AnalyzedWord]"
+    },
+    {
+      "offset": "0x2198c04",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.Segmentation.Japanese.JapaneseWord]"
+    },
+    {
+      "offset": "0x2198cc4",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.Segmentation.Japanese.Sudachi.Morpheme]"
+    },
+    {
+      "offset": "0x2198d8c",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.Segmentation.Korean.KiwiMorpheme]"
+    },
+    {
+      "offset": "0x2198e4c",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Lookups.Logic.CardFocusNavigator+Target]"
+    },
+    {
+      "offset": "0x2198f0c",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Lookups.ViewModels.CursorRectangle]"
+    },
+    {
+      "offset": "0x2198fc4",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Lookups.ViewModels.TranslationRectangle]"
+    },
+    {
+      "offset": "0x2199084",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.OCR.Models.OcrLanguage]"
+    },
+    {
+      "offset": "0x2199124",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.OCR.Models.OcrLine]"
+    },
+    {
+      "offset": "0x21991bc",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.OCR.Models.OcrWord]"
+    },
+    {
+      "offset": "0x2199254",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Services.AnkiSyncService+OurNote]"
+    },
+    {
+      "offset": "0x2199304",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Utils.GatewayAPI.Models.Part]"
+    },
+    {
+      "offset": "0x21998f4",
+      "encoding": "utf16le",
+      "value": "System.Collections.Immutable.ImmutableList`1[Lookupper.OCR.Models.OcrDetectedArea]"
+    },
+    {
+      "offset": "0x21999b4",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.Collection`1[Lookupper.Lookups.ViewModels.DictionaryEntryViewModel]"
+    },
+    {
+      "offset": "0x2199a94",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ObservableCollection`1[Lookupper.Components.StorageSlice]"
+    },
+    {
+      "offset": "0x2199b5c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ObservableCollection`1[Lookupper.Core.Dictionaries.Models.Dictionary]"
+    },
+    {
+      "offset": "0x2199c3c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ObservableCollection`1[Lookupper.Core.Dictionaries.Models.SubFolder]"
+    },
+    {
+      "offset": "0x2199d1c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ObservableCollection`1[Lookupper.Core.Dictionaries.Models.TranslationLanguageChoice]"
+    },
+    {
+      "offset": "0x2199e1c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ObservableCollection`1[Lookupper.Core.Games.GameProfile]"
+    },
+    {
+      "offset": "0x2199ee4",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ObservableCollection`1[Lookupper.Core.SavedWords.Models.CardLanguage]"
+    },
+    {
+      "offset": "0x2199fc4",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ObservableCollection`1[Lookupper.Core.SavedWords.Models.Card]"
+    },
+    {
+      "offset": "0x219a094",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ObservableCollection`1[Lookupper.Core.SavedWords.Search.SearchSuggestion]"
+    },
+    {
+      "offset": "0x219a17c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ObservableCollection`1[Lookupper.OCR.Models.OcrLanguageChoice]"
+    },
+    {
+      "offset": "0x219a24c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ObservableCollection`1[Lookupper.Onboarding.Models.LanguageOption]"
+    },
+    {
+      "offset": "0x219a934",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Components.StorageSlice]"
+    },
+    {
+      "offset": "0x219a9fc",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Dictionaries.Engine.ArticleBlock]"
+    },
+    {
+      "offset": "0x219aadc",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Dictionaries.Engine.ArticleInline]"
+    },
+    {
+      "offset": "0x219abbc",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Dictionaries.Engine.YomitanReader+Bank]"
+    },
+    {
+      "offset": "0x219acac",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Dictionaries.ImportedDictionaryResult]"
+    },
+    {
+      "offset": "0x219ad94",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Dictionaries.Models.Dictionary]"
+    },
+    {
+      "offset": "0x219ae74",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Dictionaries.Models.RootFolder]"
+    },
+    {
+      "offset": "0x219af54",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Dictionaries.Models.SubFolder]"
+    },
+    {
+      "offset": "0x219b02c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Dictionaries.Models.TranslationLanguageChoice]"
+    },
+    {
+      "offset": "0x219b124",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Games.GameProfile]"
+    },
+    {
+      "offset": "0x219b1e4",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.SavedWords.Models.CardLanguage]"
+    },
+    {
+      "offset": "0x219b2c4",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.SavedWords.Models.Card]"
+    },
+    {
+      "offset": "0x219b394",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.SavedWords.Models.GroupInfoList]"
+    },
+    {
+      "offset": "0x219b474",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.SavedWords.Search.SearchSuggestion]"
+    },
+    {
+      "offset": "0x219b55c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.SavedWords.ViewModels.CardViewModel]"
+    },
+    {
+      "offset": "0x219b644",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Segmentation.AnalyzedWord]"
+    },
+    {
+      "offset": "0x219b714",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Segmentation.Japanese.JapaneseWord]"
+    },
+    {
+      "offset": "0x219b7fc",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Segmentation.Japanese.Sudachi.Morpheme]"
+    },
+    {
+      "offset": "0x219b8ec",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Segmentation.Korean.KiwiMorpheme]"
+    },
+    {
+      "offset": "0x219b9cc",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Lookups.Logic.CardFocusNavigator+Target]"
+    },
+    {
+      "offset": "0x219bab4",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Lookups.ViewModels.CursorRectangle]"
+    },
+    {
+      "offset": "0x219bb8c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Lookups.ViewModels.DictionaryEntryViewModel]"
+    },
+    {
+      "offset": "0x219bc7c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Lookups.ViewModels.TranslationRectangle]"
+    },
+    {
+      "offset": "0x219bd64",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.OCR.Models.OcrDetectedArea]"
+    },
+    {
+      "offset": "0x219be2c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.OCR.Models.OcrLanguageChoice]"
+    },
+    {
+      "offset": "0x219befc",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.OCR.Models.OcrLanguage]"
+    },
+    {
+      "offset": "0x219bfbc",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.OCR.Models.OcrLine]"
+    },
+    {
+      "offset": "0x219c074",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.OCR.Models.OcrWord]"
+    },
+    {
+      "offset": "0x219c12c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Onboarding.Models.LanguageOption]"
+    },
+    {
+      "offset": "0x219c204",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Services.AnkiSyncService+OurNote]"
+    },
+    {
+      "offset": "0x219c2dc",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Utils.GatewayAPI.Models.Part]"
+    },
+    {
+      "offset": "0x219cb0c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyDictionary`2[Lookupper.Core.Dictionaries.Engine.BlockRole,Lookupper.Core.Dictionaries.Engine.HtmlTag]"
+    },
+    {
+      "offset": "0x219cc3c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyDictionary`2[Lookupper.Core.Dictionaries.Engine.InlineRole,Lookupper.Core.Dictionaries.Engine.HtmlTag]"
+    },
+    {
+      "offset": "0x219cd6c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyDictionary`2[Lookupper.Core.Segmentation.Japanese.Sudachi.CategoryType,Lookupper.Core.Segmentation.Japanese.Sudachi.CategoryInfo]"
+    },
+    {
+      "offset": "0x219e28c",
+      "encoding": "utf16le",
+      "value": "System.Net.Http.Request"
+    },
+    {
+      "offset": "0x21b9524",
+      "encoding": "utf16le",
+      "value": "Translator,Looktionary"
+    },
+    {
+      "offset": "0x21cdb2c",
+      "encoding": "utf16le",
+      "value": "XpressOCROptions"
+    },
+    {
+      "offset": "0x21d0a5c",
+      "encoding": "utf16le",
+      "value": "_Field/[using:Lookupper.Core.SavedWords.Views]EditCardField/Header"
+    },
+    {
+      "offset": "0x21d31e4",
+      "encoding": "utf16le",
+      "value": "arabic_PP-OCRv5_rec_mobile_infer.onnx"
+    },
+    {
+      "offset": "0x21d39ec",
+      "encoding": "utf16le",
+      "value": "audio.request"
+    },
+    {
+      "offset": "0x21d7894",
+      "encoding": "utf16le",
+      "value": "cyrillic_PP-OCRv5_rec_mobile_infer.onnx"
+    },
+    {
+      "offset": "0x21da294",
+      "encoding": "utf16le",
+      "value": "el_PP-OCRv5_rec_mobile_infer.onnx"
+    },
+    {
+      "offset": "0x21dc71c",
+      "encoding": "utf16le",
+      "value": "file.request"
+    },
+    {
+      "offset": "0x21dee9c",
+      "encoding": "utf16le",
+      "value": "http.client.request.duration"
+    },
+    {
+      "offset": "0x21deeec",
+      "encoding": "utf16le",
+      "value": "http.client.request.time_in_queue"
+    },
+    {
+      "offset": "0x21def84",
+      "encoding": "utf16le",
+      "value": "http.request.method"
+    },
+    {
+      "offset": "0x21defc4",
+      "encoding": "utf16le",
+      "value": "http.request.method_original"
+    },
+    {
+      "offset": "0x21dfefc",
+      "encoding": "utf16le",
+      "value": "https://audio.request/"
+    },
+    {
+      "offset": "0x21dff44",
+      "encoding": "utf16le",
+      "value": "https://dictionaries-bucket.lookupper.com"
+    },
+    {
+      "offset": "0x21dffac",
+      "encoding": "utf16le",
+      "value": "https://dictionaries.lookupper.ru"
+    },
+    {
+      "offset": "0x21e0004",
+      "encoding": "utf16le",
+      "value": "https://file.request/"
+    },
+    {
+      "offset": "0x21e0044",
+      "encoding": "utf16le",
+      "value": "https://gateway-cn.lookupper.com"
+    },
+    {
+      "offset": "0x21e009c",
+      "encoding": "utf16le",
+      "value": "https://gateway.lookupper.com"
+    },
+    {
+      "offset": "0x21e00ec",
+      "encoding": "utf16le",
+      "value": "https://gateway.lookupper.ru"
+    },
+    {
+      "offset": "0x21e013c",
+      "encoding": "utf16le",
+      "value": "https://lookup.request/"
+    },
+    {
+      "offset": "0x21e0184",
+      "encoding": "utf16le",
+      "value": "https://lookupper.ru/pricing/?utm_source=win_app"
+    },
+    {
+      "offset": "0x21e0254",
+      "encoding": "utf16le",
+      "value": "https://video.request/"
+    },
+    {
+      "offset": "0x21e42bc",
+      "encoding": "utf16le",
+      "value": "korean_PP-OCRv5_rec_mobile_infer.onnx"
+    },
+    {
+      "offset": "0x21e4f04",
+      "encoding": "utf16le",
+      "value": "lookup.request"
+    },
+    {
+      "offset": "0x21e6dbc",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Assets/Hunspell/"
+    },
+    {
+      "offset": "0x21e784c",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Core/Dictionaries/Views/LooktionarySettingsControl.xaml"
+    },
+    {
+      "offset": "0x21e85c4",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Lookups/Views/LooktionaryTemplate.xaml"
+    },
+    {
+      "offset": "0x21f1754",
+      "encoding": "utf16le",
+      "value": "sudachi"
+    },
+    {
+      "offset": "0x21f177c",
+      "encoding": "utf16le",
+      "value": "sudachi-dictionary-latest-core.zip"
+    },
+    {
+      "offset": "0x21f579c",
+      "encoding": "utf16le",
+      "value": "video.request"
+    },
+    {
+      "offset": "0x24377e0",
+      "encoding": "utf16le",
+      "value": "Lookupper.dll"
+    },
+    {
+      "offset": "0x243784c",
+      "encoding": "utf16le",
+      "value": "Lookupper.dll"
+    }
+  ]
+}

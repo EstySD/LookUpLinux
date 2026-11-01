@@ -748,7 +748,7 @@ def run(trigger=False):
     if not valid_token(token):token=''
     env=platform.session_env()
     os.environ.update(env)
-    from PyQt6.QtCore import QCoreApplication
+    from PyQt6.QtCore import QCoreApplication,QTimer
     from PyQt6.QtDBus import QDBusConnection,QDBusMessage,QDBus
     if trigger:
         application=QCoreApplication(['lookup-trigger'])
@@ -789,14 +789,18 @@ def run(trigger=False):
         return 1
     if not bus.registerService(SERVICE):
         return 0
-    from .lifecycle import ensure_entries,LifecycleError
+    from .lifecycle import ensure_entries,ensure_shortcut,LifecycleError
     registration_error=None
-    try:ensure_entries()
+    try:
+        ensure_entries()
+        ensure_shortcut()
     except LifecycleError as error:registration_error=error.reason
     token=''
     _,Owner=components()
     owner=Owner(env)
     owner.lifecycle_error=registration_error
+    if registration_error is not None:
+        QTimer.singleShot(0,owner.open_settings)
     if not bus.registerObject(OBJECT,owner,QDBusConnection.RegisterOption.ExportAllSlots):
         owner.quit()
         owner.engine.join(12)

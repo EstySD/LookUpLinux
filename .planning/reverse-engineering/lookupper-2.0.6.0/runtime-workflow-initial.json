@@ -1,0 +1,44 @@
+{
+    "timestamp_utc":  "2026-10-26T04:09:31.4838324Z",
+    "authority":  "shell-windows-uia",
+    "target_version":  "2.0.6.0",
+    "synthetic_text":  "The children watched the bright river.",
+    "original_autosave":  "On",
+    "recognition_language":  [
+                                 "Английский"
+                             ],
+    "probes":  [
+                   {
+                       "intended_word":  "children",
+                       "cursor_label_x":  130,
+                       "observation_after_ms":  54657,
+                       "windows":  [
+                                       {
+                                           "window":  "Lookupper",
+                                           "descendants":  109,
+                                           "examined":  109,
+                                           "controls":  [
+                                                            {
+                                                                "type":  "ControlType.TabItem",
+                                                                "name":  "Словари",
+                                                                "id":  ""
+                                                            },
+                                                            {
+                                                                "type":  "ControlType.TabItem",
+                                                                "name":  "Настройки",
+                                                                "id":  ""
+                                                            }
+                                                        ]
+                                       }
+                                   ]
+                   }
+               ],
+    "status":  "failed",
+    "limitations":  [
+                        "Filtered UI Automation names, not a native call trace.",
+                        "No screenshots or user library values retained.",
+                        "Existing hotkey Alt+Q required; observed in settings before the run."
+                    ],
+    "error":  "Fixture did not receive foreground; hotkey not sent.",
+    "autosave_restored":  true
+}

@@ -1,0 +1,33 @@
+{
+  "checked_at_utc": "2026-10-26T04:02:23.246451+00:00",
+  "source_files_verified": 37,
+  "json_files_parsed": [
+    "artifact-manifest.json",
+    "binary-string-anchors.json",
+    "declared-dependencies.json",
+    "feature-string-anchors.json",
+    "native-evidence-40m.json",
+    "native-overview-40m.json",
+    "native-overview-reduced.json",
+    "native-overview.json",
+    "native-snapshot-40m.json",
+    "pe-layout.json",
+    "rea-evidence.json",
+    "validation.json"
+  ],
+  "report_present": true,
+  "native_analysis_status": "success",
+  "native_analysis_budget_ms": 2400000,
+  "procedure_count": 116898,
+  "defined_string_count": 22392,
+  "native_snapshot_created": true,
+  "snapshot_scope": "cached inventory summary and workflow overview; not a Ghidra database",
+  "native_evidence_records_verified": 2,
+  "artifact_sha256": "16af03f18ddc75547683895c2d59bc25d053a311626710b51aaebe9547c7d5e8",
+  "profile_digest": "b1900060caeedebc87417f27b88b63bacd8c0f94050b48dffcf094a058f245ef",
+  "saved_native_artifacts_sha256": {
+    "native-overview-40m.json": "cadd1341a18671ae8765d7469a263703b39b9edc968f05a740ebe4d79982a4f1",
+    "native-snapshot-40m.json": "72a2a4c0e4a862eb2a711c84c1277ef2f1e058cf9c95761174cbeba06672a093",
+    "native-evidence-40m.json": "7cfa1936675789cb44fca559d6744b587d65476d36b672319a5b345d22b0bba5"
+  }
+}

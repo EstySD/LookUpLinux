@@ -1,0 +1,30 @@
+{
+    "timestamp_utc":  "2026-10-26T04:10:20.6298809Z",
+    "authority":  "shell-windows-uia",
+    "scope":  "External observation while original fixture probe is paused",
+    "windows":  [
+                    {
+                        "window":  "Lookupper Overlay",
+                        "descendants":  34,
+                        "controls":  [
+                                         {
+                                             "name":  "Дети смотрели на яркую реку.\r\n",
+                                             "id":  "RichText",
+                                             "type":  "ControlType.Text"
+                                         },
+                                         {
+                                             "name":  "ребенок\r\n",
+                                             "id":  "RichText",
+                                             "type":  "ControlType.Text"
+                                         }
+                                     ]
+                    },
+                    {
+                        "window":  "Lookupper",
+                        "descendants":  109,
+                        "controls":  [
+
+                                     ]
+                    }
+                ]
+}

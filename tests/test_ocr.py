@@ -58,6 +58,18 @@ class ParserTests(unittest.TestCase):
 
 
 class SelectionTests(unittest.TestCase):
+    def test_filename_component_under_cursor(self):
+        for text,component in (('native.log','native'),('native.log','log'),
+                               ('fallback-09-source','fallback'),('fallback-09-source','source'),
+                               ('check_settings_app.py','settings')):
+            start=text.index(component)
+            result=ocr.select_word((word(text,width=len(text)*10),),
+                                   (10+(start+len(component)/2)*10,15))
+            self.assertEqual(result.word,component)
+            self.assertIsNone(result.context)
+            self.assertEqual(result.candidates,())
+        self.assertIsNone(ocr.select_word((word('fallback-09-source',width=180),),(105,15)))
+
     def test_hit_nearest_and_tie(self):
         words = (word('hello'), word('world', 45, width=35, order=2))
         self.assertEqual(ocr.select_word(words, (15, 15)).word, 'hello')

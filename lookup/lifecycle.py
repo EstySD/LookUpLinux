@@ -162,6 +162,15 @@ def inspect_shortcut(registry=None):
     return (registry or ShortcutRegistry()).inspect()
 
 
+def ensure_shortcut(registry=None):
+    """Restore an empty KDE binding without replacing the user's active keys."""
+    registry=registry or ShortcutRegistry()
+    if registry.inspect().keys:
+        return
+    transaction=registry.change(config.load().shortcut)
+    transaction.commit()
+
+
 def is_installed():
     return INSTALLED_EXECUTABLE.is_file() and INSTALLED_DESKTOP.is_file()
 

@@ -1,0 +1,327 @@
+2026-10-25 22:13:46 INFO  (LoggingInitialization) Using log config file: jar:file:/D:/tools/ghidra_12.1.4_PUBLIC/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2026-10-25 22:13:46 INFO  (LoggingInitialization) Using log file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\ghidra.log  
+2026-10-25 22:13:46 DEBUG (GhidraObjectInputFilter) Including serial input filter: FileSystem/data/client.rmi.serial.filter  
+2026-10-25 22:13:46 INFO  (Preferences) Loading user preferences: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\preferences  
+2026-10-25 22:13:46 INFO  (ClassSearcher) Searching for classes...  
+2026-10-25 22:13:47 INFO  (ClassSearcher) Class search complete (951 ms)  
+2026-10-25 22:13:48 INFO  (DefaultSSLContextInitializer) Initializing SSL Context  
+2026-10-25 22:13:48 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2026-10-25 22:13:48 INFO  (SecureRandomFactory) Random Number Generator initialization complete: SHA1PRNG  
+2026-10-25 22:13:48 INFO  (DefaultTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2026-10-25 22:13:48 INFO  (FileCacheMaintenanceDaemon) Starting cache cleanup: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\cache\Denis-ghidra\fscache2  
+2026-10-25 22:13:48 INFO  (FileCacheMaintenanceDaemon) Finished cache cleanup, estimated storage used: 0  
+2026-10-25 22:13:48 INFO  (AnalyzeHeadless) Headless startup complete (2762 ms)  
+2026-10-25 22:13:48 INFO  (ClassSearcher) Class searcher loaded 59 extension points (20 false positives)  
+2026-10-25 22:13:48 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\SystemEmulation\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Debug\Debugger\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Debug\Debugger-rmi-trace\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Processors\8051\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Processors\PIC\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\VersionTracking\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\BSim\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\SwiftDemangler\ghidra_scripts
+    D:\tools\rea\node_modules\rea-agents\bridge\ghidra
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\GnuDemangler\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\PDB\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Processors\Atmel\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\BytePatterns\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\FileFormats\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\FunctionID\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\MicrosoftCodeAnalyzer\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\PyGhidra\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\Decompiler\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\DecompilerDependent\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Processors\DATA\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\Base\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Processors\JVM\ghidra_scripts
+    D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\WildcardAssembler\ghidra_scripts  
+2026-10-25 22:13:48 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2026-10-25 22:13:48 INFO  (HeadlessAnalyzer) Creating temporary project: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\project\rea-project  
+2026-10-25 22:13:48 DEBUG (DefaultProjectManager) No tools found; Installing default tools  
+2026-10-25 22:13:48 DEBUG (DefaultProjectManager) 	no recent project directories found  
+2026-10-25 22:13:49 INFO  (DefaultProject) Creating project: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\project\rea-project  
+2026-10-25 22:13:49 INFO  (HeadlessAnalyzer) REPORT: Processing input files:   
+2026-10-25 22:13:49 INFO  (HeadlessAnalyzer)      project: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\project\rea-project  
+2026-10-25 22:13:49 INFO  (HeadlessAnalyzer) IMPORTING: file:///C:/Users/Denis/AppData/Local/Temp/rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5/target-16af03f18ddc.exe  
+2026-10-25 22:13:51 INFO  (ProgramLoader) Using Loader: Portable Executable (PE)  
+2026-10-25 22:13:51 INFO  (ProgramLoader) Using Language/Compiler: x86:LE:64:default:windows  
+2026-10-25 22:13:51 INFO  (ProgramLoader) Using Library Search Path: [., C:\Windows\SysWOW64, D:\tools\jdk-21.0.12.1+1\bin, C:\Windows\Sun\Java\bin, C:\Windows\system32, C:\Windows, C:\Users\Denis\.codex\tmp\arg0-windows\codex-arg0j7l1sp, C:\Users\Denis\AppData\Roaming\npm\node_modules\@openai\codex\node_modules\@openai\codex-win32-x64\vendor\x86_64-pc-windows-msvc\codex-path, c:\Users\Denis\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand, c:\Users\Denis\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli, C:\Program Files (x86)\Common Files\Oracle\Java\java8path, C:\Program Files (x86)\Common Files\Oracle\Java\javapath, C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.2\bin\x64, C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.2\bin, C:\Python314\Scripts\, C:\Python314\, C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\bin\x64, C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.0\bin, C:\Windows\System32\Wbem, C:\Windows\System32\WindowsPowerShell\v1.0\, C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR, C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common, D:\Program Files\Git\cmd, C:\Program Files\Common Files\Autodesk Shared\, D:\Program Files\cursor\resources\app\bin, D:\Program Files\CMake\bin, D:\Windows Kits\10\Windows Performance Toolkit\, D:\Program Files\Sunshine, D:\Program Files\Sunshine\tools, C:\Program Files\Graphviz\bin, D:\Program Files\Node\, C:\ProgramData\chocolatey\bin, C:\Program Files\Docker\Docker\resources\bin, D:\Program Files\GithubCLI\, C:\Program Files\PuTTY\, C:\Windows\System32\OpenSSH\, C:\Program Files\NVIDIA Corporation\Nsight Compute 2026.1.1\, C:\Program Files (x86)\Graphviz\bin, C:\Program Files\AmneziaWG\, C:\adb, C:\Users\Denis\.local\bin, C:\Users\Denis\AppData\Local\Programs\Python\Python312\Scripts\, C:\Users\Denis\AppData\Local\Programs\Python\Python312\, C:\Users\Denis\AppData\Local\Microsoft\WindowsApps, C:\Users\Denis\AppData\Local\GitHubDesktop\bin, D:\Program Files\Microsoft VS Code\bin, C:\Users\Denis\AppData\Roaming\npm, C:\Users\Denis\AppData\Local\Programs\Ollama, C:\Users\Denis\AppData\Local\Microsoft\WinGet\Links, C:\Program Files (x86)\BrowserStackLocal\, C:\Program Files (x86)\NSIS, C:\Program Files\OpenCppCoverage]  
+2026-10-25 22:13:52 INFO  (TLSDirectory) TLS callbacks at 140f66068  
+2026-10-25 22:14:12 DEBUG (WEVTResourceDataType) Error processing Provider Element.  
+2026-10-25 22:14:12 INFO  (TLSDirectory) TLS callbacks at 180143030  
+2026-10-25 22:14:12 WARN  (ExportDataDirectory) Invalid or missing function at 1801585b0  
+2026-10-25 22:14:13 INFO  (TLSDirectory) TLS callbacks at 1801b5768  
+2026-10-25 22:14:16 DEBUG (WEVTResourceDataType) Error processing Provider Element.  
+2026-10-25 22:14:16 INFO  (TLSDirectory) TLS callbacks at 1800e3908  
+2026-10-25 22:14:17 DEBUG (WEVTResourceDataType) Error processing Provider Element.  
+2026-10-25 22:14:17 INFO  (TLSDirectory) TLS callbacks at 1800ad9c8  
+2026-10-25 22:14:17 WARN  (ExportDataDirectory) Invalid or missing function at 1800c13b8  
+2026-10-25 22:14:18 WARN  (ExportDataDirectory) Invalid or missing function at 1800be588  
+2026-10-25 22:14:18 DEBUG (WEVTResourceDataType) Error processing Provider Element.  
+2026-10-25 22:14:19 WARN  (ExportDataDirectory) Invalid or missing function at 180056554  
+2026-10-25 22:14:19 DEBUG (WEVTResourceDataType) Error processing Provider Element.  
+2026-10-25 22:14:19 INFO  (ProgramLoader) Additional info:
+Loading file:///C:/Users/Denis/AppData/Local/Temp/rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5/target-16af03f18ddc.exe?MD5=dc39c257207e8a569a1b7bcc89911cba...
+[target-16af03f18ddc.exe]: failed to create TerminatedCString at 1424c8958: Failed to resolve data length for TerminatedCString
+------------------------------------------------
+
+Searching 49 paths for library ADVAPI32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/advapi32.dll
+Loading file:///C:/Windows/System32/advapi32.dll?MD5=857f9cf874b9121bceace057c0a0d920...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\advapi32.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library API-MS-WIN-CORE-SYNCH-L1-2-0.DLL...
+Loading file:///D:/tools/jdk-21.0.12.1+1/bin/api-ms-win-core-synch-l1-2-0.dll?MD5=8f107a7bc018227b181a0e7e76e9ca39...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-core-synch-l1-2-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library API-MS-WIN-CRT-CONVERT-L1-1-0.DLL...
+Loading file:///D:/tools/jdk-21.0.12.1+1/bin/api-ms-win-crt-convert-l1-1-0.dll?MD5=3560176d0cdbe2f5d33f543348e0a027...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-convert-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library API-MS-WIN-CRT-ENVIRONMENT-L1-1-0.DLL...
+Loading file:///D:/tools/jdk-21.0.12.1+1/bin/api-ms-win-crt-environment-l1-1-0.dll?MD5=e93c7f013493b12ad40229b19db02ce6...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-environment-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library API-MS-WIN-CRT-FILESYSTEM-L1-1-0.DLL...
+Loading file:///D:/tools/jdk-21.0.12.1+1/bin/api-ms-win-crt-filesystem-l1-1-0.dll?MD5=47555752931cecf90e796499b62ec729...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-filesystem-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library API-MS-WIN-CRT-HEAP-L1-1-0.DLL...
+Loading file:///D:/tools/jdk-21.0.12.1+1/bin/api-ms-win-crt-heap-l1-1-0.dll?MD5=527bbbfded529ea77ee798d94ce0f243...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-heap-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library API-MS-WIN-CRT-LOCALE-L1-1-0.DLL...
+Loading file:///D:/tools/jdk-21.0.12.1+1/bin/api-ms-win-crt-locale-l1-1-0.dll?MD5=09796dab12cbbd920f632aeb89820193...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-locale-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library API-MS-WIN-CRT-MATH-L1-1-0.DLL...
+Loading file:///D:/tools/jdk-21.0.12.1+1/bin/api-ms-win-crt-math-l1-1-0.dll?MD5=aa9624cb27cc50a3fbbd3b223a617b1c...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-math-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library API-MS-WIN-CRT-RUNTIME-L1-1-0.DLL...
+Loading file:///D:/tools/jdk-21.0.12.1+1/bin/api-ms-win-crt-runtime-l1-1-0.dll?MD5=bbaa58e9e1abdf7d8c4c69652d29d789...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-runtime-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library API-MS-WIN-CRT-STDIO-L1-1-0.DLL...
+Loading file:///D:/tools/jdk-21.0.12.1+1/bin/api-ms-win-crt-stdio-l1-1-0.dll?MD5=ef37235fc43157a4c93241d5e49e304b...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-stdio-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library API-MS-WIN-CRT-STRING-L1-1-0.DLL...
+Loading file:///D:/tools/jdk-21.0.12.1+1/bin/api-ms-win-crt-string-l1-1-0.dll?MD5=639b1fb35cb61ba633eb1791b750631f...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-string-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library API-MS-WIN-CRT-TIME-L1-1-0.DLL...
+Loading file:///D:/tools/jdk-21.0.12.1+1/bin/api-ms-win-crt-time-l1-1-0.dll?MD5=fccce207a34c947f01d3f23a7dd09569...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-time-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library API-MS-WIN-CRT-UTILITY-L1-1-0.DLL...
+Loading file:///D:/tools/jdk-21.0.12.1+1/bin/api-ms-win-crt-utility-l1-1-0.dll?MD5=708a5bc205384633a7b6674eecc7f0f0...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-utility-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library BCRYPT.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/bcrypt.dll
+Loading file:///C:/Windows/System32/bcrypt.dll?MD5=705879a3ca852d697416b1239ce6b69d...
+[bcrypt.dll]: failed to create WEVTResource at 1800244d0: Failed to resolve data length for WEVTResource
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\bcrypt.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library CRYPT32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/crypt32.dll
+Loading file:///C:/Windows/System32/crypt32.dll?MD5=fd001cf56e84e1a9eee53b01b1fcfcae...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\crypt32.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library DBGHELP.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/dbghelp.dll
+Loading file:///C:/Windows/System32/dbghelp.dll?MD5=2996441e2aca9d1dbe99a5aa024ff91c...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\dbghelp.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library GDI32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/gdi32.dll
+Loading file:///C:/Windows/System32/gdi32.dll?MD5=0fc21575bb1f963de616a7bff972f966...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\gdi32.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library IPHLPAPI.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/IPHLPAPI.DLL
+Loading file:///C:/Windows/System32/IPHLPAPI.DLL?MD5=4dd1b93ea88648277146e4f4855b1b5d...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\iphlpapi.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library KERNEL32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/kernel32.dll
+Loading file:///C:/Windows/System32/kernel32.dll?MD5=dee09396084b703aafe865bdf700b90d...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\kernel32.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library NCRYPT.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/ncrypt.dll
+Loading file:///C:/Windows/System32/ncrypt.dll?MD5=a478fcff57ad38f91956363ef73a6195...
+[ncrypt.dll]: failed to create WEVTResource at 18002a4a8: Failed to resolve data length for WEVTResource
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\ncrypt.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library OLE32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/ole32.dll
+Loading file:///C:/Windows/System32/ole32.dll?MD5=5966bfc34db626c7b746af45b33974f4...
+[ole32.dll]: failed to create WEVTResource at 180182740: Failed to resolve data length for WEVTResource
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\ole32.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library OLEAUT32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/oleaut32.dll
+Loading file:///C:/Windows/System32/oleaut32.dll?MD5=bb102a9a9212bf3c5a31458ddbe97f56...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\oleaut32.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library SECUR32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/secur32.dll
+Loading file:///C:/Windows/System32/secur32.dll?MD5=02a3ca01dc919c71d277cae88edd1551...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\secur32.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library USER32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/user32.dll
+Loading file:///C:/Windows/System32/user32.dll?MD5=530243465eb50def7583c275753536dd...
+[user32.dll]: failed to create WEVTResource at 1800dda70: Failed to resolve data length for WEVTResource
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\user32.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library VERSION.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/version.dll
+Loading file:///C:/Windows/System32/version.dll?MD5=0793e3f7fad65b159b5f242400bfc140...
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\version.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 49 paths for library WS2_32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/ws2_32.dll
+Loading file:///C:/Windows/System32/ws2_32.dll?MD5=e181e5a899f004bee05bca853a8e3e53...
+[ws2_32.dll]: failed to create WEVTResource at 18005f4b8: Failed to resolve data length for WEVTResource
+Created exports file: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\ws2_32.exports
+Library not saved to project.
+------------------------------------------------
+
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\dbghelp.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\gdi32.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-core-synch-l1-2-0.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\advapi32.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\bcrypt.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\crypt32.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\iphlpapi.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\kernel32.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\ncrypt.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\ole32.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\oleaut32.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\secur32.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\user32.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\version.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\ws2_32.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-heap-l1-1-0.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-math-l1-1-0.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-string-l1-1-0.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-stdio-l1-1-0.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-environment-l1-1-0.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-convert-l1-1-0.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-runtime-l1-1-0.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-filesystem-l1-1-0.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-time-l1-1-0.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-locale-l1-1-0.exports
+Applying C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\config\Denis-ghidra\ghidra_12.1.4_PUBLIC\symbols\win64\api-ms-win-crt-utility-l1-1-0.exports
+Linking the External Programs of 'target-16af03f18ddc.exe' to imported libraries...
+  [DBGHELP.DLL] -> not found in project
+  [GDI32.DLL] -> not found in project
+  [API-MS-WIN-CORE-SYNCH-L1-2-0.DLL] -> not found in project
+  [ADVAPI32.DLL] -> not found in project
+  [BCRYPT.DLL] -> not found in project
+  [CRYPT32.DLL] -> not found in project
+  [IPHLPAPI.DLL] -> not found in project
+  [KERNEL32.DLL] -> not found in project
+  [NCRYPT.DLL] -> not found in project
+  [OLE32.DLL] -> not found in project
+  [OLEAUT32.DLL] -> not found in project
+  [SECUR32.DLL] -> not found in project
+  [USER32.DLL] -> not found in project
+  [VERSION.DLL] -> not found in project
+  [WS2_32.DLL] -> not found in project
+  [API-MS-WIN-CRT-HEAP-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-MATH-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-STRING-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-STDIO-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-ENVIRONMENT-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-CONVERT-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-RUNTIME-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-FILESYSTEM-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-TIME-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-LOCALE-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-UTILITY-L1-1-0.DLL] -> not found in project
+------------------------------------------------
+
+  
+2026-10-25 22:14:19 INFO  (HeadlessAnalyzer) IMPORTING: Loaded 0 additional files  
+2026-10-25 22:14:20 INFO  (HeadlessAnalyzer) REPORT: Execute script: D:\tools\rea\node_modules\rea-agents\bridge\ghidra\ReaGhidraAnalysisOptions.java 'Non-Returning Functions - Discovered'   
+2026-10-25 22:14:22 INFO  (HeadlessAnalyzer) SCRIPT: D:\tools\rea\node_modules\rea-agents\bridge\ghidra\ReaGhidraAnalysisOptions.java  
+2026-10-25 22:14:22 INFO  (GhidraScript) ReaGhidraAnalysisOptions.java> REA disabled analyzers: {"format":"rea-ghidra-disabled-analyzers-v1","analyzers":[{"name":"Non-Returning Functions - Discovered","status":"disabled"}]}  
+2026-10-25 22:14:23 INFO  (HeadlessAnalyzer) ANALYZING all memory and code: file:///C:/Users/Denis/AppData/Local/Temp/rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5/target-16af03f18ddc.exe  
+2026-10-25 22:14:23 WARN  (NoReturnFunctionAnalyzer) Ignoring leading '_' chars on no-return name '___raise_securityfailure' specified in file: D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\Base\data\PEFunctionsThatDoNotReturn  
+2026-10-25 22:14:23 WARN  (NoReturnFunctionAnalyzer) Ignoring leading '_' chars on no-return name '___report_rangecheckfailure' specified in file: D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\Base\data\PEFunctionsThatDoNotReturn  
+2026-10-25 22:14:23 DEBUG (SymbolServerService) SymbolServerService: querying Program's Import Location - C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5 for Lookupper.pdb, 2e5c8832-d618-46d8-95b5-e1d3a93f1c0e, 14, 0, ???  
+2026-10-25 22:14:23 DEBUG (SymbolServerService) SymbolServerService: got 0 results from Program's Import Location - C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5  
+2026-10-25 22:14:23 DEBUG (SymbolServerService) SymbolServerService: found 0 matches  
+2026-10-25 22:14:23 INFO  (PdbUniversalAnalyzer) Skipping PDB processing: failed to locate PDB file in configured locations  
+2026-10-25 22:14:23 INFO  (PdbUniversalAnalyzer) Use a script to set the PDB file location. I.e.,
+    PdbAnalyzer.setPdbFileOption(currentProgram, new File("/path/to/pdb/file.pdb")); or
+    PdbUniversalAnalyzer.setPdbFileOption(currentProgram, new File("/path/to/pdb/file.pdb"));
+Or set the symbol server search configuration using:    PdbPlugin.saveSymbolServerServiceConfig(...);
+ This must be done using a pre-script (prior to analysis).  
+2026-10-25 22:14:23 INFO  (PackedDatabaseCache) Packed database cache: C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\cache\Denis-ghidra\packed-db-cache  
+2026-10-25 22:14:23 DEBUG (PackedDatabaseCache) Caching packed database: D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\Base\data\typeinfo\win32\windows_vs12_64.gdt  
+2026-10-25 22:14:23 DEBUG (PackedDatabase) Unpacking database D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\Base\data\typeinfo\win32\windows_vs12_64.gdt -> C:\Users\Denis\AppData\Local\Temp\rea-ghidra-5f8d0808836a3fcd8abbcea753c550e5\cache\Denis-ghidra\packed-db-cache\pdb07850A4F\db.1.gbf  
+2026-10-25 22:14:23 DEBUG (PackedDatabaseCache) Cache update completed: D:\tools\ghidra_12.1.4_PUBLIC\Ghidra\Features\Base\data\typeinfo\win32\windows_vs12_64.gdt  
+2026-10-25 22:16:00 INFO  (DecompilerSwitchAnalyzer) hit non-returning function, restarting decompiler switch analyzer later  
+2026-10-25 22:16:08 WARN  (DecompileCallback) Decompiling 140f44900: Unable to read bytes at ram:143020103  
+2026-10-25 22:16:12 WARN  (DecompileCallback) Decompiling 140eb0440, pcode error at 140eb0490: Unable to resolve constructor at 140eb0490  
+2026-10-25 22:16:24 WARN  (DecompileCallback) Decompiling 140eb0520, pcode error at 140eb05e0: Unable to resolve constructor at 140eb05e0  
+2026-10-25 22:16:24 WARN  (DecompileCallback) Decompiling 140eb0520, pcode error at 140eb05ea: Unable to resolve constructor at 140eb05ea  
+2026-10-25 22:16:24 WARN  (DecompileCallback) Decompiling 140eb0520, pcode error at 140eb05ed: Unable to resolve constructor at 140eb05ed  
+2026-10-25 22:17:33 WARN  (AddressMapDB) More than 100 address segments have been created!  
+2026-10-25 22:21:45 INFO  (ApplyDataArchiveAnalyzer) Applied data type archive: windows_vs12_64  

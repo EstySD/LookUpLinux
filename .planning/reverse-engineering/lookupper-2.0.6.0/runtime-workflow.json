@@ -1,0 +1,137 @@
+{
+    "timestamp_utc":  "2026-10-26T04:17:31.4828414Z",
+    "authority":  "shell-windows-uia",
+    "target_version":  "2.0.6.0",
+    "synthetic_text":  "The children watched the bright river.",
+    "original_autosave":  "On",
+    "recognition_language":  [
+                                 "Английский"
+                             ],
+    "coordinate_space":  "physical pixels; per-monitor-aware thread",
+    "probes":  [
+                   {
+                       "intended_word":  "children",
+                       "cursor_screen_x":  296,
+                       "cursor_screen_y":  237,
+                       "observation_after_ms":  7076,
+                       "screenshot":  "runtime-children.png",
+                       "windows":  [
+                                       {
+                                           "window":  "Lookupper Overlay",
+                                           "descendants":  34,
+                                           "examined":  34,
+                                           "controls":  [
+                                                            {
+                                                                "type":  "ControlType.Text",
+                                                                "name":  "Дети смотрели на яркую реку.\r\n",
+                                                                "id":  "RichText"
+                                                            },
+                                                            {
+                                                                "type":  "ControlType.Text",
+                                                                "name":  "ребенок\r\n",
+                                                                "id":  "RichText"
+                                                            },
+                                                            {
+                                                                "type":  "ControlType.Button",
+                                                                "name":  "Контекст",
+                                                                "id":  ""
+                                                            },
+                                                            {
+                                                                "type":  "ControlType.Button",
+                                                                "name":  "Сохранить слово",
+                                                                "id":  ""
+                                                            }
+                                                        ]
+                                       },
+                                       {
+                                           "window":  "Lookupper",
+                                           "descendants":  109,
+                                           "examined":  109,
+                                           "controls":  [
+                                                            {
+                                                                "type":  "ControlType.TabItem",
+                                                                "name":  "Словари",
+                                                                "id":  ""
+                                                            },
+                                                            {
+                                                                "type":  "ControlType.TabItem",
+                                                                "name":  "Настройки",
+                                                                "id":  ""
+                                                            }
+                                                        ]
+                                       }
+                                   ]
+                   },
+                   {
+                       "intended_word":  "bright",
+                       "cursor_screen_x":  686,
+                       "cursor_screen_y":  237,
+                       "observation_after_ms":  7030,
+                       "screenshot":  "runtime-bright.png",
+                       "windows":  [
+                                       {
+                                           "window":  "Lookupper Overlay",
+                                           "descendants":  32,
+                                           "examined":  32,
+                                           "controls":  [
+                                                            {
+                                                                "type":  "ControlType.Text",
+                                                                "name":  "Дети смотрели на яркую реку.\r\n",
+                                                                "id":  "RichText"
+                                                            },
+                                                            {
+                                                                "type":  "ControlType.Text",
+                                                                "name":  "bright",
+                                                                "id":  ""
+                                                            },
+                                                            {
+                                                                "type":  "ControlType.Text",
+                                                                "name":  "яркий\r\n",
+                                                                "id":  "RichText"
+                                                            },
+                                                            {
+                                                                "type":  "ControlType.Text",
+                                                                "name":  "светлый, ярко освещенный, блестящий",
+                                                                "id":  ""
+                                                            },
+                                                            {
+                                                                "type":  "ControlType.Button",
+                                                                "name":  "Контекст",
+                                                                "id":  ""
+                                                            },
+                                                            {
+                                                                "type":  "ControlType.Button",
+                                                                "name":  "Сохранить слово",
+                                                                "id":  ""
+                                                            }
+                                                        ]
+                                       },
+                                       {
+                                           "window":  "Lookupper",
+                                           "descendants":  109,
+                                           "examined":  109,
+                                           "controls":  [
+                                                            {
+                                                                "type":  "ControlType.TabItem",
+                                                                "name":  "Словари",
+                                                                "id":  ""
+                                                            },
+                                                            {
+                                                                "type":  "ControlType.TabItem",
+                                                                "name":  "Настройки",
+                                                                "id":  ""
+                                                            }
+                                                        ]
+                                       }
+                                   ]
+                   }
+               ],
+    "status":  "observed",
+    "limitations":  [
+                        "Filtered UI Automation names, not a native call trace.",
+                        "Screenshots clipped to the controlled fixture; no user library values retained.",
+                        "Existing hotkey Alt+Q required; observed in settings before the run.",
+                        "observation_after_ms is a fixed observation delay, not time to first result."
+                    ],
+    "autosave_restored":  true
+}

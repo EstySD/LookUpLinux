@@ -35,6 +35,24 @@ class Registry:
 
 
 class ShortcutTests(unittest.TestCase):
+    def test_startup_preserves_active_binding(self):
+        bus=Registry()
+        lifecycle.ensure_shortcut(lifecycle.ShortcutRegistry(bus))
+        self.assertEqual(bus.keys,[123])
+        self.assertEqual(bus.writes,[])
+
+    def test_startup_assigns_empty_binding_and_refuses_conflicts(self):
+        for available in (True,False):
+            bus=Registry();bus.keys=[];bus.available=available
+            with mock.patch.object(lifecycle.config,'load',return_value=lifecycle.config.Config()):
+                if available:
+                    lifecycle.ensure_shortcut(lifecycle.ShortcutRegistry(bus))
+                    self.assertTrue(bus.keys)
+                else:
+                    with self.assertRaises(lifecycle.LifecycleError):
+                        lifecycle.ensure_shortcut(lifecycle.ShortcutRegistry(bus))
+                    self.assertEqual(bus.writes,[])
+
     def test_single_chord_and_canonical_key(self):
         text,key=lifecycle.parse_shortcut('Alt+Q')
         self.assertEqual(text,'Alt+Q')

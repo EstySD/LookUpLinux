@@ -1,0 +1,54 @@
+{
+  "sections": [
+    {
+      "name": ".text",
+      "virtual_size": 16137096,
+      "rva": "0x1000",
+      "raw_size": 16137216,
+      "file_offset": "0x400"
+    },
+    {
+      "name": ".rdata",
+      "virtual_size": 18311002,
+      "rva": "0xf65000",
+      "raw_size": 18311168,
+      "file_offset": "0xf64000"
+    },
+    {
+      "name": ".data",
+      "virtual_size": 2731576,
+      "rva": "0x20dc000",
+      "raw_size": 2146816,
+      "file_offset": "0x20da800"
+    },
+    {
+      "name": ".pdata",
+      "virtual_size": 1250580,
+      "rva": "0x2377000",
+      "raw_size": 1250816,
+      "file_offset": "0x22e6a00"
+    },
+    {
+      "name": ".rsrc",
+      "virtual_size": 252708,
+      "rva": "0x24a9000",
+      "raw_size": 252928,
+      "file_offset": "0x2418000"
+    },
+    {
+      "name": ".reloc",
+      "virtual_size": 1439696,
+      "rva": "0x24e7000",
+      "raw_size": 1439744,
+      "file_offset": "0x2455c00"
+    }
+  ],
+  "image_base": "0x140000000",
+  "entry_rva": "0xf448b0",
+  "exception_directory": {
+    "rva": "0x2377000",
+    "bytes": 1250580,
+    "x64_runtime_function_records": 104215,
+    "note": "Unwind records are not an exact count of semantic functions"
+  }
+}

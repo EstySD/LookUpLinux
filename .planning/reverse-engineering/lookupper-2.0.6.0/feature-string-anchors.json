@@ -1,0 +1,6290 @@
+{
+  "scope": "Filtered string anchors only; no execution or call-edge proof",
+  "strings": [
+    {
+      "offset": "0xf6ac65",
+      "encoding": "ascii",
+      "value": "Anki.NET"
+    },
+    {
+      "offset": "0xf6acc5",
+      "encoding": "ascii",
+      "value": "Anki.NET.dllg"
+    },
+    {
+      "offset": "0xf6c3cc",
+      "encoding": "ascii",
+      "value": "XpressOCR"
+    },
+    {
+      "offset": "0xf6c436",
+      "encoding": "ascii",
+      "value": "XpressOCR.dll*System.IO.Compression"
+    },
+    {
+      "offset": "0xf6e2e8",
+      "encoding": "ascii",
+      "value": "AnkiNet.TestsK|"
+    },
+    {
+      "offset": "0xf74c45",
+      "encoding": "ascii",
+      "value": "fD:\\Developer\\VSProjects\\LookupperWindows\\XpressOCR\\"
+    },
+    {
+      "offset": "0xf77d85",
+      "encoding": "ascii",
+      "value": "AnkiNETK"
+    },
+    {
+      "offset": "0xf77db2",
+      "encoding": "ascii",
+      "value": "AnkiNetK"
+    },
+    {
+      "offset": "0xf7f69b",
+      "encoding": "ascii",
+      "value": "AnkiCard"
+    },
+    {
+      "offset": "0xf7f6a8",
+      "encoding": "ascii",
+      "value": "AnkiCardType"
+    },
+    {
+      "offset": "0xf7f6b9",
+      "encoding": "ascii",
+      "value": "AnkiCollection"
+    },
+    {
+      "offset": "0xf7f708",
+      "encoding": "ascii",
+      "value": "AnkiDeck"
+    },
+    {
+      "offset": "0xf7f715",
+      "encoding": "ascii",
+      "value": "AnkiFileWriter"
+    },
+    {
+      "offset": "0xf7f789",
+      "encoding": "ascii",
+      "value": "AnkiNote"
+    },
+    {
+      "offset": "0xf7f796",
+      "encoding": "ascii",
+      "value": "AnkiNoteType"
+    },
+    {
+      "offset": "0xf90463",
+      "encoding": "ascii",
+      "value": "0StartupTimeDetectionMode"
+    },
+    {
+      "offset": "0xf9289c",
+      "encoding": "ascii",
+      "value": "XPressOCR"
+    },
+    {
+      "offset": "0xf96b27",
+      "encoding": "ascii",
+      "value": "&LSA_TRANSLATED_NAME&LSA_TRANSLATED_SID24LSA_REFERENCED_DOMAIN_LIST*UNICODE_INTPTR_STRINGk"
+    },
+    {
+      "offset": "0xf9b18b",
+      "encoding": "ascii",
+      "value": "dictionary"
+    },
+    {
+      "offset": "0xf9c96f",
+      "encoding": "ascii",
+      "value": "IDictionary*IDictionaryEnumerator"
+    },
+    {
+      "offset": "0xf9ca0e",
+      "encoding": "ascii",
+      "value": "DictionaryEntry"
+    },
+    {
+      "offset": "0xf9caaa",
+      "encoding": "ascii",
+      "value": ",ListDictionaryInternal"
+    },
+    {
+      "offset": "0xfaac77",
+      "encoding": "ascii",
+      "value": "CommunityToolkit_WinUI_Controls_StyleExtensions_StyleExtensionResourceDictionaryWinRTTypeDetailsY"
+    },
+    {
+      "offset": "0xfaf1c4",
+      "encoding": "ascii",
+      "value": "AddToDictionary"
+    },
+    {
+      "offset": "0xfaf450",
+      "encoding": "ascii",
+      "value": "TranslateGemma"
+    },
+    {
+      "offset": "0xfaf7eb",
+      "encoding": "ascii",
+      "value": "AnkiSyncPreview"
+    },
+    {
+      "offset": "0xfaf7ff",
+      "encoding": "ascii",
+      "value": "AnkiCleanUp"
+    },
+    {
+      "offset": "0xfaf80f",
+      "encoding": "ascii",
+      "value": "AnkiSyncOutcome"
+    },
+    {
+      "offset": "0xfaf823",
+      "encoding": "ascii",
+      "value": "AnkiSyncService"
+    },
+    {
+      "offset": "0xfaff9c",
+      "encoding": "ascii",
+      "value": " OcrEngineService"
+    },
+    {
+      "offset": "0xfb01d3",
+      "encoding": "ascii",
+      "value": "*TranslateGemmaService"
+    },
+    {
+      "offset": "0xfb0ab0",
+      "encoding": "ascii",
+      "value": "SegmentationC"
+    },
+    {
+      "offset": "0xfb0e3b",
+      "encoding": "ascii",
+      "value": "OcrEngine"
+    },
+    {
+      "offset": "0xfb1af5",
+      "encoding": "ascii",
+      "value": "DXGIScreenshot"
+    },
+    {
+      "offset": "0xfb20ee",
+      "encoding": "ascii",
+      "value": "&UltraFastScreenshot"
+    },
+    {
+      "offset": "0xfb271d",
+      "encoding": "ascii",
+      "value": "\"OcrLanguagePicker"
+    },
+    {
+      "offset": "0xfb2b1b",
+      "encoding": "ascii",
+      "value": "2TranslateToLanguagePicker"
+    },
+    {
+      "offset": "0xfb2c76",
+      "encoding": "ascii",
+      "value": "Hotkeys"
+    },
+    {
+      "offset": "0xfb2dd5",
+      "encoding": "ascii",
+      "value": "Lookupper_Core_LookupperPro_Views_ThankYouDialog_ThankYouDialog_obj1_BindingsWinRTTypeDetailsvLookupper_Components_Hotkeys_MouseHotkeyBoxWinRTTypeDetails"
+    },
+    {
+      "offset": "0xfb30de",
+      "encoding": "ascii",
+      "value": "Lookupper_Lookups_Views_DictionaryEntryDataTemplateSelectorWinRTTypeDetailsvLookupper_Lookupper_XamlTypeInfo_XamlMemberWinRTTypeDetails\\Lookupper_Components_CefrBadgeWinRTTypeDetails"
+    },
+    {
+      "offset": "0xfb3274",
+      "encoding": "ascii",
+      "value": "Lookupper_Core_SavedWords_ViewModels_AnkiSyncViewModelWinRTTypeDetails"
+    },
+    {
+      "offset": "0xfb38cd",
+      "encoding": "ascii",
+      "value": "XamlContract$ResourceDictionary"
+    },
+    {
+      "offset": "0xfb3916",
+      "encoding": "ascii",
+      "value": "&IResourceDictionaryg"
+    },
+    {
+      "offset": "0xfba62a",
+      "encoding": "ascii",
+      "value": "DisposableJDuplicateEventDetectionEventProcessor"
+    },
+    {
+      "offset": "0xfbac5b",
+      "encoding": "ascii",
+      "value": "ThreadPoolInfo:ThreadsafeCounterDictionary`1"
+    },
+    {
+      "offset": "0xfbde6f",
+      "encoding": "ascii",
+      "value": "NormalizedHost"
+    },
+    {
+      "offset": "0xfbe0a3",
+      "encoding": "ascii",
+      "value": "OcrLine"
+    },
+    {
+      "offset": "0xfbe0ab",
+      "encoding": "ascii",
+      "value": "OcrResult"
+    },
+    {
+      "offset": "0xfbe0b5",
+      "encoding": "ascii",
+      "value": "OcrWord$ParagraphAlignment"
+    },
+    {
+      "offset": "0xfbe0fc",
+      "encoding": "ascii",
+      "value": "\"RecognitionOutput"
+    },
+    {
+      "offset": "0xfbe15c",
+      "encoding": "ascii",
+      "value": " XpressOCROptions"
+    },
+    {
+      "offset": "0xfc53ad",
+      "encoding": "ascii",
+      "value": "NoCredentials"
+    },
+    {
+      "offset": "0xfcbce9",
+      "encoding": "ascii",
+      "value": "f<Create_DictionaryInt64JsonDeckConfguration>b__84_0@"
+    },
+    {
+      "offset": "0xfcbd25",
+      "encoding": "ascii",
+      "value": "P<Create_DictionaryInt64JsonModel>b__88_0@"
+    },
+    {
+      "offset": "0xfcbd56",
+      "encoding": "ascii",
+      "value": "J<Create_DictionaryInt64String>b__92_0@"
+    },
+    {
+      "offset": "0xfd07a0",
+      "encoding": "ascii",
+      "value": "DictionaryNode"
+    },
+    {
+      "offset": "0xfd07bd",
+      "encoding": "ascii",
+      "value": "Dictionary`2S"
+    },
+    {
+      "offset": "0xfd08f8",
+      "encoding": "ascii",
+      "value": "IDictionary`2"
+    },
+    {
+      "offset": "0xfd0906",
+      "encoding": "ascii",
+      "value": "KeyValuePair`2*IReadOnlyDictionary`2"
+    },
+    {
+      "offset": "0xfd0abd",
+      "encoding": "ascii",
+      "value": "LowLevelList`1(LowLevelDictionary`2"
+    },
+    {
+      "offset": "0xfd0df0",
+      "encoding": "ascii",
+      "value": "$ReadOnlyCollection(ReadOnlyDictionary`2["
+    },
+    {
+      "offset": "0xfd16a1",
+      "encoding": "ascii",
+      "value": "UTF32Decoder$UTF8EncodingSealed.TextSegmentationUtility"
+    },
+    {
+      "offset": "0xfd7469",
+      "encoding": "ascii",
+      "value": "\"IDictionaryImpl`2Y"
+    },
+    {
+      "offset": "0xfd74eb",
+      "encoding": "ascii",
+      "value": "2IReadOnlyDictionaryImpl`2Y"
+    },
+    {
+      "offset": "0xfe1315",
+      "encoding": "ascii",
+      "value": "HNormalizedKeyFrameAnimationBuilder`1"
+    },
+    {
+      "offset": "0xfe28c4",
+      "encoding": "ascii",
+      "value": "Z9.<CreateTrayIcon>b__22_0B<InitializeKeyboardHotkey>b__25_0@"
+    },
+    {
+      "offset": "0xfe291a",
+      "encoding": "ascii",
+      "value": "<<InitializeMouseHotkey>b__26_0@<InitializeGamepadHotkey>b__27_0F<CreateOrActivateMainWindow>b__30_0"
+    },
+    {
+      "offset": "0xfead6a",
+      "encoding": "ascii",
+      "value": ",TranslateGemmaHardware"
+    },
+    {
+      "offset": "0xfeada1",
+      "encoding": "ascii",
+      "value": "&TranslateGemmaModel"
+    },
+    {
+      "offset": "0xfeae69",
+      "encoding": "ascii",
+      "value": "(TranslateGemmaPrompt"
+    },
+    {
+      "offset": "0xfeae9e",
+      "encoding": "ascii",
+      "value": "0TranslateGemmaTranslator"
+    },
+    {
+      "offset": "0xfee3e6",
+      "encoding": "ascii",
+      "value": ":CustomDictionaryImportService"
+    },
+    {
+      "offset": "0xfee53c",
+      "encoding": "ascii",
+      "value": "0ImportedDictionaryResult"
+    },
+    {
+      "offset": "0xfee90e",
+      "encoding": "ascii",
+      "value": ",DictionaryDeletePrompt"
+    },
+    {
+      "offset": "0xfee946",
+      "encoding": "ascii",
+      "value": " EngineDictionary"
+    },
+    {
+      "offset": "0xfee958",
+      "encoding": "ascii",
+      "value": "{>f.DictionaryEngineService"
+    },
+    {
+      "offset": "0xfeea13",
+      "encoding": "ascii",
+      "value": " DictionaryRecord"
+    },
+    {
+      "offset": "0xfeeb50",
+      "encoding": "ascii",
+      "value": "#Mf,DictionaryStoreContext"
+    },
+    {
+      "offset": "0xfeed5a",
+      "encoding": "ascii",
+      "value": "DictionaryStore"
+    },
+    {
+      "offset": "0xfef7c8",
+      "encoding": "ascii",
+      "value": "HotkeyService"
+    },
+    {
+      "offset": "0xff0099",
+      "encoding": "ascii",
+      "value": "2DictionaryInstallProgress"
+    },
+    {
+      "offset": "0xff088b",
+      "encoding": "ascii",
+      "value": "HotkeyStepPage"
+    },
+    {
+      "offset": "0xff0ba3",
+      "encoding": "ascii",
+      "value": "OcrDetectedArea"
+    },
+    {
+      "offset": "0xff0bb7",
+      "encoding": "ascii",
+      "value": "OcrLanguage\"OcrLanguageChoice"
+    },
+    {
+      "offset": "0xff0c4e",
+      "encoding": "ascii",
+      "value": "OcrParagraph"
+    },
+    {
+      "offset": "0xff0ca5",
+      "encoding": "ascii",
+      "value": "OcrCharacter"
+    },
+    {
+      "offset": "0xff0e95",
+      "encoding": "ascii",
+      "value": "4h&OcrLayoutExtensions"
+    },
+    {
+      "offset": "0xff0f7a",
+      "encoding": "ascii",
+      "value": "OcrSorterHelper["
+    },
+    {
+      "offset": "0xff0feb",
+      "encoding": "ascii",
+      "value": "$OcrWordResegmenter["
+    },
+    {
+      "offset": "0xff138a",
+      "encoding": "ascii",
+      "value": "%FDictionaryEntryDataTemplateSelectorg"
+    },
+    {
+      "offset": "0xff1674",
+      "encoding": "ascii",
+      "value": "$OCRSettingsControl"
+    },
+    {
+      "offset": "0xff1990",
+      "encoding": "ascii",
+      "value": "$TranslatorTemplate"
+    },
+    {
+      "offset": "0xff1a66",
+      "encoding": "ascii",
+      "value": "CursorRectangle0DictionaryEntryViewModel"
+    },
+    {
+      "offset": "0xff27ef",
+      "encoding": "ascii",
+      "value": "DictionaryData\"ForegroundProcess"
+    },
+    {
+      "offset": "0xff2831",
+      "encoding": "ascii",
+      "value": "OcrWordContext"
+    },
+    {
+      "offset": "0xff2a19",
+      "encoding": "ascii",
+      "value": "ScreenCapture"
+    },
+    {
+      "offset": "0xff2f4a",
+      "encoding": "ascii",
+      "value": "Screenshots"
+    },
+    {
+      "offset": "0xff31bb",
+      "encoding": "ascii",
+      "value": ",AppModeSwitcher_Loaded0AppModeSwitcher_Unloaded0Settings_PropertyChanged,DictionaryButton_Click,TranslatorButton_Click2ModeButton_PointerEntered0ModeButton_PointerExited\"PreviewTimer_Tick&PreviewPopup_Closed0<UserControl_Loaded>d__3*<Startup_Toggled>d__50<EnsureEnabledAsync>d__4:<ShowDisabledDialogAsync>d__8,<SyncUiStateAsync>d__66<TryEnableStartupAsync>d__7$UserControl_Loadedg"
+    },
+    {
+      "offset": "0xff343f",
+      "encoding": "ascii",
+      "value": "OnTextChangedR<LanguagesComboBox_SelectionChanged>d__126<DownloadButton_Click>d__132<DeleteButton_Click>d__14>OcrLanguagePicker_obj6_Bindings"
+    },
+    {
+      "offset": "0xff3556",
+      "encoding": "ascii",
+      "value": "0OcrLanguagePicker_Loaded4OcrLanguagePicker_UnloadedDLanguagesComboBox_SelectionChangedg"
+    },
+    {
+      "offset": "0xff37d5",
+      "encoding": "ascii",
+      "value": "2StorageUsageView_UnloadedFStorageUsageView_ActualThemeChangedNTranslateToLanguagePicker_obj4_Bindings"
+    },
+    {
+      "offset": "0xff384a",
+      "encoding": "ascii",
+      "value": "@TranslateToLanguagePicker_LoadedDTranslateToLanguagePicker_Unloaded"
+    },
+    {
+      "offset": "0xff38ac",
+      "encoding": "ascii",
+      "value": "&ZoomOutButton_Click$ZoomInButton_Click*ZoomResetButton_Click6ZoomBar_PointerWheelChanged,ZoomBar_PointerEntered*ZoomBar_PointerExited2<RestartHideTimer>b__13_0 GamepadHotkeyBox"
+    },
+    {
+      "offset": "0xff399f",
+      "encoding": "ascii",
+      "value": ",GamepadHotkeyViewModel"
+    },
+    {
+      "offset": "0xff3a0c",
+      "encoding": "ascii",
+      "value": " HotkeyCaptureBox"
+    },
+    {
+      "offset": "0xff3af5",
+      "encoding": "ascii",
+      "value": "\"KeyboardHotkeyBox"
+    },
+    {
+      "offset": "0xff3b73",
+      "encoding": "ascii",
+      "value": ".KeyboardHotkeyViewModel"
+    },
+    {
+      "offset": "0xff3b8c",
+      "encoding": "ascii",
+      "value": "MouseHotkeyBox"
+    },
+    {
+      "offset": "0xff3c06",
+      "encoding": "ascii",
+      "value": "(MouseHotkeyViewModel"
+    },
+    {
+      "offset": "0xff926c",
+      "encoding": "ascii",
+      "value": "$TranslateTransform"
+    },
+    {
+      "offset": "0xff929d",
+      "encoding": "ascii",
+      "value": "&ITranslateTransformg"
+    },
+    {
+      "offset": "0x1008d0d",
+      "encoding": "ascii",
+      "value": "&OrderedDictionary`2["
+    },
+    {
+      "offset": "0x1008fac",
+      "encoding": "ascii",
+      "value": ",ConcurrentDictionary`2"
+    },
+    {
+      "offset": "0x10090a3",
+      "encoding": "ascii",
+      "value": ">ConcurrentDictionaryTypeProps`1\"ConcurrentStack`1"
+    },
+    {
+      "offset": "0x100bdbb",
+      "encoding": "ascii",
+      "value": "r2BidirectionalDictionary`2"
+    },
+    {
+      "offset": "0x100cf1b",
+      "encoding": "ascii",
+      "value": "ArrayCovariant \"GenericDictionary*GenericTypeDictionary.GenericMethodDictionary*GenericDictionaryCell"
+    },
+    {
+      "offset": "0x100d5e3",
+      "encoding": "ascii",
+      "value": "UpaException\"SymbolsDictionary"
+    },
+    {
+      "offset": "0x100d967",
+      "encoding": "ascii",
+      "value": "Datatype_QName2Datatype_normalizedStringBDatatype_normalizedStringV1Compat"
+    },
+    {
+      "offset": "0x100fc28",
+      "encoding": "ascii",
+      "value": "s0JsonResumableConverter`12JsonDictionaryConverter`1"
+    },
+    {
+      "offset": "0x100fc67",
+      "encoding": "ascii",
+      "value": "s2JsonDictionaryConverter`3"
+    },
+    {
+      "offset": "0x10117e2",
+      "encoding": "ascii",
+      "value": "R<ConvertAnkiCollectionToCollection>b__5_0@"
+    },
+    {
+      "offset": "0x101181f",
+      "encoding": "ascii",
+      "value": "R<ConvertAnkiCollectionToCollection>b__5_1@"
+    },
+    {
+      "offset": "0x1011855",
+      "encoding": "ascii",
+      "value": "T<ConvertAnkiCollectionToCollection>b__5_11@"
+    },
+    {
+      "offset": "0x1011893",
+      "encoding": "ascii",
+      "value": "T<ConvertAnkiCollectionToCollection>b__5_12@"
+    },
+    {
+      "offset": "0x10118dc",
+      "encoding": "ascii",
+      "value": "R<ConvertAnkiCollectionToCollection>b__5_2@"
+    },
+    {
+      "offset": "0x1011912",
+      "encoding": "ascii",
+      "value": "R<ConvertAnkiCollectionToCollection>b__5_3@"
+    },
+    {
+      "offset": "0x1011948",
+      "encoding": "ascii",
+      "value": "R<ConvertAnkiCollectionToCollection>b__5_4@"
+    },
+    {
+      "offset": "0x101197e",
+      "encoding": "ascii",
+      "value": "R<ConvertAnkiCollectionToCollection>b__5_5@"
+    },
+    {
+      "offset": "0x10119b4",
+      "encoding": "ascii",
+      "value": "R<ConvertAnkiCollectionToCollection>b__5_6@"
+    },
+    {
+      "offset": "0x10119ea",
+      "encoding": "ascii",
+      "value": "T<ConvertAnkiCollectionToCollection>b__5_13@"
+    },
+    {
+      "offset": "0x1011a21",
+      "encoding": "ascii",
+      "value": "R<ConvertAnkiCollectionToCollection>b__5_7@"
+    },
+    {
+      "offset": "0x1011a57",
+      "encoding": "ascii",
+      "value": "R<ConvertAnkiCollectionToCollection>b__5_8N<ConvertAnkiCollectionToCollection>b__9@"
+    },
+    {
+      "offset": "0x1011abc",
+      "encoding": "ascii",
+      "value": "P<ConvertAnkiCollectionToCollection>b__10@"
+    },
+    {
+      "offset": "0x1011af1",
+      "encoding": "ascii",
+      "value": "P<ConvertAnkiCollectionToCollection>b__14"
+    },
+    {
+      "offset": "0x1013d35",
+      "encoding": "ascii",
+      "value": " CreateCollection(DictionaryEnumerator"
+    },
+    {
+      "offset": "0x1016d2b",
+      "encoding": "ascii",
+      "value": "(IDictionaryMethods`2"
+    },
+    {
+      "offset": "0x1016d9e",
+      "encoding": "ascii",
+      "value": "(IDictionaryMethods`4"
+    },
+    {
+      "offset": "0x101708d",
+      "encoding": "ascii",
+      "value": "u8IReadOnlyDictionaryMethods`2"
+    },
+    {
+      "offset": "0x1017101",
+      "encoding": "ascii",
+      "value": "8IReadOnlyDictionaryMethods`4.ConstantSplittableMap`2"
+    },
+    {
+      "offset": "0x1017160",
+      "encoding": "ascii",
+      "value": "uBConstantSplittableMapEnumerator`1BReadOnlyDictionaryKeyCollection`2"
+    },
+    {
+      "offset": "0x10171d1",
+      "encoding": "ascii",
+      "value": "FReadOnlyDictionaryValueCollection`2"
+    },
+    {
+      "offset": "0x1018222",
+      "encoding": "ascii",
+      "value": "JResourceDictionaryRcwFactoryAttribute"
+    },
+    {
+      "offset": "0x102902d",
+      "encoding": "ascii",
+      "value": "~@StyleExtensionResourceDictionaryg"
+    },
+    {
+      "offset": "0x1029ed6",
+      "encoding": "ascii",
+      "value": "*<TranslateAsync>d__11*<TranslateAsync>d__12$<UnloadAsync>d__13*TranslateGemmaVariant"
+    },
+    {
+      "offset": "0x102a0b1",
+      "encoding": "ascii",
+      "value": "><ActivateLicenseCodeAsync>d__314<AfterHeadStartAsync>d__69&<CheckVersion>d__300<EnsureClientAsync>d__58:<EnsureDeviceTokenAsync>d__53.<FirstAnswerAsync>d__706<GetDictionaryCatalog>d__47,<GetGameDefaults>d__48F<GetPurchaseConfirmationAsync>d__33"
+    },
+    {
+      "offset": "0x102a2ea",
+      "encoding": "ascii",
+      "value": "<TTS>d__452<TranslateParagraph>d__39,<TranslateScreen>d__416<TranslateWordContext>d__38.<UnbindLicenseKey>d__344<ValidateLicenseCode>d__35.OnNetworkAddressChanged"
+    },
+    {
+      "offset": "0x102bf7c",
+      "encoding": "ascii",
+      "value": "@ActivateKeyResponseCtorParamInitLCatalogDictionaryEntrySerializeHandler@"
+    },
+    {
+      "offset": "0x102bfd4",
+      "encoding": "ascii",
+      "value": "FCatalogDictionaryEntryCtorParamInitHCheckVersionResponseSerializeHandler@"
+    },
+    {
+      "offset": "0x102c02d",
+      "encoding": "ascii",
+      "value": "BCheckVersionResponseCtorParamInitRDictionaryCatalogResponseSerializeHandler@"
+    },
+    {
+      "offset": "0x102c2c8",
+      "encoding": "ascii",
+      "value": "@LooktionaryResponseCtorParamInitRParagraphTranslateRequestSerializeHandler@"
+    },
+    {
+      "offset": "0x102c323",
+      "encoding": "ascii",
+      "value": "LParagraphTranslateRequestCtorParamInitTParagraphTranslateResponseSerializeHandler@"
+    },
+    {
+      "offset": "0x102c385",
+      "encoding": "ascii",
+      "value": "NParagraphTranslateResponseCtorParamInit(PartSerializeHandler@"
+    },
+    {
+      "offset": "0x102c542",
+      "encoding": "ascii",
+      "value": "FRegisterDeviceResponseCtorParamInitFScreenTranslateItemSerializeHandler@"
+    },
+    {
+      "offset": "0x102c59a",
+      "encoding": "ascii",
+      "value": "@ScreenTranslateItemCtorParamInitLScreenTranslateRequestSerializeHandler@"
+    },
+    {
+      "offset": "0x102c5f2",
+      "encoding": "ascii",
+      "value": "FScreenTranslateRequestCtorParamInit8SessionQuotaSerializeHandler@"
+    },
+    {
+      "offset": "0x102c722",
+      "encoding": "ascii",
+      "value": "FValidateLicenseRequestCtorParamInitVWordContextTranslateRequestSerializeHandler@"
+    },
+    {
+      "offset": "0x102c782",
+      "encoding": "ascii",
+      "value": "PWordContextTranslateRequestCtorParamInitXWordContextTranslateResponseSerializeHandler@"
+    },
+    {
+      "offset": "0x102c7e8",
+      "encoding": "ascii",
+      "value": "RWordContextTranslateResponseCtorParamInitTListCatalogDictionaryEntrySerializeHandler@"
+    },
+    {
+      "offset": "0x102cca0",
+      "encoding": "ascii",
+      "value": ",CatalogDictionaryEntry"
+    },
+    {
+      "offset": "0x102d08e",
+      "encoding": "ascii",
+      "value": "2DictionaryCatalogResponse"
+    },
+    {
+      "offset": "0x102ddd8",
+      "encoding": "ascii",
+      "value": "2ParagraphTranslateRequest"
+    },
+    {
+      "offset": "0x102de29",
+      "encoding": "ascii",
+      "value": "(TranslateRequestBase"
+    },
+    {
+      "offset": "0x102def9",
+      "encoding": "ascii",
+      "value": "4ParagraphTranslateResponse"
+    },
+    {
+      "offset": "0x102e160",
+      "encoding": "ascii",
+      "value": "&ScreenTranslateItem"
+    },
+    {
+      "offset": "0x102e1be",
+      "encoding": "ascii",
+      "value": ",ScreenTranslateRequest"
+    },
+    {
+      "offset": "0x102e34b",
+      "encoding": "ascii",
+      "value": "6WordContextTranslateRequest8WordContextTranslateResponse"
+    },
+    {
+      "offset": "0x102eb72",
+      "encoding": "ascii",
+      "value": " AnkiCardExporter"
+    },
+    {
+      "offset": "0x102eba4",
+      "encoding": "ascii",
+      "value": " ScreenshotExport"
+    },
+    {
+      "offset": "0x102f10b",
+      "encoding": "ascii",
+      "value": "\"AnkiSyncViewModel"
+    },
+    {
+      "offset": "0x102f8fe",
+      "encoding": "ascii",
+      "value": "AnkiSyncDialog"
+    },
+    {
+      "offset": "0x1030559",
+      "encoding": "ascii",
+      "value": "\"AnkiConnectStatus"
+    },
+    {
+      "offset": "0x10305b6",
+      "encoding": "ascii",
+      "value": "(AnkiConnectException\"AnkiConnectClient"
+    },
+    {
+      "offset": "0x10306eb",
+      "encoding": "ascii",
+      "value": "$AnkiConnectRequest"
+    },
+    {
+      "offset": "0x10307a9",
+      "encoding": "ascii",
+      "value": "\"AnkiConnectParams"
+    },
+    {
+      "offset": "0x1030974",
+      "encoding": "ascii",
+      "value": "AnkiModelUpdate"
+    },
+    {
+      "offset": "0x10309d0",
+      "encoding": "ascii",
+      "value": "\"AnkiModelTemplate"
+    },
+    {
+      "offset": "0x1030a4b",
+      "encoding": "ascii",
+      "value": "AnkiNoteInfo"
+    },
+    {
+      "offset": "0x1030b00",
+      "encoding": "ascii",
+      "value": "AnkiNoteField"
+    },
+    {
+      "offset": "0x1030b41",
+      "encoding": "ascii",
+      "value": "*AnkiConnectResponse`1"
+    },
+    {
+      "offset": "0x1030bbf",
+      "encoding": "ascii",
+      "value": "*AnkiConnectPermission"
+    },
+    {
+      "offset": "0x1030c09",
+      "encoding": "ascii",
+      "value": ",AnkiConnectJsonContext"
+    },
+    {
+      "offset": "0x1031772",
+      "encoding": "ascii",
+      "value": "8<FetchCatalogTreeAsync>d__25D<ImportCustomDictionaryAsync>d__32$<StartEngine>d__202DictionaryPropertyChanged(MarkDictionaryFailed"
+    },
+    {
+      "offset": "0x1032010",
+      "encoding": "ascii",
+      "value": "@DictionaryRecordSerializeHandler@"
+    },
+    {
+      "offset": "0x1032041",
+      "encoding": "ascii",
+      "value": ":DictionaryRecordCtorParamInitPCustomDictionaryMetadataSerializeHandler@"
+    },
+    {
+      "offset": "0x1032098",
+      "encoding": "ascii",
+      "value": "JCustomDictionaryMetadataCtorParamInitHListDictionaryRecordSerializeHandler@"
+    },
+    {
+      "offset": "0x10321a8",
+      "encoding": "ascii",
+      "value": "Dictionary"
+    },
+    {
+      "offset": "0x103238c",
+      "encoding": "ascii",
+      "value": "0CustomDictionaryMetadata"
+    },
+    {
+      "offset": "0x10324d7",
+      "encoding": "ascii",
+      "value": ">CustomDictionaryMetadataContext"
+    },
+    {
+      "offset": "0x10325a2",
+      "encoding": "ascii",
+      "value": "LooktionaryData*LooktionaryDictionary"
+    },
+    {
+      "offset": "0x10325e8",
+      "encoding": "ascii",
+      "value": "\"OfflineDictionary"
+    },
+    {
+      "offset": "0x10326c1",
+      "encoding": "ascii",
+      "value": "TranslatorData(TranslatorDictionary"
+    },
+    {
+      "offset": "0x10328db",
+      "encoding": "ascii",
+      "value": "*DictionaryInfoControl"
+    },
+    {
+      "offset": "0x1032c88",
+      "encoding": "ascii",
+      "value": "0TreeViewTemplateSelector2TranslatorSettingsControl"
+    },
+    {
+      "offset": "0x1033062",
+      "encoding": "ascii",
+      "value": "\"IDictionaryReader$DictionaryDataFile"
+    },
+    {
+      "offset": "0x1033088",
+      "encoding": "ascii",
+      "value": "DictionaryInfo"
+    },
+    {
+      "offset": "0x103309b",
+      "encoding": "ascii",
+      "value": "ScanProgress DictionaryEngine"
+    },
+    {
+      "offset": "0x1033270",
+      "encoding": "ascii",
+      "value": "JmdictReader["
+    },
+    {
+      "offset": "0x103334d",
+      "encoding": "ascii",
+      "value": "MdictFile"
+    },
+    {
+      "offset": "0x1033357",
+      "encoding": "ascii",
+      "value": "MdictReader"
+    },
+    {
+      "offset": "0x10333b5",
+      "encoding": "ascii",
+      "value": "StarDictReader"
+    },
+    {
+      "offset": "0x1033487",
+      "encoding": "ascii",
+      "value": "YomitanReader"
+    },
+    {
+      "offset": "0x10335a1",
+      "encoding": "ascii",
+      "value": "><<StartKeyboardHotkey>b__63_0>d"
+    },
+    {
+      "offset": "0x10335f2",
+      "encoding": "ascii",
+      "value": ":<CheckForLongPressAsync>d__75,<SetMouseCapture>d__66<VersatileKeyboardHotkeyPressed:VersatileOverlayHotkeyPressed"
+    },
+    {
+      "offset": "0x103366b",
+      "encoding": "ascii",
+      "value": "2<StartMouseHotkey>b__61_06<StartGamepadHotkey>b__62_08<StartKeyboardHotkey>b__63_0g"
+    },
+    {
+      "offset": "0x103383f",
+      "encoding": "ascii",
+      "value": "OverlayHotkey"
+    },
+    {
+      "offset": "0x1033889",
+      "encoding": "ascii",
+      "value": "HotkeyEventArgs"
+    },
+    {
+      "offset": "0x1033899",
+      "encoding": "ascii",
+      "value": "HotkeyHelperY"
+    },
+    {
+      "offset": "0x10338b5",
+      "encoding": "ascii",
+      "value": "KeyboardHotkey"
+    },
+    {
+      "offset": "0x10338c8",
+      "encoding": "ascii",
+      "value": "MouseHotkey"
+    },
+    {
+      "offset": "0x103399c",
+      "encoding": "ascii",
+      "value": "GamepadHotkey"
+    },
+    {
+      "offset": "0x1034593",
+      "encoding": "ascii",
+      "value": "8TranslateGemmaDownloadDialog"
+    },
+    {
+      "offset": "0x103493b",
+      "encoding": "ascii",
+      "value": ",SudachiDictionaryModel"
+    },
+    {
+      "offset": "0x10352ce",
+      "encoding": "ascii",
+      "value": "0LanguagesStepPage_Loaded4LanguagesStepPage_UnloadedVDefinitionLanguageComboBox_SelectionChanged(DictionaryMode_Click(TranslatorMode_Click@TriggerKeysControl_obj1_Bindings"
+    },
+    {
+      "offset": "0x1035a31",
+      "encoding": "ascii",
+      "value": "I#,ArticleTemplate_Loaded0ArticleTemplate_Unloaded>DictionaryEntry_PropertyChanged"
+    },
+    {
+      "offset": "0x103623c",
+      "encoding": "ascii",
+      "value": "8TranslatorReportButton_Click<TeachingTips_CollectionChangedNTranslationRectangles_CollectionChanged"
+    },
+    {
+      "offset": "0x10363b0",
+      "encoding": "ascii",
+      "value": "<.ctor>b__5_2@TranslatorTemplate_obj1_Bindings"
+    },
+    {
+      "offset": "0x103658d",
+      "encoding": "ascii",
+      "value": ".<get_Dictionary>b__62_0@"
+    },
+    {
+      "offset": "0x10366d9",
+      "encoding": "ascii",
+      "value": ".<RectangleClicked>d__78D<<OnOverlayHotkeyPressed>b__19_0>d"
+    },
+    {
+      "offset": "0x1036ccf",
+      "encoding": "ascii",
+      "value": ",OnOverlayHotkeyPressed@"
+    },
+    {
+      "offset": "0x1036db5",
+      "encoding": "ascii",
+      "value": "><OnOverlayHotkeyPressed>b__19_0g"
+    },
+    {
+      "offset": "0x1037998",
+      "encoding": "ascii",
+      "value": "<StepZoom>b__1<GamepadHotkeyBox_obj1_Bindings"
+    },
+    {
+      "offset": "0x1037a06",
+      "encoding": "ascii",
+      "value": "HHotkeyService_GamepadCaptureTimedOutFHotkeyService_GamepadCaptureUpdatedZ<HotkeyService_GamepadCaptureTimedOut>b__26_0<HotkeyCaptureBox_obj1_Bindings"
+    },
+    {
+      "offset": "0x1037b14",
+      "encoding": "ascii",
+      "value": "Root_KeyUp@Root_ProcessKeyboardAccelerators>HotkeyCaptureBox_PointerPressed0HotkeyCaptureBox_KeyDown>KeyboardHotkeyBox_obj1_Bindings"
+    },
+    {
+      "offset": "0x1037bdb",
+      "encoding": "ascii",
+      "value": "Box_KeyReleased\"ResetButton_Click8MouseHotkeyBox_obj1_Bindings"
+    },
+    {
+      "offset": "0x1038b4d",
+      "encoding": "ascii",
+      "value": "IDXGIFactory1g"
+    },
+    {
+      "offset": "0x1038b65",
+      "encoding": "ascii",
+      "value": "IDXGIOutput1g"
+    },
+    {
+      "offset": "0x103d2d7",
+      "encoding": "ascii",
+      "value": "&GetDictionaryOrNull"
+    },
+    {
+      "offset": "0x103d382",
+      "encoding": "ascii",
+      "value": "NDictionaryStringBooleanSerializeHandler@"
+    },
+    {
+      "offset": "0x10403d2",
+      "encoding": "ascii",
+      "value": "*<CalOcrWordBox>b__2_0@"
+    },
+    {
+      "offset": "0x10403f4",
+      "encoding": "ascii",
+      "value": "*<CalOcrWordBox>b__2_3@"
+    },
+    {
+      "offset": "0x1040416",
+      "encoding": "ascii",
+      "value": "*<CalOcrWordBox>b__2_1@"
+    },
+    {
+      "offset": "0x1040438",
+      "encoding": "ascii",
+      "value": "*<CalOcrWordBox>b__2_2<<ReverseRotateCropImage>b__8_0<<ReverseRotateCropImage>b__8_10<QuadsToRectBbox>b__11_00<QuadsToRectBbox>b__11_10<QuadsToRectBbox>b__11_20<QuadsToRectBbox>b__11_30<QuadsToRectBbox>b__12_00<QuadsToRectBbox>b__12_40<QuadsToRectBbox>b__12_10<QuadsToRectBbox>b__12_50<QuadsToRectBbox>b__12_20<QuadsToRectBbox>b__12_60<QuadsToRectBbox>b__12_30<QuadsToRectBbox>b__12_7"
+    },
+    {
+      "offset": "0x1043cb6",
+      "encoding": "ascii",
+      "value": "DictionarySize"
+    },
+    {
+      "offset": "0x104ac4d",
+      "encoding": "ascii",
+      "value": "StaticDataCell*ThreadStaticIndexCell(MethodDictionaryCell FieldLdTokenCell\"MethodLdTokenCell$AllocateObjectCell,DefaultConstructorCell"
+    },
+    {
+      "offset": "0x104ade9",
+      "encoding": "ascii",
+      "value": "8DynamicGenericTypesHashtable*GenericTypeLookupData*LazyDictionaryContext"
+    },
+    {
+      "offset": "0x104af87",
+      "encoding": "ascii",
+      "value": "QName NormalizedString"
+    },
+    {
+      "offset": "0x104c600",
+      "encoding": "ascii",
+      "value": "TDictionary"
+    },
+    {
+      "offset": "0x104c6b4",
+      "encoding": "ascii",
+      "value": "8DictionaryDefaultConverter`3"
+    },
+    {
+      "offset": "0x104c6e1",
+      "encoding": "ascii",
+      "value": "BDictionaryOfTKeyTValueConverter`3"
+    },
+    {
+      "offset": "0x10501d7",
+      "encoding": "ascii",
+      "value": ".DictionaryKeyCollection"
+    },
+    {
+      "offset": "0x105021b",
+      "encoding": "ascii",
+      "value": "2DictionaryValueCollection"
+    },
+    {
+      "offset": "0x1050365",
+      "encoding": "ascii",
+      "value": ">ReadOnlyDictionaryKeyCollection"
+    },
+    {
+      "offset": "0x10503b1",
+      "encoding": "ascii",
+      "value": "BReadOnlyDictionaryValueCollection"
+    },
+    {
+      "offset": "0x1050437",
+      "encoding": "ascii",
+      "value": "J4>ReadOnlyDictionaryKeyEnumeratorBReadOnlyDictionaryValueEnumerator"
+    },
+    {
+      "offset": "0x105c062",
+      "encoding": "ascii",
+      "value": "JTranslateTransformRcwFactoryAttributeK"
+    },
+    {
+      "offset": "0x1061bf3",
+      "encoding": "ascii",
+      "value": "Normalize"
+    },
+    {
+      "offset": "0x106359b",
+      "encoding": "ascii",
+      "value": "file6<EnglishLanguageName>b__1_0.<TranslateAsync>b__12_3.<ReadStopTokens>b__17_0"
+    },
+    {
+      "offset": "0x10635f2",
+      "encoding": "ascii",
+      "value": "(<TranslateAsync>b__1"
+    },
+    {
+      "offset": "0x106360e",
+      "encoding": "ascii",
+      "value": "(<TranslateAsync>b__0(<TranslateAsync>b__2"
+    },
+    {
+      "offset": "0x1063971",
+      "encoding": "ascii",
+      "value": "H<ActivateKeyResponsePropInit>b__23_2L<Create_CatalogDictionaryEntry>b__29_0@"
+    },
+    {
+      "offset": "0x10641e5",
+      "encoding": "ascii",
+      "value": "J<CheckVersionResponsePropInit>b__45_2J<CheckVersionResponsePropInit>b__45_3J<CheckVersionResponsePropInit>b__45_4J<CheckVersionResponsePropInit>b__45_5J<CheckVersionResponsePropInit>b__45_6J<CheckVersionResponsePropInit>b__45_7J<CheckVersionResponsePropInit>b__45_8R<Create_DictionaryCatalogResponse>b__51_0@"
+    },
+    {
+      "offset": "0x1064321",
+      "encoding": "ascii",
+      "value": "R<Create_DictionaryCatalogResponse>b__51_2T<DictionaryCatalogResponsePropInit>b__52_0@"
+    },
+    {
+      "offset": "0x1064382",
+      "encoding": "ascii",
+      "value": "T<DictionaryCatalogResponsePropInit>b__52_1@"
+    },
+    {
+      "offset": "0x10643bd",
+      "encoding": "ascii",
+      "value": "T<DictionaryCatalogResponsePropInit>b__52_2><Create_FeedbackRequest>b__57_0@"
+    },
+    {
+      "offset": "0x1065c72",
+      "encoding": "ascii",
+      "value": "L<LooktionaryResponsePropInit>b__118_50T<Create_ParagraphTranslateRequest>b__124_0@"
+    },
+    {
+      "offset": "0x1065fcc",
+      "encoding": "ascii",
+      "value": "V<Create_ParagraphTranslateResponse>b__131_2X<ParagraphTranslateResponsePropInit>b__132_0X<ParagraphTranslateResponsePropInit>b__132_1X<ParagraphTranslateResponsePropInit>b__132_2*<Create_Part>b__138_0@"
+    },
+    {
+      "offset": "0x1066521",
+      "encoding": "ascii",
+      "value": "N<Create_RegisterDeviceResponse>b__179_2P<RegisterDeviceResponsePropInit>b__180_0P<RegisterDeviceResponsePropInit>b__180_1P<RegisterDeviceResponsePropInit>b__180_2H<Create_ScreenTranslateItem>b__186_0@"
+    },
+    {
+      "offset": "0x10665f5",
+      "encoding": "ascii",
+      "value": "H<Create_ScreenTranslateItem>b__186_2J<ScreenTranslateItemPropInit>b__187_0J<ScreenTranslateItemPropInit>b__187_1J<ScreenTranslateItemPropInit>b__187_2J<ScreenTranslateItemPropInit>b__187_3J<ScreenTranslateItemPropInit>b__187_4J<ScreenTranslateItemPropInit>b__187_5N<Create_ScreenTranslateRequest>b__193_0@"
+    },
+    {
+      "offset": "0x1066e0d",
+      "encoding": "ascii",
+      "value": "N<Create_ValidateLicenseRequest>b__229_2P<ValidateLicenseRequestPropInit>b__230_0P<ValidateLicenseRequestPropInit>b__230_1P<ValidateLicenseRequestPropInit>b__230_2P<ValidateLicenseRequestPropInit>b__230_3P<ValidateLicenseRequestPropInit>b__230_4P<ValidateLicenseRequestPropInit>b__230_5X<Create_WordContextTranslateRequest>b__236_0@"
+    },
+    {
+      "offset": "0x1067282",
+      "encoding": "ascii",
+      "value": "Z<Create_WordContextTranslateResponse>b__243_2\\<WordContextTranslateResponsePropInit>b__244_0\\<WordContextTranslateResponsePropInit>b__244_1\\<WordContextTranslateResponsePropInit>b__244_2V<Create_ListCatalogDictionaryEntry>b__250_0@"
+    },
+    {
+      "offset": "0x1068239",
+      "encoding": "ascii",
+      "value": "get_OcrLanguage"
+    },
+    {
+      "offset": "0x1068249",
+      "encoding": "ascii",
+      "value": "set_OcrLanguage"
+    },
+    {
+      "offset": "0x10694be",
+      "encoding": "ascii",
+      "value": "*<CompleteAsync>d__135@<FetchDictionaryDataAsync>d__136:<FetchTranslationAsync>d__1386<FetchWordAudioAsync>d__139\"<OpenImage>d__132"
+    },
+    {
+      "offset": "0x10697c8",
+      "encoding": "ascii",
+      "value": "4<ExportAnkiDeckAsync>d__70$<ExportAsync>d__662<ExportQuizletAsync>d__68.<ExportTableAsync>d__67,<WriteLinesAsync>d__69J<WriteThroughTemporaryFileAsync>d__72"
+    },
+    {
+      "offset": "0x106995e",
+      "encoding": "ascii",
+      "value": "DictionaryForm"
+    },
+    {
+      "offset": "0x1069a4d",
+      "encoding": "ascii",
+      "value": "Translate\"<Tokenize>b__21_0"
+    },
+    {
+      "offset": "0x1069dd4",
+      "encoding": "ascii",
+      "value": "<OnOpened>d__104<RecheckButton_Click>d__13$<OnSyncClick>d__162<OnShowRemovedClick>d__20P<ResetTemplatesConfirmButton_Click>d__218AnkiSyncDialog_obj1_Bindings"
+    },
+    {
+      "offset": "0x106ac1e",
+      "encoding": "ascii",
+      "value": "8OnExportAnkiDeckForSelectiong"
+    },
+    {
+      "offset": "0x106ac8f",
+      "encoding": "ascii",
+      "value": "&OnAnkiSyncRequestedg"
+    },
+    {
+      "offset": "0x106acad",
+      "encoding": "ascii",
+      "value": "6OnAnkiSyncSettingsRequestedg"
+    },
+    {
+      "offset": "0x106acd3",
+      "encoding": "ascii",
+      "value": ".OnAnkiSyncInfoBarActiong"
+    },
+    {
+      "offset": "0x106bad6",
+      "encoding": "ascii",
+      "value": "BAnkiConnectParamsSerializeHandler@"
+    },
+    {
+      "offset": "0x106bb08",
+      "encoding": "ascii",
+      "value": "JAnkiConnectPermissionSerializeHandler@"
+    },
+    {
+      "offset": "0x106bb3e",
+      "encoding": "ascii",
+      "value": "DAnkiConnectRequestSerializeHandler@"
+    },
+    {
+      "offset": "0x106bb71",
+      "encoding": "ascii",
+      "value": ">AnkiConnectRequestCtorParamInitdAnkiConnectResponseNullableBooleanSerializeHandler@"
+    },
+    {
+      "offset": "0x106bbd4",
+      "encoding": "ascii",
+      "value": "pAnkiConnectResponseAnkiConnectPermissionSerializeHandler@"
+    },
+    {
+      "offset": "0x106bc1d",
+      "encoding": "ascii",
+      "value": "hAnkiConnectResponseAnkiNoteInfoArraySerializeHandler@"
+    },
+    {
+      "offset": "0x106bc6c",
+      "encoding": "ascii",
+      "value": "\\AnkiConnectResponseJsonElementSerializeHandler@"
+    },
+    {
+      "offset": "0x106bcab",
+      "encoding": "ascii",
+      "value": "ZAnkiConnectResponseInt64ArraySerializeHandler@"
+    },
+    {
+      "offset": "0x106bce9",
+      "encoding": "ascii",
+      "value": "\\AnkiConnectResponseStringArraySerializeHandler@"
+    },
+    {
+      "offset": "0x106bd28",
+      "encoding": "ascii",
+      "value": "RAnkiConnectResponseStringSerializeHandler@"
+    },
+    {
+      "offset": "0x106bd62",
+      "encoding": "ascii",
+      "value": "BAnkiModelTemplateSerializeHandler@"
+    },
+    {
+      "offset": "0x106bd94",
+      "encoding": "ascii",
+      "value": ">AnkiModelUpdateSerializeHandler@"
+    },
+    {
+      "offset": "0x106bdc4",
+      "encoding": "ascii",
+      "value": "8AnkiModelUpdateCtorParamInit:AnkiNoteFieldSerializeHandler@"
+    },
+    {
+      "offset": "0x106be0f",
+      "encoding": "ascii",
+      "value": "8AnkiNoteInfoSerializeHandler@"
+    },
+    {
+      "offset": "0x106be3c",
+      "encoding": "ascii",
+      "value": "BAnkiNoteInfoArraySerializeHandler@"
+    },
+    {
+      "offset": "0x106be6e",
+      "encoding": "ascii",
+      "value": "bDictionaryStringAnkiModelTemplateSerializeHandler@"
+    },
+    {
+      "offset": "0x106beb0",
+      "encoding": "ascii",
+      "value": "ZDictionaryStringAnkiNoteFieldSerializeHandler@"
+    },
+    {
+      "offset": "0x106c267",
+      "encoding": "ascii",
+      "value": ":<ReportDictionaryFailure>b__0(<ExtractArchive>b__0@"
+    },
+    {
+      "offset": "0x106c329",
+      "encoding": "ascii",
+      "value": "<.ctor>b__17_2H<RemoveNativeEngineLeftovers>b__19_0(<StartEngine>b__20_0P<RefreshCustomDictionaryMetadata>b__22_12<BuildCollections>b__23_12<BuildCollections>b__23_2@"
+    },
+    {
+      "offset": "0x106c3da",
+      "encoding": "ascii",
+      "value": "H<CreatePlaceholderDictionary>b__24_0@<UpdateInstalledMetadata>b__26_0H<ImportCustomDictionaryAsync>b__32_1H<ImportCustomDictionaryAsync>b__32_7J<ImportCustomDictionaryAsync>b__32_10"
+    },
+    {
+      "offset": "0x106c491",
+      "encoding": "ascii",
+      "value": "<.ctor>b__3@<RemoveOrphanedDictionaries>b__0\"<StartEngine>b__1\"<StartEngine>b__3\"<StartEngine>b__2J<RefreshCustomDictionaryMetadata>b__0J<RefreshCustomDictionaryMetadata>b__2,<BuildCollections>b__3:<UpdateInstalledMetadata>b__1@"
+    },
+    {
+      "offset": "0x106c580",
+      "encoding": "ascii",
+      "value": "B<ImportCustomDictionaryAsync>b__2"
+    },
+    {
+      "offset": "0x106c5a9",
+      "encoding": "ascii",
+      "value": "B<ImportCustomDictionaryAsync>b__3@"
+    },
+    {
+      "offset": "0x106c5d7",
+      "encoding": "ascii",
+      "value": "B<ImportCustomDictionaryAsync>b__4B<ImportCustomDictionaryAsync>b__5B<ImportCustomDictionaryAsync>b__6B<ImportCustomDictionaryAsync>b__8B<ImportCustomDictionaryAsync>b__9:<AddInProgressDictionary>b__04<MarkDictionaryFailed>b__0"
+    },
+    {
+      "offset": "0x106c7fa",
+      "encoding": "ascii",
+      "value": "original@<Create_DictionaryRecord>b__11_0@"
+    },
+    {
+      "offset": "0x106c82f",
+      "encoding": "ascii",
+      "value": "@<Create_DictionaryRecord>b__11_2B<DictionaryRecordPropInit>b__12_0B<DictionaryRecordPropInit>b__12_1B<DictionaryRecordPropInit>b__12_2B<DictionaryRecordPropInit>b__12_3B<DictionaryRecordPropInit>b__12_4B<DictionaryRecordPropInit>b__12_5B<DictionaryRecordPropInit>b__12_6B<DictionaryRecordPropInit>b__12_7B<DictionaryRecordPropInit>b__12_8B<DictionaryRecordPropInit>b__12_9@"
+    },
+    {
+      "offset": "0x106c9b0",
+      "encoding": "ascii",
+      "value": "D<DictionaryRecordPropInit>b__12_10@"
+    },
+    {
+      "offset": "0x106c9e3",
+      "encoding": "ascii",
+      "value": "D<DictionaryRecordPropInit>b__12_11D<DictionaryRecordPropInit>b__12_12@"
+    },
+    {
+      "offset": "0x106ca35",
+      "encoding": "ascii",
+      "value": "D<DictionaryRecordPropInit>b__12_13@"
+    },
+    {
+      "offset": "0x106ca68",
+      "encoding": "ascii",
+      "value": "D<DictionaryRecordPropInit>b__12_14P<Create_CustomDictionaryMetadata>b__18_0@"
+    },
+    {
+      "offset": "0x106d68d",
+      "encoding": "ascii",
+      "value": ":<Create_DictionaryRecord>b__1J<Create_CustomDictionaryMetadata>b__1"
+    },
+    {
+      "offset": "0x106dc1e",
+      "encoding": "ascii",
+      "value": "XListCustomDictionaryMetadataSerializeHandler@"
+    },
+    {
+      "offset": "0x106ddb2",
+      "encoding": "ascii",
+      "value": "D<ImportCustomDictionaryAsync>d__186<OpenManagementDialog>d__19HActiveDictionaries_CollectionChangedRDictionariesList_ContainerContentChanging"
+    },
+    {
+      "offset": "0x106de41",
+      "encoding": "ascii",
+      "value": "RenumberRowsDNameTextBlock_IsTextTrimmedChanged.DictionariesList_Loaded8DictionaryMenuFlyout_Opening(MoveUpMenuItem_Click,MoveDownMenuItem_Click(DeleteMenuItem_ClickBDictionariesList_SelectionChanged4SelectOnDiskMenuItem_Click@DownloadFromServerMenuItem_Click>IDictionaryInfoControl_BindingsFDictionaryInfoControl_obj1_Bindings"
+    },
+    {
+      "offset": "0x106e333",
+      "encoding": "ascii",
+      "value": "NTranslatorSettingsControl_obj1_Bindings"
+    },
+    {
+      "offset": "0x106e820",
+      "encoding": "ascii",
+      "value": "hotkey"
+    },
+    {
+      "offset": "0x106ec7e",
+      "encoding": "ascii",
+      "value": ":<Quota_PropertyChanged>b__4_08ThankYouDialog_obj1_BindingsB<get_SelectedOCRLanguage>b__109_2 <.cctor>b__177_0@"
+    },
+    {
+      "offset": "0x106ecf4",
+      "encoding": "ascii",
+      "value": ":<get_SelectedOCRLanguage>b__0:<get_SelectedOCRLanguage>b__1"
+    },
+    {
+      "offset": "0x106f295",
+      "encoding": "ascii",
+      "value": " RemoveGame_Click:<SetUpTranslatorPanel>b__15_0N<ShowTranslationEngine>g__OnLoaded|18_0TTranslateGemmaDownloadDialog_obj1_Bindings"
+    },
+    {
+      "offset": "0x106f382",
+      "encoding": "ascii",
+      "value": "<ShowAsync>d__5*<DownloadAsync>b__8_0*<DownloadAsync>b__8_1 ScreenTranslator"
+    },
+    {
+      "offset": "0x106f3d3",
+      "encoding": "ascii",
+      "value": "PopupDictionary"
+    },
+    {
+      "offset": "0x106f3f0",
+      "encoding": "ascii",
+      "value": "}E\"TranslateGemmaCpu\"TranslateGemmaGpu6<get_DiskUsageBytes>b__14_0"
+    },
+    {
+      "offset": "0x106f6fd",
+      "encoding": "ascii",
+      "value": "InputText\"SudachiNormalizer"
+    },
+    {
+      "offset": "0x106f79c",
+      "encoding": "ascii",
+      "value": "\"SudachiDictionary"
+    },
+    {
+      "offset": "0x106fe5c",
+      "encoding": "ascii",
+      "value": "E6<GetOcrPhraseContext>b__4_1@"
+    },
+    {
+      "offset": "0x106fe85",
+      "encoding": "ascii",
+      "value": "6<GetOcrPhraseContext>b__4_26<GetOcrPhraseContext>b__4_36<GetOcrPhraseContext>b__4_46<GetOcrPhraseContext>b__4_56<GetOcrPhraseContext>b__4_66<GetOcrPhraseContext>b__4_76<GetOcrPhraseContext>b__4_8@"
+    },
+    {
+      "offset": "0x106ff9f",
+      "encoding": "ascii",
+      "value": "0<BuildContextHtml>b__6_0:<CalculateOcrWordViewBox>b__06<GetTrimmedWordAndRect>b__02<GetOcrPhraseContext>b__0"
+    },
+    {
+      "offset": "0x1070467",
+      "encoding": "ascii",
+      "value": "DInvoke_M_FormatSynonyms_20206413176Invoke_M_GetTags_2688490535VInvoke_M_HasIpaOrTransliteration_3614181716lInvoke_M_FormatListenToHeadwordWithShortcut_2646558449DInvoke_M_FormatListenTo_3288491483HInvoke_M_IsLemmaDifferent_3817827563BInvoke_M_FormatArticle_23543456124<WordTextBlock_Tapped>b__0JWordTeachingTip_obj1_BindingsTracking"
+    },
+    {
+      "offset": "0x10706c7",
+      "encoding": "ascii",
+      "value": "><UpdateInteractionStates>b__8_2J<Rectangles_CollectionChanged>b__12_2L<QuotaEngineSettingsLink_Click>b__14_0J<TranslatorReportButton_Click>b__15_0@"
+    },
+    {
+      "offset": "0x10709b2",
+      "encoding": "ascii",
+      "value": "<FadeTo>b__0PTranslatorTemplate_obj1_BindingsTracking8<MoveToMonitorToRect>b__18_0@<ShowWindow>g__OnFrameRendered|0@<<SetBackgroundImageAsync>b__0>d:<SetBackgroundImageAsync>b__0g"
+    },
+    {
+      "offset": "0x107143a",
+      "encoding": "ascii",
+      "value": "zLGamepadHotkeyBox_obj1_BindingsTracking"
+    },
+    {
+      "offset": "0x1071477",
+      "encoding": "ascii",
+      "value": "R<HotkeyService_GamepadCaptureUpdated>b__0LHotkeyCaptureBox_obj1_BindingsTracking"
+    },
+    {
+      "offset": "0x1071510",
+      "encoding": "ascii",
+      "value": "NKeyboardHotkeyBox_obj1_BindingsTrackingHMouseHotkeyBox_obj1_BindingsTracking"
+    },
+    {
+      "offset": "0x1071834",
+      "encoding": "ascii",
+      "value": "S}G\"WH_CALLWNDPROCRET"
+    },
+    {
+      "offset": "0x10718fd",
+      "encoding": "ascii",
+      "value": "OCR_APPSTARTING"
+    },
+    {
+      "offset": "0x1071914",
+      "encoding": "ascii",
+      "value": "OCR_NORMAL"
+    },
+    {
+      "offset": "0x1071922",
+      "encoding": "ascii",
+      "value": "OCR_CROSS"
+    },
+    {
+      "offset": "0x107192f",
+      "encoding": "ascii",
+      "value": "OCR_HANDK"
+    },
+    {
+      "offset": "0x107193b",
+      "encoding": "ascii",
+      "value": "OCR_HELP["
+    },
+    {
+      "offset": "0x1071947",
+      "encoding": "ascii",
+      "value": "OCR_IBEAM"
+    },
+    {
+      "offset": "0x1071954",
+      "encoding": "ascii",
+      "value": "OCR_NOC"
+    },
+    {
+      "offset": "0x107195e",
+      "encoding": "ascii",
+      "value": "OCR_SIZEALL3"
+    },
+    {
+      "offset": "0x107196d",
+      "encoding": "ascii",
+      "value": "OCR_SIZENESW"
+    },
+    {
+      "offset": "0x107197d",
+      "encoding": "ascii",
+      "value": "OCR_SIZENS+"
+    },
+    {
+      "offset": "0x107198b",
+      "encoding": "ascii",
+      "value": "OCR_SIZENWSE"
+    },
+    {
+      "offset": "0x107199b",
+      "encoding": "ascii",
+      "value": "OCR_SIZEWE#"
+    },
+    {
+      "offset": "0x10719a9",
+      "encoding": "ascii",
+      "value": "OCR_UP#"
+    },
+    {
+      "offset": "0x10719b3",
+      "encoding": "ascii",
+      "value": "OCR_WAIT"
+    },
+    {
+      "offset": "0x1071a69",
+      "encoding": "ascii",
+      "value": "DXGI_FORMAT"
+    },
+    {
+      "offset": "0x1073331",
+      "encoding": "ascii",
+      "value": "N<Create_DictionaryStringBoolean>b__12_0@"
+    },
+    {
+      "offset": "0x1073361",
+      "encoding": "ascii",
+      "value": "L<Create_DictionaryStringObject>b__17_0@"
+    },
+    {
+      "offset": "0x10770a8",
+      "encoding": "ascii",
+      "value": "<InitAsync>d__2*<Normalize2Async>d__4(<NormalizeAsync>d__3.<DecodeAsyncHelper>d__1\"<EncodeAsync>d__00<ReverseEncodeAsync>d__10<ReverseEncodeAsync>d__20<ReverseDecodeAsync>d__10<ReverseDecodeAsync>d__2(<CopyBlockAsync>d__5,<CopyPendingAsync>d__4*<CopyStreamAsync>d__7$<DisposeAsync>d__2 <FlushAsync>d__3$<PutByteAsync>d__60<ReleaseStreamAsync>d__1 <TrainAsync>d__8"
+    },
+    {
+      "offset": "0x1079633",
+      "encoding": "ascii",
+      "value": "$normalizedLastByte"
+    },
+    {
+      "offset": "0x107bce8",
+      "encoding": "ascii",
+      "value": "kc\".DictionaryKeyEnumerator2DictionaryValueEnumerator"
+    },
+    {
+      "offset": "0x10895af",
+      "encoding": "ascii",
+      "value": "ocr_language"
+    },
+    {
+      "offset": "0x1089b4f",
+      "encoding": "ascii",
+      "value": "8<set_LongContextHtml>b__11_06<set_ExecutableName>b__14_00<set_WindowTitle>b__17_00<set_LanguageTag>b__24_06<set_DictionaryForm>b__35_0"
+    },
+    {
+      "offset": "0x1089e3d",
+      "encoding": "ascii",
+      "value": "6<ExportQuizletAsync>b__68_08<ExportAnkiDeckAsync>b__70_58<ExportAnkiDeckAsync>b__70_08<ExportAnkiDeckAsync>b__70_1,<ExportTableAsync>b__1,<ExportTableAsync>b__2@"
+    },
+    {
+      "offset": "0x1089ef1",
+      "encoding": "ascii",
+      "value": ",<ExportTableAsync>b__3*<WriteLinesAsync>b__02<ExportAnkiDeckAsync>b__22<ExportAnkiDeckAsync>b__32<ExportAnkiDeckAsync>b__42<ExportAnkiDeckAsync>b__6,<WarmContextCache>b__0"
+    },
+    {
+      "offset": "0x1089fcb",
+      "encoding": "ascii",
+      "value": ".<get_WordAudio>b__131_0:<get_DefinitionAudio>b__133_0\"<SetResource>b__0$<Translate>b__26_0"
+    },
+    {
+      "offset": "0x108a29b",
+      "encoding": "ascii",
+      "value": "HAnkiSyncDialog_obj1_BindingsTracking"
+    },
+    {
+      "offset": "0x108b04f",
+      "encoding": "ascii",
+      "value": "permissionB<Create_AnkiConnectParams>b__11_0B<Create_AnkiConnectParams>b__11_2D<AnkiConnectParamsPropInit>b__12_0D<AnkiConnectParamsPropInit>b__12_1D<AnkiConnectParamsPropInit>b__12_2D<AnkiConnectParamsPropInit>b__12_3D<AnkiConnectParamsPropInit>b__12_4D<AnkiConnectParamsPropInit>b__12_5D<AnkiConnectParamsPropInit>b__12_6@"
+    },
+    {
+      "offset": "0x108b19e",
+      "encoding": "ascii",
+      "value": "D<AnkiConnectParamsPropInit>b__12_7@"
+    },
+    {
+      "offset": "0x108b1d1",
+      "encoding": "ascii",
+      "value": "D<AnkiConnectParamsPropInit>b__12_8D<AnkiConnectParamsPropInit>b__12_9F<AnkiConnectParamsPropInit>b__12_10F<AnkiConnectParamsPropInit>b__12_11F<AnkiConnectParamsPropInit>b__12_12F<AnkiConnectParamsPropInit>b__12_13F<AnkiConnectParamsPropInit>b__12_14F<AnkiConnectParamsPropInit>b__12_15@"
+    },
+    {
+      "offset": "0x108b2fb",
+      "encoding": "ascii",
+      "value": "F<AnkiConnectParamsPropInit>b__12_16@"
+    },
+    {
+      "offset": "0x108b32f",
+      "encoding": "ascii",
+      "value": "F<AnkiConnectParamsPropInit>b__12_17F<AnkiConnectParamsPropInit>b__12_18F<AnkiConnectParamsPropInit>b__12_19F<AnkiConnectParamsPropInit>b__12_20F<AnkiConnectParamsPropInit>b__12_21F<AnkiConnectParamsPropInit>b__12_22F<AnkiConnectParamsPropInit>b__12_23J<Create_AnkiConnectPermission>b__17_0@"
+    },
+    {
+      "offset": "0x108b459",
+      "encoding": "ascii",
+      "value": "J<Create_AnkiConnectPermission>b__17_2L<AnkiConnectPermissionPropInit>b__18_0L<AnkiConnectPermissionPropInit>b__18_1L<AnkiConnectPermissionPropInit>b__18_2D<Create_AnkiConnectRequest>b__23_0@"
+    },
+    {
+      "offset": "0x108b523",
+      "encoding": "ascii",
+      "value": "D<Create_AnkiConnectRequest>b__23_2F<AnkiConnectRequestPropInit>b__24_0F<AnkiConnectRequestPropInit>b__24_1F<AnkiConnectRequestPropInit>b__24_2F<AnkiConnectRequestPropInit>b__24_3F<AnkiConnectRequestPropInit>b__24_4F<AnkiConnectRequestPropInit>b__24_5F<AnkiConnectRequestPropInit>b__24_6@"
+    },
+    {
+      "offset": "0x108b64e",
+      "encoding": "ascii",
+      "value": "F<AnkiConnectRequestPropInit>b__24_7@"
+    },
+    {
+      "offset": "0x108b682",
+      "encoding": "ascii",
+      "value": "F<AnkiConnectRequestPropInit>b__24_8d<Create_AnkiConnectResponseNullableBoolean>b__30_0@"
+    },
+    {
+      "offset": "0x108b88d",
+      "encoding": "ascii",
+      "value": "p<Create_AnkiConnectResponseAnkiConnectPermission>b__36_2r<AnkiConnectResponseAnkiConnectPermissionPropInit>b__37_0@"
+    },
+    {
+      "offset": "0x108b90c",
+      "encoding": "ascii",
+      "value": "r<AnkiConnectResponseAnkiConnectPermissionPropInit>b__37_1@"
+    },
+    {
+      "offset": "0x108b956",
+      "encoding": "ascii",
+      "value": "r<AnkiConnectResponseAnkiConnectPermissionPropInit>b__37_2r<AnkiConnectResponseAnkiConnectPermissionPropInit>b__37_3r<AnkiConnectResponseAnkiConnectPermissionPropInit>b__37_4r<AnkiConnectResponseAnkiConnectPermissionPropInit>b__37_5h<Create_AnkiConnectResponseAnkiNoteInfoArray>b__42_0@"
+    },
+    {
+      "offset": "0x108ba7b",
+      "encoding": "ascii",
+      "value": "h<Create_AnkiConnectResponseAnkiNoteInfoArray>b__42_2j<AnkiConnectResponseAnkiNoteInfoArrayPropInit>b__43_0@"
+    },
+    {
+      "offset": "0x108baf2",
+      "encoding": "ascii",
+      "value": "j<AnkiConnectResponseAnkiNoteInfoArrayPropInit>b__43_1@"
+    },
+    {
+      "offset": "0x108bb38",
+      "encoding": "ascii",
+      "value": "j<AnkiConnectResponseAnkiNoteInfoArrayPropInit>b__43_2j<AnkiConnectResponseAnkiNoteInfoArrayPropInit>b__43_3j<AnkiConnectResponseAnkiNoteInfoArrayPropInit>b__43_4j<AnkiConnectResponseAnkiNoteInfoArrayPropInit>b__43_5\\<Create_AnkiConnectResponseJsonElement>b__48_0@"
+    },
+    {
+      "offset": "0x108bc47",
+      "encoding": "ascii",
+      "value": "\\<Create_AnkiConnectResponseJsonElement>b__48_2^<AnkiConnectResponseJsonElementPropInit>b__49_0@"
+    },
+    {
+      "offset": "0x108bcb2",
+      "encoding": "ascii",
+      "value": "^<AnkiConnectResponseJsonElementPropInit>b__49_1@"
+    },
+    {
+      "offset": "0x108bcf2",
+      "encoding": "ascii",
+      "value": "^<AnkiConnectResponseJsonElementPropInit>b__49_2^<AnkiConnectResponseJsonElementPropInit>b__49_3^<AnkiConnectResponseJsonElementPropInit>b__49_4^<AnkiConnectResponseJsonElementPropInit>b__49_5Z<Create_AnkiConnectResponseInt64Array>b__54_0@"
+    },
+    {
+      "offset": "0x108bde8",
+      "encoding": "ascii",
+      "value": "Z<Create_AnkiConnectResponseInt64Array>b__54_2\\<AnkiConnectResponseInt64ArrayPropInit>b__55_0\\<AnkiConnectResponseInt64ArrayPropInit>b__55_1\\<AnkiConnectResponseInt64ArrayPropInit>b__55_2\\<AnkiConnectResponseInt64ArrayPropInit>b__55_3\\<AnkiConnectResponseInt64ArrayPropInit>b__55_4\\<AnkiConnectResponseInt64ArrayPropInit>b__55_5\\<Create_AnkiConnectResponseStringArray>b__60_0@"
+    },
+    {
+      "offset": "0x108bf67",
+      "encoding": "ascii",
+      "value": "\\<Create_AnkiConnectResponseStringArray>b__60_2^<AnkiConnectResponseStringArrayPropInit>b__61_0^<AnkiConnectResponseStringArrayPropInit>b__61_1^<AnkiConnectResponseStringArrayPropInit>b__61_2^<AnkiConnectResponseStringArrayPropInit>b__61_3^<AnkiConnectResponseStringArrayPropInit>b__61_4^<AnkiConnectResponseStringArrayPropInit>b__61_5R<Create_AnkiConnectResponseString>b__66_0@"
+    },
+    {
+      "offset": "0x108c0e8",
+      "encoding": "ascii",
+      "value": "R<Create_AnkiConnectResponseString>b__66_2T<AnkiConnectResponseStringPropInit>b__67_0T<AnkiConnectResponseStringPropInit>b__67_1T<AnkiConnectResponseStringPropInit>b__67_2T<AnkiConnectResponseStringPropInit>b__67_3T<AnkiConnectResponseStringPropInit>b__67_4T<AnkiConnectResponseStringPropInit>b__67_5B<Create_AnkiModelTemplate>b__72_0@"
+    },
+    {
+      "offset": "0x108c23e",
+      "encoding": "ascii",
+      "value": "B<Create_AnkiModelTemplate>b__72_2D<AnkiModelTemplatePropInit>b__73_0D<AnkiModelTemplatePropInit>b__73_1D<AnkiModelTemplatePropInit>b__73_2D<AnkiModelTemplatePropInit>b__73_3D<AnkiModelTemplatePropInit>b__73_4D<AnkiModelTemplatePropInit>b__73_5><Create_AnkiModelUpdate>b__78_0@"
+    },
+    {
+      "offset": "0x108c35e",
+      "encoding": "ascii",
+      "value": "><Create_AnkiModelUpdate>b__78_2@<AnkiModelUpdatePropInit>b__79_0@<AnkiModelUpdatePropInit>b__79_1@<AnkiModelUpdatePropInit>b__79_2@<AnkiModelUpdatePropInit>b__79_3@"
+    },
+    {
+      "offset": "0x108c40e",
+      "encoding": "ascii",
+      "value": "@<AnkiModelUpdatePropInit>b__79_4@"
+    },
+    {
+      "offset": "0x108c43f",
+      "encoding": "ascii",
+      "value": "@<AnkiModelUpdatePropInit>b__79_5:<Create_AnkiNoteField>b__85_0@"
+    },
+    {
+      "offset": "0x108c486",
+      "encoding": "ascii",
+      "value": ":<Create_AnkiNoteField>b__85_2<<AnkiNoteFieldPropInit>b__86_0<<AnkiNoteFieldPropInit>b__86_1<<AnkiNoteFieldPropInit>b__86_28<Create_AnkiNoteInfo>b__91_0@"
+    },
+    {
+      "offset": "0x108c526",
+      "encoding": "ascii",
+      "value": "8<Create_AnkiNoteInfo>b__91_2:<AnkiNoteInfoPropInit>b__92_0:<AnkiNoteInfoPropInit>b__92_1:<AnkiNoteInfoPropInit>b__92_2:<AnkiNoteInfoPropInit>b__92_3:<AnkiNoteInfoPropInit>b__92_4:<AnkiNoteInfoPropInit>b__92_5:<AnkiNoteInfoPropInit>b__92_6@"
+    },
+    {
+      "offset": "0x108c621",
+      "encoding": "ascii",
+      "value": ":<AnkiNoteInfoPropInit>b__92_7@"
+    },
+    {
+      "offset": "0x108d1ce",
+      "encoding": "ascii",
+      "value": "T<ActiveDictionaries_CollectionChanged>b__0VDictionaryInfoControl_obj1_BindingsTracking"
+    },
+    {
+      "offset": "0x108d486",
+      "encoding": "ascii",
+      "value": "><MarkInstalledDictionaries>b__2^TranslatorSettingsControl_obj1_BindingsTracking6<LinkCrossReferences>b__8_0&<LinkResources>b__0"
+    },
+    {
+      "offset": "0x108db6d",
+      "encoding": "ascii",
+      "value": "dTranslateGemmaDownloadDialog_obj1_BindingsTracking"
+    },
+    {
+      "offset": "0x108dca1",
+      "encoding": "ascii",
+      "value": "<Build>b__3_5 <TryOpen>b__16_0t<Lookupper.Core.Segmentation.IWordAnalyzer.Analyze>b__17_0@"
+    },
+    {
+      "offset": "0x108df20",
+      "encoding": "ascii",
+      "value": "PPropertyChanged_DictionaryEntryViewModelfPropertyChanged_DictionaryEntryViewModel_DictionaryJDependencyPropertyChanged_DEViewModelTDependencyPropertyChanged_ContentPresenter6PropertyChanged_DEViewModelLPropertyChanged_DEViewModel_Dictionary>PropertyChanged_CursorRectangleFDependencyPropertyChanged_ViewModel2PropertyChanged_ViewModel0PropertyChanged_Settings"
+    },
+    {
+      "offset": "0x108e089",
+      "encoding": "ascii",
+      "value": "PropertyChanged_DictionaryEntryViewModel_PlayContextAudioCommand"
+    },
+    {
+      "offset": "0x108e0ca",
+      "encoding": "ascii",
+      "value": "PropertyChanged_DictionaryEntryViewModel_PlayHeadwordAudioCommand"
+    },
+    {
+      "offset": "0x108e10c",
+      "encoding": "ascii",
+      "value": "PropertyChanged_DictionaryEntryViewModel_PlayOriginallWordAudioCommand"
+    },
+    {
+      "offset": "0x108e24c",
+      "encoding": "ascii",
+      "value": "@<RegisterTwoWayListener_2>b__7_0JDependencyPropertyChanged_IsCapturing>DependencyPropertyChanged_GlyphRDependencyPropertyChanged_PlaceholderTextNDependencyPropertyChanged_ActionContent _Range_e__Struct&_NotRange_e__Struct(_Anonymous_e__Struct>_AdditionalSignalInfo_e__Struct&DXGI_FORMAT_UNKNOWN"
+    },
+    {
+      "offset": "0x108ee92",
+      "encoding": "ascii",
+      "value": "DXGI_FORMAT_P8 DXGI_FORMAT_A8P84DXGI_FORMAT_B4G4R4A4_UNORM DXGI_FORMAT_P208 DXGI_FORMAT_V208 DXGI_FORMAT_V408VDXGI_FORMAT_SAMPLER_FEEDBACK_MIN_MIP_OPAQUE"
+    },
+    {
+      "offset": "0x108ef2d",
+      "encoding": "ascii",
+      "value": "fDXGI_FORMAT_SAMPLER_FEEDBACK_MIP_REGION_USED_OPAQUE"
+    },
+    {
+      "offset": "0x108ef63",
+      "encoding": "ascii",
+      "value": "4DXGI_FORMAT_A4B4G4R4_UNORM"
+    },
+    {
+      "offset": "0x1098728",
+      "encoding": "ascii",
+      "value": "HJsonReviewCardsConfigurationPropInit6get_DictionaryInt64JsonDeck@"
+    },
+    {
+      "offset": "0x1098771",
+      "encoding": "ascii",
+      "value": "<Create_DictionaryInt64JsonDeck@"
+    },
+    {
+      "offset": "0x109879c",
+      "encoding": "ascii",
+      "value": "Nget_DictionaryInt64JsonDeckConfguration@"
+    },
+    {
+      "offset": "0x10987cc",
+      "encoding": "ascii",
+      "value": "TCreate_DictionaryInt64JsonDeckConfguration@"
+    },
+    {
+      "offset": "0x1098803",
+      "encoding": "ascii",
+      "value": "8get_DictionaryInt64JsonModel@"
+    },
+    {
+      "offset": "0x1098828",
+      "encoding": "ascii",
+      "value": ">Create_DictionaryInt64JsonModel@"
+    },
+    {
+      "offset": "0x1098854",
+      "encoding": "ascii",
+      "value": "2get_DictionaryInt64String@"
+    },
+    {
+      "offset": "0x1098876",
+      "encoding": "ascii",
+      "value": "8Create_DictionaryInt64String@"
+    },
+    {
+      "offset": "0x1098aef",
+      "encoding": "ascii",
+      "value": "BConvertAnkiCollectionToCollection@"
+    },
+    {
+      "offset": "0x10995e8",
+      "encoding": "ascii",
+      "value": "get_IsArray get_IsCollection&get_IsConstructible get_IsDictionary*get_IsMarkupExtension"
+    },
+    {
+      "offset": "0x109d0c2",
+      "encoding": "ascii",
+      "value": "RegisterHotKey"
+    },
+    {
+      "offset": "0x109d0e8",
+      "encoding": "ascii",
+      "value": " UnregisterHotKey"
+    },
+    {
+      "offset": "0x109d18b",
+      "encoding": "ascii",
+      "value": " TranslateMessage"
+    },
+    {
+      "offset": "0x109d969",
+      "encoding": "ascii",
+      "value": "@WTSUnRegisterSessionNotification$CreateDXGIFactory1"
+    },
+    {
+      "offset": "0x109e364",
+      "encoding": "ascii",
+      "value": "CreateTrayIcon&InitializeAppWindow0InitializeKeyboardHotkey*InitializeMouseHotkey.InitializeGamepadHotkey"
+    },
+    {
+      "offset": "0x109e725",
+      "encoding": "ascii",
+      "value": "TranslateAsync@"
+    },
+    {
+      "offset": "0x109e9d8",
+      "encoding": "ascii",
+      "value": "(TranslateWordContext@"
+    },
+    {
+      "offset": "0x109ea11",
+      "encoding": "ascii",
+      "value": "$TranslateParagraph@"
+    },
+    {
+      "offset": "0x109ea49",
+      "encoding": "ascii",
+      "value": "TranslateScreen@"
+    },
+    {
+      "offset": "0x109eb2a",
+      "encoding": "ascii",
+      "value": "(GetDictionaryCatalog@"
+    },
+    {
+      "offset": "0x109ef15",
+      "encoding": "ascii",
+      "value": "6ActivateKeyResponsePropInit:Create_CatalogDictionaryEntry@"
+    },
+    {
+      "offset": "0x109ef5b",
+      "encoding": "ascii",
+      "value": "<CatalogDictionaryEntryPropInit Create_CefrLevel@"
+    },
+    {
+      "offset": "0x109f023",
+      "encoding": "ascii",
+      "value": "8CheckVersionResponsePropInit:get_DictionaryCatalogResponse@"
+    },
+    {
+      "offset": "0x109f066",
+      "encoding": "ascii",
+      "value": "@Create_DictionaryCatalogResponse@"
+    },
+    {
+      "offset": "0x109f093",
+      "encoding": "ascii",
+      "value": "BDictionaryCatalogResponsePropInit&get_FeedbackRequest@"
+    },
+    {
+      "offset": "0x109f416",
+      "encoding": "ascii",
+      "value": "6LooktionaryResponsePropInit:get_ParagraphTranslateRequest@"
+    },
+    {
+      "offset": "0x109f458",
+      "encoding": "ascii",
+      "value": "@Create_ParagraphTranslateRequest@"
+    },
+    {
+      "offset": "0x109f485",
+      "encoding": "ascii",
+      "value": "BParagraphTranslateRequestPropInit<get_ParagraphTranslateResponse@"
+    },
+    {
+      "offset": "0x109f4ce",
+      "encoding": "ascii",
+      "value": "BCreate_ParagraphTranslateResponse@"
+    },
+    {
+      "offset": "0x109f4fc",
+      "encoding": "ascii",
+      "value": "DParagraphTranslateResponsePropInit"
+    },
+    {
+      "offset": "0x109f755",
+      "encoding": "ascii",
+      "value": "<RegisterDeviceResponsePropInit.get_ScreenTranslateItem@"
+    },
+    {
+      "offset": "0x109f794",
+      "encoding": "ascii",
+      "value": "4Create_ScreenTranslateItem@"
+    },
+    {
+      "offset": "0x109f7bb",
+      "encoding": "ascii",
+      "value": "6ScreenTranslateItemPropInit4get_ScreenTranslateRequest@"
+    },
+    {
+      "offset": "0x109f7fa",
+      "encoding": "ascii",
+      "value": ":Create_ScreenTranslateRequest@"
+    },
+    {
+      "offset": "0x109f824",
+      "encoding": "ascii",
+      "value": "<ScreenTranslateRequestPropInit&Create_SessionQuota@"
+    },
+    {
+      "offset": "0x109f9cf",
+      "encoding": "ascii",
+      "value": "<ValidateLicenseRequestPropInit>get_WordContextTranslateRequest@"
+    },
+    {
+      "offset": "0x109fa16",
+      "encoding": "ascii",
+      "value": "DCreate_WordContextTranslateRequest@"
+    },
+    {
+      "offset": "0x109fa45",
+      "encoding": "ascii",
+      "value": "FWordContextTranslateRequestPropInit@get_WordContextTranslateResponse@"
+    },
+    {
+      "offset": "0x109fa92",
+      "encoding": "ascii",
+      "value": "FCreate_WordContextTranslateResponse@"
+    },
+    {
+      "offset": "0x109fac2",
+      "encoding": "ascii",
+      "value": "HWordContextTranslateResponsePropInitBCreate_ListCatalogDictionaryEntry@"
+    },
+    {
+      "offset": "0x10a0374",
+      "encoding": "ascii",
+      "value": "StopMedia2get_AvailableOcrLanguages@"
+    },
+    {
+      "offset": "0x10a04bf",
+      "encoding": "ascii",
+      "value": "TranslatorFor@"
+    },
+    {
+      "offset": "0x10a0a20",
+      "encoding": "ascii",
+      "value": "6GetAllAvailableOcrLanguages"
+    },
+    {
+      "offset": "0x10a0a67",
+      "encoding": "ascii",
+      "value": "\"GetOcrWordContext"
+    },
+    {
+      "offset": "0x10a0a8d",
+      "encoding": "ascii",
+      "value": "&GetOcrPhraseContext"
+    },
+    {
+      "offset": "0x10a0b0d",
+      "encoding": "ascii",
+      "value": ".CalculateOcrWordViewBox"
+    },
+    {
+      "offset": "0x10a0f59",
+      "encoding": "ascii",
+      "value": " IsLemmaDifferent@"
+    },
+    {
+      "offset": "0x10a14fb",
+      "encoding": "ascii",
+      "value": "get_Dictionary@"
+    },
+    {
+      "offset": "0x10a15d2",
+      "encoding": "ascii",
+      "value": "Bget_PlayOriginallWordAudioCommand6get_PlayContextAudioCommand8get_RevealTranslationCommand*set_DictionaryEntries@"
+    },
+    {
+      "offset": "0x10a1913",
+      "encoding": "ascii",
+      "value": " ShowNothingFound2ShowTranslatorQuotaBanner&get_HasPickedLookup(get_HasLookupOptions8ShowTeachingTipsOrRectangles@ClearAndMoveToNewMonitorIfNeeded@"
+    },
+    {
+      "offset": "0x10a1dcb",
+      "encoding": "ascii",
+      "value": "ShowQuotaBanner\"ShowRefusalBanner&ShowTranslatorError<GetGemmaTranslationCachedAsync"
+    },
+    {
+      "offset": "0x10a3c9d",
+      "encoding": "ascii",
+      "value": ",get_SaveWordsByDefault,set_SaveWordsByDefault*get_LookupMouseHotkey@"
+    },
+    {
+      "offset": "0x10a3ce9",
+      "encoding": "ascii",
+      "value": "*set_LookupMouseHotkey@"
+    },
+    {
+      "offset": "0x10a3d0b",
+      "encoding": "ascii",
+      "value": ".get_LookupGamepadHotkey.set_LookupGamepadHotkey8get_GamepadOverlayNavigation8set_GamepadOverlayNavigation4get_LookupKeyboardShortcut4set_LookupKeyboardShortcutDget_KeyboardShortcutReadableStringDset_KeyboardShortcutReadableString.get_SelectedOCRLanguage@"
+    },
+    {
+      "offset": "0x10a3e11",
+      "encoding": "ascii",
+      "value": ".set_SelectedOCRLanguage>get_SelectedTranslateToLanguage>set_SelectedTranslateToLanguage@"
+    },
+    {
+      "offset": "0x10a3e75",
+      "encoding": "ascii",
+      "value": "0get_LDDefinitionLanguage0set_LDDefinitionLanguageTget_SelectedLooktionaryTranslationLanguageTset_SelectedLooktionaryTranslationLanguage:get_ExportIncludeReverseCards:set_ExportIncludeReverseCards,get_AnkiSyncWordAudios,set_AnkiSyncWordAudios0get_AnkiSyncReverseCards0set_AnkiSyncReverseCards4get_AnkiSyncScreenshotMode@"
+    },
+    {
+      "offset": "0x10a3fbc",
+      "encoding": "ascii",
+      "value": "4set_AnkiSyncScreenshotMode@"
+    },
+    {
+      "offset": "0x10a3fe3",
+      "encoding": "ascii",
+      "value": ".get_AnkiSyncContextMode@"
+    },
+    {
+      "offset": "0x10a4003",
+      "encoding": "ascii",
+      "value": ".set_AnkiSyncContextMode@"
+    },
+    {
+      "offset": "0x10a4027",
+      "encoding": "ascii",
+      "value": "0get_ExportScreenshotMode0set_ExportScreenshotMode*get_ExportContextMode*set_ExportContextMode4get_ExportTableScreenshots4set_ExportTableScreenshots2get_ExportTableWordAudios2set_ExportTableWordAudios"
+    },
+    {
+      "offset": "0x10a40ff",
+      "encoding": "ascii",
+      "value": "set_ExportPath6get_ExportIncludeWordAudios6set_ExportIncludeWordAudios0get_AnkiSyncLastSyncedAt0set_AnkiSyncLastSyncedAt*get_AnkiSyncedOptions*set_AnkiSyncedOptions*get_AnkiSyncToAnkiWeb*set_AnkiSyncToAnkiWeb.get_AnkiSyncRemovalMode@"
+    },
+    {
+      "offset": "0x10a41ef",
+      "encoding": "ascii",
+      "value": ".set_AnkiSyncRemovalMode@"
+    },
+    {
+      "offset": "0x10a4213",
+      "encoding": "ascii",
+      "value": "&get_AnkiConnectPort&set_AnkiConnectPort"
+    },
+    {
+      "offset": "0x10a42a1",
+      "encoding": "ascii",
+      "value": "ProfilesHeader(SetUpTranslatorPanel&ReleaseWeightsAsync"
+    },
+    {
+      "offset": "0x10a4520",
+      "encoding": "ascii",
+      "value": "bLookupper.Core.Segmentation.IWordAnalyzer.Analyze"
+    },
+    {
+      "offset": "0x10a4638",
+      "encoding": "ascii",
+      "value": "ToHiragana$get_DictionaryPath"
+    },
+    {
+      "offset": "0x10a46f4",
+      "encoding": "ascii",
+      "value": "NormalizedSlice@"
+    },
+    {
+      "offset": "0x10a480d",
+      "encoding": "ascii",
+      "value": "$get_NormalizedForm$get_DictionaryForm@"
+    },
+    {
+      "offset": "0x10a4da1",
+      "encoding": "ascii",
+      "value": ".ShowAnkiSyncDialogAsync"
+    },
+    {
+      "offset": "0x10a4dba",
+      "encoding": "ascii",
+      "value": "SyncToAnkiAsync"
+    },
+    {
+      "offset": "0x10a4de9",
+      "encoding": "ascii",
+      "value": "*UpdateAnkiSyncTooltip0GetQuotaBannerVisibility@"
+    },
+    {
+      "offset": "0x10a4e74",
+      "encoding": "ascii",
+      "value": "set_WordAudios set_ReverseCards$set_ScreenshotMode"
+    },
+    {
+      "offset": "0x10a4ea7",
+      "encoding": "ascii",
+      "value": "set_ContextMode\"set_SyncToAnkiWeb"
+    },
+    {
+      "offset": "0x10a502a",
+      "encoding": "ascii",
+      "value": "get_RepeatCount$set_DictionaryForm2set_DefinitionLanguageTag"
+    },
+    {
+      "offset": "0x10a5087",
+      "encoding": "ascii",
+      "value": "set_UsageLabels&set_WordTranslation,set_ContextTranslation4set_TranslationLanguageTag0get_DisplayWordAudioPath get_ErrorMessage8set_IsFetchingDictionaryData2set_IsFetchingTranslation2NotifyCompletenessChanged.get_HasAutofillToReview*NotifyAiFilledChanged"
+    },
+    {
+      "offset": "0x10a51b4",
+      "encoding": "ascii",
+      "value": "CompleteAsync0FetchDictionaryDataAsync&FetchWordAudioAsync"
+    },
+    {
+      "offset": "0x10a52ba",
+      "encoding": "ascii",
+      "value": "&get_IncompleteCount\"get_FileExtension(set_TableScreenshots&set_TableWordAudios@"
+    },
+    {
+      "offset": "0x10a53b4",
+      "encoding": "ascii",
+      "value": "&ExportAnkiDeckAsync<WriteThroughTemporaryFileAsync"
+    },
+    {
+      "offset": "0x10a56c5",
+      "encoding": "ascii",
+      "value": "$SyncToAnkiWebAsync0Create_AnkiConnectParams@"
+    },
+    {
+      "offset": "0x10a56fd",
+      "encoding": "ascii",
+      "value": "2AnkiConnectParamsPropInit8Create_AnkiConnectPermission@"
+    },
+    {
+      "offset": "0x10a5740",
+      "encoding": "ascii",
+      "value": ":AnkiConnectPermissionPropInit,get_AnkiConnectRequest@"
+    },
+    {
+      "offset": "0x10a577d",
+      "encoding": "ascii",
+      "value": "2Create_AnkiConnectRequest@"
+    },
+    {
+      "offset": "0x10a57a3",
+      "encoding": "ascii",
+      "value": "4AnkiConnectRequestPropInitLget_AnkiConnectResponseNullableBoolean@"
+    },
+    {
+      "offset": "0x10a57ed",
+      "encoding": "ascii",
+      "value": "RCreate_AnkiConnectResponseNullableBoolean@"
+    },
+    {
+      "offset": "0x10a5823",
+      "encoding": "ascii",
+      "value": "TAnkiConnectResponseNullableBooleanPropInitXget_AnkiConnectResponseAnkiConnectPermission@"
+    },
+    {
+      "offset": "0x10a5883",
+      "encoding": "ascii",
+      "value": "^Create_AnkiConnectResponseAnkiConnectPermission@"
+    },
+    {
+      "offset": "0x10a58bf",
+      "encoding": "ascii",
+      "value": "`AnkiConnectResponseAnkiConnectPermissionPropInitPget_AnkiConnectResponseAnkiNoteInfoArray@"
+    },
+    {
+      "offset": "0x10a5921",
+      "encoding": "ascii",
+      "value": "VCreate_AnkiConnectResponseAnkiNoteInfoArray@"
+    },
+    {
+      "offset": "0x10a5959",
+      "encoding": "ascii",
+      "value": "XAnkiConnectResponseAnkiNoteInfoArrayPropInitDget_AnkiConnectResponseJsonElement@"
+    },
+    {
+      "offset": "0x10a59b1",
+      "encoding": "ascii",
+      "value": "JCreate_AnkiConnectResponseJsonElement@"
+    },
+    {
+      "offset": "0x10a59e3",
+      "encoding": "ascii",
+      "value": "LAnkiConnectResponseJsonElementPropInitBget_AnkiConnectResponseInt64Array@"
+    },
+    {
+      "offset": "0x10a5a34",
+      "encoding": "ascii",
+      "value": "HCreate_AnkiConnectResponseInt64Array@"
+    },
+    {
+      "offset": "0x10a5a65",
+      "encoding": "ascii",
+      "value": "JAnkiConnectResponseInt64ArrayPropInitDget_AnkiConnectResponseStringArray@"
+    },
+    {
+      "offset": "0x10a5ab6",
+      "encoding": "ascii",
+      "value": "JCreate_AnkiConnectResponseStringArray@"
+    },
+    {
+      "offset": "0x10a5ae8",
+      "encoding": "ascii",
+      "value": "LAnkiConnectResponseStringArrayPropInit:get_AnkiConnectResponseString@"
+    },
+    {
+      "offset": "0x10a5b35",
+      "encoding": "ascii",
+      "value": "@Create_AnkiConnectResponseString@"
+    },
+    {
+      "offset": "0x10a5b62",
+      "encoding": "ascii",
+      "value": "BAnkiConnectResponseStringPropInit0Create_AnkiModelTemplate@"
+    },
+    {
+      "offset": "0x10a5ba9",
+      "encoding": "ascii",
+      "value": "2AnkiModelTemplatePropInit,Create_AnkiModelUpdate@"
+    },
+    {
+      "offset": "0x10a5be6",
+      "encoding": "ascii",
+      "value": ".AnkiModelUpdatePropInit(Create_AnkiNoteField@"
+    },
+    {
+      "offset": "0x10a5c1f",
+      "encoding": "ascii",
+      "value": "*AnkiNoteFieldPropInit&Create_AnkiNoteInfo@"
+    },
+    {
+      "offset": "0x10a5c55",
+      "encoding": "ascii",
+      "value": "(AnkiNoteInfoPropInit0Create_AnkiNoteInfoArray@"
+    },
+    {
+      "offset": "0x10a5c8f",
+      "encoding": "ascii",
+      "value": "PCreate_DictionaryStringAnkiModelTemplate@"
+    },
+    {
+      "offset": "0x10a5cc4",
+      "encoding": "ascii",
+      "value": "HCreate_DictionaryStringAnkiNoteField@"
+    },
+    {
+      "offset": "0x10a66ef",
+      "encoding": "ascii",
+      "value": ",add_MouseHotkeyClicked@"
+    },
+    {
+      "offset": "0x10a6712",
+      "encoding": "ascii",
+      "value": "0add_GamepadHotkeyPressed2add_GamepadCaptureUpdated@"
+    },
+    {
+      "offset": "0x10a682f",
+      "encoding": "ascii",
+      "value": "(remove_GamepadScroll2add_KeyboardHotkeyPressed0add_OverlayHotkeyPressed@"
+    },
+    {
+      "offset": "0x10a6883",
+      "encoding": "ascii",
+      "value": "6remove_OverlayHotkeyPressed StartMouseHotkey$StartGamepadHotkey&StartKeyboardHotkey\"SetOverlayHotkeys\"EnsureInputThread@"
+    },
+    {
+      "offset": "0x10a6904",
+      "encoding": "ascii",
+      "value": "SetMouseCapture.ApplyMouseHotkeySetting(SetGamepadNavigation4WaitForGamepadReleaseAsync@"
+    },
+    {
+      "offset": "0x10a6967",
+      "encoding": "ascii",
+      "value": "2ApplyGamepadHotkeySetting(EnsureGamepadWatcher@"
+    },
+    {
+      "offset": "0x10a69f4",
+      "encoding": "ascii",
+      "value": ".ConfigureKeyboardHotkey@"
+    },
+    {
+      "offset": "0x10a6a1c",
+      "encoding": "ascii",
+      "value": "(ConfigureMouseHotkey@"
+    },
+    {
+      "offset": "0x10a6af2",
+      "encoding": "ascii",
+      "value": "OnHotkeyMessage@"
+    },
+    {
+      "offset": "0x10a6b85",
+      "encoding": "ascii",
+      "value": "0UnregisterOverlayHotkeys&UninstallEverything"
+    },
+    {
+      "offset": "0x10a6c31",
+      "encoding": "ascii",
+      "value": "HasSideButtonsHRegisterHotkeyModifiersToKeyCodeList@"
+    },
+    {
+      "offset": "0x10a6c71",
+      "encoding": "ascii",
+      "value": "GetKeyName,NameFromKeyboardLayout0AreExactModifiersPressed6GetReadableStringFromHotkey"
+    },
+    {
+      "offset": "0x10a7426",
+      "encoding": "ascii",
+      "value": ".ReportDictionaryFailure"
+    },
+    {
+      "offset": "0x10a749e",
+      "encoding": "ascii",
+      "value": "*FindDictionaryFolders"
+    },
+    {
+      "offset": "0x10a75a9",
+      "encoding": "ascii",
+      "value": ">RefreshCustomDictionaryMetadata BuildCollections@"
+    },
+    {
+      "offset": "0x10a75e6",
+      "encoding": "ascii",
+      "value": "6CreatePlaceholderDictionary"
+    },
+    {
+      "offset": "0x10a7645",
+      "encoding": "ascii",
+      "value": "AddFromCatalog ForgetDictionary6ImportCustomDictionaryAsync@"
+    },
+    {
+      "offset": "0x10a768c",
+      "encoding": "ascii",
+      "value": "4AddPendingImportDictionary@"
+    },
+    {
+      "offset": "0x10a76b3",
+      "encoding": "ascii",
+      "value": ",ClaimPendingDictionary@"
+    },
+    {
+      "offset": "0x10a76de",
+      "encoding": "ascii",
+      "value": ".AddInProgressDictionary@"
+    },
+    {
+      "offset": "0x10a7794",
+      "encoding": "ascii",
+      "value": "DecodeEntities*TryParseNumericEntity&NormalizeWhitespace"
+    },
+    {
+      "offset": "0x10a7869",
+      "encoding": "ascii",
+      "value": ".Create_DictionaryRecord@"
+    },
+    {
+      "offset": "0x10a788d",
+      "encoding": "ascii",
+      "value": "0DictionaryRecordPropInit>Create_CustomDictionaryMetadata@"
+    },
+    {
+      "offset": "0x10a78d2",
+      "encoding": "ascii",
+      "value": "@CustomDictionaryMetadataPropInit0get_ListDictionaryRecord@"
+    },
+    {
+      "offset": "0x10a7914",
+      "encoding": "ascii",
+      "value": "6Create_ListDictionaryRecord@"
+    },
+    {
+      "offset": "0x10a798a",
+      "encoding": "ascii",
+      "value": "8LoadLegacyCustomDictionaries"
+    },
+    {
+      "offset": "0x10a7b0c",
+      "encoding": "ascii",
+      "value": "FCreate_ListCustomDictionaryMetadata@"
+    },
+    {
+      "offset": "0x10a7dd2",
+      "encoding": "ascii",
+      "value": "InstallAsync$DescribeDictionary@"
+    },
+    {
+      "offset": "0x10a8ab4",
+      "encoding": "ascii",
+      "value": "FindMdx"
+    },
+    {
+      "offset": "0x10a8b48",
+      "encoding": "ascii",
+      "value": "2Lzma2DictionaryProperties"
+    },
+    {
+      "offset": "0x10a8d06",
+      "encoding": "ascii",
+      "value": "DictionaryRange"
+    },
+    {
+      "offset": "0x10a8ebe",
+      "encoding": "ascii",
+      "value": "LemmaOfEntry"
+    },
+    {
+      "offset": "0x10a957d",
+      "encoding": "ascii",
+      "value": "set_Hotkey"
+    },
+    {
+      "offset": "0x10a9a29",
+      "encoding": "ascii",
+      "value": "System.Collections.Generic.IAsyncEnumerable<Lookupper.Utils.GatewayAPI.Models.ScreenTranslateItem>.GetAsyncEnumerator@"
+    },
+    {
+      "offset": "0x10a9aab",
+      "encoding": "ascii",
+      "value": "System.Collections.Generic.IAsyncEnumerator<Lookupper.Utils.GatewayAPI.Models.ScreenTranslateItem>.MoveNextAsync"
+    },
+    {
+      "offset": "0x10a9b1c",
+      "encoding": "ascii",
+      "value": "System.Collections.Generic.IAsyncEnumerator<Lookupper.Utils.GatewayAPI.Models.ScreenTranslateItem>.get_Current@"
+    },
+    {
+      "offset": "0x10a9d43",
+      "encoding": "ascii",
+      "value": ">Update_DictionaryEntryViewModel@"
+    },
+    {
+      "offset": "0x10a9d73",
+      "encoding": "ascii",
+      "value": "VUpdate_DictionaryEntryViewModel_IsEmptyData@"
+    },
+    {
+      "offset": "0x10a9daf",
+      "encoding": "ascii",
+      "value": "XUpdate_DictionaryEntryViewModel_ErrorMessagenUpdate_DictionaryEntryViewModel_IsWebViewRuntimeMissingTUpdate_DictionaryEntryViewModel_Dictionary@"
+    },
+    {
+      "offset": "0x10a9ed6",
+      "encoding": "ascii",
+      "value": "$Update_DEViewModel<Update_DEViewModel_IsEmptyData8Update_DEViewModel_IsLoading>Update_DEViewModel_ErrorMessageBUpdate_DEViewModel_IsQuotaReachedLUpdate_DEViewModel_QuotaFewLeftMessageFUpdate_DEViewModel_IsContentBlocked:Update_DEViewModel_DictionaryRUpdate_DEViewModel_Dictionary_IsAiPowered@"
+    },
+    {
+      "offset": "0x10aa289",
+      "encoding": "ascii",
+      "value": "TryGet_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Headword@"
+    },
+    {
+      "offset": "0x10aa2e2",
+      "encoding": "ascii",
+      "value": "TryGet_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse@"
+    },
+    {
+      "offset": "0x10aa331",
+      "encoding": "ascii",
+      "value": "^TryGet_DictionaryEntryViewModel_LooktionaryData@"
+    },
+    {
+      "offset": "0x10aa36d",
+      "encoding": "ascii",
+      "value": ">TryGet_DictionaryEntryViewModel@"
+    },
+    {
+      "offset": "0x10aa39a",
+      "encoding": "ascii",
+      "value": "TryGet_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Synonyms@"
+    },
+    {
+      "offset": "0x10aa3f3",
+      "encoding": "ascii",
+      "value": "TryGet_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_LanguageTag"
+    },
+    {
+      "offset": "0x10aa443",
+      "encoding": "ascii",
+      "value": "TryGet_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Ipa"
+    },
+    {
+      "offset": "0x10aa48b",
+      "encoding": "ascii",
+      "value": "TryGet_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Transliteration"
+    },
+    {
+      "offset": "0x10aa4df",
+      "encoding": "ascii",
+      "value": "TryGet_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Article"
+    },
+    {
+      "offset": "0x10aa52b",
+      "encoding": "ascii",
+      "value": "TryGet_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_DisplayForm"
+    },
+    {
+      "offset": "0x10aa599",
+      "encoding": "ascii",
+      "value": "^Update_DictionaryEntryViewModel_LooktionaryData@"
+    },
+    {
+      "offset": "0x10aa5da",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse@"
+    },
+    {
+      "offset": "0x10aa62e",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_LanguageTag"
+    },
+    {
+      "offset": "0x10aa77e",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Synonyms@"
+    },
+    {
+      "offset": "0x10aa7db",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Parts@"
+    },
+    {
+      "offset": "0x10aa834",
+      "encoding": "ascii",
+      "value": "nUpdate_DictionaryEntryViewModel_PlayContextAudioCommand@"
+    },
+    {
+      "offset": "0x10aa87d",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_HeadwordDUpdate_M_FormatListenTo_1600525429DUpdate_M_FormatSynonyms_2020641317"
+    },
+    {
+      "offset": "0x10aa910",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_CefrLevel@"
+    },
+    {
+      "offset": "0x10aa96e",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Reading"
+    },
+    {
+      "offset": "0x10aa9ba",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Ipa"
+    },
+    {
+      "offset": "0x10aabb6",
+      "encoding": "ascii",
+      "value": "UpdateFallback_DictionaryEntryViewModel_LooktionaryData_LooktionaryResponse_Translation"
+    },
+    {
+      "offset": "0x10aaf99",
+      "encoding": "ascii",
+      "value": "\\Update_DictionaryEntryViewModel_TranslatorData@"
+    },
+    {
+      "offset": "0x10aafd9",
+      "encoding": "ascii",
+      "value": "Update_DictionaryEntryViewModel_TranslatorData_TranslationLanguageTagX<FetchDictionariesData>g__GetHeadwordAsync|2@"
+    },
+    {
+      "offset": "0x10ab5c1",
+      "encoding": "ascii",
+      "value": "FTryGet_Settings_LookupGamepadHotkey@"
+    },
+    {
+      "offset": "0x10ab8b7",
+      "encoding": "ascii",
+      "value": "NormalizeScale@"
+    },
+    {
+      "offset": "0x10aba0d",
+      "encoding": "ascii",
+      "value": "2Update_VM_ProgressMaximum.Update_VM_ProgressValue*Update_UpgradeInfoBar8Update_UpgradeInfoBar_IsOpen,Update_VM_HasDeletions.Update_VM_HasIncomplete2Update_VM_HasSyncedBefore.Update_VM_SyncToAnkiWeb:UpdateTwoWay_17_SelectedIndex2UpdateTwoWay_25_IsChecked"
+    },
+    {
+      "offset": "0x10abec0",
+      "encoding": "ascii",
+      "value": "LTryGet_CardVM_IsFetchingDictionaryData8TryGet_CardVM_DictionaryForm6TryGet_CardVM_MissingFields@"
+    },
+    {
+      "offset": "0x10ac14e",
+      "encoding": "ascii",
+      "value": ":Update_M_IsAiFilled_542723388LUpdate_CardVM_IsFetchingDictionaryDataDUpdate_M_IsFieldLoading_31100787816Update_CardVM_MissingFields@"
+    },
+    {
+      "offset": "0x10ac95c",
+      "encoding": "ascii",
+      "value": "4Update_VM_TableScreenshots2Update_VM_TableWordAudios0Update_IncompleteInfoBar>Update_IncompleteInfoBar_IsOpen2UpdateTwoWay_19_IsChecked2UpdateTwoWay_20_IsChecked@"
+    },
+    {
+      "offset": "0x10acc89",
+      "encoding": "ascii",
+      "value": ",Update_AnkiSyncInfoBar:Update_AnkiSyncInfoBar_IsOpen.Update_VM_SelectedCount\\Update_M_IsMultiSelectionVisibility_3064738117(Update_VM_TotalCountPUpdate_M_IsCardPaneVisibility_1134501917,Update_VM_SelectedCardFUpdate_VM_SelectedCard_ErrorMessageJUpdate_VM_SelectedCard_IsQuotaReachedFUpdate_VM_SelectedCard_IsIncompleteTUpdate_VM_SelectedCard_HasAutofillToReview"
+    },
+    {
+      "offset": "0x10ad4a9",
+      "encoding": "ascii",
+      "value": "l<ImportCustomDictionaryAsync>g__RemoveDeletedImports|0"
+    },
+    {
+      "offset": "0x10adb73",
+      "encoding": "ascii",
+      "value": "Set_Lookupper_Components_Hotkeys_HotkeyCaptureBox_PlaceholderText"
+    },
+    {
+      "offset": "0x10adbc8",
+      "encoding": "ascii",
+      "value": "lSet_Lookupper_Components_Hotkeys_HotkeyCaptureBox_Text@"
+    },
+    {
+      "offset": "0x10add44",
+      "encoding": "ascii",
+      "value": "ZUpdateChildListeners_DictionaryEntryViewModel@"
+    },
+    {
+      "offset": "0x10add7e",
+      "encoding": "ascii",
+      "value": "pUpdateChildListeners_DictionaryEntryViewModel_Dictionary@"
+    },
+    {
+      "offset": "0x10adddf",
+      "encoding": "ascii",
+      "value": "@UpdateChildListeners_DEViewModelVUpdateChildListeners_DEViewModel_Dictionary@"
+    },
+    {
+      "offset": "0x10adecb",
+      "encoding": "ascii",
+      "value": "UpdateChildListeners_DictionaryEntryViewModel_PlayContextAudioCommand@"
+    },
+    {
+      "offset": "0x10adf1d",
+      "encoding": "ascii",
+      "value": "UpdateChildListeners_DictionaryEntryViewModel_PlayHeadwordAudioCommand"
+    },
+    {
+      "offset": "0x10adf64",
+      "encoding": "ascii",
+      "value": "UpdateChildListeners_DictionaryEntryViewModel_PlayOriginallWordAudioCommand@"
+    },
+    {
+      "offset": "0x10ae61d",
+      "encoding": "ascii",
+      "value": "\\UpdateChildListeners_VM_GroupedObservableCardsHUpdateChildListeners_AnkiSyncInfoBarHUpdateChildListeners_VM_SelectedCardxUpdateChildListeners_VM_SelectedCard_FetchMissingDataCommandHUpdateChildListeners__licenseServiceDUpdateChildListeners_SavedWordsCVS@"
+    },
+    {
+      "offset": "0x10b231e",
+      "encoding": "ascii",
+      "value": "Make___objRef_global__System_Collections_Generic_IDictionary_string__ICompositionAnimationBase_"
+    },
+    {
+      "offset": "0x10b2c22",
+      "encoding": "ascii",
+      "value": "0CreateSequenceProjection&CreateMapProjection,CreateTensorProjection\"GetDictionaryKeys@"
+    },
+    {
+      "offset": "0x10b2c80",
+      "encoding": "ascii",
+      "value": "&GetDictionaryValues"
+    },
+    {
+      "offset": "0x10b58ca",
+      "encoding": "ascii",
+      "value": "get_TranslateX"
+    },
+    {
+      "offset": "0x10b58d9",
+      "encoding": "ascii",
+      "value": "get_TranslateY\"MakeRenderedTable"
+    },
+    {
+      "offset": "0x10b6525",
+      "encoding": "ascii",
+      "value": "0Do_Abi_RunInitializer_18*Do_Abi_get_BaseType_0.Do_Abi_get_BoxedType_118Do_Abi_get_ContentProperty_1*Do_Abi_get_FullName_2(Do_Abi_get_IsArray_3.Do_Abi_get_IsBindable_82Do_Abi_get_IsCollection_48Do_Abi_get_IsConstructible_52Do_Abi_get_IsDictionary_6<Do_Abi_get_IsMarkupExtension_7*Do_Abi_get_ItemType_9*Do_Abi_get_KeyType_108Do_Abi_get_UnderlyingType_12"
+    },
+    {
+      "offset": "0x10c174e",
+      "encoding": "ascii",
+      "value": "vMake___objRef_global__Microsoft_UI_Xaml_IResourceDictionary"
+    },
+    {
+      "offset": "0x10c178b",
+      "encoding": "ascii",
+      "value": "Make___objRef_global__System_Collections_Generic_IDictionary_object__object_"
+    },
+    {
+      "offset": "0x10c1856",
+      "encoding": "ascii",
+      "value": "get__objRef_global__Microsoft_UI_Xaml_IResourceDictionaryFactory"
+    },
+    {
+      "offset": "0x10c2ed3",
+      "encoding": "ascii",
+      "value": "|get__objRef_global__Microsoft_UI_Xaml_Media_TranslateTransform"
+    },
+    {
+      "offset": "0x10d1076",
+      "encoding": "ascii",
+      "value": "Make___objRef_global__System_Collections_Generic_IDictionary_string__object_"
+    },
+    {
+      "offset": "0x10d11fe",
+      "encoding": "ascii",
+      "value": "global::System.Collections.Generic.IDictionary<System.String,System.Object>.get_Keys"
+    },
+    {
+      "offset": "0x10d1253",
+      "encoding": "ascii",
+      "value": "global::System.Collections.Generic.IDictionary<System.String,System.Object>.get_Values"
+    },
+    {
+      "offset": "0x10d1329",
+      "encoding": "ascii",
+      "value": "global::System.Collections.Generic.IDictionary<System.String,System.Object>.get_Item"
+    },
+    {
+      "offset": "0x10d137e",
+      "encoding": "ascii",
+      "value": "global::System.Collections.Generic.IDictionary<System.String,System.Object>.set_Item"
+    },
+    {
+      "offset": "0x10d13d3",
+      "encoding": "ascii",
+      "value": "global::System.Collections.Generic.IDictionary<System.String,System.Object>.Add"
+    },
+    {
+      "offset": "0x10d1423",
+      "encoding": "ascii",
+      "value": "global::System.Collections.Generic.IDictionary<System.String,System.Object>.ContainsKey"
+    },
+    {
+      "offset": "0x10d147b",
+      "encoding": "ascii",
+      "value": "global::System.Collections.Generic.IDictionary<System.String,System.Object>.Remove"
+    },
+    {
+      "offset": "0x10d14ce",
+      "encoding": "ascii",
+      "value": "global::System.Collections.Generic.IDictionary<System.String,System.Object>.TryGetValue"
+    },
+    {
+      "offset": "0x10d2f9d",
+      "encoding": "ascii",
+      "value": "get__objRef_global__Windows_ApplicationModel_DataTransfer_IClipboardStatics"
+    },
+    {
+      "offset": "0x10d90ba",
+      "encoding": "ascii",
+      "value": "\"AddThreadPoolInfo.CultureInfoToDictionary"
+    },
+    {
+      "offset": "0x10d9ab1",
+      "encoding": "ascii",
+      "value": ",ResetSerializerOptions:GetConcurrentDictionaryOrNull"
+    },
+    {
+      "offset": "0x10d9af2",
+      "encoding": "ascii",
+      "value": "2GetStringDictionaryOrNull"
+    },
+    {
+      "offset": "0x10d9b83",
+      "encoding": "ascii",
+      "value": " GetStringOrThrow(WriteDictionaryValue"
+    },
+    {
+      "offset": "0x10d9bc1",
+      "encoding": "ascii",
+      "value": "4WriteStringDictionaryValue"
+    },
+    {
+      "offset": "0x10d9d13",
+      "encoding": "ascii",
+      "value": "2WriteDictionaryIfNotEmpty"
+    },
+    {
+      "offset": "0x10d9d45",
+      "encoding": "ascii",
+      "value": ">WriteStringDictionaryIfNotEmpty"
+    },
+    {
+      "offset": "0x10d9e18",
+      "encoding": "ascii",
+      "value": "<Create_DictionaryStringBoolean@"
+    },
+    {
+      "offset": "0x10d9e43",
+      "encoding": "ascii",
+      "value": ":Create_DictionaryStringObject@"
+    },
+    {
+      "offset": "0x10dbb89",
+      "encoding": "ascii",
+      "value": "@ZSTD_decompress_insertDictionary(ZSTD_decompressBegin<ZSTD_decompressBegin_usingDict>ZSTD_decompressBegin_usingDDict"
+    },
+    {
+      "offset": "0x10de3df",
+      "encoding": "ascii",
+      "value": "*RangeEncoderNormalize4RangeEncoderNormalizeAsync@"
+    },
+    {
+      "offset": "0x10de420",
+      "encoding": "ascii",
+      "value": "\"RangeEncodeSymbol,RangeShiftEncodeSymbol\"RangeEncoderFlush,RangeEncoderFlushAsync,RangeDecoderInitialize6RangeDecoderInitializeAsync*RangeDecoderNormalize4RangeDecoderNormalizeAsync(RangeGetCurrentCount2RangeGetCurrentShiftCount"
+    },
+    {
+      "offset": "0x10dea7e",
+      "encoding": "ascii",
+      "value": "AriDecNormalize@"
+    },
+    {
+      "offset": "0x10dea99",
+      "encoding": "ascii",
+      "value": "(AriDecNormalizeAsync@"
+    },
+    {
+      "offset": "0x10df2fd",
+      "encoding": "ascii",
+      "value": "NormalizeAsync"
+    },
+    {
+      "offset": "0x10df30c",
+      "encoding": "ascii",
+      "value": "Normalize2Async*DecodeDirectBitsAsync@"
+    },
+    {
+      "offset": "0x10df49b",
+      "encoding": "ascii",
+      "value": "NormalizeLinks@"
+    },
+    {
+      "offset": "0x10e0c5a",
+      "encoding": "ascii",
+      "value": "TranslateTime@"
+    },
+    {
+      "offset": "0x10e0f85",
+      "encoding": "ascii",
+      "value": "(ReadRarVIntByteAsync0DoReadRarVIntUInt32Async&ReadBytesNoCrcAsync"
+    },
+    {
+      "offset": "0x10e3e06",
+      "encoding": "ascii",
+      "value": "InternalSortPSystem.Collections.ICollection.get_Count<System.Collections.IList.ClearBSystem.Collections.IList.RemoveAtNSystem.Collections.IDictionary.ContainsXSystem.Collections.IDictionary.GetEnumeratorNSystem.Collections.IDictionary.get_ItemNSystem.Collections.IDictionary.set_ItemNSystem.Collections.IDictionary.get_KeysJSystem.Collections.IDictionary.Remove@"
+    },
+    {
+      "offset": "0x10e6491",
+      "encoding": "ascii",
+      "value": "DoCreateEntry@"
+    },
+    {
+      "offset": "0x10e7e86",
+      "encoding": "ascii",
+      "value": "*DoCreateEntryFromFile"
+    },
+    {
+      "offset": "0x10e7eb4",
+      "encoding": "ascii",
+      "value": ">InitializeDoCreateEntryFromFile"
+    },
+    {
+      "offset": "0x10e8028",
+      "encoding": "ascii",
+      "value": "$NormalizeDriveName<CheckForAvailableVirtualMemory"
+    },
+    {
+      "offset": "0x10e9fd7",
+      "encoding": "ascii",
+      "value": "JSendWithVersionDetectionAndRetryAsync"
+    },
+    {
+      "offset": "0x10ec1f2",
+      "encoding": "ascii",
+      "value": "ConsumeStreamF<SerializeToStreamAsync>g__Impl|6_0\"CloneAndNormalize@get_MaxResponseHeadersByteLength"
+    },
+    {
+      "offset": "0x10ec37f",
+      "encoding": "ascii",
+      "value": "8set_PooledConnectionLifetime>set_PooledConnectionIdleTimeout$set_ConnectTimeoutBEnsureDecompressionHandlerFactory6ValidateAndNormalizeRequest"
+    },
+    {
+      "offset": "0x10ec678",
+      "encoding": "ascii",
+      "value": "(get_AutoSettingsUsed<get_RecentAutoDetectionFailure"
+    },
+    {
+      "offset": "0x10ed80b",
+      "encoding": "ascii",
+      "value": "b<GetEntriesArray>g__GetEntriesFromDictionary|69_0r<GetValueRefOrAddDefault>g__GrowEntriesAndAddDefault|76_0"
+    },
+    {
+      "offset": "0x10ed878",
+      "encoding": "ascii",
+      "value": "<GetValueRefOrAddDefault>g__ConvertToDictionaryAndAddDefault|76_1"
+    },
+    {
+      "offset": "0x10ed8ba",
+      "encoding": "ascii",
+      "value": "<GetValueRefOrAddDefault>g__DictionaryGetValueRefOrAddDefault|76_2(GetSingleParsedValue"
+    },
+    {
+      "offset": "0x10f093f",
+      "encoding": "ascii",
+      "value": "IsSafeDnsString\"NormalizeHostName"
+    },
+    {
+      "offset": "0x10f417c",
+      "encoding": "ascii",
+      "value": "JGetNormalizedIntegralArrayElementType"
+    },
+    {
+      "offset": "0x10f904a",
+      "encoding": "ascii",
+      "value": "4FixDefaultShortDatePattern(NormalizeDatePattern$NormalizeDayOfWeek"
+    },
+    {
+      "offset": "0x10f91f0",
+      "encoding": "ascii",
+      "value": ":NlsLoadCalendarDataFromSystem&NormalizeCalendarId"
+    },
+    {
+      "offset": "0x10f9355",
+      "encoding": "ascii",
+      "value": " GetGregorianYear$NormalizeLongitude"
+    },
+    {
+      "offset": "0x10f9a24",
+      "encoding": "ascii",
+      "value": "GetCultureData(NormalizeCultureName\"CreateCultureData8InitCompatibilityCultureData"
+    },
+    {
+      "offset": "0x10fb48a",
+      "encoding": "ascii",
+      "value": "TryNormalize"
+    },
+    {
+      "offset": "0x10fb4af",
+      "encoding": "ascii",
+      "value": "IcuNormalize"
+    },
+    {
+      "offset": "0x10fb4bc",
+      "encoding": "ascii",
+      "value": "IcuTryNormalize\"ValidateArguments"
+    },
+    {
+      "offset": "0x10fb50c",
+      "encoding": "ascii",
+      "value": "NlsNormalize"
+    },
+    {
+      "offset": "0x10fb519",
+      "encoding": "ascii",
+      "value": "NlsTryNormalizeNInitializeInvariantAndNegativeSignFlags@"
+    },
+    {
+      "offset": "0x10fbcca",
+      "encoding": "ascii",
+      "value": "<OptimizeChildren>g__DictionaryMemoryFootprintBytesEstimate|11_2"
+    },
+    {
+      "offset": "0x10fbe70",
+      "encoding": "ascii",
+      "value": "4CreateFromNormalizedValues"
+    },
+    {
+      "offset": "0x10fbf85",
+      "encoding": "ascii",
+      "value": "@ContainsIncompleteSurrogatePairs@<Create>g__NormalizeIfNeeded|3_1L<Create>g__RemoveUnreachableValues|3_2"
+    },
+    {
+      "offset": "0x11002f8",
+      "encoding": "ascii",
+      "value": "get_LengthCore*EnsureDataInitialized$get_NormalizedPath@"
+    },
+    {
+      "offset": "0x1100a86",
+      "encoding": "ascii",
+      "value": "GetRootLength(IsPartiallyQualified8NormalizeDirectorySeparators$IsEffectivelyEmpty"
+    },
+    {
+      "offset": "0x1100ee1",
+      "encoding": "ascii",
+      "value": "NormalizeInputs"
+    },
+    {
+      "offset": "0x1100fc9",
+      "encoding": "ascii",
+      "value": "0TranslateWin32Expression"
+    },
+    {
+      "offset": "0x1105038",
+      "encoding": "ascii",
+      "value": "FCreateCaseInsensitiveTypeDictionary@"
+    },
+    {
+      "offset": "0x1107d89",
+      "encoding": "ascii",
+      "value": "<<IdnToUnicode>g____PInvoke|1_0B<NormalizeString>g____PInvoke|5_0"
+    },
+    {
+      "offset": "0x1109d38",
+      "encoding": "ascii",
+      "value": "IsSystemArrayZHasExplicitOrImplicitPublicDefaultConstructorTNormalizedPrimitiveTypeSizeForIntegerTypes"
+    },
+    {
+      "offset": "0x110b349",
+      "encoding": "ascii",
+      "value": "SetDictionary"
+    },
+    {
+      "offset": "0x110b567",
+      "encoding": "ascii",
+      "value": "6GetDictionaryOffsetInEEtype"
+    },
+    {
+      "offset": "0x110b58f",
+      "encoding": "ascii",
+      "value": "2GetDictionarySlotInVTable"
+    },
+    {
+      "offset": "0x110b603",
+      "encoding": "ascii",
+      "value": "BuildDictionary"
+    },
+    {
+      "offset": "0x110ba11",
+      "encoding": "ascii",
+      "value": "DRetrieveMethodDictionaryIfPossible"
+    },
+    {
+      "offset": "0x110bba2",
+      "encoding": "ascii",
+      "value": "(FinishTypeDictionary,FinishClassConstructor@"
+    },
+    {
+      "offset": "0x110bbde",
+      "encoding": "ascii",
+      "value": "hCopyDictionaryFromTypeToAppropriateSlotInDerivedType@"
+    },
+    {
+      "offset": "0x110bdf6",
+      "encoding": "ascii",
+      "value": "*get_RuntimeInterfaces@ComputeHasDictionarySlotInVTable:get_HasDictionarySlotInVTable8ComputeHasDictionaryInVTable2get_HasDictionaryInVTable*ComputeNumVTableSlots$get_NumVTableSlots(get_InstanceGCLayout@"
+    },
+    {
+      "offset": "0x110befb",
+      "encoding": "ascii",
+      "value": "6get_IsArrayOfReferenceTypes@TryLookupGenericMethodDictionary@"
+    },
+    {
+      "offset": "0x110bff4",
+      "encoding": "ascii",
+      "value": "HTryGetDynamicGenericMethodDictionaryFTryGetStaticGenericMethodDictionary"
+    },
+    {
+      "offset": "0x110c312",
+      "encoding": "ascii",
+      "value": "TTryGetGenericMethodDictionaryForComponents@"
+    },
+    {
+      "offset": "0x110da05",
+      "encoding": "ascii",
+      "value": "EncodeUserInfo SetFieldsFromUri4SpanToLowerInvariantString$NormalizeAndConcat"
+    },
+    {
+      "offset": "0x110de72",
+      "encoding": "ascii",
+      "value": "\"NonCDataNormalize"
+    },
+    {
+      "offset": "0x110de85",
+      "encoding": "ascii",
+      "value": "CDataNormalize"
+    },
+    {
+      "offset": "0x110ded3",
+      "encoding": "ascii",
+      "value": "TryVerifyTOKEN TryVerifyNMTOKEN2TryVerifyNormalizedString"
+    },
+    {
+      "offset": "0x110ea9b",
+      "encoding": "ascii",
+      "value": "ParseElement@AddDefaultAttributesAndNormalize"
+    },
+    {
+      "offset": "0x111372e",
+      "encoding": "ascii",
+      "value": "0ToCryptographicException"
+    },
+    {
+      "offset": "0x1115cef",
+      "encoding": "ascii",
+      "value": "TranslateToSids"
+    },
+    {
+      "offset": "0x1115d62",
+      "encoding": "ascii",
+      "value": "*TranslateToNTAccounts"
+    },
+    {
+      "offset": "0x1117030",
+      "encoding": "ascii",
+      "value": "hThrowNotSupportedException_SerializationNotSupportedpThrowNotSupportedException_DictionaryKeyTypeNotSupported"
+    },
+    {
+      "offset": "0x111adcf",
+      "encoding": "ascii",
+      "value": "System.Collections.Generic.IDictionary<System.String,System.Text.Json.Nodes.JsonNode>.get_Keys"
+    },
+    {
+      "offset": "0x111ae2e",
+      "encoding": "ascii",
+      "value": "System.Collections.Generic.IDictionary<System.String,System.Text.Json.Nodes.JsonNode>.get_Values@"
+    },
+    {
+      "offset": "0x111ae97",
+      "encoding": "ascii",
+      "value": "System.Collections.Generic.IDictionary<System.String,System.Text.Json.Nodes.JsonNode>.TryGetValue@"
+    },
+    {
+      "offset": "0x111af08",
+      "encoding": "ascii",
+      "value": "(InitializeDictionary@"
+    },
+    {
+      "offset": "0x111af25",
+      "encoding": "ascii",
+      "value": " CreateDictionary"
+    },
+    {
+      "offset": "0x111b08f",
+      "encoding": "ascii",
+      "value": "DContainsReferenceForCycleDetection<PushReferenceForCycleDetection"
+    },
+    {
+      "offset": "0x111b571",
+      "encoding": "ascii",
+      "value": " ProcessReadBytes:PopReferenceForCycleDetection"
+    },
+    {
+      "offset": "0x112100b",
+      "encoding": "ascii",
+      "value": " CoCreateInstance"
+    },
+    {
+      "offset": "0x1121161",
+      "encoding": "ascii",
+      "value": ":CoCreateFreeThreadedMarshaler"
+    },
+    {
+      "offset": "0x1121c7a",
+      "encoding": "ascii",
+      "value": "RunDetection@"
+    },
+    {
+      "offset": "0x1121d38",
+      "encoding": "ascii",
+      "value": "RunRecognition FillTensorUnsafe@"
+    },
+    {
+      "offset": "0x1121e8a",
+      "encoding": "ascii",
+      "value": "CalOcrWordBox"
+    },
+    {
+      "offset": "0x11220d2",
+      "encoding": "ascii",
+      "value": "H<CreateDXGIFactory1>g____PInvoke|8_0"
+    },
+    {
+      "offset": "0x1122ab4",
+      "encoding": "ascii",
+      "value": "IsCompatibleKey`System.Collections.IDictionaryEnumerator.get_KeydSystem.Collections.IDictionaryEnumerator.get_ValuetSystem.Collections.Generic.IEnumerable<TKey>.GetEnumerator@"
+    },
+    {
+      "offset": "0x1125223",
+      "encoding": "ascii",
+      "value": "xSystem.Collections.Generic.IDictionary<TKey,TValue>.get_Keys@"
+    },
+    {
+      "offset": "0x1125268",
+      "encoding": "ascii",
+      "value": "tSystem.Collections.Generic.IDictionary<TKey,TValue>.RemovexSystem.Collections.Generic.IDictionary<TKey,TValue>.set_Item"
+    },
+    {
+      "offset": "0x112544a",
+      "encoding": "ascii",
+      "value": "xglobal::System.Collections.Generic.IDictionary<K,V>.get_Keys"
+    },
+    {
+      "offset": "0x1125488",
+      "encoding": "ascii",
+      "value": "global::System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<K,V>>.get_Countxglobal::System.Collections.Generic.IDictionary<K,V>.set_Item~global::System.Collections.Generic.IDictionary<K,V>.ContainsKeytglobal::System.Collections.Generic.IDictionary<K,V>.Remove~global::System.Collections.Generic.IDictionary<K,V>.TryGetValue"
+    },
+    {
+      "offset": "0x1125808",
+      "encoding": "ascii",
+      "value": "global::System.Collections.Generic.IReadOnlyDictionary<K,V>.ContainsKey"
+    },
+    {
+      "offset": "0x1125850",
+      "encoding": "ascii",
+      "value": "global::System.Collections.Generic.IReadOnlyDictionary<K,V>.TryGetValue"
+    },
+    {
+      "offset": "0x11276ce",
+      "encoding": "ascii",
+      "value": ",GetDictionaryComponent@"
+    },
+    {
+      "offset": "0x1129141",
+      "encoding": "ascii",
+      "value": "H<OnTryRead>g__ReadDictionaryKey|10_0"
+    },
+    {
+      "offset": "0x1129339",
+      "encoding": "ascii",
+      "value": "Make___objRef_global__System_Collections_Generic_IDictionary_K__V_"
+    },
+    {
+      "offset": "0x11294b6",
+      "encoding": "ascii",
+      "value": "global::Windows.Foundation.Collections.IObservableMap<K,V>.remove_MapChanged|global::System.Collections.Generic.IDictionary<K,V>.get_Valuesxglobal::System.Collections.Generic.IDictionary<K,V>.get_Itemnglobal::System.Collections.Generic.IDictionary<K,V>.Add"
+    },
+    {
+      "offset": "0x1129869",
+      "encoding": "ascii",
+      "value": "System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.get_Keys@"
+    },
+    {
+      "offset": "0x11298b6",
+      "encoding": "ascii",
+      "value": "System.Collections.Generic.IReadOnlyDictionary<TKey,TValue>.get_Values@"
+    },
+    {
+      "offset": "0x1129904",
+      "encoding": "ascii",
+      "value": "|System.Collections.Generic.IDictionary<TKey,TValue>.get_Values"
+    },
+    {
+      "offset": "0x1129ec2",
+      "encoding": "ascii",
+      "value": "nSystem.Collections.Generic.IDictionary<TKey,TValue>.Add@"
+    },
+    {
+      "offset": "0x1129f16",
+      "encoding": "ascii",
+      "value": "xSystem.Collections.Generic.IDictionary<TKey,TValue>.get_Item@"
+    },
+    {
+      "offset": "0x112a1a9",
+      "encoding": "ascii",
+      "value": "global::System.Collections.Generic.IReadOnlyDictionary<K,V>.get_Keys"
+    },
+    {
+      "offset": "0x112a1ee",
+      "encoding": "ascii",
+      "value": "global::System.Collections.Generic.IReadOnlyDictionary<K,V>.get_Values"
+    },
+    {
+      "offset": "0x112a607",
+      "encoding": "ascii",
+      "value": "ToDictionary"
+    },
+    {
+      "offset": "0x112a663",
+      "encoding": "ascii",
+      "value": " SpanToDictionary"
+    },
+    {
+      "offset": "0x112d401",
+      "encoding": "ascii",
+      "value": "<ReadJsonAndAddExtensionProperty>g__GetDictionaryValueConverter|143_0j<ReadJsonAndAddExtensionProperty>g__AddProperty|143_1@"
+    },
+    {
+      "offset": "0x112dca2",
+      "encoding": "ascii",
+      "value": "WriteDictionary"
+    },
+    {
+      "offset": "0x112f00c",
+      "encoding": "ascii",
+      "value": "IEnumerable_System_Collections_Specialized_INotifyCollectionChangedpIEnumerator_System_ComponentModel_INotifyPropertyChanged2IDictionary_string_string"
+    },
+    {
+      "offset": "0x112f15a",
+      "encoding": "ascii",
+      "value": "IReadOnlyList_System_Collections_Specialized_INotifyCollectionChangedLIReadOnlyList_System_Collections_IListBIReadOnlyDictionary_string_string(IReadOnlyList_object$IEnumerator_object"
+    },
+    {
+      "offset": "0x112fc64",
+      "encoding": "ascii",
+      "value": "4KeyValuePair_object_object2IDictionary_object_object"
+    },
+    {
+      "offset": "0x112fceb",
+      "encoding": "ascii",
+      "value": "IEnumerator_System_Collections_Generic_KeyValuePair_object__object_BIReadOnlyDictionary_object_object"
+    },
+    {
+      "offset": "0x112fd56",
+      "encoding": "ascii",
+      "value": "\"8ResourceDictionaryExtensions"
+    },
+    {
+      "offset": "0x112fe13",
+      "encoding": "ascii",
+      "value": "IEnumerator_System_Collections_Generic_KeyValuePair_char__string_\"IReadOnlyList_int>IReadOnlyDictionary_char_string.IDictionary_char_string"
+    },
+    {
+      "offset": "0x1130d03",
+      "encoding": "ascii",
+      "value": "%&OcrHyphenWrapJoiner"
+    },
+    {
+      "offset": "0x1130d20",
+      "encoding": "ascii",
+      "value": "\"OcrLanguageHelper"
+    },
+    {
+      "offset": "0x1130d4a",
+      "encoding": "ascii",
+      "value": "(OcrNoiseFilterHelper"
+    },
+    {
+      "offset": "0x1130f6d",
+      "encoding": "ascii",
+      "value": "ScreenshotJpeg"
+    },
+    {
+      "offset": "0x11312e2",
+      "encoding": "ascii",
+      "value": "<DictionaryDescriptionFormatter"
+    },
+    {
+      "offset": "0x1132be8",
+      "encoding": "ascii",
+      "value": ">IFrameworkElementStaticsMethods4IResourceDictionaryMethods"
+    },
+    {
+      "offset": "0x1132e82",
+      "encoding": "ascii",
+      "value": "$IImageBrushMethods.IMatrixTransformMethods<IMatrixTransformStaticsMethods(IMicaBackdropMethods2IRectangleGeometryMethods.IRotateTransformMethods<IRotateTransformStaticsMethods,IScaleTransformMethods:IScaleTransformStaticsMethods8ISkewTransformStaticsMethods4ITranslateTransformMethods>IVisualTreeHelperStaticsMethods"
+    },
+    {
+      "offset": "0x113626c",
+      "encoding": "ascii",
+      "value": "Windows_Foundation_Collections_IVector_1_Microsoft_UI_Xaml_ResourceDictionary"
+    },
+    {
+      "offset": "0x1136473",
+      "encoding": "ascii",
+      "value": "Windows_Foundation_Collections_IVectorView_1_Microsoft_UI_Xaml_ResourceDictionary"
+    },
+    {
+      "offset": "0x113680a",
+      "encoding": "ascii",
+      "value": "Windows_Foundation_Collections_IIterable_1_Microsoft_UI_Xaml_ResourceDictionary"
+    },
+    {
+      "offset": "0x1137375",
+      "encoding": "ascii",
+      "value": "Windows_Foundation_Collections_IIterator_1_Microsoft_UI_Xaml_ResourceDictionary"
+    },
+    {
+      "offset": "0x113779b",
+      "encoding": "ascii",
+      "value": "@'D_IResourceDictionaryFactoryMethods"
+    },
+    {
+      "offset": "0x1138d11",
+      "encoding": "ascii",
+      "value": " 0IClipboardStaticsMethods&IDataPackageMethods"
+    },
+    {
+      "offset": "0x1138dd9",
+      "encoding": "ascii",
+      "value": "Clipboard"
+    },
+    {
+      "offset": "0x113edc1",
+      "encoding": "ascii",
+      "value": "OcrHelpers$TargetPointHelpers"
+    },
+    {
+      "offset": "0x113f6fd",
+      "encoding": "ascii",
+      "value": "TArg58ReadOnlyDictionaryExtensions"
+    },
+    {
+      "offset": "0x113fec8",
+      "encoding": "ascii",
+      "value": "G DXGI_OUTPUT_DESC6WinUI3TransparentBackground"
+    },
+    {
+      "offset": "0x113fefd",
+      "encoding": "ascii",
+      "value": "*TranslateGemmaSupport"
+    },
+    {
+      "offset": "0x1140557",
+      "encoding": "ascii",
+      "value": "AnkiRemovalMode"
+    },
+    {
+      "offset": "0x11428e5",
+      "encoding": "ascii",
+      "value": "+`\"\"DictionaryWrapper$ProcessWindowStyle"
+    },
+    {
+      "offset": "0x1146ae4",
+      "encoding": "ascii",
+      "value": "<InvokeMapEntryDataEnumerator`2\"TLookupMethodInfo0TDictionaryComponentType"
+    },
+    {
+      "offset": "0x1146e08",
+      "encoding": "ascii",
+      "value": "IDXGIAdapter"
+    },
+    {
+      "offset": "0x1146ef2",
+      "encoding": "ascii",
+      "value": "IDXGIAdapter1"
+    },
+    {
+      "offset": "0x1146f2d",
+      "encoding": "ascii",
+      "value": "%$DictionaryResourceFD3DKMT_QUERYVIDPNEXCLUSIVEOWNERSHIP"
+    },
+    {
+      "offset": "0x11f8632",
+      "encoding": "ascii",
+      "value": "0The given key was not present in the dictionary."
+    },
+    {
+      "offset": "0x11f8664",
+      "encoding": "ascii",
+      "value": "6The given key '{0}' was not present in the dictionary."
+    },
+    {
+      "offset": "0x11f88d0",
+      "encoding": "ascii",
+      "value": "BThe collection backing this Dictionary contains too many elements."
+    },
+    {
+      "offset": "0x11f89df",
+      "encoding": "ascii",
+      "value": "CMutating a key collection derived from a dictionary is not allowed."
+    },
+    {
+      "offset": "0x11f8a24",
+      "encoding": "ascii",
+      "value": "EMutating a value collection derived from a dictionary is not allowed."
+    },
+    {
+      "offset": "0x11f8ac0",
+      "encoding": "ascii",
+      "value": "~Anki.NET, Version=0.0.0.0, Culture=neutral, PublicKeyToken=nulldAnkiNet.CollectionFile.Database.Sql.CardsTable.sql"
+    },
+    {
+      "offset": "0x11f8b36",
+      "encoding": "ascii",
+      "value": "~Anki.NET, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null`AnkiNet.CollectionFile.Database.Sql.ColTable.sql"
+    },
+    {
+      "offset": "0x11f8bab",
+      "encoding": "ascii",
+      "value": "~Anki.NET, Version=0.0.0.0, Culture=neutral, PublicKeyToken=nullfAnkiNet.CollectionFile.Database.Sql.GravesTable.sql"
+    },
+    {
+      "offset": "0x11f8c23",
+      "encoding": "ascii",
+      "value": "~Anki.NET, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null^AnkiNet.CollectionFile.Database.Sql.Indexes.sql"
+    },
+    {
+      "offset": "0x11f8c97",
+      "encoding": "ascii",
+      "value": "~Anki.NET, Version=0.0.0.0, Culture=neutral, PublicKeyToken=nulldAnkiNet.CollectionFile.Database.Sql.NotesTable.sql9"
+    },
+    {
+      "offset": "0x11f8d0e",
+      "encoding": "ascii",
+      "value": "~Anki.NET, Version=0.0.0.0, Culture=neutral, PublicKeyToken=nullfAnkiNet.CollectionFile.Database.Sql.RevLogTable.sqlE"
+    },
+    {
+      "offset": "0x126ab81",
+      "encoding": "ascii",
+      "value": "dwFlags`*dwUrlRetrievalTimeouth2MaximumCachedCertificatesp*CycleDetectionModulusx"
+    },
+    {
+      "offset": "0x1534ac6",
+      "encoding": "ascii",
+      "value": "CoCreateFreeThreadedMarshaler"
+    },
+    {
+      "offset": "0x1534ae4",
+      "encoding": "ascii",
+      "value": "CoCreateInstance"
+    },
+    {
+      "offset": "0x1534b99",
+      "encoding": "ascii",
+      "value": "CreateDXGIFactory1"
+    },
+    {
+      "offset": "0x1535293",
+      "encoding": "ascii",
+      "value": "NormalizeString"
+    },
+    {
+      "offset": "0x153560e",
+      "encoding": "ascii",
+      "value": "RegisterHotKey"
+    },
+    {
+      "offset": "0x15358cb",
+      "encoding": "ascii",
+      "value": "TranslateMessage"
+    },
+    {
+      "offset": "0x15358fb",
+      "encoding": "ascii",
+      "value": "UnregisterHotKey"
+    },
+    {
+      "offset": "0x1535e91",
+      "encoding": "ascii",
+      "value": "dxgi.dll"
+    },
+    {
+      "offset": "0x1573bc0",
+      "encoding": "ascii",
+      "value": "<Lemma "
+    },
+    {
+      "offset": "0x1e545e0",
+      "encoding": "ascii",
+      "value": "invoking `before_screenshot` hook"
+    },
+    {
+      "offset": "0x1e548c8",
+      "encoding": "ascii",
+      "value": "Failed to save screenshot: \"%s\""
+    },
+    {
+      "offset": "0x1e548e8",
+      "encoding": "ascii",
+      "value": "Saved screenshot: \"%s\""
+    },
+    {
+      "offset": "0x1e54900",
+      "encoding": "ascii",
+      "value": "screenshot.png"
+    },
+    {
+      "offset": "0x1ea57f0",
+      "encoding": "ascii",
+      "value": "_ERROR_FORMAT_DICTIONARY"
+    },
+    {
+      "offset": "0x1ea5878",
+      "encoding": "ascii",
+      "value": "_ERROR_COMPOUND_DICTIONARY"
+    },
+    {
+      "offset": "0x1ea5898",
+      "encoding": "ascii",
+      "value": "_ERROR_DICTIONARY_NOT_SET"
+    },
+    {
+      "offset": "0x1ea7300",
+      "encoding": "ascii",
+      "value": "unorm2_isNormalized%s"
+    },
+    {
+      "offset": "0x1ea7318",
+      "encoding": "ascii",
+      "value": "unorm2_normalize%s"
+    },
+    {
+      "offset": "0x1ea96e0",
+      "encoding": "ascii",
+      "value": "need dictionary"
+    },
+    {
+      "offset": "0x1eb0825",
+      "encoding": "ascii",
+      "value": "nplazolargoobrasvistaapoyojuntotratavistocrearcampohemoscincocargopisosordenhacen"
+    },
+    {
+      "offset": "0x1eb331a",
+      "encoding": "ascii",
+      "value": "puestodiariopuebloquieremanuelpropiocrisisciertoseguromuertefuentecerrargrandeefectopartesmedidapropiaofrecetierrae-mailvariasformasfuturoobjetoseguirriesgonormasmismos"
+    },
+    {
+      "offset": "0x1eb487d",
+      "encoding": "ascii",
+      "value": "Many artistspoweredperformfictiontype ofmedicalticketsopposedCouncilwitnessjusticeGeorge Belgium...</a>twitternotablywaitingwarfare Other rankingphrasesmentionsurvivescholar</p>"
+    },
+    {
+      "offset": "0x1eb58e2",
+      "encoding": "ascii",
+      "value": " he left).val()false);logicalbankinghome tonaming Arizonacredits);"
+    },
+    {
+      "offset": "0x1ebc38b",
+      "encoding": "ascii",
+      "value": "function innovation>Copyrightsituationswould havebusinessesDictionarystatementsoften usedpersistentin Januarycomprising</title>"
+    },
+    {
+      "offset": "0x20d6d4c",
+      "encoding": "ascii",
+      "value": "BrotliDecoderAttachDictionary"
+    },
+    {
+      "offset": "0x20d6ee9",
+      "encoding": "ascii",
+      "value": "BrotliEncoderAttachPreparedDictionary"
+    },
+    {
+      "offset": "0x20d6f7a",
+      "encoding": "ascii",
+      "value": "BrotliEncoderDestroyPreparedDictionary"
+    },
+    {
+      "offset": "0x20d6ff3",
+      "encoding": "ascii",
+      "value": "BrotliEncoderPrepareDictionary"
+    },
+    {
+      "offset": "0x20d7059",
+      "encoding": "ascii",
+      "value": "BrotliGetDictionary"
+    },
+    {
+      "offset": "0x20d7081",
+      "encoding": "ascii",
+      "value": "BrotliSetDictionaryData"
+    },
+    {
+      "offset": "0x20d7099",
+      "encoding": "ascii",
+      "value": "BrotliSharedDictionaryAttach"
+    },
+    {
+      "offset": "0x20d70b6",
+      "encoding": "ascii",
+      "value": "BrotliSharedDictionaryCreateInstance"
+    },
+    {
+      "offset": "0x20d70db",
+      "encoding": "ascii",
+      "value": "BrotliSharedDictionaryDestroyInstance"
+    },
+    {
+      "offset": "0x20d7101",
+      "encoding": "ascii",
+      "value": "BrotliTransformDictionaryWord"
+    },
+    {
+      "offset": "0x20d9e32",
+      "encoding": "ascii",
+      "value": "CoCreateGuid"
+    },
+    {
+      "offset": "0x11f122f",
+      "encoding": "utf16le",
+      "value": "InvalidOperation_CollectionBackingDictionaryTooLarge"
+    },
+    {
+      "offset": "0x11f1e0f",
+      "encoding": "utf16le",
+      "value": "InvalidOperation_CollectionBackingDictionaryTooLarge"
+    },
+    {
+      "offset": "0x11f294b",
+      "encoding": "utf16le",
+      "value": "InvalidOperation_CollectionBackingDictionaryTooLarge"
+    },
+    {
+      "offset": "0x11f3506",
+      "encoding": "utf16le",
+      "value": "InvalidOperation_CollectionBackingDictionaryTooLarge"
+    },
+    {
+      "offset": "0x11f4025",
+      "encoding": "utf16le",
+      "value": "InvalidOperation_CollectionBackingDictionaryTooLarge"
+    },
+    {
+      "offset": "0x11f4c83",
+      "encoding": "utf16le",
+      "value": "InvalidOperation_CollectionBackingDictionaryTooLarge"
+    },
+    {
+      "offset": "0x11f57e8",
+      "encoding": "utf16le",
+      "value": "InvalidOperation_CollectionBackingDictionaryTooLarge"
+    },
+    {
+      "offset": "0x11f62fa",
+      "encoding": "utf16le",
+      "value": "InvalidOperation_CollectionBackingDictionaryTooLarge"
+    },
+    {
+      "offset": "0x11f70bf",
+      "encoding": "utf16le",
+      "value": "InvalidOperation_CollectionBackingDictionaryTooLarge"
+    },
+    {
+      "offset": "0x11f7a42",
+      "encoding": "utf16le",
+      "value": "InvalidOperation_CollectionBackingDictionaryTooLarge"
+    },
+    {
+      "offset": "0x11f83f1",
+      "encoding": "utf16le",
+      "value": "InvalidOperation_CollectionBackingDictionaryTooLarge"
+    },
+    {
+      "offset": "0x1cc1260",
+      "encoding": "utf16le",
+      "value": "undefinendefinedYou are a profes) translPlease translate the fol text inLookuppe (WindowLicenseCenseCode"
+    },
+    {
+      "offset": "0x1cc2030",
+      "encoding": "utf16le",
+      "value": "Duplicated frame format  is neither BGRA8 nor FPDuplicated frame, expectNo DXGI output c"
+    },
+    {
+      "offset": "0x1cc38fc",
+      "encoding": "utf16le",
+      "value": "  -hant-tw/models/translategemma-4"
+    },
+    {
+      "offset": "0x1cc4190",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Status__Require"
+    },
+    {
+      "offset": "0x1cc41d0",
+      "encoding": "utf16le",
+      "value": "AnkiSyncAnkiSync"
+    },
+    {
+      "offset": "0x1cc44a0",
+      "encoding": "utf16le",
+      "value": "AnkiSync"
+    },
+    {
+      "offset": "0x1cc4580",
+      "encoding": "utf16le",
+      "value": "User-imported dictionary"
+    },
+    {
+      "offset": "0x1cc4ed0",
+      "encoding": "utf16le",
+      "value": "DeletionnSummaryProgresssMaximumPendingSgSummarySyncToAnoAnkiWebHasIncomcompleteessStageessValueHasDeleteletionsressTextRemovalHovalHintRemovalMovalModeWordAudirdAudiosReverseCrseCardsScreenshshotModeContextMtextMode"
+    },
+    {
+      "offset": "0x1cc5380",
+      "encoding": "utf16le",
+      "value": "TableScreenshotsProgresssMaximumTableWorrdAudiosessStageessValueressTextCefrLeveefrLevelLanguageguageTag"
+    },
+    {
+      "offset": "0x1ccb480",
+      "encoding": "utf16le",
+      "value": "LZMA: invalid dictionary\\"
+    },
+    {
+      "offset": "0x20ee18c",
+      "encoding": "utf16le",
+      "value": " yomitan_ref"
+    },
+    {
+      "offset": "0x20f02ec",
+      "encoding": "utf16le",
+      "value": "' is an MDict "
+    },
+    {
+      "offset": "0x20f04bc",
+      "encoding": "utf16le",
+      "value": "' is not a Sudachi system dictionary."
+    },
+    {
+      "offset": "0x20f051c",
+      "encoding": "utf16le",
+      "value": "' is not a Yomitan index."
+    },
+    {
+      "offset": "0x20f0a14",
+      "encoding": "utf16le",
+      "value": "' was called without initializing the RCW methods using 'IDictionaryMethods.InitRcwHelper'. "
+    },
+    {
+      "offset": "0x20f0d4c",
+      "encoding": "utf16le",
+      "value": "' was called without initializing the RCW methods using 'IReadOnlyDictionaryMethods.InitRcwHelper'. "
+    },
+    {
+      "offset": "0x20f187c",
+      "encoding": "utf16le",
+      "value": "'IDictionary<K, V>.FromAbi' relies on 'IDynamicInterfaceCastable' support, which is not currently available. Make sure the 'EnableIDynamicInterfaceCastableSupport' property is not set to 'false'."
+    },
+    {
+      "offset": "0x20f5894",
+      "encoding": "utf16le",
+      "value": ") translator. "
+    },
+    {
+      "offset": "0x20f60fa",
+      "encoding": "utf16le",
+      "value": "    DictionaryForm = "
+    },
+    {
+      "offset": "0x20f66f4",
+      "encoding": "utf16le",
+      "value": ", AnkiWebFailed = "
+    },
+    {
+      "offset": "0x20f722c",
+      "encoding": "utf16le",
+      "value": ", DetectionConfidenceThreshold = "
+    },
+    {
+      "offset": "0x20f7284",
+      "encoding": "utf16le",
+      "value": ", DictionaryForm = "
+    },
+    {
+      "offset": "0x20f72c4",
+      "encoding": "utf16le",
+      "value": ", DictionaryFormReading = "
+    },
+    {
+      "offset": "0x20f7314",
+      "encoding": "utf16le",
+      "value": ", DictionaryFormWordId = "
+    },
+    {
+      "offset": "0x20f87bc",
+      "encoding": "utf16le",
+      "value": ", NormalizedForm = "
+    },
+    {
+      "offset": "0x20f8904",
+      "encoding": "utf16le",
+      "value": ", OcrLanguageTag = "
+    },
+    {
+      "offset": "0x20f8944",
+      "encoding": "utf16le",
+      "value": ", OcrResult = "
+    },
+    {
+      "offset": "0x20f8ebc",
+      "encoding": "utf16le",
+      "value": ", RawDictionaryForm = "
+    },
+    {
+      "offset": "0x20f8f04",
+      "encoding": "utf16le",
+      "value": ", RawNormalizedForm = "
+    },
+    {
+      "offset": "0x20f909c",
+      "encoding": "utf16le",
+      "value": ", RecognitionConfidenceThreshold = "
+    },
+    {
+      "offset": "0x20f95a4",
+      "encoding": "utf16le",
+      "value": ", Screenshots = "
+    },
+    {
+      "offset": "0x20f9844",
+      "encoding": "utf16le",
+      "value": ", SyncedToAnkiWeb = "
+    },
+    {
+      "offset": "0x20fcad4",
+      "encoding": "utf16le",
+      "value": "/dictionary_catalog"
+    },
+    {
+      "offset": "0x20fcc3c",
+      "encoding": "utf16le",
+      "value": "/looktionary/v2"
+    },
+    {
+      "offset": "0x20fcc74",
+      "encoding": "utf16le",
+      "value": "/looktionary/v2/explain"
+    },
+    {
+      "offset": "0x20fccbc",
+      "encoding": "utf16le",
+      "value": "/models/chinese/chinese-segmenter-latest.zip"
+    },
+    {
+      "offset": "0x20fcd2c",
+      "encoding": "utf16le",
+      "value": "/models/kiwi/kiwi-latest.zip"
+    },
+    {
+      "offset": "0x20fcd7c",
+      "encoding": "utf16le",
+      "value": "/models/sudachi/sudachi-dictionary-latest-core.zip"
+    },
+    {
+      "offset": "0x20fcdfc",
+      "encoding": "utf16le",
+      "value": "/models/translategemma-4b"
+    },
+    {
+      "offset": "0x20fcf14",
+      "encoding": "utf16le",
+      "value": "/translateAI/v2/paragraph"
+    },
+    {
+      "offset": "0x20fcf5c",
+      "encoding": "utf16le",
+      "value": "/translateAI/v2/screen"
+    },
+    {
+      "offset": "0x20fcfa4",
+      "encoding": "utf16le",
+      "value": "/translateAI/v2/word_context"
+    },
+    {
+      "offset": "0x210439c",
+      "encoding": "utf16le",
+      "value": "; translateTo="
+    },
+    {
+      "offset": "0x2104534",
+      "encoding": "utf16le",
+      "value": "<!-- Lookupper template. Lookupper never touches this template after the first import, so edit it freely; the Anki sync dialog in Lookupper can reset it. Your own styles go under Styling. --><link rel=\"stylesheet\" href=\""
+    },
+    {
+      "offset": "0x2104cfc",
+      "encoding": "utf16le",
+      "value": "<comm.DbConnectionStringBuilder.IDictionary.GetEnumerator|API> {0}"
+    },
+    {
+      "offset": "0x2105164",
+      "encoding": "utf16le",
+      "value": "<div class=\"yomitan_glossary\">"
+    },
+    {
+      "offset": "0x21051bc",
+      "encoding": "utf16le",
+      "value": "<div class=\"yomitan_headword\"><span class=\"yomitan_term\">"
+    },
+    {
+      "offset": "0x210530c",
+      "encoding": "utf16le",
+      "value": "<h1 class=\"lk-word\">{{#Article}}<span class=\"lk-article\">{{Article}}</span>{{/Article}}{{#Reading}}<ruby>{{/Reading}}{{#DictionaryForm}}{{DictionaryForm}}{{/DictionaryForm}}{{^DictionaryForm}}{{Word}}{{/DictionaryForm}}{{#Reading}}<rt>{{Reading}}</rt></ruby>{{/Reading}}{{#WordSound}}<span class=\"lk-audio\">{{WordSound}}</span>{{/WordSound}}</h1>"
+    },
+    {
+      "offset": "0x21055dc",
+      "encoding": "utf16le",
+      "value": "<img class=\"yomitan_image\" src=\""
+    },
+    {
+      "offset": "0x2105b04",
+      "encoding": "utf16le",
+      "value": "<span class=\"yomitan_reading\">"
+    },
+    {
+      "offset": "0x2105b5c",
+      "encoding": "utf16le",
+      "value": "<span class=\"yomitan_tag\""
+    },
+    {
+      "offset": "0x2108174",
+      "encoding": "utf16le",
+      "value": "ABI.System.Collections.Generic.ConstantSplittableMap`2[Lookupper.Core.Segmentation.Japanese.Sudachi.CategoryType,Lookupper.Core.Segmentation.Japanese.Sudachi.CategoryInfo]"
+    },
+    {
+      "offset": "0x210a354",
+      "encoding": "utf16le",
+      "value": "AI Translator"
+    },
+    {
+      "offset": "0x210b6d4",
+      "encoding": "utf16le",
+      "value": "ActiveDictionaryIds"
+    },
+    {
+      "offset": "0x210e4cc",
+      "encoding": "utf16le",
+      "value": "AnkiCard"
+    },
+    {
+      "offset": "0x210e4f4",
+      "encoding": "utf16le",
+      "value": "AnkiCardExporter_Label_Details"
+    },
+    {
+      "offset": "0x210e54c",
+      "encoding": "utf16le",
+      "value": "AnkiCardType"
+    },
+    {
+      "offset": "0x210e57c",
+      "encoding": "utf16le",
+      "value": "AnkiCleanUp"
+    },
+    {
+      "offset": "0x210e5ac",
+      "encoding": "utf16le",
+      "value": "AnkiConnectPort"
+    },
+    {
+      "offset": "0x210e5e4",
+      "encoding": "utf16le",
+      "value": "AnkiDeck"
+    },
+    {
+      "offset": "0x210e60c",
+      "encoding": "utf16le",
+      "value": "AnkiNet.CollectionFile.Database.Sql.CardsTable.sql"
+    },
+    {
+      "offset": "0x210e68c",
+      "encoding": "utf16le",
+      "value": "AnkiNet.CollectionFile.Database.Sql.ColTable.sql"
+    },
+    {
+      "offset": "0x210e704",
+      "encoding": "utf16le",
+      "value": "AnkiNet.CollectionFile.Database.Sql.GravesTable.sql"
+    },
+    {
+      "offset": "0x210e784",
+      "encoding": "utf16le",
+      "value": "AnkiNet.CollectionFile.Database.Sql.Indexes.sql"
+    },
+    {
+      "offset": "0x210e7fc",
+      "encoding": "utf16le",
+      "value": "AnkiNet.CollectionFile.Database.Sql.NotesTable.sql"
+    },
+    {
+      "offset": "0x210e87c",
+      "encoding": "utf16le",
+      "value": "AnkiNet.CollectionFile.Database.Sql.RevLogTable.sql"
+    },
+    {
+      "offset": "0x210e8fc",
+      "encoding": "utf16le",
+      "value": "AnkiNote"
+    },
+    {
+      "offset": "0x210e924",
+      "encoding": "utf16le",
+      "value": "AnkiNoteType"
+    },
+    {
+      "offset": "0x210e954",
+      "encoding": "utf16le",
+      "value": "AnkiNoteType needs at least one AnkiCardType"
+    },
+    {
+      "offset": "0x210e9c4",
+      "encoding": "utf16le",
+      "value": "AnkiSyncContextMode"
+    },
+    {
+      "offset": "0x210ea04",
+      "encoding": "utf16le",
+      "value": "AnkiSyncLastSyncedAt"
+    },
+    {
+      "offset": "0x210ea44",
+      "encoding": "utf16le",
+      "value": "AnkiSyncOutcome"
+    },
+    {
+      "offset": "0x210ea7c",
+      "encoding": "utf16le",
+      "value": "AnkiSyncPreview"
+    },
+    {
+      "offset": "0x210eab4",
+      "encoding": "utf16le",
+      "value": "AnkiSyncRemovalMode"
+    },
+    {
+      "offset": "0x210eaf4",
+      "encoding": "utf16le",
+      "value": "AnkiSyncReverseCards"
+    },
+    {
+      "offset": "0x210eb34",
+      "encoding": "utf16le",
+      "value": "AnkiSyncScreenshotMode"
+    },
+    {
+      "offset": "0x210eb7c",
+      "encoding": "utf16le",
+      "value": "AnkiSyncToAnkiWeb"
+    },
+    {
+      "offset": "0x210ebb4",
+      "encoding": "utf16le",
+      "value": "AnkiSyncWordAudios"
+    },
+    {
+      "offset": "0x210ebf4",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Bar_CancelButton"
+    },
+    {
+      "offset": "0x210ec3c",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Bar_ConfigureButton"
+    },
+    {
+      "offset": "0x210ec8c",
+      "encoding": "utf16le",
+      "value": "AnkiSync_CloseButton"
+    },
+    {
+      "offset": "0x210eccc",
+      "encoding": "utf16le",
+      "value": "AnkiSync_DoneButton"
+    },
+    {
+      "offset": "0x210ed0c",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Error_"
+    },
+    {
+      "offset": "0x210ed44",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Error_Unexpected"
+    },
+    {
+      "offset": "0x210ed8c",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Finished_AnkiWebFailed"
+    },
+    {
+      "offset": "0x210ede4",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Finished_Deleted"
+    },
+    {
+      "offset": "0x210ee2c",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Finished_Hint"
+    },
+    {
+      "offset": "0x210ee74",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Finished_HintWithAnkiWeb"
+    },
+    {
+      "offset": "0x210eecc",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Finished_MarkFailed"
+    },
+    {
+      "offset": "0x210ef1c",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Finished_Marked"
+    },
+    {
+      "offset": "0x210ef64",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Finished_NothingToSend"
+    },
+    {
+      "offset": "0x210efbc",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Finished_Resumed"
+    },
+    {
+      "offset": "0x210f004",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Finished_Summary"
+    },
+    {
+      "offset": "0x210f04c",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Finished_Suspended"
+    },
+    {
+      "offset": "0x210f09c",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Finished_Title"
+    },
+    {
+      "offset": "0x210f0e4",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Finished_Undeleted"
+    },
+    {
+      "offset": "0x210f134",
+      "encoding": "utf16le",
+      "value": "AnkiSync_LastSynced"
+    },
+    {
+      "offset": "0x210f174",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Pending_Deleted"
+    },
+    {
+      "offset": "0x210f1bc",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Pending_New"
+    },
+    {
+      "offset": "0x210f1fc",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Pending_NewAndUpdated"
+    },
+    {
+      "offset": "0x210f254",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Pending_Updated"
+    },
+    {
+      "offset": "0x210f29c",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Progress_AnkiWeb"
+    },
+    {
+      "offset": "0x210f2e4",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Progress_Building"
+    },
+    {
+      "offset": "0x210f334",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Progress_Checking"
+    },
+    {
+      "offset": "0x210f384",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Progress_Collecting"
+    },
+    {
+      "offset": "0x210f3d4",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Progress_Importing"
+    },
+    {
+      "offset": "0x210f424",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Removal_DeleteHint"
+    },
+    {
+      "offset": "0x210f474",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Removal_TagHint"
+    },
+    {
+      "offset": "0x210f4bc",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Requirements_"
+    },
+    {
+      "offset": "0x210f504",
+      "encoding": "utf16le",
+      "value": "AnkiSync_ResetTemplates_Done"
+    },
+    {
+      "offset": "0x210f554",
+      "encoding": "utf16le",
+      "value": "AnkiSync_ResetTemplates_Failed"
+    },
+    {
+      "offset": "0x210f5ac",
+      "encoding": "utf16le",
+      "value": "AnkiSync_ShowRemovedButton"
+    },
+    {
+      "offset": "0x210f5fc",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Status_"
+    },
+    {
+      "offset": "0x210f634",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Status_Checking"
+    },
+    {
+      "offset": "0x210f67c",
+      "encoding": "utf16le",
+      "value": "AnkiSync_SyncButton"
+    },
+    {
+      "offset": "0x210f6bc",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Title"
+    },
+    {
+      "offset": "0x210f6f4",
+      "encoding": "utf16le",
+      "value": "AnkiSync_Tooltip_NeverSynced"
+    },
+    {
+      "offset": "0x210f744",
+      "encoding": "utf16le",
+      "value": "AnkiSyncedOptions"
+    },
+    {
+      "offset": "0x210fd7c",
+      "encoding": "utf16le",
+      "value": "AppMode_PopupDictionary/Text"
+    },
+    {
+      "offset": "0x210fdcc",
+      "encoding": "utf16le",
+      "value": "AppMode_PopupDictionary_Desc"
+    },
+    {
+      "offset": "0x210fe1c",
+      "encoding": "utf16le",
+      "value": "AppMode_ScreenTranslator/Text"
+    },
+    {
+      "offset": "0x210fe6c",
+      "encoding": "utf16le",
+      "value": "AppMode_ScreenTranslator_Desc"
+    },
+    {
+      "offset": "0x21115bc",
+      "encoding": "utf16le",
+      "value": "Article_Yomitan_Frequency"
+    },
+    {
+      "offset": "0x2111604",
+      "encoding": "utf16le",
+      "value": "Article_Yomitan_PitchAccent"
+    },
+    {
+      "offset": "0x21181d4",
+      "encoding": "utf16le",
+      "value": "Cannot create Dictionary from provided samples"
+    },
+    {
+      "offset": "0x211bfdc",
+      "encoding": "utf16le",
+      "value": "Carriage return (#xD), line feed (#xA), and tab (#x9) characters are not allowed in xs:normalizedString."
+    },
+    {
+      "offset": "0x211cf9c",
+      "encoding": "utf16le",
+      "value": "CoCreateFreeThreadedMarshaler"
+    },
+    {
+      "offset": "0x2126384",
+      "encoding": "utf16le",
+      "value": "CustomDictionaryMetadata"
+    },
+    {
+      "offset": "0x2129db4",
+      "encoding": "utf16le",
+      "value": "Detection"
+    },
+    {
+      "offset": "0x212a28c",
+      "encoding": "utf16le",
+      "value": "Dictionary"
+    },
+    {
+      "offset": "0x212a2bc",
+      "encoding": "utf16le",
+      "value": "Dictionary is corrupted"
+    },
+    {
+      "offset": "0x212a304",
+      "encoding": "utf16le",
+      "value": "Dictionary mismatch"
+    },
+    {
+      "offset": "0x212a344",
+      "encoding": "utf16le",
+      "value": "DictionaryDeleteConfirmation_CloseButtonText"
+    },
+    {
+      "offset": "0x212a3b4",
+      "encoding": "utf16le",
+      "value": "DictionaryDeleteConfirmation_Content"
+    },
+    {
+      "offset": "0x212a414",
+      "encoding": "utf16le",
+      "value": "DictionaryDeleteConfirmation_PrimaryButtonText"
+    },
+    {
+      "offset": "0x212a48c",
+      "encoding": "utf16le",
+      "value": "DictionaryDeleteConfirmation_Title"
+    },
+    {
+      "offset": "0x212a4ec",
+      "encoding": "utf16le",
+      "value": "DictionaryEntries"
+    },
+    {
+      "offset": "0x212a524",
+      "encoding": "utf16le",
+      "value": "DictionaryEntryViewModel"
+    },
+    {
+      "offset": "0x212a56c",
+      "encoding": "utf16le",
+      "value": "DictionaryForm"
+    },
+    {
+      "offset": "0x212a5a4",
+      "encoding": "utf16le",
+      "value": "DictionaryImport_FilePicker_CommitButton"
+    },
+    {
+      "offset": "0x212a60c",
+      "encoding": "utf16le",
+      "value": "DictionaryInfo"
+    },
+    {
+      "offset": "0x212a644",
+      "encoding": "utf16le",
+      "value": "DictionaryInfo_DescriptionShowLess"
+    },
+    {
+      "offset": "0x212a6a4",
+      "encoding": "utf16le",
+      "value": "DictionaryInfo_DescriptionShowMore"
+    },
+    {
+      "offset": "0x212a704",
+      "encoding": "utf16le",
+      "value": "DictionaryInfo_ErrorArchiveUnreadable"
+    },
+    {
+      "offset": "0x212a764",
+      "encoding": "utf16le",
+      "value": "DictionaryInfo_ErrorArchiveVolumeMissing"
+    },
+    {
+      "offset": "0x212a7cc",
+      "encoding": "utf16le",
+      "value": "DictionaryInfo_ErrorDictionaryInstallationInterrupted"
+    },
+    {
+      "offset": "0x212a84c",
+      "encoding": "utf16le",
+      "value": "DictionaryInfo_ErrorFilesMissing"
+    },
+    {
+      "offset": "0x212a8a4",
+      "encoding": "utf16le",
+      "value": "DictionaryInfo_ErrorFilesUnavailable"
+    },
+    {
+      "offset": "0x212a904",
+      "encoding": "utf16le",
+      "value": "DictionaryInfo_ErrorFormatNotSupported"
+    },
+    {
+      "offset": "0x212a96c",
+      "encoding": "utf16le",
+      "value": "DictionaryInfo_ErrorIndexingFailed"
+    },
+    {
+      "offset": "0x212a9cc",
+      "encoding": "utf16le",
+      "value": "DictionaryInfo_ErrorNoDictionariesFoundInArchive"
+    },
+    {
+      "offset": "0x212aa44",
+      "encoding": "utf16le",
+      "value": "DictionaryInfo_InfoBar_Downloading"
+    },
+    {
+      "offset": "0x212aaa4",
+      "encoding": "utf16le",
+      "value": "DictionaryInfo_InfoBar_IndexingWithProgress"
+    },
+    {
+      "offset": "0x212ab14",
+      "encoding": "utf16le",
+      "value": "DictionaryInfo_InfoBar_UnarchivingWithProgress"
+    },
+    {
+      "offset": "0x212ab8c",
+      "encoding": "utf16le",
+      "value": "DictionaryInfo_RequiresNewerApp"
+    },
+    {
+      "offset": "0x212abe4",
+      "encoding": "utf16le",
+      "value": "DictionaryInstallProgress"
+    },
+    {
+      "offset": "0x212ac2c",
+      "encoding": "utf16le",
+      "value": "DictionaryRecord"
+    },
+    {
+      "offset": "0x212ac64",
+      "encoding": "utf16le",
+      "value": "DictionarySettingsPanel"
+    },
+    {
+      "offset": "0x212acac",
+      "encoding": "utf16le",
+      "value": "DictionaryTemplate"
+    },
+    {
+      "offset": "0x212e5c4",
+      "encoding": "utf16le",
+      "value": "EngineDictionary"
+    },
+    {
+      "offset": "0x21325fc",
+      "encoding": "utf16le",
+      "value": "ExportDialog_Title_AnkiDeck"
+    },
+    {
+      "offset": "0x21327d4",
+      "encoding": "utf16le",
+      "value": "ExportScreenshotMode"
+    },
+    {
+      "offset": "0x2132814",
+      "encoding": "utf16le",
+      "value": "ExportTableScreenshots"
+    },
+    {
+      "offset": "0x2133fa4",
+      "encoding": "utf16le",
+      "value": "Failed to fetch LookupperDictionaryData"
+    },
+    {
+      "offset": "0x2134c3c",
+      "encoding": "utf16le",
+      "value": "Failed to read Lookupper TranslateAI response. Please try again."
+    },
+    {
+      "offset": "0x2135efc",
+      "encoding": "utf16le",
+      "value": "Falling back to stack trace check for trimming detection"
+    },
+    {
+      "offset": "0x2138adc",
+      "encoding": "utf16le",
+      "value": "GNU Collaborative International Dictionary of English"
+    },
+    {
+      "offset": "0x2138dcc",
+      "encoding": "utf16le",
+      "value": "GamepadHotkey"
+    },
+    {
+      "offset": "0x213c94c",
+      "encoding": "utf16le",
+      "value": "Hotkey"
+    },
+    {
+      "offset": "0x213c974",
+      "encoding": "utf16le",
+      "value": "HotkeyBox_NotSet"
+    },
+    {
+      "offset": "0x213c9ac",
+      "encoding": "utf16le",
+      "value": "HotkeyBox_Placeholder"
+    },
+    {
+      "offset": "0x213c9ec",
+      "encoding": "utf16le",
+      "value": "HotkeyBox_Tooltip"
+    },
+    {
+      "offset": "0x213f43c",
+      "encoding": "utf16le",
+      "value": "IDictionary`2"
+    },
+    {
+      "offset": "0x213f7ee",
+      "encoding": "utf16le",
+      "value": "    LongContextHtml, ContextReading, DictionaryForm, Definition, DefinitionLanguageTag,"
+    },
+    {
+      "offset": "0x213feec",
+      "encoding": "utf16le",
+      "value": "IReadOnlyDictionary`2"
+    },
+    {
+      "offset": "0x21410cc",
+      "encoding": "utf16le",
+      "value": "ImportedDictionaryResult"
+    },
+    {
+      "offset": "0x21457f4",
+      "encoding": "utf16le",
+      "value": "InvalidOperation_CollectionBackingDictionaryTooLarge"
+    },
+    {
+      "offset": "0x2146924",
+      "encoding": "utf16le",
+      "value": "IsDefinitionDictionary"
+    },
+    {
+      "offset": "0x2146c04",
+      "encoding": "utf16le",
+      "value": "IsFetchingDictionaryData"
+    },
+    {
+      "offset": "0x2147a44",
+      "encoding": "utf16le",
+      "value": "IsOpticalCharacterRecognition"
+    },
+    {
+      "offset": "0x214849c",
+      "encoding": "utf16le",
+      "value": "IsTranslationDictionary"
+    },
+    {
+      "offset": "0x21488e4",
+      "encoding": "utf16le",
+      "value": "Item has already been added. Key in dictionary: '{0}'  Key being added: '{1}'"
+    },
+    {
+      "offset": "0x214a2ac",
+      "encoding": "utf16le",
+      "value": "KeyboardHotkey"
+    },
+    {
+      "offset": "0x214a9f4",
+      "encoding": "utf16le",
+      "value": "LEMMA_PRESENT"
+    },
+    {
+      "offset": "0x214ae9c",
+      "encoding": "utf16le",
+      "value": "LZMA: invalid dictionary size "
+    },
+    {
+      "offset": "0x214cc36",
+      "encoding": "utf16le",
+      "value": " AI Dictionary"
+    },
+    {
+      "offset": "0x214ce74",
+      "encoding": "utf16le",
+      "value": "LookupGamepadHotkey"
+    },
+    {
+      "offset": "0x214cefc",
+      "encoding": "utf16le",
+      "value": "LookupMouseHotkey"
+    },
+    {
+      "offset": "0x214e814",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.GamepadHotkeyBox"
+    },
+    {
+      "offset": "0x214e884",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.HotkeyCaptureBox"
+    },
+    {
+      "offset": "0x214e8f4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.HotkeyCaptureBox.ActionContent"
+    },
+    {
+      "offset": "0x214e984",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.HotkeyCaptureBox.Glyph"
+    },
+    {
+      "offset": "0x214ea04",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.HotkeyCaptureBox.IsCapturing"
+    },
+    {
+      "offset": "0x214ea8c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.HotkeyCaptureBox.PlaceholderText"
+    },
+    {
+      "offset": "0x214eb1c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.HotkeyCaptureBox.Text"
+    },
+    {
+      "offset": "0x214eb9c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.KeyboardHotkeyBox"
+    },
+    {
+      "offset": "0x214ec14",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.Hotkeys.MouseHotkeyBox"
+    },
+    {
+      "offset": "0x214ec84",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.OcrLanguagePicker"
+    },
+    {
+      "offset": "0x214ecec",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.OcrLanguagePicker.SelectedChoice"
+    },
+    {
+      "offset": "0x214eff4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Components.TranslateToLanguagePicker"
+    },
+    {
+      "offset": "0x214f0bc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Models.Dictionary"
+    },
+    {
+      "offset": "0x214f1ac",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Views.DictionaryInfoControl"
+    },
+    {
+      "offset": "0x214f234",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Views.DictionaryInfoControl.Dict"
+    },
+    {
+      "offset": "0x214f2c4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Views.DictionaryInfoControl.HideControls"
+    },
+    {
+      "offset": "0x214f48c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Views.TranslatorSettingsControl"
+    },
+    {
+      "offset": "0x214f5ac",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Dictionaries.Views.TreeViewTemplateSelector.DictionaryTemplate"
+    },
+    {
+      "offset": "0x214ffc4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.SavedWords.Views.AnkiSyncDialog"
+    },
+    {
+      "offset": "0x2150b74",
+      "encoding": "utf16le",
+      "value": "Lookupper.Core.Settings.Views.TranslateGemmaDownloadDialog"
+    },
+    {
+      "offset": "0x215112c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.ViewModels.DictionaryEntryViewModel"
+    },
+    {
+      "offset": "0x2151374",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.ArticleTemplate.DictionaryEntryViewModel"
+    },
+    {
+      "offset": "0x21515dc",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.DictionaryEntryDataTemplateSelector"
+    },
+    {
+      "offset": "0x215166c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.DictionaryEntryDataTemplateSelector.Article"
+    },
+    {
+      "offset": "0x215170c",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.DictionaryEntryDataTemplateSelector.Looktionary"
+    },
+    {
+      "offset": "0x21517b4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.DictionaryEntryDataTemplateSelector.Translator"
+    },
+    {
+      "offset": "0x2151c04",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.LooktionaryTemplate.DictionaryEntryViewModel"
+    },
+    {
+      "offset": "0x2151ca4",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.OCRSettingsControl"
+    },
+    {
+      "offset": "0x2152014",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.TranslatorTemplate"
+    },
+    {
+      "offset": "0x2152084",
+      "encoding": "utf16le",
+      "value": "Lookupper.Lookups.Views.TranslatorTemplate.DictionaryEntryViewModel"
+    },
+    {
+      "offset": "0x21521fc",
+      "encoding": "utf16le",
+      "value": "Lookupper.OCR.Models.OcrLanguageChoice"
+    },
+    {
+      "offset": "0x2152264",
+      "encoding": "utf16le",
+      "value": "Lookupper.Onboarding.Views.HotkeyStepPage"
+    },
+    {
+      "offset": "0x2152664",
+      "encoding": "utf16le",
+      "value": "Lookupper.Services.AnkiSyncService"
+    },
+    {
+      "offset": "0x2152da4",
+      "encoding": "utf16le",
+      "value": "LookupperHotkeyId"
+    },
+    {
+      "offset": "0x2154894",
+      "encoding": "utf16le",
+      "value": "M_IsLemmaDifferent_3817827563"
+    },
+    {
+      "offset": "0x215d3bc",
+      "encoding": "utf16le",
+      "value": "Microsoft.UI.Input.InputPreTranslateKeyboardSource"
+    },
+    {
+      "offset": "0x2178534",
+      "encoding": "utf16le",
+      "value": "Microsoft.UI.Xaml.Media.TranslateTransform"
+    },
+    {
+      "offset": "0x217895c",
+      "encoding": "utf16le",
+      "value": "Microsoft.UI.Xaml.ResourceDictionary"
+    },
+    {
+      "offset": "0x217a69c",
+      "encoding": "utf16le",
+      "value": "MouseHotkey"
+    },
+    {
+      "offset": "0x217a6cc",
+      "encoding": "utf16le",
+      "value": "MouseHotkeyBox_Placeholder"
+    },
+    {
+      "offset": "0x217a71c",
+      "encoding": "utf16le",
+      "value": "MouseHotkeyBox_Tooltip"
+    },
+    {
+      "offset": "0x217b2fc",
+      "encoding": "utf16le",
+      "value": "Mutating a key collection derived from a dictionary is not allowed."
+    },
+    {
+      "offset": "0x217b39c",
+      "encoding": "utf16le",
+      "value": "Mutating a value collection derived from a dictionary is not allowed."
+    },
+    {
+      "offset": "0x217b43c",
+      "encoding": "utf16le",
+      "value": "MutedDictionaryIds"
+    },
+    {
+      "offset": "0x217c5b4",
+      "encoding": "utf16le",
+      "value": "No .mdx file in '"
+    },
+    {
+      "offset": "0x217c74c",
+      "encoding": "utf16le",
+      "value": "No DXGI output covers "
+    },
+    {
+      "offset": "0x217caa4",
+      "encoding": "utf16le",
+      "value": "No Yomitan banks in '"
+    },
+    {
+      "offset": "0x217ceac",
+      "encoding": "utf16le",
+      "value": "No dictionary folder at '"
+    },
+    {
+      "offset": "0x217d154",
+      "encoding": "utf16le",
+      "value": "No jmdict-simplified .json file in '"
+    },
+    {
+      "offset": "0x217dbcc",
+      "encoding": "utf16le",
+      "value": "NormalizedString"
+    },
+    {
+      "offset": "0x218070c",
+      "encoding": "utf16le",
+      "value": "Ocr.GpuFallback.Detection"
+    },
+    {
+      "offset": "0x2180754",
+      "encoding": "utf16le",
+      "value": "Ocr.GpuFallback.Recognition"
+    },
+    {
+      "offset": "0x21807a4",
+      "encoding": "utf16le",
+      "value": "Ocr.GpuSessionFailed"
+    },
+    {
+      "offset": "0x21807e4",
+      "encoding": "utf16le",
+      "value": "OcrCharacter"
+    },
+    {
+      "offset": "0x2180814",
+      "encoding": "utf16le",
+      "value": "OcrLanguage"
+    },
+    {
+      "offset": "0x2180844",
+      "encoding": "utf16le",
+      "value": "OcrLine"
+    },
+    {
+      "offset": "0x218086c",
+      "encoding": "utf16le",
+      "value": "OcrModels"
+    },
+    {
+      "offset": "0x2180894",
+      "encoding": "utf16le",
+      "value": "OcrParagraph"
+    },
+    {
+      "offset": "0x21808c4",
+      "encoding": "utf16le",
+      "value": "OcrResult"
+    },
+    {
+      "offset": "0x21808ec",
+      "encoding": "utf16le",
+      "value": "OcrWord"
+    },
+    {
+      "offset": "0x2180914",
+      "encoding": "utf16le",
+      "value": "OcrWord = "
+    },
+    {
+      "offset": "0x2180944",
+      "encoding": "utf16le",
+      "value": "OcrWordContext"
+    },
+    {
+      "offset": "0x2180f84",
+      "encoding": "utf16le",
+      "value": "Onboarding_Diagnose_ChangeHotkeyButton"
+    },
+    {
+      "offset": "0x21811cc",
+      "encoding": "utf16le",
+      "value": "Onboarding_HotkeyStep_Title_Dictionary"
+    },
+    {
+      "offset": "0x2181234",
+      "encoding": "utf16le",
+      "value": "Onboarding_HotkeyStep_Title_Translator"
+    },
+    {
+      "offset": "0x218137c",
+      "encoding": "utf16le",
+      "value": "Onboarding_Pick_Dictionary_Message"
+    },
+    {
+      "offset": "0x218141c",
+      "encoding": "utf16le",
+      "value": "Onboarding_Pick_Translator_Message"
+    },
+    {
+      "offset": "0x218150c",
+      "encoding": "utf16le",
+      "value": "Onboarding_TryItStep_Instruction_Dictionary"
+    },
+    {
+      "offset": "0x218157c",
+      "encoding": "utf16le",
+      "value": "Onboarding_TryItStep_Instruction_Translator"
+    },
+    {
+      "offset": "0x218311c",
+      "encoding": "utf16le",
+      "value": "Overlay_NothingToTranslate_Message"
+    },
+    {
+      "offset": "0x218317c",
+      "encoding": "utf16le",
+      "value": "Overlay_NothingToTranslate_Title"
+    },
+    {
+      "offset": "0x2183c94",
+      "encoding": "utf16le",
+      "value": "PP-OCRv6_det_small.onnx"
+    },
+    {
+      "offset": "0x2183cdc",
+      "encoding": "utf16le",
+      "value": "PP-OCRv6_det_tiny.onnx"
+    },
+    {
+      "offset": "0x2183d24",
+      "encoding": "utf16le",
+      "value": "PP-OCRv6_rec_small.onnx"
+    },
+    {
+      "offset": "0x2183d6c",
+      "encoding": "utf16le",
+      "value": "PP-OCRv6_rec_tiny.onnx"
+    },
+    {
+      "offset": "0x2185744",
+      "encoding": "utf16le",
+      "value": "Please translate the following "
+    },
+    {
+      "offset": "0x218902c",
+      "encoding": "utf16le",
+      "value": "ReadyDictionaryIds"
+    },
+    {
+      "offset": "0x21895c4",
+      "encoding": "utf16le",
+      "value": "Recognition"
+    },
+    {
+      "offset": "0x218962c",
+      "encoding": "utf16le",
+      "value": "Recording buffer overflow - increase DefaultRollingBufferSize or reduce format detection reads."
+    },
+    {
+      "offset": "0x218a49c",
+      "encoding": "utf16le",
+      "value": "RegisterHotKey"
+    },
+    {
+      "offset": "0x218e6c4",
+      "encoding": "utf16le",
+      "value": "SavedWords_Empty_Hint_Dictionary"
+    },
+    {
+      "offset": "0x218e71c",
+      "encoding": "utf16le",
+      "value": "SavedWords_Empty_Hint_Translator"
+    },
+    {
+      "offset": "0x218eddc",
+      "encoding": "utf16le",
+      "value": "ScreenshotMode"
+    },
+    {
+      "offset": "0x218f764",
+      "encoding": "utf16le",
+      "value": "SelectedDeeplTranslateToLanguage"
+    },
+    {
+      "offset": "0x218f8e4",
+      "encoding": "utf16le",
+      "value": "SelectedOCRLanguage"
+    },
+    {
+      "offset": "0x218f924",
+      "encoding": "utf16le",
+      "value": "SelectedTranslateToLanguage"
+    },
+    {
+      "offset": "0x21913a4",
+      "encoding": "utf16le",
+      "value": "Settings_GamepadHotkeyControl_HidButton"
+    },
+    {
+      "offset": "0x219140c",
+      "encoding": "utf16le",
+      "value": "Settings_GamepadHotkeyControl_Listening"
+    },
+    {
+      "offset": "0x2191474",
+      "encoding": "utf16le",
+      "value": "Settings_GamepadHotkeyControl_NoGamepad"
+    },
+    {
+      "offset": "0x219173c",
+      "encoding": "utf16le",
+      "value": "Settings_MouseHotkeyControl_MButton_1/Text"
+    },
+    {
+      "offset": "0x21917ac",
+      "encoding": "utf16le",
+      "value": "Settings_MouseHotkeyControl_MButton_2/Text"
+    },
+    {
+      "offset": "0x219181c",
+      "encoding": "utf16le",
+      "value": "Settings_MouseHotkeyControl_MButton_3/Text"
+    },
+    {
+      "offset": "0x219188c",
+      "encoding": "utf16le",
+      "value": "Settings_MouseHotkeyControl_MButton_4/Text"
+    },
+    {
+      "offset": "0x21918fc",
+      "encoding": "utf16le",
+      "value": "Settings_MouseHotkeyControl_MButton_5/Text"
+    },
+    {
+      "offset": "0x2192924",
+      "encoding": "utf16le",
+      "value": "Some or all identity references could not be translated."
+    },
+    {
+      "offset": "0x219732c",
+      "encoding": "utf16le",
+      "value": "SyncToAnkiWeb"
+    },
+    {
+      "offset": "0x21977c4",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.Dictionary`2[Lookupper.Core.Dictionaries.Engine.BlockRole,Lookupper.Core.Dictionaries.Engine.HtmlTag]"
+    },
+    {
+      "offset": "0x21978dc",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.Dictionary`2[Lookupper.Core.Dictionaries.Engine.InlineRole,Lookupper.Core.Dictionaries.Engine.HtmlTag]"
+    },
+    {
+      "offset": "0x21979f4",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.Dictionary`2[Lookupper.Core.Segmentation.Japanese.Sudachi.CategoryType,Lookupper.Core.Segmentation.Japanese.Sudachi.CategoryInfo]"
+    },
+    {
+      "offset": "0x2197b44",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.Dictionary`2[Microsoft.UI.Xaml.UIElement,System.Collections.Generic.List`1[Microsoft.UI.Xaml.UIElement]]"
+    },
+    {
+      "offset": "0x2197c64",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.Dictionary`2[System.Char,System.String]"
+    },
+    {
+      "offset": "0x2197d04",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.Dictionary`2[System.String,CommunityToolkit.WinUI.Animations.ConnectedAnimationProperties]"
+    },
+    {
+      "offset": "0x2197e04",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.Dictionary`2[System.String,System.String[]]"
+    },
+    {
+      "offset": "0x2197eac",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.Dictionary`2[System.String,System.String]"
+    },
+    {
+      "offset": "0x21981b4",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.IReadOnlyDictionary`2<String, Double>"
+    },
+    {
+      "offset": "0x21987a4",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.Dictionaries.Engine.YomitanReader+Bank]"
+    },
+    {
+      "offset": "0x219886c",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.Dictionaries.ImportedDictionaryResult]"
+    },
+    {
+      "offset": "0x2198b54",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.Segmentation.AnalyzedWord]"
+    },
+    {
+      "offset": "0x2198c04",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.Segmentation.Japanese.JapaneseWord]"
+    },
+    {
+      "offset": "0x2198cc4",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.Segmentation.Japanese.Sudachi.Morpheme]"
+    },
+    {
+      "offset": "0x2198d8c",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Core.Segmentation.Korean.KiwiMorpheme]"
+    },
+    {
+      "offset": "0x2199084",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.OCR.Models.OcrLanguage]"
+    },
+    {
+      "offset": "0x2199124",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.OCR.Models.OcrLine]"
+    },
+    {
+      "offset": "0x21991bc",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.OCR.Models.OcrWord]"
+    },
+    {
+      "offset": "0x2199254",
+      "encoding": "utf16le",
+      "value": "System.Collections.Generic.List`1[Lookupper.Services.AnkiSyncService+OurNote]"
+    },
+    {
+      "offset": "0x21998f4",
+      "encoding": "utf16le",
+      "value": "System.Collections.Immutable.ImmutableList`1[Lookupper.OCR.Models.OcrDetectedArea]"
+    },
+    {
+      "offset": "0x21999b4",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.Collection`1[Lookupper.Lookups.ViewModels.DictionaryEntryViewModel]"
+    },
+    {
+      "offset": "0x2199b5c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ObservableCollection`1[Lookupper.Core.Dictionaries.Models.Dictionary]"
+    },
+    {
+      "offset": "0x219a17c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ObservableCollection`1[Lookupper.OCR.Models.OcrLanguageChoice]"
+    },
+    {
+      "offset": "0x219abbc",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Dictionaries.Engine.YomitanReader+Bank]"
+    },
+    {
+      "offset": "0x219acac",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Dictionaries.ImportedDictionaryResult]"
+    },
+    {
+      "offset": "0x219ad94",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Dictionaries.Models.Dictionary]"
+    },
+    {
+      "offset": "0x219b644",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Segmentation.AnalyzedWord]"
+    },
+    {
+      "offset": "0x219b714",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Segmentation.Japanese.JapaneseWord]"
+    },
+    {
+      "offset": "0x219b7fc",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Segmentation.Japanese.Sudachi.Morpheme]"
+    },
+    {
+      "offset": "0x219b8ec",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Core.Segmentation.Korean.KiwiMorpheme]"
+    },
+    {
+      "offset": "0x219bb8c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Lookups.ViewModels.DictionaryEntryViewModel]"
+    },
+    {
+      "offset": "0x219bd64",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.OCR.Models.OcrDetectedArea]"
+    },
+    {
+      "offset": "0x219be2c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.OCR.Models.OcrLanguageChoice]"
+    },
+    {
+      "offset": "0x219befc",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.OCR.Models.OcrLanguage]"
+    },
+    {
+      "offset": "0x219bfbc",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.OCR.Models.OcrLine]"
+    },
+    {
+      "offset": "0x219c074",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.OCR.Models.OcrWord]"
+    },
+    {
+      "offset": "0x219c204",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyCollection`1[Lookupper.Services.AnkiSyncService+OurNote]"
+    },
+    {
+      "offset": "0x219cb0c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyDictionary`2[Lookupper.Core.Dictionaries.Engine.BlockRole,Lookupper.Core.Dictionaries.Engine.HtmlTag]"
+    },
+    {
+      "offset": "0x219cc3c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyDictionary`2[Lookupper.Core.Dictionaries.Engine.InlineRole,Lookupper.Core.Dictionaries.Engine.HtmlTag]"
+    },
+    {
+      "offset": "0x219cd6c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyDictionary`2[Lookupper.Core.Segmentation.Japanese.Sudachi.CategoryType,Lookupper.Core.Segmentation.Japanese.Sudachi.CategoryInfo]"
+    },
+    {
+      "offset": "0x219ced4",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyDictionary`2[Microsoft.UI.Xaml.UIElement,System.Collections.Generic.List`1[Microsoft.UI.Xaml.UIElement]]"
+    },
+    {
+      "offset": "0x219d00c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyDictionary`2[System.Char,System.String]"
+    },
+    {
+      "offset": "0x219d0c4",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyDictionary`2[System.Object,System.Object]"
+    },
+    {
+      "offset": "0x219d17c",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyDictionary`2[System.String,CommunityToolkit.WinUI.Animations.ConnectedAnimationProperties]"
+    },
+    {
+      "offset": "0x219d294",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyDictionary`2[System.String,System.String[]]"
+    },
+    {
+      "offset": "0x219d354",
+      "encoding": "utf16le",
+      "value": "System.Collections.ObjectModel.ReadOnlyDictionary`2[System.String,System.String]"
+    },
+    {
+      "offset": "0x21a050c",
+      "encoding": "utf16le",
+      "value": "TableScreenshots"
+    },
+    {
+      "offset": "0x21a0624",
+      "encoding": "utf16le",
+      "value": "Tabs_SettingsPage_KeyboardHotkey_Description_Dictionary"
+    },
+    {
+      "offset": "0x21a06ac",
+      "encoding": "utf16le",
+      "value": "Tabs_SettingsPage_KeyboardHotkey_Description_Translator"
+    },
+    {
+      "offset": "0x21a5b54",
+      "encoding": "utf16le",
+      "value": "The archive holds no system_*.dic dictionary."
+    },
+    {
+      "offset": "0x21a7fd4",
+      "encoding": "utf16le",
+      "value": "The dictionary has no part of speech '"
+    },
+    {
+      "offset": "0x21a8d64",
+      "encoding": "utf16le",
+      "value": "The engine reported no dictionary named '"
+    },
+    {
+      "offset": "0x21a8fb4",
+      "encoding": "utf16le",
+      "value": "The extension data property '{0}.{1}' is invalid. It must implement 'IDictionary<string, JsonElement>' or 'IDictionary<string, object>', or be 'JsonObject'."
+    },
+    {
+      "offset": "0x21a94d4",
+      "encoding": "utf16le",
+      "value": "The given key '{0}' was not present in the dictionary."
+    },
+    {
+      "offset": "0x21a955c",
+      "encoding": "utf16le",
+      "value": "The given key was not present in the dictionary."
+    },
+    {
+      "offset": "0x21a9854",
+      "encoding": "utf16le",
+      "value": "The index is equal to or greater than the length of the array, or the number of elements in the dictionary is greater than the available space from index to the end of the destination array."
+    },
+    {
+      "offset": "0x21aa37c",
+      "encoding": "utf16le",
+      "value": "The key already existed in the dictionary."
+    },
+    {
+      "offset": "0x21aa3ec",
+      "encoding": "utf16le",
+      "value": "The key was of an incorrect type for this dictionary."
+    },
+    {
+      "offset": "0x21b2dd4",
+      "encoding": "utf16le",
+      "value": "The type '{0}' is not a supported dictionary key using converter of type '{1}'. Custom converters can add support for dictionary key serialization by overriding the 'ReadAsPropertyName' and 'WriteAsPropertyName' methods."
+    },
+    {
+      "offset": "0x21b414c",
+      "encoding": "utf16le",
+      "value": "The value needs to translate in milliseconds to -1 (signifying an infinite timeout), 0, or a positive integer less than or equal to the maximum allowed timer duration."
+    },
+    {
+      "offset": "0x21b42b4",
+      "encoding": "utf16le",
+      "value": "The value needs to translate in milliseconds to -1 (signifying an infinite timeout), or be non-negative."
+    },
+    {
+      "offset": "0x21b470c",
+      "encoding": "utf16le",
+      "value": "The value was of an incorrect type for this dictionary."
+    },
+    {
+      "offset": "0x21b5764",
+      "encoding": "utf16le",
+      "value": "This MDict dictionary packs its blocks with method "
+    },
+    {
+      "offset": "0x21b57e4",
+      "encoding": "utf16le",
+      "value": "This NamedOnnxValue instance does not contain a dictionary"
+    },
+    {
+      "offset": "0x21b875c",
+      "encoding": "utf16le",
+      "value": "TranslateGemma.Failed"
+    },
+    {
+      "offset": "0x21b879c",
+      "encoding": "utf16le",
+      "value": "TranslateGemmaDownload"
+    },
+    {
+      "offset": "0x21b87e4",
+      "encoding": "utf16le",
+      "value": "TranslateGemmaDownload_Body_"
+    },
+    {
+      "offset": "0x21b8834",
+      "encoding": "utf16le",
+      "value": "TranslateGemmaDownload_Cancel"
+    },
+    {
+      "offset": "0x21b8884",
+      "encoding": "utf16le",
+      "value": "TranslateGemmaDownload_Connecting"
+    },
+    {
+      "offset": "0x21b88dc",
+      "encoding": "utf16le",
+      "value": "TranslateGemmaDownload_Failed"
+    },
+    {
+      "offset": "0x21b892c",
+      "encoding": "utf16le",
+      "value": "TranslateGemmaDownload_NoSpace"
+    },
+    {
+      "offset": "0x21b8984",
+      "encoding": "utf16le",
+      "value": "TranslateGemmaDownload_Primary"
+    },
+    {
+      "offset": "0x21b89dc",
+      "encoding": "utf16le",
+      "value": "TranslateGemmaDownload_Progress"
+    },
+    {
+      "offset": "0x21b8a34",
+      "encoding": "utf16le",
+      "value": "TranslateGemmaDownload_Requirements_"
+    },
+    {
+      "offset": "0x21b8a94",
+      "encoding": "utf16le",
+      "value": "TranslateGemmaDownload_Retrying"
+    },
+    {
+      "offset": "0x21b8aec",
+      "encoding": "utf16le",
+      "value": "TranslateGemmaDownload_Shortfall_Both"
+    },
+    {
+      "offset": "0x21b8b4c",
+      "encoding": "utf16le",
+      "value": "TranslateGemmaDownload_Shortfall_Cores"
+    },
+    {
+      "offset": "0x21b8bb4",
+      "encoding": "utf16le",
+      "value": "TranslateGemmaDownload_Shortfall_Memory"
+    },
+    {
+      "offset": "0x21b8c1c",
+      "encoding": "utf16le",
+      "value": "TranslateGemmaDownload_Speed"
+    },
+    {
+      "offset": "0x21b8c6c",
+      "encoding": "utf16le",
+      "value": "TranslateGemmaDownload_Title_"
+    },
+    {
+      "offset": "0x21b8cbc",
+      "encoding": "utf16le",
+      "value": "TranslateGemmaVariant"
+    },
+    {
+      "offset": "0x21b8cfc",
+      "encoding": "utf16le",
+      "value": "TranslateGemma_DeleteConfirm_Body"
+    },
+    {
+      "offset": "0x21b8d54",
+      "encoding": "utf16le",
+      "value": "TranslateGemma_DeleteConfirm_Primary"
+    },
+    {
+      "offset": "0x21b8db4",
+      "encoding": "utf16le",
+      "value": "TranslateGemma_DeleteConfirm_Title"
+    },
+    {
+      "offset": "0x21b8e14",
+      "encoding": "utf16le",
+      "value": "TranslateGemma_DeleteFailed"
+    },
+    {
+      "offset": "0x21b8e64",
+      "encoding": "utf16le",
+      "value": "TranslateGemma_LoadFailed_"
+    },
+    {
+      "offset": "0x21b8eb4",
+      "encoding": "utf16le",
+      "value": "TranslateGemma_NotInstalled"
+    },
+    {
+      "offset": "0x21b8f04",
+      "encoding": "utf16le",
+      "value": "TranslateGemma_Unsupported_NoAvx2"
+    },
+    {
+      "offset": "0x21b8f5c",
+      "encoding": "utf16le",
+      "value": "TranslateGemma_Unsupported_NoGpu"
+    },
+    {
+      "offset": "0x21b8fb4",
+      "encoding": "utf16le",
+      "value": "TranslateGemma_Unsupported_Title"
+    },
+    {
+      "offset": "0x21b900c",
+      "encoding": "utf16le",
+      "value": "TranslateGemma_Unsupported_VideoMemory"
+    },
+    {
+      "offset": "0x21b90dc",
+      "encoding": "utf16le",
+      "value": "TranslationEngine_TranslateGemmaCpu/Content"
+    },
+    {
+      "offset": "0x21b914c",
+      "encoding": "utf16le",
+      "value": "TranslationEngine_TranslateGemmaGpu/Content"
+    },
+    {
+      "offset": "0x21b949c",
+      "encoding": "utf16le",
+      "value": "Translator"
+    },
+    {
+      "offset": "0x21b94cc",
+      "encoding": "utf16le",
+      "value": "Translator Pro AI magic ended."
+    },
+    {
+      "offset": "0x21b9524",
+      "encoding": "utf16le",
+      "value": "Translator,Looktionary"
+    },
+    {
+      "offset": "0x21b956c",
+      "encoding": "utf16le",
+      "value": "TranslatorData"
+    },
+    {
+      "offset": "0x21b95a4",
+      "encoding": "utf16le",
+      "value": "TranslatorHideTranslations"
+    },
+    {
+      "offset": "0x21b95f4",
+      "encoding": "utf16le",
+      "value": "TranslatorSettingsPanel"
+    },
+    {
+      "offset": "0x21bbf3c",
+      "encoding": "utf16le",
+      "value": "Unable to translate Unicode character \\\\u{0:X4} at index {1} to specified code page."
+    },
+    {
+      "offset": "0x21bbffc",
+      "encoding": "utf16le",
+      "value": "Unable to translate bytes {0} at index {1} from specified code page to Unicode."
+    },
+    {
+      "offset": "0x21bf3f4",
+      "encoding": "utf16le",
+      "value": "User-imported dictionary ("
+    },
+    {
+      "offset": "0x21c1594",
+      "encoding": "utf16le",
+      "value": "Webster's Unabridged Dictionary (1913)"
+    },
+    {
+      "offset": "0x21c3a2c",
+      "encoding": "utf16le",
+      "value": "Windows.ApplicationModel.DataTransfer.Clipboard"
+    },
+    {
+      "offset": "0x21cdb2c",
+      "encoding": "utf16le",
+      "value": "XpressOCROptions"
+    },
+    {
+      "offset": "0x21cddbc",
+      "encoding": "utf16le",
+      "value": "Yomitan index ends inside its kinds."
+    },
+    {
+      "offset": "0x21d238c",
+      "encoding": "utf16le",
+      "value": "anki_crops"
+    },
+    {
+      "offset": "0x21d23bc",
+      "encoding": "utf16le",
+      "value": "anki_thumbnails"
+    },
+    {
+      "offset": "0x21d31e4",
+      "encoding": "utf16le",
+      "value": "arabic_PP-OCRv5_rec_mobile_infer.onnx"
+    },
+    {
+      "offset": "0x21d5f14",
+      "encoding": "utf16le",
+      "value": "collection.anki21"
+    },
+    {
+      "offset": "0x21d7894",
+      "encoding": "utf16le",
+      "value": "cyrillic_PP-OCRv5_rec_mobile_infer.onnx"
+    },
+    {
+      "offset": "0x21d907c",
+      "encoding": "utf16le",
+      "value": "dictionary"
+    },
+    {
+      "offset": "0x21d90ac",
+      "encoding": "utf16le",
+      "value": "dictionary_folder"
+    },
+    {
+      "offset": "0x21d90e4",
+      "encoding": "utf16le",
+      "value": "dictionary_identifier"
+    },
+    {
+      "offset": "0x21d9124",
+      "encoding": "utf16le",
+      "value": "dictionary_import_stage"
+    },
+    {
+      "offset": "0x21d916c",
+      "encoding": "utf16le",
+      "value": "dictionary_is_custom"
+    },
+    {
+      "offset": "0x21d91ac",
+      "encoding": "utf16le",
+      "value": "dictionary_mode"
+    },
+    {
+      "offset": "0x21d91e4",
+      "encoding": "utf16le",
+      "value": "dictionary_stage"
+    },
+    {
+      "offset": "0x21da294",
+      "encoding": "utf16le",
+      "value": "el_PP-OCRv5_rec_mobile_infer.onnx"
+    },
+    {
+      "offset": "0x21dec64",
+      "encoding": "utf16le",
+      "value": "hotkey_conflict"
+    },
+    {
+      "offset": "0x21e0044",
+      "encoding": "utf16le",
+      "value": "https://gateway-cn.lookupper.com"
+    },
+    {
+      "offset": "0x21e009c",
+      "encoding": "utf16le",
+      "value": "https://gateway.lookupper.com"
+    },
+    {
+      "offset": "0x21e00ec",
+      "encoding": "utf16le",
+      "value": "https://gateway.lookupper.ru"
+    },
+    {
+      "offset": "0x21e047c",
+      "encoding": "utf16le",
+      "value": "iDictionaryObjRef"
+    },
+    {
+      "offset": "0x21e04b4",
+      "encoding": "utf16le",
+      "value": "iReadOnlyDictionaryObjRef"
+    },
+    {
+      "offset": "0x21e3684",
+      "encoding": "utf16le",
+      "value": "jmdict-simplified-json"
+    },
+    {
+      "offset": "0x21e36cc",
+      "encoding": "utf16le",
+      "value": "jmdict_entry"
+    },
+    {
+      "offset": "0x21e36fc",
+      "encoding": "utf16le",
+      "value": "jmdict_headword"
+    },
+    {
+      "offset": "0x21e3734",
+      "encoding": "utf16le",
+      "value": "jmdict_labels"
+    },
+    {
+      "offset": "0x21e3764",
+      "encoding": "utf16le",
+      "value": "jmdict_reading"
+    },
+    {
+      "offset": "0x21e379c",
+      "encoding": "utf16le",
+      "value": "jmdict_senses"
+    },
+    {
+      "offset": "0x21e42bc",
+      "encoding": "utf16le",
+      "value": "korean_PP-OCRv5_rec_mobile_infer.onnx"
+    },
+    {
+      "offset": "0x21e6eec",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Assets/Styles/anki-custom.css"
+    },
+    {
+      "offset": "0x21e72a4",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Components/Hotkeys/GamepadHotkeyBox.xaml"
+    },
+    {
+      "offset": "0x21e7324",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Components/Hotkeys/HotkeyCaptureBox.xaml"
+    },
+    {
+      "offset": "0x21e73a4",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Components/Hotkeys/KeyboardHotkeyBox.xaml"
+    },
+    {
+      "offset": "0x21e7424",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Components/Hotkeys/MouseHotkeyBox.xaml"
+    },
+    {
+      "offset": "0x21e749c",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Components/OcrLanguagePicker.xaml"
+    },
+    {
+      "offset": "0x21e7654",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Components/TranslateToLanguagePicker.xaml"
+    },
+    {
+      "offset": "0x21e77bc",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Core/Dictionaries/Views/DictionaryInfoControl.xaml"
+    },
+    {
+      "offset": "0x21e784c",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Core/Dictionaries/Views/LooktionarySettingsControl.xaml"
+    },
+    {
+      "offset": "0x21e7994",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Core/Dictionaries/Views/TranslatorSettingsControl.xaml"
+    },
+    {
+      "offset": "0x21e7cac",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Core/SavedWords/Views/AnkiSyncDialog.xaml"
+    },
+    {
+      "offset": "0x21e81d4",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Core/Settings/Views/TranslateGemmaDownloadDialog.xaml"
+    },
+    {
+      "offset": "0x21e85c4",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Lookups/Views/LooktionaryTemplate.xaml"
+    },
+    {
+      "offset": "0x21e86a4",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Lookups/Views/OCRSettingsControl.xaml"
+    },
+    {
+      "offset": "0x21e880c",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Lookups/Views/TranslatorTemplate.xaml"
+    },
+    {
+      "offset": "0x21e88f4",
+      "encoding": "utf16le",
+      "value": "ms-appx:///Onboarding/Views/HotkeyStepPage.xaml"
+    },
+    {
+      "offset": "0x21e93ac",
+      "encoding": "utf16le",
+      "value": "need dictionary"
+    },
+    {
+      "offset": "0x21e9fbc",
+      "encoding": "utf16le",
+      "value": "normalize"
+    },
+    {
+      "offset": "0x21e9fe4",
+      "encoding": "utf16le",
+      "value": "normalizedString"
+    },
+    {
+      "offset": "0x21ea5dc",
+      "encoding": "utf16le",
+      "value": "ocr_ep"
+    },
+    {
+      "offset": "0x21ea604",
+      "encoding": "utf16le",
+      "value": "ocr_language"
+    },
+    {
+      "offset": "0x21ec2cc",
+      "encoding": "utf16le",
+      "value": "ppocrv5_arabic_dict.txt"
+    },
+    {
+      "offset": "0x21ec314",
+      "encoding": "utf16le",
+      "value": "ppocrv5_cyrillic_dict.txt"
+    },
+    {
+      "offset": "0x21ec35c",
+      "encoding": "utf16le",
+      "value": "ppocrv5_el_dict.txt"
+    },
+    {
+      "offset": "0x21ec39c",
+      "encoding": "utf16le",
+      "value": "ppocrv5_korean_dict.txt"
+    },
+    {
+      "offset": "0x21ec3e4",
+      "encoding": "utf16le",
+      "value": "ppocrv6_dict.txt"
+    },
+    {
+      "offset": "0x21ec41c",
+      "encoding": "utf16le",
+      "value": "ppocrv6_tiny_dict.txt"
+    },
+    {
+      "offset": "0x21f039c",
+      "encoding": "utf16le",
+      "value": "stardict"
+    },
+    {
+      "offset": "0x21f03c4",
+      "encoding": "utf16le",
+      "value": "stardict-"
+    },
+    {
+      "offset": "0x21f177c",
+      "encoding": "utf16le",
+      "value": "sudachi-dictionary-latest-core.zip"
+    },
+    {
+      "offset": "0x21f381c",
+      "encoding": "utf16le",
+      "value": "translateTo="
+    },
+    {
+      "offset": "0x21f384c",
+      "encoding": "utf16le",
+      "value": "translated"
+    },
+    {
+      "offset": "0x21f387c",
+      "encoding": "utf16le",
+      "value": "translategemma-4b"
+    },
+    {
+      "offset": "0x21f395c",
+      "encoding": "utf16le",
+      "value": "translator_mode"
+    },
+    {
+      "offset": "0x21f42cc",
+      "encoding": "utf16le",
+      "value": "unk.def: the dictionary has no part of speech '"
+    },
+    {
+      "offset": "0x21f69b4",
+      "encoding": "utf16le",
+      "value": "yomitan"
+    },
+    {
+      "offset": "0x21f69dc",
+      "encoding": "utf16le",
+      "value": "yomitan.lkidx"
+    },
+    {
+      "offset": "0x21f6a0c",
+      "encoding": "utf16le",
+      "value": "yomitan_entry"
+    },
+    {
+      "offset": "0x21f6a3c",
+      "encoding": "utf16le",
+      "value": "yomitan_facts"
+    },
+    {
+      "offset": "0x21f6a6c",
+      "encoding": "utf16le",
+      "value": "yomitan_grammar"
+    },
+    {
+      "offset": "0x21f6aa4",
+      "encoding": "utf16le",
+      "value": "yomitan_headword"
+    },
+    {
+      "offset": "0x21f6adc",
+      "encoding": "utf16le",
+      "value": "yomitan_image"
+    },
+    {
+      "offset": "0x21f6b0c",
+      "encoding": "utf16le",
+      "value": "yomitan_kanji"
+    },
+    {
+      "offset": "0x21f6b3c",
+      "encoding": "utf16le",
+      "value": "yomitan_line"
+    },
+    {
+      "offset": "0x21f6b6c",
+      "encoding": "utf16le",
+      "value": "yomitan_meanings"
+    },
+    {
+      "offset": "0x21f6ba4",
+      "encoding": "utf16le",
+      "value": "yomitan_meta"
+    },
+    {
+      "offset": "0x21f6bd4",
+      "encoding": "utf16le",
+      "value": "yomitan_reading"
+    },
+    {
+      "offset": "0x21f6c0c",
+      "encoding": "utf16le",
+      "value": "yomitan_readings"
+    },
+    {
+      "offset": "0x21f6c44",
+      "encoding": "utf16le",
+      "value": "yomitan_ref"
+    },
+    {
+      "offset": "0x21f6c74",
+      "encoding": "utf16le",
+      "value": "yomitan_senses"
+    },
+    {
+      "offset": "0x21f6cac",
+      "encoding": "utf16le",
+      "value": "yomitan_tag"
+    },
+    {
+      "offset": "0x21fba5e",
+      "encoding": "utf16le",
+      "value": " <a class=\"yomitan_ref\" href=\""
+    }
+  ]
+}

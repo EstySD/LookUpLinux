@@ -1,0 +1,48 @@
+{
+  "checked_at_utc": "2026-10-26T04:25:39.863460+00:00",
+  "status": "passed",
+  "document_count": 4,
+  "local_links_checked": 31,
+  "requirement_states_unchanged": true,
+  "source_ids": [
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "L01",
+    "P01",
+    "P02",
+    "P03",
+    "P04",
+    "P05",
+    "W01",
+    "W02"
+  ],
+  "runtime_status": "observed",
+  "autosave_restored": true,
+  "runtime_probes": 2,
+  "source_file_hashes_checked": 37,
+  "screenshots_sha256": {
+    "runtime-children.png": "7571140ec9ccecb5709bf662d42fa635600179032d9d75287edd214170c8bd6d",
+    "runtime-bright.png": "0c71aa174e3aa8cc674f558ff1345ad7c895e2405f527ad442d4e5c9f6878557"
+  },
+  "documents_sha256": {
+    "docs\\lookupper\\architecture.md": "eb2f0e6cea4ec3a2b1b817359707fd2541acd2ab291d683e847b5893b0f0024d",
+    "docs\\lookupper\\evidence.md": "458f6895302a8466e861b7a412aaf4228d87df8e0810a1343f28df84def6e789",
+    "docs\\lookupper\\linux-requirements.md": "858f5d9cabd210c4c04e079c3d0304f06bec9213ce5734d178a422b2839c7410",
+    "docs\\lookupper\\README.md": "c1a7c6111b8989f2d7b32760af67ed603cce9cb4735a7de9203dfdda59aeb3d9",
+    ".planning\\PROJECT.md": "875d13598a6402048afd305929d0ef21a4d9e53b74568a86094528becce59aca",
+    ".planning\\REQUIREMENTS.md": "e7890495fdd6d6efabebd9eb8a758b40daf8ec08b6948296d21fb5243cc004af",
+    ".planning\\reverse-engineering\\lookupper-2.0.6.0\\REPORT.md": "40932b88dd99f488dc9b127d9bb8d4bc8077a0bd0fdf1e9cea52eb5fdd51c0a5",
+    ".claude\\CLAUDE.md": "8d111c93763530c7bf0beecdf29b194ab0bac00d6f698343cab0584cf859c231"
+  },
+  "review": "Cold-read: source and inference separated; Anki versus local SRS corrected; next scenarios and acceptance explicit; no whole-program recovery claim.",
+  "gsd_context_checked_at_utc": "2026-10-26T09:17:42.287908+00:00",
+  "gsd_context_local_links_checked": 11,
+  "gsd_required_documents": [
+    "architecture.md",
+    "linux-requirements.md",
+    "evidence.md"
+  ]
+}
