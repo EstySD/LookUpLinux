@@ -1,0 +1,23 @@
+name: Bug report / Ошибка
+description: Report a reproducible problem.
+body:
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: LookUp version, distribution, architecture, Plasma version and session type.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps, expected result and actual result
+      description: Public or synthetic example. English or Russian welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics
+      description: Sanitized lookup --doctor output. No private dictionaries or databases.
+      render: text

@@ -1,0 +1,15 @@
+# Keep GitHub's automatically generated source archives free of workspace state.
+/.omx export-ignore
+/.planning export-ignore
+/docs/lookupper export-ignore
+/AGENTS.md export-ignore
+/.agents export-ignore
+/.codex export-ignore
+/.claude export-ignore
+
+# Release scripts and Linux entry points must retain Unix line endings.
+*.sh text eol=lf
+PKGBUILD text eol=lf
+packaging/PKGBUILD.public text eol=lf
+packaging/lookup text eol=lf
+*.desktop text eol=lf

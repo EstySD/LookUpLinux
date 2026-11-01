@@ -77,6 +77,7 @@ def game(name,relative=False,multiline=False):
 
 
 class EvidenceTests(unittest.TestCase):
+    @unittest.skipUnless(Path('.planning/phases').is_dir(), 'Historical VM/probe artifacts not included in public source archive')
     def test_current_privacy_rejects_detached_source_pass_input_and_classified_contents(self):
         root=Path('.planning/phases/08-vm');original=json.loads((root/'08-09-privacy-proof.json').read_text())
         artifacts=dict(source=(root/'08-07-privacy-observed-source.png').read_bytes(),
@@ -206,6 +207,7 @@ class EvidenceTests(unittest.TestCase):
             else:logs[digest]=b'FAILED (errors=1)\n'
             self.assertFalse(hardening.closure_suites_report(data,logs)['passed'],change)
 
+    @unittest.skipUnless(Path('.planning/phases').is_dir(), 'Historical VM/probe artifacts not included in public source archive')
     def test_exact_nested_owned_key_delta_and_actual_unrelated_markers(self):
         root=Path('.planning/phases/08-vm')
         read=lambda name:json.loads((root/name).read_text(encoding='utf-8'))
@@ -249,6 +251,7 @@ class EvidenceTests(unittest.TestCase):
             if alter=='thread_growth':changed['resources'][-1]['threads']=10
             if alter=='cooldown':changed['cooldown']['idle_ms']=4999
             self.assertFalse(fallback_stability_report(changed)['passed'],alter)
+    @unittest.skipUnless(Path('.planning/phases').is_dir(), 'Historical VM/probe artifacts not included in public source archive')
     def test_real_old_thirty_cannot_be_relabelled_with_new_summary_hashes(self):
         rows=json.loads(Path('.planning/phases/08-vm/08-performance-final-attempts.json').read_text())
         build=dict(source_sha256='a'*64,package_sha256='b'*64,ocr_sha256='c'*64)
@@ -271,6 +274,7 @@ class EvidenceTests(unittest.TestCase):
             else:current['install_exit']=1
             self.assertFalse(hardening.current_performance_report(attempts,current,loaded)['passed'],change)
 
+    @unittest.skipUnless(Path('.planning/phases').is_dir(), 'Historical VM/probe artifacts not included in public source archive')
     def test_current_runtime_rejects_old_proc_identity_or_new_labels_on_wrong_raw_trace(self):
         import hashlib
         rows,receipt,artifacts=current_performance()
@@ -309,6 +313,7 @@ class EvidenceTests(unittest.TestCase):
             artifacts['runtime'][digest]=data;row['runtime_sha256']=digest
         self.assertFalse(hardening.current_performance_report(rows,receipt,artifacts)['passed'])
 
+    @unittest.skipUnless(Path('.git').exists(), 'Historical Git revision not included in source archive')
     def test_full_archives_containing_actual_old_single_pass_ocr_are_not_current(self):
         import hashlib,io,subprocess,tarfile
         rows,receipt,artifacts=current_performance()
@@ -333,6 +338,7 @@ class EvidenceTests(unittest.TestCase):
         self.assertFalse(result['passed']);self.assertFalse(result['game01_complete'])
         self.assertFalse(result['criteria']['games'])
 
+    @unittest.skipUnless(Path('.planning/phases').is_dir(), 'Historical VM/probe artifacts not included in public source archive')
     def test_final_cleanup_requires_all_scoped_raw_records_and_rejects_missing_or_false(self):
         root=Path('.planning/phases/08-vm')
         raw=dict(native=json.loads((root/'08-native-final-report.json').read_text())['cleanup'],
@@ -372,6 +378,7 @@ class EvidenceTests(unittest.TestCase):
         for text in ('bank','Ищем перевод bank','river Mueller7 берег','river Mueller7 берег bank','bank Mueller7','bank Mueller7 ошибка'):
             self.assertFalse(hardening.optical_match(text,'bank','берег'))
 
+    @unittest.skipUnless(Path('.planning/phases').is_dir(), 'Historical VM/probe artifacts not included in public source archive')
     def test_actual_phase7_report_is_carried_without_reclassification(self):
         raw=json.loads((Path(__file__).resolve().parents[1]/'.planning/phases/07-settings-package/07-native-report.json').read_text(encoding='utf-8'))
         carried=hardening.carry_phase7(raw)

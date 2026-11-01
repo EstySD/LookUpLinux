@@ -1,0 +1,61 @@
+name: Prepare release
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag (for example v0.1.0)
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    env:
+      RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+      QT_QPA_PLATFORM: offscreen
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.RELEASE_TAG }}
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.14'
+      - name: Verify tests
+        run: |
+          python -m pip install PyQt6
+          python -m unittest discover -s tests -v
+      - name: Stage public assets
+        run: |
+          python tools/build_release.py --tag "$RELEASE_TAG" --output dist
+          python tools/stage_package.py --public --output arch-build
+      - name: Build native Arch Linux package
+        run: |
+          docker run --rm -v "$PWD:/workspace" -w /workspace/arch-build \
+            archlinux:base-devel bash /workspace/tools/build_arch.sh
+          cp arch-build/lookup-linux-*.pkg.tar.zst dist/
+          cd dist
+          sha256sum *.tar.gz *.pkg.tar.zst > SHA256SUMS
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: archlinux-x86_64-release
+          path: dist/*
+          if-no-files-found: error
+      - name: Create draft release for review
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh release create "$RELEASE_TAG" --verify-tag --draft \
+            --title "LookUp Linux $RELEASE_TAG · Arch Linux / KDE Wayland" \
+            --notes-file docs/RELEASE_NOTES.md dist/*

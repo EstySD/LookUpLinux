@@ -5,7 +5,7 @@ pkgrel=1
 pkgdesc='English-Russian cursor dictionary and learning cards for KDE Wayland (local build)'
 arch=('x86_64')
 options=('!strip' '!debug') # Pinned upstream helper is already stripped.
-license=('LicenseRef-LookUpLinux-unspecified' 'Apache-2.0' 'LicenseRef-Mueller7-GPL-unspecified')
+license=('GPL-3.0-or-later' 'Apache-2.0' 'LicenseRef-Mueller7-GPL-unspecified')
 depends=('python' 'python-pyqt6' 'qt6-wayland' 'tesseract' 'tesseract-data-eng'
          'wl-clipboard>=2.3.0' 'libkscreen' 'kglobalacceld' 'kservice' 'dbus' 'glibc' 'gcc-libs')
 source=('lookup-source.tar.gz'
@@ -22,6 +22,8 @@ package() {
   install -Dm755 kdotool "$pkgdir/usr/lib/lookup/kdotool"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/kdotool-APACHE-2.0"
   install -Dm644 lookup-source/packaging/THIRD-PARTY.md "$pkgdir/usr/share/licenses/$pkgname/THIRD-PARTY.md"
+  install -Dm644 lookup-source/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 lookup-source/COPYING.md "$pkgdir/usr/share/licenses/$pkgname/COPYING.md"
   for suffix in ifo idx.gz dict.dz; do
     install -m644 "mueller7/mueller7.$suffix" "$pkgdir/usr/share/lookup/dicts/mueller7/"
   done

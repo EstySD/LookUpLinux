@@ -26,6 +26,7 @@ class ProviderTests(unittest.TestCase):
             value = context.translate_context(req)
         return value, fetch
 
+    @unittest.skipUnless(Path('.planning/phases').is_dir(), 'Historical VM/probe artifacts not included in public source archive')
     def test_captured_live_occurrences_and_phrase(self):
         path = Path(__file__).parents[1]/'.planning/phases/05.1-context/provider-probes.json'
         probes = json.loads(path.read_text(encoding='utf-8'))

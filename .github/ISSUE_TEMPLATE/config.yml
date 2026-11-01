@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Private security report
+    url: https://github.com/EstySD/LookUpLinux/security/advisories/new
+    about: Please avoid posting vulnerabilities in public issues.

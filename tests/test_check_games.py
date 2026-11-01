@@ -1,6 +1,7 @@
 """Game routes require real process/frame/input/control proof, not fixture success."""
 from copy import deepcopy
 import unittest
+from pathlib import Path
 
 from tests.test_hardening import sample
 from tools import check_games
@@ -189,6 +190,7 @@ class GameContractTests(unittest.TestCase):
             else:row['overlay']['useful']=False
             with self.subTest(change=change):self.assertFalse(check_games.captured_game_report(data)['passed'])
 
+    @unittest.skipUnless(Path('.planning/phases').is_dir(), 'Historical VM/probe artifacts not included in public source archive')
     def test_actual_rejected_first_camera_differs_only_in_idle_overlay_not_world(self):
         from pathlib import Path
         root=Path('.planning/phases/08-vm')

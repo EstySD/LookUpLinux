@@ -11,6 +11,7 @@ import unittest
 from unittest.mock import patch
 
 
+@unittest.skipUnless(Path('.planning/phases/08-vm').is_dir(), 'Historical VM controllers not included in public source archive')
 class CleanupDependencyTests(unittest.TestCase):
     def execute(self,root,record,calls,controller='08-07-controller.py'):
         source=Path('.planning/phases/08-vm',controller).read_text(encoding='utf-8')

@@ -5,3 +5,6 @@ __pycache__/
 *.db-shm
 *.bak-v*
 .planning/research/.cache/
+dist/
+arch-build/
+arch-build-final/

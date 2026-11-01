@@ -29,11 +29,14 @@ def actual_install_fixture():
 
 
 class InstallEvidenceTests(unittest.TestCase):
-    def test_current_selection_recomputes_real_receipts_and_keeps_cleanup_open(self):
+    @unittest.skipUnless(Path('.planning/phases').is_dir(), 'Historical VM/probe artifacts not included in public source archive')
+    def test_archived_selection_recomputes_metrics_but_rejects_changed_source(self):
         root=Path('.planning/phases/08-vm')
         data=install.current_evidence(root,captured_game_report='08-assaultcube-cascade-report.json',
             current_cleanup='missing-current-cleanup.json')
-        self.assertTrue(data['reports']['performance']['passed'])
+        self.assertFalse(data['reports']['performance']['passed'])
+        self.assertFalse(data['reports']['performance']['source_bound'])
+        self.assertEqual(data['reports']['performance']['source_error'],'current_source_binding')
         self.assertAlmostEqual(data['reports']['performance']['median_ms'],1088.2457725)
         for name in ('captured_game','wesnoth_compatibility','fallback','burst','privacy'):
             self.assertTrue(data['reports'][name]['passed'],name)
@@ -41,6 +44,7 @@ class InstallEvidenceTests(unittest.TestCase):
         self.assertFalse(data['passed'])
         self.assertEqual(data['history']['cleanup09']['passed'],False)
 
+    @unittest.skipUnless(Path('.planning/phases').is_dir(), 'Historical VM/probe artifacts not included in public source archive')
     def test_current_selection_rejects_swapped_candidate_missing_raw_and_old_thirty(self):
         source=Path('.planning/phases/08-vm')
         for change in ('candidate','report','route','performance','archive','privacy'):
@@ -65,6 +69,7 @@ class InstallEvidenceTests(unittest.TestCase):
                 self.assertFalse(data['reports'][name]['passed'])
                 self.assertFalse(data['passed'])
 
+    @unittest.skipUnless(Path('.planning/phases').is_dir(), 'Historical VM/probe artifacts not included in public source archive')
     def test_controller_finally_continues_after_transient_power_readback(self):
         import ast,types
         source=Path('.planning/phases/08-vm/08-07-controller.py').read_text(encoding='utf-8')
@@ -90,6 +95,7 @@ class InstallEvidenceTests(unittest.TestCase):
             self.assertEqual(saved['08-07-controller-state.json']['state'],'finished')
             self.assertTrue(any(not row['ok'] for row in record.values() if isinstance(row,dict) and 'ok' in row))
 
+    @unittest.skipUnless(Path('.planning/phases').is_dir(), 'Historical VM/probe artifacts not included in public source archive')
     def test_assembler_binds_saved_build_and_negative_test_outcomes(self):
         source=Path('.planning/phases/08-vm')
         for change in ('build_exit','package_hash','source_hash','build_log','negative_log','negative_result'):
@@ -119,6 +125,7 @@ class InstallEvidenceTests(unittest.TestCase):
                 else:self.assertFalse(native['report']['passed'])
                 self.assertFalse(final['passed'])
 
+    @unittest.skipUnless(Path('.planning/phases').is_dir(), 'Historical VM/probe artifacts not included in public source archive')
     def test_partial_identity_retention_cleanup_and_wrong_login_role_cannot_pass(self):
         self.assertTrue(install.install_report(actual_install_fixture())['passed'])
         for change in ('files','hashes','cleanup','role','build'):
@@ -159,6 +166,7 @@ class InstallEvidenceTests(unittest.TestCase):
             else:data['observed_until_ns']=2000
             with self.subTest(change=change):self.assertFalse(install.login_evidence(data))
 
+    @unittest.skipUnless(Path('.planning/phases').is_dir(), 'Historical VM/probe artifacts not included in public source archive')
     def test_empty_samples_or_multiple_owner_identities_cannot_prove_login(self):
         import json
         from pathlib import Path
@@ -172,6 +180,7 @@ class InstallEvidenceTests(unittest.TestCase):
         reverse=deepcopy(data);reverse['samples'].reverse()
         self.assertFalse(install.login_evidence(reverse))
 
+    @unittest.skipUnless(Path('.planning/phases').is_dir(), 'Historical VM/probe artifacts not included in public source archive')
     def test_observed_login_interval_and_owner_survival_are_required(self):
         import json
         from pathlib import Path

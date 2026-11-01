@@ -1,206 +1,122 @@
-# LookUp Linux
+<p align="center"><img src="docs/assets/banner.svg" alt="LookUp Linux — Point. Press. Understand." width="900"></p>
 
-Англо-русский словарь для **Arch Linux x86_64 с KDE Plasma 6 Wayland**.
-Наведите курсор на английское слово и нажмите **Meta+Shift+D**: рядом появится
-карточка со словарной статьёй и доступным переводом контекста. Новое выделение
-текста имеет приоритет над OCR. Приложение работает в трее, ведёт историю
-поиска и позволяет сохранять отдельные учебные карточки.
+<p align="center"><strong>English → Russian. Right where you read.</strong><br>A cursor dictionary, OCR translator and vocabulary companion for KDE Plasma Wayland.</p>
 
-## Сборка и установка
+<p align="center">
+<a href="https://github.com/EstySD/LookUpLinux/actions/workflows/ci.yml"><img src="https://github.com/EstySD/LookUpLinux/actions/workflows/ci.yml/badge.svg" alt="Tests"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0--or--later-blue" alt="GPL-3.0-or-later"></a>
+<img src="https://img.shields.io/badge/desktop-KDE_Plasma_6-54a3d8" alt="KDE Plasma 6">
+<img src="https://img.shields.io/badge/session-Wayland-efc354" alt="Wayland">
+</p>
 
-Получите копию этого репозитория и откройте её корневой каталог. Сборка
-выполняется обычным пользователем в Arch Linux; `makepkg -si` запросит sudo
-для официальных зависимостей и установки готового пакета.
+<p align="center"><a href="https://github.com/EstySD/LookUpLinux/releases">Downloads</a> · <a href="docs/README.ru.md">Русская инструкция</a> · <a href="docs/DICTIONARIES.md">Get dictionaries</a> · <a href="CONTRIBUTING.md">Contribute</a> · <a href="https://github.com/EstySD/LookUpLinux/issues">Report a bug</a></p>
+
+## Point. Press. Understand.
+
+Hover over an English word and press **Meta+Shift+D**. LookUp opens a nearby
+dictionary card and, when available, a translation of the surrounding text.
+Freshly selected text takes priority over OCR. Save a word and review it later
+without switching to a browser.
+
+- **Read across applications:** cursor OCR and selected-text lookup.
+- **Bring your dictionaries:** StarDict, Lingvo DSL / compressed DSL, and MDX.
+- **Keep the context:** optional online sentence translation and word meaning in context.
+- **Build your vocabulary:** history, learning cards and scheduled review.
+- **Export your words:** CSV and Anki text files.
+- **Make it yours:** tray settings for shortcut, dictionary order, online access and autostart.
+
+## Platform support
+
+| Platform | Status | Distribution |
+| --- | --- | --- |
+| Arch Linux x86_64 · KDE Plasma 6 · Wayland | Target platform | Native `.pkg.tar.zst` and build kit |
+| Other Linux distributions / desktops, X11, ARM | Unsupported | Porting contributions welcome |
+| Windows / macOS | Unsupported | No application builds |
+
+Early **0.1.0** release. OCR depends on font size, contrast and application.
+Fullscreen games require individual testing. Cross-platform core tests do not
+imply desktop support on those operating systems.
+
+## Install on Arch Linux
+
+Choose the **Arch Linux x86_64** package from
+[Releases](https://github.com/EstySD/LookUpLinux/releases) when a published release
+is available. Download `SHA256SUMS` beside it, then run:
 
 ```bash
-sudo pacman -S --needed base-devel python
-python tools/stage_package.py --output "$HOME/lookup-linux-build"
-cd "$HOME/lookup-linux-build"
-makepkg -si
-```
-
-Каталог `lookup-linux-build` должен быть пустым или ещё не существовать.
-Для повторной сборки выберите другой пустой каталог. Подготовка создаёт
-`PKGBUILD`, фиксированный архив исходников и `SOURCE.json` с SHA-256 и списком
-включённых файлов. Запускайте `makepkg` из этого подготовленного каталога:
-рецепт в корне репозитория является шаблоном для подготовки.
-
-Пакет называется **lookup-linux**. Он ставит Python/PyQt6, Qt Wayland,
-Tesseract с английскими данными, wl-clipboard ≥ 2.3 и необходимые средства KDE.
-Приватный kdotool 0.3.0 скачивается из официального релиза по закреплённой
-контрольной сумме; отдельная установка из AUR для пакета не нужна. Mueller 7
-также скачивается и проверяется при сборке. Интернет нужен для этой загрузки
-и отсутствующих зависимостей. В `package()` сетевых действий нет.
-
-Программа устанавливается в `/usr/lib/lookup/app`, команда — `/usr/bin/lookup`,
-помощник — `/usr/lib/lookup/kdotool`. Системный словарь расположен в
-`/usr/share/lookup/dicts/mueller7`. Пакет включает обычный ярлык приложения,
-разрешение принадлежащего приложению интерфейса ScreenShot2 и запись автозапуска.
-
-Запустите `lookup --app` в отдельном терминале или оставьте его в фоне:
-
-```bash
+sha256sum --ignore-missing -c SHA256SUMS
+sudo pacman -U ./lookup-linux-0.1.0-1-x86_64.pkg.tar.zst
 lookup --app &
 ```
 
-Дождитесь значка в трее, затем выполните `lookup --doctor` в терминале.
+Checksums detect damaged downloads; they are not publisher signatures. Draft
+releases are visible only to maintainers. If there is no published package, build
+from source below.
 
-## Первый запуск и настройки
+**Add a dictionary for offline definitions.** Public packages do not bundle
+dictionary databases. See [dictionary downloads and setup](docs/DICTIONARIES.md).
+Online translation is enabled by default and requires a network connection.
 
-После `lookup --app` появится значок в трее. Из меню открываются «Слова»,
-«Повторение» и «Настройки». Повторный запуск использует один фоновый экземпляр.
-
-В настройках можно изменить хоткей, порядок и включение словарей, время
-закрытия карточки, онлайн-перевод и автозапуск. Значения по умолчанию:
-**Meta+Shift+D**, **20 секунд**, онлайн-перевод и автозапуск включены.
-После сохранения дождитесь сообщения о применении; новый поиск использует
-обновлённые параметры. Ошибка применения показывается отдельно.
-
-Занятую комбинацию программа не забирает у другого приложения. Если хоткей
-изменяли средствами KDE, фактическая комбинация KDE может отличаться от
-исходного значения; `lookup --doctor` показывает активную регистрацию.
-
-Ручная настройка в Plasma: **Параметры системы → Клавиатура → Комбинации
-клавиш → Добавить → Команда или сценарий**. Команда установленной программы:
-
-```text
-/usr/bin/lookup --trigger
-```
-
-Назначьте свободную комбинацию. Для старой ручной записи удалите её прежнее
-назначение в том же окне KDE, чтобы не оставлять два независимых действия.
-Установка пакета использует системный ярлык; вручную копировать его в домашний
-каталог не требуется.
-
-Автозапуск действует при следующем входе в KDE. Галочка «Автозапуск» сохраняет
-свойство приложения; `--autostart` читает его до создания интерфейса и тихо
-завершается, если запуск отключён. Системная запись находится в
-`/etc/xdg/autostart/org.lookup.Linux.desktop`.
-
-## Словари и перевод
-
-Поддерживаются StarDict (`.ifo` и файлы данных/индекса), Lingvo DSL
-(`.dsl`, `.dsl.dz`) и MDX. Пользовательские словари положите в
-`~/.local/share/lookup/dicts`, сохранив необходимые соседние файлы формата.
-Выберите их порядок и состояние в настройках.
-
-В настройках кнопка **«Открыть папку словарей»** доступна даже при пустом
-списке. Рядом показан фактический путь, который можно выделить и скопировать;
-отсутствующая папка создаётся при явном открытии. Скопируйте туда файлы словаря,
-затем нажмите **«Применить настройки»**: программа повторно просканирует
-словари без перезапуска, даже если другие поля не менялись. При ошибке открытия
-путь остаётся доступен для копирования. Для StarDict сохраняйте `.ifo` вместе
-с соседними файлами индекса и данных; также поддерживаются `.dsl`, `.dsl.dz`
-и `.mdx`, в том числе в подкаталогах. Если задан `LOOKUP_DICTS`, кнопка открывает
-первый указанный каталог; иначе используется пользовательский XDG-каталог.
-
-Проверка из терминала:
+### Build from source
 
 ```bash
-lookup --list-dicts
-lookup --word run --offline --no-save
+sudo pacman -S --needed base-devel python git
+git clone https://github.com/EstySD/LookUpLinux.git
+cd LookUpLinux
+python tools/stage_package.py --public --output "$HOME/lookup-linux-build"
+cd "$HOME/lookup-linux-build"
+makepkg -si
+lookup --app &
 ```
 
-Mueller 7 работает офлайн. Онлайн-фолбэк, перевод предложения и отдельное
-значение выбранного слова в контексте требуют сети и включённого онлайн-режима.
-Отсутствующая или неудачная контекстная часть не скрывает готовую словарную
-статью. При ненадёжной границе предложения показывается доступный фрагмент.
+Use a new or empty build directory. Build as an ordinary user; `makepkg -si`
+requests elevated privileges for dependencies and installation. The recipe
+downloads a checksum-pinned kdotool helper; no separate AUR install is needed.
+The root recipe without `--public` is a legacy local build including Mueller 7;
+public releases use the separate recipe without dictionary data.
 
-В сеть передаются выбранный текст и нужный контекст. Кадр для OCR не
-отправляется; рабочие изображения не сохраняются в историю. Функция
-контекстного значения использует недокументированный публичный endpoint Google:
-его доступность и качество не гарантированы. На тестовой VM он отвечал HTTP 429;
-ограничение отражается явным статусом при сохранении доступной офлайн-статьи.
+## First lookup
 
-## История, карточки и экспорт
+1. Start `lookup --app` and wait for the tray icon.
+2. Open **Settings → Open dictionary folder**, add dictionary files, then apply settings.
+3. Hover over English text and press **Meta+Shift+D**.
+4. Save words as cards; open the words or review window from the tray.
 
-«Слова» открывает историю по убыванию числа поисков. Строка поиска и заголовки
-колонок меняют представление без увеличения счётчика. Удаление из истории
-сохраняет отдельную учебную карточку; следующий поиск слова начинает счёт с 1.
-
-«В карточки» сохраняет показанные перевод и контекст. Если уже готово значение
-слова в контексте, сохраняется оно. Повторное добавление и поздний ответ сети
-не меняют существующую карточку и её расписание.
-
-В «Повторении» сначала показано слово, затем кнопка «Показать ответ» открывает
-перевод и контекст. Again / Hard / Good / Easy показывают следующие интервалы.
-Если сейчас нет готовых к повторению карточек, окно сообщает об этом.
-
-Из окна «Слова» экспортируются **все учебные карточки** в CSV или текст для
-Anki. CSV содержит слово, перевод и контекст. Для Anki выберите экспортированный
-UTF-8 файл через «Импорт», обычный тип заметки с двумя полями и нужную колоду.
-Файл содержит заголовки разделителя Tab, HTML и столбцов Front/Back; контекст
-входит в Back с переносами, а буквальные угловые скобки экранируются.
-Редактирование файла перед импортом не требуется. Реальный импорт проверен
-официальным ядром Anki 26.9.3 в отдельной коллекции. Это файловый импорт;
-синхронизации с AnkiWeb/AnkiConnect здесь нет.
-
-## Диагностика
+For shortcut problems, run `lookup --doctor` in your Plasma session. Start the
+app first so it can register its shortcut. An occupied shortcut is not taken over.
 
 ```bash
 lookup --doctor
-```
-
-Код завершения **0** означает, что обязательные проверки прошли; **1** — есть
-проблема с объяснением, **2** — неверные параметры команды. Проверяются средства
-OCR и KDE, доступность сеанса/реестра хоткеев и читаемость метаданных/индексов
-словарей. Выключенные и отсутствующие словари различаются. Проверка словарей
-ограничена по времени; большой словарь при превышении лимита требует отдельной
-проверки. Полное качество OCR, перевод каждой статьи и реальный захват экрана
-этой командой не измеряются.
-
-Диагностика не запускает поиск или фоновую программу, не открывает историю,
-не читает выделение, не снимает экран, не обращается в сеть и не создаёт
-индексный кэш DSL/MDX. Выполняйте проверку из терминала текущего сеанса Plasma.
-Если хоткей ещё не зарегистрирован, сначала запустите `lookup --app`.
-
-Полезные однократные команды:
-
-```bash
+lookup --list-dicts
 lookup --word bank --offline --no-save
 lookup --text "They sat by the river." --no-save
 ```
 
-Для разработки из корня исходников используется `python -m lookup` с теми же
-аргументами. Полный GUI требует тех же зависимостей и kdotool 0.3.0; локальный
-пакет выше предоставляет приватный помощник и системный Mueller. Команды
-установленного пакета работают вне каталога исходников и без `PYTHONPATH`.
+## Privacy and offline use
 
-## Данные и удаление
+Local dictionaries and cards work offline once a dictionary is installed.
+Disable online access in Settings for offline use. When enabled, selected text
+and needed context may be sent to Google or MyMemory. OCR screenshots are
+processed locally and are not sent to translation services or stored in history.
 
-Перед удалением выберите «Выход» в меню трея. Pacman удаляет файлы пакета,
-но уже работающий процесс может оставаться в памяти до выхода из приложения.
+Online translation uses public endpoints, including an undocumented Google
+endpoint. Availability, rate limits and quality are not guaranteed. An online
+error does not hide a ready offline definition.
 
-При стандартных XDG-каталогах история и карточки находятся в
-`~/.local/share/lookup/lookup.db`, настройки — в `~/.config/lookup/config.json`,
-восстанавливаемые индексы — в `~/.cache/lookup`. Для изолированных проверок
-существуют `LOOKUP_DB`, `LOOKUP_CONFIG`, `LOOKUP_CACHE` и `LOOKUP_DICTS`;
-последняя переменная заменяет стандартный список каталогов словарей.
+History and cards: `~/.local/share/lookup/lookup.db`; configuration:
+`~/.config/lookup/config.json`; rebuildable indexes: `~/.cache/lookup`.
+Uninstalling preserves personal data. The [Russian guide](docs/README.ru.md)
+covers settings, exports and removal in detail.
 
-```bash
-sudo pacman -R lookup-linux
-kbuildsycoca6
-```
+## Development and community
 
-Удаление убирает файлы пакета, системные ярлыки и его автозапуск. Обновление
-реестра KDE удаляет исчезнувшее действие приложения; при сохранённой отдельной
-ручной записи удалите её назначение через «Комбинации клавиш».
-Пользовательская база, учебные карточки, настройки и добавленные словари
-сохраняются. Привилегированная очистка домашних каталогов не выполняется.
+See [Contributing](CONTRIBUTING.md), [Security](SECURITY.md) and the
+[changelog](CHANGELOG.md). English and Russian bug reports are welcome.
+Include your Plasma version, session type and sanitized `lookup --doctor` output.
 
-## Ограничения и происхождение
+## License and acknowledgements
 
-Поддерживается EN→RU в KDE Wayland; GNOME, X11, другие языки, аудио и синхронизация
-не заявлены. Реальные полноэкранные игры, длительная устойчивость и бюджет
-задержки проверяются отдельно; окно с синтетическим текстом не подтверждает
-совместимость игры. Реальные пользовательские MDX/DSL пока не предоставлялись;
-форматы покрыты контролируемыми файлами и тестами.
-
-Лицензия собственного кода проекта пока **не указана**. kdotool распространяется
-по Apache-2.0, его LICENSE включён в пакет. QStarDict обозначает Mueller 7 как
-GPL, но закреплённый архив не содержит текста и точной версии лицензии;
-пакет сохраняет эту неопределённость, без заявления о разрешённом
-переиздании. Ссылки, контрольные суммы и атрибуция находятся в
-`packaging/THIRD-PARTY.md`, после установки — в
-`/usr/share/licenses/lookup-linux/THIRD-PARTY.md`. Данные исключений WordNet
-поставляются со своим уведомлением. Сборка предназначена для локальной проверки.
+Original code and documentation: **GPL-3.0-or-later**. See [LICENSE](LICENSE),
+[licensing details](COPYING.md) and [third-party notices](packaging/THIRD-PARTY.md).
+Built with Python, PyQt6, KDE Plasma, Tesseract and kdotool. Word-form exceptions
+include WordNet-derived data with its upstream notice. Dictionary licenses are separate.

@@ -16,7 +16,7 @@ ASSETS={
 }
 
 
-def stage(output,root=ROOT):
+def stage(output,root=ROOT,public=False):
     root=Path(root).resolve();output=Path(output)
     if any((root/name).is_symlink() for name in ('lookup','packaging')):raise ValueError('unsafe_source')
     if output.is_symlink() or (output.exists() and (not output.is_dir() or any(output.iterdir()))):
@@ -28,6 +28,7 @@ def stage(output,root=ROOT):
             files.append(path)
     files += [root/'packaging'/name for name in ('lookup','org.lookup.Linux.desktop',
         'org.lookup.Linux.autostart.desktop','THIRD-PARTY.md')]
+    files += [root/'LICENSE',root/'COPYING.md']
     if any(path.is_symlink() or not path.is_file() or not path.resolve().is_relative_to(root) for path in files):
         raise ValueError('unsafe_source')
     names=[];buffer=io.BytesIO()
@@ -41,22 +42,24 @@ def stage(output,root=ROOT):
                 entry=tarfile.TarInfo(name);entry.size=len(data);entry.mode=0o644
                 archive.addfile(entry,io.BytesIO(data));names.append(name)
     data=buffer.getvalue();digest=hashlib.sha256(data).hexdigest()
-    template=(root/'PKGBUILD').read_text(encoding='utf-8')
+    template=(root/('packaging/PKGBUILD.public' if public else 'PKGBUILD')).read_text(encoding='utf-8')
     if template.count('@LOCAL_SOURCE_SHA256@')!=1:raise ValueError('invalid_build_template')
     output.mkdir(parents=True,exist_ok=True)
     (output/'lookup-source.tar.gz').write_bytes(data)
     build=template.replace('@LOCAL_SOURCE_SHA256@',digest)
     (output/'PKGBUILD').write_text(build,encoding='utf-8',newline='\n')
     record=dict(archive='lookup-source.tar.gz',archive_sha256=digest,text_line_endings='LF',
-                pkgbuild_sha256=hashlib.sha256(build.encode()).hexdigest(),files=names,upstream=ASSETS)
+                pkgbuild_sha256=hashlib.sha256(build.encode()).hexdigest(),files=names,
+                upstream={k:v for k,v in ASSETS.items() if not public or k!='mueller7'})
     (output/'SOURCE.json').write_text(json.dumps(record,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
     return record
 
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--public',action='store_true',help='Use the redistributable recipe without Mueller dictionary data')
     args=parser.parse_args()
-    try:record=stage(args.output)
+    try:record=stage(args.output,public=args.public)
     except (OSError,ValueError):parser.exit(1,'Не удалось подготовить пакет: нужен пустой каталог и обычные исходные файлы.\n')
     print('Готово: PKGBUILD, lookup-source.tar.gz, SOURCE.json; SHA256='+record['archive_sha256'])
 

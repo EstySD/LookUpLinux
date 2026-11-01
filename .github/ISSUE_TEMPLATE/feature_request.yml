@@ -1,0 +1,10 @@
+name: Feature request / Предложение
+description: Suggest an improvement with a concrete use case.
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: Describe the problem and proposed behavior.
+    validations:
+      required: true

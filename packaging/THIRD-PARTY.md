@@ -1,8 +1,8 @@
-# Local package attribution and unresolved licensing
+# Third-party notices
 
-This recipe is for a local development build. The repository has no project
-LICENSE: the LookUpLinux project's own license is **unspecified**. This notice
-does not grant permission to redistribute the project or clear third-party rights.
+LookUp Linux's original code is GPL-3.0-or-later; see LICENSE and COPYING.md.
+The public recipe excludes Mueller 7. The legacy root recipe includes it for
+local development only. This notice does not clear third-party rights.
 
 ## kdotool 0.3.0
 
