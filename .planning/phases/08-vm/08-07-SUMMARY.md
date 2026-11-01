@@ -37,12 +37,13 @@ key-decisions:
 tested-revision: fe021bdf68607d5b8026eb1d1494e945862618cd
 tested-tree: 728957780ced4c36bcd2f64c9f96da345c6f134f
 completed: 2026-11-01
-status: execution_done_parent_gates_pending
+status: verified_parent_gates_passed
+requirements-completed: [PERF-01, GAME-01]
 ---
 
 # Phase 8 Plan 7: Strict current evidence and final discovery
 
-Current raw evidence satisfies all seven criteria and same-revision full suites; final independent verifier binding remains the parent's completion gate.
+Current raw evidence, all seven criteria, same-revision full suites and final independent review/verifier gates pass.
 
 Implementation: tools/check_hardening.py and tools/check_hardening_install.py. Selected evidence: `.planning/phases/08-vm/08-gap-final-aggregate.json` and `08-gap-final-suites.json`.
 
@@ -77,9 +78,9 @@ Latest recovery actually released keys/mouse, observed no private target childre
 
 Selected assembly recomputes all seven criteria true, cleanup true, suite gate true and evidence_passed true. Overall completion and ready_for_verification depend on real parent-owned review/verifier file references; no independent gate or human acceptance is invented here. Final review has reported code/security pass for testedfe021; parent binds the actual report bytes and runs the independent verifier.
 
-## Remaining parent gates
+## Parent closure acceptance
 
-Bind actual final code/security review refs, regenerate ready_for_verification, run independent verifier, bind its actual revision/report ref and regenerate final overall acceptance. Global STATE/ROADMAP/REQUIREMENTS and milestone archival belong to the parent.
+The parent bound the actual final code/security review and independent verifier reports for tested revision fe021bdf68607d5b8026eb1d1494e945862618cd. Independent verification passed 7/7 with zero new overrides. Fresh selected aggregation passes all criteria, evidence, cleanup, suites and all three independent gates. This is agent acceptance; the user's manual session is not labeled a human pass. Global state and milestone archival are handled by the parent.
 
 ## Self-Check: PASSED
 

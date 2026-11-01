@@ -1,0 +1,17 @@
+{
+  "code_review": {
+    "file": "08-REVIEW.md",
+    "sha256": "91a95f9eda028666981c05101776d7954b2aa89d4ca92843d2a4d8220e283e45",
+    "revision": "fe021bdf68607d5b8026eb1d1494e945862618cd"
+  },
+  "security_review": {
+    "file": "08-REVIEW.md",
+    "sha256": "91a95f9eda028666981c05101776d7954b2aa89d4ca92843d2a4d8220e283e45",
+    "revision": "fe021bdf68607d5b8026eb1d1494e945862618cd"
+  },
+  "verifier": {
+    "file": "08-VERIFICATION.md",
+    "sha256": "ef931304d7e2b53c7c6d1532a776ea6a89cb9ad420255a1aec3a12dfaaf00bd5",
+    "revision": "fe021bdf68607d5b8026eb1d1494e945862618cd"
+  }
+}

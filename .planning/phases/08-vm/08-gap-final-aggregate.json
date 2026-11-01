@@ -1,6 +1,6 @@
 {
-  "passed": false,
-  "game01_complete": false,
+  "passed": true,
+  "game01_complete": true,
   "criteria": {
     "performance": true,
     "stability_burst": true,
@@ -2400,7 +2400,7 @@
   "evidence_passed": true,
   "ready_for_verification": true,
   "suites_valid": true,
-  "independent_complete": false,
+  "independent_complete": true,
   "historical_phase7": {
     "raw": {
       "acceptance": "agent",

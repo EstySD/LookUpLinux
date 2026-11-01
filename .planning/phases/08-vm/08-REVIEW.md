@@ -1,10 +1,12 @@
 ---
 phase: 08-vm
-reviewed: 2026-10-30
+reviewed: 2026-11-01
 depth: standard
-review_scope: full_phase_units_01_through_05
+review_scope: final_phase08_source_security_native_evidence
 diff_base: 1b54572
-review_head: a10c5e1
+review_head: fe021bdf68607d5b8026eb1d1494e945862618cd
+tested_tree: 728957780ced4c36bcd2f64c9f96da345c6f134f
+prior_final_review_commit: bbb1dbd
 initial_source_snapshot: e7fb3d6
 finding_recheck_head: 3114db8
 incremental_production_head: 4ace8e9
@@ -13,9 +15,9 @@ incremental_harness_recheck_head: a3c887f
 phase_review_complete: true
 code_review: passed
 security_review: passed
-phase_acceptance: gaps_found
-mandatory_gap: GAME-01-captured-useful-route
-files_reviewed: 12
+phase_acceptance: ready_for_verification
+independent_verifier: pending
+files_reviewed: 20
 files_reviewed_list:
   - lookup/timing.py
   - lookup/__main__.py
@@ -29,19 +31,57 @@ files_reviewed_list:
   - tests/test_check_games.py
   - tools/check_hardening_install.py
   - tests/test_hardening_install.py
+  - lookup/ocr.py
+  - tools/calibrate_ocr.py
+  - tests/test_ocr_fallback.py
+  - tests/test_ocr_game_sources.py
+  - tests/test_ocr_image.py
+  - tests/test_app.py
+  - tests/test_concurrency.py
+  - tests/test_hardening_cleanup_controller.py
 findings:
   critical: 0
   warning: 0
   info: 0
   total: 0
-resolved_findings: 11
+resolved_findings: 19
 status: clean
 scope_result: clean
 ---
 
-# Phase 8: Final Code and Security Review
+# Phase 8: Code and Security Review
 
 ## Final Assessment
+
+**Code review PASSED. Security review PASSED.** Full submitted phase source scope is reviewed at tested revision `fe021bdf68607d5b8026eb1d1494e945862618cd` (tree `728957780ced4c36bcd2f64c9f96da345c6f134f`), including the20 source/test/tool files listed above, the immutable game fixture manifest, and the scoped native transport/controllers/collectors/registry/isolated-suite helpers documented below. All16 BLOCKER findings and three WARNING findings are resolved with retained reproductions/dispositions. No open finding remains. STRIDE/ASVS-L1 threat-model boundaries in08-07/08-08/08-09 were cross-checked against actual code and evidence; no certification claim is made.
+
+Fresh final raw recomputation: host **797tests/11skips/exit0**, target **797tests/0skips/exit0**, both at the exact tested revision/tree, actual log digests verified, no Traceback in either current log. Target actual OCR/Mueller opt-ins and isolated UID/private DBus/offscreen execution are recorded. The Git source anchor passes; failed initial795-target discovery remains preserved.
+
+Current evidence recomputes true for source-bound physical30 (median1088.2457725ms/p951431.759096ms), two actual same-instance AssaultCube routes with physical return controls and real6-to11 selection, exact-source current Wesnoth compatibility, declared nongame20 fallback resources, physical burst and classified privacy. Historical320/scales/install/fault/meaning evidence is reused only under the documented unchanged-path rationale and fresh current OCR/context/geometry coverage. Game latency4303.613319/4081.585538ms is retained without a new1500ms game claim. Live meaning availability remains0/6; second-output/borderless and software-renderer limits remain explicit.
+
+Both actual post-manual7552 cleanup and latest explicit target recovery are accepted from raw readbacks. Latest target recovery uses the exact frozen reviewed controller finally AST, with source digest verified. Controller29428's missing process/stale running receipt and lost original memory remain explicit; no fabricated initial-finally execution or hot reload is claimed. Restoration uses the saved actual last-OFF pretarget snapshot, not active settings. Release succeeds; remaining private/normal product processes are empty; package is absent; post-manual config/dictionaries and16words/1card logical SQLite backup remain intact (matching8e6fd074… digest/integrityOK). Clone final OFF/3Don/BIDI and successful restoration exit0 are observed. Shutdown SSH disconnect stays a false transport receipt, resolved by later actual OFF readbacks. All mutations are clone-scoped under USER_KEEP_RUNNING; no original guest/disk/control action is accepted.
+
+This completes the independent code/security review and makes the phase **ready for independent verification**; the verifier gate remains pending. No human testing claim is inferred. Historical Phase7 strict-false original-preservation/unknown-actor evidence, rejected Doom/06 routes, frozen09 false shortcut comparison, failed initial suites and earlier unsupported privacy attempts remain unchanged. New full registry/physical proof resolves current cleanup only. Reviewer made no VM/source/index changes; only this report was edited.
+
+The remaining sections are retained chronological review history. Their earlier partial/pending statements describe those checkpoints; this final assessment and later explicit resolved dispositions govern current review status.
+
+## Historical Incremental 09 Dispositions
+
+CR-13 below is RESOLVED in source-binding GREEN `787ca19`, including its complete-inventory and current-byte residuals. Earlier clean reviewed increments remain historical. Current-performance binding code has clearance; actual native artifacts and expanded phase acceptance still require later review.
+
+WR-02 below is RESOLVED in per-pass observer `57db97e`; unsupported observation modes preserve original calls/results/exceptions. Actual game/native evidence remains a separate gate.
+
+CR-14 below is RESOLVED in `e2a5893`, including source/report I/O residuals. Actual execution of the old live controller and any recovery remain separate evidence obligations.
+
+CR-15 is resolved in `d16c387`; CR-16 is resolved in `23cdaf5`, including root PKGBUILD anchoring. Phase completion remains pending actual final suites/latest cleanup and final independent gates.
+
+## Historical Unit 06 Addendum Status
+
+**Current isolation policy:** The explicit user instruction recorded in `9a6890c` and `08-VALIDATION.md` governs subsequent06/07 work: `USER_KEEP_RUNNING`. The original VM belongs to another active project and must receive zero reviewer/workflow guest, disk or control actions. Read-only host identity/state observations are permitted; original OFF, unchanged state and disk hashes are not new acceptance prerequisites. Every mutation still requires the independently identified owned clone and explicit guarded endpoint. This changes neither GAME-01/PERF-01 requirements nor historical07 strict-false evidence. Current clone cleanup, retained data and actual action provenance still require review; no new native result is accepted by this policy acknowledgment.
+
+Incremental review of the approved gap-closure plan/GAP-RESEARCH and AssaultCube descriptor/SDL/protocol changes found CR-11 in pilot failure cleanup and CR-12 in GL-context binding, both now resolved. No open finding remains in reviewed source through `749076b`. No native operation was performed by this reviewer. Actual fresh second routes/control/GL binding and new06 cleanup remain pending; a useful pilot/preflight is not GAME-01 completion. The prior completed01–05 review remains valid historical evidence; expanded scope is partial until actual final evidence and source integration are reviewed.
+
+## Prior Final Assessment: Units 01–05
 
 **Code review: PASSED. Security review: PASSED.** Standard review covers all twelve submitted source/test/tool files from `1b54572` through final correction `a10c5e1`. No open BLOCKER or WARNING remains. Ten BLOCKER findings and one WARNING were corrected and independently rechecked; original findings, reproductions and dispositions are retained below as history.
 
@@ -360,3 +400,277 @@ Final raw binding checks performed independently during this review: all recorde
 The captured game's two real failed attempts, stage6/no Query outcomes and zero accepted useful routes remain authoritative. Real lock/camera/navigation observations do not close that gap. Optional second output/borderless and universal decorative-font/game compatibility remain unverified; code/security review does not replace the independent phase verifier or authorize milestone completion.
 
 Only this review artifact was edited and committed by the reviewer. No source/state changes, native VM input/boot/session operations, personal-profile cleanup or historical-report mutations were performed.
+
+## Unit 06 Task 2 Incremental Review
+
+Read approved08-06 plan and GAP-RESEARCH, changes through `dc1fe5e` after RED `27c1657`, new transparent SDL hooks and candidate launch/observation seams. The one explicit AssaultCube asset URL/52071427byte/SHA256 pin, RC1 identity, version and owned executable are required; no arbitrary engine/executable fallback was introduced. GL proof requires actual game-log text/digest and matching game PID/start rather than accepting a requested software environment. Current acceptance is Wayland-only; an X11 driver is rejected rather than mislabeled.
+
+Same-process SDL relative calls must report successful requested/enabled state; protocol events are digest-bound, ordered and must end locked before physical input, with no intervening unlock/destroy. Existing source/request/run identity, verified kernel-input/capture-end clock, exact canonical span, word-box, useful overlay and distinct input/control evidence checks remain active. SDL wrappers call the original once, query actual state/driver, and return its original result/errno. Actual final GL text and final controlled routes are still execution-evidence obligations.
+
+### CR-11: One early pilot cleanup failure skips shutdown and settings restoration
+
+**Classification:** BLOCKER
+**Disposition:** RESOLVED in `ebe25e7`, reviewed initially as a working-tree correction after `dc1fe5e`. Parent/owner notified; original issue/reproduction retained below. Actual cleanup is not inferred from the correction alone.
+**File:** `tools/check_games.py:38–60` (`pilot_session` finally)
+
+**Issue:** Key release, mouse release, guest process/package cleanup, shutdown, OFF verification and restoration are all inside one try. An exception in an early operation exits directly to `cleanup_error`, then writes state finished. Remaining safe cleanup actions are never attempted. For example, a failed keyboard release or SSH cleanup can leave the owned clone running with isolation settings changed, even though the approved plan explicitly requires an unconditional bounded shutdown and OFF-only restoration attempt on failure/exception. Recording a false cleanup result is necessary but does not fulfill the required independent best-effort cleanup path.
+
+**Reproduction executed without VM or filesystem mutation:** Mock VBox info/start operations and record writes, arrange a normal stop request, then make the first `vm_input` release raise `RuntimeError('release_failed')`. Observed cleanup_error, **shutdown_attempted=false**, **restore_attempted=false**, and final state finished. All subprocess/record operations were mocked; no original/clone action occurred.
+
+**Fix:** Separate cleanup steps into independently guarded attempts, accumulate failed gates/errors, and continue to the safe owned shutdown/OFF verification/restoration sequence despite earlier release or guest-cleanup failures. Preserve the prohibition on restoring settings while running, exact UUID/base-disk ownership and original read-only behavior. Add controller regressions for key/mouse release failure, guest-cleanup SSH failure and shutdown failure, proving later safe attempts occur and unsuccessful steps remain false. Do not turn a partial cleanup into success.
+
+Fresh `python -m unittest tests.test_check_games`: **14 tests passed**, 0.011seconds. The mocked cleanup reproduction establishes an uncovered path beyond those passing tests. The saved feasibility pilot explicitly retains failed held-TAB/stage6 history and marks renderer/final acceptance pending; its successful `name` useful bound4232.717534ms alone does not close GAME-01. No source/VM/index edits or commits were made by this incremental review.
+
+### CR-11 Narrow Cleanup Resolution Check
+
+Read the current `pilot_cleanup_steps` correction. Each release, guest cleanup and shutdown operation is independently guarded, so an early failure no longer skips safe remaining attempts. Ownership is checked before clone mutation; shutdown/power polling/forced-stop fallback and settings restoration run afterward, with restoration restricted to observed OFF state. Per-step errors and final clone/original/settings readbacks remain explicit.
+
+Fresh `python -m unittest tests.test_check_games`: **15 tests passed**, 0.043seconds, including simultaneous key-release and guest-cleanup SSH failures while proving shutdown and OFF-only restoration still occur. No additional blocker was established in this narrow correction. The already-running old controller is not assumed to reload changed source; actual execution of updated cleanup and final raw readbacks remain required. New actual GL/client-log, repeated route and camera/movement evidence is still being assembled and is not accepted by this code-only recheck. Expanded06 review remains partial; no VM/source/index operation was performed.
+
+### Unit 06 Meaningful World-motion Guard Recheck
+
+Read the current semantic guard and durable old-bad/old-real control regression. No additional concrete code blocker was established. For the fixed1280x800 local-map scenario, `world_change()` compares RGB pixels in `[128,160,384,360]`, an inspected world area outside weapon/HUD/FPS/scoreboard controls. The strict candidate requires at least1383 of138240 world pixels to differ and different ROI hashes; a full-frame difference alone is insufficient. Camera proof additionally requires two distinct ordered kernel EV_REL/X60 events, bounded by the recorded capture end. Existing game PID/start, post-dismiss timing and globally distinct input/frame proof checks remain intact.
+
+Fresh `python -m unittest tests.test_check_games`: **16 tests passed**, 0.229seconds. Independently recomputed the retained old false-camera pair: **121/138240** changed world pixels, correctly below threshold; the retained genuine rotation pair gives **138120/138240**, correctly accepted by the world-change condition. Visually inspected the map landmarks/ROI location in those actual frames. This is a bounded scene-specific semantic guard, not a universal guarantee against animated-world content.
+
+The new run's initial `08-06-final-route1-camera.json` for game PID986/start4587 reports **zero** world change despite two physical pulses; it is rejected/retained and must not be selected for acceptance merely because observer state says complete. Subsequent W input reports138182 changed world pixels. `08-06-final-route1-camera-after-w.json` records later, distinct EV_REL/X60 events at152740415000/153226544000ns and138103 changed world pixels, after the same route's dismissal. Both W and camera may occur in either post-dismiss order; W→camera does not waive either requirement. Those new values were parsed from raw records; final source/control-image hash recomputation and second-route/GL/cleanup binding remain pending assembly.
+
+The prior first native candidate report stays false, and failed old-controller cleanup is retained separately from observed updated recovery. No GAME-01/candidate acceptance is inferred in this increment. No VM/source/index operation was performed by the reviewer.
+
+### CR-12: GL-context evidence is not bound to its current game window
+
+**Classification:** BLOCKER
+**Disposition:** RESOLVED in `749076b`. Parent and owning agent notified with code clearance; original issue/reproduction retained below. Fresh native routes and their actual pre-input binding remain separate evidence obligations.
+**File:** `tools/check_games.py:110–123` and `tools/check_games.py:219–227` — new GL wrapper and actual-context validation branch at review time.
+
+**Issue:** The new raw GL row carries PID/time/renderer/version/driver but no SDL window/current-context identity. The validator checks PID/start/time/digest but ignores whether the returned context is current for the captured game window or matches that window's actual SDL grab evidence. A valid record from another same-process window/context, or one explicitly marked noncurrent, can therefore satisfy renderer acceptance. This misses the requested raw PID/start/window/context binding.
+
+**Reproduction executed:** Construct a valid explicit-candidate fixture with GL row `window=999`, `current_window=888`, `current_context_matches=false`, while its actual SDL grab row declares window1. Keep matching PID/start, valid pre-input timestamp and recomputed canonical digest. `captured_game_report()` returns **passed=true** for both routes. The current positive GL fixture also accepts missing window fields entirely.
+
+**Fix:** Observe the actual SDL window ID and verify `SDL_GL_GetCurrentWindow()==window` and `SDL_GL_GetCurrentContext()==original_result` before reading GL strings. Put `SDL_GL_GetProcAddress` inside the successful/current-context branch rather than calling it even after an original NULL result. Bind the captured raw window/currentness evidence to the same-process SDL grab/window observation used for the route, and reject absent, mismatched or explicitly noncurrent records. Add adversarial wrong-window/currentness tests without replacing actual returned contexts or synthesizing a verified flag.
+
+Fresh `python -m unittest tests.test_check_games`: **17 tests passed**, 0.221seconds; the direct foreign/noncurrent-window reproduction above exposes an uncovered acceptance gap. Prior PID986 zero-byte/lost GL evidence remains unaccepted; old PID1139 logs must not be borrowed. New PID2509's actual pre-input GL observation is a new attempt and needs its complete raw binding/final routes before acceptance. No native/source/index operation was performed by the reviewer.
+
+### CR-12 Resolution and Fresh GL Preflight
+
+Reviewed `749076b`. C GL queries now occur only after a successful original return, current-context equality to that return, and current-window equality to the original window. NULL original return short-circuits before context/window/GL procedure queries; no extra diagnostic lookup runs on that failure path. The original is called once; original pointer and saved errno are returned. Successful logging checks nonnull renderer/version strings and closes the record stream immediately.
+
+The AssaultCube oracle accepts only the actual SDL GL-context record path. It requires matching PID/start, valid context timestamp after process birth and before every route input, canonical record digest, actual current SDL window ID, nonzero raw window/context pointers and true observed context equality. Each route's actual SDL grab window/pointer must match that same GL window; the old text-only game-log escape is removed. Fresh **17 game tests passed**, 0.217seconds. The original foreign/noncurrent-window fixture now rejects with `gl_current_window_context`; adverse PID/time/digest/driver/window/pointer cases remain covered.
+
+Parsed `08-06-window-gl-preflight.json` for the new game **PID3661/start69061**: actual GL timestamp690729560221ns, current/window ID4, matching grab/window pointer0xe39a640 and current context pointer0xe39c6b0, observed true equality. Actual renderer is llvmpipe LLVM23.1.3 with Compatibility4.6/Mesa26.2.5 and SDL Wayland. Successful relative-state1 and an actual ordered Wayland locked event belong to that same PID. These are source-bound preflight observations, not borrowed PID1139/986/2509 output and not a requested environment inference. No physical lookup had been accepted for this new process at this review checkpoint; all fresh routes/control/cleanup still need final binding.
+
+No additional concrete blocker was established. Parent/source owner received code clearance before fresh controlled routes. No VM/source/index operation was performed by the reviewer; expanded06 review remains partial.
+
+### Unit 06 USER_KEEP_RUNNING Input Adapter Review
+
+Read the artifact-local `08-06-owned-input.ps1`, `08-06-native-takeover.py` and `08-06-takeover-controller.py` snapshot. The input adapter checks fixed clone UUID/name/running state, independent disk UUID, MAC and loopback NAT2227 before input; keyboard and COM mouse calls target only that clone UUID. It does not inspect or control the original guest. Replacing the host input transport preserves existing physical kernel-event and compositor-frame observation; calibration motions are separately recorded and cannot substitute for measured world-control proofs. Fresh nonexecuting PowerShell parser and Python AST checks passed for these three artifacts. No adapter, guest command or VM operation was executed by the reviewer.
+
+Final orchestration review remains pending on two source-owner follow-ups, reported immediately: the controller still calls the disclosed legacy original-OFF input-release helper and computes policy compliance using original state equality; this must be replaced by clone-only release and zero-our-original-actions/guarded-mutations accounting. Separately, `08-06-native-takeover.py:25` dispatches later guest commands directly through `games.vm_command`; its DMI assertion occurs only in the setup script, rather than guarding each dispatched mutable guest command. Add an artifact-local DMI-checked dispatch path retaining the pinned host key and explicit2227 endpoint. The input adapter itself has no demonstrated foreign-target path; these pending integration seams are not final cleanup or route acceptance. Original-running status is permitted by the explicit user policy and is not a finding.
+
+**Correction recheck:** The controller now loads the clone-only input adapter and no longer compares original before/after states. Those two corrections are confirmed. The new `guarded_command()` protects the presently listed launch/route/control operations, but its selective action list leaves other mutable guest actions unguarded; direct `guest(script)` cleanup calls and the controller's plain SSH cleanup/poweroff callback also lack a common DMI precondition. This remaining isolation-contract gap was reported before final cleanup acceptance. Requested fix: a common guest-script DMI prefix, unconditional guarded dispatch, and the same precondition in the controller's guest callback. `original_state_respected` must ultimately bind actual scoped action provenance, rather than treating an initialized empty control list alone as evidence. Current source changes are partial and final cleanup/route evidence is not accepted by this recheck.
+
+**Latest source disposition — resolved:** Current `guest()` prepends the exact clone DMI assertion before every supplied payload. `guarded_command()` checks unconditionally before dispatch, including clipboard, ACL/map/package and route/control operations. The controller passes `guarded_ssh()` to cleanup; its shell command uses DMI validation followed by `&&` before cleanup or poweroff. Release uses the fixed clone-only adapter, while original host identity/state observations remain read-only and state equality is not required. No remaining defect was established in these narrow corrected paths.
+
+Fresh mocked verification, with no SSH/input/VM execution: seven formerly uncovered dispatch actions fail closed when the DMI check fails; decoded guest payload begins with DMI validation before its mutation; explicit2227 and pinned known-hosts arguments remain present; extracted controller callback puts the guard before both guest cleanup and poweroff. All checks passed. This is **on-disk source clearance only**. The owner identifies live controller86089 as compiled from an older prefix; it cannot inherit the correction. Actual executed receipts and any subsequent independently guarded cleanup must be preserved separately, and final action-scope provenance remains required. No route, aggregate, native cleanup or expanded phase acceptance is implied.
+
+### Final Unit 06 Cleanup and Instrumentation Evidence Recheck
+
+Reviewed current owned input/native/controller/closure artifacts and final raw cleanup bindings. The new controller46069 is reported launched with the guarded source from its start; expired86089 remains separately retained and is not relabeled as hot-reloaded. Boot/settings mutations now reside inside the protected lifetime. The controller restricts mutable host commands to the fixed clone UUID, records actual argv/exits, and derives original-policy compliance from those scoped actions. Input remains clone UUID/disk/MAC/NAT guarded; guest payloads and cleanup/poweroff retain the DMI precondition. Observer-only `OMP_THREAD_LIMIT=1` does not alter production OCR configuration or replace captured source pixels.
+
+Independently verified **274 manifest entries**, with zero byte-count/hash mismatches. Parsed **13 controller host actions**, including three mutations all targeting the owned clone, and **152 guarded action-audit rows** consistent with the clone/explicit2227 scope. Original VM access in this reviewed scope is read-only host UUID/state observation; no original guest/disk/control action is present. This supports the explicit USER_KEEP_RUNNING policy without requiring original OFF or before/after state equality. Historical07 evidence is unchanged.
+
+All12 final cleanup gates are backed by the saved release, owner/process/registry, package removal/absence, retained data, clone OFF and restored-settings observations. Controller shutdown's SSH disconnect remains explicitly recorded as a failed command receipt; the later actual host OFF and settings readbacks independently establish the resulting state. This is not a fabricated successful shutdown exit. Final guest cleanup records no remaining owned processes, owner false/keys empty, package absent and retained data. No concrete remaining cleanup/instrumentation blocker was established in this bounded review.
+
+Recomputed `captured_game_report()` from the saved final candidate: **passed=false, game01_complete=false, reason=routes**. The report keeps only one complete current-process route (game PID1041/start3423); actual second-scene stage6/no-Query failures remain rejected. No stale process evidence or diagnostic PSM11 selection is promoted into a production route. Fresh `python -m unittest tests.test_check_games`: **17 tests passed**,0.290seconds. Expanded phase review stays partial and GAME-01 stays open pending the later broader07 gate/fallback work. Reviewer performed no VM/source/index operation and changed only this report.
+
+### Unit 08 Task 1 Production OCR Fallback Review
+
+Reviewed `lookup/ocr.py` and `tests/test_ocr_fallback.py` in committed GREEN `f74ede4`, against the approved08-08 task1 contract and prior implementation. No concrete bug/security regression was established in this bounded source change. Successful PSM6 returns its original first selection with one preparation/process; only valid no-selection output can lead to PSM11, reusing the same PNG and Transform with unchanged confidence/proximity rules. Explicit11/fallbackFalse stay single-pass. Process/parser failures stop immediately with existing private fixed errors. Each process receives at most3seconds and the second process receives the positive remaining budget from the first-process-start+6seconds deadline. Timings separately sum subprocess and parse/selection work.
+
+Fresh verification: **44 tests ran,1 skipped, remainder passed** for fallback/core/CLI/privacy/timing; an in-memory load of the exact committed `f74ede4:tests/test_ocr_image.py` ran **10 tests, all passed**. No checkout or source file was changed. The initial current-tree combined run also encountered the concurrent task2 calibration RED requiring `fallback=False`; parent confirmed that active work, and it is excluded from task1's disposition. This clearance does not cover unfinished corpus/calibration task2, lifecycle/transparent observer task3, new native performance/game evidence or final broader acceptance. Only this report was edited; no VM/index operation occurred.
+
+### Unit 08 Tasks 1–3 Production, Corpus and Observer Review
+
+Reviewed committed `f74ede4`/`fec151d`/`5581acb`: `lookup/ocr.py`, `tools/calibrate_ocr.py`, `tools/check_games.py`, `tests/test_ocr_fallback.py`, `tests/test_ocr_game_sources.py`, `tests/test_ocr_image.py`, `tests/test_app.py`, `tests/test_app_gui.py`, `tests/test_check_games.py` and the four-source fixture manifest. No concrete remaining bug/security regression was established within this increment. Earlier review history and failed native attempts remain unchanged.
+
+Calibration now explicitly disables fallback for independent PSM comparisons. Independently compared all four portable fixture PNGs byte-for-byte with their referenced retained actual source files and their declared SHA256: all match. Production defaults exercise the cascade without replacing actual Tesseract output; prepared RGBA/Transform integrity has a separate check. Actual target Breeze96/context144 and non-skipped target runs reported by the owner remain target evidence, not reviewer-run host results.
+
+The game observer now taps the original `recognize_image()` return and records its actual Selection word/context/span/box. The original call/result identity is preserved and errors remain best effort. Route extraction binds that returned selection to the original resolved Query and cursor geometry; it no longer reruns a forced11 diagnostic to supply acceptance metadata. Existing request/process/capture/frame binding remains in force. Diagnostic output is not inserted into production Source or Query. Lifecycle regressions hold the actual recognition path at its second child-process seam and verify stale replace/dismiss/reload/stop cannot publish/persist/enrich; the current request counts once, and Qt quit stays responsive while awaiting bounded completion.
+
+Fresh reviewer command covering fallback, game sources, image/calibration, Engine, GUI and game oracle: **93 tests ran,3 skipped, no failures**,6.865seconds. The skips are honest host real-OCR availability limits; no target or native execution was performed. Parent received code clearance for this reviewed increment. This does not accept the new09 game/performance workloads or final broader07 aggregation. Only `08-REVIEW.md` was edited; no VM/source/index operation occurred.
+
+### CR-13: Current-performance binding accepts relabeled historical samples
+
+**Classification:** BLOCKER
+**Disposition:** RESOLVED in `787ca19`; original issue and intervening residual evidence retained below.
+**File:** `tools/check_hardening.py:143–159`, `current_performance_report()` in `1e30b14`.
+
+**Issue:** The validator compares copied per-row build labels with a receipt, but never binds the physical process/run identities to an observed loaded/current build. Its source-member map can contain only `lookup/ocr.py`, with arbitrary self-consistent source/package hashes and zero exit integers. It therefore accepts precisely the forbidden reuse of old physical measurements with a new source label, while reporting `source_bound=true`.
+
+**Executed reproduction:** Load the actual tracked `08-performance-final-attempts.json` from the old5d04-era run. Add `build={source_sha256:'a'*64,package_sha256:'b'*64,ocr_sha256:'c'*64}` to every row. Supply a receipt with that build, source/installed maps containing only `lookup/ocr.py:'c'*64`, and zero stage/build/install exits. No physical timing/request/process value changes. The result is **passed=true, source_bound=true, attempts=30, median_ms=1128.057506, errors=[]**. This reproduction operated on in-memory objects only.
+
+**Fix:** Bind the expected current source/module inventory and observed package/install evidence to raw runtime receipts for every measured PID/start/run, captured after installing that build. Require the measurement identities to match those verified runtime observations rather than accepting copied build labels. Reject missing/truncated module inventory and historical process/run receipts. Add an adversarial regression using the actual retained old samples with newly attached build labels, and keep all original physical performance thresholds intact.
+
+Fresh existing `python -m unittest tests.test_hardening`: **21 tests passed**,0.139seconds; they do not cover this false acceptance. Review scope is only the new source-binding function/tests and their called performance validator. No VM/source/index action was performed; only this report was edited.
+
+**CR-13 recheck at `c80dde0` — remains OPEN:** The new raw archive/runtime API rejects missing raw evidence and directly swapped old process/run identities. It parses observed proc UID/start/cmdline, same boot/post-install birth and matching raw timing events, which addresses the original copied-label path. However, complete source inventory is still self-selected: the validator requires only that the source TAR contains `lookup/ocr.py`, then compares installation/runtime maps to whatever that TAR contains.
+
+Executed residual reproduction: start from the positive raw-byte fixture; retain **only `lookup/ocr.py`** in both source/package TARs, recompute their compressed archive hashes, reduce installation/runtime member maps to that one file, and recompute raw-runtime digests. Keep all actual process/timing constraints intact. Result: **passed=true, source_bound=true** despite missing every other production/module/packaging member. Require the independently defined staging inventory before source/package/runtime comparison; self-consistent subset archives must fail. Parent/source owner notified immediately. Fresh existing hardening suite: **23 tests passed**,0.285seconds. No additional concrete residual was established in the reviewed proc/boot/trace paths; no VM/source/index operation occurred.
+
+**CR-13 recheck at `6e6ee38` — remains OPEN on current bytes:** Independent complete32-member name inventory now rejects the truncated archive reproduction; fresh hardening suite **24 tests passed**,0.507seconds. However, current source bytes are not independently checked. Executed another narrow mutation: retain the full inventory and replace only OCR content in both source/package TARs with the actual `git show 5d04a4c:lookup/ocr.py` bytes; recompute both archive hashes and installation/runtime OCR hashes/digests. Result remains **passed=true, source_bound=true**, accepting the historical single-pass OCR module as current. Compare the complete extracted source hash map against independently selected current repository files with the same CRLF-to-LF staging normalization, rather than names alone. Parent/source owner notified before long-workload clearance. No VM/source/index operation occurred.
+
+**CR-13 final disposition at `787ca19` — RESOLVED:** The extracted complete source hash map must now equal independently selected current repository bytes, using the staging CRLF-to-LF normalization. Package archive members and installed/runtime maps must match that anchored map. Raw proc PID/start/UID/cmdline, same boot, post-install birth, post-frame observation and matching raw trigger/useful trace bind each measured identity to those installed bytes. All known false-acceptance variants now reject: actual historical30 with new labels, absent runtime artifacts, partial inventories with fully recomputed digests, actual old5d04 OCR bytes in otherwise complete archives, and mismatched runtime/process/trace/boot/install observations.
+
+Fresh reviewer `python -m unittest tests.test_hardening tests.test_timing tests.test_hardening_install`: **37 tests passed**,2.450seconds. No further concrete blocker was established in this bounded recheck. Parent/source owner received code clearance before the long native workload. This validates the oracle implementation; actual new archive/install/runtime receipts and native measurements still require later evidence review. No VM/source/index operation occurred; only this report was edited.
+
+### Unit 09 Initial Native Transport/Lifetime Review
+
+Read the active `08-09-native.py` and `08-09-native-controller.py` snapshot. Guest dispatch prepends the exact clone DMI assertion and uses pinned SSH2227; fixed input adapter retains UUID/disk/MAC/NAT checks. Controller host mutations target only the clone, while original host UUID/state is read-only metadata under USER_KEEP_RUNNING. Boot/settings changes occur inside the protected lifetime; the existing cleanup helper independently attempts release, guest cleanup, shutdown, observed OFF and OFF-only restoration. No concrete blocker was established in these current transport/lifetime paths.
+
+Fresh mocked guest-prefix/pinned-endpoint checks and controller AST parsing passed without any VM call. The adapter was actively amended from encoded command-line payload to Python stdin during review; the final successful mock exercised the latter snapshot. No actual performance receipt collector/assembler was present in the supplied artifacts at this checkpoint, so actual source/proc/runtime receipt usage is **not yet cleared**. Parent/owner were notified to provide that code before30 acceptance. Final cleanup must inspect nested per-step results from `cleanup()`, which catches its action failures, rather than infer success solely from the outer helper's `guest_cleanup.ok`. No native result or cleanup is accepted here; only this report was edited.
+
+### Unit 09 Actual Receipt Collector/Assembler Pre30 Review
+
+Read the subsequently supplied `08-09-performance.py`, current native transport, actual build and package receipts. No concrete collector/assembler blocker was established. Successful-result collection reads actual proc stat/status/cmdline, boot/tick rate, all installed member bytes and user-journal timing text after the observed frame. Raw runtime JSON bytes are saved under recomputed SHA references; PNG/input/ready/result files are retained separately. Assembly loads actual source/package archive bytes and saved runtime files into the corrected current-performance oracle rather than synthesizing successful process/runtime metadata.
+
+Fresh local verification independently checked both actual archive digests, all **32 current normalized source/package/installed member hashes**, matching actual build/install boot and monotonic completion epoch, and collector AST syntax. All checks passed without VM calls. The helper's existing ordinary cold owner-absent/physical configured-chord launch, kernel input clock and matching useful captured-frame semantics remain unchanged; per-frame collection happens afterward. Parent/source owner received pre30 code clearance. Actual30 measurement/raw-image/input correlations and final cleanup remain later evidence obligations; no performance or phase pass is claimed by this review. Only this report was edited; no VM/source/index operation occurred.
+
+### WR-02: Process-observation metadata can change the original subprocess result
+
+**Classification:** WARNING
+**Disposition:** RESOLVED in `57db97e`; original issue and reproduction retained. Current production byte-input/captured-byte-output calls were unaffected by the demonstrated modes.
+**File:** `tools/check_games.py:619–623`, `observe_ocr_process()`.
+
+**Issue:** Only the final observer callback is protected as best effort. Input hash/PSM metadata construction occurs before the original call, and output hashing occurs before returning the original result. Valid matching subprocess modes with text input or uncaptured stdout can therefore fail because of instrumentation. The wrapper is globally assigned to `subprocess.run`, so supported original call modes should remain transparent even when they cannot be measured.
+
+**Executed reproduction:** A matching Tesseract argv with byte input and a successful `CompletedProcess(stdout=None)` causes the original to run once, then the wrapper raises TypeError instead of returning that result. A matching call with `text=True,input='png'` raises TypeError before the original runs (zero calls). Existing **20 game tests passed**,0.211seconds, but omit these modes.
+
+**Fix:** Treat all metadata extraction/hashing as best effort, or explicitly skip observation for unsupported input/output modes while still calling the original exactly once. Preserve its exact result object/exception independently of observation failures. Add successful uncaptured-output/text-mode cases and a metadata-failure case. No raw OCR text/error contents need recording; retain only numeric/hash/fixed error-class metadata. No VM/source/index operation occurred; only this report was edited.
+
+**WR-02 resolution recheck:** `57db97e` bypasses unsupported input metadata and suppresses unsupported output metadata without changing the wrapped call. Fresh game/fallback suite: **31 tests passed**,0.289seconds. Independently exercised text input, uncaptured stdoutNone, byte input with string stdout, and an original TimeoutExpired while the observation callback throws: original exactly once and exact result/exception identities are preserved. No additional concrete issue was established in this bounded recheck. Parent/source owner received observer code clearance; actual newly loaded helper/game routes remain later execution evidence. No VM/source/index operation occurred.
+
+### Unit 09 Actual Current-source Physical30 Evidence Review
+
+Independently recomputed `current_performance_report()` from the saved actual source/package archive bytes, package/install receipt and all30 SHA-referenced raw runtime observations. Result: **passed=true, source_bound=true,30/30 successful**, median **1088.2457725ms**, p95 **1431.759096ms**, zero errors and the exact3cold/18distinct/9repeat workload. Current complete32-member byte anchoring, post-install process birth, boot identity and raw matching journal trace checks all pass the corrected oracle.
+
+For every sample, independently verified saved useful PNG SHA against the measured frame identity, raw result PID/start/run/request/input/frame timestamps, and matching saved physical kernel input/release records. Three cold lookups have separate new process identities; warm/repeat samples use the third current process. Visually inspected the first bank and final hand captures: each shows the matching useful Mueller article. The cold subgroup p95 is separately **1916.468943ms**; it is retained honestly rather than presented as the overall p95 or waived by relabeling.
+
+This current-source performance evidence is accepted within its declared physical30 scope. It does not accept GAME-01, changed-path stability, the still-open per-pass observer warning or final cleanup. All failed historical attempts remain intact. No VM/source/index operation occurred; only this report was edited.
+
+### Unit 09 Two-route Captured-game Raw Evidence Review
+
+Recomputed the assembled `08-assaultcube-cascade-report.json`: **passed=true, routes=2**, with latencies **4303.613319/4081.585538ms**. Both routes use actual game PID7496/start32039/window4 and the current observer PID7595, with distinct fresh source/physical input/request/frame identities. Source Query/context/span/box agree with the actual returned production Selection. Route1 records one PSM6 pass; route2 records actual PSM6 then11 with the identical native prepared-input SHA and a genuine returned name Selection. No diagnostic result is substituted.
+
+Independently checked both source/overlay hashes, all eight control PNG hashes and recomputed all four worldROI observations: route1 movement/camera **137602/137685**, route2 **137191/136696** changed pixels. Actual saved journal trigger/useful events match the source request identities and frame timing. Visually inspected changed actual source scenes, the useful Mueller name overlay and movement/camera wall landmarks. Distinct post-dismiss kernel W/relative pulses remain bound to the same game process; changes are not inferred from weapon idle or full-frame hashes alone.
+
+No concrete raw-game blocker was established in this bounded review. A supplementary source-to-prepared cross-check was requested from the native owner: host PNG re-encoding gives different encoded hashes from native observations, consistent with the already recorded Qt encoder variation. Target prepared bytes or decoded RGBA/Transform digests can resolve that comparison without treating platform encoding as a product defect. Candidate route evidence supports the strict two-route result; changed-path20 support, this supplementary comparison and final cleanup/aggregate remain separately pending. No VM/source/index operation occurred; only this report was edited.
+
+**Prepared-source comparison resolved:** Verified saved native prepared PNGs against their recorded SHA and actual per-pass input SHA for both game routes. Decoded native RGBA pixels and Transform also match independent host preparation of each exact source/point. The initial encoded difference came from PNG metadata/GUI encoder context, not changed pixels. No additional query or reviewer VM operation was used.
+
+### Unit 09 Changed-path20 and Physical Burst Raw Review
+
+Recomputed the declared **non-game** sparse-source support report:20/20 useful physical completions, all20 with actual6→11 and identical input bytes across each pair. Every source SHA equals the frozen9cbc source; source PID/run/request, actual returned Selection and all20 saved useful-frame hashes match. This is changed-path resource support, not extra game-route credit. Earlier game all6 support and failed initial fixture/privacy attempts remain unaccepted history.
+
+Independently recomputed RSS first5 median **185286656**, last5 **185356288**, allowance **27792998.4bytes**; raw VmRSS values agree. No recursive children are recorded across20 samples/cooldown; threads9/FD22 remain stable after the first completion. Cooldown is **5327.6185ms**, history delta20 and integrityOK. Existing fallback resource oracle passes. Physical burst independently recomputes **10 inputs/1 accepted**; kernel intervals are **39.977–67.338ms**, final saved PNG hash matches and latest-result/history/recovery oracle passes.
+
+Resource/burst evidence has no demonstrated blocker in this bounded review. Privacy remains a supplementary evidence check: top-level typed Klipper observations retain15items and matching content hashes, but wl-paste exits1 before/after still need retained classification as absent selection rather than read failure. Invalid nested resource-snapshot clipboard reads are not used as privacy proof. Top-level scan covers hardening09 data, while resource snapshots scan the actual AssaultCube profile data; both must be represented in final file-retention claims. Parent/source owner notified. Final cleanup/aggregate remain pending; no VM/source/index operation occurred.
+
+### Unit 09 Classified Privacy Supplement and Cleanup Verification Gap
+
+Independently checked `08-09-privacy-proof.json`: both PRIMARY/CLIPBOARD baselines and post-readbacks record exit1, empty stdout hash, exact stderr `Nothing is copied\n` and an existing Wayland socket. Typed Klipper content hash and15items match; both hardening09 and actual AssaultCube data scans show no PNG files. The intervening physical request matches its source PID/run/request and actual6→11 same-input observations; measured latency3778.160677ms. This bounded fresh privacy proof is accepted. It does **not** retrospectively classify the earlier20 missing-stderr reads or invalid nested resource probes.
+
+Final09 cleanup remains honestly **11/12**, `passed=false`: `unrelated_shortcuts_preserved=false`. Read `08-09-prepare-cleanup.py`, the product-key-clear receipt, production ShortcutRegistry scope and saved cleanup/retention artifacts. The helper compares parsed dictionaries for every shortcut-config section except exact `org.lookup.Linux.desktop`; it retains only the boolean, not either snapshot or differing keys. Production replacement targets only exact product component/action and verifies its key readback. Available evidence cannot distinguish changed unrelated key assignments from metadata/background writes or comparison read issues. The12 retained profile paths do not include the shortcut configuration. No actual unrelated mutation or benign comparison cause can be asserted from this discarded evidence.
+
+Required resolution path: preserve this historical false result; inspect an existing owned-clone KConfig backup/full baseline if available and compare actual nonproduct action assignments. Otherwise obtain a new bounded scoped exact-key-clear proof with complete before/after raw file bytes, typed unrelated bindings, retained read failures/diffs and the physical known-unrelated shortcut check. A new successful observation can support its own scoped cleanup; it cannot retroactively establish that the discarded old snapshots were equal. User-authorized subsequent GUI boot/install is separate from the completed OFF cleanup, and original VM USER_KEEP_RUNNING isolation remains mandatory. Parent/source owner notified; no VM/source/index operation occurred.
+
+### New Post-manual 07 Registry Proof Review
+
+Independently decoded/hashed both full KConfig snapshots in `08-07-registry-clear-product.json` and recomputed their textual diff: **only `[services][org.lookup.Linux.desktop]` `_launch=Meta+Shift+E` changes to `none`**. All **281 other typed action bindings** compare exactly equal. This new observation demonstrates the nested product-owned section missed by09's flat-section exclusion; old09 false remains unchanged and its discarded snapshots are not reconstructed by assumption.
+
+Before/after known-unrelated fixture receipts use the same free Meta+Ctrl+Shift+F11 binding and guarded clone input, producing distinct fresh marker PID1395/1425, UID1001 and proc starts bounded by guest snapshot times. Input transport success and actual guest execution are retained; these marker artifacts do not contain separate evdev timestamps, so no kernel-clock latency proof is inferred. Initial CtrlAltF11 VT failure/fixture-only retarget remain history. New post-manual baseline records16words/1card, integrityOK and a SQLite backup that includes live WAL content. No pre-manual restoration is accepted.
+
+New scoped registry proof is accepted. Lifetime review found CR-14 below before final cleanup; final broader07 acceptance remains pending. No VM/source/index operation occurred.
+
+### CR-14: Final controller readback failure aborts remaining cleanup
+
+**Classification:** BLOCKER
+**Disposition:** RESOLVED in `e2a5893`; original issue and intervening residual evidence retained. Live controller7552's initial source remains separately identified.
+**File:** `.planning/phases/08-vm/08-07-controller.py:47–58`, cleanup polling/final readbacks.
+
+**Issue:** Release/guest/shutdown actions use independent attempt handling, but subsequent `info(clone)` polling and final clone/original readbacks are unprotected. A transient host readback failure exits the finally block, skipping later bounded polling, safe OFF-only restoration and final observation/controller-state persistence. This reintroduces an incomplete failure-cleanup path.
+
+**Executed reproduction:** Compile/exercise only the saved finally AST with mocked adapter/attempt/time/info/save, no VM/file writes. Make its first poll raise `RuntimeError('transient_showvminfo')`. Executed steps are release, mouse release, guest cleanup, shutdown, poll; the exception escapes and neither restoration nor final persistence runs.
+
+**Fix:** Record/readback failures independently, continue bounded polling after transient errors, and attempt remaining safe steps/readbacks/persistence regardless of prior errors. Require a successful current OFF observation before settings restoration; unknown state must stay false. Add the transient-poll regression. Live7552 does not inherit later source changes; retain its actual source/receipts and execute any corrected cleanup explicitly rather than claiming hot reload. No VM/source/index operation occurred; only this report was edited.
+
+**CR-14 recheck at `d915ffb` — VM readbacks fixed, residual OPEN:** VM polling/final readbacks now use independent attempts; poll keys are unique so earlier errors persist. Fresh targeted transient-readback regression passes. However, cleanup source loading (`cleanup.read_text()`/hash) remains outside an attempt, and the attempt helper's per-step `save()` remains outside its catch. Either host I/O error still aborts later safe cleanup. Executed actual-finally AST with an existing cleanup path whose read raises PermissionError: only release/mouse_release execute, then shutdown/restoration are skipped. Make source loading part of guarded guest-cleanup work and per-step reporting best effort while retaining reporting failures; final evidence failures must remain explicit. Parent/source owner notified. Live old7552 source is retained separately, with no hot-reload claim. No VM/source/index operation occurred.
+
+**CR-14 final disposition at `e2a5893` — RESOLVED:** Cleanup source read/hash now occurs inside the protected guest-cleanup operation. Per-step persistence failures are retained and reported to stderr while remaining safe actions continue; final evidence failure returns nonzero after cleanup attempts and is not labeled ordinary finished success. Poll/final readbacks remain independent with unique retained failed-poll entries, and restoration requires an actual current clone OFF observation.
+
+Fresh reviewer targeted execution of the actual finally AST regressions: **3 tests passed**,0.011seconds, covering transient host readback, cleanup-source read failure and repeated report-write failure. Later shutdown, safe restoration and final readbacks/persistence attempts remain reachable. No additional concrete defect was established in this bounded recheck. Parent/source owner received code clearance; live7552 initial source/actual execution is not retroactively changed by this source fix. Final observed cleanup or explicit corrected recovery still needs review. No VM/source/index operation occurred; only this report was edited.
+
+### CR-15: Current privacy acceptance does not correlate its raw observations
+
+**Classification:** BLOCKER
+**Disposition:** RESOLVED in `d16c387`; original issue/reproduction retained. Fresh68 focused tests passed,9.243seconds.
+**File:** `tools/check_hardening.py:514–535`, `current_privacy_report()`.
+
+**Issue:** The validator accepts a physical timing record and a separate6→11 source list without requiring matching PID/run/request, source capture/pass timing bounds or identical prepared input. Classified clipboard results are also not tied to their preserved typed-channel observations or compared as classified before/after values. A purported valid no-selection classification can therefore describe different content/request than the hash being declared unchanged.
+
+**Executed reproduction:** Load actual `08-09-privacy-proof.json`; change source PID/run/request to999/111/222, second-pass input SHA to `'a'*64` and classified PRIMARY stdout SHA to `'b'*64`. `current_privacy_report()` still returns **passed=true**. No artifact was modified on disk.
+
+**Fix:** Bind source identity/capture/pass intervals and same prepared bytes to the physical request; validate original returned selection/source semantics. Compare both classified channel observations across before/after and correlate exit/content with typed hashes. Absent-selection exit1 must require the actual empty stdout hash plus exact absence classification, rather than any SHA. Add raw mismatched-request/input/content regressions and keep read failures distinct from unchanged clipboard content.
+
+### CR-16: Closure suites can name any shared revision rather than current final code
+
+**Classification:** BLOCKER
+**Disposition:** RESOLVED in `23cdaf5`; original issue and residual reproduction retained.
+**File:** `tools/check_hardening.py:489–511` and current branch of `aggregate_report()`; `tools/check_hardening_install.py` current suite/gate assembly.
+
+**Issue:** Host/target suite metadata must agree with each other, but neither their revision nor tree is checked against an independently obtained final repository identity. Review/verifier headers are subsequently compared only to that supplied suite revision. Thus internally consistent old suite/gate artifacts can satisfy new closure code without testing its final revision.
+
+**Executed reproduction:** Supply actual-format successful12-test log bytes and matching digest for both suite roles with revision `'a'*40`, tree `'b'*40`, required command/target opt-ins. `closure_suites_report()` returns **passed=true** and those arbitrary identities. The current assembler/aggregate provides no additional current-repository identity check.
+
+**Fix:** Obtain the expected tested final revision/tree independently in the assembler and require both suite roles and final gate headers to match it. Preserve explicit code-freeze/artifact-only commit semantics so source/test changes after the claimed suite run invalidate closure. Add both-roles-same-but-old revision/tree regressions; comparing only host to target is insufficient.
+
+Fresh focused closure command: **66 tests passed**,7.579seconds. Existing cases do not cover these two false acceptances. Review is bounded to the four submitted closure files and their actual called evidence seams; no VM/source/index operation occurred. Final frontmatter completion and fresh final full-suite/native cleanup review remain pending.
+
+### Final 07 Isolated Suite Runner Code Review
+
+Read the native transport/controller/target-start/suite-runner/collector helpers committed in `0070781`, alongside the already reviewed post-manual baseline and exact registry/marker proof. No concrete new blocker was established in these runner paths. Full-history Git bundle transfer retains the old-OCR adversarial regression dependency and checks the requested detached revision. Target discovery uses unprivileged arch UID1000, env-i private HOME/XDG/LOOKUP directories,0700runtime, private dbus-run-session, forced offscreen, no inherited DISPLAY/Wayland/Xauthority/manual-session bus, NoNewPrivs and an unavailable system-bus address. Mueller files are rehashed against the actual pinned package inventory before launch and again by the runner.
+
+The literal full discovery command runs once; the runner retains actual revision/tree, raw stdout/stderr log digest, return code/count/skips and opt-ins. Host/target collectors load those actual receipt/log bytes. New namespace and post-manual logical SQLite backup preserve the current16words/1card baseline; isolated discovery does not restore09 data or operate the normal lookup07 session. Live7552's initial controller source remains separately identified; corrected source is not assumed loaded retroactively.
+
+Fresh AST parsing of six transport/lifetime/runner/collector/guest-cleanup helpers passed without native execution. Parent/native owner received runner-code clearance. This does not resolve CORE CR-15/CR-16, accept unexecuted full suites, or accept pending final cleanup. No VM/source/index operation occurred; only this report was edited.
+
+**CR-15/CR-16 recheck at `d16c387`:** Original privacy identity/shared-input/classified-content mutations and arbitrary suite revision/tree now reject. Privacy additionally requires actual matching source/frame bytes and numeric request trace. Targeted regressions passed. One CR-16 residual remains: independently reproduced a tracked root `PKGBUILD` modification after the tested commit in an isolated Git repository; suite validation still returns passed=true because its path scope omits root `PKGBUILD`. Include that actual package build input in both tracked/untracked code anchoring and add the regression before final source freeze. Parent/integrator notified; no VM/source/index operation occurred.
+
+**CR-16 final recheck at `23cdaf5` — RESOLVED:** Root PKGBUILD now participates in tracked/untracked Git code anchoring. Fresh isolated actual-Git regression passes,1.003seconds, including fake revision/tree, changed tracked code/root recipe, untracked/native code and metadata-only commit behavior. No further concrete residual was established; parent received CORE code clearance. Final full-suite execution remains separate.
+
+### Actual Old7552 Lifetime Completion Review
+
+Independently recomputed current cleanup from saved controller observations, post-manual baseline and full registry/marker proof: passed. Executed guest-cleanup source digest matches; all five nested cleanup operations succeeded, no owned processes remain, package removal exited0 and package absence was observed. Config/dictionaries remain intact; actual logical SQLite SHA equals post-manual backup `8e6fd07438e1d196cd395c11bdaf67db4197d4066a3effca4edabc82eb5cc2b7` for the16words/1card baseline. Final fixture-free typed registry preserves all baseline unrelated bindings; synthetic fixture is unregistered.
+
+Actual final clone readback is OFF/3Don/BIDI with successful restoration exit0. Shutdown SSH disconnect remains an explicit false transport receipt, independently resolved by later actual OFF observation. All recorded host mutations target the clone. Original host state changes OFF-to-running externally; USER_KEEP_RUNNING permits that and no state-equality claim is made. This accepts actual normal completion of the retained OLD started7552 source, not retroactive loading of the CR-14 fix. A subsequent target-only lifetime still requires its own final readbacks. No VM/source/index operation occurred; only this report was edited.
+
+### Final Target-only Native Delta Review at `2dbd48c`
+
+No concrete new blocker was established in the target-only delta. Private Mueller extraction reads only regular members from the actual hash-verified798package, rejects duplicate/unsafe basenames, writes0400 dictionary files and rehashes the complete extracted inventory. Product remains uninstalled. The target controller is independently confirmed **exactly equal to the reviewed corrected CR-14 controller with scoped filename substitutions**. Fresh cleanup-dependency mocks: **3 tests passed**,0.018seconds, including the target controller's source/report failure continuation.
+
+Target guest cleanup scopes process termination to arch UID1000 and exact HOME values under the owned private suite roots; it performs no broad deletion or pre-manual profile restoration. It checks current post-manual config/dictionary and logical SQLite backup retention, package absence and normal-product process absence. Parent/native owner received code clearance before the single final fullHOST-to-TARGET run. Actual same-revision logs and latest target cleanup remain pending; this is not final phase acceptance. No VM/source/index operation occurred; only this report was edited.
+
+### WR-03: Fixed Qt wait races an overdue timeout dispatch
+
+**Classification:** WARNING
+**Disposition:** RESOLVED in `fe021bd`; test reliability issue, no production defect established.
+**File:** `tests/test_app_gui.py:294–296`, `test_escape_timeout_and_programmatic_hide_have_distinct_effect`.
+
+Actual final target discovery ran795tests and failed only this popup-hidden assertion after starting a20ms timer and waiting a fixed40ms. The test uses focus=False, so delayed useful-frame exposure/focus staging does not explain this path.
+
+**Executed host reproduction:** Immediately before the existing40ms wait, schedule a pending Qt callback that blocks80ms. The unchanged test fails at the exact target assertion: popup remains visible because qWait consumes its budget within another callback and returns before dispatching the now-overdue timeout. Repeat with the same delayed callback plus one further `application.processEvents()` dispatch: the unchanged timer/product test passes. No source or timer setting was changed.
+
+**Fix:** Replace the fixed sleep with a bounded event-pump predicate wait for hidden popup and invalidated generation, optionally retaining a timeout signal observation. Keep20ms timer and separate programmatic-hide/current-generation and Escape assertions; do not change product timeout or waive the failed discovery. Preserve the failed target log and rerun final same-revision suites after the test-only correction. No VM/source/index operation occurred; only this report was edited.
+
+**WR-03 final recheck at `fe021bd` — RESOLVED:** Bounded predicate pumps events until both hidden popup and invalidated generation, retaining all final assertions and the unchanged20ms timer. Deterministic queued80ms work now passes without product modification. Fresh reviewer GUI/concurrency command: **36 tests passed**,6.202seconds. The accompanying cleanup callback defaults retain spawn Barrier/Queue references until every child joins, preventing premature synchronization-handle disposal without changing deadlines/count/integrity. No stderr filtering is introduced. CRLF log-count/skips parsing remains based on actual transcripts, and remote POSIX paths no longer acquire Windows separators.
+
+No concrete remaining defect was established in these four test/harness changes. Parent/native owner received code clearance. The original failed795-target discovery and noisy earlier attempts remain retained; new same-revision full suites/latest target cleanup still require actual evidence. No VM/source/index operation occurred; only this report was edited.

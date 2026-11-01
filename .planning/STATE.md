@@ -1,47 +1,45 @@
 ---
 gsd_state_version: 1.0
 milestone: v1.0
-milestone_name: milestone
-current_phase: 6
-current_phase_name: Список слов и карточки
-status: ready
-stopped_at: Phase 5 accepted; stopped before Phase 6 at user request
-last_updated: "2026-10-27T03:36:32.872Z"
-last_activity: 2026-10-27
-last_activity_desc: Phase 05 accepted; stopped before Phase 6 at user request
+milestone_name: LookUp Linux
+current_phase: 0
+status: Awaiting next milestone
+stopped_at: v1.0 complete and archived; 9 phases, 43 plans, 32 requirements verified. Owned clone OFF, user data retained, external original untouched. No next milestone started.
+last_updated: "2026-11-01T16:44:39.369Z"
+last_activity: 2026-11-01
+last_activity_desc: Milestone v1.0 completed and archived
 progress:
-  total_phases: 8
-  completed_phases: 5
-  total_plans: 23
-  completed_plans: 23
-  percent: 63
+  total_phases: 9
+  completed_phases: 9
+  total_plans: 43
+  completed_plans: 43
+  percent: 100
+current_phase_name: Milestone v1.0 complete
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-10-25)
+See: .planning/PROJECT.md (v1 scope expanded 2026-10-27)
 
 **Core value:** Хоткей над английским словом даёт перевод в оверлее у курсора примерно за 1–2 секунды, и слово попадает в базу со счётчиком.
-**Current focus:** Phase 5 accepted; Phase 6 ready and not started (user requested stop)
+**Current focus:** v1.0 complete: all 9 phases, 43 plans and 32 requirements verified; Phase 8 independent verification 7/7 and all final gates pass. Owned clone OFF with 16 words, one card and current user settings retained; external original untouched. No active next milestone.
 
 ## Current Position
 
-Phase: 6 — Список слов и карточки
-Plan: Not started
-Status: Phase 5 accepted; stopped before Phase 6 at user request
-Last activity: 2026-10-27 — Phase 05 accepted with independent verification10/10
-
-Progress: [██████░░░░] 63% (5/8 phases)
+Phase: Milestone v1.0 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-11-01 — Milestone v1.0 completed and archived
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 23
+- Total plans completed: 43
 - Average duration: -
-- Total execution time: 0.0 hours
+- Total execution time: not aggregated
 
 **By Phase:**
 
@@ -52,6 +50,11 @@ Progress: [██████░░░░] 63% (5/8 phases)
 | 03 | 3 | - | - |
 | 04 | 3 | - | - |
 | 05 | 3 | - | - |
+| 5.1 | 3 | - | - |
+| 6 | 3 | - | - |
+| 7 | 5 | - | - |
+| 8 | 9 | - | - |
+| 8 | 9 | - | - |
 
 **Recent Trend:**
 
@@ -77,6 +80,7 @@ Progress: [██████░░░░] 63% (5/8 phases)
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
+- [2026-10-27]: V1 adds multiline context and contextual word sense in inserted Phase 5.1 before Phase 6; real fullscreen game validation in Phase 8. Completed Phases 1–5 retain original acceptance. New requirements remain Pending.
 - [Roadmap]: Прод-версия вместо MVP, 8 фаз по горизонтальным слоям (выбор пользователя)
 - [Roadmap]: Фоновое приложение в трее; команда хоткея только будит его и стартует, если оно не запущено
 - [Roadmap]: Тестируем только в VM Дениса, фазы с железом друга нет; PERF-01 (медиана до 1,5 с) проверяется в Phase 8
@@ -102,6 +106,10 @@ None yet.
 
 ### Blockers/Concerns
 
+No active release blocker. Known limits and the retained historical Phase 7 preservation exception are recorded in `milestones/v1.0-MILESTONE-AUDIT.md`.
+
+#### Historical planning concerns (recorded before implementation)
+
 - [Phase 2]: LZO для MDX решён в 02-02 чистой реализацией на stdlib; настоящий MDX-файл с LZO-блоками ещё не проверен (UAT)
 - [Phase 2]: VM probes 2026-10-25: all Google clients and MyMemory work via urllib; keep MyMemory for phrases/sentences. Real MDX/DSL remain unverified (no files supplied).
 - [Phase 3]: Точность tesseract на мелком тексте интерфейса при 125–200% не измерена (PSM 11 или 6, увеличение, инверсия)
@@ -124,6 +132,10 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-10-25T12:17:04.254Z
-Stopped at: Phase 3 autonomous context and planning
+Last session: 2026-11-01 — verified v1.0 closeout
+Stopped at: v1.0 complete and archived; no remaining release work. Owned clone OFF, user data retained, external original untouched.
 Resume file: None
+
+## Operator Next Steps
+
+- Start the next milestone with /gsd-new-milestone
