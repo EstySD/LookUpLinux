@@ -1,0 +1,542 @@
+{
+  "sha256": "1aca8d810308ff3551d365d59e7406c9eefdc46bd2bc8c2a53c893f041a5de3e",
+  "capture_start_ns": 388616631274,
+  "capture_end_ns": 388931521883,
+  "monitor": {
+    "name": "Virtual-1",
+    "x": 0,
+    "y": 0,
+    "width": 1280.0,
+    "height": 800.0,
+    "scale": 1
+  },
+  "cursor": [
+    733,
+    378
+  ],
+  "words": [
+    {
+      "text": "%",
+      "box": [
+        1158.0,
+        78.0,
+        28.0,
+        13.0
+      ],
+      "confidence": 54.81424,
+      "line_id": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "o",
+      "box": [
+        938.0,
+        155.0,
+        45.0,
+        19.0
+      ],
+      "confidence": 55.40789,
+      "line_id": [
+        1,
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "=",
+      "box": [
+        1085.0,
+        178.0,
+        18.0,
+        14.0
+      ],
+      "confidence": 87.245033,
+      "line_id": [
+        1,
+        3,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "B",
+      "box": [
+        80.0,
+        207.0,
+        65.0,
+        41.0
+      ],
+      "confidence": 27.618393,
+      "line_id": [
+        1,
+        4,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "\u2014\u2014",
+      "box": [
+        199.0,
+        211.0,
+        59.0,
+        26.0
+      ],
+      "confidence": 49.075603,
+      "line_id": [
+        1,
+        4,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "\u00a5",
+      "box": [
+        1081.0,
+        226.0,
+        20.0,
+        13.0
+      ],
+      "confidence": 64.396957,
+      "line_id": [
+        1,
+        5,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "\u201cTOM\"",
+      "box": [
+        472.0,
+        344.0,
+        38.0,
+        10.0
+      ],
+      "confidence": 54.812378,
+      "line_id": [
+        1,
+        6,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "on",
+      "box": [
+        521.0,
+        346.0,
+        16.0,
+        8.0
+      ],
+      "confidence": 88.335548,
+      "line_id": [
+        1,
+        6,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "map",
+      "box": [
+        546.0,
+        346.0,
+        25.0,
+        9.0
+      ],
+      "confidence": 88.255692,
+      "line_id": [
+        1,
+        6,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "ac_desert",
+      "box": [
+        580.0,
+        344.0,
+        74.0,
+        11.0
+      ],
+      "confidence": 88.255692,
+      "line_id": [
+        1,
+        6,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "frags",
+      "box": [
+        472.0,
+        372.0,
+        40.0,
+        11.0
+      ],
+      "confidence": 54.185814,
+      "line_id": [
+        1,
+        7,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "deaths",
+      "box": [
+        553.0,
+        372.0,
+        49.0,
+        10.0
+      ],
+      "confidence": 92.095551,
+      "line_id": [
+        1,
+        8,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "en",
+      "box": [
+        635.0,
+        374.0,
+        16.0,
+        8.0
+      ],
+      "confidence": 50.787182,
+      "line_id": [
+        1,
+        9,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "name",
+      "box": [
+        717.0,
+        374.0,
+        33.0,
+        8.0
+      ],
+      "confidence": 84.986603,
+      "line_id": [
+        1,
+        10,
+        1,
+        1
+      ]
+    },
+    {
+      "text": ")",
+      "box": [
+        635.0,
+        414.0,
+        7.0,
+        10.0
+      ],
+      "confidence": 65.817139,
+      "line_id": [
+        1,
+        11,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "unarmed",
+      "box": [
+        717.0,
+        414.0,
+        58.0,
+        10.0
+      ],
+      "confidence": 89.348457,
+      "line_id": [
+        1,
+        12,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "g",
+      "box": [
+        863.0,
+        430.0,
+        19.0,
+        11.0
+      ],
+      "confidence": 1.654846,
+      "line_id": [
+        1,
+        13,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "i",
+      "box": [
+        1018.0,
+        472.0,
+        30.0,
+        8.0
+      ],
+      "confidence": 19.092796,
+      "line_id": [
+        1,
+        14,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "M",
+      "box": [
+        399.0,
+        472.0,
+        84.0,
+        20.0
+      ],
+      "confidence": 15.578049,
+      "line_id": [
+        1,
+        15,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "iy",
+      "box": [
+        545.0,
+        476.0,
+        16.0,
+        9.0
+      ],
+      "confidence": 4.588043,
+      "line_id": [
+        1,
+        16,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "iy",
+      "box": [
+        546.0,
+        486.0,
+        13.0,
+        9.0
+      ],
+      "confidence": 11.142464,
+      "line_id": [
+        1,
+        17,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "It",
+      "box": [
+        956.0,
+        493.0,
+        7.0,
+        19.0
+      ],
+      "confidence": 40.415894,
+      "line_id": [
+        1,
+        18,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "e",
+      "box": [
+        1036.0,
+        499.0,
+        18.0,
+        10.0
+      ],
+      "confidence": 29.465195,
+      "line_id": [
+        1,
+        19,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "-",
+      "box": [
+        1049.0,
+        589.0,
+        18.0,
+        4.0
+      ],
+      "confidence": 0.0,
+      "line_id": [
+        1,
+        20,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "o",
+      "box": [
+        582.0,
+        738.0,
+        40.0,
+        22.0
+      ],
+      "confidence": 66.053986,
+      "line_id": [
+        1,
+        21,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "=",
+      "box": [
+        1198.0,
+        747.0,
+        32.0,
+        11.0
+      ],
+      "confidence": 76.546669,
+      "line_id": [
+        1,
+        22,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "2",
+      "box": [
+        494.0,
+        738.0,
+        27.0,
+        44.0
+      ],
+      "confidence": 96.475136,
+      "line_id": [
+        1,
+        23,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "-",
+      "box": [
+        1206.0,
+        783.0,
+        5.0,
+        2.0
+      ],
+      "confidence": 46.07391,
+      "line_id": [
+        1,
+        24,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "f[;l)l",
+      "box": [
+        1216.0,
+        769.0,
+        27.0,
+        31.0
+      ],
+      "confidence": 44.958496,
+      "line_id": [
+        1,
+        24,
+        1,
+        1
+      ]
+    },
+    {
+      "text": "62",
+      "box": [
+        1248.0,
+        773.0,
+        32.0,
+        18.0
+      ],
+      "confidence": 57.847404,
+      "line_id": [
+        1,
+        24,
+        1,
+        1
+      ]
+    }
+  ],
+  "ocr_error": null,
+  "windows": [
+    {
+      "id": "{c42cef6f-b6e0-437c-974e-ffe0ef3bae82}",
+      "info": {
+        "activities": [
+          "d3ff151d-fc21-4f02-ab71-65e8ac09a4a5"
+        ],
+        "caption": "AssaultCube",
+        "clientMachine": "",
+        "decorationPolicy": 1,
+        "desktopFile": "linux_64_client",
+        "desktops": [
+          "3870fa05-d667-4cca-9ac9-36d57b9d5c00"
+        ],
+        "excludeFromCapture": false,
+        "fullscreen": true,
+        "hasTransientParent": false,
+        "height": 800.0,
+        "keepAbove": false,
+        "keepBelow": false,
+        "layer": 5,
+        "localhost": true,
+        "maximizeHorizontal": 0,
+        "maximizeVertical": 0,
+        "minimized": false,
+        "noBorder": false,
+        "pid": 7496,
+        "resourceClass": "linux_64_client",
+        "resourceName": "linux_64_client",
+        "role": "",
+        "skipPager": false,
+        "skipSwitcher": false,
+        "skipTaskbar": false,
+        "type": 0,
+        "uuid": "{c42cef6f-b6e0-437c-974e-ffe0ef3bae82}",
+        "width": 1280.0,
+        "x": 0.0,
+        "y": 0.0
+      }
+    }
+  ],
+  "game_verified": true
+}

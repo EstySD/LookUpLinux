@@ -6,3 +6,13 @@
 08-06-*.ps1 -text whitespace=cr-at-eol
 08-06-input-source-notes.md -text whitespace=cr-at-eol
 08-assaultcube-final-report.json -text whitespace=cr-at-eol
+# Keep current-candidate raw receipts and runtime artifact hashes portable.
+08-09-*.json -text whitespace=cr-at-eol
+08-09-*.jsonl -text whitespace=cr-at-eol
+08-09-*.py -text whitespace=cr-at-eol
+08-09-*.ps1 -text whitespace=cr-at-eol
+08-09-*.txt -text whitespace=cr-at-eol
+08-09-game-raw/** -text whitespace=cr-at-eol
+08-09-runtime/** -text whitespace=cr-at-eol
+08-09-build/** -text whitespace=cr-at-eol
+08-assaultcube-cascade-report.json -text whitespace=cr-at-eol

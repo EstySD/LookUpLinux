@@ -1,0 +1,20 @@
+{
+  "pid": 917,
+  "uid": 1001,
+  "home": "/home/lookup07",
+  "desktop_session": "wayland",
+  "shortcut": "Meta+Shift+E",
+  "registered_keys": [
+    "Meta+Shift+E"
+  ],
+  "dictionary_bank_ready": true,
+  "settings_open_requested": true,
+  "normal_profile": true,
+  "process_argv": [
+    "/usr/bin/python",
+    "/usr/bin/lookup",
+    "--app",
+    ""
+  ],
+  "timing_enabled": false
+}

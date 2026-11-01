@@ -1,0 +1,12 @@
+{
+  "baseline_absent": true,
+  "build_directory": "/home/arch/lookup-cascade-09-build",
+  "source_sha256": "3412eb006e690915881fe2f7aa0acdf7f0bd693f12f829008d1c6bb2f63e8455",
+  "build_exit": 0,
+  "install_exit": 0,
+  "completed_ns": 45367201079,
+  "boot_id": "b14db8b7-dd48-4bfd-96b9-8199328fff8e",
+  "log": "==> Making package: lookup-linux 0.1.0-1 (Sat Oct 31 20:06:10 2026)\n==> Checking runtime dependencies...\n==> Checking buildtime dependencies...\n==> Retrieving sources...\n  -> Found lookup-source.tar.gz\n  -> Found kdotool-0.3.0.tar.gz\n  -> Found mueller7.tar.bz2\n==> Validating source files with sha256sums...\n    lookup-source.tar.gz ... Passed\n    kdotool-0.3.0.tar.gz ... Passed\n    mueller7.tar.bz2 ... Passed\n==> Extracting sources...\n  -> Extracting lookup-source.tar.gz with bsdtar\n  -> Extracting kdotool-0.3.0.tar.gz with bsdtar\n  -> Extracting mueller7.tar.bz2 with bsdtar\n==> Entering fakeroot environment...\n==> Starting package()...\n==> Tidying install...\n  -> Removing libtool files...\n  -> Removing static library files...\n  -> Purging unwanted files...\n  -> Compressing man and info pages...\n==> Checking for packaging issues...\n==> Creating package \"lookup-linux\"...\n  -> Generating .PKGINFO file...\n  -> Generating .BUILDINFO file...\n  -> Generating .MTREE file...\n  -> Compressing package...\n==> Leaving fakeroot environment.\n==> Finished making: lookup-linux 0.1.0-1 (Sat Oct 31 20:06:13 2026)\n==> Installing package lookup-linux with pacman -U...\nloading packages...\nresolving dependencies...\nlooking for conflicting packages...\n\nPackages (1) lookup-linux-0.1.0-1\n\nTotal Installed Size:  5.07 MiB\n\n:: Proceed with installation? [Y/n] \nchecking keyring...\nchecking package integrity...\nloading package files...\nchecking for file conflicts...\nchecking available disk space...\n:: Processing package changes...\ninstalling lookup-linux...\n:: Running post-transaction hooks...\n(1/2) Arming ConditionNeedsUpdate...\n(2/2) Updating the desktop file MIME type cache...\n",
+  "package_path": "/home/arch/lookup-cascade-09-build/lookup-linux-0.1.0-1-x86_64.pkg.tar.zst",
+  "package_sha256": "7981792e6b2b7a512ebd3465331a9f58ec717c6d6b7d7c24b2046187c6c4d7ea"
+}

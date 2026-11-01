@@ -1,0 +1,30 @@
+# Local source snapshot: generate a ready build directory with tools/stage_package.py.
+pkgname=lookup-linux
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='English-Russian cursor dictionary and learning cards for KDE Wayland (local build)'
+arch=('x86_64')
+options=('!strip' '!debug') # Pinned upstream helper is already stripped.
+license=('LicenseRef-LookUpLinux-unspecified' 'Apache-2.0' 'LicenseRef-Mueller7-GPL-unspecified')
+depends=('python' 'python-pyqt6' 'qt6-wayland' 'tesseract' 'tesseract-data-eng'
+         'wl-clipboard>=2.3.0' 'libkscreen' 'kglobalacceld' 'kservice' 'dbus' 'glibc' 'gcc-libs')
+source=('lookup-source.tar.gz'
+        'kdotool-0.3.0.tar.gz::https://github.com/jinliu/kdotool/releases/download/v0.3.0/kdotool-0.3.0-x86_64-unknown-linux-gnu.tar.gz'
+        'mueller7.tar.bz2::https://qstardict.ylsoftware.com/files/mueller7.tar.bz2')
+sha256sums=('3412eb006e690915881fe2f7aa0acdf7f0bd693f12f829008d1c6bb2f63e8455'
+            '2079cc1d492b6e83e04def4d9376e34fcb36a4e3bdc637c8c2ee6fa547ce90ff'
+            '1c5e19b857eaa5fc98f77173e8baeb22cb654c407586465b4270e4286bf070ed')
+
+package() {
+  install -d "$pkgdir/usr/lib/lookup/app" "$pkgdir/usr/share/lookup/dicts/mueller7"
+  cp -r lookup-source/lookup "$pkgdir/usr/lib/lookup/app/"
+  install -Dm755 lookup-source/packaging/lookup "$pkgdir/usr/bin/lookup"
+  install -Dm755 kdotool "$pkgdir/usr/lib/lookup/kdotool"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/kdotool-APACHE-2.0"
+  install -Dm644 lookup-source/packaging/THIRD-PARTY.md "$pkgdir/usr/share/licenses/$pkgname/THIRD-PARTY.md"
+  for suffix in ifo idx.gz dict.dz; do
+    install -m644 "mueller7/mueller7.$suffix" "$pkgdir/usr/share/lookup/dicts/mueller7/"
+  done
+  install -Dm644 lookup-source/packaging/org.lookup.Linux.desktop "$pkgdir/usr/share/applications/org.lookup.Linux.desktop"
+  install -Dm644 lookup-source/packaging/org.lookup.Linux.autostart.desktop "$pkgdir/etc/xdg/autostart/org.lookup.Linux.desktop"
+}

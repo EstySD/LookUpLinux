@@ -1,0 +1,18 @@
+{
+  "user_requested_interactive": true,
+  "policy": "Keep owned clone and normal app running for user; no watchdog or automatic shutdown; original untouched.",
+  "controller_finished": true,
+  "prior_off_cleanup": "08-09-cleanup-final.json",
+  "cleanup_acceptance": false,
+  "argv": [
+    "C:/Program Files/Oracle/VirtualBox/VBoxManage.exe",
+    "startvm",
+    "cf207909-94b5-4b49-8bd8-ccff973c1dc8",
+    "--type",
+    "gui"
+  ],
+  "exit": 0,
+  "stdout": "Waiting for VM \"cf207909-94b5-4b49-8bd8-ccff973c1dc8\" to power on...\nVM \"cf207909-94b5-4b49-8bd8-ccff973c1dc8\" has been successfully started.\n",
+  "stderr": "",
+  "at_ns": 1793478822106057100
+}

@@ -1,0 +1,196 @@
+{
+  "process": {
+    "pid": 7496,
+    "start": 32039,
+    "uid": 1001,
+    "executable": "/home/lookup07/.local/state/lookup-games-08/assaultcube/package/bin_unix/linux_64_client",
+    "argv": [
+      "/home/lookup07/.local/state/lookup-games-08/assaultcube/package/bin_unix/linux_64_client",
+      "--home=/home/lookup07/.local/state/lookup-games-08/assaultcube/profile",
+      "--init",
+      "-t1",
+      "-w1280",
+      "-h800",
+      "--loadmap=ac_desert"
+    ],
+    "renderer_requested": "default",
+    "unit": "lookup-assaultcube-08-320384739199",
+    "boot_id": "b14db8b7-dd48-4bfd-96b9-8199328fff8e",
+    "control_group": "/user.slice/user-1001.slice/user@1001.service/app.slice/lookup-assaultcube-08-320384739199.service",
+    "clock_ticks": 100
+  },
+  "grab": {
+    "pid": 7496,
+    "start": 32039,
+    "at_ns": 391226522952,
+    "observed": true,
+    "relative": true,
+    "protocol": "zwp_locked_pointer_v1",
+    "events_sha256": "5d5389228eb63beccc69effcee6f919671e0f0d323b9a639a29d1753dd2a3893",
+    "lock_event_ns": 384089869000
+  },
+  "events": [
+    {
+      "at_ns": 321163265000,
+      "message": "[20:10:49.747894] {Default Queue}  -> zwp_pointer_constraints_v1#14.lock_pointer(new id zwp_locked_pointer_v1#48, wl_surface#42, wl_pointer#38, nil, 2)",
+      "pid": 7496
+    },
+    {
+      "at_ns": 321168220000,
+      "message": "[20:10:49.752894] {Default Queue} zwp_locked_pointer_v1#48.locked()",
+      "pid": 7496
+    },
+    {
+      "at_ns": 383083023000,
+      "message": "[20:11:51.667746] {Default Queue}  -> zwp_locked_pointer_v1#48.destroy()",
+      "pid": 7496
+    },
+    {
+      "at_ns": 383084365000,
+      "message": "[20:11:51.668040] {Default Queue} discarded zwp_locked_pointer_v1#48.unlocked()",
+      "pid": 7496
+    },
+    {
+      "at_ns": 384063122000,
+      "message": "[20:11:52.647729] {Default Queue}  -> zwp_pointer_constraints_v1#14.lock_pointer(new id zwp_locked_pointer_v1#62, wl_surface#42, wl_pointer#38, nil, 2)",
+      "pid": 7496
+    },
+    {
+      "at_ns": 384089869000,
+      "message": "[20:11:52.674597] {Default Queue} zwp_locked_pointer_v1#62.locked()",
+      "pid": 7496
+    }
+  ],
+  "renderer": [
+    {
+      "pid": 7496,
+      "at_ns": 320500061470,
+      "operation": "gl_context",
+      "window": 4,
+      "current_window": 4,
+      "window_ptr": "0x276c7920",
+      "context_ptr": "0x276c9920",
+      "current_context_matches": true,
+      "renderer": "llvmpipe (LLVM 23.1.3, 256 bits)",
+      "version": "4.6 (Compatibility Profile) Mesa 26.2.5-arch1.1",
+      "driver": "wayland"
+    },
+    {
+      "pid": 7496,
+      "at_ns": 320500799666,
+      "operation": "relative",
+      "requested": 1,
+      "result": 0,
+      "state": 1,
+      "driver": "wayland"
+    },
+    {
+      "pid": 7496,
+      "at_ns": 320500820013,
+      "operation": "grab",
+      "requested": 1,
+      "state": 0,
+      "window": 4,
+      "window_ptr": "0x276c7920",
+      "driver": "wayland"
+    },
+    {
+      "pid": 7496,
+      "at_ns": 321162971351,
+      "operation": "relative",
+      "requested": 1,
+      "result": 0,
+      "state": 1,
+      "driver": "wayland"
+    },
+    {
+      "pid": 7496,
+      "at_ns": 321163003219,
+      "operation": "grab",
+      "requested": 1,
+      "state": 0,
+      "window": 4,
+      "window_ptr": "0x276c7920",
+      "driver": "wayland"
+    },
+    {
+      "pid": 7496,
+      "at_ns": 383083353158,
+      "operation": "grab",
+      "requested": 0,
+      "state": 0,
+      "window": 4,
+      "window_ptr": "0x276c7920",
+      "driver": "wayland"
+    },
+    {
+      "pid": 7496,
+      "at_ns": 383083375704,
+      "operation": "relative",
+      "requested": 0,
+      "result": 0,
+      "state": 0,
+      "driver": "wayland"
+    },
+    {
+      "pid": 7496,
+      "at_ns": 384063012227,
+      "operation": "relative",
+      "requested": 1,
+      "result": 0,
+      "state": 1,
+      "driver": "wayland"
+    },
+    {
+      "pid": 7496,
+      "at_ns": 384063036126,
+      "operation": "grab",
+      "requested": 1,
+      "state": 1,
+      "window": 4,
+      "window_ptr": "0x276c7920",
+      "driver": "wayland"
+    }
+  ],
+  "windows": [
+    {
+      "id": "{c42cef6f-b6e0-437c-974e-ffe0ef3bae82}",
+      "info": {
+        "activities": [
+          "d3ff151d-fc21-4f02-ab71-65e8ac09a4a5"
+        ],
+        "caption": "AssaultCube",
+        "clientMachine": "",
+        "decorationPolicy": 1,
+        "desktopFile": "linux_64_client",
+        "desktops": [
+          "3870fa05-d667-4cca-9ac9-36d57b9d5c00"
+        ],
+        "excludeFromCapture": false,
+        "fullscreen": true,
+        "hasTransientParent": false,
+        "height": 800.0,
+        "keepAbove": false,
+        "keepBelow": false,
+        "layer": 5,
+        "localhost": true,
+        "maximizeHorizontal": 0,
+        "maximizeVertical": 0,
+        "minimized": false,
+        "noBorder": false,
+        "pid": 7496,
+        "resourceClass": "linux_64_client",
+        "resourceName": "linux_64_client",
+        "role": "",
+        "skipPager": false,
+        "skipSwitcher": false,
+        "skipTaskbar": false,
+        "type": 0,
+        "uuid": "{c42cef6f-b6e0-437c-974e-ffe0ef3bae82}",
+        "width": 1280.0,
+        "x": 0.0,
+        "y": 0.0
+      }
+    }
+  ]
+}

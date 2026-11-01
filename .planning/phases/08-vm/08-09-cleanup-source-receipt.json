@@ -1,0 +1,4 @@
+{
+  "executed_source_sha256": "dbdd52e5a853488c45be9db72d38d006fdacebb0818e65a19ae221f42e3d79a0",
+  "note": "Original cleanup bytes retained; this actual subprocess will load the recorded supplemental file before shutdown. Existing controller was not hot-reloaded."
+}

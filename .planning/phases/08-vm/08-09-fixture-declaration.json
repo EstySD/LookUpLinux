@@ -1,0 +1,14 @@
+{
+  "completions": 20,
+  "required_second_pass": 2,
+  "kind": "non-game resource support only",
+  "fixture": "tests\\fixtures\\ocr-games\\04-recovery-name.png",
+  "sha256": "9cbc077f181e3c564d21e5d3ec88d68129630811972b12cc659558fc8723497e",
+  "point": [
+    733,
+    378
+  ],
+  "display": "ordinary fullscreen image window, native1280x800 pixels, no scaling or pixel edits",
+  "production": "physical hotkey -> actual Screenshot2 -> default6-to11 cascade; original Source objects unchanged",
+  "observer_sha256": "eb86eeef9f2465f09081955e1684b917a9175a77fa3ce6993de43b44c1646060"
+}

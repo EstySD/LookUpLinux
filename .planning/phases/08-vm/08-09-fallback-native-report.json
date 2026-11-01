@@ -1,0 +1,27 @@
+{
+  "passed": false,
+  "changed_path": {
+    "passed": true,
+    "completions": 20,
+    "second_pass_completions": 20,
+    "early_rss_bytes": 185286656,
+    "late_rss_bytes": 185356288,
+    "rss_allowance_bytes": 27792998.4,
+    "privacy_unchanged": true,
+    "unexpected_capture_files": []
+  },
+  "physical_burst": {
+    "passed": true,
+    "inputs": 10,
+    "accepted": 1
+  },
+  "classified_privacy": true,
+  "cleanup": false,
+  "raw": {
+    "completions": "08-09-fixture-support-attempts.json",
+    "privacy": "08-09-privacy-proof.json",
+    "burst": "08-09-burst-attempt.json"
+  },
+  "rejected_support": "08-09-fast6-unaccepted-report.json",
+  "kind": "Non-game resource support on unchanged original captured sparse source; not counted as game routes."
+}

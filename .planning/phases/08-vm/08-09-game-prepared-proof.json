@@ -1,0 +1,30 @@
+[
+  {
+    "source_sha256": "27920db82a4e27b874808f695ba0a48ca9f466acab51f43ac78416c6cf2fd06f",
+    "prepared_sha256": "80a91375b9a481825e9b786dbb19693009f4ff9218fa2db14e9f19f49103e677",
+    "prepared_pixels_sha256": "7470aa2cf871710ff54e12c8bbd3e9cdb6059c266d1e590a11d2c642713320b7",
+    "transform": {
+      "left": 0,
+      "top": 250,
+      "scale_x": 2.0,
+      "scale_y": 2.0,
+      "border": 8
+    },
+    "route": 1,
+    "matches_observed_process_input": true
+  },
+  {
+    "source_sha256": "e5818184f2649ac5ae929958fff042d9f3979a60859ef33f41011de76c9eec1a",
+    "prepared_sha256": "5bb022609ba81457091500990a9558dd74ee835334df843c80bbe68e48968ad9",
+    "prepared_pixels_sha256": "8bfb8ff5574975b109cb69ca65cc496b3bb1145c0e23e2078cd350c1c51a82fa",
+    "transform": {
+      "left": 0,
+      "top": 250,
+      "scale_x": 2.0,
+      "scale_y": 2.0,
+      "border": 8
+    },
+    "route": 2,
+    "matches_observed_process_input": true
+  }
+]

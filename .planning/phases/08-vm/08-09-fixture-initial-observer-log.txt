@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/home/lookup07/check_fallback_09.py", line 1383, in <module>
+    if args.guest_probe:raise SystemExit(guest_probe(args.continuous))
+                                         ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/lookup07/check_fallback_09.py", line 588, in guest_probe
+    assert len(canonical)>=2,'missing_corpus_body'
+           ^^^^^^^^^^^^^^^^^
+AssertionError: missing_corpus_body
+

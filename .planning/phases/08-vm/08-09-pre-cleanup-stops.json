@@ -1,0 +1,25 @@
+{
+  "fixture_observer": {
+    "ok": true,
+    "result": {
+      "stopped": true,
+      "pid": 18180
+    }
+  },
+  "product_tray": {
+    "ok": true,
+    "result": {
+      "stopped": true,
+      "pid": 7595
+    }
+  },
+  "game": {
+    "ok": true,
+    "result": {
+      "stopped": true,
+      "pid": 7496,
+      "unit": "lookup-assaultcube-08-320384739199",
+      "method": "owned user-service stop"
+    }
+  }
+}

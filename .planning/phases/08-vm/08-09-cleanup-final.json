@@ -1,0 +1,59 @@
+{
+  "passed": false,
+  "gates": {
+    "input_released": true,
+    "owner_stopped": true,
+    "owned_processes_stopped": true,
+    "package_removed": true,
+    "key_inactive": true,
+    "unrelated_shortcuts_preserved": false,
+    "original_data_retained": true,
+    "current_profiles_retained": true,
+    "normal_profile_restored": true,
+    "clone_off": true,
+    "settings_restored": true,
+    "original_state_respected": true
+  },
+  "controller_finished": true,
+  "controller": "08-09-native-cleanup.json",
+  "nested_cleanup": "08-09-guest-cleanup.json",
+  "shutdown_transport": {
+    "ok": false,
+    "error": "RuntimeError('Connection to 127.0.0.1 closed by remote host.\\n')"
+  },
+  "current_retention": {
+    "expected": {
+      "/home/lookup07/.config/lookup/config.json": "4ab363d4620fd51d0a80f409cfc5d1ce0e636c69c87033da5d3ec23b9b67d014",
+      "/home/lookup07/.local/share/lookup/dicts/public-first/public-first.dict": "5486f1c4d2869ce91517780691f9d82b1b601732936ef5b6350b919466ad8ee1",
+      "/home/lookup07/.local/share/lookup/dicts/public-first/public-first.idx": "f3d263601670743d7ab051519a6c7618e91ee8d4b62a8d710a30d9aaf95e9a74",
+      "/home/lookup07/.local/share/lookup/dicts/public-first/public-first.ifo": "f9e4929016bf7074efccd01c38ae0af9b9adacf9d2d142f3058a550cab321b6b",
+      "/home/lookup07/.local/share/lookup/dicts/public-second/public-second.dict": "4f50e14babe251bfcacedabbb0d1ad78fb30122702fb9acd90057664584e6409",
+      "/home/lookup07/.local/share/lookup/dicts/public-second/public-second.idx": "7540f04923a35719b6250fb032f1ac00ea1f880e7fc76e54f56473181b7ff3dc",
+      "/home/lookup07/.local/share/lookup/dicts/public-second/public-second.ifo": "f260d8622a9ea32c496aa50a4e75dc226044d9e0361dcfad69c956c0e2c1d6b5",
+      "/home/lookup07/.local/share/lookup/lookup.db": "698d78287477e482a6bf5a8d3c8de58556735db4af35c9fc041f17b2f97f90c0",
+      "/home/lookup07/.local/state/lookup-games-08/assaultcube/lookup/config.json": "93b18a0a98ffa6f65ed39cf427c915f4996556db55297f511909edfb5f624256",
+      "/home/lookup07/.local/state/lookup-games-08/assaultcube/lookup/data/history.db": "92596dd98c4169b06f423a96c415206c11de1958b6fe4d056167f967f8956ac5",
+      "/home/lookup07/.local/state/lookup-hardening-09/series/config.json": "2334dafa127774c5c64dd54d453ac54d3bac705ad6e61dd1fd86fc8a9d4db9f5",
+      "/home/lookup07/.local/state/lookup-hardening-09/series/data/history.db": "92e0a6821d126f4311231ed2429ab38cf41e3835471c2223577a80320e3423e4"
+    },
+    "observed": {
+      "/home/lookup07/.config/lookup/config.json": "4ab363d4620fd51d0a80f409cfc5d1ce0e636c69c87033da5d3ec23b9b67d014",
+      "/home/lookup07/.local/share/lookup/dicts/public-first/public-first.dict": "5486f1c4d2869ce91517780691f9d82b1b601732936ef5b6350b919466ad8ee1",
+      "/home/lookup07/.local/share/lookup/dicts/public-first/public-first.idx": "f3d263601670743d7ab051519a6c7618e91ee8d4b62a8d710a30d9aaf95e9a74",
+      "/home/lookup07/.local/share/lookup/dicts/public-first/public-first.ifo": "f9e4929016bf7074efccd01c38ae0af9b9adacf9d2d142f3058a550cab321b6b",
+      "/home/lookup07/.local/share/lookup/dicts/public-second/public-second.dict": "4f50e14babe251bfcacedabbb0d1ad78fb30122702fb9acd90057664584e6409",
+      "/home/lookup07/.local/share/lookup/dicts/public-second/public-second.idx": "7540f04923a35719b6250fb032f1ac00ea1f880e7fc76e54f56473181b7ff3dc",
+      "/home/lookup07/.local/share/lookup/dicts/public-second/public-second.ifo": "f260d8622a9ea32c496aa50a4e75dc226044d9e0361dcfad69c956c0e2c1d6b5",
+      "/home/lookup07/.local/share/lookup/lookup.db": "698d78287477e482a6bf5a8d3c8de58556735db4af35c9fc041f17b2f97f90c0",
+      "/home/lookup07/.local/state/lookup-games-08/assaultcube/lookup/config.json": "93b18a0a98ffa6f65ed39cf427c915f4996556db55297f511909edfb5f624256",
+      "/home/lookup07/.local/state/lookup-games-08/assaultcube/lookup/data/history.db": "92596dd98c4169b06f423a96c415206c11de1958b6fe4d056167f967f8956ac5",
+      "/home/lookup07/.local/state/lookup-hardening-09/series/config.json": "2334dafa127774c5c64dd54d453ac54d3bac705ad6e61dd1fd86fc8a9d4db9f5",
+      "/home/lookup07/.local/state/lookup-hardening-09/series/data/history.db": "92e0a6821d126f4311231ed2429ab38cf41e3835471c2223577a80320e3423e4"
+    },
+    "retained": true,
+    "remaining": [],
+    "package_absent": true,
+    "at_ns": 1590584971665
+  },
+  "policy": "USER_KEEP_RUNNING external original untouched; subsequent user-requested clone interactive boot is separate from this completed OFF cleanup."
+}

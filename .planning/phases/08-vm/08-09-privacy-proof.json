@@ -1,0 +1,223 @@
+{
+  "before": {
+    "classified": {
+      "primary": {
+        "exit": 1,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr": "Nothing is copied\n",
+        "socket_exists": true
+      },
+      "clipboard": {
+        "exit": 1,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr": "Nothing is copied\n",
+        "socket_exists": true
+      }
+    },
+    "typed": {
+      "primary": "e79e418e48623569d75e2a7b09ae88ed9b77b126a445b9ff9dc6989a08efa079",
+      "primary_exit": 1,
+      "clipboard": "e79e418e48623569d75e2a7b09ae88ed9b77b126a445b9ff9dc6989a08efa079",
+      "clipboard_exit": 1,
+      "klipper": "277d5720b6e69c0008cd902467db57579880fab70074ddf6ae4dff6684df7d37",
+      "klipper_items": 15,
+      "png_files": [],
+      "scanned": [
+        "/tmp",
+        "/run/user/1001",
+        "/home/lookup07/.local/state/lookup-hardening-09/series/data"
+      ]
+    },
+    "actual_data_scan": {
+      "png_files": [],
+      "scanned": [
+        "/tmp",
+        "/run/user/1001",
+        "/home/lookup07/.local/state/lookup-games-08/assaultcube/lookup/data"
+      ],
+      "at_ns": 1448932020612
+    }
+  },
+  "limit": "Earlier twenty-call top wl-paste reads lack retained stderr; not retroactively classified. Nested resource clipboard probes are excluded.",
+  "timing": {
+    "input_ns": 1451158749000,
+    "receipt_ns": 1451171390951,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 1450569331375,
+    "rows_before": 2,
+    "released": true,
+    "attempt": 3,
+    "group": "privacy",
+    "case": 1,
+    "scene": 1,
+    "verify_count": false,
+    "token": 1449807381706,
+    "input_sequence": 3,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 7595,
+    "process_start": 36532,
+    "process_start_source": "proc_stat",
+    "run": 4291151853054140,
+    "request": 98,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 1451344698260,
+    "first_visible_start_ns": 1454662780624,
+    "first_visible_end_ns": 1454936909677,
+    "frame_identity": [
+      7595,
+      36532,
+      4291151853054140,
+      98
+    ],
+    "frame_sha256": "c1eae748c2b11783989a5c82c4df493abba1119261bf72ad4cf6d48b2cba36f4",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 3778.160677,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      745.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      733,
+      378
+    ],
+    "process_birth_mono_lower_ns": 365310000611,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644"
+  },
+  "source": {
+    "pid": 7595,
+    "run": 4291151853054140,
+    "request": 98,
+    "mode": "ocr",
+    "cursor": [
+      733,
+      378
+    ],
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "capture_start_ns": 1451421473738,
+    "capture_end_ns": 1451843630465,
+    "unchanged_objects": true,
+    "backend": "screenshot2",
+    "sha256": "9cbc077f181e3c564d21e5d3ec88d68129630811972b12cc659558fc8723497e",
+    "image_path": "/home/lookup07/.local/state/lookup-games-08/assaultcube/lookup/observations/source-7595-4291151853054140-98.png",
+    "ocr_passes": [
+      {
+        "psm": 6,
+        "start_ns": 1452278225558,
+        "input_sha256": "ae611c6d5d9e53a424a6854598177abd3baa798be5eb372d7f5e59e387e7e986",
+        "timeout": 3,
+        "returncode": 0,
+        "stdout_sha256": "af61782c69fcfb84b4be3dbe4ce66d7154f09f30f2558534c54442b598f4257f",
+        "end_ns": 1453273278652
+      },
+      {
+        "psm": 11,
+        "start_ns": 1453274588988,
+        "input_sha256": "ae611c6d5d9e53a424a6854598177abd3baa798be5eb372d7f5e59e387e7e986",
+        "timeout": 3,
+        "returncode": 0,
+        "stdout_sha256": "aad1b79c06fd76a24881d0f987d25d659e1d50c86055214ddebd0294cb1dcac7",
+        "end_ns": 1453813503506
+      }
+    ],
+    "production_selection": {
+      "origin": "actual_recognize_image_return",
+      "word": "name",
+      "context": "name",
+      "span": [
+        0,
+        4
+      ],
+      "box": [
+        716.5,
+        374.0,
+        34.0,
+        8.5
+      ],
+      "confidence": 89.277435
+    },
+    "query": "name",
+    "context": "name",
+    "span": [
+      0,
+      4
+    ],
+    "context_complete": false,
+    "resolve_start_ns": 1451866469442,
+    "resolve_end_ns": 1453814533175
+  },
+  "after": {
+    "classified": {
+      "primary": {
+        "exit": 1,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr": "Nothing is copied\n",
+        "socket_exists": true
+      },
+      "clipboard": {
+        "exit": 1,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr": "Nothing is copied\n",
+        "socket_exists": true
+      }
+    },
+    "typed": {
+      "primary": "e79e418e48623569d75e2a7b09ae88ed9b77b126a445b9ff9dc6989a08efa079",
+      "primary_exit": 1,
+      "clipboard": "e79e418e48623569d75e2a7b09ae88ed9b77b126a445b9ff9dc6989a08efa079",
+      "clipboard_exit": 1,
+      "klipper": "277d5720b6e69c0008cd902467db57579880fab70074ddf6ae4dff6684df7d37",
+      "klipper_items": 15,
+      "png_files": [],
+      "scanned": [
+        "/tmp",
+        "/run/user/1001",
+        "/home/lookup07/.local/state/lookup-hardening-09/series/data"
+      ]
+    },
+    "actual_data_scan": {
+      "png_files": [],
+      "scanned": [
+        "/tmp",
+        "/run/user/1001",
+        "/home/lookup07/.local/state/lookup-games-08/assaultcube/lookup/data"
+      ],
+      "at_ns": 1457347637304
+    }
+  },
+  "passed": true
+}

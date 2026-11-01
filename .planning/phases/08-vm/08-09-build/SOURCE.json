@@ -1,0 +1,50 @@
+{
+  "archive": "lookup-source.tar.gz",
+  "archive_sha256": "3412eb006e690915881fe2f7aa0acdf7f0bd693f12f829008d1c6bb2f63e8455",
+  "text_line_endings": "LF",
+  "pkgbuild_sha256": "9f80593bce2e294c1baeb4cf006697e3c82d879677e8af754ee34dc3f53ca0b1",
+  "files": [
+    "lookup-source/lookup/__init__.py",
+    "lookup-source/lookup/__main__.py",
+    "lookup-source/lookup/app.py",
+    "lookup-source/lookup/capture.py",
+    "lookup-source/lookup/config.py",
+    "lookup-source/lookup/context.py",
+    "lookup-source/lookup/data/NOTICE-wordnet.txt",
+    "lookup-source/lookup/data/irregular.txt",
+    "lookup-source/lookup/dicts.py",
+    "lookup-source/lookup/dictzip.py",
+    "lookup-source/lookup/doctor.py",
+    "lookup-source/lookup/dsl.py",
+    "lookup-source/lookup/gui.py",
+    "lookup-source/lookup/learning.py",
+    "lookup-source/lookup/learning_gui.py",
+    "lookup-source/lookup/lifecycle.py",
+    "lookup-source/lookup/lzo.py",
+    "lookup-source/lookup/mdx.py",
+    "lookup-source/lookup/normalize.py",
+    "lookup-source/lookup/ocr.py",
+    "lookup-source/lookup/online.py",
+    "lookup-source/lookup/platform.py",
+    "lookup-source/lookup/ripemd128.py",
+    "lookup-source/lookup/settings_gui.py",
+    "lookup-source/lookup/stardict.py",
+    "lookup-source/lookup/store.py",
+    "lookup-source/lookup/timing.py",
+    "lookup-source/lookup/translate.py",
+    "lookup-source/packaging/THIRD-PARTY.md",
+    "lookup-source/packaging/lookup",
+    "lookup-source/packaging/org.lookup.Linux.autostart.desktop",
+    "lookup-source/packaging/org.lookup.Linux.desktop"
+  ],
+  "upstream": {
+    "kdotool": {
+      "url": "https://github.com/jinliu/kdotool/releases/download/v0.3.0/kdotool-0.3.0-x86_64-unknown-linux-gnu.tar.gz",
+      "sha256": "2079cc1d492b6e83e04def4d9376e34fcb36a4e3bdc637c8c2ee6fa547ce90ff"
+    },
+    "mueller7": {
+      "url": "https://qstardict.ylsoftware.com/files/mueller7.tar.bz2",
+      "sha256": "1c5e19b857eaa5fc98f77173e8baeb22cb654c407586465b4270e4286bf070ed"
+    }
+  }
+}

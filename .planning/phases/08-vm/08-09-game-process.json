@@ -1,0 +1,19 @@
+{
+  "pid": 7496,
+  "start": 32039,
+  "uid": 1001,
+  "executable": "/home/lookup07/.local/state/lookup-games-08/assaultcube/package/bin_unix/linux_64_client",
+  "argv": [
+    "/home/lookup07/.local/state/lookup-games-08/assaultcube/package/bin_unix/linux_64_client",
+    "--home=/home/lookup07/.local/state/lookup-games-08/assaultcube/profile",
+    "--init",
+    "-t1",
+    "-w1280",
+    "-h800",
+    "--loadmap=ac_desert"
+  ],
+  "renderer_requested": "default",
+  "unit": "lookup-assaultcube-08-320384739199",
+  "boot_id": "b14db8b7-dd48-4bfd-96b9-8199328fff8e",
+  "control_group": "/user.slice/user-1001.slice/user@1001.service/app.slice/lookup-assaultcube-08-320384739199.service"
+}

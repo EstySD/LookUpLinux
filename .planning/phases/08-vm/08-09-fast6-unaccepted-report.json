@@ -1,0 +1,10 @@
+{
+  "passed": false,
+  "privacy_unchanged": true,
+  "unexpected_capture_files": [],
+  "privacy_accepted": false,
+  "limits": [
+    "Twenty same-game completions all used fast6, so this is not accepted fallback coverage.",
+    "Raw equal clipboard probes lacked validated stderr; no privacy acceptance from them."
+  ]
+}
