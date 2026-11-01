@@ -15,7 +15,7 @@ if args.role=='target':
     assert re.search(r'^NoNewPrivs:\s+1$',Path('/proc/self/status').read_text(),re.M)
     manifest=json.loads(args.mueller_manifest.read_text());directory=Path(os.environ['LOOKUP_TEST_DICTS'])
     observed={path.name:hashlib.sha256(path.read_bytes()).hexdigest() for path in directory.iterdir() if path.is_file()}
-    mueller_verified=observed==manifest['package_members']==manifest['installed_members'];assert mueller_verified
+    mueller_verified=observed==manifest['package_members']==manifest['verified_members'];assert mueller_verified
 command=['python','-m','unittest','discover','-s','tests'];log=args.output/(args.role+'-discovery.log')
 started=time.time_ns();env=dict(os.environ,QT_QPA_PLATFORM='offscreen',PYTHONIOENCODING='utf-8')
 with log.open('wb') as output:child=subprocess.run(command,stdout=output,stderr=subprocess.STDOUT,env=env,timeout=900)

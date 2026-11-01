@@ -12,8 +12,8 @@ from unittest.mock import patch
 
 
 class CleanupDependencyTests(unittest.TestCase):
-    def execute(self,root,record,calls):
-        source=Path('.planning/phases/08-vm/08-07-controller.py').read_text(encoding='utf-8')
+    def execute(self,root,record,calls,controller='08-07-controller.py'):
+        source=Path('.planning/phases/08-vm',controller).read_text(encoding='utf-8')
         tree=ast.parse(source)
         helpers=[node for node in tree.body if isinstance(node,ast.FunctionDef) and node.name in ('save','attempt')]
         final=next(node for node in tree.body if isinstance(node,ast.Try)).finalbody
@@ -49,3 +49,20 @@ class CleanupDependencyTests(unittest.TestCase):
             self.assertTrue(any(call[0]=='guest' and 'poweroff' in call[1] for call in calls))
             self.assertTrue(record.get('persistence_errors'))
             self.assertIn('evidence persistence error',errors.getvalue())
+
+    def test_target_only_controller_preserves_failure_cleanup_safety(self):
+        for failure in ('source','report'):
+            with self.subTest(failure=failure),tempfile.TemporaryDirectory() as directory:
+                root=Path(directory);(root/'08-07-target-guest-cleanup.py').write_text('pass');record={};calls=[]
+                original=Path.read_text
+                def read(path,*args,**kwargs):
+                    if failure=='source' and path.name=='08-07-target-guest-cleanup.py':raise OSError('controlled target source read')
+                    return original(path,*args,**kwargs)
+                with patch.object(Path,'read_text',read),redirect_stderr(io.StringIO()):
+                    if failure=='report':
+                        with patch.object(Path,'write_text',side_effect=OSError('controlled target persistence')):
+                            try:self.execute(root,record,calls,'08-07-target-controller.py')
+                            except RuntimeError:pass
+                    else:self.execute(root,record,calls,'08-07-target-controller.py')
+                self.assertTrue(any('modifyvm' in call for call in calls))
+                self.assertTrue(any(call[0]=='guest' and 'poweroff' in call[1] for call in calls))
