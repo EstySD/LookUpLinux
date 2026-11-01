@@ -427,6 +427,45 @@ def carry_phase7(raw):
     return dict(raw=raw,actor='unknown',scope='historical_preservation_exception')
 
 
+def shortcut_preservation_report(proof):
+    """Full typed bindings and exact KConfig action delta, with two real markers."""
+    import base64,configparser,hashlib
+    try:
+        registry=proof['registry'];before=registry['before'];after=registry['after']
+        product=['org.lookup.Linux.desktop','_launch'];fixture=['lookup-final-probe-07.desktop','_launch']
+        _require(registry['product_action'][:2]==product and registry['product_after']==[],'product_identity')
+        def bindings(value,exclude):
+            components=value['components'];rows=value['bindings']
+            _require(isinstance(components,list) and components and len({row[0] for row in components})==len(components),'components')
+            _require(len({tuple(row['action'][:2]) for row in rows})==len(rows)
+                and all(row['action'][0] in {item[0] for item in components} and len(row['action'])==4
+                    and isinstance(row['keys'],list) and all(_integer(key) for key in row['keys']) for row in rows),'bindings')
+            return sorted((row['action'],row['keys']) for row in rows if row['action'][:2] not in exclude)
+        _require(sorted(before['components'])==sorted(after['components'])
+            and bindings(before,[product])==bindings(after,[product])
+            and bindings(proof['baseline'],[product])==bindings(before,[product,fixture]),'unrelated_bindings')
+        def config(value):
+            raw=base64.b64decode(value['kconfig_base64'],validate=True)
+            _require(hashlib.sha256(raw).hexdigest()==value['kconfig_sha256'],'raw_config_hash')
+            parser=configparser.ConfigParser(interpolation=None,strict=False);parser.optionxform=str;parser.read_string(raw.decode('utf-8'))
+            return {(section,key):text for section in parser.sections() for key,text in parser[section].items()
+                if not(section in ('org.lookup.Linux.desktop','services][org.lookup.Linux.desktop') and key=='_launch')}
+        _require(config(before)==config(after),'unrelated_config')
+        markers=[]
+        for name in ('physical_before','physical_after'):
+            row=proof[name];old=row['before'];new=row['after'];marker=row['marker'];key=row['fixture']['key']
+            _require(row['fixture']['action'][:2]==fixture and key=='Meta+Ctrl+Shift+F11'
+                and row['input']['target']=='cf207909-94b5-4b49-8bd8-ccff973c1dc8' and row['input']['exit']==0
+                and row['input']['codes']=='e0 5b 1d 2a 57 d7 aa 9d e0 db','physical_input')
+            _require(len(new['rows'])==len(old['rows'])+1 and new['rows'][:-1]==old['rows'] and new['rows'][-1]==marker
+                and old['at_ns']<=marker['at_ns']<=new['at_ns'] and marker['uid']==1001
+                and _integer(marker['pid'],1) and _integer(marker['start'],1),'actual_marker')
+            markers.append((marker['pid'],marker['start'],marker['at_ns']))
+        _require(markers[0]!=markers[1] and markers[0][2]<before['at_ns']<after['at_ns']<markers[1][2],'marker_order')
+        return dict(passed=True,unrelated_bindings=len(bindings(before,[product])),raw_config_delta='exact owned _launch only')
+    except (EvidenceError,KeyError,TypeError,AttributeError,ValueError,configparser.Error):return dict(passed=False)
+
+
 def final_cleanup_report(raw):
     """Require the native, both game and current installation cleanup observations."""
     try:
