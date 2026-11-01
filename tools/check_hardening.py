@@ -513,7 +513,7 @@ def closure_suites_report(suites,logs,*,repo=None):
             return subprocess.check_output(['git','-C',str(root),*args],stderr=subprocess.DEVNULL,timeout=10).decode().strip()
         _require(git('rev-parse','--verify',revision+'^{commit}')==revision
             and git('rev-parse','--verify',revision+'^{tree}')==tree,'actual_suite_revision')
-        paths=['lookup','tools','tests','packaging',':(glob).planning/phases/08-vm/*.py',
+        paths=['lookup','tools','tests','packaging','PKGBUILD',':(glob).planning/phases/08-vm/*.py',
             ':(glob).planning/phases/08-vm/*.ps1',':(glob).planning/phases/08-vm/*.sh']
         _require(not git('diff','--name-only',revision,'--',*paths),'tested_code_changed')
         untracked=git('ls-files','--others','-z','--',*paths).split('\0')
