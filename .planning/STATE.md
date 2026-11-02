@@ -4,17 +4,16 @@ milestone: v1.1
 milestone_name: Надёжность и распространение
 current_phase: 11
 current_phase_name: Выбор слов на замороженной сцене
-status: executing
-stopped_at: Phase 10 planned; implementation and host verification in progress; target VM guard pending
-last_updated: "2026-11-02T11:59:22.892Z"
-last_activity: 2026-11-02
-last_activity_desc: Phase 10 complete, transitioned to Phase 11
+status: blocked
+stopped_at: "Phase 11 research blocked: original arch-kde running prevents protected clone live hover/input/fullscreen proof; Phase 10 accepted"
+last_updated: "2026-11-02T12:03:45.591Z"
+last_activity: "2026-11-02: Phase 11 research blocked at mandatory live KDE input/hover gate; Phase 10 accepted"
 progress:
   total_phases: 7
-  completed_phases: 1
-  total_plans: 4
+  completed_phases: 2
+  total_plans: 3
   completed_plans: 3
-  percent: 14
+  percent: 29
 ---
 
 # Project State
@@ -24,14 +23,14 @@ progress:
 See: .planning/PROJECT.md (v1 scope expanded 2026-10-27)
 
 **Core value:** Хоткей над английским словом даёт перевод в оверлее у курсора примерно за 1–2 секунды, и слово попадает в базу со счётчиком.
-**Current focus:** Phase 10 — Компактный настраиваемый попап
+**Current focus:** Phase 11 — Выбор слов на замороженной сцене
 
 ## Current Position
 
-Phase: 11 — Выбор слов на замороженной сцене
-Plan: Not started
-Status: executing
-Last activity: 2026-11-02 — Phase 10 complete, transitioned to Phase 11
+Phase: 11 (Выбор слов на замороженной сцене) — EXECUTING
+Plan: 1 of ?
+Status: blocked
+Last activity: 2026-11-02: Phase 11 research blocked at mandatory live KDE input/hover gate; Phase 10 accepted
 
 ## Performance Metrics
 
@@ -134,8 +133,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-11-02T11:42:16.424Z
-Stopped at: Phase 10 planned; implementation and host verification in progress; target VM guard pending
+Last session: 2026-11-02T12:03:18.487Z
+Stopped at: Phase 11 research blocked: original arch-kde running prevents protected clone live hover/input/fullscreen proof; Phase 10 accepted
 Resume file: None
 
 ## Operator Next Steps
