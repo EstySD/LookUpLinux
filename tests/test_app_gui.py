@@ -227,6 +227,9 @@ class GuiTests(unittest.TestCase):
         name='Very long dictionary name '*50
         article=replace(self.result().articles[0],dict_name=name)
         self.owner.receive(self.event(result=replace(self.result(),articles=(article,))))
+        heading=next(widget for widget in self.owner.popup.findChildren(QTextEdit) if widget.toPlainText().startswith('Словарь:'))
+        self.assertLessEqual(len(heading.toPlainText()),89)
+        self.assertEqual(heading.toolTip(),name)
         button=self.owner.popup._article_buttons[0]
         self.assertTrue(button.text().startswith('Показать полную статью — '))
         self.assertLess(len(button.text()),len(name))

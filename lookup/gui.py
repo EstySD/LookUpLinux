@@ -299,7 +299,11 @@ def components():
             self.add(ipa)
             for article in value.articles:
                 if self.body.count():self.body.addSpacing(8)
-                self.add('Словарь: '+article.dict_name,True)
+                name=article.dict_name
+                heading=self.add('Словарь: '+(name[:79]+'…' if len(name)>80 else name),True)
+                if heading is not None:
+                    heading.setAccessibleName('Словарь: '+name)
+                    heading.setToolTip(name)
                 for pos,terms in article.senses:
                     self.add((pos+': ' if pos else '')+'; '.join(terms),True)
                 if not article.senses and article.text:
