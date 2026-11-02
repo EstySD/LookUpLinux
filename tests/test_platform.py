@@ -42,6 +42,21 @@ class GeometryTests(unittest.TestCase):
 
 
 class BoundaryTests(unittest.TestCase):
+    def test_window_ownership_requires_pid_filter_conjunction(self):
+        from lookup import platform
+        owned='{11111111-1111-1111-1111-111111111111}'
+        foreign='{22222222-2222-2222-2222-222222222222}'
+        def search(argv,*args,**kwargs):
+            if argv[1]=='search':
+                return (owned if '--all' in argv else owned+' '+foreign).encode('ascii')
+            return b''
+        with patch.object(platform,'run',side_effect=search) as command:
+            self.assertEqual(platform.owned_window({},123),(owned,))
+            with self.assertRaises(PlatformError):
+                platform.window_action({},123,foreign,'windowactivate')
+            platform.window_action({},123,owned,'windowactivate')
+            self.assertEqual(command.call_args.args[0],['kdotool','windowactivate',owned])
+
     def test_private_kdotool_resolver_covers_every_run_call(self):
         from lookup import platform
         with patch.object(platform.Path,'is_file',return_value=True),patch.object(os,'access',return_value=True):
