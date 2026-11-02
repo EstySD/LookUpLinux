@@ -867,8 +867,13 @@ class GuiTests(unittest.TestCase):
         self.owner._focus_pending=(self.identity,self.owner.presentations,target)
         def search(argv,*args,**kwargs):
             # kdotool ORs filters unless --all is passed: the layer shares PID.
-            exact='^'+re.escape(gui.TITLE)+'$'
-            return b'popup' if '--all' in argv and argv[-1]==exact else b'layer popup'
+            windows=(('layer',os.getpid(),'Выбор слова по снимку'),
+                     ('foreign',os.getpid()+1,gui.TITLE),
+                     ('suffix',os.getpid(),gui.TITLE+' extra'),('popup',os.getpid(),gui.TITLE))
+            pid=int(argv[argv.index('--pid')+1])
+            combine=all if '--all' in argv else any
+            return ' '.join(uuid for uuid,owner,title in windows
+                            if combine((owner==pid,bool(re.search(argv[-1],title))))).encode()
         with mock.patch.object(gui.platform,'run',side_effect=search) as run, \
              mock.patch.object(gui.platform,'window_action') as action, \
              mock.patch('lookup.gnome.active',return_value=False):

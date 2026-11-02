@@ -1,6 +1,7 @@
 """Lazy native KDE owner/client and translation card. No Qt import on import."""
 import os
 import math
+import re
 import sqlite3
 from pathlib import Path
 import subprocess
@@ -874,7 +875,7 @@ def components():
                         if gnome.active(self.env):
                             gnome.place(os.getpid(),TITLE,*target[:2])
                         else:
-                            values=platform.run(['kdotool','search','--pid',str(os.getpid()),'--name',TITLE],self.env,limit=4096).decode().split()
+                            values=platform.run(['kdotool','search','--all','--pid',str(os.getpid()),'--name','^'+re.escape(TITLE)+'$'],self.env,limit=4096).decode().split()
                             uuid=values[0]
                             for action,args in (('windowmove',target[:2]),('windowraise',()),('windowactivate',())):
                                 if not self.engine.current(identity):break

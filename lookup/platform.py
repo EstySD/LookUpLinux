@@ -267,7 +267,7 @@ def monitors(env):
 def owned_window(env, pid):
     if type(pid) is not int or pid <= 0:
         raise PlatformError('invalid_owner')
-    value = run(['kdotool', 'search', '--pid', str(pid)], env, limit=4096).decode('ascii').split()
+    value = run(['kdotool', 'search', '--all', '--pid', str(pid)], env, limit=4096).decode('ascii').split()
     if not value or any(not re.fullmatch(r'\{?[0-9a-fA-F-]{36}\}?', s) for s in value):
         raise PlatformError('bad_output')
     return tuple(value)

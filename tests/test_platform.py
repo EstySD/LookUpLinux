@@ -54,6 +54,7 @@ class BoundaryTests(unittest.TestCase):
             self.assertEqual(platform.owned_window({},123),(owned,))
             with self.assertRaises(PlatformError):
                 platform.window_action({},123,foreign,'windowactivate')
+            self.assertTrue(all(call.args[0][1]=='search' for call in command.call_args_list))
             platform.window_action({},123,owned,'windowactivate')
             self.assertEqual(command.call_args.args[0],['kdotool','windowactivate',owned])
 
