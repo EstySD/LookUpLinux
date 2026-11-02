@@ -2,6 +2,7 @@
 from contextlib import contextmanager, ExitStack
 from dataclasses import dataclass, field, replace
 import sqlite3
+import math
 import threading
 import time
 import unicodedata
@@ -29,12 +30,19 @@ class Frozen:
 
 
 @dataclass(frozen=True)
+class Scene:
+    session_id: int
+    source: Frozen
+
+
+@dataclass(frozen=True)
 class Query:
     text: str
     context: str | None
     timings: dict = field(default_factory=dict)
     span: tuple[int, int] | None = None
     context_complete: bool = False
+    selection_box: tuple | None = None
 
 
 @dataclass
@@ -61,6 +69,8 @@ class Event:
     available: tuple | None = None
     span: tuple[int, int] | None = None
     reload_revision: int | None = None
+    scene: Scene | None = None
+    selection_box: tuple | None = None
 
 
 class Source:
@@ -115,7 +125,7 @@ class Source:
         text=ocr.choose_query(selection,dictset)
         span=selection.span if text==selection.word else dict(selection.candidate_spans).get(text)
         return Query(text,selection.context if selection.context is not None else selection.line,
-                     dict(timings,capture=source.image.elapsed_ms),span,selection.context_complete)
+                     dict(timings,capture=source.image.elapsed_ms),span,selection.context_complete,selection.box)
 
 
 @contextmanager
@@ -156,6 +166,7 @@ class Engine:
         self._generation=0
         self._started=0
         self._pending=None
+        self._scene=None
         self._reload_revision=0
         self._reload_pending=None
         self._stopping=False
@@ -176,8 +187,30 @@ class Engine:
     def enqueue(self,identity,snapshot=None):
         with self._condition:
             if self.current(identity):
-                self._pending=(identity,self._started,snapshot)
+                self._scene=None
+                self._pending=(identity,self._started,snapshot,None)
                 self._condition.notify()
+
+    def enqueue_scene(self,identity,snapshot=None):
+        with self._condition:
+            if not self.current(identity):return False
+            self._scene=None
+            self._pending=(identity,self._started,snapshot,True)
+            self._condition.notify()
+            return True
+
+    def select_scene(self,identity,session_id,point):
+        with self._condition:
+            if not self.current(identity) or self._scene is None or session_id!=self._scene.session_id:
+                return False
+            monitor=self._scene.source.monitor
+            if (not isinstance(point,(tuple,list)) or len(point)!=2 or
+                not all(isinstance(n,(int,float)) and not isinstance(n,bool) and math.isfinite(n) for n in point) or
+                not (monitor.x<=point[0]<monitor.x+monitor.width and monitor.y<=point[1]<monitor.y+monitor.height)):
+                return False
+            self._pending=(identity,self._started,None,(session_id,tuple(point)))
+            self._condition.notify()
+            return True
 
     def current(self,identity):
         with self._condition:
@@ -276,16 +309,36 @@ class Engine:
     def _process(self,identity,started,resources,snapshots):
         origin={}
         try:
+            scene_request=snapshots.pop()
             snapshot=snapshots.pop()
             if not self.current(identity):
                 return
-            source=self._source.freeze(snapshot) if snapshot is not None else self._source.freeze()
+            if isinstance(scene_request,tuple):
+                with self._condition:
+                    if self._scene is None or self._scene.session_id!=scene_request[0]:return
+                    source=replace(self._scene.source,point=scene_request[1])
+            else:
+                source=self._source.freeze(snapshot) if snapshot is not None else self._source.freeze()
             snapshot=None  # Release raw pixels before OCR/translation; the caller's holder is empty.
             origin=dict(point=source.point,monitor=source.monitor,mode=source.mode,available=source.available)
             if not self.current(identity):
                 return
+            if scene_request is True and source.mode=='ocr':
+                image=source.image
+                if (not isinstance(image,capture.Capture) or not isinstance(image.png,bytes) or
+                    not 0<len(image.png)<=capture.MAX_PNG or
+                    not all(isinstance(n,int) and not isinstance(n,bool) and 0<n<=16384 for n in (image.width,image.height)) or
+                    image.width*image.height>64_000_000):
+                    raise AppError('capture_failed')
+                with self._condition:
+                    if not self.current(identity):return
+                    self._scene=Scene(identity,source)
+                    self._emit(Event(identity,'scene',scene=self._scene,**origin,
+                                     elapsed_ms=(time.perf_counter()-started)*1000))
+                image=None
             self._emit(Event(identity,'frozen',**origin,elapsed_ms=(time.perf_counter()-started)*1000))
             query=self._source.resolve(source,resources.dictset)
+            origin['selection_box']=query.selection_box
             primary=source if source.mode=='primary' else None
             source=None  # Pixel storage never crosses the GUI signal boundary.
             if not self.current(identity):

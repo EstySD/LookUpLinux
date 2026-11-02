@@ -678,6 +678,7 @@ class SourceTests(unittest.TestCase):
         self.assertEqual(query.context,text)
         self.assertEqual(query.span,(4,14))
         self.assertTrue(query.context_complete)
+        self.assertEqual(query.selection_box,selection.box)
 
     def test_fresh_repeated_absent_invalid_primary_transitions(self):
         source=app.Source({})
