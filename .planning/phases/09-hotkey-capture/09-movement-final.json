@@ -1,0 +1,79 @@
+{
+  "attempt": 65,
+  "group": "move_after_hotkey",
+  "A": [
+    684,
+    376
+  ],
+  "expected": "bank",
+  "telemetry": [
+    {
+      "mono_ns": 866831168396,
+      "pid": 6110,
+      "request": 43,
+      "run": 2850997774014535,
+      "stage": 1
+    },
+    {
+      "elapsed_ms": 0.210658,
+      "mono_ns": 866831379054,
+      "pid": 6110,
+      "request": 43,
+      "run": 2850997774014535,
+      "stage": 2
+    },
+    {
+      "pid": 6110,
+      "request": 43,
+      "stage": "frozen",
+      "mono_ns": 866962216208,
+      "elapsed_ms": 131.0319309999386,
+      "error": null,
+      "point": [
+        100,
+        100
+      ],
+      "key": null
+    },
+    {
+      "elapsed_ms": 132.579652,
+      "mono_ns": 866963748048,
+      "pid": 6110,
+      "request": 43,
+      "run": 2850997774014535,
+      "stage": 4,
+      "useful": 0
+    },
+    {
+      "pid": 6110,
+      "request": 43,
+      "stage": "error",
+      "mono_ns": 867394048688,
+      "elapsed_ms": 562.8628089999665,
+      "error": "not_found",
+      "point": [
+        100,
+        100
+      ],
+      "key": null
+    },
+    {
+      "elapsed_ms": 563.06379,
+      "engine_ms": 562.8628089999665,
+      "mono_ns": 867394232186,
+      "pid": 6110,
+      "request": 43,
+      "run": 2850997774014535,
+      "stage": 6
+    },
+    {
+      "elapsed_ms": 564.936244,
+      "mono_ns": 867396104640,
+      "pid": 6110,
+      "request": 43,
+      "run": 2850997774014535,
+      "stage": 4,
+      "useful": 0
+    }
+  ]
+}

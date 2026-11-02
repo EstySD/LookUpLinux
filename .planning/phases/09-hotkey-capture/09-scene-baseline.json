@@ -1,0 +1,88 @@
+{
+  "attempt": 32,
+  "expected": "bank",
+  "actual": "river",
+  "telemetry": [
+    {
+      "mono_ns": 649718347220,
+      "pid": 4925,
+      "request": 3,
+      "run": 3352358402882853,
+      "stage": 1
+    },
+    {
+      "elapsed_ms": 76.162635,
+      "mono_ns": 649794509855,
+      "pid": 4925,
+      "request": 3,
+      "run": 3352358402882853,
+      "stage": 2
+    },
+    {
+      "pid": 4925,
+      "request": 3,
+      "stage": "frozen",
+      "mono_ns": 649928768096,
+      "elapsed_ms": 210.4008179999255,
+      "error": null,
+      "point": [
+        684,
+        376
+      ],
+      "key": null
+    },
+    {
+      "elapsed_ms": 211.863753,
+      "mono_ns": 649930210973,
+      "pid": 4925,
+      "request": 3,
+      "run": 3352358402882853,
+      "stage": 4,
+      "useful": 0
+    },
+    {
+      "pid": 4925,
+      "request": 3,
+      "stage": "ready",
+      "mono_ns": 650142655185,
+      "elapsed_ms": 424.28604399992764,
+      "error": null,
+      "point": [
+        684,
+        376
+      ],
+      "key": "river"
+    },
+    {
+      "cache": 0.0,
+      "capture": 42.88221199999498,
+      "classify": 0.019215999941479822,
+      "context": 0.0,
+      "db": 0.0,
+      "dicts": 0.31022999996821454,
+      "elapsed_ms": 424.545431,
+      "engine_ms": 424.28604399992764,
+      "first_useful": 416.6308090000257,
+      "meaning_ready": 0.0,
+      "mono_ns": 650142892651,
+      "ocr": 162.40046999996594,
+      "online": 0.0,
+      "pid": 4925,
+      "prepare_image": 42.669778000004044,
+      "request": 3,
+      "run": 3352358402882853,
+      "select": 0.573914000028708,
+      "stage": 3,
+      "total": 0.40838099994289223
+    },
+    {
+      "elapsed_ms": 432.797403,
+      "mono_ns": 650151144623,
+      "pid": 4925,
+      "request": 3,
+      "run": 3352358402882853,
+      "stage": 4,
+      "useful": 1
+    }
+  ]
+}

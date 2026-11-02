@@ -1,0 +1,81 @@
+{
+  "A": [
+    684,
+    376
+  ],
+  "B": [
+    100,
+    100
+  ],
+  "attempt": 31,
+  "telemetry": [
+    {
+      "mono_ns": 562291236392,
+      "pid": 4925,
+      "request": 1,
+      "run": 3352358402882853,
+      "stage": 1
+    },
+    {
+      "elapsed_ms": 76.62075,
+      "mono_ns": 562367857142,
+      "pid": 4925,
+      "request": 1,
+      "run": 3352358402882853,
+      "stage": 2
+    },
+    {
+      "pid": 4925,
+      "request": 1,
+      "stage": "frozen",
+      "mono_ns": 562499856597,
+      "elapsed_ms": 208.59419999999318,
+      "error": null,
+      "point": [
+        100,
+        100
+      ],
+      "key": null
+    },
+    {
+      "elapsed_ms": 224.408966,
+      "mono_ns": 562515645358,
+      "pid": 4925,
+      "request": 1,
+      "run": 3352358402882853,
+      "stage": 4,
+      "useful": 0
+    },
+    {
+      "pid": 4925,
+      "request": 1,
+      "stage": "error",
+      "mono_ns": 562941116156,
+      "elapsed_ms": 649.8535690000153,
+      "error": "not_found",
+      "point": [
+        100,
+        100
+      ],
+      "key": null
+    },
+    {
+      "elapsed_ms": 650.099141,
+      "engine_ms": 649.8535690000153,
+      "mono_ns": 562941335533,
+      "pid": 4925,
+      "request": 1,
+      "run": 3352358402882853,
+      "stage": 6
+    },
+    {
+      "elapsed_ms": 657.325288,
+      "mono_ns": 562948561680,
+      "pid": 4925,
+      "request": 1,
+      "run": 3352358402882853,
+      "stage": 4,
+      "useful": 0
+    }
+  ]
+}

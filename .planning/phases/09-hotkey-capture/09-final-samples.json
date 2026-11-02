@@ -1,0 +1,3902 @@
+[
+  {
+    "input_ns": 756109184000,
+    "receipt_ns": 756123301595,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 755667885191,
+    "rows_before": 0,
+    "released": true,
+    "attempt": 40,
+    "group": "cold_resident",
+    "case": 1,
+    "scene": 1,
+    "verify_count": false,
+    "token": 755259685725,
+    "input_sequence": 40,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 5478,
+    "process_start": 75489,
+    "process_start_source": "proc_stat",
+    "run": 491203585596580,
+    "request": 1,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 756255238430,
+    "first_visible_start_ns": 757025338947,
+    "first_visible_end_ns": 757063729928,
+    "frame_identity": [
+      5478,
+      75489,
+      491203585596580,
+      1
+    ],
+    "frame_sha256": "8e9711b3daeaa236c516ddfb3ed845c3214e3690fdba0153fde224c4da4e841e",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 954.545928,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      696.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      684,
+      376
+    ],
+    "process_birth_mono_lower_ns": 754880000571,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 756255238430,
+        "pid": 5478,
+        "request": 1,
+        "run": 491203585596580,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.113953,
+        "mono_ns": 756255352383,
+        "pid": 5478,
+        "request": 1,
+        "run": 491203585596580,
+        "stage": 2
+      },
+      {
+        "pid": 5478,
+        "request": 1,
+        "stage": "frozen",
+        "mono_ns": 756387595585,
+        "elapsed_ms": 132.33356700004606,
+        "error": null,
+        "point": [
+          684,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 149.378943,
+        "mono_ns": 756404617373,
+        "pid": 5478,
+        "request": 1,
+        "run": 491203585596580,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 5478,
+        "request": 1,
+        "stage": "ready",
+        "mono_ns": 756628539691,
+        "elapsed_ms": 373.2772619999878,
+        "error": null,
+        "point": [
+          684,
+          376
+        ],
+        "key": "bank"
+      },
+      {
+        "cache": 0.0,
+        "capture": 47.00851299992337,
+        "classify": 0.020843000015702273,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 1.196006999975907,
+        "elapsed_ms": 373.521452,
+        "engine_ms": 373.2772619999878,
+        "first_useful": 367.59249600004296,
+        "meaning_ready": 0.0,
+        "mono_ns": 756628759882,
+        "ocr": 165.71574700003566,
+        "online": 0.0,
+        "pid": 5478,
+        "prepare_image": 67.35693299992818,
+        "request": 1,
+        "run": 491203585596580,
+        "select": 0.7151989999556463,
+        "stage": 3,
+        "total": 1.2954710000485647
+      },
+      {
+        "elapsed_ms": 388.380283,
+        "mono_ns": 756643618713,
+        "pid": 5478,
+        "request": 1,
+        "run": 491203585596580,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 278.411585
+  },
+  {
+    "input_ns": 759702111000,
+    "receipt_ns": 759717422645,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 759250937776,
+    "rows_before": 1,
+    "released": true,
+    "attempt": 41,
+    "group": "cold_resident",
+    "case": 2,
+    "scene": 2,
+    "verify_count": false,
+    "token": 758831325267,
+    "input_sequence": 41,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 5637,
+    "process_start": 75846,
+    "process_start_source": "proc_stat",
+    "run": 4224286691861922,
+    "request": 1,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 759843295340,
+    "first_visible_start_ns": 760625936926,
+    "first_visible_end_ns": 760670465331,
+    "frame_identity": [
+      5637,
+      75846,
+      4224286691861922,
+      1
+    ],
+    "frame_sha256": "e1c8f6c3b3f9037c404d7934ea91e08f1fd0f752388a741511e96d2f66a58f74",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 968.354331,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      553.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      541,
+      376
+    ],
+    "process_birth_mono_lower_ns": 758450000923,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 759843295340,
+        "pid": 5637,
+        "request": 1,
+        "run": 4224286691861922,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.119844,
+        "mono_ns": 759843415184,
+        "pid": 5637,
+        "request": 1,
+        "run": 4224286691861922,
+        "stage": 2
+      },
+      {
+        "pid": 5637,
+        "request": 1,
+        "stage": "frozen",
+        "mono_ns": 759987821360,
+        "elapsed_ms": 144.49832399998286,
+        "error": null,
+        "point": [
+          541,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 161.002908,
+        "mono_ns": 760004298248,
+        "pid": 5637,
+        "request": 1,
+        "run": 4224286691861922,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 5637,
+        "request": 1,
+        "stage": "ready",
+        "mono_ns": 760213545256,
+        "elapsed_ms": 370.21472499998254,
+        "error": null,
+        "point": [
+          541,
+          376
+        ],
+        "key": "cat"
+      },
+      {
+        "cache": 0.0,
+        "capture": 53.14599099995121,
+        "classify": 0.021764000052826304,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 1.02241199999753,
+        "elapsed_ms": 370.644542,
+        "engine_ms": 370.21472499998254,
+        "first_useful": 362.61950899995554,
+        "meaning_ready": 0.0,
+        "mono_ns": 760213939882,
+        "ocr": 151.407885000026,
+        "online": 0.0,
+        "pid": 5637,
+        "prepare_image": 64.37464700002238,
+        "request": 1,
+        "run": 4224286691861922,
+        "select": 1.0012970000161658,
+        "stage": 3,
+        "total": 1.1318150000079186
+      },
+      {
+        "elapsed_ms": 381.866634,
+        "mono_ns": 760225161974,
+        "pid": 5637,
+        "request": 1,
+        "run": 4224286691861922,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 285.71036
+  },
+  {
+    "input_ns": 763363071000,
+    "receipt_ns": 763368326350,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 762885855861,
+    "rows_before": 2,
+    "released": true,
+    "attempt": 42,
+    "group": "cold_resident",
+    "case": 3,
+    "scene": 3,
+    "verify_count": false,
+    "token": 762462483151,
+    "input_sequence": 42,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 5794,
+    "process_start": 76211,
+    "process_start_source": "proc_stat",
+    "run": 3255213027698084,
+    "request": 1,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 763492351247,
+    "first_visible_start_ns": 764309932640,
+    "first_visible_end_ns": 764346917002,
+    "frame_identity": [
+      5794,
+      76211,
+      3255213027698084,
+      1
+    ],
+    "frame_sha256": "e89013f55d8a54e3d68847134bc6ab61c37948c4d8a78349d75aa46c79f4aca1",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 983.846002,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      537.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      525,
+      376
+    ],
+    "process_birth_mono_lower_ns": 762100000291,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 763492351247,
+        "pid": 5794,
+        "request": 1,
+        "run": 3255213027698084,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.120226,
+        "mono_ns": 763492471473,
+        "pid": 5794,
+        "request": 1,
+        "run": 3255213027698084,
+        "stage": 2
+      },
+      {
+        "pid": 5794,
+        "request": 1,
+        "stage": "frozen",
+        "mono_ns": 763632388599,
+        "elapsed_ms": 140.00879399998212,
+        "error": null,
+        "point": [
+          525,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 157.172881,
+        "mono_ns": 763649524128,
+        "pid": 5794,
+        "request": 1,
+        "run": 3255213027698084,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 5794,
+        "request": 1,
+        "stage": "ready",
+        "mono_ns": 763860304851,
+        "elapsed_ms": 367.9265990000431,
+        "error": null,
+        "point": [
+          525,
+          376
+        ],
+        "key": "dog"
+      },
+      {
+        "cache": 0.0,
+        "capture": 48.6286550000159,
+        "classify": 0.020190000100228644,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 1.1102820000132851,
+        "elapsed_ms": 368.208335,
+        "engine_ms": 367.9265990000431,
+        "first_useful": 363.8712970000597,
+        "meaning_ready": 0.0,
+        "mono_ns": 763860559582,
+        "ocr": 154.1071120000197,
+        "online": 0.0,
+        "pid": 5794,
+        "prepare_image": 67.69013500002075,
+        "request": 1,
+        "run": 3255213027698084,
+        "select": 0.6789329999037363,
+        "stage": 3,
+        "total": 1.2084720000302696
+      },
+      {
+        "elapsed_ms": 384.277066,
+        "mono_ns": 763876628313,
+        "pid": 5794,
+        "request": 1,
+        "run": 3255213027698084,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 269.317599
+  },
+  {
+    "input_ns": 767044860000,
+    "receipt_ns": 767047445588,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 766586964057,
+    "rows_before": 3,
+    "released": true,
+    "attempt": 43,
+    "group": "cold_resident",
+    "case": 4,
+    "scene": 4,
+    "verify_count": false,
+    "token": 766151398411,
+    "input_sequence": 43,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 5952,
+    "process_start": 76577,
+    "process_start_source": "proc_stat",
+    "run": 1681100113367028,
+    "request": 1,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 767185408213,
+    "first_visible_start_ns": 767961750076,
+    "first_visible_end_ns": 768004993479,
+    "frame_identity": [
+      5952,
+      76577,
+      1681100113367028,
+      1
+    ],
+    "frame_sha256": "d4bded3e004ec26895d91cea44446f09c15f8583f1dd7228f7ac141af9fdae24",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 960.133479,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      544.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      532,
+      376
+    ],
+    "process_birth_mono_lower_ns": 765760000281,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 767185408213,
+        "pid": 5952,
+        "request": 1,
+        "run": 1681100113367028,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.115494,
+        "mono_ns": 767185523707,
+        "pid": 5952,
+        "request": 1,
+        "run": 1681100113367028,
+        "stage": 2
+      },
+      {
+        "pid": 5952,
+        "request": 1,
+        "stage": "frozen",
+        "mono_ns": 767325645059,
+        "elapsed_ms": 140.2112839999745,
+        "error": null,
+        "point": [
+          532,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 156.634475,
+        "mono_ns": 767342042688,
+        "pid": 5952,
+        "request": 1,
+        "run": 1681100113367028,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 5952,
+        "request": 1,
+        "stage": "ready",
+        "mono_ns": 767562449325,
+        "elapsed_ms": 377.0172230000526,
+        "error": null,
+        "point": [
+          532,
+          376
+        ],
+        "key": "tree"
+      },
+      {
+        "cache": 0.0,
+        "capture": 49.981103999925836,
+        "classify": 0.020592000055330573,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 0.47733000008065574,
+        "elapsed_ms": 377.266699,
+        "engine_ms": 377.0172230000526,
+        "first_useful": 370.5608300000449,
+        "meaning_ready": 0.0,
+        "mono_ns": 767562674912,
+        "ocr": 158.27455800001644,
+        "online": 0.0,
+        "pid": 5952,
+        "prepare_image": 70.66888299993934,
+        "request": 1,
+        "run": 1681100113367028,
+        "select": 0.640250000060405,
+        "stage": 3,
+        "total": 0.576109999997243
+      },
+      {
+        "elapsed_ms": 387.969413,
+        "mono_ns": 767573377626,
+        "pid": 5952,
+        "request": 1,
+        "run": 1681100113367028,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 280.785059
+  },
+  {
+    "input_ns": 770687338000,
+    "receipt_ns": 770697295443,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 770237124131,
+    "rows_before": 4,
+    "released": true,
+    "attempt": 44,
+    "group": "cold_resident",
+    "case": 5,
+    "scene": 5,
+    "verify_count": false,
+    "token": 769826907356,
+    "input_sequence": 44,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 1,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 770811440782,
+    "first_visible_start_ns": 771630197482,
+    "first_visible_end_ns": 771672800966,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      1
+    ],
+    "frame_sha256": "ddcf32bf388ef2fba8d56fee94eb5768e124646ba7b955d398265a1447ccbf27",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 985.462966,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      722.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      710,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000360,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 770811440782,
+        "pid": 6110,
+        "request": 1,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.110855,
+        "mono_ns": 770811551637,
+        "pid": 6110,
+        "request": 1,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 1,
+        "stage": "frozen",
+        "mono_ns": 770949148228,
+        "elapsed_ms": 137.68024000000878,
+        "error": null,
+        "point": [
+          710,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 155.827683,
+        "mono_ns": 770967268465,
+        "pid": 6110,
+        "request": 1,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 1,
+        "stage": "ready",
+        "mono_ns": 771205587907,
+        "elapsed_ms": 394.12498900003357,
+        "error": null,
+        "point": [
+          710,
+          376
+        ],
+        "key": "house"
+      },
+      {
+        "cache": 0.0,
+        "capture": 46.69011999999384,
+        "classify": 0.01972999996269209,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 1.1155270000244855,
+        "elapsed_ms": 394.347809,
+        "engine_ms": 394.12498900003357,
+        "first_useful": 387.8092209999977,
+        "meaning_ready": 0.0,
+        "mono_ns": 771205788591,
+        "ocr": 177.5334120000025,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 70.60679599999276,
+        "request": 1,
+        "run": 2850997774014535,
+        "select": 0.5883499999299602,
+        "stage": 3,
+        "total": 1.2138749999621723
+      },
+      {
+        "elapsed_ms": 405.363966,
+        "mono_ns": 771216804748,
+        "pid": 6110,
+        "request": 1,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 261.810228
+  },
+  {
+    "input_ns": 773743077000,
+    "receipt_ns": 773756452774,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 773288447282,
+    "rows_before": 5,
+    "released": true,
+    "attempt": 45,
+    "group": "warm_distinct",
+    "case": 6,
+    "scene": 6,
+    "verify_count": false,
+    "token": 772861373759,
+    "input_sequence": 45,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 3,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 773883572072,
+    "first_visible_start_ns": 774604395976,
+    "first_visible_end_ns": 774647371645,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      3
+    ],
+    "frame_sha256": "30361d40aca24c99a7c3295297d0a95b414e7fb9b8fabc8e5f9a6f4455972274",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 904.294645,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      516.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      504,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000351,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 773883572072,
+        "pid": 6110,
+        "request": 3,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.078027,
+        "mono_ns": 773883650099,
+        "pid": 6110,
+        "request": 3,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 3,
+        "stage": "frozen",
+        "mono_ns": 774013505108,
+        "elapsed_ms": 129.91113199996107,
+        "error": null,
+        "point": [
+          504,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 131.612192,
+        "mono_ns": 774015184264,
+        "pid": 6110,
+        "request": 3,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 3,
+        "stage": "ready",
+        "mono_ns": 774203451761,
+        "elapsed_ms": 319.85950900002535,
+        "error": null,
+        "point": [
+          504,
+          376
+        ],
+        "key": "water"
+      },
+      {
+        "cache": 0.0,
+        "capture": 42.13618000005681,
+        "classify": 0.024800000005598122,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 1.6584139999622494,
+        "elapsed_ms": 320.251552,
+        "engine_ms": 319.85950900002535,
+        "first_useful": 319.70848500009197,
+        "meaning_ready": 0.0,
+        "mono_ns": 774203823624,
+        "ocr": 140.46369400000458,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 46.90232500001912,
+        "request": 3,
+        "run": 2850997774014535,
+        "select": 0.3779529999974329,
+        "stage": 3,
+        "total": 1.7247079999833659
+      },
+      {
+        "elapsed_ms": 336.317749,
+        "mono_ns": 774219889821,
+        "pid": 6110,
+        "request": 3,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 270.428108
+  },
+  {
+    "input_ns": 776729245000,
+    "receipt_ns": 776732991505,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 776260402068,
+    "rows_before": 6,
+    "released": true,
+    "attempt": 46,
+    "group": "warm_distinct",
+    "case": 7,
+    "scene": 7,
+    "verify_count": false,
+    "token": 775810184586,
+    "input_sequence": 46,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 5,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 776881525149,
+    "first_visible_start_ns": 777663361279,
+    "first_visible_end_ns": 777697997700,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      5
+    ],
+    "frame_sha256": "3a778b3e40aee1cbbedc808f1a0c79c6b4d7df1dbb5989d23df6973c99c1e286",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 968.7527,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      501.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      489,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000350,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 776881525149,
+        "pid": 6110,
+        "request": 5,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.076374,
+        "mono_ns": 776881601523,
+        "pid": 6110,
+        "request": 5,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 5,
+        "stage": "frozen",
+        "mono_ns": 777029206319,
+        "elapsed_ms": 147.6651860000402,
+        "error": null,
+        "point": [
+          489,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 149.780344,
+        "mono_ns": 777031305493,
+        "pid": 6110,
+        "request": 5,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 5,
+        "stage": "ready",
+        "mono_ns": 777235426687,
+        "elapsed_ms": 353.88605699995423,
+        "error": null,
+        "point": [
+          489,
+          376
+        ],
+        "key": "fire"
+      },
+      {
+        "cache": 0.0,
+        "capture": 41.70583699999497,
+        "classify": 0.016531999904145778,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 1.1083409999628202,
+        "elapsed_ms": 354.207111,
+        "engine_ms": 353.88605699995423,
+        "first_useful": 353.7308850000045,
+        "meaning_ready": 0.0,
+        "mono_ns": 777235732260,
+        "ocr": 157.8307690000429,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 46.628577999968,
+        "request": 5,
+        "run": 2850997774014535,
+        "select": 0.26370099999439844,
+        "stage": 3,
+        "total": 1.152587999968091
+      },
+      {
+        "elapsed_ms": 364.848286,
+        "mono_ns": 777246373435,
+        "pid": 6110,
+        "request": 5,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 299.961319
+  },
+  {
+    "input_ns": 779749921000,
+    "receipt_ns": 779752778563,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 779291559443,
+    "rows_before": 7,
+    "released": true,
+    "attempt": 47,
+    "group": "warm_distinct",
+    "case": 8,
+    "scene": 8,
+    "verify_count": false,
+    "token": 778872698066,
+    "input_sequence": 47,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 7,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 779896883941,
+    "first_visible_start_ns": 780687105224,
+    "first_visible_end_ns": 780733356918,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      7
+    ],
+    "frame_sha256": "86af6b33e830e95ad373f356c995f7bfcfc3e9b3b083a68c5546f96d7d511df8",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 983.435918,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      610.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      598,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000641,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 779896883941,
+        "pid": 6110,
+        "request": 7,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.193228,
+        "mono_ns": 779897077169,
+        "pid": 6110,
+        "request": 7,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 7,
+        "stage": "frozen",
+        "mono_ns": 780044172678,
+        "elapsed_ms": 147.2733559999142,
+        "error": null,
+        "point": [
+          598,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 149.582215,
+        "mono_ns": 780046466156,
+        "pid": 6110,
+        "request": 7,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 7,
+        "stage": "ready",
+        "mono_ns": 780259556500,
+        "elapsed_ms": 362.6555149999149,
+        "error": null,
+        "point": [
+          598,
+          376
+        ],
+        "key": "book"
+      },
+      {
+        "cache": 0.0,
+        "capture": 42.32327600004737,
+        "classify": 0.17093299993575783,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 1.026969999998073,
+        "elapsed_ms": 362.903821,
+        "engine_ms": 362.6555149999149,
+        "first_useful": 362.23618099995747,
+        "meaning_ready": 0.0,
+        "mono_ns": 780259787762,
+        "ocr": 164.56973999993352,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 48.751012000025185,
+        "request": 7,
+        "run": 2850997774014535,
+        "select": 0.2553819999775442,
+        "stage": 3,
+        "total": 1.2266100000033475
+      },
+      {
+        "elapsed_ms": 374.499986,
+        "mono_ns": 780271383927,
+        "pid": 6110,
+        "request": 7,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 294.251678
+  },
+  {
+    "input_ns": 782880116000,
+    "receipt_ns": 782896366519,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 782355007804,
+    "rows_before": 8,
+    "released": true,
+    "attempt": 48,
+    "group": "warm_distinct",
+    "case": 9,
+    "scene": 9,
+    "verify_count": false,
+    "token": 781916408243,
+    "input_sequence": 48,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 9,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 783030815908,
+    "first_visible_start_ns": 783933295398,
+    "first_visible_end_ns": 783983233440,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      9
+    ],
+    "frame_sha256": "14eeb7ce597be47c27e5963c2df2ae0092cfac2f95313c309797dc077b4d7568",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 1103.11744,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      632.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      620,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000411,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 783030815908,
+        "pid": 6110,
+        "request": 9,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.072645,
+        "mono_ns": 783030888553,
+        "pid": 6110,
+        "request": 9,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 9,
+        "stage": "frozen",
+        "mono_ns": 783166169523,
+        "elapsed_ms": 135.33584099991458,
+        "error": null,
+        "point": [
+          620,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 136.96486,
+        "mono_ns": 783167780768,
+        "pid": 6110,
+        "request": 9,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 9,
+        "stage": "ready",
+        "mono_ns": 783441139557,
+        "elapsed_ms": 410.3025469999011,
+        "error": null,
+        "point": [
+          620,
+          376
+        ],
+        "key": "hand"
+      },
+      {
+        "cache": 0.0,
+        "capture": 43.877557999962846,
+        "classify": 0.029287999950611265,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 3.345843999909448,
+        "elapsed_ms": 410.666345,
+        "engine_ms": 410.3025469999011,
+        "first_useful": 410.0764249998292,
+        "meaning_ready": 0.0,
+        "mono_ns": 783441482253,
+        "ocr": 215.44110499996805,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 55.14862300003642,
+        "request": 9,
+        "run": 2850997774014535,
+        "select": 0.5611430000271866,
+        "stage": 3,
+        "total": 3.4237799999345953
+      },
+      {
+        "elapsed_ms": 438.709315,
+        "mono_ns": 783469525223,
+        "pid": 6110,
+        "request": 9,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 286.053523
+  },
+  {
+    "input_ns": 786297926000,
+    "receipt_ns": 786298340801,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 785796902584,
+    "rows_before": 9,
+    "released": true,
+    "attempt": 49,
+    "group": "warm_distinct",
+    "case": 10,
+    "scene": 10,
+    "verify_count": false,
+    "token": 785381098150,
+    "input_sequence": 49,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 11,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 786473830077,
+    "first_visible_start_ns": 787305121039,
+    "first_visible_end_ns": 787350535210,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      11
+    ],
+    "frame_sha256": "49f48cafee368840ea5fb4b598b334a16a8c4d7a2dffbce5501e19c9a159feab",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 1052.60921,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      642.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      630,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000561,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 786473830077,
+        "pid": 6110,
+        "request": 11,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.254968,
+        "mono_ns": 786474085045,
+        "pid": 6110,
+        "request": 11,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 11,
+        "stage": "frozen",
+        "mono_ns": 786635400167,
+        "elapsed_ms": 161.5533269999787,
+        "error": null,
+        "point": [
+          630,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 163.185931,
+        "mono_ns": 786637016008,
+        "pid": 6110,
+        "request": 11,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 11,
+        "stage": "ready",
+        "mono_ns": 786842617737,
+        "elapsed_ms": 368.7703959999453,
+        "error": null,
+        "point": [
+          630,
+          376
+        ],
+        "key": "head"
+      },
+      {
+        "cache": 0.0,
+        "capture": 49.43146499999784,
+        "classify": 0.01912799996262038,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 2.5359659999821815,
+        "elapsed_ms": 369.432295,
+        "engine_ms": 368.7703959999453,
+        "first_useful": 368.633973999863,
+        "meaning_ready": 0.0,
+        "mono_ns": 786843262372,
+        "ocr": 154.84487799994895,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 49.19155999994018,
+        "request": 11,
+        "run": 2850997774014535,
+        "select": 0.30339400007051154,
+        "stage": 3,
+        "total": 2.588590999948792
+      },
+      {
+        "elapsed_ms": 400.678616,
+        "mono_ns": 786874508693,
+        "pid": 6110,
+        "request": 11,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 337.474167
+  },
+  {
+    "input_ns": 789571662000,
+    "receipt_ns": 789577470488,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 789015932389,
+    "rows_before": 10,
+    "released": true,
+    "attempt": 50,
+    "group": "warm_distinct",
+    "case": 11,
+    "scene": 11,
+    "verify_count": false,
+    "token": 788565782930,
+    "input_sequence": 50,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 13,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 789735544665,
+    "first_visible_start_ns": 790508012037,
+    "first_visible_end_ns": 790556545259,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      13
+    ],
+    "frame_sha256": "d8bf9845027928a05b1195611ad28afb0c16ba92031754fbed5a65567ae15f76",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 984.883259,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      738.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      726,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000371,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 789735544665,
+        "pid": 6110,
+        "request": 13,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.08537,
+        "mono_ns": 789735630035,
+        "pid": 6110,
+        "request": 13,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 13,
+        "stage": "frozen",
+        "mono_ns": 789872717799,
+        "elapsed_ms": 137.15407600000162,
+        "error": null,
+        "point": [
+          726,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 138.901219,
+        "mono_ns": 789874445884,
+        "pid": 6110,
+        "request": 13,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 13,
+        "stage": "ready",
+        "mono_ns": 790077987817,
+        "elapsed_ms": 342.4249049999162,
+        "error": null,
+        "point": [
+          726,
+          376
+        ],
+        "key": "eye"
+      },
+      {
+        "cache": 0.0,
+        "capture": 42.31471600007808,
+        "classify": 0.016102000017781393,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 1.4439410000477437,
+        "elapsed_ms": 342.701001,
+        "engine_ms": 342.4249049999162,
+        "first_useful": 342.2463900000139,
+        "meaning_ready": 0.0,
+        "mono_ns": 790078245666,
+        "ocr": 158.18821699997443,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 44.849591000001965,
+        "request": 13,
+        "run": 2850997774014535,
+        "select": 0.25205999997979234,
+        "stage": 3,
+        "total": 1.4874089999921125
+      },
+      {
+        "elapsed_ms": 352.794458,
+        "mono_ns": 790088339123,
+        "pid": 6110,
+        "request": 13,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 301.055799
+  },
+  {
+    "input_ns": 792653579000,
+    "receipt_ns": 792676709294,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 792181296960,
+    "rows_before": 11,
+    "released": true,
+    "attempt": 51,
+    "group": "warm_distinct",
+    "case": 12,
+    "scene": 12,
+    "verify_count": false,
+    "token": 791773641253,
+    "input_sequence": 51,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 15,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 792795704568,
+    "first_visible_start_ns": 793548962614,
+    "first_visible_end_ns": 793596870396,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      15
+    ],
+    "frame_sha256": "6496d49cb7d793f7b4588d44535eb22fc1962833291b71767f57ce5f79548eb6",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 943.291396,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      682.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      670,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000461,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 792795704568,
+        "pid": 6110,
+        "request": 15,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.082173,
+        "mono_ns": 792795786741,
+        "pid": 6110,
+        "request": 15,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 15,
+        "stage": "frozen",
+        "mono_ns": 792923205564,
+        "elapsed_ms": 127.48256999998375,
+        "error": null,
+        "point": [
+          670,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 132.066025,
+        "mono_ns": 792927770593,
+        "pid": 6110,
+        "request": 15,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 15,
+        "stage": "ready",
+        "mono_ns": 793120955629,
+        "elapsed_ms": 325.2337969998962,
+        "error": null,
+        "point": [
+          670,
+          376
+        ],
+        "key": "day"
+      },
+      {
+        "cache": 0.0,
+        "capture": 38.3166760000222,
+        "classify": 0.0160719999939829,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 2.045779000013681,
+        "elapsed_ms": 325.60086,
+        "engine_ms": 325.2337969998962,
+        "first_useful": 325.0853630000847,
+        "meaning_ready": 0.0,
+        "mono_ns": 793121305428,
+        "ocr": 143.31980099996144,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 51.5686869999854,
+        "request": 15,
+        "run": 2850997774014535,
+        "select": 0.24840300000050775,
+        "stage": 3,
+        "total": 2.0899360000612432
+      },
+      {
+        "elapsed_ms": 341.975259,
+        "mono_ns": 793137679827,
+        "pid": 6110,
+        "request": 15,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 269.626564
+  },
+  {
+    "input_ns": 795779902000,
+    "receipt_ns": 795784917408,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 795316046585,
+    "rows_before": 12,
+    "released": true,
+    "attempt": 52,
+    "group": "warm_distinct",
+    "case": 13,
+    "scene": 13,
+    "verify_count": false,
+    "token": 794891395307,
+    "input_sequence": 52,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 17,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 795933579158,
+    "first_visible_start_ns": 796680467236,
+    "first_visible_end_ns": 796725400680,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      17
+    ],
+    "frame_sha256": "c3eba41dae359e723c5ab2973040f9eaab1210e1092badfa0e6c9bd90cc45370",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 945.49868,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      798.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      786,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000471,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 795933579158,
+        "pid": 6110,
+        "request": 17,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.076431,
+        "mono_ns": 795933655589,
+        "pid": 6110,
+        "request": 17,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 17,
+        "stage": "frozen",
+        "mono_ns": 796062389520,
+        "elapsed_ms": 128.79194600009214,
+        "error": null,
+        "point": [
+          786,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 131.014646,
+        "mono_ns": 796064593804,
+        "pid": 6110,
+        "request": 17,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 17,
+        "stage": "ready",
+        "mono_ns": 796265175405,
+        "elapsed_ms": 331.5787530000307,
+        "error": null,
+        "point": [
+          786,
+          376
+        ],
+        "key": "night"
+      },
+      {
+        "cache": 0.0,
+        "capture": 40.84723899995879,
+        "classify": 0.01722399997561297,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 0.6947750000563246,
+        "elapsed_ms": 331.756364,
+        "engine_ms": 331.5787530000307,
+        "first_useful": 331.4255889999913,
+        "meaning_ready": 0.0,
+        "mono_ns": 796265335522,
+        "ocr": 145.9540119999474,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 55.388588000027994,
+        "request": 17,
+        "run": 2850997774014535,
+        "select": 0.2551149999590052,
+        "stage": 3,
+        "total": 0.7411059999640202
+      },
+      {
+        "elapsed_ms": 346.29169,
+        "mono_ns": 796279870848,
+        "pid": 6110,
+        "request": 17,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 282.48752
+  },
+  {
+    "input_ns": 798834699000,
+    "receipt_ns": 798835409094,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 798366122850,
+    "rows_before": 13,
+    "released": true,
+    "attempt": 53,
+    "group": "warm_distinct",
+    "case": 14,
+    "scene": 14,
+    "verify_count": false,
+    "token": 797941560164,
+    "input_sequence": 53,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 19,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 798982932956,
+    "first_visible_start_ns": 799752088085,
+    "first_visible_end_ns": 799798800945,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      19
+    ],
+    "frame_sha256": "26bc6d54432e6f815043510fa843db5348167d62bc21e38ca815d3460bf06b5a",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 964.101945,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      552.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      540,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000351,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 798982932956,
+        "pid": 6110,
+        "request": 19,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.210406,
+        "mono_ns": 798983143362,
+        "pid": 6110,
+        "request": 19,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 19,
+        "stage": "frozen",
+        "mono_ns": 799122148776,
+        "elapsed_ms": 139.1994570000179,
+        "error": null,
+        "point": [
+          540,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 141.021917,
+        "mono_ns": 799123954873,
+        "pid": 6110,
+        "request": 19,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 19,
+        "stage": "ready",
+        "mono_ns": 799335084975,
+        "elapsed_ms": 352.0683330000338,
+        "error": null,
+        "point": [
+          540,
+          376
+        ],
+        "key": "sun"
+      },
+      {
+        "cache": 0.0,
+        "capture": 43.58754600002612,
+        "classify": 0.03867600003104599,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 0.7788770000161094,
+        "elapsed_ms": 352.633091,
+        "engine_ms": 352.0683330000338,
+        "first_useful": 351.91215500003636,
+        "meaning_ready": 0.0,
+        "mono_ns": 799335566047,
+        "ocr": 160.3809949999686,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 51.07296699998187,
+        "request": 19,
+        "run": 2850997774014535,
+        "select": 0.24917200005347695,
+        "stage": 3,
+        "total": 0.8460000000241052
+      },
+      {
+        "elapsed_ms": 362.49973,
+        "mono_ns": 799345432686,
+        "pid": 6110,
+        "request": 19,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 287.449776
+  },
+  {
+    "input_ns": 801982154000,
+    "receipt_ns": 801996801708,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 801460298126,
+    "rows_before": 14,
+    "released": true,
+    "attempt": 54,
+    "group": "warm_distinct",
+    "case": 15,
+    "scene": 15,
+    "verify_count": false,
+    "token": 801027705483,
+    "input_sequence": 54,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 21,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 802148986456,
+    "first_visible_start_ns": 802991702174,
+    "first_visible_end_ns": 803038223993,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      21
+    ],
+    "frame_sha256": "a07afbcbfd8be714a431084d78d29c9250922f89b81acd195bc65369d1b108a4",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 1056.069993,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      511.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      499,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000330,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 802148986456,
+        "pid": 6110,
+        "request": 21,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.070999,
+        "mono_ns": 802149057455,
+        "pid": 6110,
+        "request": 21,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 21,
+        "stage": "frozen",
+        "mono_ns": 802293734194,
+        "elapsed_ms": 144.7291019999284,
+        "error": null,
+        "point": [
+          499,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 146.90607,
+        "mono_ns": 802295892526,
+        "pid": 6110,
+        "request": 21,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 21,
+        "stage": "ready",
+        "mono_ns": 802535267701,
+        "elapsed_ms": 386.2628389999827,
+        "error": null,
+        "point": [
+          499,
+          376
+        ],
+        "key": "moon"
+      },
+      {
+        "cache": 0.0,
+        "capture": 36.60463500000333,
+        "classify": 0.017033999938576017,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 0.48315200001525227,
+        "elapsed_ms": 386.768384,
+        "engine_ms": 386.2628389999827,
+        "first_useful": 386.10479899989514,
+        "meaning_ready": 0.0,
+        "mono_ns": 802535754840,
+        "ocr": 190.91431999993347,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 49.210660999960965,
+        "request": 21,
+        "run": 2850997774014535,
+        "select": 0.2703630000269186,
+        "stage": 3,
+        "total": 0.5277199999227378
+      },
+      {
+        "elapsed_ms": 396.687324,
+        "mono_ns": 802545673780,
+        "pid": 6110,
+        "request": 21,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 311.580194
+  },
+  {
+    "input_ns": 805148443000,
+    "receipt_ns": 805165360138,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 804693997096,
+    "rows_before": 15,
+    "released": true,
+    "attempt": 55,
+    "group": "warm_distinct",
+    "case": 16,
+    "scene": 16,
+    "verify_count": false,
+    "token": 804258277160,
+    "input_sequence": 55,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 23,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 805302583546,
+    "first_visible_start_ns": 806047193593,
+    "first_visible_end_ns": 806089358415,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      23
+    ],
+    "frame_sha256": "ea4fc6b9711c009550474be99e13a03d6a436eb8412e167fe8b313ea2fe805cd",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 940.915415,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      522.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      510,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000361,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 805302583546,
+        "pid": 6110,
+        "request": 23,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.074367,
+        "mono_ns": 805302657913,
+        "pid": 6110,
+        "request": 23,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 23,
+        "stage": "frozen",
+        "mono_ns": 805434566878,
+        "elapsed_ms": 131.96646799997325,
+        "error": null,
+        "point": [
+          510,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 133.536843,
+        "mono_ns": 805436120389,
+        "pid": 6110,
+        "request": 23,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 23,
+        "stage": "ready",
+        "mono_ns": 805650180622,
+        "elapsed_ms": 347.58268600000974,
+        "error": null,
+        "point": [
+          510,
+          376
+        ],
+        "key": "road"
+      },
+      {
+        "cache": 0.0,
+        "capture": 38.474413000017194,
+        "classify": 0.01797400000214111,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 0.5551310000555532,
+        "elapsed_ms": 347.826144,
+        "engine_ms": 347.58268600000974,
+        "first_useful": 347.4500339999622,
+        "meaning_ready": 0.0,
+        "mono_ns": 805650409690,
+        "ocr": 166.13028699998722,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 48.2694120000815,
+        "request": 23,
+        "run": 2850997774014535,
+        "select": 0.33347500004765607,
+        "stage": 3,
+        "total": 0.6012400000372509
+      },
+      {
+        "elapsed_ms": 357.412431,
+        "mono_ns": 805659995977,
+        "pid": 6110,
+        "request": 23,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 286.123878
+  },
+  {
+    "input_ns": 808107409000,
+    "receipt_ns": 808120243687,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 807651618233,
+    "rows_before": 16,
+    "released": true,
+    "attempt": 56,
+    "group": "warm_distinct",
+    "case": 17,
+    "scene": 17,
+    "verify_count": false,
+    "token": 807234745798,
+    "input_sequence": 56,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 25,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 808261620289,
+    "first_visible_start_ns": 809053857626,
+    "first_visible_end_ns": 809096080440,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      25
+    ],
+    "frame_sha256": "e732705e58982827acfee9fecb5abe36662c24437c56a92a4d36768620c5b2ff",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 988.67144,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      668.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      656,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000271,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 808261620289,
+        "pid": 6110,
+        "request": 25,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.074215,
+        "mono_ns": 808261694504,
+        "pid": 6110,
+        "request": 25,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 25,
+        "stage": "frozen",
+        "mono_ns": 808385661014,
+        "elapsed_ms": 124.02373199995509,
+        "error": null,
+        "point": [
+          656,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 126.107192,
+        "mono_ns": 808387727481,
+        "pid": 6110,
+        "request": 25,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 25,
+        "stage": "ready",
+        "mono_ns": 808621026360,
+        "elapsed_ms": 359.3901409999489,
+        "error": null,
+        "point": [
+          656,
+          376
+        ],
+        "key": "door"
+      },
+      {
+        "cache": 0.0,
+        "capture": 40.08860800001912,
+        "classify": 0.016533000007257215,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 0.8828909999465395,
+        "elapsed_ms": 359.705298,
+        "engine_ms": 359.3901409999489,
+        "first_useful": 359.17191299995466,
+        "meaning_ready": 0.0,
+        "mono_ns": 808621325587,
+        "ocr": 183.26987499995084,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 50.54889699999876,
+        "request": 25,
+        "run": 2850997774014535,
+        "select": 0.2461330000187445,
+        "stage": 3,
+        "total": 0.9259659999543146
+      },
+      {
+        "elapsed_ms": 371.236678,
+        "mono_ns": 808632856967,
+        "pid": 6110,
+        "request": 25,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 278.252014
+  },
+  {
+    "input_ns": 811240488000,
+    "receipt_ns": 811245354637,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 810763297429,
+    "rows_before": 17,
+    "released": true,
+    "attempt": 57,
+    "group": "warm_distinct",
+    "case": 18,
+    "scene": 18,
+    "verify_count": false,
+    "token": 810322178304,
+    "input_sequence": 57,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 27,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 811403108643,
+    "first_visible_start_ns": 812142552490,
+    "first_visible_end_ns": 812181700399,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      27
+    ],
+    "frame_sha256": "93d4c03c87b8cdb77f4be9ee696663956c78ed325ae602a95ffd448bfbf2dbb6",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 941.212399,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      539.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      527,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000381,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 811403108643,
+        "pid": 6110,
+        "request": 27,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.072481,
+        "mono_ns": 811403181124,
+        "pid": 6110,
+        "request": 27,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 27,
+        "stage": "frozen",
+        "mono_ns": 811530320871,
+        "elapsed_ms": 127.19604700009768,
+        "error": null,
+        "point": [
+          527,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 128.729657,
+        "mono_ns": 811531838300,
+        "pid": 6110,
+        "request": 27,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 27,
+        "stage": "ready",
+        "mono_ns": 811732503136,
+        "elapsed_ms": 329.37928500007274,
+        "error": null,
+        "point": [
+          527,
+          376
+        ],
+        "key": "room"
+      },
+      {
+        "cache": 0.0,
+        "capture": 39.67196200005674,
+        "classify": 0.01599100005478249,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 0.5944930001078319,
+        "elapsed_ms": 329.689472,
+        "engine_ms": 329.37928500007274,
+        "first_useful": 329.2507650000971,
+        "meaning_ready": 0.0,
+        "mono_ns": 811732798115,
+        "ocr": 156.60515100000794,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 44.20421899999383,
+        "request": 27,
+        "run": 2850997774014535,
+        "select": 0.30169999990903307,
+        "stage": 3,
+        "total": 0.6361250000281871
+      },
+      {
+        "elapsed_ms": 338.730187,
+        "mono_ns": 811741838830,
+        "pid": 6110,
+        "request": 27,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 289.832871
+  },
+  {
+    "input_ns": 814263477000,
+    "receipt_ns": 814265756147,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 813777885168,
+    "rows_before": 18,
+    "released": true,
+    "attempt": 58,
+    "group": "warm_distinct",
+    "case": 1,
+    "scene": 1,
+    "verify_count": false,
+    "token": 813360474451,
+    "input_sequence": 58,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 29,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 814414267366,
+    "first_visible_start_ns": 815255386503,
+    "first_visible_end_ns": 815302724798,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      29
+    ],
+    "frame_sha256": "b5d221b78149ce72707dbb2fafbceeb842ad4acefe7ce86cb08e217e15fbfd5f",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 1039.247798,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      696.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      684,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000531,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 814414267366,
+        "pid": 6110,
+        "request": 29,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.073815,
+        "mono_ns": 814414341181,
+        "pid": 6110,
+        "request": 29,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 29,
+        "stage": "frozen",
+        "mono_ns": 814552696497,
+        "elapsed_ms": 138.41253700002198,
+        "error": null,
+        "point": [
+          684,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 140.415554,
+        "mono_ns": 814554682920,
+        "pid": 6110,
+        "request": 29,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 29,
+        "stage": "ready",
+        "mono_ns": 814771359233,
+        "elapsed_ms": 357.0758040000328,
+        "error": null,
+        "point": [
+          684,
+          376
+        ],
+        "key": "bank"
+      },
+      {
+        "cache": 0.0,
+        "capture": 38.03674599998885,
+        "classify": 0.01683300001786847,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 1.2240679999422355,
+        "elapsed_ms": 357.311641,
+        "engine_ms": 357.0758040000328,
+        "first_useful": 356.92334800012304,
+        "meaning_ready": 0.0,
+        "mono_ns": 814771579007,
+        "ocr": 165.91518100005942,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 50.54647500003284,
+        "request": 29,
+        "run": 2850997774014535,
+        "select": 0.27453600000626466,
+        "stage": 3,
+        "total": 1.2700790000508277
+      },
+      {
+        "elapsed_ms": 370.48876,
+        "mono_ns": 814784756126,
+        "pid": 6110,
+        "request": 29,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 289.219497
+  },
+  {
+    "input_ns": 817591213000,
+    "receipt_ns": 817632745210,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 817041274538,
+    "rows_before": 19,
+    "released": true,
+    "attempt": 59,
+    "group": "warm_distinct",
+    "case": 2,
+    "scene": 2,
+    "verify_count": false,
+    "token": 816586219122,
+    "input_sequence": 59,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 31,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 817719525664,
+    "first_visible_start_ns": 818502112453,
+    "first_visible_end_ns": 818550254850,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      31
+    ],
+    "frame_sha256": "70d6d858e5dc0e2cd3fe364ef26c5f9990d1480b87d9e504a4588d84ea97f20d",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 959.04185,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      553.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      541,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000370,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 817719525664,
+        "pid": 6110,
+        "request": 31,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.069395,
+        "mono_ns": 817719595059,
+        "pid": 6110,
+        "request": 31,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 31,
+        "stage": "frozen",
+        "mono_ns": 817851754905,
+        "elapsed_ms": 132.2135599999683,
+        "error": null,
+        "point": [
+          541,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 134.500591,
+        "mono_ns": 817854026255,
+        "pid": 6110,
+        "request": 31,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 31,
+        "stage": "ready",
+        "mono_ns": 818073330547,
+        "elapsed_ms": 353.7902750000512,
+        "error": null,
+        "point": [
+          541,
+          376
+        ],
+        "key": "cat"
+      },
+      {
+        "cache": 0.0,
+        "capture": 43.56726499997876,
+        "classify": 0.0164609999728782,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 0.726573999941138,
+        "elapsed_ms": 354.25519,
+        "engine_ms": 353.7902750000512,
+        "first_useful": 353.65554300005897,
+        "meaning_ready": 0.0,
+        "mono_ns": 818073780854,
+        "ocr": 174.41943400001492,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 45.86017500002981,
+        "request": 31,
+        "run": 2850997774014535,
+        "select": 0.247231000003012,
+        "stage": 3,
+        "total": 0.7697480000388168
+      },
+      {
+        "elapsed_ms": 364.961545,
+        "mono_ns": 818084487209,
+        "pid": 6110,
+        "request": 31,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 260.541905
+  },
+  {
+    "input_ns": 820695029000,
+    "receipt_ns": 820697784922,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 820162306511,
+    "rows_before": 20,
+    "released": true,
+    "attempt": 60,
+    "group": "warm_distinct",
+    "case": 3,
+    "scene": 3,
+    "verify_count": false,
+    "token": 819722665202,
+    "input_sequence": 60,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 33,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 820818602411,
+    "first_visible_start_ns": 821632588484,
+    "first_visible_end_ns": 821679592116,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      33
+    ],
+    "frame_sha256": "fcaa320e1e96601ea3f0e3130e71fa8cb255af0d2930774c840240568a46e9d7",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 984.563116,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      537.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      525,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000331,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 820818602411,
+        "pid": 6110,
+        "request": 33,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.065757,
+        "mono_ns": 820818668168,
+        "pid": 6110,
+        "request": 33,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 33,
+        "stage": "frozen",
+        "mono_ns": 820979825703,
+        "elapsed_ms": 161.2078329999349,
+        "error": null,
+        "point": [
+          525,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 162.964185,
+        "mono_ns": 820981566596,
+        "pid": 6110,
+        "request": 33,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 33,
+        "stage": "ready",
+        "mono_ns": 821187688866,
+        "elapsed_ms": 369.07214699999713,
+        "error": null,
+        "point": [
+          525,
+          376
+        ],
+        "key": "dog"
+      },
+      {
+        "cache": 0.0,
+        "capture": 41.65636599998379,
+        "classify": 0.01556999995955266,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 1.035130999980538,
+        "elapsed_ms": 369.611576,
+        "engine_ms": 369.07214699999713,
+        "first_useful": 368.9358929999571,
+        "meaning_ready": 0.0,
+        "mono_ns": 821188213987,
+        "ocr": 156.29640999998173,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 49.96335800001361,
+        "request": 33,
+        "run": 2850997774014535,
+        "select": 0.23828299993056135,
+        "stage": 3,
+        "total": 1.0767819999273343
+      },
+      {
+        "elapsed_ms": 380.314141,
+        "mono_ns": 821198916552,
+        "pid": 6110,
+        "request": 33,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 284.796703
+  },
+  {
+    "input_ns": 823740965000,
+    "receipt_ns": 823759219373,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 823276377954,
+    "rows_before": 21,
+    "released": true,
+    "attempt": 61,
+    "group": "warm_distinct",
+    "case": 4,
+    "scene": 4,
+    "verify_count": false,
+    "token": 822846485481,
+    "input_sequence": 61,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 35,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 823887509589,
+    "first_visible_start_ns": 824656648280,
+    "first_visible_end_ns": 824700037463,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      35
+    ],
+    "frame_sha256": "49c432b0e165765e4c9b4b2de86c7caca72e8038d50e97803308c56d923f1e6a",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 959.072463,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      544.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      532,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000410,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 823887509589,
+        "pid": 6110,
+        "request": 35,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.07232,
+        "mono_ns": 823887581909,
+        "pid": 6110,
+        "request": 35,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 35,
+        "stage": "frozen",
+        "mono_ns": 824033112550,
+        "elapsed_ms": 145.58705000001737,
+        "error": null,
+        "point": [
+          532,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 147.187091,
+        "mono_ns": 824034696680,
+        "pid": 6110,
+        "request": 35,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 35,
+        "stage": "ready",
+        "mono_ns": 824240475001,
+        "elapsed_ms": 352.9504950000728,
+        "error": null,
+        "point": [
+          532,
+          376
+        ],
+        "key": "tree"
+      },
+      {
+        "cache": 0.0,
+        "capture": 43.53611199996976,
+        "classify": 0.0163410001050579,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 1.3003300000491436,
+        "elapsed_ms": 353.173125,
+        "engine_ms": 352.9504950000728,
+        "first_useful": 352.8125569999929,
+        "meaning_ready": 0.0,
+        "mono_ns": 824240682714,
+        "ocr": 152.70653300001413,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 52.66472799996791,
+        "request": 35,
+        "run": 2850997774014535,
+        "select": 0.26367099997059995,
+        "stage": 3,
+        "total": 1.3453080000545015
+      },
+      {
+        "elapsed_ms": 364.605875,
+        "mono_ns": 824252115464,
+        "pid": 6110,
+        "request": 35,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 292.14755
+  },
+  {
+    "input_ns": 826753924000,
+    "receipt_ns": 826757607459,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 826284886986,
+    "rows_before": 22,
+    "released": true,
+    "attempt": 62,
+    "group": "warm_distinct",
+    "case": 5,
+    "scene": 5,
+    "verify_count": false,
+    "token": 825863807458,
+    "input_sequence": 62,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 37,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 826878269931,
+    "first_visible_start_ns": 827648936111,
+    "first_visible_end_ns": 827694441261,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      37
+    ],
+    "frame_sha256": "f05dcb4918933d3de776f5b2843bff443d8838e392a106b5643451c645426746",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 940.517261,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      722.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      710,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000341,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 826878269931,
+        "pid": 6110,
+        "request": 37,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.069424,
+        "mono_ns": 826878339355,
+        "pid": 6110,
+        "request": 37,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 37,
+        "stage": "frozen",
+        "mono_ns": 826992729304,
+        "elapsed_ms": 114.44348299994545,
+        "error": null,
+        "point": [
+          710,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 115.943176,
+        "mono_ns": 826994213107,
+        "pid": 6110,
+        "request": 37,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 37,
+        "stage": "ready",
+        "mono_ns": 827233716563,
+        "elapsed_ms": 355.4310009999426,
+        "error": null,
+        "point": [
+          710,
+          376
+        ],
+        "key": "house"
+      },
+      {
+        "cache": 0.0,
+        "capture": 31.37624099997538,
+        "classify": 0.016442000060123974,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 1.1875779999854785,
+        "elapsed_ms": 356.100416,
+        "engine_ms": 355.4310009999426,
+        "first_useful": 355.2982950000114,
+        "meaning_ready": 0.0,
+        "mono_ns": 827234370347,
+        "ocr": 185.93853099991975,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 52.95905100001619,
+        "request": 37,
+        "run": 2850997774014535,
+        "select": 0.574763000031453,
+        "stage": 3,
+        "total": 1.2323650000780617
+      },
+      {
+        "elapsed_ms": 367.852379,
+        "mono_ns": 827246122310,
+        "pid": 6110,
+        "request": 37,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 238.805304
+  },
+  {
+    "input_ns": 829908486000,
+    "receipt_ns": 829910180569,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 829430167295,
+    "rows_before": 23,
+    "released": true,
+    "attempt": 63,
+    "group": "warm_distinct",
+    "case": 6,
+    "scene": 6,
+    "verify_count": false,
+    "token": 828944556766,
+    "input_sequence": 63,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 39,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 830039987322,
+    "first_visible_start_ns": 830801210321,
+    "first_visible_end_ns": 830844320550,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      39
+    ],
+    "frame_sha256": "ed5e11f19a6b73ef06aec80794a6da878ca24a793b339975bf87e532a825941c",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 935.83455,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      516.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      504,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000360,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 830039987322,
+        "pid": 6110,
+        "request": 39,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.184637,
+        "mono_ns": 830040171959,
+        "pid": 6110,
+        "request": 39,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 39,
+        "stage": "frozen",
+        "mono_ns": 830160649609,
+        "elapsed_ms": 120.64651799994408,
+        "error": null,
+        "point": [
+          504,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 122.254363,
+        "mono_ns": 830162241685,
+        "pid": 6110,
+        "request": 39,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 39,
+        "stage": "ready",
+        "mono_ns": 830394376651,
+        "elapsed_ms": 354.374622000023,
+        "error": null,
+        "point": [
+          504,
+          376
+        ],
+        "key": "water"
+      },
+      {
+        "cache": 0.0,
+        "capture": 33.86851699997351,
+        "classify": 0.019167000004927104,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 1.127967999991597,
+        "elapsed_ms": 354.800785,
+        "engine_ms": 354.374622000023,
+        "first_useful": 354.21946199994636,
+        "meaning_ready": 0.0,
+        "mono_ns": 830394788107,
+        "ocr": 183.2869209999899,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 48.50212799999554,
+        "request": 39,
+        "run": 2850997774014535,
+        "select": 0.3115509999815913,
+        "stage": 3,
+        "total": 1.1780649999764137
+      },
+      {
+        "elapsed_ms": 368.558409,
+        "mono_ns": 830408545731,
+        "pid": 6110,
+        "request": 39,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 252.163609
+  },
+  {
+    "input_ns": 832877078000,
+    "receipt_ns": 832880503225,
+    "clock_ioctl_verified": true,
+    "kernel_clock_verified": true,
+    "last_not_visible_ns": 832430775490,
+    "rows_before": 24,
+    "released": true,
+    "attempt": 64,
+    "group": "warm_distinct",
+    "case": 7,
+    "scene": 7,
+    "verify_count": false,
+    "token": 831989312035,
+    "input_sequence": 64,
+    "status": "success",
+    "mode": "native",
+    "physical": true,
+    "pid": 6110,
+    "process_start": 76946,
+    "process_start_source": "proc_stat",
+    "run": 2850997774014535,
+    "request": 41,
+    "clock": "guest_monotonic",
+    "frame_clock": "guest_monotonic",
+    "origin": "kernel_evdev",
+    "trigger_ns": 832999315303,
+    "first_visible_start_ns": 833760376257,
+    "first_visible_end_ns": 833803406514,
+    "frame_identity": [
+      6110,
+      76946,
+      2850997774014535,
+      41
+    ],
+    "frame_sha256": "a3ce226ce1d740416e45a27c1f9ef023e46f35e2ada4b5292f0521ea173be8af",
+    "observed": true,
+    "fresh": true,
+    "useful_verified": true,
+    "loading": false,
+    "error_card": false,
+    "previous_card": false,
+    "latency_ms": 926.328514,
+    "monitor": {
+      "name": "Virtual-1",
+      "x": 0,
+      "y": 0,
+      "width": 1280.0,
+      "height": 800.0,
+      "scale": 1
+    },
+    "popup_rect": [
+      501.0,
+      0.0,
+      440.0,
+      540.0
+    ],
+    "work_area": [
+      0,
+      0,
+      1280,
+      738
+    ],
+    "actual_cursor": [
+      489,
+      376
+    ],
+    "process_birth_mono_lower_ns": 769450000341,
+    "process_born_after_input": false,
+    "transport_file_uid": 1001,
+    "transport_file_mode": "0o644",
+    "telemetry": [
+      {
+        "mono_ns": 832999315303,
+        "pid": 6110,
+        "request": 41,
+        "run": 2850997774014535,
+        "stage": 1
+      },
+      {
+        "elapsed_ms": 0.069104,
+        "mono_ns": 832999384407,
+        "pid": 6110,
+        "request": 41,
+        "run": 2850997774014535,
+        "stage": 2
+      },
+      {
+        "pid": 6110,
+        "request": 41,
+        "stage": "frozen",
+        "mono_ns": 833132452054,
+        "elapsed_ms": 133.12048900002083,
+        "error": null,
+        "point": [
+          489,
+          376
+        ],
+        "key": null
+      },
+      {
+        "elapsed_ms": 134.668835,
+        "mono_ns": 833133984138,
+        "pid": 6110,
+        "request": 41,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 0
+      },
+      {
+        "pid": 6110,
+        "request": 41,
+        "stage": "ready",
+        "mono_ns": 833348399803,
+        "elapsed_ms": 349.06937100004143,
+        "error": null,
+        "point": [
+          489,
+          376
+        ],
+        "key": "fire"
+      },
+      {
+        "cache": 0.0,
+        "capture": 38.87249600006726,
+        "classify": 0.0185349999810569,
+        "context": 0.0,
+        "db": 0.0,
+        "dicts": 1.3951609998912318,
+        "elapsed_ms": 349.470126,
+        "engine_ms": 349.06937100004143,
+        "first_useful": 348.92304900006366,
+        "meaning_ready": 0.0,
+        "mono_ns": 833348785429,
+        "ocr": 163.91794499998014,
+        "online": 0.0,
+        "pid": 6110,
+        "prepare_image": 50.02189300000737,
+        "request": 41,
+        "run": 2850997774014535,
+        "select": 0.26886800003467215,
+        "stage": 3,
+        "total": 1.4439329999049733
+      },
+      {
+        "elapsed_ms": 363.116186,
+        "mono_ns": 833362431489,
+        "pid": 6110,
+        "request": 41,
+        "run": 2850997774014535,
+        "stage": 4,
+        "useful": 1
+      }
+    ],
+    "hotkey_to_frozen_ms": 255.374054
+  }
+]

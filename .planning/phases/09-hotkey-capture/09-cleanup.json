@@ -1,0 +1,15 @@
+{
+  "clone_uuid": "cf207909-94b5-4b49-8bd8-ccff973c1dc8",
+  "clone_disk_uuid": "2712d710-daaa-449c-843d-d570091127bc",
+  "clone_final_state": "poweroff",
+  "keyboard_acl_restored": true,
+  "owned_processes_stopped_by_guest_shutdown": true,
+  "original_vm_controlled": false,
+  "original_guest_accessed": false,
+  "installed_package_modified": false,
+  "retained_source": "/home/lookup07/Projects/gsd-phase09-20261102",
+  "source_revision": "ee1c9c05a07fdeda987dd21c775d2b36ab5ee7a4",
+  "baseline_gui_sha256": "0efae3c21bfe16ae15557f574001146ad1dac4993d7e5d19198a4140f0b126d5",
+  "final_gui_sha256": "5577b7bd3eabf6dd1d97367c5b905514bc11c5ff57e0c7e9f91240a5321d84a5",
+  "user_ocr_sha256": "b60eb602a62a8f0be4338a42addd0904f20976391d16ed1ae3d3bf6c0d2c91c1"
+}

@@ -9,11 +9,11 @@
 
 ## Current status
 
-**v1.1 «Надёжность и распространение»** initialized 2026-11-02: [brief](v1.1-CONTEXT.md), [17 pending requirements](REQUIREMENTS.md), phases 9–15 below. First priority: Danila's feedback (9–13); reliability and distribution follow (14–15). No implementation plans or acceptance yet.
+**v1.1 «Надёжность и распространение»** initialized 2026-11-02: [brief](v1.1-CONTEXT.md), [17 pending requirements](REQUIREMENTS.md), phases 9–15 below. First priority: Danila's feedback (9–13); reliability and distribution follow (14–15). Phase 9 has two plans, one baseline summary and a verified resident capture speed improvement; temporal acceptance remains blocked.
 
 v1.0 is complete with agent verification. Phase 8 passes all seven criteria; final host and target each run 797 tests on the same code revision, with zero failures. All current product/review/verifier gates pass.
 
-v1.1 roadmap is defined; execution has not started. Raw phase directories stay in `.planning/phases/` because the regression tests and evidence references use them. Historical failed attempts and the Phase 7 original-VM preservation exception remain unchanged in those records.
+v1.1 execution is at Phase 9 plan 02. [Verification](phases/09-hotkey-capture/09-VERIFICATION.md) retains unresolved CAPT-06/CAPT-07 failures; no v1.1 requirement is accepted. Raw phase directories stay in `.planning/phases/` because the regression tests and evidence references use them. Historical failed attempts and the Phase 7 original-VM preservation exception remain unchanged in those records.
 
 ## Phases
 
@@ -28,87 +28,111 @@ v1.1 roadmap is defined; execution has not started. Raw phase directories stay i
 ## Phase Details
 
 ### Phase 9: Фиксация по хоткею и скорость
+
 **Goal**: Lookup refers to the hotkey moment despite mouse movement or scene changes, without measured removable delays.
 **Depends on**: v1.0 complete
 **Requirements**: CAPT-06, CAPT-07, PERF-02
 **Success Criteria** (what must be TRUE):
+
   1. Real hotkey over A followed immediately by movement to B returns A.
   2. A changing scene after invocation does not replace the captured original; frame and cursor coordinates agree.
   3. Comparable cold/warm runs report capture and first-result median/p95 before and after; budgets fixed before optimization are verified.
-**Plans**: TBD
+
+**Plans**: 1/2 plans executed
+
+- [x] 09-01-PLAN.md
+- [ ] 09-02-PLAN.md
 
 ### Phase 10: Компактный настраиваемый попап
+
 **Goal**: User sees the requested word and meanings first and controls unwanted popup blocks.
 **Depends on**: Phase 9
 **Requirements**: POP-06, SET-02
 **Success Criteria** (what must be TRUE):
+
   1. Offline-only lookup places the requested word and relevant meanings at the start; reproduction limits for Danila's missing photo are explicit.
   2. User hides context and configures agreed blocks; subsequent requests and restart preserve choices.
   3. Hiding blocks preserves useful word results and existing card-saving behavior.
+
 **Plans**: TBD
 **UI hint**: yes
 
 ### Phase 11: Выбор слов на замороженной сцене
+
 **Goal**: User selects words on a retained scene without sending pointer movements to the underlying application and regains control afterward.
 **Depends on**: Phase 9, Phase 10
 **Requirements**: CAPT-08, TRIG-05, TRIG-06
 **Success Criteria** (what must be TRUE):
+
   1. A translucent layer supports selecting words from one captured scene while the underlying scene changes.
   2. Real hover text remains available on the captured scene; pointer movements on the layer do not reach the underlying application.
   3. Esc, close, repeated invocation and error return control, including a real fullscreen application.
+
 **Research gate**: Prove KDE Wayland capture/input and hover behavior before approving implementation. A retained image does not prove the source application is frozen. Record a blocker rather than silently weakening requirements if platform limits prevent the requested behavior.
 **Plans**: TBD
 **UI hint**: yes
 
 ### Phase 12: Словари Yomitan
+
 **Goal**: User connects real Yomitan dictionaries and gets expected translations through normal lookup.
 **Depends on**: Phase 10
 **Requirements**: DICT-04, DICT-05
 **Success Criteria** (what must be TRUE):
+
   1. Danila's real archives load and known words return expected meanings through normal lookup.
   2. Reconnecting a dictionary produces a predictable result without damaging connected dictionaries.
   3. Invalid/unsupported archives show understandable errors while existing offline lookup remains usable.
+
 **Research gate**: Inspect actual format variants and user archives. General format work may proceed without Danila's files, but compatibility with his dictionaries cannot be accepted without them.
 **Plans**: TBD
 **UI hint**: yes
 
 ### Phase 13: Понятный первый запуск и GUI
+
 **Goal**: New users discover the interface, translation trigger, settings and existing windows.
 **Depends on**: Phase 10, Phase 12
 **Requirements**: TRIG-07, SET-03
 **Success Criteria** (what must be TRUE):
+
   1. First launch in a clean profile shows an understandable application entry and translation instructions without knowledge of tray right-click.
   2. Discoverable GUI opens settings, words and review while the existing background mode remains usable.
+
 **Plans**: TBD
 **UI hint**: yes
 
 ### Phase 14: Надёжность в реальных сценариях
+
 **Goal**: Real sources, second-monitor lookup and borderless usage behave predictably.
 **Depends on**: Phase 11, Phase 12, Phase 13
 **Requirements**: TRAN-07, DICT-06, CAPT-09, GAME-02
 **Success Criteria** (what must be TRUE):
+
   1. A live target-environment context query demonstrates provider availability; restrictions/failures are shown separately without hiding offline articles.
   2. Real MDX and DSL results agree with source articles; untested variants remain explicit.
   3. Second-monitor lookup chooses the pointed word and positions the popup correctly at tested scales.
   4. Real borderless lookup and frozen-scene selection return application control after closing.
+
 **Plans**: TBD
 **UI hint**: yes
 
 ### Phase 15: Подготовка распространения через AUR
+
 **Goal**: User can build, install and update an AUR-ready package while retaining data.
 **Depends on**: Phase 14
 **Requirements**: PUB-02
 **Success Criteria** (what must be TRUE):
+
   1. Project instructions reproducibly build and install the package in a clean target profile.
   2. Upgrade from v1.0 retains words/cards/settings; removal preserves user data according to the existing contract.
   3. Metadata and instructions are AUR-ready; actual publication is separately recorded and requires access and authorization.
+
 **Plans**: TBD
 
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 9. Фиксация по хоткею и скорость | 0/TBD | Not started | - |
+| 9. Фиксация по хоткею и скорость | 1/2 | In Progress|  |
 | 10. Компактный настраиваемый попап | 0/TBD | Not started | - |
 | 11. Выбор слов на замороженной сцене | 0/TBD | Not started | - |
 | 12. Словари Yomitan | 0/TBD | Not started | - |

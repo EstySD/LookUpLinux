@@ -2,17 +2,18 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Надёжность и распространение
-status: planning
 current_phase: 9
 current_phase_name: Фиксация по хоткею и скорость
-stopped_at: v1.1 requirements and roadmap defined; Phase 9 discussion next. No implementation started.
-last_updated: "2026-11-02T05:57:04.349Z"
+status: blocked
+stopped_at: "Phase 9 safety gate 3: CAPT-06 and CAPT-07 FAIL; 09-01 complete, 09-02 partial. Resident speed improvement verified; temporal capture replan required."
+last_updated: "2026-11-02T06:30:24.037Z"
 last_activity: 2026-11-02
+last_activity_desc: 09-01 baseline complete; resident capture improved; 09-02 blocked by real temporal verification
 progress:
   total_phases: 7
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 2
+  completed_plans: 1
   percent: 0
 ---
 
@@ -23,14 +24,14 @@ progress:
 See: .planning/PROJECT.md (v1 scope expanded 2026-10-27)
 
 **Core value:** Хоткей над английским словом даёт перевод в оверлее у курсора примерно за 1–2 секунды, и слово попадает в базу со счётчиком.
-**Current focus:** v1.1: 17 pending requirements across phases 9–15. Danila's feedback is first priority. Next: discuss Phase 9, hotkey capture and latency. No implementation plans or acceptance yet; v1.0 archive and evidence retained.
+**Current focus:** Phase 9 — Фиксация по хоткею и скорость
 
 ## Current Position
 
-Phase: 9 — Фиксация по хоткею и скорость
-Plan: —
-Status: Roadmap defined; ready for Phase 9 discussion
-Last activity: 2026-11-02 — v1.1 requirements and phases 9–15 defined
+Phase: 9 (Фиксация по хоткею и скорость) — EXECUTING
+Plan: 2 of 2
+Status: blocked
+Last activity: 2026-11-02 — 09-01 baseline complete; resident capture improved; 09-02 blocked by real temporal verification
 
 ## Performance Metrics
 
@@ -120,6 +121,7 @@ No active release blocker. Known limits and the retained historical Phase 7 pres
 - [Phase 7]: kdotool есть только в AUR, а `makepkg -si` ставит зависимости лишь из репозиториев; решить: вложить бинарник, собирать из исходников или optdepends
 - [Phase 7]: Смена хоткея из настроек требует перерегистрации `.desktop` и `kbuildsycoca6` на лету
 - [Phase 8]: VM врёт про курсор и рендер, на железе друга не проверяем; логику масштаба и выбора слова покрыть тестами вне VM
+- Phase 9 temporal verification unresolved: immediate movement samples B and scene replacement returns river instead of bank. Existing delayed capture route cannot recover the original; compositor-bound capture prototype and full cold path required. See 09-VERIFICATION.md.
 
 ## Deferred Items
 
@@ -131,8 +133,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-11-01 — verified v1.0 closeout
-Stopped at: v1.0 complete and archived; no remaining release work. Owned clone OFF, user data retained, external original untouched.
+Last session: 2026-11-02T06:28:35.171Z
+Stopped at: Phase 9 safety gate 3: CAPT-06 and CAPT-07 FAIL; 09-01 complete, 09-02 partial. Resident speed improvement verified; temporal capture replan required.
 Resume file: None
 
 ## Operator Next Steps
