@@ -22,12 +22,12 @@ class SelectionGuiTests(unittest.TestCase):
         cls.application=QApplication.instance() or QApplication([])
 
     def scene(self,scale=1):
-        image=QImage(400,200,QImage.Format.Format_RGB32)
+        image=QImage(1000,800,QImage.Format.Format_RGB32)
         image.fill(QColor('white'))
         output=QBuffer();output.open(QIODevice.OpenModeFlag.WriteOnly)
         image.save(output,'PNG')
-        frame=capture.Capture(bytes(output.data()),400,200,'public',0)
-        monitor=Monitor('public',-400,50,400/scale,200/scale,scale)
+        frame=capture.Capture(bytes(output.data()),1000,800,'public',0)
+        monitor=Monitor('public',-400,50,1000/scale,800/scale,scale)
         return app.Scene(5,app.Frozen('ocr',(-350,100),monitor,image=frame))
 
     def window(self,scale=1):
@@ -43,8 +43,8 @@ class SelectionGuiTests(unittest.TestCase):
             with self.subTest(scale=scale):
                 window=self.window(scale)
                 points=[];window.selected.connect(points.append)
-                QTest.mouseClick(window,Qt.MouseButton.LeftButton,pos=QPoint(60,80))
-                self.assertEqual(points,[(-340,130)])
+                QTest.mouseClick(window,Qt.MouseButton.LeftButton,pos=QPoint(60,180))
+                self.assertEqual(points,[(-340,230)])
                 window.set_selection('word',(100,120,40,30))
                 rect=window.selection_rect()
                 self.assertAlmostEqual(rect.x(),100/scale)
@@ -65,6 +65,8 @@ class SelectionGuiTests(unittest.TestCase):
         self.assertEqual(window.status.accessibleName(),'word '*1000)
         self.assertTrue(window.close_button.isVisible())
         self.assertLessEqual(window.close_button.geometry().right(),window.toolbar.width())
+        QTest.mouseClick(window.instruction,Qt.MouseButton.LeftButton)
+        self.assertEqual(selected,[])
         QTest.mouseClick(window.close_button,Qt.MouseButton.LeftButton)
         self.assertEqual(selected,[])
         self.assertEqual(closed,[True])

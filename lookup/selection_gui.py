@@ -123,7 +123,8 @@ def components():
                     painter.drawRect(self.selection_rect())
 
         def mousePressEvent(self,event):
-            if event.button()==Qt.MouseButton.LeftButton and not self._released:
+            if (event.button()==Qt.MouseButton.LeftButton and not self._released and
+                not self.toolbar.geometry().contains(event.position().toPoint())):
                 self.selected.emit((self.monitor.x+event.position().x()*self.monitor.width/self.width(),
                                     self.monitor.y+event.position().y()*self.monitor.height/self.height()))
             event.accept()

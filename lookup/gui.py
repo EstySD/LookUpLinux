@@ -429,7 +429,8 @@ def components():
             self.hide()
             self.setUpdatesEnabled(True)
         def dismiss(self):
-            if self.isVisible():
+            owner=getattr(self,'scene_owner',None)
+            if self.isVisible() or (owner is not None and owner.scene_window is not None):
                 self.hide_for_capture()
                 self.dismissed.emit()
         def keyPressEvent(self,event):
@@ -442,13 +443,20 @@ def components():
             event.accept()
         def event(self,event):
             if event.type()==QEvent.Type.WindowDeactivate and self._armed and self.isVisible():
+                owner=getattr(self,'scene_owner',None)
+                if owner is not None and owner.scene_window is not None:
+                    if owner._focus:owner._scene_focus_event(QApplication.focusWindow())
+                    return super().event(event)
                 menu=QApplication.activePopupWidget()
                 if menu is None or not self.isAncestorOf(menu):
                     self.dismiss()
             return super().event(event)
         def eventFilter(self,watched,event):
-            if self.isVisible() and isinstance(watched,QWidget):
+            owner=getattr(self,'scene_owner',None)
+            if (self.isVisible() or (owner is not None and owner.scene_window is not None)) and isinstance(watched,QWidget):
                 inside=watched==self or self.isAncestorOf(watched)
+                if owner is not None and owner.scene_window is not None:
+                    inside=inside or watched==owner.scene_window or owner.scene_window.isAncestorOf(watched)
                 deliberate=event.type() in (QEvent.Type.MouseButtonPress,QEvent.Type.MouseButtonDblClick,QEvent.Type.KeyPress,QEvent.Type.Wheel)
                 dragging=event.type()==QEvent.Type.MouseMove and event.buttons()!=Qt.MouseButton.NoButton
                 if inside and (deliberate or dragging) and self.timer.isActive():
@@ -480,6 +488,10 @@ def components():
             self.words_window=None
             self.review_window=None
             self.settings_window=None
+            self.scene_window=None
+            self._scene_id=None
+            self._scene_pending=False
+            self._scene_focus_armed=False
             self._popup_timeout=20
             self._focus_thread=None
             self._focus_pending=None
@@ -492,9 +504,11 @@ def components():
             self.bridge.event.connect(self.receive,Qt.ConnectionType.QueuedConnection)
             self.bridge.focus_done.connect(self.focus_done,Qt.ConnectionType.QueuedConnection)
             self.popup=Popup()
+            self.popup.scene_owner=self
             self.popup.dismissed.connect(self.dismiss)
             self.popup.card_button.clicked.connect(self.add_card)
             self.engine=(engine_factory or core.Engine)(self.bridge.event.emit,source=core.Source(env))
+            if self._focus:QApplication.instance().focusWindowChanged.connect(self._scene_focus_event)
             from .settings_gui import components as settings_components
             self._SettingsWindow,ApplyController=settings_components()
             self.settings_controller=ApplyController(self.engine,self)
@@ -561,6 +575,7 @@ def components():
             self._popup_timeout=value.popup_timeout
             self.popup.preferences=value
         def _invalidate_settings(self):
+            self._end_scene()
             self.engine.dismiss(self._identity)
             self._identity=None
             self._focus_pending=None
@@ -627,6 +642,9 @@ def components():
                 if error.reason=='hotkey_consumed':return os.getpid()
                 snapshot=None
                 snapshot_error=True
+            if self.scene_window is not None:
+                self._end_scene()
+                return os.getpid()
             identity=self.engine.begin()
             if identity is None:
                 return 0
@@ -644,7 +662,8 @@ def components():
                 self._timing.emit('capture',identity,at_ns=snapshot.capture_ns,
                                   elapsed_ms=(snapshot.capture_ns-snapshot.input_ns)/1e6)
                 self._time('queue',identity)
-                self.engine.enqueue(identity,snapshot)
+                self._scene_pending=True
+                self.engine.enqueue_scene(identity,snapshot)
             elif was_visible:
                 QTimer.singleShot(75,lambda:self._enqueue(identity))
             else:
@@ -653,7 +672,8 @@ def components():
         def _enqueue(self,identity):
             if self.engine.current(identity):
                 self._time('queue',identity)
-                self.engine.enqueue(identity)
+                self._scene_pending=True
+                self.engine.enqueue_scene(identity)
         def _time(self,stage,identity,**fields):
             if self._timing_request is None or self._timing_request[0]!=identity:return
             now=time.monotonic_ns()
@@ -665,8 +685,74 @@ def components():
                 self._time('meaning_ready',event.id,engine_ms=event.elapsed_ms,
                            meaning_cache=int(event.result.meaning_from_cache),**event.result.timings)
         def dismiss(self):
+            if self._end_scene():return
             self.engine.dismiss(self._identity)
             self._clear_displayed()
+        def _end_scene(self):
+            if self.scene_window is None and not self._scene_pending:return False
+            layer=self.scene_window
+            session_id=self._scene_id
+            self.scene_window=None;self._scene_id=None;self._scene_pending=False;self._scene_focus_armed=False
+            self.popup._armed=False
+            if self.popup.windowHandle() is not None:self.popup.windowHandle().setTransientParent(None)
+            if layer is not None:
+                layer.release();layer.deleteLater()
+            self.engine.close_scene(session_id)
+            self.engine.dismiss(self._identity)
+            self._identity=None
+            self._focus_pending=None;self._paint_revision=None
+            self._clear_displayed()
+            self.popup.hide_for_capture()
+            return True
+        def _scene_focus_event(self,window):
+            if self.scene_window is None:return
+            if window is not None and window in (self.scene_window.windowHandle(),self.popup.windowHandle()):
+                self._scene_focus_armed=True
+                return
+            if self._scene_focus_armed:
+                session_id=self._scene_id
+                # Wayland can report no focus briefly between our two surfaces.
+                QTimer.singleShot(75,lambda:self.scene_focus_changed(QApplication.focusWindow())
+                    if self._scene_id==session_id and self._scene_focus_armed else None)
+        def scene_focus_changed(self,window):
+            if self.scene_window is None:return
+            owned=(self.scene_window,self.popup)
+            handles=tuple(widget.windowHandle() for widget in owned)
+            menu=QApplication.activePopupWidget()
+            if (window is not None and (window in owned or window in handles)) or (
+                menu is not None and any(widget.isAncestorOf(menu) for widget in owned)):
+                return
+            self._end_scene()
+        def _show_scene(self,event):
+            from .selection_gui import components as selection_components
+            try:
+                layer=selection_components()(event.scene)
+                self.scene_window=layer;self._scene_id=event.scene.session_id;self._scene_pending=False
+                layer.selected.connect(self.select_scene)
+                layer.dismissed.connect(self.dismiss)
+                layer.present(self._focus)
+                self.popup.winId()
+                self.popup.windowHandle().setTransientParent(layer.windowHandle())
+                self.popup._duration=self._popup_timeout*1000
+                self.popup.timer.start(self.popup._duration)
+            except (ValueError,RuntimeError,TypeError):
+                self._scene_pending=True
+                self._end_scene()
+                identity=self.engine.begin()
+                if identity is not None:self.receive(replace(event,id=identity,stage='error',scene=None,error='capture_failed'))
+        def select_scene(self,point):
+            if self.scene_window is None or self._stopping:return
+            identity=self.engine.begin()
+            if identity is None:
+                self._end_scene();return
+            self._identity=identity
+            self._timing_request=(identity,time.monotonic_ns());self._meaning_timed=False
+            self._focus_pending=None;self._paint_revision=None
+            self._clear_displayed();self.popup.hide_for_capture()
+            self.scene_window.set_status('Ищем перевод…')
+            self.popup._duration=self._popup_timeout*1000
+            self.popup.timer.start(self.popup._duration)
+            if not self.engine.select_scene(identity,self._scene_id,point):self._end_scene()
         def receive(self,event):
             if event.stage=='reload':
                 self.settings_controller.ack(event)
@@ -674,6 +760,10 @@ def components():
             if self._stopping or not self.engine.current(event.id):
                 return
             self._identity=event.id
+            if event.stage=='scene':
+                self._show_scene(event)
+                return
+            if self.scene_window is None and event.mode=='primary':self._scene_pending=False
             if event.stage=='context':
                 if self._waiting_ready is not None:
                     self._waiting_context=event
@@ -707,8 +797,20 @@ def components():
                 self.popup.result(event.result,event.context,event.save_error)
                 self._bind_displayed(event)
                 self._time_meaning(event)
+                if self.scene_window is not None:
+                    self.scene_window.set_selection(event.result.key or '',event.selection_box)
             else:
                 self._time('error',event.id,engine_ms=event.elapsed_ms)
+                if self.scene_window is not None and event.error=='not_found':
+                    self._clear_displayed();self.popup.hide_for_capture()
+                    self.scene_window.set_selection('')
+                    self.popup.timer.start(self._popup_timeout*1000)
+                    return
+                if self._end_scene():
+                    identity=self.engine.begin()
+                    if identity is None:return
+                    self._identity=identity
+                    event=replace(event,id=identity)
                 self._clear_displayed()
                 self.popup.error(event.error)
             from . import gnome
@@ -739,6 +841,7 @@ def components():
             screen=QApplication.screenAt(QPoint(round(point[0]),round(point[1]))) if point else None
             screen=screen or QApplication.primaryScreen()
             available=QRect(*event.available) if event.available else screen.availableGeometry()
+            if self.scene_window is not None:available=available.intersected(self.scene_window.popup_area())
             point=point or (available.center().x(),available.center().y())
             self.popup.size_for(available)
             target=platform.popup_rect(point,(self.popup.width(),self.popup.height()),
@@ -801,6 +904,7 @@ def components():
                 self.popup._armed=True
         def quit(self):
             if self._stopping:return
+            self._end_scene()
             self._stopping=True
             self.settings_controller.shutdown()
             if self.settings_window is not None:

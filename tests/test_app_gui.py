@@ -146,7 +146,7 @@ class GuiTests(unittest.TestCase):
         self.assertIs(layer._image,image)
         self.owner.receive(self.event(result=self.result()))
         self.assertIsNone(self.owner._displayed)
-        self.owner.receive(replace(self.event(result=self.result(),context='new context'),id=identity))
+        self.owner.receive(replace(self.event(result=replace(self.result(),translation='слово'),context='new context'),id=identity))
         self.assertEqual(self.owner._displayed[0],identity)
         self.assertEqual(self.owner._displayed[1]['context'],'new context')
         self.assertIs(self.owner.scene_window,layer)
@@ -187,6 +187,42 @@ class GuiTests(unittest.TestCase):
         self.assertIn('Нажмите на другое слово',layer.status.accessibleName())
         self.owner.quit()
         self.assertIsNone(layer._image)
+        self.assertIsNone(self.owner.scene_window)
+
+    def test_scene_focus_commit_delay_duplicate_activation_and_hidden_timeout(self):
+        layer=self.enter_scene()
+        generation=self.owner.engine.generation
+        with mock.patch.object(app.capture,'take_hotkey',side_effect=app.platform.PlatformError('hotkey_consumed')):
+            self.owner.Trigger('')
+        self.assertEqual(self.owner.engine.generation,generation)
+        self.assertIs(self.owner.scene_window,layer)
+        self.owner._scene_focus_event(None)
+        QTest.qWait(90)
+        self.assertIs(self.owner.scene_window,layer)
+        self.owner._scene_focus_event(layer.windowHandle())
+        with mock.patch.object(QApplication,'focusWindow',return_value=layer.windowHandle()):
+            self.owner._scene_focus_event(None);QTest.qWait(90)
+        self.assertIs(self.owner.scene_window,layer)
+        self.owner.receive(self.event('error',error='not_found'))
+        self.owner.popup.timer.start(1000)
+        QTest.keyClick(layer,Qt.Key.Key_A)
+        self.assertGreater(self.owner.popup.timer.remainingTime(),19000)
+        with mock.patch.object(QApplication,'focusWindow',return_value=None):
+            self.owner._scene_focus_event(None);QTest.qWait(90)
+        self.assertIsNone(self.owner.scene_window)
+        self.assertIsNone(layer._image)
+
+    def test_bad_scene_and_pending_capture_cannot_leave_owned_surfaces(self):
+        from lookup.capture import Capture
+        bad=app.Scene(self.identity,app.Frozen('ocr',(100,100),self.monitor,
+            image=Capture(b'bad',1000,800,'public',0)))
+        self.owner.receive(replace(self.event('scene'),mode='ocr',scene=bad))
+        self.assertIsNone(self.owner.scene_window)
+        self.assertIn('Не удалось получить снимок',self.owner.popup.title.text())
+        self.owner.Trigger('');self.identity=self.owner.engine.generation
+        self.owner._enqueue(self.identity)
+        self.owner._invalidate_settings()
+        self.enter_scene()
         self.assertIsNone(self.owner.scene_window)
     def test_hidden_popup_enqueues_without_a_hide_delay(self):
         self.owner.popup.hide_for_capture()
