@@ -889,6 +889,13 @@ def components():
             if not self._stopping and revision==self.presentations and self.engine.current(identity) and self.popup.isVisible():
                 self.popup_uuid=uuid
                 self.focus_error=error
+                if error and (self.scene_window is not None or self._scene_pending):
+                    point=(self.popup.x(),self.popup.y())
+                    self._end_scene()
+                    identity=self.engine.begin()
+                    if identity is not None:
+                        self.receive(core.Event(identity,'error',point=point,error='placement_failed'))
+                    return
                 if self._paint_revision==revision:
                     if error:
                         self.popup.error('placement_failed')
