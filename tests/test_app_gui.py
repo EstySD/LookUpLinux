@@ -111,6 +111,25 @@ class GuiTests(unittest.TestCase):
         self.monitor=Monitor('public',0,0,1000,800,1)
     def event(self,stage='ready',result=None,**kwargs):
         return app.Event(self.identity,stage,result=result,point=(100,100),monitor=self.monitor,mode='primary',**kwargs)
+    def test_hidden_popup_enqueues_without_a_hide_delay(self):
+        self.owner.popup.hide_for_capture()
+        self.owner.engine.pending.clear()
+        with mock.patch.object(QTimer,'singleShot') as timer:
+            self.owner.Trigger('')
+        self.assertEqual(self.owner.engine.pending,[self.owner.engine.generation])
+        timer.assert_not_called()
+    def test_visible_popup_retains_hide_delay_and_discards_superseded_capture(self):
+        self.owner.popup.show()
+        self.owner.engine.pending.clear()
+        with mock.patch.object(QTimer,'singleShot') as timer:
+            self.owner.Trigger('')
+        self.assertFalse(self.owner.popup.isVisible())
+        self.assertEqual(self.owner.engine.pending,[])
+        self.assertEqual(timer.call_args.args[0],75)
+        self.owner.Trigger('')
+        latest=self.owner.engine.generation
+        timer.call_args.args[1]()
+        self.assertEqual(self.owner.engine.pending,[latest])
     def wait_for_dismissal(self):
         deadline=time.monotonic()+1
         while (self.owner.popup.isVisible() or self.owner.engine.current(self.identity)) and time.monotonic()<deadline:

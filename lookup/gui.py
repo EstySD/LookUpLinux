@@ -577,8 +577,12 @@ def components():
             self._meaning_timed=False
             self._timing.emit('trigger',identity,at_ns=entered)
             self._clear_displayed()
+            was_visible=self.popup.isVisible()
             self.popup.hide_for_capture()
-            QTimer.singleShot(75,lambda:self._enqueue(identity))
+            if was_visible:
+                QTimer.singleShot(75,lambda:self._enqueue(identity))
+            else:
+                self._enqueue(identity)
             return os.getpid()
         def _enqueue(self,identity):
             if self.engine.current(identity):
