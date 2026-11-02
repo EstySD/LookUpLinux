@@ -16,6 +16,7 @@ CONFIG_ENV = "LOOKUP_CONFIG"
 CACHE_ENV = "LOOKUP_CACHE"
 MAX_CONFIG_BYTES = 1 << 20
 MAX_ID_CHARS = 512
+POPUP_FIELDS = ('popup_show_context','popup_show_meaning','popup_expand_articles')
 
 # A client name ends up in a request URL (T-02-08): keep it boring.
 _CLIENT_RE = re.compile(r"[A-Za-z0-9._-]{1,32}\Z")
@@ -31,6 +32,9 @@ class Config:
     shortcut: str = 'Meta+Shift+D'
     popup_timeout: int = 20
     autostart: bool = True
+    popup_show_context: bool = False
+    popup_show_meaning: bool = True
+    popup_expand_articles: bool = False
 
 
 class ConfigError(ValueError):
@@ -111,7 +115,7 @@ def _read(target, strict=False):
 
 
 def _valid_scalar(key, value):
-    if key in ('online','autostart'):
+    if key in ('online','autostart') + POPUP_FIELDS:
         return isinstance(value,bool)
     if key == 'popup_timeout':
         return isinstance(value,int) and not isinstance(value,bool) and 1 <= value <= 300
@@ -129,7 +133,7 @@ def _from_data(data):
         online=online if isinstance(online, bool) else True,
         clients=_parse_clients(data.get("clients")),
         **{key:data[key] if key in data and _valid_scalar(key,data[key]) else getattr(defaults,key)
-           for key in ('shortcut','popup_timeout','autostart')},
+           for key in ('shortcut','popup_timeout','autostart') + POPUP_FIELDS},
     )
 
 

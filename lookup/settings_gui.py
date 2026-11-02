@@ -142,6 +142,7 @@ def components():
             self.invalidating.emit()
             # The GUI draft is never shared with a background transaction.
             changes={key:snapshot[key] for key in ('online','popup_timeout','autostart')}
+            changes.update({key:snapshot[key] for key in config.POPUP_FIELDS if key in snapshot})
             changes['dictionaries']=[dict(entry) for entry in snapshot['dictionaries']]
             if snapshot.get('shortcut_edited'):changes['shortcut']=snapshot['shortcut']
             def prepare():
@@ -328,6 +329,15 @@ def components():
             option_layout.addRow(label('При отключении используются только локальные словари'))
             option_layout.addRow(self.autostart)
             form.addWidget(options)
+            popup=QGroupBox('Содержимое попапа');popup_layout=QVBoxLayout(popup)
+            for key,text in zip(config.POPUP_FIELDS,('Показывать исходный текст и перевод контекста',
+                    'Показывать значение слова в контексте','Разворачивать полные словарные статьи')):
+                control=QCheckBox(text)
+                control.setAccessibleName(text)
+                setattr(self,key,control)
+                popup_layout.addWidget(control)
+                control.toggled.connect(self._edited)
+            form.addWidget(popup)
             scroll.setWidget(body);layout.addWidget(scroll,1)
             self.status=label(INITIAL,'Применение настроек')
             layout.addWidget(self.status)
@@ -338,7 +348,8 @@ def components():
             layout.addLayout(actions)
             for button in (self.apply_button,self.close_button,self.up_button,self.down_button,self.folder_button):
                 button.setAutoDefault(True)
-            self._editors=(self.shortcut,self.dictionaries,self.timeout,self.online,self.autostart)
+            self._editors=(self.shortcut,self.dictionaries,self.timeout,self.online,self.autostart)+tuple(
+                getattr(self,key) for key in config.POPUP_FIELDS)
             self.shortcut.keySequenceChanged.connect(self._edited)
             self.dictionaries.itemChanged.connect(self._edited)
             self.dictionaries.currentRowChanged.connect(self._reorder_state)
@@ -368,7 +379,8 @@ def components():
                 dictionaries=[dict(id=self.dictionaries.item(i).data(Qt.ItemDataRole.UserRole),
                     enabled=self.dictionaries.item(i).checkState()==Qt.CheckState.Checked)
                     for i in range(self.dictionaries.count())],popup_timeout=self.timeout.value(),
-                online=self.online.isChecked(),autostart=self.autostart.isChecked())
+                online=self.online.isChecked(),autostart=self.autostart.isChecked(),
+                **{key:getattr(self,key).isChecked() for key in config.POPUP_FIELDS})
 
         def open_folder(self):
             if self.controller.pending or not self.folder_path.text():return
@@ -411,6 +423,7 @@ def components():
                     'Поиск словарей отключён переменной LOOKUP_DICTS. Укажите в ней каталог или уберите переменную, затем перезапустите приложение.')
                 self.timeout.setValue(saved.popup_timeout)
                 self.online.setChecked(saved.online);self.autostart.setChecked(saved.autostart)
+                for key in config.POPUP_FIELDS:getattr(self,key).setChecked(getattr(saved,key))
                 self._loading=False
                 self._baseline=self.snapshot()
                 self.status.setText(INITIAL)
@@ -422,6 +435,7 @@ def components():
                     if value['rows'] is not None:self._set_dictionaries(saved.dictionaries,value['rows'])
                     self.timeout.setValue(saved.popup_timeout)
                     self.online.setChecked(saved.online);self.autostart.setChecked(saved.autostart)
+                    for key in config.POPUP_FIELDS:getattr(self,key).setChecked(getattr(saved,key))
                     self._loading=False
                     self._shortcut_baseline=self.snapshot()['shortcut']
                     self._baseline=self.snapshot()
