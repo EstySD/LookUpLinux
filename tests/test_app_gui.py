@@ -37,6 +37,16 @@ class FakeEngine:
     def enqueue(self,identity,snapshot=None):
         self.pending.append(identity)
         self.snapshot=snapshot
+    def enqueue_scene(self,identity,snapshot=None):
+        self.enqueue(identity,snapshot)
+        return True
+    def select_scene(self,identity,session_id,point):
+        self.selects=getattr(self,'selects',[])+[(identity,session_id,point)]
+        return True
+    def close_scene(self,session_id=None):
+        self.closed=getattr(self,'closed',[])+[session_id]
+        self.generation+=1
+        return True
     def current(self,identity):
         return identity==self.generation and not self.stopping
     def dismiss(self,identity):
@@ -112,6 +122,72 @@ class GuiTests(unittest.TestCase):
         self.monitor=Monitor('public',0,0,1000,800,1)
     def event(self,stage='ready',result=None,**kwargs):
         return app.Event(self.identity,stage,result=result,point=(100,100),monitor=self.monitor,mode='primary',**kwargs)
+    def enter_scene(self):
+        from PyQt6.QtCore import QBuffer,QIODevice
+        from PyQt6.QtGui import QImage,QColor
+        from lookup.capture import Capture
+        image=QImage(1000,800,QImage.Format.Format_RGB32);image.fill(QColor('white'))
+        output=QBuffer();output.open(QIODevice.OpenModeFlag.WriteOnly);image.save(output,'PNG')
+        scene=app.Scene(self.identity,app.Frozen('ocr',(100,100),self.monitor,
+            image=Capture(bytes(output.data()),1000,800,'public',0)))
+        self.owner.receive(replace(self.event('scene'),mode='ocr',scene=scene))
+        return self.owner.scene_window
+
+    def test_retained_scene_reselects_without_reopening_or_stale_result(self):
+        layer=self.enter_scene()
+        image=layer._image
+        self.assertTrue(layer.isVisible())
+        self.owner.receive(self.event('frozen'))
+        self.owner.receive(self.event(result=self.result(),selection_box=(80,80,50,20)))
+        self.assertFalse(layer.selection_rect().isEmpty())
+        layer.selected.emit((350,250))
+        identity=self.owner.engine.generation
+        self.assertEqual(self.owner.engine.selects,[(identity,self.identity,(350,250))])
+        self.assertIs(layer._image,image)
+        self.owner.receive(self.event(result=self.result()))
+        self.assertIsNone(self.owner._displayed)
+        self.owner.receive(replace(self.event(result=self.result(),context='new context'),id=identity))
+        self.assertEqual(self.owner._displayed[0],identity)
+        self.assertEqual(self.owner._displayed[1]['context'],'new context')
+        self.assertIs(self.owner.scene_window,layer)
+
+    def test_scene_all_session_exit_routes_release_image_and_cancel(self):
+        for action in ('escape','popup_close','layer_close','timeout','repeat','settings','external','error'):
+            with self.subTest(action=action):
+                if not self.owner.engine.current(self.identity):
+                    self.owner.Trigger('');self.identity=self.owner.engine.generation
+                layer=self.enter_scene()
+                self.owner.receive(self.event('frozen'))
+                if action=='escape':QTest.keyClick(self.owner.popup,Qt.Key.Key_Escape)
+                elif action=='popup_close':self.owner.popup.close()
+                elif action=='layer_close':layer.close_button.click()
+                elif action=='timeout':self.owner.popup.timer.timeout.emit()
+                elif action=='repeat':self.owner.Trigger('')
+                elif action=='settings':self.owner._invalidate_settings()
+                elif action=='external':self.owner.scene_focus_changed(None)
+                elif action=='error':self.owner.receive(self.event('error',error='ocr_failed'))
+                self.assertIsNone(self.owner.scene_window)
+                self.assertIsNone(layer._image)
+                self.assertFalse(layer.isVisible())
+                if action!='error':self.assertFalse(self.owner.popup.isVisible())
+                else:self.assertIn('Не удалось распознать',self.owner.popup.title.text())
+                self.assertIn(self.identity,self.owner.engine.closed)
+
+    def test_scene_internal_focus_no_hit_primary_and_shutdown(self):
+        self.assertIsNone(self.owner.scene_window)
+        self.owner.receive(self.event(result=self.result()))
+        self.assertIsNone(self.owner.scene_window)
+        layer=self.enter_scene()
+        self.owner.scene_focus_changed(layer.windowHandle())
+        self.owner.scene_focus_changed(self.owner.popup.windowHandle())
+        self.assertIs(self.owner.scene_window,layer)
+        self.owner.receive(self.event('error',error='not_found'))
+        self.assertIs(self.owner.scene_window,layer)
+        self.assertTrue(layer.isVisible())
+        self.assertIn('Нажмите на другое слово',layer.status.accessibleName())
+        self.owner.quit()
+        self.assertIsNone(layer._image)
+        self.assertIsNone(self.owner.scene_window)
     def test_hidden_popup_enqueues_without_a_hide_delay(self):
         self.owner.popup.hide_for_capture()
         self.owner.engine.pending.clear()
