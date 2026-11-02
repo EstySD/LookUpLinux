@@ -11,7 +11,7 @@ os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
 try:
     from PyQt6.QtCore import Qt, QEvent, QTimer
     from PyQt6.QtGui import QFont, QPalette, QColor,QDesktopServices
-    from PyQt6.QtWidgets import QApplication, QLabel, QTextEdit
+    from PyQt6.QtWidgets import QApplication, QLabel, QTextEdit, QPushButton
     from PyQt6.QtTest import QTest
 except ImportError:
     QApplication=None
@@ -160,6 +160,82 @@ class GuiTests(unittest.TestCase):
         return translate.Result('word','word',articles=(first,second),lemma='lemma',saved=True,count=3,context_pending=True)
     def texts(self):
         return '\n'.join(label.text() for label in self.owner.popup.findChildren(QLabel))+ '\n' + '\n'.join(widget.toPlainText() for widget in self.owner.popup.findChildren(QTextEdit))
+    def preferences(self,**changes):
+        from lookup.config import Config
+        deadline=time.monotonic()+2
+        while self.owner.settings_controller.pending and time.monotonic()<deadline:
+            self.application.processEvents();QTest.qWait(5)
+        self.owner._settings_applied(replace(Config(),**changes))
+
+    def test_compact_offline_summaries_precede_expandable_articles(self):
+        self.preferences()
+        first=Article('Long','word',None,(('noun',('первое значение',)),),'long detail '*1500)
+        second=Article('Useful','word',None,(('noun',('нужный перевод',)),),'second detail')
+        raw=Article('Raw','word',None,(),'plain preview '*100)
+        value=replace(self.result(),articles=(first,second,raw),online_enabled=False)
+        self.owner.receive(self.event(result=value,context='source context'))
+        popup=self.owner.popup
+        self.assertEqual(popup.title.text(),'word')
+        widgets=[popup.body.itemAt(i).widget() for i in range(popup.body.count())]
+        summaries=[widget for widget in widgets if isinstance(widget,QTextEdit) and not widget.isHidden()]
+        self.assertIn('нужный перевод','\n'.join(widget.toPlainText() for widget in summaries))
+        preview=next(widget for widget in summaries if widget.toPlainText().startswith('plain preview'))
+        self.assertLessEqual(len(preview.toPlainText()),241)
+        self.assertTrue(preview.toPlainText().endswith('…'))
+        details=next(widget for widget in widgets if isinstance(widget,QTextEdit) and widget.toPlainText().startswith('long detail'))
+        self.assertTrue(details.isHidden())
+        self.assertLess(widgets.index(preview),widgets.index(details))
+        buttons=[widget for widget in widgets if isinstance(widget,QPushButton)]
+        self.assertEqual(len(buttons),3)
+        self.assertTrue(all(button.isCheckable() and button.accessibleName() for button in buttons))
+        identity=self.owner.engine.generation
+        QTest.keyClick(buttons[0],Qt.Key.Key_Space)
+        self.assertFalse(details.isHidden())
+        self.assertTrue(buttons[0].isChecked())
+        self.assertLessEqual(popup.height(),540)
+        QTest.keyClick(buttons[0],Qt.Key.Key_Space)
+        self.assertTrue(details.isHidden())
+        self.assertEqual(self.owner.engine.generation,identity)
+        self.owner.receive(self.event(result=value))
+        self.assertTrue(all(not button.isChecked() for button in popup.findChildren(QPushButton) if button.isCheckable() and not button.isHidden()))
+
+    def test_hidden_blocks_stay_hidden_after_late_updates_and_cards_keep_context(self):
+        self.preferences(popup_show_meaning=False)
+        value=replace(self.result(),translation='слово',context_meaning='значение',context_translation='перевод')
+        self.owner.receive(self.event(result=value,context='The word has meaning.',span=(4,8)))
+        popup=self.owner.popup
+        for widget in (popup.meaning_heading,popup.meaning_value,popup.context_heading,popup.context_source,popup.context_fragment,popup.context_value):
+            self.assertTrue(widget.isHidden())
+        self.owner.receive(self.event('context',result=replace(value,context_meaning='поздно',context_translation='поздний перевод')))
+        self.assertTrue(popup.meaning_value.isHidden())
+        self.assertTrue(popup.context_value.isHidden())
+        popup.card_button.click()
+        conn=open_store();self.addCleanup(conn.close)
+        card=learning.get_card(conn,'word')
+        self.assertEqual((card['translation'],card['context'],card['span']),('значение','The word has meaning.',(4,8)))
+        self.preferences(popup_show_context=True,popup_show_meaning=False)
+        self.owner.receive(self.event(result=value,context='Visible source'))
+        self.assertFalse(popup.context_source.isHidden())
+        self.assertFalse(popup.context_value.isHidden())
+        self.assertTrue(popup.meaning_value.isHidden())
+
+    def test_owner_initialization_loads_saved_popup_preferences(self):
+        from lookup import config
+        config.save(dict(popup_show_context=True,popup_show_meaning=False,popup_expand_articles=True))
+        owner=self.Owner({},engine_factory=FakeEngine,focus=False,on_quit=lambda:None)
+        try:
+            deadline=time.monotonic()+2
+            while owner.settings_controller.pending and time.monotonic()<deadline:
+                self.application.processEvents();QTest.qWait(5)
+            owner.Trigger('')
+            owner.receive(app.Event(owner.engine.generation,'ready',result=replace(self.result(),context_meaning='hidden'),
+                context='Persisted source',point=(100,100),monitor=self.monitor,mode='primary'))
+            self.assertFalse(owner.popup.context_source.isHidden())
+            self.assertTrue(owner.popup.meaning_value.isHidden())
+            self.assertTrue(all(button.isChecked() for button in owner.popup.findChildren(QPushButton) if button.isCheckable()))
+        finally:
+            owner.quit();owner.popup.deleteLater();owner.menu.deleteLater();owner.deleteLater()
+
     def test_actual_fields_order_plain_text_and_no_invented_metadata(self):
         self.owner.receive(self.event(result=self.result(),context='Public source'))
         text=self.texts()
@@ -211,6 +287,7 @@ class GuiTests(unittest.TestCase):
         self.assertIn('Искали 3 раз',self.texts())
 
     def test_meaning_failures_fragment_and_plain_text_remain_readable(self):
+        self.preferences(popup_show_context=True)
         value=replace(self.result(),context_pending=False,meaning_error='no_context')
         self.owner.receive(self.event(result=value,context='available source'))
         self.assertFalse(self.owner.popup.context_fragment.isHidden())
@@ -359,6 +436,7 @@ class GuiTests(unittest.TestCase):
         self.assertIn('Не удалось распознать текст вовремя',self.texts())
 
     def test_native_palette_font_long_text_and_disabled_future_actions(self):
+        self.preferences(popup_expand_articles=True)
         value=self.result()
         value.articles=(replace(value.articles[0],text='unbroken'*1000),)
         self.owner.receive(self.event(result=value))
@@ -395,6 +473,9 @@ class GuiTests(unittest.TestCase):
         self.assertTrue(self.owner.popup.isVisible())
         old_identity=self.identity
         window.timeout.setValue(7)
+        window.popup_show_context.setChecked(True)
+        window.popup_show_meaning.setChecked(False)
+        window.popup_expand_articles.setChecked(True)
         self.assertTrue(window.apply_button.isEnabled(),repr(window.snapshot()))
         QTest.mouseClick(window.apply_button,Qt.MouseButton.LeftButton)
         wait(lambda:controller.reload_revision is not None)
@@ -413,6 +494,9 @@ class GuiTests(unittest.TestCase):
         self.owner.receive(self.event(result=self.result(),context='Public source'))
         self.assertEqual(self.owner.popup._duration,7000)
         self.assertEqual(self.owner.popup.timer.interval(),7000)
+        self.assertFalse(self.owner.popup.context_source.isHidden())
+        self.assertTrue(self.owner.popup.meaning_value.isHidden())
+        self.assertTrue(all(button.isChecked() for button in self.owner.popup.findChildren(QPushButton) if button.isCheckable()))
         window.close();self.owner.open_settings()
         wait(lambda:not controller.pending)
         self.assertIs(self.owner.settings_window,window)
