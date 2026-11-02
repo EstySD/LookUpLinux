@@ -144,6 +144,114 @@ class SceneTests(EngineCase):
         self.assertEqual(len(source.resolved),1)
         self.assertEqual(self.count(),1)
 
+    def test_close_scene_invalidates_held_lookup_and_rejects_stale_session(self):
+        entered,release,finished=threading.Event(),threading.Event(),threading.Event()
+        self.addCleanup(release.set)
+        def lookup(text,**kwargs):
+            entered.set();release.wait(2)
+            value=self.lookup(text,**kwargs)
+            kwargs['on_ready'](value)
+            finished.set()
+            return value
+        engine=self.engine(source=SceneSource(),lookup=lookup)
+        self.addCleanup(release.set)
+        identity=engine.begin();engine.enqueue_scene(identity)
+        self.assertTrue(entered.wait(1))
+        scene=next(e.scene for e in self.events if e.stage=='scene')
+        self.assertFalse(engine.close_scene(scene.session_id+1))
+        self.assertTrue(engine.current(identity))
+        self.assertTrue(engine.close_scene(scene.session_id))
+        self.assertFalse(engine.current(identity))
+        release.set();self.assertTrue(finished.wait(1))
+        self.assertEqual(self.count(),0)
+        self.assertFalse(any(e.stage in ('ready','context') for e in self.events))
+        self.assertFalse(engine.select_scene(engine.begin(),scene.session_id,(50,50)))
+
+    def test_new_selection_suppresses_old_ready_and_context_on_same_frame(self):
+        entered,release=threading.Event(),threading.Event()
+        self.addCleanup(release.set)
+        def lookup(text,**kwargs):
+            if text=='word':entered.set();release.wait(2)
+            value=self.lookup(text,**kwargs)
+            kwargs['on_ready'](value)
+            return value
+        source=SceneSource();engine=self.engine(source=source,lookup=lookup)
+        first=engine.begin();engine.enqueue_scene(first)
+        self.assertTrue(entered.wait(1))
+        scene=next(e.scene for e in self.events if e.stage=='scene')
+        latest=engine.begin();self.assertTrue(engine.select_scene(latest,scene.session_id,(150,50)))
+        release.set()
+        self.wait(lambda:any(e.id==latest and e.stage=='context' for e in self.events))
+        self.assertEqual([e.id for e in self.events if e.stage in ('ready','context')],[latest,latest])
+        self.assertEqual(self.count(),1)
+        self.assertEqual(len(source.freezes),1)
+        with contextlib.closing(open_store(self.path)) as conn:
+            self.assertEqual(conn.execute('SELECT word,context FROM words').fetchall(),[('river','The word flows.')])
+
+    def test_scene_frame_released_on_close_dismiss_reload_and_stop(self):
+        import weakref
+        for action in ('close','dismiss','reload','stop'):
+            with self.subTest(action=action):
+                self.events.clear()
+                frame=capture.Capture(b'public pixels',1000,800,'test',0)
+                reference=weakref.ref(frame);frames=[frame];del frame
+                class Source(FixedSource):
+                    def freeze(self):return app.Frozen('ocr',(50,50),MONITOR,image=frames.pop())
+                    def resolve(self,frozen,dictset):return app.Query('word','word')
+                engine=self.engine(source=Source(),lookup=self.lookup)
+                identity=engine.begin();engine.enqueue_scene(identity)
+                self.wait(lambda:any(e.stage=='context' for e in self.events))
+                session_id=next(e.scene.session_id for e in self.events if e.stage=='scene')
+                self.events.clear()
+                self.assertIsNotNone(reference())
+                if action=='close':engine.close_scene(session_id)
+                elif action=='dismiss':engine.dismiss(identity)
+                elif action=='reload':
+                    revision=engine.request_reload()
+                    self.wait(lambda:any(e.reload_revision==revision for e in self.events))
+                else:engine.stop();engine.join(2)
+                self.assertIsNone(reference())
+                engine.stop();engine.join(2)
+
+    def test_close_releases_queued_raw_capture_before_resources_open(self):
+        import weakref
+        opened,release=threading.Event(),threading.Event()
+        self.addCleanup(release.set)
+        @contextlib.contextmanager
+        def resources():
+            opened.set();release.wait(2)
+            with self.resources() as value:yield value
+        class Snapshot:pass
+        snapshot=Snapshot();reference=weakref.ref(snapshot)
+        engine=self.engine(resources=resources)
+        self.addCleanup(release.set)
+        self.assertTrue(opened.wait(1))
+        identity=engine.begin();engine.enqueue_scene(identity,snapshot)
+        del snapshot
+        engine.close_scene()
+        self.assertIsNone(reference())
+        release.set()
+        engine.stop();engine.join(2)
+        self.assertEqual(self.events,[])
+
+    def test_no_hit_keeps_scene_but_operational_failure_releases_it(self):
+        class Source(SceneSource):
+            def resolve(self,frozen,dictset):
+                if frozen.point[0]<100:raise app.AppError('not_found')
+                if frozen.point[0]>=200:raise ocr.OcrError('timeout')
+                return super().resolve(frozen,dictset)
+        engine=self.engine(source=Source(),lookup=self.lookup)
+        identity=engine.begin();engine.enqueue_scene(identity)
+        self.wait(lambda:any(e.id==identity and e.stage=='error' for e in self.events))
+        scene=next(e.scene for e in self.events if e.stage=='scene')
+        self.assertEqual(next(e.error for e in self.events if e.stage=='error'),'not_found')
+        identity=engine.begin();self.assertTrue(engine.select_scene(identity,scene.session_id,(150,50)))
+        self.wait(lambda:any(e.id==identity and e.stage=='context' for e in self.events))
+        identity=engine.begin();self.assertTrue(engine.select_scene(identity,scene.session_id,(250,50)))
+        self.wait(lambda:any(e.id==identity and e.stage=='error' for e in self.events))
+        self.assertEqual(next(e.error for e in self.events if e.id==identity and e.stage=='error'),'ocr_timeout')
+        self.assertFalse(engine.select_scene(engine.begin(),scene.session_id,(150,50)))
+
 
 class EngineTests(EngineCase):
     def test_raw_snapshot_is_released_before_translation_and_worker_idle(self):
