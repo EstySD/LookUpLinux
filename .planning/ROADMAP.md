@@ -18,7 +18,7 @@ v1.1 is ready for Phase 10 discussion. [Phase 9 verification](phases/09-hotkey-c
 ## Phases
 
 - [x] **Phase 9: Фиксация по хоткею и скорость** - Capture the requested moment and remove measured delays. (completed 2026-11-02)
-- [ ] **Phase 10: Компактный настраиваемый попап** - Show relevant meanings first and allow hiding context.
+- [x] **Phase 10: Компактный настраиваемый попап** - Show relevant meanings first and allow hiding context. (completed 2026-11-02)
 - [ ] **Phase 11: Выбор слов на замороженной сцене** - Select words on a retained scene while intercepting input.
 - [ ] **Phase 12: Словари Yomitan** - Connect and use the user's real dictionaries.
 - [ ] **Phase 13: Понятный первый запуск и GUI** - Discover the interface without knowing tray conventions.
@@ -56,7 +56,7 @@ v1.1 is ready for Phase 10 discussion. [Phase 9 verification](phases/09-hotkey-c
 
 **Plans**: 0/1 plans executed
 
-- [ ] 10-01-PLAN.md
+- [x] 10-01-PLAN.md
 
 **UI hint**: yes
 
@@ -136,7 +136,7 @@ v1.1 is ready for Phase 10 discussion. [Phase 9 verification](phases/09-hotkey-c
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 9. Фиксация по хоткею и скорость | 2/2 | Complete    | 2026-11-02 |
-| 10. Компактный настраиваемый попап | 0/1 | Planned    |  |
+| 10. Компактный настраиваемый попап | 1/1 | Complete    | 2026-11-02 |
 | 11. Выбор слов на замороженной сцене | 0/TBD | Not started | - |
 | 12. Словари Yomitan | 0/TBD | Not started | - |
 | 13. Понятный первый запуск и GUI | 0/TBD | Not started | - |

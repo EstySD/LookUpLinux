@@ -12,8 +12,8 @@ Defined 2026-11-02 from [agreed brief](v1.1-CONTEXT.md). All requirements are pe
 
 ### First priority: compact popup
 
-- [ ] **POP-06**: With online translation disabled, the requested word and relevant meanings appear at the start of the popup without searching through a long article.
-- [ ] **SET-02**: User can hide context and configure the popup blocks agreed during phase discussion; choices apply to subsequent requests and survive restart.
+- [x] **POP-06**: With online translation disabled, the requested word and relevant meanings appear at the start of the popup without searching through a long article.
+- [x] **SET-02**: User can hide context and configure the popup blocks agreed during phase discussion; choices apply to subsequent requests and survive restart.
 
 ### First priority: frozen scene selection
 
@@ -54,8 +54,8 @@ Audio pronunciation, CEFR and new Anki synchronization are excluded. Existing ca
 | CAPT-06 | Phase 9 | Complete |
 | CAPT-07 | Phase 9 | Complete |
 | PERF-02 | Phase 9 | Complete |
-| POP-06 | Phase 10 | Pending |
-| SET-02 | Phase 10 | Pending |
+| POP-06 | Phase 10 | Complete |
+| SET-02 | Phase 10 | Complete |
 | CAPT-08 | Phase 11 | Pending |
 | TRIG-05 | Phase 11 | Pending |
 | TRIG-06 | Phase 11 | Pending |
