@@ -1,0 +1,14 @@
+{
+  "last_key_ns": 810416984000,
+  "mouse_move": {
+    "mono_ns": 810497015000,
+    "x": 5132,
+    "y": 8212,
+    "max_x": 65535,
+    "max_y": 65535
+  },
+  "mouse_after_key_ms": 80.031,
+  "physical_presses": 10,
+  "kernel_clocks": "CLOCK_MONOTONIC",
+  "selected": "bank"
+}

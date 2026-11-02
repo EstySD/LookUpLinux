@@ -1,0 +1,181 @@
+{
+  "input_ns": 813198661000,
+  "receipt_ns": 813200447670,
+  "clock_ioctl_verified": true,
+  "kernel_clock_verified": true,
+  "last_not_visible_ns": 812745679405,
+  "rows_before": 1,
+  "released": true,
+  "attempt": 471,
+  "group": "visible_popup",
+  "case": 1,
+  "scene": 1,
+  "verify_count": false,
+  "token": 812318575952,
+  "input_sequence": 471,
+  "status": "success",
+  "mode": "native",
+  "physical": true,
+  "pid": 994,
+  "process_start": 20248,
+  "process_start_source": "proc_stat",
+  "run": 2742507081843099,
+  "request": 37,
+  "clock": "guest_monotonic",
+  "frame_clock": "guest_monotonic",
+  "origin": "kernel_evdev",
+  "trigger_ns": 813345387205,
+  "first_visible_start_ns": 814009845495,
+  "first_visible_end_ns": 814055759092,
+  "frame_identity": [
+    994,
+    20248,
+    2742507081843099,
+    37
+  ],
+  "frame_sha256": "8da12d807303ae1e1f416c1d278a572a1fb95081f658403e144e4934ed0792fc",
+  "observed": true,
+  "fresh": true,
+  "useful_verified": true,
+  "loading": false,
+  "error_card": false,
+  "previous_card": false,
+  "latency_ms": 857.098092,
+  "monitor": {
+    "name": "Virtual-1",
+    "x": 0,
+    "y": 0,
+    "width": 1280.0,
+    "height": 800.0,
+    "scale": 1
+  },
+  "popup_rect": [
+    696.0,
+    0.0,
+    440.0,
+    540.0
+  ],
+  "work_area": [
+    0,
+    0,
+    1280,
+    738
+  ],
+  "actual_cursor": [
+    684,
+    376
+  ],
+  "process_birth_mono_lower_ns": 202470000521,
+  "process_born_after_input": false,
+  "transport_file_uid": 1001,
+  "transport_file_mode": "0o644",
+  "events": [
+    {
+      "boot_id": "b3394ec3-6354-4f73-8cfb-d401125a55e7",
+      "pid": 994,
+      "request": 37,
+      "stage": "frozen",
+      "mono_ns": 813390652724,
+      "elapsed_ms": 40.1360810000142,
+      "error": null,
+      "point": [
+        684.23828125,
+        376.23291015625
+      ],
+      "key": null
+    },
+    {
+      "boot_id": "b3394ec3-6354-4f73-8cfb-d401125a55e7",
+      "pid": 994,
+      "request": 37,
+      "stage": "ready",
+      "mono_ns": 813602690267,
+      "elapsed_ms": 252.17585799998687,
+      "error": null,
+      "point": [
+        684.23828125,
+        376.23291015625
+      ],
+      "key": "bank"
+    }
+  ],
+  "timing": [
+    {
+      "mono_ns": 813345387205,
+      "pid": 994,
+      "request": 37,
+      "run": 2742507081843099,
+      "stage": 1
+    },
+    {
+      "elapsed_ms": 3.246254,
+      "mono_ns": 813201907254,
+      "pid": 994,
+      "request": 37,
+      "run": 2742507081843099,
+      "stage": 7
+    },
+    {
+      "elapsed_ms": 5.694961,
+      "mono_ns": 813351082166,
+      "pid": 994,
+      "request": 37,
+      "run": 2742507081843099,
+      "stage": 2
+    },
+    {
+      "elapsed_ms": 47.466812,
+      "mono_ns": 813392854017,
+      "pid": 994,
+      "request": 37,
+      "run": 2742507081843099,
+      "stage": 4,
+      "useful": 0
+    },
+    {
+      "cache": 0.0,
+      "capture": 2.895693,
+      "classify": 0.017013000046972593,
+      "context": 0.0,
+      "db": 0.0,
+      "dicts": 1.0120760000518203,
+      "elapsed_ms": 257.561707,
+      "engine_ms": 252.17585799998687,
+      "first_useful": 252.03710300002058,
+      "meaning_ready": 0.0,
+      "mono_ns": 813602948912,
+      "ocr": 160.49960999998802,
+      "online": 0.0,
+      "pid": 994,
+      "prepare_image": 49.93437500002074,
+      "request": 37,
+      "run": 2742507081843099,
+      "select": 0.26785199997902964,
+      "stage": 3,
+      "total": 1.0569830000122238
+    },
+    {
+      "elapsed_ms": 275.483647,
+      "mono_ns": 813620870852,
+      "pid": 994,
+      "request": 37,
+      "run": 2742507081843099,
+      "stage": 4,
+      "useful": 1
+    }
+  ],
+  "snapshots": [
+    {
+      "pid": 994,
+      "input_ns": 813198661000,
+      "capture_ns": 813201907254,
+      "point": [
+        684.23828125,
+        376.23291015625
+      ],
+      "pointer_ns": 813005080000,
+      "latest_pointer_ns": 813005080000
+    }
+  ],
+  "installed_entrypoint_verified": true
+}

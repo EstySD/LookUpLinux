@@ -1,0 +1,28 @@
+{
+  "single_use": {
+    "unauthorized_empty": true,
+    "authorized_first_has_frame": true,
+    "single_consumption": true,
+    "first": {
+      "empty": false,
+      "point": [
+        100.234375,
+        100.244140625
+      ],
+      "bytes": 4096000,
+      "input_ns": 1355516107000,
+      "capture_ns": 1355519112944
+    },
+    "current_cursor": [
+      100,
+      100
+    ],
+    "coordinates_after_scale_restore": true
+  },
+  "expiry": {
+    "expired_frame_rejected": true,
+    "reply": {
+      "error": "capture_failed"
+    }
+  }
+}

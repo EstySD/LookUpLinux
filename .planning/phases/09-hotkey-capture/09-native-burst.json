@@ -1,0 +1,183 @@
+{
+  "input_ns": 810416984000,
+  "receipt_ns": 810419654969,
+  "clock_ioctl_verified": true,
+  "kernel_clock_verified": true,
+  "last_not_visible_ns": 809432212783,
+  "rows_before": 0,
+  "released": true,
+  "attempt": 470,
+  "group": "burst",
+  "case": 1,
+  "scene": 1,
+  "verify_count": true,
+  "token": 808999841588,
+  "input_sequence": 470,
+  "status": "success",
+  "mode": "native",
+  "physical": true,
+  "pid": 994,
+  "process_start": 20248,
+  "process_start_source": "proc_stat",
+  "run": 2742507081843099,
+  "request": 36,
+  "clock": "guest_monotonic",
+  "frame_clock": "guest_monotonic",
+  "origin": "kernel_evdev",
+  "trigger_ns": 810432119414,
+  "first_visible_start_ns": 811277169228,
+  "first_visible_end_ns": 811322655872,
+  "frame_identity": [
+    994,
+    20248,
+    2742507081843099,
+    36
+  ],
+  "frame_sha256": "7b50323104e31804bed2c6f90e8cac07d4b9cd3c46b7fef1da2e75b6ceb8d2b3",
+  "observed": true,
+  "fresh": true,
+  "useful_verified": true,
+  "loading": false,
+  "error_card": false,
+  "previous_card": false,
+  "latency_ms": 905.671872,
+  "monitor": {
+    "name": "Virtual-1",
+    "x": 0,
+    "y": 0,
+    "width": 1280.0,
+    "height": 800.0,
+    "scale": 1
+  },
+  "popup_rect": [
+    696.0,
+    0.0,
+    440.0,
+    540.0
+  ],
+  "work_area": [
+    0,
+    0,
+    1280,
+    738
+  ],
+  "actual_cursor": [
+    100,
+    100
+  ],
+  "observed_footer_count": 65,
+  "expected_count": 65,
+  "process_birth_mono_lower_ns": 202470000440,
+  "process_born_after_input": false,
+  "transport_file_uid": 1001,
+  "transport_file_mode": "0o644",
+  "events": [
+    {
+      "boot_id": "b3394ec3-6354-4f73-8cfb-d401125a55e7",
+      "pid": 994,
+      "request": 36,
+      "stage": "frozen",
+      "mono_ns": 810514774088,
+      "elapsed_ms": 80.46022899998206,
+      "error": null,
+      "point": [
+        684.23828125,
+        376.23291015625
+      ],
+      "key": null
+    },
+    {
+      "boot_id": "b3394ec3-6354-4f73-8cfb-d401125a55e7",
+      "pid": 994,
+      "request": 36,
+      "stage": "ready",
+      "mono_ns": 810847689767,
+      "elapsed_ms": 413.3781130000216,
+      "error": null,
+      "point": [
+        684.23828125,
+        376.23291015625
+      ],
+      "key": "bank"
+    }
+  ],
+  "timing": [
+    {
+      "mono_ns": 810432119414,
+      "pid": 994,
+      "request": 36,
+      "run": 2742507081843099,
+      "stage": 1
+    },
+    {
+      "elapsed_ms": 3.359078,
+      "mono_ns": 810420343078,
+      "pid": 994,
+      "request": 36,
+      "run": 2742507081843099,
+      "stage": 7
+    },
+    {
+      "elapsed_ms": 2.242928,
+      "mono_ns": 810434362342,
+      "pid": 994,
+      "request": 36,
+      "run": 2742507081843099,
+      "stage": 2
+    },
+    {
+      "elapsed_ms": 83.621375,
+      "mono_ns": 810515740789,
+      "pid": 994,
+      "request": 36,
+      "run": 2742507081843099,
+      "stage": 4,
+      "useful": 0
+    },
+    {
+      "cache": 0.0,
+      "capture": 3.193005,
+      "classify": 0.01722399997561297,
+      "context": 0.0,
+      "db": 0.0,
+      "dicts": 1.0770129999855271,
+      "elapsed_ms": 415.830269,
+      "engine_ms": 413.3781130000216,
+      "first_useful": 413.23165200003587,
+      "meaning_ready": 0.0,
+      "mono_ns": 810847949683,
+      "ocr": 239.23401199999716,
+      "online": 0.0,
+      "pid": 994,
+      "prepare_image": 91.77680699997381,
+      "request": 36,
+      "run": 2742507081843099,
+      "select": 0.4900679999764179,
+      "stage": 3,
+      "total": 1.121639999951185
+    },
+    {
+      "elapsed_ms": 434.12822,
+      "mono_ns": 810866247634,
+      "pid": 994,
+      "request": 36,
+      "run": 2742507081843099,
+      "stage": 4,
+      "useful": 1
+    }
+  ],
+  "snapshots": [
+    {
+      "pid": 994,
+      "input_ns": 810416984000,
+      "capture_ns": 810420343078,
+      "point": [
+        684.23828125,
+        376.23291015625
+      ],
+      "pointer_ns": 809705827000,
+      "latest_pointer_ns": 809705827000
+    }
+  ],
+  "installed_entrypoint_verified": true
+}

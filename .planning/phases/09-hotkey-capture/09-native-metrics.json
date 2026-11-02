@@ -1,0 +1,77 @@
+{
+  "cold_resident": {
+    "count": 5,
+    "hotkey_to_capture_ms": {
+      "median": 3.075,
+      "p95": 4.145
+    },
+    "hotkey_to_frozen_ms": {
+      "median": 181.068,
+      "p95": 237.414
+    },
+    "latency_ms": {
+      "median": 870.585,
+      "p95": 1088.651
+    }
+  },
+  "warm_distinct": {
+    "count": 20,
+    "hotkey_to_capture_ms": {
+      "median": 3.317,
+      "p95": 3.82
+    },
+    "hotkey_to_frozen_ms": {
+      "median": 201.885,
+      "p95": 253.271
+    },
+    "latency_ms": {
+      "median": 884.52,
+      "p95": 1002.269
+    }
+  },
+  "cold_start": {
+    "count": 5,
+    "hotkey_to_capture_ms": {
+      "median": 2.998,
+      "p95": 3.599
+    },
+    "hotkey_to_frozen_ms": {
+      "median": 506.0,
+      "p95": 536.85
+    },
+    "latency_ms": {
+      "median": 1201.523,
+      "p95": 1234.493
+    }
+  },
+  "move_after_hotkey": {
+    "count": 5,
+    "hotkey_to_capture_ms": {
+      "median": 3.164,
+      "p95": 3.315
+    },
+    "hotkey_to_frozen_ms": {
+      "median": 197.597,
+      "p95": 218.152
+    },
+    "latency_ms": {
+      "median": 888.606,
+      "p95": 900.676
+    }
+  },
+  "scene_change": {
+    "count": 5,
+    "hotkey_to_capture_ms": {
+      "median": 3.043,
+      "p95": 4.112
+    },
+    "hotkey_to_frozen_ms": {
+      "median": 189.637,
+      "p95": 200.197
+    },
+    "latency_ms": {
+      "median": 865.547,
+      "p95": 888.187
+    }
+  }
+}

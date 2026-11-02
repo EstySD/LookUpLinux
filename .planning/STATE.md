@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Надёжность и распространение
-current_phase: 9
-current_phase_name: Фиксация по хоткею и скорость
-status: blocked
-stopped_at: "Phase 9 safety gate 3: CAPT-06 and CAPT-07 FAIL; 09-01 complete, 09-02 partial. Resident speed improvement verified; temporal capture replan required."
-last_updated: "2026-11-02T06:30:24.037Z"
+current_phase: 10
+current_phase_name: Компактный настраиваемый попап
+status: planning
+stopped_at: "Phase 9 completed: CAPT-06/CAPT-07/PERF-02 verified; native package built and tested, owned clone OFF. Phase 10 discussion is next."
+last_updated: "2026-11-02T11:34:22.155Z"
 last_activity: 2026-11-02
-last_activity_desc: 09-01 baseline complete; resident capture improved; 09-02 blocked by real temporal verification
+last_activity_desc: Phase 9 complete, transitioned to Phase 10
 progress:
   total_phases: 7
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
-  percent: 0
+  completed_plans: 2
+  percent: 14
 ---
 
 # Project State
@@ -24,20 +24,20 @@ progress:
 See: .planning/PROJECT.md (v1 scope expanded 2026-10-27)
 
 **Core value:** Хоткей над английским словом даёт перевод в оверлее у курсора примерно за 1–2 секунды, и слово попадает в базу со счётчиком.
-**Current focus:** Phase 9 — Фиксация по хоткею и скорость
+**Current focus:** Phase 10 — Компактный настраиваемый попап
 
 ## Current Position
 
-Phase: 9 (Фиксация по хоткею и скорость) — EXECUTING
-Plan: 2 of 2
-Status: blocked
-Last activity: 2026-11-02 — 09-01 baseline complete; resident capture improved; 09-02 blocked by real temporal verification
+Phase: 10 — Компактный настраиваемый попап
+Plan: Not started
+Status: planning
+Last activity: 2026-11-02 — Phase 9 complete, transitioned to Phase 10
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 43
+- Total plans completed: 54
 - Average duration: -
 - Total execution time: not aggregated
 
@@ -55,6 +55,7 @@ Last activity: 2026-11-02 — 09-01 baseline complete; resident capture improved
 | 7 | 5 | - | - |
 | 8 | 9 | - | - |
 | 8 | 9 | - | - |
+| 9 | 2 | - | - |
 
 **Recent Trend:**
 
@@ -121,7 +122,6 @@ No active release blocker. Known limits and the retained historical Phase 7 pres
 - [Phase 7]: kdotool есть только в AUR, а `makepkg -si` ставит зависимости лишь из репозиториев; решить: вложить бинарник, собирать из исходников или optdepends
 - [Phase 7]: Смена хоткея из настроек требует перерегистрации `.desktop` и `kbuildsycoca6` на лету
 - [Phase 8]: VM врёт про курсор и рендер, на железе друга не проверяем; логику масштаба и выбора слова покрыть тестами вне VM
-- Phase 9 temporal verification unresolved: immediate movement samples B and scene replacement returns river instead of bank. Existing delayed capture route cannot recover the original; compositor-bound capture prototype and full cold path required. See 09-VERIFICATION.md.
 
 ## Deferred Items
 
@@ -133,8 +133,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-11-02T06:28:35.171Z
-Stopped at: Phase 9 safety gate 3: CAPT-06 and CAPT-07 FAIL; 09-01 complete, 09-02 partial. Resident speed improvement verified; temporal capture replan required.
+Last session: 2026-11-02T11:33:00.502Z
+Stopped at: Phase 9 completed: CAPT-06/CAPT-07/PERF-02 verified; native package built and tested, owned clone OFF. Phase 10 discussion is next.
 Resume file: None
 
 ## Operator Next Steps

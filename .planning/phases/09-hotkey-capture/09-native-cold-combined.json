@@ -1,0 +1,181 @@
+{
+  "input_ns": 1650841838000,
+  "receipt_ns": 1650850866158,
+  "clock_ioctl_verified": true,
+  "kernel_clock_verified": true,
+  "last_not_visible_ns": 1650304333322,
+  "rows_before": 3,
+  "released": true,
+  "attempt": 480,
+  "group": "scene_change",
+  "case": 1,
+  "scene": 1,
+  "verify_count": false,
+  "token": 1649836730435,
+  "input_sequence": 480,
+  "status": "success",
+  "mode": "native",
+  "physical": true,
+  "pid": 8503,
+  "process_start": 165101,
+  "process_start_source": "proc_stat",
+  "run": 981754387526593,
+  "request": 1,
+  "clock": "guest_monotonic",
+  "frame_clock": "guest_monotonic",
+  "origin": "kernel_evdev",
+  "trigger_ns": 1651271645214,
+  "first_visible_start_ns": 1652075340010,
+  "first_visible_end_ns": 1652116930997,
+  "frame_identity": [
+    8503,
+    165101,
+    981754387526593,
+    1
+  ],
+  "frame_sha256": "e83929d2148b230975fcd31342b33af6a58a99a6538eb6a617c805d36931b188",
+  "observed": true,
+  "fresh": true,
+  "useful_verified": true,
+  "loading": false,
+  "error_card": false,
+  "previous_card": false,
+  "latency_ms": 1275.092997,
+  "monitor": {
+    "name": "Virtual-1",
+    "x": 0,
+    "y": 0,
+    "width": 1280.0,
+    "height": 800.0,
+    "scale": 1
+  },
+  "popup_rect": [
+    696.0,
+    0.0,
+    440.0,
+    540.0
+  ],
+  "work_area": [
+    0,
+    0,
+    1280,
+    738
+  ],
+  "actual_cursor": [
+    100,
+    100
+  ],
+  "process_birth_mono_lower_ns": 1651000000270,
+  "process_born_after_input": true,
+  "transport_file_uid": 1001,
+  "transport_file_mode": "0o644",
+  "events": [
+    {
+      "boot_id": "b3394ec3-6354-4f73-8cfb-d401125a55e7",
+      "pid": 8503,
+      "request": 1,
+      "stage": "frozen",
+      "mono_ns": 1651400569241,
+      "elapsed_ms": 104.86784199997601,
+      "error": null,
+      "point": [
+        684.23828125,
+        376.23291015625
+      ],
+      "key": null
+    },
+    {
+      "boot_id": "b3394ec3-6354-4f73-8cfb-d401125a55e7",
+      "pid": 8503,
+      "request": 1,
+      "stage": "ready",
+      "mono_ns": 1651647034043,
+      "elapsed_ms": 351.32918799990875,
+      "error": null,
+      "point": [
+        684.23828125,
+        376.23291015625
+      ],
+      "key": "bank"
+    }
+  ],
+  "timing": [
+    {
+      "elapsed_ms": 388.916341,
+      "mono_ns": 1651660561555,
+      "pid": 8503,
+      "request": 1,
+      "run": 981754387526593,
+      "stage": 4,
+      "useful": 1
+    },
+    {
+      "cache": 0.0,
+      "capture": 3.13777,
+      "classify": 0.020588000097632175,
+      "context": 0.0,
+      "db": 0.0,
+      "dicts": 1.3244850001683517,
+      "elapsed_ms": 375.899942,
+      "engine_ms": 351.32918799990875,
+      "first_useful": 341.21184799982984,
+      "meaning_ready": 0.0,
+      "mono_ns": 1651647545156,
+      "ocr": 165.8697640000355,
+      "online": 0.0,
+      "pid": 8503,
+      "prepare_image": 67.91795899994213,
+      "request": 1,
+      "run": 981754387526593,
+      "select": 0.9107749999657244,
+      "stage": 3,
+      "total": 1.4276790000167239
+    },
+    {
+      "elapsed_ms": 146.409909,
+      "mono_ns": 1651418055123,
+      "pid": 8503,
+      "request": 1,
+      "run": 981754387526593,
+      "stage": 4,
+      "useful": 0
+    },
+    {
+      "elapsed_ms": 24.370357,
+      "mono_ns": 1651296015571,
+      "pid": 8503,
+      "request": 1,
+      "run": 981754387526593,
+      "stage": 2
+    },
+    {
+      "elapsed_ms": 3.276473,
+      "mono_ns": 1650845114473,
+      "pid": 8503,
+      "request": 1,
+      "run": 981754387526593,
+      "stage": 7
+    },
+    {
+      "mono_ns": 1651271645214,
+      "pid": 8503,
+      "request": 1,
+      "run": 981754387526593,
+      "stage": 1
+    }
+  ],
+  "snapshots": [
+    {
+      "pid": 8503,
+      "input_ns": 1650841838000,
+      "capture_ns": 1650845114473,
+      "point": [
+        684.23828125,
+        376.23291015625
+      ],
+      "pointer_ns": 1650590546000,
+      "latest_pointer_ns": 1650590546000
+    }
+  ],
+  "installed_entrypoint_verified": true
+}

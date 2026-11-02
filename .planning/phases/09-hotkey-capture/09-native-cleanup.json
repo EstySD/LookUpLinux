@@ -1,0 +1,20 @@
+{
+  "owned_helpers_stopped": [
+    7936
+  ],
+  "input_acls_restored": [
+    "event2",
+    "event3",
+    "event5"
+  ],
+  "passive_hook_removed": true,
+  "temporary_session_environment_removed": true,
+  "retained_user_config_sha256": "57b65fcc87a0283f91eb3dc35d4f1e9f1d1303e797364631c8fd3dd0cca92aaf",
+  "retained_user_config_unchanged": true,
+  "installed_version": "lookup-linux 0.2.0-1",
+  "original_vm_controlled": false,
+  "original_guest_accessed": false,
+  "output_scale_restored": 1,
+  "clone_final_state": "poweroff",
+  "test_guestproperty_removed": true
+}

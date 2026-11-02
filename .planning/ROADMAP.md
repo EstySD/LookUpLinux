@@ -9,15 +9,15 @@
 
 ## Current status
 
-**v1.1 «Надёжность и распространение»** initialized 2026-11-02: [brief](v1.1-CONTEXT.md), [17 pending requirements](REQUIREMENTS.md), phases 9–15 below. First priority: Danila's feedback (9–13); reliability and distribution follow (14–15). Phase 9 has two plans, one baseline summary and a verified resident capture speed improvement; temporal acceptance remains blocked.
+**v1.1 «Надёжность и распространение»** initialized 2026-11-02: [brief](v1.1-CONTEXT.md), [requirements](REQUIREMENTS.md), phases 9–15 below. Phase 9 is complete with agent verification: CAPT-06, CAPT-07 and PERF-02 pass; 14 requirements remain pending. First priority: Danila's feedback (9–13); reliability and distribution follow (14–15).
 
 v1.0 is complete with agent verification. Phase 8 passes all seven criteria; final host and target each run 797 tests on the same code revision, with zero failures. All current product/review/verifier gates pass.
 
-v1.1 execution is at Phase 9 plan 02. [Verification](phases/09-hotkey-capture/09-VERIFICATION.md) retains unresolved CAPT-06/CAPT-07 failures; no v1.1 requirement is accepted. Raw phase directories stay in `.planning/phases/` because the regression tests and evidence references use them. Historical failed attempts and the Phase 7 original-VM preservation exception remain unchanged in those records.
+v1.1 is ready for Phase 10 discussion. [Phase 9 verification](phases/09-hotkey-capture/09-VERIFICATION.md) records the native KWin fix, real hotkey/scene/cold/burst/scale evidence and improved capture budgets. Raw phase directories stay in `.planning/phases/` because regression tests and evidence references use them. Historical failed attempts and the Phase 7 original-VM preservation exception remain unchanged.
 
 ## Phases
 
-- [ ] **Phase 9: Фиксация по хоткею и скорость** - Capture the requested moment and remove measured delays.
+- [x] **Phase 9: Фиксация по хоткею и скорость** - Capture the requested moment and remove measured delays. (completed 2026-11-02)
 - [ ] **Phase 10: Компактный настраиваемый попап** - Show relevant meanings first and allow hiding context.
 - [ ] **Phase 11: Выбор слов на замороженной сцене** - Select words on a retained scene while intercepting input.
 - [ ] **Phase 12: Словари Yomitan** - Connect and use the user's real dictionaries.
@@ -41,7 +41,7 @@ v1.1 execution is at Phase 9 plan 02. [Verification](phases/09-hotkey-capture/09
 **Plans**: 1/2 plans executed
 
 - [x] 09-01-PLAN.md
-- [ ] 09-02-PLAN.md
+- [x] 09-02-PLAN.md
 
 ### Phase 10: Компактный настраиваемый попап
 
@@ -132,7 +132,7 @@ v1.1 execution is at Phase 9 plan 02. [Verification](phases/09-hotkey-capture/09
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 9. Фиксация по хоткею и скорость | 1/2 | In Progress|  |
+| 9. Фиксация по хоткею и скорость | 2/2 | Complete    | 2026-11-02 |
 | 10. Компактный настраиваемый попап | 0/TBD | Not started | - |
 | 11. Выбор слов на замороженной сцене | 0/TBD | Not started | - |
 | 12. Словари Yomitan | 0/TBD | Not started | - |

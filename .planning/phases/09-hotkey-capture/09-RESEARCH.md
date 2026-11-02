@@ -18,3 +18,12 @@ Date: 2026-11-02. Local source inspection; target baseline pending.
 ## Risks
 
 Cursor and frame come from separate compositor calls. Their temporal consistency requires a real moving-scene probe; do not describe it as atomic without evidence. A fixed timer removal alone cannot satisfy these requirements. The target VM was powered off at entry; boot only the pinned owned clone and retain restoration evidence.
+
+## Implemented resolution
+
+The baseline reproduced both races. The final implementation observes the key
+inside KWin, renders the source output before subsequent client dispatch and
+transfers the bounded snapshot once through a sealed anonymous FD. Cursor
+history uses input timestamps. This also works with the Python daemon absent.
+See 09-02-SUMMARY.md and 09-VERIFICATION.md for implementation and real evidence;
+the original pre-implementation findings above are retained.
