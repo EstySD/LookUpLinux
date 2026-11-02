@@ -860,6 +860,26 @@ class GuiTests(unittest.TestCase):
             self.assertTrue(self.owner.popup.updatesEnabled())
             self.assertIn('word',self.texts())
 
+    def test_focus_moves_only_popup_when_scene_shares_process(self):
+        from lookup import gui
+        import re
+        target=(120,160,440,300)
+        self.owner._focus_pending=(self.identity,self.owner.presentations,target)
+        def search(argv,*args,**kwargs):
+            # kdotool ORs filters unless --all is passed: the layer shares PID.
+            exact='^'+re.escape(gui.TITLE)+'$'
+            return b'popup' if '--all' in argv and argv[-1]==exact else b'layer popup'
+        with mock.patch.object(gui.platform,'run',side_effect=search) as run, \
+             mock.patch.object(gui.platform,'window_action') as action, \
+             mock.patch('lookup.gnome.active',return_value=False):
+            self.owner.start_focus()
+            self.owner._focus_thread.join(1)
+            self.assertFalse(self.owner._focus_thread.is_alive())
+            self.assertEqual([call.args[2] for call in action.call_args_list],['popup']*3)
+            self.assertEqual([call.args[3] for call in action.call_args_list],
+                             ['windowmove','windowraise','windowactivate'])
+            self.assertEqual(run.call_args.args[0][2:5],['--all','--pid',str(os.getpid())])
+
     def test_delayed_placement_starts_full_timeout_at_reveal_and_cancel_stays_closed(self):
         self.owner._popup_timeout=1
         self.owner.receive(self.event('frozen'))
