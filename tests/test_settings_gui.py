@@ -101,6 +101,31 @@ class SettingsTests(unittest.TestCase):
         return value
     def ack(self,controller,error=None,revision=None):
         controller.ack(SimpleNamespace(stage='reload',reload_revision=revision or controller.reload_revision,error=error))
+    def test_popup_controls_persist_reopen_and_rollback(self):
+        window=self.window()
+        controls=(window.popup_show_context,window.popup_show_meaning,window.popup_expand_articles)
+        self.assertEqual(tuple(control.isChecked() for control in controls),(False,True,False))
+        for control in controls:
+            self.assertTrue(control.accessibleName())
+            control.toggle()
+        window.controller.apply(window.snapshot())
+        self.wait(lambda:window.controller.reload_revision is not None)
+        self.assertTrue(all(not control.isEnabled() for control in controls))
+        self.ack(window.controller)
+        reopened=self.window()
+        self.assertEqual(tuple(getattr(reopened,name).isChecked() for name in
+            ('popup_show_context','popup_show_meaning','popup_expand_articles')),(True,False,True))
+        saved=config.load()
+        controller=self.controller()
+        applied=[];controller.applied.connect(applied.append)
+        controller.apply(self.snapshot(popup_show_context=False,popup_show_meaning=True,popup_expand_articles=False))
+        self.wait(lambda:controller.reload_revision is not None)
+        revision=controller.reload_revision
+        self.ack(controller,error='reload_failed')
+        self.wait(lambda:controller.reload_revision!=revision)
+        self.ack(controller)
+        self.assertEqual(config.load(),saved)
+        self.assertEqual(applied,[])
     def test_controls_keep_missing_ids_order_enabled_and_external_binding(self):
         config.save(dict(dictionaries=[dict(id='missing',enabled=False),dict(id='found',enabled=True)]))
         value=self.window()

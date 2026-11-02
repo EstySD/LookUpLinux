@@ -196,6 +196,26 @@ class SettingsTests(unittest.TestCase):
         self.path.parent.mkdir(parents=True,exist_ok=True)
         self.path.write_text(json.dumps(data),encoding='utf-8')
 
+    def test_popup_preferences_defaults_validation_and_round_trip(self):
+        fields = dict(popup_show_context=True,popup_show_meaning=False,popup_expand_articles=True)
+        defaults = config.load(self.path)
+        self.assertEqual(tuple(getattr(defaults,key) for key in fields),(False,True,False))
+        self.write(dict(extra='keep',online=False))
+        saved = config.save(fields,self.path)
+        self.assertEqual(config.load(self.path),saved)
+        self.assertEqual(tuple(getattr(saved,key) for key in fields),(True,False,True))
+        self.assertEqual(json.loads(self.path.read_text())['extra'],'keep')
+        for key in fields:
+            for bad in (0,1,'false',None,[]):
+                before = self.path.read_bytes()
+                with self.assertRaises(config.ConfigError):config.save({key:bad},self.path)
+                self.assertEqual(self.path.read_bytes(),before)
+                raw = json.loads(before);raw[key] = bad;self.write(raw)
+                loaded = config.load(self.path)
+                self.assertEqual(getattr(loaded,key),getattr(defaults,key))
+                self.assertFalse(loaded.online)
+                config.save(fields,self.path)
+
     def test_new_defaults_and_independent_loaded_fallbacks(self):
         self.assertEqual((Config().shortcut,Config().popup_timeout,Config().autostart),('Meta+Shift+D',20,True))
         self.write(dict(shortcut='Alt+Q',popup_timeout=7,autostart=False,online=False))
