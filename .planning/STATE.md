@@ -1,20 +1,19 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: LookUp Linux
-current_phase: 0
-status: Awaiting next milestone
-stopped_at: v1.0 complete and archived; 9 phases, 43 plans, 32 requirements verified. Owned clone OFF, user data retained, external original untouched. No next milestone started.
-last_updated: "2026-11-01T16:44:39.369Z"
-last_activity: 2026-11-01
-last_activity_desc: Milestone v1.0 completed and archived
+milestone: v1.1
+milestone_name: Надёжность и распространение
+status: planning
+current_phase: 9
+current_phase_name: Фиксация по хоткею и скорость
+stopped_at: v1.1 requirements and roadmap defined; Phase 9 discussion next. No implementation started.
+last_updated: "2026-11-02T05:57:04.349Z"
+last_activity: 2026-11-02
 progress:
-  total_phases: 9
-  completed_phases: 9
-  total_plans: 43
-  completed_plans: 43
-  percent: 100
-current_phase_name: Milestone v1.0 complete
+  total_phases: 7
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -24,14 +23,14 @@ current_phase_name: Milestone v1.0 complete
 See: .planning/PROJECT.md (v1 scope expanded 2026-10-27)
 
 **Core value:** Хоткей над английским словом даёт перевод в оверлее у курсора примерно за 1–2 секунды, и слово попадает в базу со счётчиком.
-**Current focus:** v1.0 complete: all 9 phases, 43 plans and 32 requirements verified; Phase 8 independent verification 7/7 and all final gates pass. Owned clone OFF with 16 words, one card and current user settings retained; external original untouched. No active next milestone.
+**Current focus:** v1.1: 17 pending requirements across phases 9–15. Danila's feedback is first priority. Next: discuss Phase 9, hotkey capture and latency. No implementation plans or acceptance yet; v1.0 archive and evidence retained.
 
 ## Current Position
 
-Phase: Milestone v1.0 complete
+Phase: 9 — Фиксация по хоткею и скорость
 Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-11-01 — Milestone v1.0 completed and archived
+Status: Roadmap defined; ready for Phase 9 discussion
+Last activity: 2026-11-02 — v1.1 requirements and phases 9–15 defined
 
 ## Performance Metrics
 
