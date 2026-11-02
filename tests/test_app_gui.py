@@ -224,6 +224,32 @@ class GuiTests(unittest.TestCase):
         self.owner._invalidate_settings()
         self.enter_scene()
         self.assertIsNone(self.owner.scene_window)
+
+    def test_scene_placement_failure_releases_layer_before_ordinary_error(self):
+        for waiting_paint in (True,False):
+            with self.subTest(waiting_paint=waiting_paint):
+                self.owner.Trigger('');self.identity=self.owner.engine.generation
+                layer=self.enter_scene()
+                ready=self.event(result=replace(self.result(),translation='слово'))
+                self.owner.receive(ready)
+                revision=self.owner.presentations
+                self.owner._paint_revision=revision if waiting_paint else None
+                self.owner._focus_pending=(self.identity,revision,(1,1,10,10))
+                self.owner._waiting_ready=(ready,time.monotonic()+1)
+                self.owner._waiting_context=self.event('context',result=self.result())
+                self.owner.focus_done((self.identity,revision,None,'focus_failed'))
+                self.assertIsNone(self.owner.scene_window)
+                self.assertIsNone(layer._image)
+                self.assertFalse(layer.isVisible())
+                self.assertIsNone(self.owner._waiting_ready)
+                self.assertIsNone(self.owner._waiting_context)
+                self.assertIsNone(self.owner._displayed)
+                self.assertIsNone(self.owner._paint_revision)
+                self.assertTrue(self.owner.popup.updatesEnabled())
+                self.assertIn('Не удалось разместить',self.owner.popup.title.text())
+                self.assertFalse(self.owner.engine.current(self.identity))
+                self.owner.receive(ready)
+                self.assertIn('Не удалось разместить',self.owner.popup.title.text())
     def test_hidden_popup_enqueues_without_a_hide_delay(self):
         self.owner.popup.hide_for_capture()
         self.owner.engine.pending.clear()
