@@ -54,7 +54,10 @@ v1.1 is ready for Phase 10 discussion. [Phase 9 verification](phases/09-hotkey-c
   2. User hides context and configures agreed blocks; subsequent requests and restart preserve choices.
   3. Hiding blocks preserves useful word results and existing card-saving behavior.
 
-**Plans**: TBD
+**Plans**: 0/1 plans executed
+
+- [ ] 10-01-PLAN.md
+
 **UI hint**: yes
 
 ### Phase 11: Выбор слов на замороженной сцене
@@ -133,7 +136,7 @@ v1.1 is ready for Phase 10 discussion. [Phase 9 verification](phases/09-hotkey-c
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 9. Фиксация по хоткею и скорость | 2/2 | Complete    | 2026-11-02 |
-| 10. Компактный настраиваемый попап | 0/TBD | Not started | - |
+| 10. Компактный настраиваемый попап | 0/1 | Planned    |  |
 | 11. Выбор слов на замороженной сцене | 0/TBD | Not started | - |
 | 12. Словари Yomitan | 0/TBD | Not started | - |
 | 13. Понятный первый запуск и GUI | 0/TBD | Not started | - |
