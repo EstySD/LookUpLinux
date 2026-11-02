@@ -126,6 +126,7 @@ def components():
             self.preferences=config.Config()
             self._shown_preferences=self.preferences
             self._available=None
+            self._article_buttons=[]
             self._duration=20000
             self.timer=QTimer(self)
             self.timer.setSingleShot(True)
@@ -227,6 +228,7 @@ def components():
             self._remaining=MAX_DISPLAY_CHARS
             self._blocks=0
             self._truncated=False
+            self._article_buttons=[]
             while self.body.count():
                 widget=self.body.takeAt(0).widget()
                 if widget is not None:
@@ -314,15 +316,15 @@ def components():
                 button.setCheckable(True)
                 button.setAutoDefault(True)
                 button.setSizePolicy(QSizePolicy.Policy.Ignored,QSizePolicy.Policy.Preferred)
+                button._article_name=article.dict_name
+                self._article_buttons.append(button)
                 self.body.addWidget(button)
                 text=self.add(article.text)
                 if text is None:
                     self.body.removeWidget(button);button.deleteLater()
                     continue
-                def toggle(expanded,button=button,text=text,name=article.dict_name):
-                    caption=('Свернуть статью — ' if expanded else 'Показать полную статью — ')+name
-                    button.setText(caption)
-                    button.setAccessibleName(caption)
+                def toggle(expanded,button=button,text=text):
+                    self.article_caption(button)
                     text.setVisible(expanded)
                     if self._available is not None:
                         self.size_for(self._available)
@@ -381,6 +383,14 @@ def components():
             self.context_value.setVisible(bool(text) and self._shown_preferences.popup_show_context)
             self.cache_warning.setText(CACHE_ERROR if value.cache_error else '')
             self.cache_warning.setVisible(bool(value.cache_error))
+        def article_caption(self,button):
+            prefix='Свернуть статью — ' if button.isChecked() else 'Показать полную статью — '
+            caption=prefix+button._article_name
+            metrics=button.fontMetrics()
+            available=max(1,self.width()-56-metrics.horizontalAdvance(prefix))
+            button.setText(prefix+metrics.elidedText(button._article_name,Qt.TextElideMode.ElideRight,available))
+            button.setAccessibleName(caption)
+            button.setToolTip(caption)
         def size_for(self,available):
             self._available=available
             from . import gnome
@@ -389,6 +399,7 @@ def components():
                 self.setMaximumHeight(16777215)
             width=min(440,max(1,available.width()-32) if available.width()>64 else available.width())
             self.setFixedWidth(width)
+            for button in self._article_buttons:self.article_caption(button)
             self.layout_box.activate()
             body_width=max(1,width-32)
             for label in self._labels:

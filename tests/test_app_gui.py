@@ -210,6 +210,7 @@ class GuiTests(unittest.TestCase):
         self.owner.receive(self.event('context',result=replace(value,context_meaning='поздно',context_translation='поздний перевод'),
                                       context='The word has meaning.',span=(4,8)))
         self.assertTrue(popup.meaning_value.isHidden())
+
         self.assertTrue(popup.context_value.isHidden())
         popup.card_button.click()
         conn=open_store();self.addCleanup(conn.close)
@@ -220,6 +221,21 @@ class GuiTests(unittest.TestCase):
         self.assertFalse(popup.context_source.isHidden())
         self.assertFalse(popup.context_value.isHidden())
         self.assertTrue(popup.meaning_value.isHidden())
+
+    def test_article_disclosure_elides_long_name_preserving_action(self):
+        self.preferences()
+        name='Very long dictionary name '*50
+        article=replace(self.result().articles[0],dict_name=name)
+        self.owner.receive(self.event(result=replace(self.result(),articles=(article,))))
+        button=self.owner.popup._article_buttons[0]
+        self.assertTrue(button.text().startswith('Показать полную статью — '))
+        self.assertLess(len(button.text()),len(name))
+        self.assertEqual(button.accessibleName(),'Показать полную статью — '+name)
+        self.assertEqual(button.toolTip(),button.accessibleName())
+        self.assertLessEqual(button.fontMetrics().horizontalAdvance(button.text()),self.owner.popup.width()-56)
+        QTest.keyClick(button,Qt.Key.Key_Return)
+        self.assertTrue(button.isChecked())
+        self.assertTrue(button.text().startswith('Свернуть статью — '))
 
     def test_owner_initialization_loads_saved_popup_preferences(self):
         from lookup import config
