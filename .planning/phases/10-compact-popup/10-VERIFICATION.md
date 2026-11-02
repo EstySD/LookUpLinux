@@ -10,15 +10,15 @@ requirements: [POP-06, SET-02]
 
 # Phase 10 — Implementation verification
 
-Agent evidence for implementation commit `5dab98f`; independent phase acceptance belongs to the orchestrator/verifier.
+Agent evidence for final implementation commit `2cb628a`; independent phase acceptance belongs to the orchestrator/verifier.
 
 ## Automated evidence
 
 | Check | Fresh result |
 |---|---|
-| `python -m unittest tests.test_config tests.test_settings_gui tests.test_app_gui -q` | 87 tests, OK, zero skips, 4.655 s |
-| `python -m unittest discover -s tests -q` | 833 tests, OK, 11 platform skips, 41.851 s |
-| Focused suite with registered system Segoe UI 10 font | 87 tests, OK, zero skips, 4.630 s |
+| `python -m unittest tests.test_config tests.test_settings_gui tests.test_app_gui -q` | 88 tests, OK, zero skips, 4.948 s |
+| `python -m unittest discover -s tests -q` | 834 tests, OK, 11 platform skips, 42.323 s |
+| Focused suite with registered system Segoe UI 10 font | 88 tests, OK, zero skips, 4.711 s |
 | `git diff --check` | No whitespace errors; Git emitted only existing LF/CRLF conversion notices |
 
 The full suite's controlled setup-failure JSON is expected restoration-test output; its unittest result is successful. Existing user OCR edits were present during verification and preserved outside these commits.
@@ -34,6 +34,8 @@ The full suite's controlled setup-failure JSON is expected restoration-test outp
 ## Visual evidence
 
 `10-offscreen-compact.png` shows a readable synthetic offline result: requested word, IPA, two dictionary summaries, offline status, two collapsed article controls and history count. Context is hidden. The host offscreen Qt platform reports zero font families by default; the evidence-only process registered `C:/Windows/Fonts/segoeui.ttf` and selected Segoe UI 10. No product font or theme code was changed. This is host offscreen rendering, not Breeze/KDE or human acceptance.
+
+`10-offscreen-long-name.png` verifies the review correction: even a 750-character dictionary name leaves the meanings and disclosure action visible. Summary names are bounded with full tooltips/accessibility; disclosure elides only the name portion using live font metrics. The long-name regression also verifies Enter activation.
 
 ## Target limitation
 
