@@ -1,6 +1,6 @@
 # Phase 11 — Frozen selection research
 
-Researched: 2026-11-02. Status: BLOCKED at mandatory live research gate. Confidence: HIGH for inspected code/contracts; feasibility unproven.
+Researched: 2026-11-02. Status: LIVE RESEARCH GATE PASSED for the bounded native-Qt approach below. Confidence: HIGH for observed owned-clone behavior; product implementation remains pending.
 
 ## User Constraints
 
@@ -14,11 +14,11 @@ The complete locked decisions are in `11-CONTEXT.md`. Preserve the Phase 9 frame
 | TRIG-05 | Captured hover text remains selectable; actual pointer movements are absent from source input logs while layer is active. |
 | TRIG-06 | Esc/close/reinvoke/error restore real application input, including fullscreen. |
 
-These remain pending; static API documentation cannot establish them. [VERIFIED: REQUIREMENTS.md, ROADMAP Phase 11 research gate]
+Product requirements remain pending; the live feasibility proof below permits implementation planning. Static API documentation alone cannot establish them. [VERIFIED: REQUIREMENTS.md, ROADMAP Phase 11 research gate]
 
 ## Summary
 
-Probe a native Qt selection surface first, retaining the existing compositor-produced image and OCR geometry. Do not approve implementation until actual KWin input/stacking/hover behavior passes the probe below. A client surface displaying an old frame is distinct from pausing the source application; none of the inspected code proves source execution is suspended. [VERIFIED: native/kwin-capture/capture.cpp snapshot and InputEventSpy paths; 11-CONTEXT.md]
+Use a native Qt input-taking fullscreen selection surface retaining one captured image and OCR geometry. The live probe establishes its feasibility over a hover fixture and actual fullscreen Wesnoth. A client surface displaying an old frame is distinct from pausing the source application: source frame ticks continue. Do not describe this as source-process suspension. [VERIFIED: live artifacts below; native/kwin-capture/capture.cpp; 11-CONTEXT.md]
 
 ## Architectural Responsibility Map
 
@@ -49,7 +49,18 @@ Do not set `WindowTransparentForInput`: Qt explicitly defines it as passing inpu
 
 ## Environment Availability
 
-Host native offscreen PyQt6 is available, but it cannot supply KDE compositor evidence. Owned-clone preflight was repeated during this research and still rejects operation with `Original VM must remain powered off`. No guest was entered, controlled or launched. The documented script pins clone UUID/network and requires original VM poweroff. [VERIFIED: tools/check_package_vm.ps1 and fresh preflight output]
+Initial research was blocked by the historical original-VM-poweroff guard. Denis subsequently authorized separate concurrent VMs; root verified independent clone disk/network isolation, revised the guard and booted only the owned clone. Live experiments below used only lookup07 on the owned clone, SSH2227/Wayland1. Original VM was never accessed. Host offscreen Qt is not substituted for this evidence. [VERIFIED: updated11-CONTEXT.md, tools/check_package_vm.ps1, root authorization and live SSH probe]
+
+## Live Research Evidence
+
+Disposable probe: `tools/check_frozen_selection.py`. Test profiles, observer build and frame files were under `/tmp/lookup-phase11-*`; no retained application settings changed. [VERIFIED: probe source and commands]
+
+- `11-fixture-capture.png`: actual Spectacle capture includes source QToolTip `Captured hover vocabulary`; inspected visually. `11-fixture-selection.json` records physical clicks selecting OCR words `bright` and `river` from the identical frame hash, source clicks0/source motions2 versus layer motions8. Source tick advances97→138 while retained pixels remain unchanged: visual freeze, not application suspension. Existing `lookup.ocr.parse_tsv/select_word` independently maps the captured TSV to those two words at matching coordinates. [VERIFIED: artifacts and fresh Python check]
+- Actual Wesnoth1.18.8 launched `--fullscreen` with isolated profile and native Wayland driver selection. `11-game-before.png` shows the real game filling1280×800. A test-only `SDL_PollEvent` observer calls the original exactly once, preserves returned events/result and errno, and records actual game-delivered mouse/key events. [VERIFIED: screenshot, probe source and game process arguments]
+- Same gamePID1489 throughout: before/during layer game delivered-event count11, despite10 layer motions and2 physical clicks; both selections retain the same frame hash. `11-game-layer.json` records this. After physical Esc, game event count18 and layer false (`11-game-escape.json`). Injected exception releases layer and events reach23; reinvocation-as-dismissal reaches28; explicit close reaches33. Corresponding error/reinvoke/close JSON and `11-game-events.log` retain evidence. [VERIFIED: raw artifacts]
+- The first game probe exposed Qt last-window-close exiting the disposable process; the final probe disables quit-on-last-window-close, matching existing product daemon ownership. Earlier attempts are not acceptance evidence for release. WAYLAND_DEBUG produced an empty game log, so no claim relies on it; the transparent SDL observer provides independent input evidence. [VERIFIED: probe revisions and final artifacts]
+
+The probe uses Spectacle for the retained image; planning must integrate the existing Phase9 key-time frame rather than replace it. It proves surface/input/hover feasibility, not completed product integration or all games/relative-pointer-lock modes. Visual translucency styling and product error/cancel wiring still require implementation checks. [VERIFIED: probe boundaries and Phase9 contract]
 
 ## Mandatory Probe — Not an Approved Implementation Plan
 
@@ -73,7 +84,7 @@ No root AGENTS.md exists; session-provided directives require autonomous scoped 
 
 ## Open Questions / Gate Disposition
 
-BLOCKED: Real KDE hover retention, input isolation and fullscreen cleanup are not established. The immediate obstacle is the original-VM-running guard, not demonstrated platform impossibility. Resume with the safe documented preflight and the probe above; no user design choice or generic approval is required. [VERIFIED: fresh preflight; absence of Phase 11 runtime evidence]
+RESOLVED: mandatory feasibility gate passed for captured hover retention, same-frame selection and input isolation/release over the tested actual fullscreen game. Proceed to planning with these boundaries; requirements stay pending until product implementation is verified. Other games, relative pointer lock, scales and hard-crash behavior remain explicit later verification coverage, not silently generalized from this probe. No human acceptance is claimed. [VERIFIED: live artifacts above]
 
 ## Sources
 
