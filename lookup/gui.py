@@ -569,6 +569,13 @@ def components():
             if not valid_token(token) or self._stopping:
                 return 0
             token=''
+            snapshot_error=False
+            try:
+                snapshot=core.capture.take_hotkey(self.env)
+            except core.platform.PlatformError as error:
+                if error.reason=='hotkey_consumed':return os.getpid()
+                snapshot=None
+                snapshot_error=True
             identity=self.engine.begin()
             if identity is None:
                 return 0
@@ -579,7 +586,15 @@ def components():
             self._clear_displayed()
             was_visible=self.popup.isVisible()
             self.popup.hide_for_capture()
-            if was_visible:
+            if snapshot_error:
+                self.receive(core.Event(identity,'error',error='capture_failed'))
+                return os.getpid()
+            if snapshot is not None:
+                self._timing.emit('capture',identity,at_ns=snapshot.capture_ns,
+                                  elapsed_ms=(snapshot.capture_ns-snapshot.input_ns)/1e6)
+                self._time('queue',identity)
+                self.engine.enqueue(identity,snapshot)
+            elif was_visible:
                 QTimer.singleShot(75,lambda:self._enqueue(identity))
             else:
                 self._enqueue(identity)
@@ -814,6 +829,7 @@ def run(trigger=False):
     if not bus.registerService(SERVICE):
         return 0
     from .lifecycle import ensure_entries,ensure_shortcut,LifecycleError
+    core.capture.enable_hotkey_bridge(env)
     registration_error=None
     try:
         ensure_entries()

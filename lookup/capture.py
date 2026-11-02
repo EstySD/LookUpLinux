@@ -8,7 +8,7 @@ import tempfile
 import threading
 import time
 
-from .platform import PlatformError, run
+from .platform import PlatformError, Monitor, run
 
 MAX_RAW = 256 << 20
 MAX_PNG = 64 << 20
@@ -21,6 +21,82 @@ class Capture:
     height: int
     backend: str
     elapsed_ms: float
+
+
+@dataclass(frozen=True)
+class HotkeySnapshot:
+    point: tuple
+    monitor: Monitor
+    available: tuple
+    metadata: dict
+    pixels: bytes
+    input_ns: int
+    capture_ns: int
+
+    def image(self):
+        image=raw_image(self.metadata,self.pixels)
+        return Capture(_encode(image),image.width(),image.height(),'kwin-hotkey',self.metadata['capture_ms'])
+
+
+def take_hotkey(env):
+    """Consume the compositor's one-shot, memory-only key-event snapshot."""
+    if os.name!='posix' or env.get('KDE_SESSION_VERSION')!='6':
+        return None
+    from PyQt6.QtDBus import QDBusConnection,QDBusMessage,QDBus,QDBusUnixFileDescriptor
+    bus=QDBusConnection.sessionBus()
+    message=QDBusMessage.createMethodCall('org.lookup.Capture','/org/lookup/Capture','org.lookup.Capture','Take')
+    reply=bus.call(message,QDBus.CallMode.Block,500)
+    if reply.type()==QDBusMessage.MessageType.ErrorMessage:
+        return None
+    values=reply.arguments()
+    if len(values)!=1 or not isinstance(values[0],dict):
+        raise PlatformError('bad_image')
+    metadata=values[0]
+    if not metadata:
+        return None
+    if metadata.get('status')=='consumed':
+        raise PlatformError('hotkey_consumed')
+    if 'error' in metadata:
+        raise PlatformError('capture_failed')
+    _,_,_,length=raw_layout(metadata)
+    geometry=tuple(metadata.get(k) for k in ('x','y','logical_width','logical_height','scale'))
+    point=tuple(metadata.get(k) for k in ('cursor_x','cursor_y'))
+    available=tuple(metadata.get(k) for k in ('available_x','available_y','available_width','available_height'))
+    numbers=geometry+point+available+(metadata.get('capture_ms'),)
+    now=time.monotonic_ns()
+    stamps=tuple(metadata.get(k) for k in ('input_ns','capture_ns'))
+    descriptor=metadata.get('fd')
+    if (any(type(v) not in (int,float) or not math.isfinite(v) for v in numbers)
+            or min(geometry[2:])<=0 or min(available[2:])<=0 or metadata['capture_ms']<0
+            or any(type(v) is not int for v in stamps) or not 0<stamps[0]<=stamps[1]<=now+1_000_000_000
+            or now-stamps[0]>5_000_000_000 or not isinstance(metadata.get('name'),str)
+            or not 0<len(metadata['name'])<=256 or not isinstance(descriptor,QDBusUnixFileDescriptor)
+            or not descriptor.isValid()):
+        raise PlatformError('bad_image')
+    fd=descriptor.fileDescriptor()
+    try:
+        if os.fstat(fd).st_size!=length:
+            raise PlatformError('bad_image')
+        pixels=os.pread(fd,length,0)
+        if len(pixels)!=length:
+            raise PlatformError('bad_image')
+    except OSError:
+        raise PlatformError('bad_image') from None
+    available=tuple(round(value) for value in available)
+    if min(available[2:])<=0:
+        raise PlatformError('bad_image')
+    return HotkeySnapshot(point,Monitor(metadata['name'],*geometry),available,
+                          {k:v for k,v in metadata.items() if k!='fd'},pixels,*stamps)
+
+
+def enable_hotkey_bridge(env):
+    if os.name!='posix' or env.get('KDE_SESSION_VERSION')!='6':
+        return False
+    from PyQt6.QtDBus import QDBusConnection,QDBusMessage,QDBus
+    message=QDBusMessage.createMethodCall('org.kde.KWin','/Plugins','org.kde.KWin.Plugins','LoadPlugin')
+    message.setArguments(['lookupcapture'])
+    reply=QDBusConnection.sessionBus().call(message,QDBus.CallMode.Block,1000)
+    return reply.type()!=QDBusMessage.MessageType.ErrorMessage
 
 
 def raw_layout(metadata):

@@ -1,0 +1,9 @@
+{
+  "KPlugin": {
+    "Id": "lookupcapture",
+    "Name": "LookUp hotkey snapshot",
+    "Description": "Capture only the configured LookUp shortcut at its compositor input event",
+    "License": "GPL-3.0-or-later",
+    "EnabledByDefault": true
+  }
+}

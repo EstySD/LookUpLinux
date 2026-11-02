@@ -83,6 +83,66 @@ class EngineCase(unittest.TestCase):
             return conn.execute('SELECT coalesce(sum(count),0) FROM words').fetchone()[0]
 
 class EngineTests(EngineCase):
+    def test_raw_snapshot_is_released_before_translation_and_worker_idle(self):
+        import weakref
+        class Snapshot:pass
+        snapshot=Snapshot();reference=weakref.ref(snapshot)
+        class Source(FixedSource):
+            def freeze(self,snapshot=None):return super().freeze()
+        observed=[]
+        def lookup(text,**kwargs):
+            observed.append(reference() is None)
+            return translate.Result('word',text,translation='meaning')
+        opened,release=threading.Event(),threading.Event()
+        self.addCleanup(release.set)
+        @contextlib.contextmanager
+        def resources():
+            opened.set();release.wait(2)
+            with self.resources() as value:yield value
+        engine=self.engine(source=Source(),lookup=lookup,resources=resources)
+        self.assertTrue(opened.wait(1))
+        identity=engine.begin();engine.enqueue(identity,snapshot)
+        del snapshot
+        release.set()
+        self.wait(lambda:any(e.stage=='context' for e in self.events))
+        self.assertEqual(observed,[True])
+        self.assertIsNone(reference())
+    def test_failed_resources_do_not_retain_raw_snapshot_while_worker_is_idle(self):
+        import weakref
+        class Snapshot:pass
+        snapshot=Snapshot();reference=weakref.ref(snapshot)
+        @contextlib.contextmanager
+        def resources():
+            raise OSError('controlled unavailable resources')
+            yield
+        engine=self.engine(resources=resources)
+        identity=engine.begin();engine.enqueue(identity,snapshot)
+        del snapshot
+        self.wait(lambda:any(e.stage=='error' for e in self.events))
+        self.assertIsNone(reference())
+    def test_request_snapshot_survives_resource_initialization_and_live_source_changes(self):
+        opened,release=threading.Event(),threading.Event()
+        self.addCleanup(release.set)
+        @contextlib.contextmanager
+        def resources():
+            opened.set();release.wait(2)
+            with self.resources() as value:yield value
+        class Source(FixedSource):
+            def freeze(self,snapshot=None):
+                return snapshot if snapshot is not None else super().freeze()
+        source=Source('later')
+        engine=self.engine(source=source,resources=resources)
+        self.assertTrue(opened.wait(1))
+        identity=engine.begin()
+        snapshot=app.Frozen('primary',(50,50),MONITOR,text='word')
+        engine.enqueue(identity,snapshot)
+        source.text='changed again'
+        release.set()
+        self.wait(lambda:any(e.stage=='ready' for e in self.events))
+        ready=next(e for e in self.events if e.stage=='ready')
+        self.assertEqual(ready.result.key,'word')
+        self.assertEqual(ready.point,(50,50))
+
     def test_held_second_ocr_pass_preserves_generation_reload_stop_and_one_count(self):
         import subprocess
         from tests.test_ocr import tsv
@@ -528,6 +588,20 @@ class ReloadTests(EngineCase):
 
 
 class SourceTests(unittest.TestCase):
+    def test_compositor_snapshot_is_used_without_resampling_live_scene_or_cursor(self):
+        from unittest.mock import Mock
+        snapshot=Mock(point=(50,50),monitor=MONITOR,available=(0,0,1000,740))
+        frame=snapshot.image.return_value
+        source=app.Source({})
+        with patch.object(app.platform,'cursor_position',side_effect=AssertionError('live cursor')), \
+             patch.object(app.platform,'monitors',side_effect=AssertionError('live outputs')), \
+             patch.object(app.capture,'capture_monitor',side_effect=AssertionError('live frame')), \
+             patch.object(app.platform,'read_primary',return_value=None):
+            frozen=source.freeze(snapshot)
+        self.assertEqual(frozen.point,(50,50))
+        self.assertIs(frozen.monitor,MONITOR)
+        self.assertIs(frozen.image,frame)
+        self.assertEqual(frozen.available,(0,0,1000,740))
     def test_recovered_context_and_selected_phrase_span_are_propagated(self):
         from types import SimpleNamespace
         text='The river bank by the bank.'

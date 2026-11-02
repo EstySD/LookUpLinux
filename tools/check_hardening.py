@@ -156,6 +156,7 @@ def _archive_hashes(data):
 
 def _package_member(name):
     if name.startswith('lookup/'):return 'usr/lib/lookup/app/'+name
+    if name.startswith('native/kwin-capture/'):return 'usr/share/lookup/kwin-capture/'+name.removeprefix('native/kwin-capture/')
     return {'packaging/lookup':'usr/bin/lookup',
         'LICENSE':'usr/share/licenses/lookup-linux/LICENSE',
         'COPYING.md':'usr/share/licenses/lookup-linux/COPYING.md',
@@ -173,6 +174,7 @@ def _expected_source_inventory():
         if path.is_file() and (path.suffix=='.py' or path.parent==root/'lookup/data' and path.suffix=='.txt')}
     names|={'packaging/lookup','packaging/org.lookup.Linux.desktop',
         'packaging/org.lookup.Linux.autostart.desktop','packaging/THIRD-PARTY.md','LICENSE','COPYING.md'}
+    names|={'native/kwin-capture/'+name for name in ('CMakeLists.txt','capture.cpp','metadata.json','README.md')}
     _require(all(not (root/name).is_symlink() and (root/name).resolve().is_relative_to(root) for name in names),'unsafe_source')
     return {name:hashlib.sha256((root/name).read_bytes().replace(b'\r\n',b'\n')).hexdigest() for name in names}
 

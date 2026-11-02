@@ -163,6 +163,11 @@ def _session_checks():
         key=', '.join(lifecycle.key_text(key) for key in binding.keys)
         rows=[Diagnostic('session',True,'KDE Wayland, сеансовая шина и ScreenShot2 доступны; захват не выполнялся.'),
               Diagnostic('shortcut',bool(binding.keys),'Активный хоткей: '+key if key else 'Хоткей не назначен. Задайте его в настройках LookUp Linux или KDE.')]
+        bridge=interface.isServiceRegistered('org.lookup.Capture')
+        ready=bridge.isValid() and bridge.value()
+        rows.append(Diagnostic('hotkey_capture',bool(ready),
+            'Захват по событию хоткея KWin доступен; снимок не запрашивался.' if ready else
+            'Модуль захвата KWin недоступен. Пересоберите lookup-linux после обновления KWin и запустите lookup --app.'))
         if lifecycle.is_installed():
             with lifecycle.INSTALLED_DESKTOP.open(encoding='utf-8') as stream:text=stream.read(65537)
             allowed=len(text)<=65536 and 'X-KDE-DBUS-Restricted-Interfaces=org.kde.KWin.ScreenShot2' in text

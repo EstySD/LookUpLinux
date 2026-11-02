@@ -18,7 +18,7 @@ ASSETS={
 
 def stage(output,root=ROOT,public=False):
     root=Path(root).resolve();output=Path(output)
-    if any((root/name).is_symlink() for name in ('lookup','packaging')):raise ValueError('unsafe_source')
+    if any((root/name).is_symlink() for name in ('lookup','packaging','native')):raise ValueError('unsafe_source')
     if output.is_symlink() or (output.exists() and (not output.is_dir() or any(output.iterdir()))):
         raise ValueError('build_directory_not_empty')
     files=[]
@@ -29,6 +29,7 @@ def stage(output,root=ROOT,public=False):
     files += [root/'packaging'/name for name in ('lookup','org.lookup.Linux.desktop',
         'org.lookup.Linux.autostart.desktop','THIRD-PARTY.md')]
     files += [root/'LICENSE',root/'COPYING.md']
+    files += [root/'native/kwin-capture'/name for name in ('CMakeLists.txt','capture.cpp','metadata.json','README.md')]
     if any(path.is_symlink() or not path.is_file() or not path.resolve().is_relative_to(root) for path in files):
         raise ValueError('unsafe_source')
     names=[];buffer=io.BytesIO()

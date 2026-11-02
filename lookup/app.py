@@ -68,17 +68,17 @@ class Source:
         self.env=env
         self.consumed=None
 
-    def freeze(self):
+    def freeze(self,snapshot=None):
         if self.env is None:
             self.env=platform.session_env()
         try:
-            point=platform.cursor_position(self.env)
+            point=snapshot.point if snapshot is not None else platform.cursor_position(self.env)
         except platform.PlatformError as error:
             if error.reason=='gnome_extension_unavailable':raise AppError('missing_gnome_extension') from None
             raise AppError('missing_kdotool' if error.reason=='missing_command' else 'cursor_failed') from None
         try:
-            monitor=platform.monitor_at(point,platform.monitors(self.env))
-            available=platform.work_area(self.env,monitor)
+            monitor=snapshot.monitor if snapshot is not None else platform.monitor_at(point,platform.monitors(self.env))
+            available=snapshot.available if snapshot is not None else platform.work_area(self.env,monitor)
         except platform.PlatformError as error:
             raise AppError('missing_kscreen' if error.reason=='missing_command' else 'monitor_failed') from None
         text=platform.read_primary(self.env)
@@ -94,7 +94,7 @@ class Source:
         else:
             self.consumed=None
         try:
-            frame=capture.capture_monitor(monitor,self.env,'screenshot2')
+            frame=snapshot.image() if snapshot is not None else capture.capture_monitor(monitor,self.env,'screenshot2')
         except platform.PlatformError as error:
             raise AppError('missing_pyqt6' if error.reason=='missing_pyqt6' else 'capture_failed') from None
         return Frozen('ocr',point,monitor,image=frame,available=available)
@@ -173,10 +173,10 @@ class Engine:
             self._pending=None
             return self._generation
 
-    def enqueue(self,identity):
+    def enqueue(self,identity,snapshot=None):
         with self._condition:
             if self.current(identity):
-                self._pending=(identity,self._started)
+                self._pending=(identity,self._started,snapshot)
                 self._condition.notify()
 
     def current(self,identity):
@@ -244,7 +244,7 @@ class Engine:
                         if revision is not None:
                             self._reload_pending=None
                         else:
-                            identity,started=self._pending
+                            identity,started,*snapshots=self._pending
                             self._pending=None
                     if revision is not None:
                         resources=None
@@ -263,21 +263,24 @@ class Engine:
                                 pass
                         self._ack_reload(revision,error)
                     elif resources is None:
+                        snapshots.clear()
                         self._emit(Event(identity,'error',error='reload_failed' if self._reload_revision else 'worker_failed'))
                     else:
-                        self._process(identity,started,resources)
+                        self._process(identity,started,resources,snapshots)
         except Exception:
             # Last-resort boundary: never print a private worker traceback.
             with self._condition:
                 identity=self._generation
             self._emit(Event(identity,'error',error='worker_failed'))
 
-    def _process(self,identity,started,resources):
+    def _process(self,identity,started,resources,snapshots):
         origin={}
         try:
+            snapshot=snapshots.pop()
             if not self.current(identity):
                 return
-            source=self._source.freeze()
+            source=self._source.freeze(snapshot) if snapshot is not None else self._source.freeze()
+            snapshot=None  # Release raw pixels before OCR/translation; the caller's holder is empty.
             origin=dict(point=source.point,monitor=source.monitor,mode=source.mode,available=source.available)
             if not self.current(identity):
                 return

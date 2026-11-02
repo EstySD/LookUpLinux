@@ -21,6 +21,7 @@ class PackageTests(unittest.TestCase):
             snapshot=Path(directory)/'source'
             shutil.copytree(ROOT/'lookup',snapshot/'lookup')
             shutil.copytree(ROOT/'packaging',snapshot/'packaging')
+            shutil.copytree(ROOT/'native',snapshot/'native')
             shutil.copyfile(ROOT/'PKGBUILD',snapshot/'PKGBUILD')
             for name in ('LICENSE','COPYING.md'):
                 shutil.copyfile(ROOT/name,snapshot/name)
@@ -38,7 +39,8 @@ class PackageTests(unittest.TestCase):
                 self.assertEqual(names,sorted(names))
                 self.assertIn('lookup-source/lookup/data/irregular.txt',names)
                 self.assertIn('lookup-source/packaging/lookup',names)
-                self.assertTrue(all(name.startswith(('lookup-source/lookup/','lookup-source/packaging/')) or name in ('lookup-source/LICENSE','lookup-source/COPYING.md') for name in names))
+                self.assertIn('lookup-source/native/kwin-capture/capture.cpp',names)
+                self.assertTrue(all(name.startswith(('lookup-source/lookup/','lookup-source/packaging/','lookup-source/native/kwin-capture/')) or name in ('lookup-source/LICENSE','lookup-source/COPYING.md') for name in names))
                 self.assertFalse(any('/tests/' in name or '.planning' in name or name.endswith(('.pyc','.db')) for name in names))
                 self.assertTrue(all(info.mtime==0 and info.uid==info.gid==0 for info in archive.getmembers()))
             build=(first/'PKGBUILD').read_text()

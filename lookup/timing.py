@@ -10,7 +10,7 @@ import secrets
 import sys
 import time
 
-STAGES={'trigger':1,'queue':2,'useful_ready':3,'present':4,'meaning_ready':5,'error':6}
+STAGES={'trigger':1,'queue':2,'useful_ready':3,'present':4,'meaning_ready':5,'error':6,'capture':7}
 FIELDS=frozenset(('elapsed_ms','engine_ms','useful','meaning_cache','classify','dicts','cache','online',
                   'context','db','total','first_useful','meaning_ready','prepare_image','ocr','select',
                   'capture','open_dicts','open_db','compound'))

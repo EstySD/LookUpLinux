@@ -4,6 +4,14 @@ LookUp Linux's original code is GPL-3.0-or-later; see LICENSE and COPYING.md.
 The public recipe excludes Mueller 7. The legacy root recipe includes it for
 local development only. This notice does not clear third-party rights.
 
+## KWin hotkey snapshot rendering
+
+The native module adapts the offscreen screenshot rendering sequence from
+KDE KWin 6.8.1 (https://invent.kde.org/plasma/kwin/-/tree/v6.8.1/src/plugins/screenshot).
+Copyright 2010 Martin Graesslin, 2021 Vlad Zahorodnii, 2025 Xaver Hugl;
+GPL-2.0-or-later, used here under GPL-3.0-or-later. The project installs the
+GPL-3.0 text as COPYING.md and retains the source notices.
+
 ## kdotool 0.3.0
 
 Author/upstream: jinliu, https://github.com/jinliu/kdotool . Official x86_64

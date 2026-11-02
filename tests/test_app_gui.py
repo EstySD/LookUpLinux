@@ -34,8 +34,9 @@ class FakeEngine:
     def begin(self):
         self.generation+=1
         return self.generation
-    def enqueue(self,identity):
+    def enqueue(self,identity,snapshot=None):
         self.pending.append(identity)
+        self.snapshot=snapshot
     def current(self,identity):
         return identity==self.generation and not self.stopping
     def dismiss(self,identity):
@@ -118,6 +119,24 @@ class GuiTests(unittest.TestCase):
             self.owner.Trigger('')
         self.assertEqual(self.owner.engine.pending,[self.owner.engine.generation])
         timer.assert_not_called()
+    def test_hotkey_snapshot_bypasses_hide_delay_and_is_queued_with_request(self):
+        self.owner.popup.show()
+        self.owner.engine.pending.clear()
+        snapshot=mock.Mock(input_ns=1,capture_ns=2)
+        with mock.patch.object(app.capture,'take_hotkey',return_value=snapshot), \
+             mock.patch.object(QTimer,'singleShot') as timer:
+            self.owner.Trigger('')
+        timer.assert_not_called()
+        self.assertFalse(self.owner.popup.isVisible())
+        self.assertEqual(self.owner.engine.pending,[self.owner.engine.generation])
+        self.assertIs(self.owner.engine.snapshot,snapshot)
+    def test_duplicate_activation_does_not_cancel_the_request_that_consumed_latest_frame(self):
+        generation=self.owner.engine.generation
+        pending=list(self.owner.engine.pending)
+        with mock.patch.object(app.capture,'take_hotkey',side_effect=app.platform.PlatformError('hotkey_consumed')):
+            self.owner.Trigger('')
+        self.assertEqual(self.owner.engine.generation,generation)
+        self.assertEqual(self.owner.engine.pending,pending)
     def test_visible_popup_retains_hide_delay_and_discards_superseded_capture(self):
         self.owner.popup.show()
         self.owner.engine.pending.clear()
