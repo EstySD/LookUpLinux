@@ -93,7 +93,7 @@ class SceneSource(FixedSource):
     def resolve(self,frozen,dictset):
         self.resolved.append(frozen)
         text='word' if frozen.point[0]<100 else 'river'
-        return app.Query(text,'The word flows.',span=(4,8),selection_box=(40,40,30,20))
+        return app.Query(text,'The word flows.',timings={'capture':7},span=(4,8),selection_box=(40,40,30,20))
 
 
 class SceneTests(EngineCase):
@@ -122,6 +122,25 @@ class SceneTests(EngineCase):
         ready=[e for e in self.events if e.stage=='ready']
         self.assertEqual([e.result.key for e in ready],['word','river'])
         self.assertEqual([e.selection_box for e in ready],[(40,40,30,20)]*2)
+        self.assertEqual([e.result.timings['capture'] for e in ready],[7,0])
+
+    def test_invalid_or_oversized_frame_is_not_published_or_retained(self):
+        for frame in (None,capture.Capture(b'png',0,800,'test',0),
+                      capture.Capture(b'png',16385,1,'test',0),
+                      capture.Capture(b'png',10000,10000,'test',0),
+                      capture.Capture('not bytes',1000,800,'test',0),
+                      capture.Capture(b'oversized',1000,800,'test',0)):
+            with self.subTest(frame=frame),patch.object(capture,'MAX_PNG',4):
+                self.events.clear()
+                source=SceneSource();source.frame=frame
+                engine=self.engine(source=source,lookup=self.lookup)
+                identity=engine.begin();engine.enqueue_scene(identity)
+                self.wait(lambda:any(e.stage=='error' for e in self.events))
+                self.assertEqual(next(e.error for e in self.events if e.stage=='error'),'capture_failed')
+                self.assertFalse(any(e.stage=='scene' for e in self.events))
+                self.assertFalse(engine.select_scene(engine.begin(),identity,(50,50)))
+                self.assertEqual(self.count(),0)
+                engine.stop();engine.join(2)
 
     def test_primary_scene_request_preserves_normal_path_without_scene(self):
         engine=self.engine()
@@ -138,7 +157,9 @@ class SceneTests(EngineCase):
         scene=next(e.scene for e in self.events if e.stage=='scene')
         identity=engine.begin()
         self.assertFalse(engine.select_scene(identity,scene.session_id+1,(50,50)))
-        for point in (None,(float('nan'),50),(float('inf'),50),(-1,0),(1000,50),(50,800),('50',50),(True,50),(50,)):
+        self.assertFalse(engine.select_scene(identity,True,(50,50)))
+        self.assertFalse(engine.select_scene(identity,float(scene.session_id),(50,50)))
+        for point in (None,(float('nan'),50),(float('inf'),50),(10**1000,50),(-1,0),(1000,50),(50,800),('50',50),(True,50),(50,)):
             with self.subTest(point=point):
                 self.assertFalse(engine.select_scene(identity,scene.session_id,point))
         self.assertEqual(len(source.resolved),1)

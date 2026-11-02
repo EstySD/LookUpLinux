@@ -201,15 +201,24 @@ class Engine:
 
     def select_scene(self,identity,session_id,point):
         with self._condition:
-            if not self.current(identity) or self._scene is None or session_id!=self._scene.session_id:
+            if not self.current(identity) or self._scene is None or type(session_id) is not int or session_id!=self._scene.session_id:
                 return False
             monitor=self._scene.source.monitor
             if (not isinstance(point,(tuple,list)) or len(point)!=2 or
-                not all(isinstance(n,(int,float)) and not isinstance(n,bool) and math.isfinite(n) for n in point) or
+                not all(type(n) in (int,float) and (isinstance(n,int) or math.isfinite(n)) for n in point) or
                 not (monitor.x<=point[0]<monitor.x+monitor.width and monitor.y<=point[1]<monitor.y+monitor.height)):
                 return False
             self._pending=(identity,self._started,None,(session_id,tuple(point)))
             self._condition.notify()
+            return True
+
+    def close_scene(self,session_id=None):
+        with self._condition:
+            if session_id is not None and (type(session_id) is not int or self._scene is None or self._scene.session_id!=session_id):
+                return False
+            self._scene=None
+            self._generation+=1
+            self._pending=None
             return True
 
     def current(self,identity):
@@ -227,6 +236,7 @@ class Engine:
                 return None
             self._generation+=1
             self._pending=None
+            self._scene=None
             self._reload_revision+=1
             self._reload_pending=self._reload_revision
             self._condition.notify()
@@ -237,12 +247,14 @@ class Engine:
             if self.current(identity):
                 self._generation+=1
                 self._pending=None
+                self._scene=None
 
     def stop(self):
         with self._condition:
             self._stopping=True
             self._generation+=1
             self._pending=None
+            self._scene=None
             self._condition.notify()
 
     def join(self,timeout):
@@ -259,6 +271,12 @@ class Engine:
         with self._condition:
             if not self._stopping:
                 self._publish(Event(self._generation,'reload',error=error,reload_revision=revision))
+
+    def _discard_scene(self,identity):
+        with self._condition:
+            if self.current(identity):
+                self._scene=None
+                self._pending=None
 
     def _run(self):
         try:
@@ -297,6 +315,7 @@ class Engine:
                         self._ack_reload(revision,error)
                     elif resources is None:
                         snapshots.clear()
+                        self._discard_scene(identity)
                         self._emit(Event(identity,'error',error='reload_failed' if self._reload_revision else 'worker_failed'))
                     else:
                         self._process(identity,started,resources,snapshots)
@@ -304,6 +323,8 @@ class Engine:
             # Last-resort boundary: never print a private worker traceback.
             with self._condition:
                 identity=self._generation
+                self._scene=None
+                self._pending=None
             self._emit(Event(identity,'error',error='worker_failed'))
 
     def _process(self,identity,started,resources,snapshots):
@@ -337,10 +358,13 @@ class Engine:
                                      elapsed_ms=(time.perf_counter()-started)*1000))
                 image=None
             self._emit(Event(identity,'frozen',**origin,elapsed_ms=(time.perf_counter()-started)*1000))
+            if not self.current(identity):return
             query=self._source.resolve(source,resources.dictset)
+            if isinstance(scene_request,tuple):
+                query=replace(query,timings=dict(query.timings,capture=0))
             origin['selection_box']=query.selection_box
             primary=source if source.mode=='primary' else None
-            source=None  # Pixel storage never crosses the GUI signal boundary.
+            source=None  # The active Scene owns retained pixels; lookup drops its local reference.
             if not self.current(identity):
                 return
             history=None
@@ -413,6 +437,8 @@ class Engine:
             reason=error.reason
             if isinstance(error,ocr.OcrError) and reason not in ('missing_tesseract','missing_eng','missing_pyqt6'):
                 reason='ocr_timeout' if reason=='timeout' else 'ocr_failed'
+            if reason!='not_found':self._discard_scene(identity)
             self._emit(Event(identity,'error',**origin,error=reason,elapsed_ms=(time.perf_counter()-started)*1000))
         except Exception:
+            self._discard_scene(identity)
             self._emit(Event(identity,'error',**origin,error='lookup_failed',elapsed_ms=(time.perf_counter()-started)*1000))
