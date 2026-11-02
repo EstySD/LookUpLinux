@@ -9,7 +9,7 @@ import threading
 import time
 from dataclasses import replace
 
-from . import app as core, platform, timing
+from . import app as core, platform, timing, config
 from .store import MigrationError,SchemaTooNewError
 
 SERVICE='org.lookup.Linux'
@@ -123,6 +123,9 @@ def components():
             self.setAutoFillBackground(True)
             self._armed=False
             self._labels=[]
+            self.preferences=config.Config()
+            self._shown_preferences=self.preferences
+            self._available=None
             self._duration=20000
             self.timer=QTimer(self)
             self.timer.setSingleShot(True)
@@ -227,7 +230,7 @@ def components():
             while self.body.count():
                 widget=self.body.takeAt(0).widget()
                 if widget is not None:
-                    self._labels.remove(widget)
+                    if widget in self._labels:self._labels.remove(widget)
                     widget.hide();widget.deleteLater()
             for label in (self.meaning_heading,self.meaning_value,self.context_heading,self.context_source,
                           self.context_fragment,self.context_value,self.cache_warning):
@@ -272,6 +275,7 @@ def components():
             self.state_icon.show()
         def result(self,value,context,save_error):
             self.clear_body()
+            self._shown_preferences=self.preferences
             useful=bool(value.articles or value.online)
             if value.kind=='sentence':
                 self.heading('Перевод выделения')
@@ -296,14 +300,44 @@ def components():
                 self.add('Словарь: '+article.dict_name,True)
                 for pos,terms in article.senses:
                     self.add((pos+': ' if pos else '')+'; '.join(terms),True)
-                self.add(article.text)
+                if not article.senses and article.text:
+                    self.add(article.text[:239]+'…' if len(article.text)>240 else article.text)
             if value.online:
                 self.add(value.online.main)
                 for pos,terms in value.online.parts:
                     self.add((pos+': ' if pos else '')+'; '.join(terms))
             if not value.online_enabled:
                 self.add('Онлайн-перевод выключен.')
-            if context:
+            for article in value.articles:
+                if not article.text or self._truncated:continue
+                button=QPushButton()
+                button.setCheckable(True)
+                button.setAutoDefault(True)
+                button.setSizePolicy(QSizePolicy.Policy.Ignored,QSizePolicy.Policy.Preferred)
+                self.body.addWidget(button)
+                text=self.add(article.text)
+                if text is None:
+                    self.body.removeWidget(button);button.deleteLater()
+                    continue
+                def toggle(expanded,button=button,text=text,name=article.dict_name):
+                    caption=('Свернуть статью — ' if expanded else 'Показать полную статью — ')+name
+                    button.setText(caption)
+                    button.setAccessibleName(caption)
+                    text.setVisible(expanded)
+                    if self._available is not None:
+                        self.size_for(self._available)
+                        x=min(max(self.x(),self._available.left()),self._available.right()-self.width()+1)
+                        y=min(max(self.y(),self._available.top()),self._available.bottom()-self.height()+1)
+                        self.move(x,y)
+                button.toggled.connect(toggle)
+                button.setChecked(self._shown_preferences.popup_expand_articles)
+                toggle(button.isChecked())
+                button.show()
+                if self._truncated:
+                    warning=self.label(TRUNCATED)
+                    self.body.addWidget(warning)
+                    warning.show()
+            if context and self._shown_preferences.popup_show_context:
                 self.context_heading.show()
                 self.context_source.setText(display_text(context,8000))
                 self.context_source.show()
@@ -330,8 +364,8 @@ def components():
             else:
                 meaning=''
             self.meaning_value.setText(display_text(meaning,1000))
-            self.meaning_heading.setVisible(bool(meaning))
-            self.meaning_value.setVisible(bool(meaning))
+            self.meaning_heading.setVisible(bool(meaning) and self._shown_preferences.popup_show_meaning)
+            self.meaning_value.setVisible(bool(meaning) and self._shown_preferences.popup_show_meaning)
             if value.context_translation:
                 text='Перевод контекста\n'+value.context_translation
             elif value.context_pending:
@@ -344,10 +378,11 @@ def components():
             else:
                 text=''
             self.context_value.setText(display_text(text,8000))
-            self.context_value.setVisible(bool(text))
+            self.context_value.setVisible(bool(text) and self._shown_preferences.popup_show_context)
             self.cache_warning.setText(CACHE_ERROR if value.cache_error else '')
             self.cache_warning.setVisible(bool(value.cache_error))
         def size_for(self,available):
+            self._available=available
             from . import gnome
             if gnome.active():
                 self.setMinimumHeight(0)
@@ -509,6 +544,7 @@ def components():
             self._open_learning(1)
         def _settings_applied(self,value):
             self._popup_timeout=value.popup_timeout
+            self.popup.preferences=value
         def _invalidate_settings(self):
             self.engine.dismiss(self._identity)
             self._identity=None

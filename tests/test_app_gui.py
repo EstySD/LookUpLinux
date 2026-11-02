@@ -180,7 +180,7 @@ class GuiTests(unittest.TestCase):
         summaries=[widget for widget in widgets if isinstance(widget,QTextEdit) and not widget.isHidden()]
         self.assertIn('нужный перевод','\n'.join(widget.toPlainText() for widget in summaries))
         preview=next(widget for widget in summaries if widget.toPlainText().startswith('plain preview'))
-        self.assertLessEqual(len(preview.toPlainText()),241)
+        self.assertLessEqual(len(preview.toPlainText()),240)
         self.assertTrue(preview.toPlainText().endswith('…'))
         details=next(widget for widget in widgets if isinstance(widget,QTextEdit) and widget.toPlainText().startswith('long detail'))
         self.assertTrue(details.isHidden())
@@ -201,18 +201,20 @@ class GuiTests(unittest.TestCase):
 
     def test_hidden_blocks_stay_hidden_after_late_updates_and_cards_keep_context(self):
         self.preferences(popup_show_meaning=False)
-        value=replace(self.result(),translation='слово',context_meaning='значение',context_translation='перевод')
+        value=replace(self.result(),translation='слово',context_meaning='значение',context_translation='перевод',
+                      meaning_provider='google-gtx-marked-v1',context_complete=True)
         self.owner.receive(self.event(result=value,context='The word has meaning.',span=(4,8)))
         popup=self.owner.popup
         for widget in (popup.meaning_heading,popup.meaning_value,popup.context_heading,popup.context_source,popup.context_fragment,popup.context_value):
             self.assertTrue(widget.isHidden())
-        self.owner.receive(self.event('context',result=replace(value,context_meaning='поздно',context_translation='поздний перевод')))
+        self.owner.receive(self.event('context',result=replace(value,context_meaning='поздно',context_translation='поздний перевод'),
+                                      context='The word has meaning.',span=(4,8)))
         self.assertTrue(popup.meaning_value.isHidden())
         self.assertTrue(popup.context_value.isHidden())
         popup.card_button.click()
         conn=open_store();self.addCleanup(conn.close)
         card=learning.get_card(conn,'word')
-        self.assertEqual((card['translation'],card['context'],card['span']),('значение','The word has meaning.',(4,8)))
+        self.assertEqual((card['translation'],card['context'],card['span']),('поздно','The word has meaning.',(4,8)))
         self.preferences(popup_show_context=True,popup_show_meaning=False)
         self.owner.receive(self.event(result=value,context='Visible source'))
         self.assertFalse(popup.context_source.isHidden())
@@ -237,6 +239,7 @@ class GuiTests(unittest.TestCase):
             owner.quit();owner.popup.deleteLater();owner.menu.deleteLater();owner.deleteLater()
 
     def test_actual_fields_order_plain_text_and_no_invented_metadata(self):
+        self.preferences(popup_show_context=True)
         self.owner.receive(self.event(result=self.result(),context='Public source'))
         text=self.texts()
         for expected in ('word','wɜːd','lemma','значение','Public source','Искали 3 раз','file:///private'):
@@ -496,7 +499,7 @@ class GuiTests(unittest.TestCase):
         self.assertEqual(self.owner.popup.timer.interval(),7000)
         self.assertFalse(self.owner.popup.context_source.isHidden())
         self.assertTrue(self.owner.popup.meaning_value.isHidden())
-        self.assertTrue(all(button.isChecked() for button in self.owner.popup.findChildren(QPushButton) if button.isCheckable()))
+        self.assertTrue(all(button.isChecked() for button in self.owner.popup.findChildren(QPushButton) if button.isCheckable() and not button.isHidden()))
         window.close();self.owner.open_settings()
         wait(lambda:not controller.pending)
         self.assertIs(self.owner.settings_window,window)
@@ -653,6 +656,7 @@ class GuiTests(unittest.TestCase):
         self.assertLess(sum(len(widget.toPlainText()) for widget in self.owner.popup.findChildren(QTextEdit)),gui.MAX_DISPLAY_CHARS+1000)
 
     def test_late_multiline_context_grows_outer_scroll_without_focus_or_timer_reset(self):
+        self.preferences(popup_show_context=True)
         value=self.result()
         self.owner.receive(self.event(result=value,context='Public source'))
         self.application.processEvents()
@@ -681,6 +685,7 @@ class GuiTests(unittest.TestCase):
         self.assertLessEqual(rect.y()+rect.height(),640)
 
     def test_ready_paint_waits_for_matching_compositor_move(self):
+        self.preferences(popup_expand_articles=True)
         self.owner.receive(self.event('frozen'))
         QTest.qWait(20)
         self.owner._focus=True
