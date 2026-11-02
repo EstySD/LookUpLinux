@@ -6,7 +6,7 @@ import time
 import unittest
 from unittest.mock import patch
 
-from lookup import app, config, translate, context as contextual, ocr
+from lookup import app, config, translate, context as contextual, ocr, capture
 from lookup.platform import Monitor
 from lookup.store import open_store, get_word_context
 from tests._support import make_tempdir, forbid_network
@@ -81,6 +81,69 @@ class EngineCase(unittest.TestCase):
     def count(self):
         with contextlib.closing(open_store(self.path)) as conn:
             return conn.execute('SELECT coalesce(sum(count),0) FROM words').fetchone()[0]
+
+class SceneSource(FixedSource):
+    def __init__(self):
+        self.frame=capture.Capture(b'public test pixels',1000,800,'test',0)
+        self.freezes=[]
+        self.resolved=[]
+    def freeze(self,snapshot=None):
+        self.freezes.append(snapshot)
+        return app.Frozen('ocr',(50,50),MONITOR,image=self.frame,available=(0,0,1000,800))
+    def resolve(self,frozen,dictset):
+        self.resolved.append(frozen)
+        text='word' if frozen.point[0]<100 else 'river'
+        return app.Query(text,'The word flows.',span=(4,8),selection_box=(40,40,30,20))
+
+
+class SceneTests(EngineCase):
+    @staticmethod
+    def lookup(text,**kwargs):
+        return translate.Result('word',text,translation='meaning')
+
+    def test_one_scene_reuses_exact_frame_and_existing_history_for_each_point(self):
+        source=SceneSource()
+        engine=self.engine(source=source,lookup=self.lookup)
+        first=engine.begin();engine.enqueue_scene(first)
+        self.wait(lambda:any(e.id==first and e.stage=='context' for e in self.events))
+        scene_event=next(e for e in self.events if e.stage=='scene')
+        scene=scene_event.scene
+        self.assertIsInstance(scene,app.Scene)
+        self.assertIs(scene.source.image,source.frame)
+        self.assertEqual([e.stage for e in self.events],['scene','frozen','ready','context'])
+        next_id=engine.begin()
+        self.assertTrue(engine.select_scene(next_id,scene.session_id,(150,50)))
+        self.wait(lambda:any(e.id==next_id and e.stage=='context' for e in self.events))
+        self.assertEqual(len(source.freezes),1)
+        self.assertEqual([f.point for f in source.resolved],[(50,50),(150,50)])
+        self.assertTrue(all(f.image is source.frame for f in source.resolved))
+        self.assertEqual(len([e for e in self.events if e.stage=='scene']),1)
+        self.assertEqual(self.count(),2)
+        ready=[e for e in self.events if e.stage=='ready']
+        self.assertEqual([e.result.key for e in ready],['word','river'])
+        self.assertEqual([e.selection_box for e in ready],[(40,40,30,20)]*2)
+
+    def test_primary_scene_request_preserves_normal_path_without_scene(self):
+        engine=self.engine()
+        identity=engine.begin();engine.enqueue_scene(identity)
+        self.wait(lambda:any(e.stage=='context' for e in self.events))
+        self.assertEqual([e.stage for e in self.events],['frozen','ready','context'])
+        self.assertFalse(engine.select_scene(engine.begin(),identity,(50,50)))
+        self.assertEqual(self.count(),1)
+
+    def test_wrong_session_or_invalid_point_never_resolves_or_writes(self):
+        source=SceneSource();engine=self.engine(source=source,lookup=self.lookup)
+        identity=engine.begin();engine.enqueue_scene(identity)
+        self.wait(lambda:any(e.stage=='context' for e in self.events))
+        scene=next(e.scene for e in self.events if e.stage=='scene')
+        identity=engine.begin()
+        self.assertFalse(engine.select_scene(identity,scene.session_id+1,(50,50)))
+        for point in (None,(float('nan'),50),(float('inf'),50),(-1,0),(1000,50),(50,800),('50',50),(True,50),(50,)):
+            with self.subTest(point=point):
+                self.assertFalse(engine.select_scene(identity,scene.session_id,point))
+        self.assertEqual(len(source.resolved),1)
+        self.assertEqual(self.count(),1)
+
 
 class EngineTests(EngineCase):
     def test_raw_snapshot_is_released_before_translation_and_worker_idle(self):
