@@ -11,12 +11,12 @@ CAPT-08, TRIG-05 and TRIG-06: choose words from one retained scene, preserve ava
 - Preserve actual source hover text visible at invocation. Do not claim that displaying an image freezes the source application or enables new source hover interactions.
 - The selection layer must intercept pointer input across its covered source area. Define and prove keyboard cancellation and cleanup before choosing implementation.
 - Keep an explicit close action and Esc. Reinvocation replaces or dismisses the active layer safely; errors must release layer/input ownership. Preserve normal popup/card/history behavior.
-- Use only the documented owned clone, protect existing profiles, and restore its initial powered-off state. Never control or enter the original VM or bypass the identity/state guard.
+- Use only the documented owned clone, protect existing profiles, and restore its initial powered-off state. Never control or enter the original VM or bypass clone identity/disk/network isolation checks.
 
 ## Mandatory research gate
 ROADMAP requires actual proof of KDE Wayland capture/input/hover behavior before approving implementation. A retained screenshot alone does not prove source application freezing or input isolation. Research must distinguish the requested observable scene/hover/input behavior from application execution state and report a blocker if it cannot be established.
 
-Current owned-clone preflight rejects operation: `Original VM must remain powered off`; original `arch-kde` is running. This is a genuine obstacle to mandatory real-environment evidence for this phase, unlike Phase 10's nonblocking compositor limitation. Perform useful source/documentation research, retain a concrete probe plan, and do not approve an unproven implementation.
+Initial preflight rejected operation while original `arch-kde` was running. Denis explicitly authorized separate VM instances for concurrent agents. On 2026-11-02, the clone was verified to have an independent base VDI, distinct MAC and SSH port, and no shared folders. The preflight now checks disk/network isolation instead of requiring the original to be powered off. Concurrent operation is authorized; do not touch the original VM. The mandatory live research gate remains pending until the owned-clone probe succeeds.
 
 ## Required context
 Read docs/lookupper/architecture.md, linux-requirements.md and evidence.md; existing observations do not prove untested Linux behavior. Keep Danila/human confirmation separate from agent evidence.

@@ -4,10 +4,10 @@ milestone: v1.1
 milestone_name: Надёжность и распространение
 current_phase: 11
 current_phase_name: Выбор слов на замороженной сцене
-status: blocked
-stopped_at: "Phase 11 research blocked: original arch-kde running prevents protected clone live hover/input/fullscreen proof; Phase 10 accepted"
-last_updated: "2026-11-02T12:03:45.591Z"
-last_activity: "2026-11-02: Phase 11 research blocked at mandatory live KDE input/hover gate; Phase 10 accepted"
+status: researching
+stopped_at: Phase 11 live research resumed in independent lookup-gsd-07 VM; original VM concurrent use explicitly authorized
+last_updated: "2026-11-02T12:08:17.433Z"
+last_activity: "2026-11-02: Phase 11 live research resumed on independently isolated lookup-gsd-07"
 progress:
   total_phases: 7
   completed_phases: 2
@@ -29,8 +29,8 @@ See: .planning/PROJECT.md (v1 scope expanded 2026-10-27)
 
 Phase: 11 (Выбор слов на замороженной сцене) — EXECUTING
 Plan: 1 of ?
-Status: blocked
-Last activity: 2026-11-02: Phase 11 research blocked at mandatory live KDE input/hover gate; Phase 10 accepted
+Status: researching
+Last activity: 2026-11-02: Phase 11 live research resumed on independently isolated lookup-gsd-07
 
 ## Performance Metrics
 
@@ -133,8 +133,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-11-02T12:03:18.487Z
-Stopped at: Phase 11 research blocked: original arch-kde running prevents protected clone live hover/input/fullscreen proof; Phase 10 accepted
+Last session: 2026-11-02T12:08:06.814Z
+Stopped at: Phase 11 live research resumed in independent lookup-gsd-07 VM; original VM concurrent use explicitly authorized
 Resume file: None
 
 ## Operator Next Steps

@@ -14,8 +14,15 @@ $lookupInfo=& $lookupVBox showvminfo $lookupVm --machinereadable
 if ($LASTEXITCODE -ne 0 -or $lookupInfo -notcontains 'name="lookup-gsd-07"') { throw 'Owned clone identity mismatch' }
 if ($lookupInfo -notcontains 'macaddress1="080027A05376"' -or
     $lookupInfo -notcontains 'Forwarding(0)="lookup-gsd-07-ssh,tcp,127.0.0.1,2227,,22"') { throw 'Owned clone network identity mismatch' }
+$lookupDisk='2712d710-daaa-449c-843d-d570091127bc'
+if ($lookupInfo -notcontains ('"SATA-ImageUUID-0-0"="'+$lookupDisk+'"') -or
+    -not ($lookupInfo | Select-String -SimpleMatch 'lookup-gsd-07\\lookup-gsd-07.vdi') -or
+    $lookupInfo -match '^SharedFolder') { throw 'Owned full clone attachment mismatch' }
+$lookupMedium=& $lookupVBox showmediuminfo disk $lookupDisk
+if ($LASTEXITCODE -ne 0 -or -not ($lookupMedium -match '^Parent UUID:\s+base\s*$')) { throw 'Owned disk must be an independent full clone' }
+# Denis permits concurrent agents in separate VMs; protect disk isolation, not power state.
 $lookupOriginal=& $lookupVBox showvminfo abc73254-ddf7-4f1f-9c66-7c2fcc5254d7 --machinereadable
-if ($LASTEXITCODE -ne 0 -or $lookupOriginal -notcontains 'VMState="poweroff"') { throw 'Original VM must remain powered off' }
+if ($LASTEXITCODE -ne 0 -or ($lookupOriginal | Select-String -SimpleMatch $lookupDisk)) { throw 'Original VM disk isolation could not be verified' }
 if ($Action -eq 'Check') { $lookupInfo | Select-String '^(name|UUID|VMState|macaddress1|Forwarding)' | ForEach-Object { $_.Line }; exit 0 }
 if ($lookupInfo -notcontains 'VMState="running"') { throw 'Owned clone is not running' }
 if ($Action -eq 'Native') {

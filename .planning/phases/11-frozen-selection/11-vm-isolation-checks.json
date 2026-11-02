@@ -1,0 +1,17 @@
+﻿[
+    {
+        "case":  "name",
+        "rejected":  true,
+        "reason":  "Owned clone identity mismatch"
+    },
+    {
+        "case":  "disk",
+        "rejected":  true,
+        "reason":  "Owned full clone attachment mismatch"
+    },
+    {
+        "case":  "network",
+        "rejected":  true,
+        "reason":  "Owned clone network identity mismatch"
+    }
+]
