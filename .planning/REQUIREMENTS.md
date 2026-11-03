@@ -17,9 +17,9 @@ Defined 2026-11-02 from [agreed brief](v1.1-CONTEXT.md). All requirements are pe
 
 ### First priority: frozen scene selection
 
-- [ ] **CAPT-08**: User can open a translucent layer with a captured scene and select words from that scene without recapturing the underlying application for each selection.
-- [ ] **TRIG-05**: Mouse movements during layer selection do not reach the underlying application; captured hover text remains available for selection.
-- [ ] **TRIG-06**: Esc, closing, repeated invocation and layer errors return control to the underlying application, including real fullscreen applications.
+- [x] **CAPT-08**: User can open a translucent layer with a captured scene and select words from that scene without recapturing the underlying application for each selection.
+- [x] **TRIG-05**: Mouse movements during layer selection do not reach the underlying application; captured hover text remains available for selection.
+- [x] **TRIG-06**: Esc, closing, repeated invocation and layer errors return control to the underlying application, including real fullscreen applications.
 
 ### First priority: Yomitan
 
@@ -56,9 +56,9 @@ Audio pronunciation, CEFR and new Anki synchronization are excluded. Existing ca
 | PERF-02 | Phase 9 | Complete |
 | POP-06 | Phase 10 | Complete |
 | SET-02 | Phase 10 | Complete |
-| CAPT-08 | Phase 11 | Pending |
-| TRIG-05 | Phase 11 | Pending |
-| TRIG-06 | Phase 11 | Pending |
+| CAPT-08 | Phase 11 | Complete |
+| TRIG-05 | Phase 11 | Complete |
+| TRIG-06 | Phase 11 | Complete |
 | DICT-04 | Phase 12 | Pending |
 | DICT-05 | Phase 12 | Pending |
 | TRIG-07 | Phase 13 | Pending |

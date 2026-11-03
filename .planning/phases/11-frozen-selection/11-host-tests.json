@@ -1,0 +1,18 @@
+{
+  "command": "python -m unittest discover -s tests -q",
+  "tests": 857,
+  "skipped": 11,
+  "failures": 0,
+  "errors": 0,
+  "seconds": 43.766,
+  "exit_code": 0,
+  "agent_acceptance": true,
+  "human_acceptance": false,
+  "source_sha256": {
+    "lookup/app.py": "3066dcd72b147429da483a62a14a84059584a772b435b0f62f8294f6d06f9de6",
+    "lookup/gui.py": "30b6e0da950371d0e47a4c2d9bfae85c9a90e44ff495edc247a2913db6652e3b",
+    "lookup/platform.py": "c45fa659b198874358a03e7a1a39212687c5d93ed7f6ec341271f50091088b58",
+    "lookup/selection_gui.py": "4badef651b736208824e63ae8815fa2bc62fc92b5f368baf95c8c36b0856ecef",
+    "lookup/ocr.py": "b60eb602a62a8f0be4338a42addd0904f20976391d16ed1ae3d3bf6c0d2c91c1"
+  }
+}

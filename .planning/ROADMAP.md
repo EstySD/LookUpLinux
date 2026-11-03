@@ -19,7 +19,7 @@ v1.1 is ready for Phase 10 discussion. [Phase 9 verification](phases/09-hotkey-c
 
 - [x] **Phase 9: Фиксация по хоткею и скорость** - Capture the requested moment and remove measured delays. (completed 2026-11-02)
 - [x] **Phase 10: Компактный настраиваемый попап** - Show relevant meanings first and allow hiding context. (completed 2026-11-02)
-- [ ] **Phase 11: Выбор слов на замороженной сцене** - Select words on a retained scene while intercepting input.
+- [x] **Phase 11: Выбор слов на замороженной сцене** - Select words on a retained scene while intercepting input. (completed 2026-11-03)
 - [ ] **Phase 12: Словари Yomitan** - Connect and use the user's real dictionaries.
 - [ ] **Phase 13: Понятный первый запуск и GUI** - Discover the interface without knowing tray conventions.
 - [ ] **Phase 14: Надёжность в реальных сценариях** - Verify providers, real dictionaries, second monitor and borderless.
@@ -72,11 +72,11 @@ v1.1 is ready for Phase 10 discussion. [Phase 9 verification](phases/09-hotkey-c
   3. Esc, close, repeated invocation and error return control, including a real fullscreen application.
 
 **Research gate**: Prove KDE Wayland capture/input and hover behavior before approving implementation. A retained image does not prove the source application is frozen. Record a blocker rather than silently weakening requirements if platform limits prevent the requested behavior.
-**Plans**: 0/3 plans executed
+**Plans**: 2/3 plans executed
 
-- [ ] 11-01-PLAN.md
-- [ ] 11-02-PLAN.md
-- [ ] 11-03-PLAN.md
+- [x] 11-01-PLAN.md
+- [x] 11-02-PLAN.md
+- [x] 11-03-PLAN.md
 
 **UI hint**: yes
 
@@ -142,7 +142,7 @@ v1.1 is ready for Phase 10 discussion. [Phase 9 verification](phases/09-hotkey-c
 |-------|----------------|--------|-----------|
 | 9. Фиксация по хоткею и скорость | 2/2 | Complete    | 2026-11-02 |
 | 10. Компактный настраиваемый попап | 1/1 | Complete    | 2026-11-02 |
-| 11. Выбор слов на замороженной сцене | 0/3 | Planned    |  |
+| 11. Выбор слов на замороженной сцене | 3/3 | Complete    | 2026-11-03 |
 | 12. Словари Yomitan | 0/TBD | Not started | - |
 | 13. Понятный первый запуск и GUI | 0/TBD | Not started | - |
 | 14. Надёжность в реальных сценариях | 0/TBD | Not started | - |

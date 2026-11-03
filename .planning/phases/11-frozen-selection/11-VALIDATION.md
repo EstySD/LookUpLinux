@@ -1,15 +1,37 @@
 ---
 phase: 11
 slug: frozen-selection
-status: draft
+status: executed
 nyquist_compliant: true
-wave_0_complete: false
+wave_0_complete: true
+validated: 2026-11-03
+acceptance: passed_agent
+human_acceptance: not_performed
 created: 2026-11-02
 ---
 
 # Phase 11 — Validation Strategy
 
-Planning coverage only; implementation tests and integrated native product acceptance remain pending. Live feasibility research passed on the owned clone and does not replace product verification.
+Implementation tests and actual native product acceptance passed. Independent goal-backward verification records 9/9 merged truths and all three roadmap criteria in `11-VERIFICATION.md`. This is agent acceptance; no human sign-off is claimed. The planning strategy below is retained as the coverage contract, with execution results recorded here.
+
+## Executed batch results
+
+| Check | Result | Evidence |
+|---|---|---|
+| Host full discovery | 857 tests, OK, 11 skips, 43.766 s | `11-host-tests.json` |
+| Target full discovery | 857 tests, OK, 4 skips, 75.788 s | `11-native-data/evidence/target-tests.json` |
+| Final validator tests | 4 tests, OK, zero skips, 0.001 s | `11-timeout-recheck/11-native-batch.json` |
+| Evidence CLI | accepted true; root independently executed | `11-product-evidence.json` |
+| Source identity | All 30 native and five host evidence SHA-256 values match working tree | Root independent hash check; product inventory and host report |
+| Final cleanup | All recorded checks true; owned clone powered off, clipboard restored afterward | `11-root-cleanup.json` |
+
+Full command is listed below; validator command: `python -m unittest tests.test_frozen_product -q`. Evidence command: `python tools/check_frozen_product.py --validate .planning/phases/11-frozen-selection/11-product-evidence.json`.
+
+Acceptance binds to the inventory, including preserved user OCR changes, rather than HEAD alone (report reconciliation HEAD `c2b689d93e6ae57bc4d5d841cde95ef4fb36b865`). Full-suite results were reused after the harness-only timeout collector correction against unchanged production sources. Final target duration exceeds the original under-60-second feedback target and is recorded honestly. New native-widget and validator test files were exercised; Wave 0 is complete.
+
+Actual product fixture session 9 resolved three useful words including captured hover text on one retained frame while source ticks advanced. Pointer count 6 stayed unchanged during layer input and reached 10 after Esc. Native PRIMARY, card save, no-hit/internal focus, 100/125/200% geometry and active-layer foreign-window rejection passed. Fullscreen Wesnoth passed all seven exits; six cases use source PID 2450, affected timeout rerun PID 6456, with no cross-PID comparison. Historical failures are retained separately and not counted as passes.
+
+Completed batch commands, timestamps, guest roots, per-case provenance and results are retained in `11-native-batch.json`, `11-timeout-recheck/11-native-batch.json` and their raw evidence directories/archives. No running validation job remains. Runtime audit confirms restored profiles/binding/scale and no owned probe/game PIDs. Final root cleanup powered off only clone `cf207909-94b5-4b49-8bd8-ccff973c1dc8` before restoring clipboard; original VM not controlled. No private PRIMARY data is reproduced.
 
 ## Test Infrastructure
 
@@ -19,7 +41,7 @@ Planning coverage only; implementation tests and integrated native product accep
 | Focused command | `python -m unittest tests.test_app tests.test_selection_gui tests.test_app_gui tests.test_settings_gui tests.test_frozen_product -q` |
 | Full command | `python -m unittest discover -s tests -q` |
 | Availability | Host Python/PyQt6 and owned Arch/KDE clone already available; no new framework/dependency |
-| Runtime | Previous full suite 834 tests in about42 seconds; record fresh runtime after implementation |
+| Runtime | Final host 857 tests in 43.766 s; target 857 tests in 75.788 s |
 
 ## Sampling and Wave 0
 
@@ -27,12 +49,12 @@ Add behavior regressions in each implementation task before its source changes. 
 
 | Task | Wave | Requirements | Threats | Automated check | Status |
 |---|---|---|---|---|---|
-| 11-01-1 | 1 | CAPT-08, TRIG-05 | T-11-01, T-11-02 | `python -m unittest tests.test_app -q` | Pending; add scene cases |
-| 11-01-2 | 1 | CAPT-08, TRIG-06 | T-11-02, T-11-03 | `python -m unittest tests.test_app tests.test_hotkey_capture -q` | Pending; add lifetime/stale cases |
-| 11-02-1 | 2 | CAPT-08, TRIG-05, TRIG-06 | T-11-04, T-11-05, T-11-07 | `python -m unittest tests.test_selection_gui -q` | Wave0 creates file in task |
-| 11-02-2 | 2 | CAPT-08, TRIG-05, TRIG-06 | T-11-04, T-11-06, T-11-07 | `python -m unittest tests.test_selection_gui tests.test_app_gui tests.test_settings_gui -q` | Pending; add integration cases |
-| 11-03-1 | 3 | CAPT-08, TRIG-05, TRIG-06 | T-11-08, T-11-09, T-11-10 | `python -m unittest tests.test_frozen_product -q` | Wave0 creates file in task |
-| 11-03-2 | 3 | CAPT-08, TRIG-05, TRIG-06 | All phase threats | `python -m unittest discover -s tests -q` plus native product report validation | Pending; real product run required |
+| 11-01-1 | 1 | CAPT-08, TRIG-05 | T-11-01, T-11-02 | `python -m unittest tests.test_app -q` | Passed; included in final discovery |
+| 11-01-2 | 1 | CAPT-08, TRIG-06 | T-11-02, T-11-03 | `python -m unittest tests.test_app tests.test_hotkey_capture -q` | Passed; included in final discovery |
+| 11-02-1 | 2 | CAPT-08, TRIG-05, TRIG-06 | T-11-04, T-11-05, T-11-07 | `python -m unittest tests.test_selection_gui -q` | Passed; new file exercised |
+| 11-02-2 | 2 | CAPT-08, TRIG-05, TRIG-06 | T-11-04, T-11-06, T-11-07 | `python -m unittest tests.test_selection_gui tests.test_app_gui tests.test_settings_gui -q` | Passed; included in final discovery |
+| 11-03-1 | 3 | CAPT-08, TRIG-05, TRIG-06 | T-11-08, T-11-09, T-11-10 | `python -m unittest tests.test_frozen_product -q` | Passed; final 4 tests OK |
+| 11-03-2 | 3 | CAPT-08, TRIG-05, TRIG-06 | All phase threats | `python -m unittest discover -s tests -q` plus native product report validation | Passed agent acceptance; see recorded evidence |
 
 ## Required Native Product Evidence
 
@@ -49,7 +71,7 @@ Add behavior regressions in each implementation task before its source changes. 
 - [x] Every phase requirement maps to implementation and actual product verification.
 - [x] Existing infrastructure and exact new test files are named; no framework setup needed.
 - [x] Native compositor proof is separate from offscreen tests and prior research.
-- [ ] New tests executed; counts/failures/skips and fresh runtimes recorded.
-- [ ] Integrated native product evidence passes all required behavior and cleanup checks.
+- [x] New tests executed; counts/failures/skips and runtimes recorded.
+- [x] Integrated native product evidence passes all required behavior and final cleanup checks.
 
-`nyquist_compliant: true` describes the plan's coverage. Set wave_0_complete only after the new tests exist and are exercised. No human acceptance or completion is claimed here.
+`nyquist_compliant: true` now describes executed coverage, and wave_0_complete records exercised new tests. Agent acceptance passed; no human acceptance is claimed. Underlying application execution continued while its displayed scene was retained. Other games, relative-pointer-lock modes and other compositors remain untested; second-monitor and borderless acceptance remain Phase 14 scope.
