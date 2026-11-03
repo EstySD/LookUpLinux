@@ -4,15 +4,15 @@ milestone: v1.1
 milestone_name: Надёжность и распространение
 current_phase: 15
 current_phase_name: Подготовка распространения через AUR
-status: ready
-stopped_at: Phase 14 verified complete; Phase 15 packaging next; owned clone off and settings restored
+status: in_progress
+stopped_at: Phase 15 source/AUR metadata prepared; visible VM running latest source for Denis manual testing; no publication
 last_updated: "2026-11-03T12:08:25.088Z"
 last_activity: 2026-11-03
 last_activity_desc: Phase 14 complete, transitioned to Phase 15
 progress:
   total_phases: 7
   completed_phases: 6
-  total_plans: 10
+  total_plans: 11
   completed_plans: 10
   percent: 86
 ---
@@ -24,13 +24,13 @@ progress:
 See: .planning/PROJECT.md (v1 scope expanded 2026-10-27)
 
 **Core value:** Хоткей над английским словом даёт перевод в оверлее у курсора примерно за 1–2 секунды, и слово попадает в базу со счётчиком.
-**Current focus:** Phase 15 — reproducible package build/install/update and AUR preparation
+**Current focus:** Phase 15 — 0.2.1 source/AUR metadata prepared; manual preview running; target package lifecycle pending
 
 ## Current Position
 
 Phase: 15 — Подготовка распространения через AUR
-Plan: Not started
-Status: ready
+Plan: 15-01 in progress
+Status: in progress; user manual VM testing
 Last activity: 2026-11-03 — Phase 14 complete, transitioned to Phase 15
 
 ## Performance Metrics
@@ -139,9 +139,9 @@ Items acknowledged and carried forward from previous milestone close:
 ## Session Continuity
 
 Last session: 2026-11-03T10:49:47.525Z
-Stopped at: Phase 14 complete; Phase 15 packaging next; no active jobs
-Resume file: None
+Stopped at: 0.2.1 source and AUR metadata prepared; host 870 tests pass. Latest app runs from source in visible lookup-gsd-07 for Denis's manual test. No active validation jobs; VM/app intentionally remain running.
+Resume file: .planning/phases/15-aur/continue.md
 
 ## Operator Next Steps
 
-- Execute Phase 15 packaging workflow. Reuse valid Phase 14 evidence for unchanged product code.
+- After Denis finishes manual VM testing, complete Phase 15 actual makepkg build/install/v1.0 upgrade/removal and Linux full suite. Preserve the running preview until then. No publication, push, release dispatch or AUR submission is authorized.

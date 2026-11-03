@@ -41,7 +41,8 @@ without switching to a browser.
 | Other Linux distributions / desktops, X11, ARM | Unsupported | Porting contributions welcome |
 | Windows / macOS | Unsupported | No application builds |
 
-Early **0.2.0** release. OCR depends on font size, contrast and application.
+Published release: **0.2.0**. Patch **0.2.1** is being prepared locally and has
+not been published. OCR depends on font size, contrast and application.
 Fullscreen games require individual testing. Cross-platform core tests do not
 imply desktop support on those operating systems.
 

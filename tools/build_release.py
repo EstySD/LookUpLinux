@@ -49,17 +49,20 @@ def build(output, tag):
                 [(prefix+'-build-kit/'+p.name, p) for p in kit.iterdir()])
     files = []
     # Explicit roots: never archive .omx, planning, research, personal dictionaries or Git state.
-    for folder in ('lookup', 'tests', 'packaging', 'tools', '.github', 'docs/assets'):
+    for folder in ('lookup', 'tests', 'packaging', 'tools', '.github', 'docs/assets', 'native/kwin-capture'):
         for path in (ROOT/folder).rglob('*'):
             if '__pycache__' in path.parts:
                 continue
+            # AUR metadata hashes this archive and is distributed separately.
+            if path.is_relative_to(ROOT/'packaging/aur'):
+                continue
             if path.is_symlink():
                 raise ValueError('symlink in release input')
-            if path.is_file() and (path.suffix in ('.py', '.sh', '.js', '.md', '.txt', '.yml', '.svg', '.png', '.json', '.xml', '.in', '.desktop', '.public') or path.name == 'lookup'):
+            if path.is_file() and (path.suffix in ('.py', '.sh', '.js', '.md', '.txt', '.yml', '.svg', '.png', '.json', '.xml', '.in', '.desktop', '.public', '.cpp', '.h') or path.name == 'lookup'):
                 files.append((prefix+'/'+path.relative_to(ROOT).as_posix(), path))
     for name in ('LICENSE', 'COPYING.md', 'README.md', 'CONTRIBUTING.md', 'SECURITY.md', 'CHANGELOG.md', 'PKGBUILD',
                  'docs/README.ru.md', 'docs/DICTIONARIES.md', 'docs/RELEASING.md', 'docs/RELEASE_NOTES.md',
-                 'docs/UBUNTU.md', 'docs/ubuntu-vm-validation.md'):
+                 'docs/UBUNTU.md', 'docs/ubuntu-vm-validation.md', 'docs/AUR.md'):
         files.append((prefix+'/'+name, ROOT/name))
     archive(output/(prefix+'-source.tar.gz'), files)
     (output/'SHA256SUMS').write_text(''.join(

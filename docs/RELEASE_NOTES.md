@@ -1,4 +1,7 @@
-# LookUp Linux 0.2.0 — KDE + GNOME Wayland
+# LookUp Linux 0.2.1 — prepared, unpublished
+
+These are draft notes for locally prepared assets. Version 0.2.1 has not been
+published; the currently published release remains 0.2.0.
 
 **English → Russian. Right where you read.**
 
@@ -17,10 +20,10 @@ translation was disabled during this captured test; it is enabled by default.*
 
 | System | Asset | Install |
 | --- | --- | --- |
-| **Arch Linux x86_64 · KDE Plasma 6 Wayland** | `lookup-linux-0.2.0-1-x86_64.pkg.tar.zst` | `sudo pacman -U ./lookup-linux-0.2.0-1-x86_64.pkg.tar.zst` |
-| **Arch Linux · build locally** | `lookup-linux-0.2.0-archlinux-x86_64-build-kit.tar.gz` | Extract, enter the build-kit directory, run `makepkg -si` |
-| **Ubuntu 24.04 · GNOME 46 Wayland preview** | `lookup-linux-0.2.0-source.tar.gz` | Follow the Ubuntu instructions below; no `.deb` is provided |
-| **Development / other ports** | `lookup-linux-0.2.0-source.tar.gz` | See README and CONTRIBUTING; Windows/macOS/X11 are not supported application targets |
+| **Arch Linux x86_64 · KDE Plasma 6 Wayland** | `lookup-linux-0.2.1-1-x86_64.pkg.tar.zst` | `sudo pacman -U ./lookup-linux-0.2.1-1-x86_64.pkg.tar.zst` |
+| **Arch Linux · build locally** | `lookup-linux-0.2.1-archlinux-x86_64-build-kit.tar.gz` | Extract, enter the build-kit directory, run `makepkg -si` |
+| **Ubuntu 24.04 · GNOME 46 Wayland preview** | `lookup-linux-0.2.1-source.tar.gz` | Follow the Ubuntu instructions below; no `.deb` is provided |
+| **Development / other ports** | `lookup-linux-0.2.1-source.tar.gz` | See README and CONTRIBUTING; Windows/macOS/X11 are not supported application targets |
 
 Download `SHA256SUMS` and verify your files:
 
@@ -38,7 +41,7 @@ the GNOME Wayland desktop**:
 ```bash
 sudo apt update
 sudo apt install python3-pyqt6 qt6-wayland tesseract-ocr tesseract-ocr-eng wl-clipboard
-cd lookup-linux-0.2.0
+cd lookup-linux-0.2.1
 python3 tools/install_ubuntu.py
 ```
 
@@ -53,6 +56,13 @@ The source directory must stay in place because user launchers point to it.
 [Full Ubuntu setup and limits](https://github.com/EstySD/LookUpLinux/blob/v0.2.0/docs/UBUNTU.md).
 
 ## What changed
+
+- Context translation retries existing Google clients when gtx is restricted,
+  without extending its deadline or relaxing marked-word validation.
+- Public source archives include the native KWin capture plugin build inputs.
+- AUR recipe preparation binds the package to exact public source checksums.
+
+Features retained from 0.2.0:
 
 - Separate GNOME extension for cursor/monitor detection, in-memory screen
   capture, popup placement and persistent shortcuts with conflict detection.

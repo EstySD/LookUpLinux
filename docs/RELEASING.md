@@ -6,9 +6,10 @@ It does not claim Windows/macOS support or automatically publish releases.
 ## Prepare
 
 1. Keep versions aligned in both package recipes, the changelog, release notes,
-   README install example and CI preview command. Current version: `0.2.0`.
+   CI preview command. Prepared version: `0.2.1` (unpublished). Update README
+   download examples when publication is authorized; they currently name 0.2.0.
 2. Run tests with PyQt6 installed and `QT_QPA_PLATFORM=offscreen`.
-3. Run `python tools/build_release.py --tag v0.2.0 --output dist` in a clean
+3. Run `python tools/build_release.py --tag v0.2.1 --output dist` in a clean
    checkout. The output directory must be empty. Assets use explicit source
    roots; agent logs, planning, research and personal dictionaries are excluded.
    `.gitattributes` also excludes workspace artifacts from GitHub's automatic
@@ -19,9 +20,12 @@ It does not claim Windows/macOS support or automatically publish releases.
 
 ## Build and review
 
-After committing and pushing the reviewed release changes, create and push the
-matching tag (`git tag -a v0.2.0 -m "LookUp Linux 0.2.0"`, then
-`git push origin v0.2.0`). This triggers **Prepare release**. Manual dispatch
+The current task prepares files only: do not push, dispatch a release workflow,
+create a remote draft, publish a release or submit to AUR.
+
+After separate authorization to publish, push the reviewed release changes and
+matching tag (`git tag -a v0.2.1 -m "LookUp Linux 0.2.1"`, then
+`git push origin v0.2.1`). This triggers **Prepare release**. Manual dispatch
 also accepts an existing release tag. An existing release is never overwritten;
 resolve a failed rerun explicitly after inspecting the original draft.
 
@@ -52,3 +56,9 @@ or short recording should be added only after capturing the application with
 non-private sample text; the banner is an illustration, not a screenshot.
 Enable private vulnerability reporting under repository Security settings.
 Announcements to other communities are a separate maintainer action.
+
+## AUR preparation
+
+Follow [AUR.md](AUR.md) to prepare a recipe from the exact public source archive,
+generate `.SRCINFO` with makepkg, and validate a local build before publication.
+The public package requires separately supplied dictionaries and excludes Mueller.

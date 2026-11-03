@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.1 — Unreleased
+
+- Retry context translation with existing Google clients when gtx is restricted,
+  under one shared deadline; retain strict marked-word validation.
+- Include native KWin plugin sources in the public source archive.
+- Prepare checksum-bound AUR metadata and package lifecycle instructions.
+- Agent verification on KDE Wayland: live contextual translation, real MDX/DSL,
+  second monitor at 100%/125%, and borderless Wesnoth lookup/input return.
+
 ## 0.2.0 — 2026-11-02
 
 - Ubuntu 24.04 / GNOME Shell 46 Wayland support through an optional extension.
