@@ -294,6 +294,8 @@ def discover(roots=None) -> list[Found]:
                         fmt = 'dsl'
                     elif lower.endswith('.mdx'):
                         fmt = 'mdx'
+                    elif lower.endswith('.zip'):
+                        fmt = 'yomitan'
                     else:
                         continue
                     ident = path.relative_to(root).as_posix()
@@ -405,6 +407,7 @@ def open_all(config=None, roots=None) -> DictSet:
     from lookup.stardict import open_stardict
     from lookup.dsl import open_dsl
     from lookup.mdx import open_mdx
+    from lookup.yomitan import open_yomitan
 
     started = time.perf_counter()
     settings = load() if config is None else config
@@ -416,7 +419,8 @@ def open_all(config=None, roots=None) -> DictSet:
         if ident in by_id and ident not in enabled:
             enabled[ident] = on
     records = []
-    openers = {'stardict': open_stardict, 'dsl': open_dsl, 'mdx': open_mdx}
+    openers = {'stardict': open_stardict, 'dsl': open_dsl, 'mdx': open_mdx,
+               'yomitan': open_yomitan}
     try:
         for candidate in candidates:
             name = candidate.path.name

@@ -8,7 +8,7 @@ _components=None
 INITIAL='Изменения применяются после нажатия кнопки'
 PENDING='Применяем настройки…'
 SUCCESS='Настройки применены. Автозапуск изменится при следующем входе в KDE'
-FOLDER_HELP='Скопируйте в эту папку словари StarDict, Lingvo DSL или MDX, затем нажмите „Применить настройки“. Для StarDict скопируйте весь комплект файлов. Можно использовать подпапки'
+FOLDER_HELP='Скопируйте в эту папку словари StarDict, Lingvo DSL, MDX или ZIP Yomitan, затем нажмите „Применить настройки“. ZIP Yomitan распаковывать не нужно. Для замены словаря замените файл с тем же именем. Для StarDict скопируйте весь комплект файлов. Можно использовать подпапки'
 FOLDER_FAILED='Не удалось открыть папку словарей. Скопируйте указанный путь и откройте его в файловом менеджере. Проверьте доступ к папке'
 MESSAGES={
     'invalid_shortcut':'Укажите одно сочетание клавиш',
@@ -22,7 +22,11 @@ MESSAGES={
 
 
 def _dictionary_rows():
-    return [dict(id=value.id,name=value.path.stem) for value in dicts.discover()]
+    from .doctor import _REASONS
+    with dicts.open_all() as dictionaries:
+        return [dict(id=value.id,name=value.name+((' — '+_REASONS.get(value.reason,'не удалось прочитать')+
+                    '. Проверьте ZIP или выключите словарь') if value.status=='error' else ''))
+                for value in dictionaries.info()]
 
 
 def _dictionary_folder():

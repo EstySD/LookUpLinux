@@ -20,7 +20,7 @@ v1.1 is ready for Phase 10 discussion. [Phase 9 verification](phases/09-hotkey-c
 - [x] **Phase 9: Фиксация по хоткею и скорость** - Capture the requested moment and remove measured delays. (completed 2026-11-02)
 - [x] **Phase 10: Компактный настраиваемый попап** - Show relevant meanings first and allow hiding context. (completed 2026-11-02)
 - [x] **Phase 11: Выбор слов на замороженной сцене** - Select words on a retained scene while intercepting input. (completed 2026-11-03)
-- [ ] **Phase 12: Словари Yomitan** - Connect and use the user's real dictionaries.
+- [x] **Phase 12: Словари Yomitan** - Connect and use the user's real dictionaries. (completed 2026-11-03)
 - [ ] **Phase 13: Понятный первый запуск и GUI** - Discover the interface without knowing tray conventions.
 - [ ] **Phase 14: Надёжность в реальных сценариях** - Verify providers, real dictionaries, second monitor and borderless.
 - [ ] **Phase 15: Подготовка распространения через AUR** - Build/install/update the distributable package safely.
@@ -143,7 +143,7 @@ v1.1 is ready for Phase 10 discussion. [Phase 9 verification](phases/09-hotkey-c
 | 9. Фиксация по хоткею и скорость | 2/2 | Complete    | 2026-11-02 |
 | 10. Компактный настраиваемый попап | 1/1 | Complete    | 2026-11-02 |
 | 11. Выбор слов на замороженной сцене | 3/3 | Complete    | 2026-11-03 |
-| 12. Словари Yomitan | 0/TBD | Not started | - |
+| 12. Словари Yomitan | 1/1 | Complete    | 2026-11-03 |
 | 13. Понятный первый запуск и GUI | 0/TBD | Not started | - |
 | 14. Надёжность в реальных сценариях | 0/TBD | Not started | - |
 | 15. Подготовка распространения через AUR | 0/TBD | Not started | - |

@@ -31,6 +31,11 @@ def _probe(path,fmt):
     """Use pure reader internals; deliberately bypass cache-writing factories."""
     path=Path(path)
     if not stat.S_ISREG(path.stat().st_mode):raise dicts.DictError('unreadable')
+    if fmt=='yomitan':
+        from lookup.yomitan import open_yomitan
+        reader=open_yomitan(path)
+        try:return dict(entries=sum(len(rows) for rows in reader.entries.values()),skipped=0)
+        finally:reader.close()
     if fmt=='stardict':
         from lookup.stardict import open_stardict
         reader=open_stardict(path)

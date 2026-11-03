@@ -1,0 +1,14 @@
+{
+  "host_full": {
+    "returncode": 0,
+    "log": "host-full.log"
+  },
+  "real_host": {
+    "returncode": 0,
+    "log": "real-host.log"
+  },
+  "target": {
+    "returncode": 0,
+    "log": "target-full.log"
+  }
+}

@@ -23,7 +23,7 @@ Freshly selected text takes priority over OCR. Save a word and review it later
 without switching to a browser.
 
 - **Read across applications:** cursor OCR and selected-text lookup.
-- **Bring your dictionaries:** StarDict, Lingvo DSL / compressed DSL, and MDX.
+- **Bring your dictionaries:** StarDict, Lingvo DSL / compressed DSL, MDX, and Yomitan v3 ZIP (plain and structured text). Copy Yomitan ZIPs into the dictionary folder without extracting them, then apply settings. Replace the same filename to update a dictionary; invalid archives show an error beside their name while other dictionaries remain available.
 - **Keep the context:** optional online sentence translation and word meaning in context.
 - **Build your vocabulary:** history, learning cards and scheduled review.
 - **Export your words:** CSV and Anki text files.

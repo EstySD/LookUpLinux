@@ -23,8 +23,8 @@ Defined 2026-11-02 from [agreed brief](v1.1-CONTEXT.md). All requirements are pe
 
 ### First priority: Yomitan
 
-- [ ] **DICT-04**: User can connect Danila's real Yomitan dictionaries and obtain their expected meanings through normal lookup.
-- [ ] **DICT-05**: Invalid or unsupported dictionary archives produce understandable errors without damaging connected dictionaries; repeated connection has predictable behavior.
+- [x] **DICT-04**: User can connect Danila's real Yomitan dictionaries and obtain their expected meanings through normal lookup.
+- [x] **DICT-05**: Invalid or unsupported dictionary archives produce understandable errors without damaging connected dictionaries; repeated connection has predictable behavior.
 
 ### First priority: discoverable GUI
 
@@ -59,8 +59,8 @@ Audio pronunciation, CEFR and new Anki synchronization are excluded. Existing ca
 | CAPT-08 | Phase 11 | Complete |
 | TRIG-05 | Phase 11 | Complete |
 | TRIG-06 | Phase 11 | Complete |
-| DICT-04 | Phase 12 | Pending |
-| DICT-05 | Phase 12 | Pending |
+| DICT-04 | Phase 12 | Complete |
+| DICT-05 | Phase 12 | Complete |
 | TRIG-07 | Phase 13 | Pending |
 | SET-03 | Phase 13 | Pending |
 | TRAN-07 | Phase 14 | Pending |
