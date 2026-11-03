@@ -280,7 +280,7 @@ def host_batch(output,cases=EXITS,run_target=True):
     guard=root/'tools/check_package_vm.ps1'
     ssh=['ssh','-o','BatchMode=yes','-o','ConnectTimeout=10','-o','HostKeyAlias=lookup-gsd-07',
          '-o','UserKnownHostsFile=D:/vm/machines/lookup-gsd-07/ssh_known_hosts','-p','2227','archvm']
-    guest='/tmp/lookup-frozen-product-11/'+('run' if tuple(cases)==EXITS else 'run-recheck-'+str(int(time.time())))
+    guest='/tmp/lookup-frozen-product-11/run-batch-'+str(int(time.time()))
     snapshot='/tmp/lookup-frozen-product-11/snapshot'
     prelude="from pathlib import Path\nimport os,json,time,signal,subprocess\nfrom tools.check_frozen_product import control,write,environment\nenvironment()\nr=Path('"+guest+"')\n"
     report={'mode':'native-product-batch','cases':{},'started':time.time(),'errors':[],'guest_root':guest}
