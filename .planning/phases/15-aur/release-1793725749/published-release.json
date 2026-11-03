@@ -1,0 +1,79 @@
+{
+  "assets": [
+    {
+      "apiUrl": "https://api.github.com/repos/EstySD/LookUpLinux/releases/assets/706463434",
+      "contentType": "application/zstd",
+      "createdAt": "2026-11-03T17:26:36Z",
+      "digest": "sha256:37869d1efded40bcfa9554667c8f860cb4d08f4a2efcdbcc0bcb3399425e0ff8",
+      "downloadCount": 0,
+      "id": "RA_kwDOVfcAU84qG8bK",
+      "label": "",
+      "name": "lookup-linux-0.2.1-1-x86_64.pkg.tar.zst",
+      "size": 1029326,
+      "state": "uploaded",
+      "updatedAt": "2026-11-03T17:26:37Z",
+      "url": "https://github.com/EstySD/LookUpLinux/releases/download/v0.2.1/lookup-linux-0.2.1-1-x86_64.pkg.tar.zst"
+    },
+    {
+      "apiUrl": "https://api.github.com/repos/EstySD/LookUpLinux/releases/assets/706463441",
+      "contentType": "application/x-gtar",
+      "createdAt": "2026-11-03T17:26:36Z",
+      "digest": "sha256:ace7f6e3302f55cffa21f4cbc70300a8d9a1976ccd79321458bafd2258c2dd27",
+      "downloadCount": 0,
+      "id": "RA_kwDOVfcAU84qG8bR",
+      "label": "",
+      "name": "lookup-linux-0.2.1-archlinux-x86_64-build-kit.tar.gz",
+      "size": 157769,
+      "state": "uploaded",
+      "updatedAt": "2026-11-03T17:26:37Z",
+      "url": "https://github.com/EstySD/LookUpLinux/releases/download/v0.2.1/lookup-linux-0.2.1-archlinux-x86_64-build-kit.tar.gz"
+    },
+    {
+      "apiUrl": "https://api.github.com/repos/EstySD/LookUpLinux/releases/assets/706482706",
+      "contentType": "application/x-gtar",
+      "createdAt": "2026-11-03T17:33:22Z",
+      "digest": "sha256:5bd0003087b4260ccdebc3da96d815123adab1e7a2ba89cf26eccddbc83c4ed3",
+      "downloadCount": 0,
+      "id": "RA_kwDOVfcAU84qHBIS",
+      "label": "",
+      "name": "lookup-linux-0.2.1-aur.tar.gz",
+      "size": 1278,
+      "state": "uploaded",
+      "updatedAt": "2026-11-03T17:33:22Z",
+      "url": "https://github.com/EstySD/LookUpLinux/releases/download/v0.2.1/lookup-linux-0.2.1-aur.tar.gz"
+    },
+    {
+      "apiUrl": "https://api.github.com/repos/EstySD/LookUpLinux/releases/assets/706463429",
+      "contentType": "application/x-gtar",
+      "createdAt": "2026-11-03T17:26:36Z",
+      "digest": "sha256:7245ec58ed7b864e73717a92c5a5c1319929b64a3a4962b36f94787569eadad7",
+      "downloadCount": 0,
+      "id": "RA_kwDOVfcAU84qG8bF",
+      "label": "",
+      "name": "lookup-linux-0.2.1-source.tar.gz",
+      "size": 6855109,
+      "state": "uploaded",
+      "updatedAt": "2026-11-03T17:26:37Z",
+      "url": "https://github.com/EstySD/LookUpLinux/releases/download/v0.2.1/lookup-linux-0.2.1-source.tar.gz"
+    },
+    {
+      "apiUrl": "https://api.github.com/repos/EstySD/LookUpLinux/releases/assets/706482733",
+      "contentType": "application/octet-stream",
+      "createdAt": "2026-11-03T17:33:22Z",
+      "digest": "sha256:43154ddabcce13c7053ecb2bd6d3b82cc56d59ce07ddb17a0c2d82a2d3f1466f",
+      "downloadCount": 0,
+      "id": "RA_kwDOVfcAU84qHBIt",
+      "label": "",
+      "name": "SHA256SUMS",
+      "size": 420,
+      "state": "uploaded",
+      "updatedAt": "2026-11-03T17:33:23Z",
+      "url": "https://github.com/EstySD/LookUpLinux/releases/download/v0.2.1/SHA256SUMS"
+    }
+  ],
+  "isDraft": false,
+  "isPrerelease": false,
+  "publishedAt": "2026-11-03T17:34:43Z",
+  "tagName": "v0.2.1",
+  "url": "https://github.com/EstySD/LookUpLinux/releases/tag/v0.2.1"
+}

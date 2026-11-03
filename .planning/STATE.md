@@ -4,7 +4,7 @@ milestone: v1.1
 milestone_name: Надёжность и распространение
 current_phase: null
 status: Awaiting next milestone
-stopped_at: Milestone v1.1 complete; 877 tests on each platform and five package gates pass; authorized GitHub v0.2.1 publication in progress
+stopped_at: Milestone v1.1 complete; GitHub v0.2.1 published; CI and canonical package verified
 last_updated: "2026-11-03T17:16:28.813Z"
 last_activity: 2026-11-03
 last_activity_desc: Milestone v1.1 completed and archived
@@ -24,7 +24,7 @@ current_phase_name: null
 See: .planning/PROJECT.md (v1 scope expanded 2026-10-27)
 
 **Core value:** Хоткей над английским словом даёт перевод в оверлее у курсора примерно за 1–2 секунды, и слово попадает в базу со счётчиком.
-**Current focus:** Milestone v1.1 complete; publish verified public release v0.2.1 on GitHub
+**Current focus:** Milestone v1.1 complete; public v0.2.1 published; awaiting next milestone
 
 ## Current Position
 
@@ -140,9 +140,9 @@ Items acknowledged and carried forward from previous milestone close:
 ## Session Continuity
 
 Last session: 2026-11-03T10:49:47.525Z
-Stopped at: Milestone v1.1 complete. Final Windows/Linux suites 877 each, zero failures/errors; five actual package gates pass. VM remains running with 0.2.1 installed. GitHub publication is authorized.
+Stopped at: Milestone v1.1 complete. Public release https://github.com/EstySD/LookUpLinux/releases/tag/v0.2.1 published 2026-11-03T17:34:43Z. Windows/Linux suites 877 each; five package gates, both GitHub workflows and downloaded CI binary smoke pass. Owned clone restored to its observed powered-off state with 0.2.1 installed.
 Resume file: None
 
 ## Operator Next Steps
 
-- Publish verified v0.2.1 on GitHub after remote CI succeeds. AUR submission is separate; no new milestone is started.
+- No remaining release work. AUR submission is separate; start another milestone only when requested.

@@ -1,0 +1,6 @@
+{
+  "poweroff": true,
+  "reason": "restore poweroff state observed before canonical CI binary smoke",
+  "original_vm_controlled": false,
+  "installed_package": "lookup-linux 0.2.1-1"
+}

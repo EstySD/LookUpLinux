@@ -1,0 +1,15 @@
+{
+  "version": "0.2.1",
+  "source_url": "https://github.com/EstySD/LookUpLinux/releases/download/v0.2.1/lookup-linux-0.2.1-source.tar.gz",
+  "source_sha256": "7245ec58ed7b864e73717a92c5a5c1319929b64a3a4962b36f94787569eadad7",
+  "publication": "not_published",
+  "recipe_sha256": "42e44068c0fc195e856f95cae4ca981878fb53d41f024e7997fe0a32144d28d7",
+  "payload_files_match_local_verified_source": true,
+  "source_file_count": 193,
+  "checksums_verified": {
+    "lookup-linux-0.2.1-archlinux-x86_64-build-kit.tar.gz": "ace7f6e3302f55cffa21f4cbc70300a8d9a1976ccd79321458bafd2258c2dd27",
+    "lookup-linux-0.2.1-source.tar.gz": "7245ec58ed7b864e73717a92c5a5c1319929b64a3a4962b36f94787569eadad7",
+    "lookup-linux-0.2.1-1-x86_64.pkg.tar.zst": "37869d1efded40bcfa9554667c8f860cb4d08f4a2efcdbcc0bcb3399425e0ff8"
+  },
+  "compressed_bytes_toolchain_dependent": true
+}

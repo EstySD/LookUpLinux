@@ -35,7 +35,7 @@
     "version": "0.2.1",
     "source_url": "https://github.com/EstySD/LookUpLinux/releases/download/v0.2.1/lookup-linux-0.2.1-source.tar.gz",
     "source_sha256": "5d9182dba8a653b9f8ce05ed4db821e5b708ab7a0b096882b6f7d17ffca2e6d9",
-    "publication": "not_published",
+    "publication": "local_validation_archive; canonical artifact recorded separately",
     "recipe_sha256": "2a280939fccd8031f885694769a949237d4aecc3b9a94a127ca342ba73fd660f"
   },
   "source_hashes": {
@@ -157,6 +157,39 @@
   },
   "report_directory": ".planning\\phases\\15-aur\\release-1793725749",
   "manual_testing": "Denis reports completing VM tests and committing OCR/popup fixes; no per-scenario human result is inferred.",
-  "publication": "GitHub publication authorized; pending remote verification",
-  "vm_final": "running; lookup-linux 0.2.1-1 installed"
+  "publication": {
+    "url": "https://github.com/EstySD/LookUpLinux/releases/tag/v0.2.1",
+    "published_at": "2026-11-03T17:34:43Z",
+    "tag": "v0.2.1",
+    "ci_head": "30a9cf9ad7f22c3dca958f33c0d958affc9f5f52",
+    "tests_run": 41683692701,
+    "release_run": 41683690775
+  },
+  "vm_final": "powered off; canonical 0.2.1 installed; restored pre-smoke power state",
+  "canonical_source": {
+    "version": "0.2.1",
+    "source_url": "https://github.com/EstySD/LookUpLinux/releases/download/v0.2.1/lookup-linux-0.2.1-source.tar.gz",
+    "source_sha256": "7245ec58ed7b864e73717a92c5a5c1319929b64a3a4962b36f94787569eadad7",
+    "publication": "not_published",
+    "recipe_sha256": "42e44068c0fc195e856f95cae4ca981878fb53d41f024e7997fe0a32144d28d7",
+    "payload_files_match_local_verified_source": true,
+    "source_file_count": 193,
+    "checksums_verified": {
+      "lookup-linux-0.2.1-archlinux-x86_64-build-kit.tar.gz": "ace7f6e3302f55cffa21f4cbc70300a8d9a1976ccd79321458bafd2258c2dd27",
+      "lookup-linux-0.2.1-source.tar.gz": "7245ec58ed7b864e73717a92c5a5c1319929b64a3a4962b36f94787569eadad7",
+      "lookup-linux-0.2.1-1-x86_64.pkg.tar.zst": "37869d1efded40bcfa9554667c8f860cb4d08f4a2efcdbcc0bcb3399425e0ff8"
+    },
+    "compressed_bytes_toolchain_dependent": true
+  },
+  "canonical_package_validation": {
+    "passed": true,
+    "package_sha256": "37869d1efded40bcfa9554667c8f860cb4d08f4a2efcdbcc0bcb3399425e0ff8",
+    "installed": "lookup-linux 0.2.1-1",
+    "lookup": {
+      "word": "bank",
+      "translation": "\u0431\u0430\u043d\u043a",
+      "count": 1
+    },
+    "plugin_dependencies_found": true
+  }
 }

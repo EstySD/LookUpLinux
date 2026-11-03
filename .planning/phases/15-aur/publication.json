@@ -1,0 +1,22 @@
+{
+  "url": "https://github.com/EstySD/LookUpLinux/releases/tag/v0.2.1",
+  "published_at": "2026-11-03T17:34:43Z",
+  "tag": "v0.2.1",
+  "milestone": "v1.1",
+  "is_draft": false,
+  "asset_count": 5,
+  "checksums": {
+    "lookup-linux-0.2.1-1-x86_64.pkg.tar.zst": "sha256:37869d1efded40bcfa9554667c8f860cb4d08f4a2efcdbcc0bcb3399425e0ff8",
+    "lookup-linux-0.2.1-archlinux-x86_64-build-kit.tar.gz": "sha256:ace7f6e3302f55cffa21f4cbc70300a8d9a1976ccd79321458bafd2258c2dd27",
+    "lookup-linux-0.2.1-aur.tar.gz": "sha256:5bd0003087b4260ccdebc3da96d815123adab1e7a2ba89cf26eccddbc83c4ed3",
+    "lookup-linux-0.2.1-source.tar.gz": "sha256:7245ec58ed7b864e73717a92c5a5c1319929b64a3a4962b36f94787569eadad7",
+    "SHA256SUMS": "sha256:43154ddabcce13c7053ecb2bd6d3b82cc56d59ce07ddb17a0c2d82a2d3f1466f"
+  },
+  "unauthenticated_checksums_download_verified": true,
+  "ci": {
+    "Tests": 41683692701,
+    "Prepare release": 41683690775
+  },
+  "canonical_binary_smoke_passed": true,
+  "aur_submission": "not_performed"
+}

@@ -1,0 +1,10 @@
+{
+  "command": "node ci_monitor.cjs watch <run> --repo EstySD/LookUpLinux --exit-status --interval 30",
+  "pid": 18088,
+  "head": "30a9cf9ad7f22c3dca958f33c0d958affc9f5f52",
+  "runs": {
+    "Tests": 41683692701,
+    "Prepare release": 41683690775
+  },
+  "started": 1793726656.8924086
+}

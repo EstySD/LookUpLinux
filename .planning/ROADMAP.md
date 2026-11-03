@@ -13,6 +13,6 @@
 
 ## Current status
 
-No active milestone. All v1.1 phases are verified. Final Windows/Linux suites each run 877 tests with zero failures/errors; five actual public-package gates pass. Denis reports manual VM testing and authorizes publication of public version 0.2.1. AUR metadata is prepared; AUR submission remains separate.
+No active milestone. All v1.1 phases are verified. Final Windows/Linux suites each run 877 tests with zero failures/errors; five actual public-package gates pass. Public [version 0.2.1](https://github.com/EstySD/LookUpLinux/releases/tag/v0.2.1) is published, both GitHub workflows passed, and the downloaded CI binary was checked in the target VM. AUR metadata is attached; AUR submission remains separate.
 
 Phase directories remain in place as execution history. Public release tag is v0.2.1; internal milestone tag is milestone/v1.1.

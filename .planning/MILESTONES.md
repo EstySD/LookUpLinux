@@ -13,7 +13,7 @@
 
 **Final verification:** 877 tests on Windows and Linux, zero failures/errors; 13/22 skips. Five native package gates pass. User-reported manual VM testing is recorded separately from agent scenarios. [Audit](milestones/v1.1-MILESTONE-AUDIT.md).
 
-**Publication:** GitHub public v0.2.1 authorized; internal milestone tag milestone/v1.1. AUR submission remains separate.
+**Publication:** [GitHub v0.2.1](https://github.com/EstySD/LookUpLinux/releases/tag/v0.2.1), published 2026-11-03T17:34:43Z; internal milestone tag milestone/v1.1. Both remote workflows passed. Downloaded canonical CI binary passed installed lookup and linkage checks. AUR metadata is attached; AUR submission remains separate.
 
 ---
 

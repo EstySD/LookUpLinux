@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "package_sha256": "37869d1efded40bcfa9554667c8f860cb4d08f4a2efcdbcc0bcb3399425e0ff8",
+  "installed": "lookup-linux 0.2.1-1",
+  "lookup": {
+    "word": "bank",
+    "translation": "\u0431\u0430\u043d\u043a",
+    "count": 1
+  },
+  "plugin_dependencies_found": true
+}

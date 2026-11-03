@@ -1,0 +1,12 @@
+{
+  "Tests": {
+    "run": 41683692701,
+    "returncode": 0,
+    "log": ".planning\\phases\\15-aur\\release-1793725749\\github-41683692701.log"
+  },
+  "Prepare release": {
+    "run": 41683690775,
+    "returncode": 0,
+    "log": ".planning\\phases\\15-aur\\release-1793725749\\github-41683690775.log"
+  }
+}
