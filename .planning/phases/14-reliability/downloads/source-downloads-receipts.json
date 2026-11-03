@@ -1,0 +1,102 @@
+[
+  {
+    "name": "en-ru_wikidict.dsl",
+    "url": "https://raw.githubusercontent.com/open-dsl-dict/wikidict-dsl-ru/master/data/en-ru_wikidict.dsl",
+    "route": "direct",
+    "status": 200,
+    "bytes": 76761649,
+    "sha256": "7676b6abfd3d9e4e906b02701307b08fc28eb07b22f130489fe352e1cd2b9eae",
+    "path": "downloads\\direct-en-ru_wikidict.dsl",
+    "seconds": 29.932
+  },
+  {
+    "name": "en-ru_wikidict.dsl",
+    "url": "https://raw.githubusercontent.com/open-dsl-dict/wikidict-dsl-ru/master/data/en-ru_wikidict.dsl",
+    "route": "proxy",
+    "status": 200,
+    "bytes": 76761649,
+    "sha256": "7676b6abfd3d9e4e906b02701307b08fc28eb07b22f130489fe352e1cd2b9eae",
+    "path": "downloads\\proxy-en-ru_wikidict.dsl",
+    "seconds": 10.674
+  },
+  {
+    "name": "ecdict-mdx-headless-28.zip",
+    "url": "https://github.com/skywind3000/ECDICT/releases/download/1.0.28/ecdict-mdx-headless-28.zip",
+    "route": "direct",
+    "status": 200,
+    "bytes": 73065884,
+    "sha256": "15ddb284f68fff177492f531a093f3f33a38f85f5b6fc9b882e9c3769b8714aa",
+    "path": "downloads\\direct-ecdict-mdx-headless-28.zip",
+    "seconds": 21.372
+  },
+  {
+    "name": "ecdict-mdx-headless-28.zip",
+    "url": "https://github.com/skywind3000/ECDICT/releases/download/1.0.28/ecdict-mdx-headless-28.zip",
+    "route": "proxy",
+    "status": 200,
+    "bytes": 73065884,
+    "sha256": "15ddb284f68fff177492f531a093f3f33a38f85f5b6fc9b882e9c3769b8714aa",
+    "path": "downloads\\proxy-ecdict-mdx-headless-28.zip",
+    "seconds": 6.892
+  },
+  {
+    "name": "ecdict.csv",
+    "url": "https://raw.githubusercontent.com/skywind3000/ECDICT/master/ecdict.csv",
+    "route": "direct",
+    "status": 200,
+    "bytes": 66009548,
+    "sha256": "d1ecbdf9ee2b920afb6f430ca6b6bb9f559588cf0dff86e04bd255f9390843cc",
+    "path": "downloads\\direct-ecdict.csv",
+    "seconds": 22.558
+  },
+  {
+    "name": "ecdict.csv",
+    "url": "https://raw.githubusercontent.com/skywind3000/ECDICT/master/ecdict.csv",
+    "route": "proxy",
+    "status": 200,
+    "bytes": 66009548,
+    "sha256": "d1ecbdf9ee2b920afb6f430ca6b6bb9f559588cf0dff86e04bd255f9390843cc",
+    "path": "downloads\\proxy-ecdict.csv",
+    "seconds": 9.977
+  },
+  {
+    "name": "dsl-license.txt",
+    "url": "https://raw.githubusercontent.com/open-dsl-dict/wikidict-dsl-ru/master/LICENSE",
+    "route": "direct",
+    "status": 200,
+    "bytes": 1104,
+    "sha256": "4bbcc7f21a525d9f88b242f773ca0ee669f96a25cd8e87032bc6168f6dc735e3",
+    "path": "downloads\\direct-dsl-license.txt",
+    "seconds": 0.325
+  },
+  {
+    "name": "dsl-license.txt",
+    "url": "https://raw.githubusercontent.com/open-dsl-dict/wikidict-dsl-ru/master/LICENSE",
+    "route": "proxy",
+    "status": 200,
+    "bytes": 1104,
+    "sha256": "4bbcc7f21a525d9f88b242f773ca0ee669f96a25cd8e87032bc6168f6dc735e3",
+    "path": "downloads\\proxy-dsl-license.txt",
+    "seconds": 0.163
+  },
+  {
+    "name": "ecdict-license.txt",
+    "url": "https://raw.githubusercontent.com/skywind3000/ECDICT/master/LICENSE",
+    "route": "direct",
+    "status": 200,
+    "bytes": 1063,
+    "sha256": "f8552dd246f61a4e064569eae6194a01c6b3d63b03bf27c6ca863593c549ed0f",
+    "path": "downloads\\direct-ecdict-license.txt",
+    "seconds": 0.258
+  },
+  {
+    "name": "ecdict-license.txt",
+    "url": "https://raw.githubusercontent.com/skywind3000/ECDICT/master/LICENSE",
+    "route": "proxy",
+    "status": 200,
+    "bytes": 1063,
+    "sha256": "f8552dd246f61a4e064569eae6194a01c6b3d63b03bf27c6ca863593c549ed0f",
+    "path": "downloads\\proxy-ecdict-license.txt",
+    "seconds": 0.201
+  }
+]

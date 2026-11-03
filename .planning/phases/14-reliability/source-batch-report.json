@@ -1,0 +1,21 @@
+{
+  "host": {
+    "returncode": 0,
+    "log": "host-real-dicts.log",
+    "reused": true
+  },
+  "target": {
+    "dictionaries": {
+      "returncode": 0,
+      "log": "target-real-dicts.log"
+    },
+    "provider_direct": {
+      "returncode": 1,
+      "log": "provider-direct.log"
+    },
+    "provider_proxy": {
+      "returncode": 1,
+      "log": "provider-proxy.log"
+    }
+  }
+}

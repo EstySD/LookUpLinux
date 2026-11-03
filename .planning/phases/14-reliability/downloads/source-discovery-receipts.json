@@ -1,0 +1,62 @@
+[
+  {
+    "name": "dsl-tree.json",
+    "url": "https://api.github.com/repos/open-dsl-dict/wikidict-dsl-en/git/trees/master?recursive=1",
+    "route": "direct",
+    "status": 200,
+    "bytes": 29275,
+    "sha256": "7bc13c8ac8a72b30a407565810b184f7943a43ec5684808e96ccef0931b0920b",
+    "path": "downloads\\direct-dsl-tree.json",
+    "seconds": 0.801
+  },
+  {
+    "name": "dsl-tree.json",
+    "url": "https://api.github.com/repos/open-dsl-dict/wikidict-dsl-en/git/trees/master?recursive=1",
+    "route": "proxy",
+    "status": 200,
+    "bytes": 29275,
+    "sha256": "7bc13c8ac8a72b30a407565810b184f7943a43ec5684808e96ccef0931b0920b",
+    "path": "downloads\\proxy-dsl-tree.json",
+    "seconds": 0.576
+  },
+  {
+    "name": "ecdict-releases.json",
+    "url": "https://api.github.com/repos/skywind3000/ECDICT/releases",
+    "route": "direct",
+    "status": 200,
+    "bytes": 15531,
+    "sha256": "52c59935e3e25be27240752dcbe9af68812f48d9fd2c09f702d4376268d58a3c",
+    "path": "downloads\\direct-ecdict-releases.json",
+    "seconds": 0.601
+  },
+  {
+    "name": "ecdict-releases.json",
+    "url": "https://api.github.com/repos/skywind3000/ECDICT/releases",
+    "route": "proxy",
+    "status": 200,
+    "bytes": 15531,
+    "sha256": "52c59935e3e25be27240752dcbe9af68812f48d9fd2c09f702d4376268d58a3c",
+    "path": "downloads\\proxy-ecdict-releases.json",
+    "seconds": 0.559
+  },
+  {
+    "name": "mdict-tree.json",
+    "url": "https://api.github.com/repos/terasum/medict/git/trees/master?recursive=1",
+    "route": "direct",
+    "status": 200,
+    "bytes": 58197,
+    "sha256": "79c2c6405c73433cc34e1d2ee59f6ae7d87c61d8923340571c58965c8575b618",
+    "path": "downloads\\direct-mdict-tree.json",
+    "seconds": 0.694
+  },
+  {
+    "name": "mdict-tree.json",
+    "url": "https://api.github.com/repos/terasum/medict/git/trees/master?recursive=1",
+    "route": "proxy",
+    "status": 200,
+    "bytes": 58197,
+    "sha256": "79c2c6405c73433cc34e1d2ee59f6ae7d87c61d8923340571c58965c8575b618",
+    "path": "downloads\\proxy-mdict-tree.json",
+    "seconds": 0.677
+  }
+]

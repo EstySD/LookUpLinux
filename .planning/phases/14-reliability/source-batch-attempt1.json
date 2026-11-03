@@ -1,0 +1,9 @@
+{
+  "host": {
+    "returncode": 0,
+    "log": "host-real-dicts.log"
+  },
+  "target": {
+    "blocked": "AssertionError"
+  }
+}

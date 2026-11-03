@@ -1,5 +1,7 @@
 # Readiness and remaining inputs
 
+**Correction:** the original missing-input blocker below was premature. Downloaded real dictionaries now pass (14-01-SUMMARY.md). Remaining acceptance is in 14-02-PLAN.md.
+
 Phase 13 final code is c92adcb with preserved user OCR edits; complete host/target suites already passed on the same source hashes. Reuse those results while source is unchanged.
 
 Available independent checks: target live context provider via tools/check_context_app.py (production transport, separate offline article check) and target native monitor inventory via platform.monitors. Collect both in one batch, preserve logs and restrictions. Existing tools/check_frozen_product.py proves fullscreen, not borderless; existing single-monitor evidence cannot accept CAPT-09.

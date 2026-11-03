@@ -9,11 +9,11 @@
 
 ## Current status
 
-**v1.1 «Надёжность и распространение»** initialized 2026-11-02: [brief](v1.1-CONTEXT.md), [requirements](REQUIREMENTS.md). Phases 9–13 are complete with agent verification; 5 requirements remain pending in Phases 14–15. Real supplied Yomitan archive and discoverable native home pass final Windows/Linux checks (865 tests each, zero failures/errors).
+**v1.1 «Надёжность и распространение»** initialized 2026-11-02: [brief](v1.1-CONTEXT.md), [requirements](REQUIREMENTS.md). Phases 9–13 complete; 4 requirements remain pending in Phases 14–15. Actual MDX/DSL compatibility now passes on Windows/Linux. Yomitan and native home retain final full-suite evidence (865 tests each, zero failures/errors).
 
 v1.0 is complete with agent verification. Phase 8 passes all seven criteria; final host and target each run 797 tests on the same code revision, with zero failures. All current product/review/verifier gates pass.
 
-v1.1 is blocked at Phase 14: real MDX/DSL source dictionaries/articles are missing and target contextual provider reports blocked. [Readiness](phases/14-reliability/14-READINESS.md) distinguishes usable offline lookup, the one-monitor inventory and pending second-monitor/borderless acceptance. Raw phase directories remain because regression tests/evidence reference them. Historical failed attempts and Phase 7 original-VM preservation exception remain unchanged.
+v1.1 is incomplete at Phase 14: [real MDX/DSL compatibility passes](phases/14-reliability/14-01-SUMMARY.md), resolving the premature missing-input blocker. Context provider remains blocked on both tested direct/proxy target routes; offline lookup stays usable. Second-monitor/borderless acceptance pending. Historical failed attempts and Phase 7 preservation exception remain unchanged.
 
 ## Phases
 
@@ -120,7 +120,11 @@ v1.1 is blocked at Phase 14: real MDX/DSL source dictionaries/articles are missi
   3. Second-monitor lookup chooses the pointed word and positions the popup correctly at tested scales.
   4. Real borderless lookup and frozen-scene selection return application control after closing.
 
-**Plans**: TBD
+**Plans**: 1/2 plans executed
+
+- [x] 14-01-PLAN.md
+- [ ] 14-02-PLAN.md
+
 **UI hint**: yes
 
 ### Phase 15: Подготовка распространения через AUR
@@ -145,7 +149,7 @@ v1.1 is blocked at Phase 14: real MDX/DSL source dictionaries/articles are missi
 | 11. Выбор слов на замороженной сцене | 3/3 | Complete    | 2026-11-03 |
 | 12. Словари Yomitan | 1/1 | Complete    | 2026-11-03 |
 | 13. Понятный первый запуск и GUI | 1/1 | Complete    | 2026-11-03 |
-| 14. Надёжность в реальных сценариях | 0/TBD | Not started | - |
+| 14. Надёжность в реальных сценариях | 1/2 | In Progress|  |
 | 15. Подготовка распространения через AUR | 0/TBD | Not started | - |
 
 Coverage: 17/17 requirements mapped exactly once. Next: `/gsd-discuss-phase 9`.

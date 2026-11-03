@@ -1,5 +1,7 @@
 # Phase 14 readiness — incomplete
 
+**Superseded input assessment:** actual public MDX/DSL have now been downloaded on both routes and verified on both platforms. Missing inputs are no longer a blocker; see 14-01-SUMMARY.md. The table below retains the initial observation, not current dictionary acceptance.
+
 Source: c92adcb plus preserved user OCR edits; source hashes in batch-manifest.json match final Phase 13 product hashes. Phase 13 host/target full suites are valid for unchanged product code and are not repeated here.
 
 | Check | Result | Evidence |

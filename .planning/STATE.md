@@ -5,15 +5,15 @@ milestone_name: Надёжность и распространение
 current_phase: 14
 current_phase_name: Надёжность в реальных сценариях
 status: blocked
-stopped_at: Phase 14 blocked on missing real MDX/DSL sources; target contextual provider blocked; all batches finished; owned clone powered off
-last_updated: "2026-11-03T10:31:14.983Z"
+stopped_at: Phase14 real MDX/DSL downloaded and verified on both hosts; contextual provider blocked direct and proxy; second-monitor/borderless pending; clone off and tunnel closed
+last_updated: "2026-11-03T10:49:47.535Z"
 last_activity: 2026-11-03
 last_activity_desc: Phase 13 complete, transitioned to Phase 14
 progress:
   total_phases: 7
   completed_phases: 5
-  total_plans: 8
-  completed_plans: 8
+  total_plans: 10
+  completed_plans: 9
   percent: 71
 ---
 
@@ -24,12 +24,12 @@ progress:
 See: .planning/PROJECT.md (v1 scope expanded 2026-10-27)
 
 **Core value:** Хоткей над английским словом даёт перевод в оверлее у курсора примерно за 1–2 секунды, и слово попадает в базу со счётчиком.
-**Current focus:** Phase 14 — Надёжность: required real MDX/DSL source inputs unavailable; live context provider blocked in target
+**Current focus:** Phase 14 — real MDX/DSL verified; target context provider blocked with and without configured proxy
 
 ## Current Position
 
 Phase: 14 — Надёжность в реальных сценариях
-Plan: Not started
+Plan: 14-01 complete; 14-02 pending
 Status: blocked
 Last activity: 2026-11-03 — Phase 13 complete, transitioned to Phase 14
 
@@ -111,7 +111,7 @@ None yet.
 
 ### Blockers/Concerns
 
-Phase 14 blocked: real MDX/DSL dictionaries and expected source articles have not been supplied. Six live target context queries report blocked, with offline articles retained. Second-monitor and borderless acceptance remain pending. See `phases/14-reliability/14-READINESS.md` and `continue.md`. Historical v1.0 limits remain in `milestones/v1.0-MILESTONE-AUDIT.md`.
+Phase 14 partial: downloaded real MDX/DSL pass six source-based lookup checks per platform; premature missing-input blocker resolved. Context provider reports blocked in six direct and six proxied target queries, offline articles retained. Second-monitor/borderless acceptance pending. See `phases/14-reliability/14-01-SUMMARY.md` and `continue.md`. Historical v1.0 limits remain in `milestones/v1.0-MILESTONE-AUDIT.md`.
 
 #### Historical planning concerns (recorded before implementation)
 
@@ -137,10 +137,10 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-11-03T10:31:14.971Z
-Stopped at: Phase 14 blocked on missing real MDX/DSL sources; target contextual provider blocked; all batches finished; owned clone powered off
+Last session: 2026-11-03T10:49:47.525Z
+Stopped at: Phase14 real MDX/DSL downloaded and verified on both hosts; contextual provider blocked direct and proxy; second-monitor/borderless pending; clone off and tunnel closed
 Resume file: .planning/phases/14-reliability/continue.md
 
 ## Operator Next Steps
 
-- Supply real MDX/DSL source dictionaries/articles; resume Phase 14 from its continue.md. Do not restart valid Phase 12/13 checks on unchanged code.
+- Resume 14-02-PLAN.md: provider availability and second-monitor/borderless evidence. Real MDX/DSL are downloaded and verified; reuse valid checks while product code is unchanged.

@@ -1,0 +1,7 @@
+{
+  "en-ru_wikidict.dsl": "https://raw.githubusercontent.com/open-dsl-dict/wikidict-dsl-ru/master/data/en-ru_wikidict.dsl",
+  "ecdict-mdx-headless-28.zip": "https://github.com/skywind3000/ECDICT/releases/download/1.0.28/ecdict-mdx-headless-28.zip",
+  "ecdict.csv": "https://raw.githubusercontent.com/skywind3000/ECDICT/master/ecdict.csv",
+  "dsl-license.txt": "https://raw.githubusercontent.com/open-dsl-dict/wikidict-dsl-ru/master/LICENSE",
+  "ecdict-license.txt": "https://raw.githubusercontent.com/skywind3000/ECDICT/master/LICENSE"
+}
