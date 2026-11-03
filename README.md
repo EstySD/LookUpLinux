@@ -15,6 +15,18 @@ Ubuntu 24.04 with GNOME Wayland: [setup and VM checks](docs/UBUNTU.md).
 
 <p align="center"><a href="https://github.com/EstySD/LookUpLinux/releases">Downloads</a> · <a href="docs/README.ru.md">Русская инструкция</a> · <a href="docs/DICTIONARIES.md">Get dictionaries</a> · <a href="CONTRIBUTING.md">Contribute</a> · <a href="https://github.com/EstySD/LookUpLinux/issues">Report a bug</a></p>
 
+## Looking for a Lookupper alternative on Linux?
+
+If you use [Lookupper](https://lookupper.com/) on Windows and want a similar
+workflow on Linux, LookUp Linux offers OCR word lookup, local dictionaries,
+translation and vocabulary cards on KDE Plasma and GNOME Wayland. Look up
+English words in applications and games without switching to a browser.
+
+LookUp Linux is an independent open-source project and is not affiliated with
+Lookupper. Built-in online translation is currently English → Russian; offline
+dictionary languages depend on the dictionaries you install. Game compatibility
+depends on the desktop, display mode and OCR readability; see platform support below.
+
 ## Point. Press. Understand.
 
 Hover over an English word and press **Meta+Shift+D**. LookUp opens a nearby
