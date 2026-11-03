@@ -8,3 +8,5 @@ __pycache__/
 dist/
 arch-build/
 arch-build-final/
+.planning/phases/12-yomitan/source.tar.gz
+.planning/phases/13-gui/source.tar.gz
