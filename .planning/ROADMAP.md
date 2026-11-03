@@ -9,11 +9,11 @@
 
 ## Current status
 
-**v1.1 «Надёжность и распространение»** initialized 2026-11-02: [brief](v1.1-CONTEXT.md), [requirements](REQUIREMENTS.md). Phases 9–13 complete; 4 requirements remain pending in Phases 14–15. Actual MDX/DSL compatibility now passes on Windows/Linux. Yomitan and native home retain final full-suite evidence (865 tests each, zero failures/errors).
+**v1.1 «Надёжность и распространение»** initialized 2026-11-02: [brief](v1.1-CONTEXT.md), [requirements](REQUIREMENTS.md). Phases 9–14 complete; PUB-02 remains in Phase 15. Phase 14 retains 868-test full suites on both hosts, zero failures/errors, and actual provider/dictionary/two-monitor/borderless evidence.
 
 v1.0 is complete with agent verification. Phase 8 passes all seven criteria; final host and target each run 797 tests on the same code revision, with zero failures. All current product/review/verifier gates pass.
 
-v1.1 is incomplete at Phase 14: [real MDX/DSL compatibility passes](phases/14-reliability/14-01-SUMMARY.md), resolving the premature missing-input blocker. Context provider remains blocked on both tested direct/proxy target routes; offline lookup stays usable. Second-monitor/borderless acceptance pending. Historical failed attempts and Phase 7 preservation exception remain unchanged.
+v1.1 is ready for Phase 15: [Phase 14 verification](phases/14-reliability/14-VERIFICATION.md) passes all four requirements. Historical failed attempts and the Phase 7 preservation exception remain unchanged.
 
 ## Phases
 
@@ -22,7 +22,7 @@ v1.1 is incomplete at Phase 14: [real MDX/DSL compatibility passes](phases/14-re
 - [x] **Phase 11: Выбор слов на замороженной сцене** - Select words on a retained scene while intercepting input. (completed 2026-11-03)
 - [x] **Phase 12: Словари Yomitan** - Connect and use the user's real dictionaries. (completed 2026-11-03)
 - [x] **Phase 13: Понятный первый запуск и GUI** - Discover the interface without knowing tray conventions. (completed 2026-11-03)
-- [ ] **Phase 14: Надёжность в реальных сценариях** - Verify providers, real dictionaries, second monitor and borderless.
+- [x] **Phase 14: Надёжность в реальных сценариях** - Verify providers, real dictionaries, second monitor and borderless. (completed 2026-11-03)
 - [ ] **Phase 15: Подготовка распространения через AUR** - Build/install/update the distributable package safely.
 
 ## Phase Details
@@ -123,7 +123,7 @@ v1.1 is incomplete at Phase 14: [real MDX/DSL compatibility passes](phases/14-re
 **Plans**: 1/2 plans executed
 
 - [x] 14-01-PLAN.md
-- [ ] 14-02-PLAN.md
+- [x] 14-02-PLAN.md
 
 **UI hint**: yes
 
@@ -149,7 +149,7 @@ v1.1 is incomplete at Phase 14: [real MDX/DSL compatibility passes](phases/14-re
 | 11. Выбор слов на замороженной сцене | 3/3 | Complete    | 2026-11-03 |
 | 12. Словари Yomitan | 1/1 | Complete    | 2026-11-03 |
 | 13. Понятный первый запуск и GUI | 1/1 | Complete    | 2026-11-03 |
-| 14. Надёжность в реальных сценариях | 1/2 | In Progress|  |
+| 14. Надёжность в реальных сценариях | 2/2 | Complete    | 2026-11-03 |
 | 15. Подготовка распространения через AUR | 0/TBD | Not started | - |
 
 Coverage: 17/17 requirements mapped exactly once. Next: `/gsd-discuss-phase 9`.

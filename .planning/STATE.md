@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Надёжность и распространение
-current_phase: 14
-current_phase_name: Надёжность в реальных сценариях
-status: blocked
-stopped_at: Phase14 real MDX/DSL downloaded and verified on both hosts; contextual provider blocked direct and proxy; second-monitor/borderless pending; clone off and tunnel closed
-last_updated: "2026-11-03T10:49:47.535Z"
+current_phase: 15
+current_phase_name: Подготовка распространения через AUR
+status: ready
+stopped_at: Phase 14 verified complete; Phase 15 packaging next; owned clone off and settings restored
+last_updated: "2026-11-03T12:08:25.088Z"
 last_activity: 2026-11-03
-last_activity_desc: Phase 13 complete, transitioned to Phase 14
+last_activity_desc: Phase 14 complete, transitioned to Phase 15
 progress:
   total_phases: 7
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 10
-  completed_plans: 9
-  percent: 71
+  completed_plans: 10
+  percent: 86
 ---
 
 # Project State
@@ -24,20 +24,20 @@ progress:
 See: .planning/PROJECT.md (v1 scope expanded 2026-10-27)
 
 **Core value:** Хоткей над английским словом даёт перевод в оверлее у курсора примерно за 1–2 секунды, и слово попадает в базу со счётчиком.
-**Current focus:** Phase 14 — real MDX/DSL verified; target context provider blocked with and without configured proxy
+**Current focus:** Phase 15 — reproducible package build/install/update and AUR preparation
 
 ## Current Position
 
-Phase: 14 — Надёжность в реальных сценариях
-Plan: 14-01 complete; 14-02 pending
-Status: blocked
-Last activity: 2026-11-03 — Phase 13 complete, transitioned to Phase 14
+Phase: 15 — Подготовка распространения через AUR
+Plan: Not started
+Status: ready
+Last activity: 2026-11-03 — Phase 14 complete, transitioned to Phase 15
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 60
+- Total plans completed: 62
 - Average duration: -
 - Total execution time: not aggregated
 
@@ -60,6 +60,7 @@ Last activity: 2026-11-03 — Phase 13 complete, transitioned to Phase 14
 | 11 | 3 | - | - |
 | 12 | 1 | - | - |
 | 13 | 1 | - | - |
+| 14 | 2 | - | - |
 
 **Recent Trend:**
 
@@ -111,7 +112,7 @@ None yet.
 
 ### Blockers/Concerns
 
-Phase 14 partial: downloaded real MDX/DSL pass six source-based lookup checks per platform; premature missing-input blocker resolved. Context provider reports blocked in six direct and six proxied target queries, offline articles retained. Second-monitor/borderless acceptance pending. See `phases/14-reliability/14-01-SUMMARY.md` and `continue.md`. Historical v1.0 limits remain in `milestones/v1.0-MILESTONE-AUDIT.md`.
+Phase 14 complete: provider fallback passes six live target cases; real dictionaries pass twelve source checks; second monitor at 100%/125%, borderless word selection and seven exits pass. Both full suites: 868 tests, zero failures/errors. See `phases/14-reliability/14-ACCEPTANCE.json`. Historical v1.0 limits remain in `milestones/v1.0-MILESTONE-AUDIT.md`.
 
 #### Historical planning concerns (recorded before implementation)
 
@@ -138,9 +139,9 @@ Items acknowledged and carried forward from previous milestone close:
 ## Session Continuity
 
 Last session: 2026-11-03T10:49:47.525Z
-Stopped at: Phase14 real MDX/DSL downloaded and verified on both hosts; contextual provider blocked direct and proxy; second-monitor/borderless pending; clone off and tunnel closed
-Resume file: .planning/phases/14-reliability/continue.md
+Stopped at: Phase 14 complete; Phase 15 packaging next; no active jobs
+Resume file: None
 
 ## Operator Next Steps
 
-- Resume 14-02-PLAN.md: provider availability and second-monitor/borderless evidence. Real MDX/DSL are downloaded and verified; reuse valid checks while product code is unchanged.
+- Execute Phase 15 packaging workflow. Reuse valid Phase 14 evidence for unchanged product code.

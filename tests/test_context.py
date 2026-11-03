@@ -74,6 +74,31 @@ class ProviderTests(unittest.TestCase):
                     self.assertEqual(str(raised.exception), 'bad_response')
             fetch.assert_not_called()
 
+    def test_blocked_client_falls_back_with_same_marked_occurrence(self):
+        with mock.patch.object(online,'_fetch',side_effect=[online.TranslateError('blocked'),body('На <b>берегу</b> реки.')]) as fetch:
+            result=context.translate_context(request())
+        self.assertEqual(result.meaning,'берегу')
+        queries=[parse_qs(urlsplit(call.args[0]).query) for call in fetch.call_args_list]
+        self.assertEqual([q['client'][0] for q in queries],['gtx','dict-chrome-ex'])
+        self.assertEqual(queries[0]['q'],queries[1]['q'])
+        self.assertEqual(fetch.call_args_list[0].args[2],fetch.call_args_list[1].args[2])
+
+    def test_fallback_cannot_extend_deadline_or_hide_blocked_reason(self):
+        now=[0.0]
+        def blocked(*args):
+            now[0]=online.DEADLINE_S-.1
+            raise online.TranslateError('blocked')
+        with mock.patch.object(context.time,'monotonic',side_effect=lambda:now[0]),mock.patch.object(online,'_fetch',side_effect=blocked) as fetch:
+            with self.assertRaisesRegex(online.TranslateError,'^blocked$'):
+                context.translate_context(request())
+        self.assertEqual(fetch.call_count,1)
+
+    def test_unsuitable_alignment_is_not_retried(self):
+        with mock.patch.object(online,'_fetch',return_value=body('Перевод без метки.')) as fetch:
+            with self.assertRaisesRegex(online.TranslateError,'^bad_response$'):
+                context.translate_context(request())
+        self.assertEqual(fetch.call_count,1)
+
 
 class CacheTests(unittest.TestCase):
     def setUp(self):

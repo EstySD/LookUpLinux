@@ -70,15 +70,80 @@ def environment():
     for key in ('SUDO_UID','SUDO_GID','SUDO_USER','SUDO_COMMAND'):os.environ.pop(key,None)
 
 
+def borderless_window(pid, directory, screen_index=0):
+    """Set and observe only the owned game's window through KWin."""
+    from PyQt6.QtCore import QCoreApplication,QObject,QTimer,pyqtClassInfo,pyqtSlot
+    from PyQt6.QtDBus import QDBusConnection,QDBusMessage
+    application=QCoreApplication.instance() or QCoreApplication([])
+    bus=QDBusConnection.sessionBus();result={}
+    service='org.lookup.BorderlessProbe'
+    @pyqtClassInfo('D-Bus Interface',service)
+    class Observer(QObject):
+        @pyqtSlot(str)
+        def Window(self,value):
+            result.update(json.loads(value))
+            application.quit()
+    observer=Observer()
+    if not bus.registerService(service):raise RuntimeError('borderless_observer_busy')
+    bus.registerObject('/Probe',observer,QDBusConnection.RegisterOption.ExportAllSlots)
+    script=directory/'borderless.js'
+    prefix=('function report(v){callDBus("'+service+'","/Probe","'+service+'","Window",JSON.stringify(v));}'
+        'try{const w=workspace.windowList().find(w=>Number(w.pid)==='+str(pid)+');'
+        'if(w){'
+        'const g=Array.from(workspace.screens).sort((a,b)=>a.geometry.x-b.geometry.x)['+str(screen_index)+'].geometry;'
+        'function observe(){report('
+        '{pid:w.pid,noBorder:w.noBorder,fullScreen:w.fullScreen,x:w.frameGeometry.x,y:w.frameGeometry.y,'
+        'width:w.frameGeometry.width,height:w.frameGeometry.height,screen:[g.x,g.y,g.width,g.height]});}')
+    suffix='observe();}else{report({error:"owned_window_missing"});}}catch(e){report({error:String(e)});}'
+    def call(path,interface,method,args=()):
+        message=QDBusMessage.createMethodCall('org.kde.KWin',path,interface,method)
+        message.setArguments(list(args));reply=bus.call(message)
+        if reply.type()==QDBusMessage.MessageType.ErrorMessage:raise RuntimeError(reply.errorName())
+        return reply.arguments()
+    name='lookup-borderless-'+str(pid)
+    def run_script(code):
+        result.clear();script.write_text(prefix+code+suffix)
+        identifier=call('/Scripting','org.kde.kwin.Scripting','loadScript',(str(script),name))[0]
+        timer=QTimer();timer.setSingleShot(True);timer.timeout.connect(application.quit)
+        try:
+            call('/Scripting/Script'+str(identifier),'org.kde.kwin.Script','run')
+            timer.start(4000);application.exec()
+        finally:
+            timer.stop();call('/Scripting','org.kde.kwin.Scripting','unloadScript',(name,))
+    try:
+        # Wayland clients acknowledge mode changes before accepting a new size.
+        run_script('w.fullScreen=false;w.setMaximize(false,false);w.noBorder=true;')
+        time.sleep(.7)
+        run_script('w.frameGeometry={x:g.x,y:g.y,width:g.width,height:g.height};workspace.activeWindow=w;')
+        time.sleep(.7)
+        run_script('')
+    finally:
+        bus.unregisterObject('/Probe');bus.unregisterService(service)
+    write(directory/'borderless.json',result)
+    assert result.get('pid')==pid and result.get('noBorder') is True and result.get('fullScreen') is False,result
+    assert [result[key] for key in ('x','y','width','height')]==result['screen'],result
+    return result
+
+
 def product(root):
     """Observe the real GUI/Engine; only test-only fault injection changes behavior."""
     environment()
-    from PyQt6.QtCore import QTimer,QT_VERSION_STR
+    from PyQt6.QtCore import QTimer,QT_VERSION_STR,QObject,QEvent
+    from PyQt6.QtWidgets import QApplication
     from lookup import gui,app as core
     root.mkdir(parents=True,exist_ok=True)
     state={'pid':os.getpid(),'events':[],'inventory':inventory(Path(core.__file__).resolve().parents[1]),'qt':QT_VERSION_STR}
     Popup,Owner=gui.components();receive=Owner.receive;initialize=Owner.__init__;resolve=core.Source.resolve
     owners=[];fault=[False]
+    class PointerObserver(QObject):
+        def eventFilter(self,widget,event):
+            if event.type() in (QEvent.Type.MouseButtonPress,QEvent.Type.MouseButtonRelease):
+                rows=state.setdefault('pointer_events',[])
+                rows.append({'widget':widget.metaObject().className(),'type':int(event.type()),'button':event.button().value,
+                    'local':[event.position().x(),event.position().y()],
+                    'global':[event.globalPosition().x(),event.globalPosition().y()]})
+                state['pointer_events']=rows[-40:]
+            return False
     def observed(self,event):
         row=dict(id=event.id,stage=event.stage,mode=event.mode,error=event.error,point=event.point)
         if event.scene is not None:
@@ -95,6 +160,7 @@ def product(root):
         return resolve(self,*args,**kwargs)
     def init(self,*args,**kwargs):
         initialize(self,*args,**kwargs);owners.append(self)
+        self._input_probe=PointerObserver(self);QApplication.instance().installEventFilter(self._input_probe)
         timer=QTimer(self)
         def poll():
             command=root/'command.json'
@@ -108,12 +174,15 @@ def product(root):
                 elif action=='timeout':self.popup.timer.setInterval(600);self.popup.timer.start()
             layer=self.scene_window
             state.update(layer=bool(layer is not None and layer.isVisible()),popup=self.popup.isVisible(),
+                popup_armed=self.popup._armed,
+                popup_geometry=[self.popup.x(),self.popup.y(),self.popup.width(),self.popup.height()],
                 title=self.popup.title.text(),scene_id=self._scene_id,
                 card_status=self.popup.card_status.text(),timer=self.popup.timer.isActive(),popup_uuid=self.popup_uuid,
                 configured_timeout=self._popup_timeout,timer_interval=self.popup.timer.interval(),
                 timer_remaining=self.popup.timer.remainingTime())
             if layer is not None:
                 state['layer_geometry']=[layer.x(),layer.y(),layer.width(),layer.height()]
+                state['toolbar_geometry']=[layer.toolbar.x(),layer.toolbar.y(),layer.toolbar.width(),layer.toolbar.height()]
                 state['close']=[layer.close_button.mapToGlobal(layer.close_button.rect().center()).x(),
                                 layer.close_button.mapToGlobal(layer.close_button.rect().center()).y()]
             write(root/'state.json',state)
@@ -141,7 +210,8 @@ def source(root,game=False):
             painter=QPainter(self);painter.fillRect(self.rect(),Qt.GlobalColor.white);painter.setPen(Qt.GlobalColor.black);painter.setFont(self.font())
             painter.drawText(150,200,'The bright river flows.');painter.drawText(150,300,'Frame '+str(state['ticks']))
         def mouseMoveEvent(self,event):
-            state['motion']+=1;QToolTip.showText(event.globalPosition().toPoint(),'Captured hover vocabulary',self)
+            state['motion']+=1
+            if os.environ.get('LOOKUP_PROBE_NO_TOOLTIP')!='1':QToolTip.showText(event.globalPosition().toPoint(),'Captured hover vocabulary',self)
         def mousePressEvent(self,event):state['click']+=1
     fixture=Fixture()
     if game:
@@ -153,7 +223,7 @@ def source(root,game=False):
         (root/'observer.c').write_text(code)
         flags=subprocess.check_output(['pkg-config','--cflags','--libs','sdl2'],text=True).split()
         subprocess.run(['cc','-shared','-fPIC',str(root/'observer.c'),'-o',str(root/'observer.so'),'-ldl',*flags],check=True)
-        child=subprocess.Popen(['wesnoth','--fullscreen','--language','en_US','--userdata-dir',str(root/'userdata'),
+        child=subprocess.Popen(['wesnoth','--windowed' if os.environ.get('LOOKUP_PROBE_BORDERLESS')=='1' else '--fullscreen','--language','en_US','--userdata-dir',str(root/'userdata'),
             '--usercache-dir',str(root/'cache'),'--userconfig-dir',str(root/'config'),'--nomusic','--nosound','--noaddons'],
             env=dict(os.environ,SDL_VIDEODRIVER='wayland',LD_PRELOAD=str(root/'observer.so'),PROBE_SDL_LOG=str(root/'events.log')),
             stdout=open(root/'game.log','w'),stderr=subprocess.STDOUT)
@@ -161,6 +231,10 @@ def source(root,game=False):
     else:fixture.showFullScreen()
     def poll():
         state['ticks']+=1;fixture.update();log=root/'events.log'
+        if not game:
+            origin=fixture.mapToGlobal(fixture.rect().topLeft());metrics=fixture.fontMetrics()
+            state['points']={word:[origin.x()+150+metrics.horizontalAdvance(prefix)+metrics.horizontalAdvance(word)/2,
+                origin.y()+200-metrics.ascent()/2] for word,prefix in (('bright','The '),('river','The bright '),('flows','The bright river '))}
         state['count']=len(log.read_text().splitlines()) if log.exists() else state['motion']+state['click']
         write(root/'state.json',state)
         command=root/'command.json'
@@ -210,17 +284,38 @@ def control(root,action):
         # A public invalid token avoids Klipper refilling an empty selection.
         subprocess.run(['wl-copy','--primary'],input=b'0',check=True,timeout=3,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
         dictionaries=root/'dicts';dictionaries.mkdir(exist_ok=True)
-        (dictionaries/'public.dsl').write_text('#NAME "Phase11 public"\n#INDEX_LANGUAGE "English"\n#CONTENTS_LANGUAGE "Russian"\nbright\n    яркий\nriver\n    река\nvocabulary\n    словарь\nCaptured\n    сохранённый\nhover\n    наведение\nflows\n    течёт\n',encoding='utf-16')
+        (dictionaries/'public.dsl').write_text('#NAME "Phase11 public"\n#INDEX_LANGUAGE "English"\n#CONTENTS_LANGUAGE "Russian"\nbright\n    яркий\nriver\n    река\nvocabulary\n    словарь\nCaptured\n    сохранённый\nhover\n    наведение\nflows\n    течёт\ntutorial\n    обучение\ncampaigns\n    кампании\nmultiplayer\n    сетевая игра\npreferences\n    настройки\nquit\n    выход\nload\n    загрузить\ngame\n    игра\nhelp\n    помощь\n',encoding='utf-16')
+        with (dictionaries/'public.dsl').open('a',encoding='utf-16') as dictionary:
+            dictionary.write('fight\n    сражаться\nunits\n    боевые единицы\nbetter\n    лучше\nday\n    день\nneutral\n    нейтральный\ntime\n    время\nbattle\n    битва\nthe\n    определённый артикль\n')
         write(root/'config.json',dict(online=False,popup_timeout=60,autostart=False,shortcut=baseline['keys'][0] if baseline['keys'] else 'Meta+Shift+D'))
         return dict(prepared=True,keys=baseline['keys'],old_owner=old_pid,inventory=inventory(snapshot))
-    if action in ('product','source','game'):
+    if action in ('product','source','game','borderless-game'):
+        borderless=action=='borderless-game'
+        if borderless:action='game'
         directory=root/action;directory.mkdir(exist_ok=True)
         env=dict(os.environ,PYTHONPATH=str(snapshot),QT_QPA_PLATFORM='wayland',LOOKUP_CONFIG=str(root/'config.json'),
             LOOKUP_DICTS=str(root/'dicts'),LOOKUP_DB=str(root/'lookup.db'),LOOKUP_CACHE=str(root/'cache'))
+        if borderless:env['LOOKUP_PROBE_BORDERLESS']='1'
+        if (root/'no-tooltip').exists():env['LOOKUP_PROBE_NO_TOOLTIP']='1'
         command=[sys.executable,str(Path(__file__).resolve()),'--product' if action=='product' else '--source',str(directory)]
         if action=='game':command.append('--game')
         child=subprocess.Popen(['timeout','--kill-after=10s','900s',*command],env=env,stdout=open(directory/'run.log','a'),stderr=subprocess.STDOUT,start_new_session=True)
-        write(directory/'process.json',dict(pid=child.pid));return dict(started=action,pid=child.pid)
+        write(directory/'process.json',dict(pid=child.pid))
+        if borderless:
+            until=time.monotonic()+15
+            while time.monotonic()<until:
+                state=directory/'state.json'
+                if state.exists():
+                    pid=json.loads(state.read_text())['pid']
+                    from lookup import platform
+                    try:
+                        platform.owned_window(os.environ,pid)
+                        break
+                    except platform.PlatformError:pass
+                time.sleep(.25)
+            else:raise RuntimeError('borderless_game_not_ready')
+            borderless_window(pid,directory)
+        return dict(started=action,pid=child.pid)
     if action in ('status','brief'):
         values={name:json.loads((root/name/'state.json').read_text()) if (root/name/'state.json').exists() else None for name in ('product','source','game')}
         if action=='brief' and values['product']:
@@ -269,7 +364,7 @@ def control(root,action):
     write(root/target/'command.json',{'action':command});return dict(sent=action)
 
 
-def host_batch(output,cases=EXITS,run_target=True):
+def host_batch(output,cases=EXITS,run_target=True,borderless=False,word_probe=False):
     """One bounded Windows batch; preserve all failures and finish independent checks.
 
     Disable this clone's shared clipboard before preparing PRIMARY; restore its
@@ -283,11 +378,12 @@ def host_batch(output,cases=EXITS,run_target=True):
     guest='/tmp/lookup-frozen-product-11/run-batch-'+str(int(time.time()))
     snapshot='/tmp/lookup-frozen-product-11/snapshot'
     prelude="from pathlib import Path\nimport os,json,time,signal,subprocess\nfrom tools.check_frozen_product import control,write,environment\nenvironment()\nr=Path('"+guest+"')\n"
+    if borderless:prelude+="base_control=control\ndef control(root,action):\n return base_control(root,'borderless-game' if action=='game' else action)\n"
     report={'mode':'native-product-batch','cases':{},'started':time.time(),'errors':[],'guest_root':guest}
     def remote(code,timeout=25):
         encoded=base64.b64encode((prelude+code).encode()).decode()
         command='echo '+encoded+' | base64 -d | sudo -n -H -u lookup07 env PYTHONPATH='+snapshot+' python -'
-        result=subprocess.run([*ssh,command],capture_output=True,text=True,timeout=timeout)
+        result=subprocess.run([*ssh,command],capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=timeout)
         if result.returncode:raise RuntimeError(result.stderr[-2000:] or result.stdout[-2000:])
         return json.loads(result.stdout)
     def physical(action,**values):
@@ -324,8 +420,18 @@ def host_batch(output,cases=EXITS,run_target=True):
         subprocess.run([*ssh,'sudo -n install -d -m 700 -o lookup07 -g lookup07 '+guest],check=True,capture_output=True,timeout=15)
         remote("v=control(r,'prepare') if not (r/'baseline.json').exists() else {'prepared':True};print(json.dumps({'prepared':v['prepared']}))\n")
         remote("(r/'evidence').mkdir(exist_ok=True);control(r,'game:quit') if (r/'game/state.json').exists() else None;time.sleep(.7);p=r/'game/events.log';p.rename(r/'evidence/game-events-prior.log') if p.exists() else None;print(json.dumps(control(r,'game')))\n")
+        if borderless:report['borderless_window']=remote("v=json.loads((r/'game/borderless.json').read_text());write(r/'evidence/borderless-window.json',v);print(json.dumps(v))\n")
         time.sleep(3)
         restart()
+        if word_probe:
+            pointer(500,200);hotkey();initial=wait(lambda v:v['product']['layer'])
+            observed=remote("from lookup import ocr,platform\nv=control(r,'status');path=r/'product/capture.png';p=subprocess.run(['tesseract',str(path),'stdout','-l','eng','--psm','11','tsv'],capture_output=True,timeout=12);words=ocr.parse_tsv(p.stdout);known={'the','tutorial','campaigns','multiplayer','preferences','quit','load','game','help','fight','units','better','day','neutral','time','battle'};matches=[w for w in words if w.text.casefold() in known and w.box[1]>450];assert matches,[(w.text,w.box) for w in words];w=matches[0];print(json.dumps({'word':w.text.casefold(),'box':w.box}))\n")
+            report['word_target']=observed
+            x,y,width,height=observed['box'];click(x+width/2,y+height/2)
+            result=wait(lambda v:v['product']['events'][-1].get('word')==observed['word'] and v['product']['events'][-1].get('translation'))
+            assert result['product']['frame']==initial['product']['frame'] and result['product']['scene_id']==initial['product']['scene_id']
+            report['word_lookup']={'target':observed,'result':result['product'],'same_frame':True}
+            save('borderless-word');escape();wait(lambda v:not v['product']['layer'])
         for name in cases:
             case={'status':'failed'}
             try:
@@ -381,7 +487,10 @@ def host_batch(output,cases=EXITS,run_target=True):
         else:report['target_tests']={'reused':'../11-native-batch.json','not_repeated':True}
         result=subprocess.run([sys.executable,'-m','unittest','tests.test_frozen_product','-q'],cwd=root,capture_output=True,text=True,timeout=30)
         report['validator_tests']={'returncode':result.returncode,'tail':result.stderr.splitlines()[-5:]}
-    except Exception as error:report['errors'].append(str(error)[-2000:])
+    except Exception as error:
+        report['errors'].append(str(error)[-2000:])
+        try:report['last_observation']=state()
+        except Exception:pass
     finally:
         try:report['cleanup']=remote("print(json.dumps(control(r,'stop')))\n",timeout=25)
         except Exception as error:report['cleanup_error']=str(error)[-2000:]
@@ -403,8 +512,9 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--validate',type=Path);parser.add_argument('--product',type=Path)
     parser.add_argument('--source',type=Path);parser.add_argument('--game',action='store_true')
     parser.add_argument('--control',type=Path);parser.add_argument('--action');parser.add_argument('--host-batch',type=Path)
-    parser.add_argument('--host-cases',nargs='+',choices=EXITS);parser.add_argument('--skip-target-tests',action='store_true');args=parser.parse_args()
-    if args.host_batch:return host_batch(args.host_batch,args.host_cases or EXITS,not args.skip_target_tests)
+    parser.add_argument('--host-cases',nargs='+',choices=EXITS);parser.add_argument('--skip-target-tests',action='store_true')
+    parser.add_argument('--borderless',action='store_true');parser.add_argument('--word-only',action='store_true');args=parser.parse_args()
+    if args.host_batch:return host_batch(args.host_batch,() if args.word_only else args.host_cases or EXITS,not args.skip_target_tests,args.borderless,args.word_only)
     if args.validate:
         result=accepted(json.loads(args.validate.read_text(encoding='utf-8-sig')));print(json.dumps({'accepted':result}));return 0 if result else 1
     if args.product:return product(args.product)

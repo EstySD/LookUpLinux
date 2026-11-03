@@ -1,4 +1,8 @@
-# Continue Phase 14
+# Phase 14 complete
+
+Superseded by `14-02-SUMMARY.md`, `14-VERIFICATION.md` and `14-ACCEPTANCE.json` on 2026-11-03. Provider fallback, second monitor at 100%/125%, real borderless word selection and seven exit cases now pass. Clone is off with original VM settings restored. Next: Phase 15; do not repeat unchanged Phase 14 checks.
+
+The previous session record follows for historical context.
 
 ## Last action
 Downloaded actual DSL English→Russian and ECDICT MDX English→Chinese directly and via configured proxy (HTTP 200, matching hashes); passed six source-article lookup checks per platform. DICT-06 is resolved. Target provider still reports blocked in six direct and six proxied cases; offline articles survive. Clone is off, proxy tunnel closed; no active jobs.

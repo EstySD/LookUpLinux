@@ -33,10 +33,10 @@ Defined 2026-11-02 from [agreed brief](v1.1-CONTEXT.md). All requirements are pe
 
 ### Second priority: reliability and distribution
 
-- [ ] **TRAN-07**: Available context providers return live results in the target environment; restrictions/failures have understandable states and preserve ready offline articles. Error handling is not counted as successful provider availability.
+- [x] **TRAN-07**: Available context providers return live results in the target environment; restrictions/failures have understandable states and preserve ready offline articles. Error handling is not counted as successful provider availability.
 - [x] **DICT-06**: Real MDX and DSL dictionaries return results checked against their source articles; synthetic fixtures alone do not establish compatibility.
-- [ ] **CAPT-09**: On a second monitor the word under the cursor and popup position remain correct with tested scaling and coordinates.
-- [ ] **GAME-02**: Real borderless applications support translation and frozen-scene selection, then regain control without stuck input capture.
+- [x] **CAPT-09**: On a second monitor the word under the cursor and popup position remain correct with tested scaling and coordinates.
+- [x] **GAME-02**: Real borderless applications support translation and frozen-scene selection, then regain control without stuck input capture.
 - [ ] **PUB-02**: User receives a reproducibly buildable AUR-ready package and installation/update instructions; clean install, data-preserving upgrade and removal are verified. Actual public AUR submission requires access and publication authorization and is recorded separately.
 
 ## Future Requirements
@@ -63,10 +63,10 @@ Audio pronunciation, CEFR and new Anki synchronization are excluded. Existing ca
 | DICT-05 | Phase 12 | Complete |
 | TRIG-07 | Phase 13 | Complete |
 | SET-03 | Phase 13 | Complete |
-| TRAN-07 | Phase 14 | Pending |
+| TRAN-07 | Phase 14 | Complete |
 | DICT-06 | Phase 14 | Complete |
-| CAPT-09 | Phase 14 | Pending |
-| GAME-02 | Phase 14 | Pending |
+| CAPT-09 | Phase 14 | Complete |
+| GAME-02 | Phase 14 | Complete |
 | PUB-02 | Phase 15 | Pending |
 
 Coverage: 17/17 mapped exactly once; 0 unmapped.

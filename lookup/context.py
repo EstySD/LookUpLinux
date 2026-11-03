@@ -16,7 +16,7 @@ from . import online
 from .normalize import normalize
 from .store import CONTEXT_MAX_CHARS
 
-PROVIDER = 'google-gtx-marked-v1'
+PROVIDER = 'google-marked-v2'
 MAX_BODY = 65536
 MAX_MEANING = 200
 MAX_TRANSLATED = 4000
@@ -95,12 +95,25 @@ def translate_context(request):
     source = request.context
     marked = (html.escape(source[:request.start])+'<b>'+
               html.escape(source[request.start:request.end])+'</b>'+html.escape(source[request.end:]))
-    query = urlencode(dict(client='gtx',sl='en',tl='ru',dt='t',q=marked))
     clock = time.monotonic
     deadline = clock()+online.DEADLINE_S
-    body = online._fetch('https://'+online.GOOGLE_HOST+'/translate_a/single?'+query,
-                         max(0.001,deadline-clock()),deadline,clock,online.GOOGLE_HOST)
-    return ContextResult(_parse(body), request.provider)
+    failures = set()
+    for client in online.DEFAULT_CLIENTS:
+        remaining = deadline-clock()
+        if remaining < online.MIN_ATTEMPT_S:
+            failures.add('timeout')
+            break
+        query = urlencode(dict(client=client,sl='en',tl='ru',dt='t',q=marked))
+        try:
+            body = online._fetch('https://'+online.GOOGLE_HOST+'/translate_a/single?'+query,
+                                 remaining,deadline,clock,online.GOOGLE_HOST)
+        except online.TranslateError as error:
+            if error.reason not in online._PRIORITY:
+                raise
+            failures.add(error.reason)
+            continue
+        return ContextResult(_parse(body), request.provider)
+    raise online.TranslateError(next(reason for reason in online._PRIORITY if reason in failures)) from None
 
 
 def _identity(request):
