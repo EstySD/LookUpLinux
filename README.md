@@ -1,6 +1,6 @@
 <p align="center"><img src="docs/assets/banner.svg" alt="LookUp Linux — Point. Press. Understand." width="900"></p>
 
-<p align="center"><strong>English → Russian. Right where you read.</strong><br>A cursor dictionary, OCR translator and vocabulary companion for KDE Plasma and GNOME Wayland.</p>
+<p align="center"><strong>Understand English. Right where you read.</strong><br>A cursor dictionary, OCR translator and vocabulary companion for KDE Plasma and GNOME Wayland.</p>
 
 Ubuntu 24.04 with GNOME Wayland: [setup and VM checks](docs/UBUNTU.md).
 
@@ -23,6 +23,7 @@ Freshly selected text takes priority over OCR. Save a word and review it later
 without switching to a browser.
 
 - **Read across applications:** cursor OCR and selected-text lookup.
+- **Choose a word on a snapshot:** click another word in the captured screen to look it up; **F1** toggles the snapshot toolbar and **Esc** closes it.
 - **Open the interface:** launch LookUp Linux from the application menu (`lookup --app`) for shortcut instructions, settings, words and review. Closing this window keeps translation running; click the tray icon to reopen it. `lookup --background` starts directly in the tray.
 - **Bring your dictionaries:** StarDict, Lingvo DSL / compressed DSL, MDX, and Yomitan v3 ZIP (plain and structured text). Copy Yomitan ZIPs into the dictionary folder without extracting them, then apply settings. Replace the same filename to update a dictionary; invalid archives show an error beside their name while other dictionaries remain available.
 - **Keep the context:** optional online sentence translation and word meaning in context.
@@ -30,20 +31,34 @@ without switching to a browser.
 - **Export your words:** CSV and Anki text files.
 - **Make it yours:** tray settings for shortcut, dictionary order, online access and autostart.
 
+### Languages
+
+Offline definitions and their language depend on the dictionaries you install:
+you can use English dictionaries with translations into Russian or other
+languages, or English-only definitions. OCR uses the English Tesseract model,
+and word forms are handled with English rules. Word and phrase lookup accepts
+Latin-script text; arbitrary source languages are not a supported workflow.
+
+Built-in online translation, sentence translation and contextual word meaning
+currently use **English → Russian**. There is no source/target language selector
+in Settings. Installing a dictionary does not change the online language pair.
+
 <p align="center"><img src="docs/assets/ubuntu-gnome-popup.png" alt="LookUp Linux on Ubuntu GNOME: an English word translated into Russian beside the source text" width="760"><br><sub>Real Ubuntu 24.04 / GNOME Wayland capture. Local Mueller dictionary added separately; online translation disabled for this test.</sub></p>
 
 ## Platform support
 
 | Platform | Status | Distribution |
 | --- | --- | --- |
-| Arch Linux x86_64 · KDE Plasma 6 · Wayland | Target platform | Native `.pkg.tar.zst` and build kit |
+| Arch Linux x86_64 · KDE Plasma 6 · Wayland | Target platform; current source package requires KWin ≥ 6.8 | Native `.pkg.tar.zst` and build kit |
 | Ubuntu 24.04 · GNOME 46 · Wayland | Agent-tested desktop preview | [Source + GNOME extension](docs/UBUNTU.md) |
 | Other Linux distributions / desktops, X11, ARM | Unsupported | Porting contributions welcome |
 | Windows / macOS | Unsupported | No application builds |
 
-Published release: **0.2.0**. Patch **0.2.1** is being prepared locally and has
-not been published. OCR depends on font size, contrast and application.
-Fullscreen games require individual testing. Cross-platform core tests do not
+This README describes the current source tree; see
+[Releases](https://github.com/EstySD/LookUpLinux/releases) for published builds
+and the [changelog](CHANGELOG.md) for unreleased changes.
+OCR depends on font size, contrast and application.
+Fullscreen games require individual testing; GNOME fullscreen games are not verified. Cross-platform core tests do not
 imply desktop support on those operating systems.
 
 ## Install on Arch Linux
@@ -54,10 +69,11 @@ is available. Download `SHA256SUMS` beside it, then run:
 
 ```bash
 sha256sum --ignore-missing -c SHA256SUMS
-sudo pacman -U ./lookup-linux-0.2.0-1-x86_64.pkg.tar.zst
+sudo pacman -U './lookup-linux-<version>-<pkgrel>-x86_64.pkg.tar.zst'
 lookup --app &
 ```
 
+Replace `<version>` and `<pkgrel>` with the downloaded package's values.
 Checksums detect damaged downloads; they are not publisher signatures. Draft
 releases are visible only to maintainers. If there is no published package, build
 from source below.
@@ -83,6 +99,9 @@ requests elevated privileges for dependencies and installation. The recipe
 downloads a checksum-pinned kdotool helper; no separate AUR install is needed.
 The root recipe without `--public` is a legacy local build including Mueller 7;
 public releases use the separate recipe without dictionary data.
+The current public recipe also builds a native KWin capture plugin and requires
+KWin ≥ 6.8, CMake, extra-cmake-modules and Vulkan headers; `makepkg -s` installs
+the declared build dependencies.
 
 ## First lookup
 
@@ -90,6 +109,9 @@ public releases use the separate recipe without dictionary data.
 2. Open **Settings → Open dictionary folder**, add dictionary files, then apply settings.
 3. Hover over English text and press **Meta+Shift+D**.
 4. Save words as cards; open the words or review window from the tray.
+
+The current interface is in Russian. Settings also control whether the popup
+shows sentence context, contextual meaning and expanded dictionary articles.
 
 For shortcut problems, run `lookup --doctor` in your Plasma session. Start the
 app first so it can register its shortcut. An occupied shortcut is not taken over.
