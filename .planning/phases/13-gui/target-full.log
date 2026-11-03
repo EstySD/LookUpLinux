@@ -1,0 +1,9 @@
+libpng error: Read Error
+{"stage": "prepare", "error": "controlled_setup_failure", "restoration": {"display_restored": true, "theme_unchanged": true, "desktop_restored": true, "processes_stopped": true, "shortcut_restored": true, "errors": []}}
+libpng error: Not a PNG file
+----------------------------------------------------------------------
+Ran 865 tests in 71.521s
+
+OK (skipped=4)
+{"entries": 48523, "seconds": 4.310126207999929, "checks": {"cat": true, "dog": true, "hello": true, "hallo": true, "reopen": true, "doctor": true}}
+TEST_EXIT=0 REAL_EXIT=0

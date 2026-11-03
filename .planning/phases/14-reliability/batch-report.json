@@ -1,0 +1,16 @@
+{
+  "live": {
+    "returncode": 1,
+    "log": "target-live.log"
+  },
+  "monitors": {
+    "returncode": 0,
+    "log": "target-monitors.log"
+  },
+  "source_inputs": {
+    "blocked": [
+      "real MDX dictionary and expected source articles",
+      "real DSL dictionary and expected source articles"
+    ]
+  }
+}

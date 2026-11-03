@@ -9,11 +9,11 @@
 
 ## Current status
 
-**v1.1 «Надёжность и распространение»** initialized 2026-11-02: [brief](v1.1-CONTEXT.md), [requirements](REQUIREMENTS.md), phases 9–15 below. Phase 9 is complete with agent verification: CAPT-06, CAPT-07 and PERF-02 pass; 14 requirements remain pending. First priority: Danila's feedback (9–13); reliability and distribution follow (14–15).
+**v1.1 «Надёжность и распространение»** initialized 2026-11-02: [brief](v1.1-CONTEXT.md), [requirements](REQUIREMENTS.md). Phases 9–13 are complete with agent verification; 5 requirements remain pending in Phases 14–15. Real supplied Yomitan archive and discoverable native home pass final Windows/Linux checks (865 tests each, zero failures/errors).
 
 v1.0 is complete with agent verification. Phase 8 passes all seven criteria; final host and target each run 797 tests on the same code revision, with zero failures. All current product/review/verifier gates pass.
 
-v1.1 is ready for Phase 10 discussion. [Phase 9 verification](phases/09-hotkey-capture/09-VERIFICATION.md) records the native KWin fix, real hotkey/scene/cold/burst/scale evidence and improved capture budgets. Raw phase directories stay in `.planning/phases/` because regression tests and evidence references use them. Historical failed attempts and the Phase 7 original-VM preservation exception remain unchanged.
+v1.1 is blocked at Phase 14: real MDX/DSL source dictionaries/articles are missing and target contextual provider reports blocked. [Readiness](phases/14-reliability/14-READINESS.md) distinguishes usable offline lookup, the one-monitor inventory and pending second-monitor/borderless acceptance. Raw phase directories remain because regression tests/evidence reference them. Historical failed attempts and Phase 7 original-VM preservation exception remain unchanged.
 
 ## Phases
 

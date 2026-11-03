@@ -4,9 +4,9 @@ milestone: v1.1
 milestone_name: Надёжность и распространение
 current_phase: 14
 current_phase_name: Надёжность в реальных сценариях
-status: executing
-stopped_at: "Phase 11 native validation running as one deterministic batch: agent phase11_native_resume session19631; tools/check_frozen_product.py --host-batch; wait for consolidated report before fixes"
-last_updated: "2026-11-03T10:28:30.047Z"
+status: blocked
+stopped_at: Phase 14 blocked on missing real MDX/DSL sources; target contextual provider blocked; all batches finished; owned clone powered off
+last_updated: "2026-11-03T10:31:14.983Z"
 last_activity: 2026-11-03
 last_activity_desc: Phase 13 complete, transitioned to Phase 14
 progress:
@@ -24,13 +24,13 @@ progress:
 See: .planning/PROJECT.md (v1 scope expanded 2026-10-27)
 
 **Core value:** Хоткей над английским словом даёт перевод в оверлее у курсора примерно за 1–2 секунды, и слово попадает в базу со счётчиком.
-**Current focus:** Phase 11 — Выбор слов на замороженной сцене
+**Current focus:** Phase 14 — Надёжность: required real MDX/DSL source inputs unavailable; live context provider blocked in target
 
 ## Current Position
 
 Phase: 14 — Надёжность в реальных сценариях
 Plan: Not started
-Status: Ready to execute
+Status: blocked
 Last activity: 2026-11-03 — Phase 13 complete, transitioned to Phase 14
 
 ## Performance Metrics
@@ -111,7 +111,7 @@ None yet.
 
 ### Blockers/Concerns
 
-No active release blocker. Known limits and the retained historical Phase 7 preservation exception are recorded in `milestones/v1.0-MILESTONE-AUDIT.md`.
+Phase 14 blocked: real MDX/DSL dictionaries and expected source articles have not been supplied. Six live target context queries report blocked, with offline articles retained. Second-monitor and borderless acceptance remain pending. See `phases/14-reliability/14-READINESS.md` and `continue.md`. Historical v1.0 limits remain in `milestones/v1.0-MILESTONE-AUDIT.md`.
 
 #### Historical planning concerns (recorded before implementation)
 
@@ -137,10 +137,10 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-11-03T03:55:03.020Z
-Stopped at: Phase 11 native validation running as one deterministic batch: agent phase11_native_resume session19631; tools/check_frozen_product.py --host-batch; wait for consolidated report before fixes
-Resume file: None
+Last session: 2026-11-03T10:31:14.971Z
+Stopped at: Phase 14 blocked on missing real MDX/DSL sources; target contextual provider blocked; all batches finished; owned clone powered off
+Resume file: .planning/phases/14-reliability/continue.md
 
 ## Operator Next Steps
 
-- Start the next milestone with /gsd-new-milestone
+- Supply real MDX/DSL source dictionaries/articles; resume Phase 14 from its continue.md. Do not restart valid Phase 12/13 checks on unchanged code.
