@@ -37,7 +37,7 @@ The real hotkey/Owner/Engine selected three useful words from one retained frame
 | 1 RED | `4a278d2` | Evidence validator rejects missing or contradictory native claims. |
 | 1 GREEN | `bc6bc9c` | Import-safe actual-product observation, public fixture and transparent SDL observer. |
 | Task 1 follow-up | `e35b547` | Deterministic complete/affected host batches, clipboard isolation precondition, timer diagnostics, explicit rerun PID registry and strict platform inventory. |
-| Task 2 | Following scoped evidence commit | Same-frame fixture, PRIMARY/card behavior, native scale/ownership checks, seven fullscreen exit cases, host/target regressions and audited cleanup. |
+| Task 2 | `1d18a56` | Same-frame fixture, PRIMARY/card behavior, native scale/ownership checks, seven fullscreen exit cases, host/target regressions and audited cleanup. |
 
 ## Verification
 
