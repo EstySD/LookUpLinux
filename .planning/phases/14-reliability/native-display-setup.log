@@ -1,0 +1,48 @@
+vboxsf                 49152  0
+vboxvideo              45056  12
+drm_vram_helper        28672  1 vboxvideo
+drm_ttm_helper         20480  3 drm_vram_helper,vboxvideo
+vboxguest              53248  5 vboxsf
+crw------- 1 root root 10, 263 Nov  3 12:05 /dev/vboxguest
+crw-rw-rw- 1 root root 10, 264 Nov  3 12:05 /dev/vboxuser
+UNIT FILE           STATE   PRESET
+vboxservice.service enabled disabled
+
+1 unit files listed.
+442 /usr/bin/VBoxService
+869 /usr/bin/VBoxClient --clipboard
+870 /usr/bin/VBoxClient --clipboard
+909 /usr/bin/VBoxClient --checkhostversion
+910 /usr/bin/VBoxClient --checkhostversion
+941 /usr/bin/VBoxClient --vmsvga
+1112 bash -c lsmod | rg 'vbox|vmwgfx'; ls -l /dev/vbox*; systemctl list-unit-files '*vbox*'; pgrep -af 'VBox|vbox'; sudo -n modprobe vboxguest; sudo -n systemctl start vboxservice; sudo -n VBoxControl --version; sudo -n VBoxControl guestproperty enumerate
+7.2.22r175245
+Oracle VirtualBox Guest Additions Command Line Management Interface Version 7.2.22
+Copyright (C) 2008-2026 Oracle and/or its affiliates
+
+Name: /VirtualBox/GuestInfo/OS/Product, value: Linux, timestamp: 1793707518697794800, flags: <NULL>
+Name: /VirtualBox/GuestInfo/Net/0/V4/IP, value: 10.0.2.15, timestamp: 1793707518702228203, flags: TRANSIENT, TRANSRESET
+Name: /VirtualBox/HostInfo/GUI/LanguageID, value: ru_RU, timestamp: 1793568168545211000, flags: RDONLYGUEST
+Name: /VirtualBox/GuestInfo/Net/0/MAC, value: 080027A05376, timestamp: 1793707518703211501, flags: TRANSIENT, TRANSRESET
+Name: /VirtualBox/GuestInfo/OS/ServicePack, value: , timestamp: 1793707518698771000, flags: <NULL>
+Name: /VirtualBox/HostInfo/VBoxVerExt, value: 7.2.16, timestamp: 1793707501449201201, flags: TRANSIENT, RDONLYGUEST
+Name: /VirtualBox/GuestInfo/Net/0/V4/Netmask, value: 255.255.255.0, timestamp: 1793707518703211500, flags: TRANSIENT, TRANSRESET
+Name: /VirtualBox/VMInfo/ResumeCounter, value: 0, timestamp: 1793707501414417002, flags: TRANSIENT, RDONLYGUEST
+Name: /VirtualBox/GuestInfo/OS/Version, value: #1 SMP PREEMPT_DYNAMIC Fri, 16 Oct 2026 00:28:58 +0000, timestamp: 1793707518697794802, flags: <NULL>
+Name: /VirtualBox/GuestAdd/VersionExt, value: 7.2.22, timestamp: 1793707518698771002, flags: <NULL>
+Name: /VirtualBox/GuestAdd/Revision, value: 175245, timestamp: 1793707518698771003, flags: <NULL>
+Name: /VirtualBox/HostGuest/SysprepExec, value: , timestamp: 1793707501414417003, flags: TRANSIENT, RDONLYGUEST
+Name: /VirtualBox/GuestInfo/OS/LoggedInUsers, value: 2, timestamp: 1793707528722724002, flags: TRANSIENT, TRANSRESET
+Name: /VirtualBox/GuestInfo/Net/0/Status, value: Up, timestamp: 1793707518703211502, flags: TRANSIENT, TRANSRESET
+Name: /VirtualBox/GuestInfo/Net/0/Name, value: eth0, timestamp: 1793707518703211503, flags: TRANSIENT, TRANSRESET
+Name: /VirtualBox/HostGuest/SysprepArgs, value: , timestamp: 1793707501414417004, flags: TRANSIENT, RDONLYGUEST
+Name: /VirtualBox/GuestAdd/Version, value: 7.2.22, timestamp: 1793707518698771001, flags: <NULL>
+Name: /VirtualBox/VMInfo/ResetCounter, value: 0, timestamp: 1793707501414417001, flags: TRANSIENT, RDONLYGUEST
+Name: /VirtualBox/HostInfo/VBoxRev, value: 174877, timestamp: 1793707501449201202, flags: TRANSIENT, RDONLYGUEST
+Name: /VirtualBox/GuestInfo/Net/0/V4/Broadcast, value: 10.0.2.255, timestamp: 1793707518702228204, flags: TRANSIENT, TRANSRESET
+Name: /VirtualBox/HostInfo/VBoxVer, value: 7.2.16, timestamp: 1793707501449201200, flags: TRANSIENT, RDONLYGUEST
+Name: /VirtualBox/GuestInfo/OS/LoggedInUsersList, value: lookup07,arch, timestamp: 1793707528722724000, flags: TRANSIENT, TRANSRESET
+Name: /VirtualBox/GuestInfo/Net/Count, value: 1, timestamp: 1793707528722724003, flags: TRANSIENT, TRANSRESET
+Name: /VirtualBox/GuestInfo/OS/Release, value: 7.2.11-arch1-1, timestamp: 1793707518697794801, flags: <NULL>
+Name: /VirtualBox/GuestInfo/OS/NoLoggedInUsers, value: false, timestamp: 1793707528722724001, flags: TRANSIENT, TRANSRESET
+Name: /VirtualBox/GuestAdd/HostVerLastChecked, value: 7.2.16, timestamp: 1793676825211301800, flags: <NULL>

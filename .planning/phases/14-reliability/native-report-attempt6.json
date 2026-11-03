@@ -1,0 +1,11 @@
+{
+  "host_full": {
+    "returncode": 0,
+    "log": "native-host-full.log",
+    "reused": "865 tests; product/tests unchanged"
+  },
+  "target": {
+    "blocked": "CalledProcessError",
+    "detail": "Command '['C:/Program Files/Oracle/VirtualBox/VBoxManage.exe', 'showvminfo', 'cf207909-94b5-4b49-8bd8-ccff973c1dc8', '--machinereadable']' returned non-zero exit status 1."
+  }
+}

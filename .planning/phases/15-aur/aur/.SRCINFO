@@ -1,0 +1,33 @@
+pkgbase = lookup-linux
+	pkgdesc = English-Russian OCR dictionary and vocabulary cards for KDE Plasma Wayland
+	pkgver = 0.2.1
+	pkgrel = 1
+	url = https://github.com/EstySD/LookUpLinux
+	arch = x86_64
+	license = GPL-3.0-or-later
+	license = Apache-2.0
+	license = LicenseRef-WordNet
+	makedepends = cmake
+	makedepends = extra-cmake-modules
+	makedepends = vulkan-headers
+	depends = python
+	depends = python-pyqt6
+	depends = qt6-wayland
+	depends = tesseract
+	depends = tesseract-data-eng
+	depends = wl-clipboard>=2.3.0
+	depends = libkscreen
+	depends = kglobalacceld
+	depends = kservice
+	depends = dbus
+	depends = glibc
+	depends = gcc-libs
+	depends = kwin>=6.8
+	options = !strip
+	options = !debug
+	source = https://github.com/EstySD/LookUpLinux/releases/download/v0.2.1/lookup-linux-0.2.1-source.tar.gz
+	source = kdotool-0.3.0.tar.gz::https://github.com/jinliu/kdotool/releases/download/v0.3.0/kdotool-0.3.0-x86_64-unknown-linux-gnu.tar.gz
+	sha256sums = 7cdbd750e1a089debb86819fd6284ecc1ac2b269fe9e5d11285a9d72f8dbbafd
+	sha256sums = 2079cc1d492b6e83e04def4d9376e34fcb36a4e3bdc637c8c2ee6fa547ce90ff
+
+pkgname = lookup-linux

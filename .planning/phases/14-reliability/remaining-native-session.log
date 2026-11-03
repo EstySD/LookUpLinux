@@ -1,0 +1,37 @@
+root         391 /usr/bin/sddm
+root         417 /usr/lib/Xorg -nolisten tcp -background none -seat seat0 vt2 -auth /run/sddm/xauth_moDuxv -noreset -displayfd 16
+root         422 /usr/lib/sddm/sddm-helper --socket /tmp/sddm-auth-310a8e81-b9e0-4c34-9a7b-213e9cbf9674 --id 1 --start /usr/lib/plasma-dbus-run-session-if-needed /usr/bin/startplasma-wayland --user lookup07 --autologin
+lookup07     436 /usr/bin/startplasma-wayland
+lookup07     463 /usr/bin/kwin_wayland_wrapper --xwayland
+lookup07     467 /usr/bin/kwin_wayland --wayland-fd 7 --socket wayland-1 --xwayland-fd 8 --xwayland-fd 9 --xwayland-display :1 --xwayland-initfd 11 --xwayland-init-display :2 --xwayland-xauthority /run/user/1001/xauth_fKCrOQ --xwayland
+arch         971 bash -c ps -eo user,pid,args | rg 'kwin_wayland|startplasma|sddm'; sudo -n -u lookup07 sh -c 'cat ~/.config/kwinrc; cat ~/.config/environment.d/*.conf 2>/dev/null'; sudo -n cat /etc/sddm.conf /etc/sddm.conf.d/*.conf 2>/dev/null; cat /proc/cmdline; ls /dev/dri; printenv NO_PROXY no_proxy
+arch         973 rg kwin_wayland|startplasma|sddm
+[Desktops]
+Id_1=3870fa05-d667-4cca-9ac9-36d57b9d5c00
+Number=1
+Rows=1
+
+[Tiling][3870fa05-d667-4cca-9ac9-36d57b9d5c00][]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][3870fa05-d667-4cca-9ac9-36d57b9d5c00][f7eb7fae-fc9e-4381-94c8-b646dce1f624]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Xwayland]
+Scale=1
+[Autologin]
+User=arch
+Session=plasma
+# Owned lookup-gsd-07 cf207909-94b5-4b49-8bd8-ccff973c1dc8
+[Autologin]
+User=lookup07
+Session=plasma
+Relogin=false
+BOOT_IMAGE=/boot/vmlinuz-linux root=UUID=86a96c15-9d21-45be-a21b-c81a5423eac4 rw net.ifnames=0 rootflags=compress=zstd:1
+by-path
+card0
+renderD128
+localhost,127.0.0.1,::1,10.0.2.2
+localhost,127.0.0.1,::1,10.0.2.2

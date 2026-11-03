@@ -1,0 +1,73 @@
+{
+  "acceptance": "agent",
+  "provider": "google-gtx-marked-v1",
+  "cases": [
+    {
+      "name": "river",
+      "passed": true,
+      "meaning": "берегу",
+      "meaning_error": null,
+      "matching_pair": true,
+      "count": 1,
+      "first_useful_ms": 2.041700001427671,
+      "meaning_ready_ms": 677.0044000004418
+    },
+    {
+      "name": "finance",
+      "passed": true,
+      "meaning": "банк",
+      "meaning_error": null,
+      "matching_pair": true,
+      "count": 2,
+      "first_useful_ms": 31.613899998774286,
+      "meaning_ready_ms": 2037.3801999994612
+    },
+    {
+      "name": "repeat-river",
+      "passed": true,
+      "meaning": "Берег",
+      "meaning_error": null,
+      "matching_pair": true,
+      "count": 3,
+      "first_useful_ms": 31.981399999494897,
+      "meaning_ready_ms": 1811.7089999977907
+    },
+    {
+      "name": "repeat-finance",
+      "passed": true,
+      "meaning": "банком",
+      "meaning_error": null,
+      "matching_pair": true,
+      "count": 4,
+      "first_useful_ms": 0.7092999985616188,
+      "meaning_ready_ms": 799.1039000007731
+    },
+    {
+      "name": "multiline",
+      "passed": true,
+      "meaning": "берегу",
+      "meaning_error": null,
+      "matching_pair": true,
+      "count": 5,
+      "first_useful_ms": 29.959299998154165,
+      "meaning_ready_ms": 652.3511999985203
+    },
+    {
+      "name": "phrase",
+      "passed": true,
+      "meaning": "вырваться",
+      "meaning_error": null,
+      "matching_pair": true,
+      "count": 1,
+      "first_useful_ms": 30.74449999985518,
+      "meaning_ready_ms": 418.52170000129263
+    }
+  ],
+  "limits": [
+    "Finite synthetic live corpus; public endpoint is undocumented.",
+    "No human or Phase8 game/performance acceptance."
+  ],
+  "cache_reused": true,
+  "offline_article_retained": true,
+  "passed": true
+}

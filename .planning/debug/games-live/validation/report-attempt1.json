@@ -1,0 +1,14 @@
+{
+  "command": "python .planning/debug/games-live/batch.py",
+  "pid": 23188,
+  "revision": "362d5281b4251e50cc8b5719ef38d771e4489ad7",
+  "sha256": {
+    "lookup/app.py": "001f5c8595bd61ec546c6646966745ab8942b7024904a27d2bba1630b5fdbb5d",
+    "tests/test_app.py": "1cc439b9ac648388e63fb96cca825c5c4f17a4ca72fd828aafb778cd78312639",
+    "lookup/ocr.py": "46104182424367973c54561d531791904a589610e95e623890f55384c007ec5e",
+    "tests/test_ocr_fallback.py": "8ab2757ca7e09f7545608f07a5f46314c79ab336f01d56293f6d2b4a7b3ed8aa",
+    "tests/fixtures/ocr-discover-games.png": "4c9153769397e08a600bdf5ed2fef4e4c22b034e42dc534436abdf3a46e5a245"
+  },
+  "host_exit": 0,
+  "vm_exit": 1
+}

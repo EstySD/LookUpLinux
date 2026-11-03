@@ -1,0 +1,6 @@
+name="lookup-gsd-07"
+UUID="cf207909-94b5-4b49-8bd8-ccff973c1dc8"
+VMState="poweroff"
+VMStateChangeTime="2026-11-03T12:04:17.000000000"
+macaddress1="080027A05376"
+Forwarding(0)="lookup-gsd-07-ssh,tcp,127.0.0.1,2227,,22"

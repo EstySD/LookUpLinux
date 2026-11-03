@@ -780,6 +780,20 @@ class ReloadTests(EngineCase):
 
 
 class SourceTests(unittest.TestCase):
+    def test_startup_primary_is_ignored_until_a_new_selection(self):
+        stale='Hi, Saw the agent instructions. We run Agensi.io.'
+        with patch.object(app.platform,'read_primary',side_effect=[stale,stale,stale,'Home']), \
+             patch.object(app.platform,'cursor_position',return_value=(50,50)), \
+             patch.object(app.platform,'monitors',return_value=(MONITOR,)), \
+             patch.object(app.platform,'work_area',return_value=(0,0,1000,750)), \
+             patch.object(app.capture,'capture_monitor',return_value=object()) as screenshot:
+            source=app.Source({})
+            self.assertEqual(source.freeze().mode,'ocr')
+            self.assertEqual(source.freeze().mode,'ocr')
+            fresh=source.freeze()
+        self.assertEqual((fresh.mode,fresh.text),('primary','Home'))
+        self.assertEqual(screenshot.call_count,2)
+
     def test_compositor_snapshot_is_used_without_resampling_live_scene_or_cursor(self):
         from unittest.mock import Mock
         snapshot=Mock(point=(50,50),monitor=MONITOR,available=(0,0,1000,740))

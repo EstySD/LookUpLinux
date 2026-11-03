@@ -104,10 +104,10 @@ class SettingsTests(unittest.TestCase):
     def test_popup_controls_persist_reopen_and_rollback(self):
         window=self.window()
         controls=(window.popup_show_context,window.popup_show_meaning,window.popup_expand_articles)
-        self.assertEqual(tuple(control.isChecked() for control in controls),(False,True,False))
+        self.assertEqual(tuple(control.isChecked() for control in controls),(False,False,False))
         for control in controls:
             self.assertTrue(control.accessibleName())
-            control.toggle()
+            control.setChecked(control is not window.popup_show_meaning)
         window.controller.apply(window.snapshot())
         self.wait(lambda:window.controller.reload_revision is not None)
         self.assertTrue(all(not control.isEnabled() for control in controls))

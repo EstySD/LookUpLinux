@@ -76,7 +76,8 @@ class Event:
 class Source:
     def __init__(self, env=None):
         self.env=env
-        self.consumed=None
+        # PRIMARY survives focus changes and restarts; existing text is not a new selection.
+        self.consumed=' '.join((platform.read_primary(env) or '').split()) or None
 
     def freeze(self,snapshot=None):
         if self.env is None:

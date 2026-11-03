@@ -1,0 +1,12 @@
+{
+  "command": "python .planning/home_ocr_batch.py",
+  "pid": 5504,
+  "revision": "362d5281b4251e50cc8b5719ef38d771e4489ad7",
+  "sha256": {
+    "lookup/ocr.py": "3b4be7d3e9eecfd9d7bda656bbdf2352323edf222de33ced683f4766b9ceff4a",
+    "tests/test_ocr_fallback.py": "b331d67d8b5e4c248d54b95aad775903938dd61d80da04b904d83d166c86f51b",
+    "tests/fixtures/ocr-selected-home.png": "8599455daf558424799c787e98117c11d7468c0ebe9c8d14eebb98a0ef653ea5"
+  },
+  "host_exit": 1,
+  "vm_exit": 1
+}

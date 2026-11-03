@@ -1,0 +1,21 @@
+/usr/bin/VBoxControl
+7.2.22r175245
+/usr/bin/wesnoth
+SESSION  UID USER     SEAT  LEADER CLASS   TTY  IDLE SINCE
+      1 1001 lookup07 seat0 422    user    tty1 no   -
+     10 1000 arch     -     945    user    -    no   -
+     11 1000 arch     -     943    user    -    no   -
+     12 1000 arch     -     950    user    -    no   -
+     13 1000 arch     -     946    user    -    no   -
+      2 1001 lookup07 -     427    manager -    no   -
+      6 1000 arch     -     913    manager -    no   -
+      8 1000 arch     -     938    user    -    no   -
+      9 1000 arch     -     944    user    -    no   -
+
+9 sessions listed.
+VBoxControlOracle VirtualBox Guest Additions Command Line Management Interface Version 7.2.22
+Copyright (C) 2008-2026 Oracle and/or its affiliates
+
+: error: Could not contact the host system.  Make sure that you are running this
+VBoxControl: error: application inside a VirtualBox guest system, and that you have sufficient
+VBoxControl: error: user permissions.

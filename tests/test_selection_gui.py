@@ -63,6 +63,7 @@ class SelectionGuiTests(unittest.TestCase):
         window.selected.connect(selected.append);window.dismissed.connect(lambda:closed.append(True))
         window.set_status('word '*1000)
         self.assertEqual(window.status.accessibleName(),'word '*1000)
+        QTest.keyClick(window,Qt.Key.Key_F1)
         self.assertTrue(window.close_button.isVisible())
         self.assertLessEqual(window.close_button.geometry().right(),window.toolbar.width())
         QTest.mouseClick(window.instruction,Qt.MouseButton.LeftButton)
@@ -74,10 +75,31 @@ class SelectionGuiTests(unittest.TestCase):
         window.release()
         self.assertEqual(closed,[True])
         another=self.window()
-        another.close_button.setFocus()
-        QTest.keyClick(another.close_button,Qt.Key.Key_Escape)
+        QTest.keyClick(another,Qt.Key.Key_Escape)
         self.assertFalse(another.isVisible())
         self.assertIsNone(another._image)
+
+    def test_f1_panel_is_hidden_by_default_and_stays_put_when_shown(self):
+        window=self.window()
+        selected=[]
+        window.selected.connect(selected.append)
+        point=window.toolbar.geometry().center()
+        for _ in range(2):
+            self.assertFalse(window.toolbar.isVisible())
+            self.assertEqual(window.popup_area(),window.geometry())
+            QTest.mouseClick(window,Qt.MouseButton.LeftButton,pos=point)
+            self.assertEqual(selected[-1],(-400+point.x(),50+point.y()))
+            QTest.keyClick(window,Qt.Key.Key_F1)
+            self.assertTrue(window.toolbar.isVisible())
+            before=window.toolbar.geometry()
+            QTest.mouseMove(window.close_button)
+            self.application.processEvents()
+            self.assertEqual(window.toolbar.geometry(),before)
+            self.assertLess(window.toolbar.width(),window.width())
+            area=window.popup_area()
+            toolbar=window.toolbar.geometry().translated(-400,50)
+            self.assertFalse(area.intersects(toolbar))
+            QTest.keyClick(window.close_button,Qt.Key.Key_F1)
 
     def test_bad_image_rejected_before_showing_surface(self):
         from lookup.selection_gui import components

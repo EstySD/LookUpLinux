@@ -1,0 +1,1 @@
+python -m unittest tests.test_selection_gui tests.test_app_gui

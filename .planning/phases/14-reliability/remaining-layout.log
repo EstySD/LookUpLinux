@@ -1,0 +1,2 @@
+VBoxManage.exe: error: Code E_INVALIDARG (0x80070057) (extended info not available)
+VBoxManage.exe: error: Context: "SetScreenLayout(ScreenLayoutMode_Apply, ComSafeArrayAsInParam(aGuestScreenInfos))" at line 1584 of file VBoxManageControlVM.cpp

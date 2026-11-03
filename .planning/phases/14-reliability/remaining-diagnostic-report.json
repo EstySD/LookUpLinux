@@ -1,0 +1,34 @@
+{
+  "command": "python .planning/phases/14-reliability/diagnose_remaining.py",
+  "started": 1793704382.2849889,
+  "layout": {
+    "returncode": 1,
+    "log": "remaining-layout.log"
+  },
+  "provider-http": {
+    "returncode": 0,
+    "log": "remaining-provider-http.log"
+  },
+  "displays": {
+    "returncode": 0,
+    "log": "remaining-displays.log"
+  },
+  "guest-tools": {
+    "returncode": 1,
+    "log": "remaining-guest-tools.log"
+  },
+  "host-live": {
+    "returncode": 0,
+    "log": "remaining-host-live.log"
+  },
+  "native-session": {
+    "returncode": 0,
+    "log": "remaining-native-session.log"
+  },
+  "curl-proxy": {
+    "returncode": 0,
+    "log": "remaining-curl-proxy.log"
+  },
+  "poweroff": true,
+  "finished": 1793704431.3656328
+}

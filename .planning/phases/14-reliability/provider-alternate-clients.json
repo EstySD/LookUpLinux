@@ -1,0 +1,5 @@
+{
+  "returncode": 0,
+  "stdout": "[{\"client\": \"dict-chrome-ex\", \"status\": 200, \"body\": \"[[[\\\"\\u041e\\u043d\\u0438 \\u0441\\u0438\\u0434\\u0435\\u043b\\u0438 \\u043d\\u0430 \\\\u003cb\\\\u003e\\u0431\\u0435\\u0440\\u0435\\u0433\\u0443\\\\u003c/b\\\\u003e \\u0440\\u0435\\u043a\\u0438.\\\",\\\"They sat on the \\\\u003cb\\\\u003ebank\\\\u003c/b\\\\u003e of the river.\\\",null,null,3,null,null,[[]],[[[\\\"8e6adaf1f9ae06bcb9663531e5521abb\\\",\\\"en_ru_2023q1.md\\\"]]]]],null,\\\"en\\\",null,null,null,null,[]]\"}, {\"client\": \"at\", \"status\": 200, \"body\": \"[[[\\\"\\u041e\\u043d\\u0438 \\u0441\\u0438\\u0434\\u0435\\u043b\\u0438 \\u043d\\u0430 \\\\u003cb\\\\u003e\\u0431\\u0435\\u0440\\u0435\\u0433\\u0443\\\\u003c/b\\\\u003e \\u0440\\u0435\\u043a\\u0438.\\\",\\\"They sat on the \\\\u003cb\\\\u003ebank\\\\u003c/b\\\\u003e of the river.\\\",null,null,3,null,null,[[]],[[[\\\"8e6adaf1f9ae06bcb9663531e5521abb\\\",\\\"en_ru_2023q1.md\\\"]]]]],null,\\\"en\\\",null,null,null,null,[]]\"}]\n",
+  "stderr": ""
+}

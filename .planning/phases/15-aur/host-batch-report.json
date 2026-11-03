@@ -1,0 +1,9 @@
+{
+  "host_full": {
+    "returncode": 0,
+    "log": "host-full.log"
+  },
+  "source_sha256": "7cdbd750e1a089debb86819fd6284ecc1ac2b269fe9e5d11285a9d72f8dbbafd",
+  "publication": "not_published",
+  "target_install_upgrade_remove": "pending; VM explicitly left for user manual testing"
+}

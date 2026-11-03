@@ -1,0 +1,11 @@
+{
+  "command": "python .planning/popup_translation_batch.py",
+  "pid": 16388,
+  "revision": "391f614eabc849d03212d434334011188688503b",
+  "sha256": {
+    "lookup/gui.py": "555f80f09aa8dd28cf7fd495daa6e04e72cec54118a144b0b237ed8214ad17e7",
+    "tests/test_app_gui.py": "49a01babbb90f663177d172cccb01b054639469d2c923bf8712e00f10fb0e31a"
+  },
+  "host_exit": 0,
+  "vm_exit": 0
+}

@@ -5,7 +5,7 @@ from . import capture
 
 _components=None
 TITLE='Выбор слова по снимку'
-INSTRUCTION='Нажмите на слово, чтобы увидеть перевод. Esc — закрыть снимок.'
+INSTRUCTION='Нажмите на слово · F1 — панель · Esc — закрыть'
 EXPLANATION='Снимок экрана сохранён для выбора. Приложение под ним продолжает работать.'
 NO_WORD='Слово не найдено. Нажмите на другое слово на снимке или закройте снимок клавишей Esc.'
 
@@ -41,7 +41,7 @@ def components():
             self.session_id=scene.session_id
             self.monitor=scene.source.monitor
             self.setWindowTitle(TITLE);self.setAccessibleName(TITLE)
-            self.setAccessibleDescription(EXPLANATION)
+            self.setAccessibleDescription(EXPLANATION+' '+INSTRUCTION)
             self.setWindowFlags(Qt.WindowType.Window|Qt.WindowType.FramelessWindowHint|Qt.WindowType.WindowStaysOnTopHint)
             self.setAttribute(Qt.WidgetAttribute.WA_OpaquePaintEvent)
             self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
@@ -51,8 +51,8 @@ def components():
             self.toolbar=QFrame(self)
             self.toolbar.setAutoFillBackground(True)
             self.toolbar.setCursor(Qt.CursorShape.ArrowCursor)
-            row=QHBoxLayout(self.toolbar);row.setContentsMargins(8,8,8,8);row.setSpacing(8)
-            labels=QVBoxLayout();labels.setSpacing(4)
+            row=QHBoxLayout(self.toolbar);row.setContentsMargins(6,4,6,4);row.setSpacing(6)
+            labels=QVBoxLayout();labels.setSpacing(2)
             self.instruction=QLabel(INSTRUCTION)
             self.instruction.setTextFormat(Qt.TextFormat.PlainText)
             self.instruction.setWordWrap(True)
@@ -61,16 +61,25 @@ def components():
             self.status.setTextFormat(Qt.TextFormat.PlainText)
             self.status.setSizePolicy(QSizePolicy.Policy.Ignored,QSizePolicy.Policy.Preferred)
             labels.addWidget(self.status);row.addLayout(labels,1)
-            self.close_button=QPushButton('Закрыть снимок')
+            self.close_button=QPushButton('Закрыть')
             self.close_button.setAccessibleName('Закрыть снимок')
             self.close_button.setToolTip('Закрыть снимок (Esc)')
             self.close_button.clicked.connect(self.dismiss)
             row.addWidget(self.close_button,0,Qt.AlignmentFlag.AlignTop)
             self.shortcut=QShortcut(QKeySequence(Qt.Key.Key_Escape),self,activated=self.dismiss)
+            self.panel_shortcut=QShortcut(QKeySequence(Qt.Key.Key_F1),self,activated=self.toggle_toolbar)
             self._layout_controls()
+            self.toolbar.hide()
+
+        def toggle_toolbar(self):
+            if self._released:return
+            self.toolbar.setVisible(not self.toolbar.isVisible())
+            if self.toolbar.isVisible():self.close_button.setFocus()
+            else:self.setFocus()
 
         def _layout_controls(self):
-            self.toolbar.setGeometry(16,16,max(1,self.width()-32),max(1,self.toolbar.heightForWidth(max(1,self.width()-32))))
+            width=min(560,max(1,self.width()-32))
+            self.toolbar.setGeometry(max(0,(self.width()-width)//2),16,width,max(1,self.toolbar.heightForWidth(width)))
             height=self.toolbar.sizeHint().height()
             self.toolbar.setFixedHeight(min(max(1,height),max(1,self.height()-32)))
             self._elide_status()
@@ -98,6 +107,8 @@ def components():
                           width*self.width()/self._image.width(),height*self.height()/self._image.height())
 
         def popup_area(self):
+            if not self.toolbar.isVisible():
+                return QRect(round(self.monitor.x),round(self.monitor.y),self.width(),self.height())
             top=self.toolbar.geometry().bottom()+8
             return QRect(round(self.monitor.x),round(self.monitor.y)+top,self.width(),max(1,self.height()-top))
 
@@ -108,7 +119,7 @@ def components():
                 if screen is not None:self.windowHandle().setScreen(screen)
                 self.showFullScreen();self.raise_();self.activateWindow()
                 self.windowHandle().requestActivate()
-                self.close_button.setFocus()
+                self.setFocus()
             else:self.show()
 
         def paintEvent(self,event):
@@ -124,7 +135,7 @@ def components():
 
         def mousePressEvent(self,event):
             if (event.button()==Qt.MouseButton.LeftButton and not self._released and
-                not self.toolbar.geometry().contains(event.position().toPoint())):
+                not (self.toolbar.isVisible() and self.toolbar.geometry().contains(event.position().toPoint()))):
                 self.selected.emit((self.monitor.x+event.position().x()*self.monitor.width/self.width(),
                                     self.monitor.y+event.position().y()*self.monitor.height/self.height()))
             event.accept()

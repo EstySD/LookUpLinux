@@ -33,7 +33,7 @@ class Config:
     popup_timeout: int = 20
     autostart: bool = True
     popup_show_context: bool = False
-    popup_show_meaning: bool = True
+    popup_show_meaning: bool = False
     popup_expand_articles: bool = False
 
 

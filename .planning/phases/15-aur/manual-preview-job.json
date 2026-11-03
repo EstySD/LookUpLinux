@@ -1,0 +1,19 @@
+{
+  "command": "python .planning/phases/15-aur/open_preview.py",
+  "pid": 16276,
+  "source_sha256": "18a6ed2f1a8172439ab9b08b8f0ca3d7be0ec737dc2fee9f2c0663d21fa90b6f",
+  "vm": "cf207909-94b5-4b49-8bd8-ccff973c1dc8",
+  "user_request": "visible GUI VM and latest app; leave running; no publishing",
+  "source": "/home/lookup07/lookup-preview-0.2.1-1793723995/lookup-source",
+  "provider": "google-marked-v2",
+  "open_reply": [
+    1
+  ],
+  "effective_keys": [
+    "Meta+Shift+E"
+  ],
+  "commandline": "/usr/bin/python -m lookup --app ",
+  "log": "/home/lookup07/lookup-preview-0.2.1-1793723995/lookup-preview.log",
+  "left_running": true,
+  "publication": "not_published"
+}

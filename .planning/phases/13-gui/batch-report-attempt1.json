@@ -1,0 +1,18 @@
+{
+  "host_full": {
+    "returncode": 1,
+    "log": "host-full.log"
+  },
+  "real_host": {
+    "returncode": 0,
+    "log": "real-host.log"
+  },
+  "target": {
+    "returncode": 1,
+    "log": "target-full.log",
+    "native_home": {
+      "returncode": 4294967295,
+      "log": "native-home.log"
+    }
+  }
+}

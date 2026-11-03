@@ -1,0 +1,39 @@
+{
+  "command": "python .planning/debug/games-live/batch.py",
+  "pid": 17788,
+  "revision": "35cc1b2f56d58a6ff48a7cc5b7247fdf1b7d3f35",
+  "sha256": {
+    "lookup/app.py": "001f5c8595bd61ec546c6646966745ab8942b7024904a27d2bba1630b5fdbb5d",
+    "tests/test_app.py": "1cc439b9ac648388e63fb96cca825c5c4f17a4ca72fd828aafb778cd78312639",
+    "lookup/ocr.py": "ee6a6196fe0984c3b1fad728ae80a5562ed8599d780e126404758f7db0be4bd9",
+    "tests/test_ocr_fallback.py": "8ab2757ca7e09f7545608f07a5f46314c79ab336f01d56293f6d2b4a7b3ed8aa",
+    "tests/fixtures/ocr-discover-games.png": "4c9153769397e08a600bdf5ed2fef4e4c22b034e42dc534436abdf3a46e5a245"
+  },
+  "host_exit": 0,
+  "vm_exit": 1,
+  "final": {
+    "host": {
+      "passed": 862,
+      "skipped": 13,
+      "failed": 0
+    },
+    "vm": {
+      "passed": 853,
+      "skipped": 22,
+      "failed": 0,
+      "note": "Two missing-support-file errors from the full run resolved by vm-support.log: 4 tests OK; application source unchanged."
+    },
+    "installed_ocr_sha256": "ee6a6196fe0984c3b1fad728ae80a5562ed8599d780e126404758f7db0be4bd9",
+    "live_reproduction": {
+      "word": "games",
+      "confidence": 72.86264,
+      "total_ms": 1396.15
+    },
+    "logs": [
+      "host.log",
+      "vm.log",
+      "vm-support.log",
+      "install.json"
+    ]
+  }
+}

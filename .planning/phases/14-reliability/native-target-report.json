@@ -1,0 +1,45 @@
+{
+  "guest_display_setup": {
+    "returncode": 0,
+    "log": "native-display-setup.log"
+  },
+  "monitor_hint": {
+    "returncode": 0,
+    "log": "native-monitor-hint.log"
+  },
+  "monitors": {
+    "returncode": 0,
+    "log": "native-monitors.log"
+  },
+  "target_full": {
+    "returncode": 0,
+    "log": "native-target-full.log",
+    "reused": "868 tests; product/tests unchanged"
+  },
+  "provider": {
+    "returncode": 0,
+    "log": "native-provider.log"
+  },
+  "single_output_for_game": {
+    "returncode": 0,
+    "log": "native-single-output.log"
+  },
+  "borderless": {
+    "returncode": 0,
+    "reused": "borderless/11-native-batch.json; seven exits on identical product"
+  },
+  "borderless_word": {
+    "returncode": 0,
+    "reused": "borderless-word/11-native-batch.json; unchanged product"
+  },
+  "enable_second_output": {
+    "returncode": 0,
+    "log": "native-enable-second.log"
+  },
+  "second_monitor": {
+    "returncode": 0,
+    "log": "native-second-monitor.log"
+  },
+  "poweroff": true,
+  "vm_settings_restored": true
+}

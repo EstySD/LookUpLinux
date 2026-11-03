@@ -199,7 +199,7 @@ class SettingsTests(unittest.TestCase):
     def test_popup_preferences_defaults_validation_and_round_trip(self):
         fields = dict(popup_show_context=True,popup_show_meaning=False,popup_expand_articles=True)
         defaults = config.load(self.path)
-        self.assertEqual(tuple(getattr(defaults,key) for key in fields),(False,True,False))
+        self.assertEqual(tuple(getattr(defaults,key) for key in fields),(False,False,False))
         self.write(dict(extra='keep',online=False))
         saved = config.save(fields,self.path)
         self.assertEqual(config.load(self.path),saved)

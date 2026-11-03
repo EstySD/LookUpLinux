@@ -1,0 +1,12 @@
+{
+  "command": "python .planning/home_ocr_batch.py",
+  "pid": 8168,
+  "revision": "362d5281b4251e50cc8b5719ef38d771e4489ad7",
+  "sha256": {
+    "lookup/app.py": "001f5c8595bd61ec546c6646966745ab8942b7024904a27d2bba1630b5fdbb5d",
+    "tests/test_app.py": "1cc439b9ac648388e63fb96cca825c5c4f17a4ca72fd828aafb778cd78312639",
+    "lookup/ocr.py": "3b4be7d3e9eecfd9d7bda656bbdf2352323edf222de33ced683f4766b9ceff4a",
+    "tests/test_ocr_fallback.py": "5305fe3aa9664fac019a5e0dd3542308faf1471dc5d6434e200cf046f4802994",
+    "tests/fixtures/ocr-selected-home.png": "8599455daf558424799c787e98117c11d7468c0ebe9c8d14eebb98a0ef653ea5"
+  }
+}
