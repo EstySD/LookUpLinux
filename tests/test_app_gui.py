@@ -168,6 +168,22 @@ class GuiTests(unittest.TestCase):
         self.assertEqual(self.owner._displayed[1]['context'],'new context')
         self.assertIs(self.owner.scene_window,layer)
 
+    def test_scene_timeout_waits_while_reading_popup_and_restarts_on_leave(self):
+        layer=self.enter_scene()
+        self.owner.receive(self.event('frozen'))
+        self.owner.receive(self.event(result=self.result()))
+        popup=self.owner.popup
+        with mock.patch.object(popup,'underMouse',return_value=True):
+            popup.timer.timeout.emit()
+        self.assertIs(self.owner.scene_window,layer)
+        self.assertTrue(popup.isVisible())
+        popup.timer.start(100)
+        QApplication.sendEvent(popup,QEvent(QEvent.Type.Leave))
+        self.assertGreater(popup.timer.remainingTime(),19000)
+        with mock.patch.object(popup,'underMouse',return_value=False):
+            popup.timer.timeout.emit()
+        self.assertIsNone(self.owner.scene_window)
+
     def test_scene_all_session_exit_routes_release_image_and_cancel(self):
         for action in ('escape','popup_close','layer_close','timeout','repeat','settings','external','error'):
             with self.subTest(action=action):
@@ -321,6 +337,21 @@ class GuiTests(unittest.TestCase):
         while self.owner.settings_controller.pending and time.monotonic()<deadline:
             self.application.processEvents();QTest.qWait(5)
         self.owner._settings_applied(replace(Config(),**changes))
+
+    def test_primary_translation_uses_structured_senses_and_yields_to_context(self):
+        self.preferences(popup_show_meaning=True)
+        self.owner.receive(self.event(result=self.result()))
+        popup=self.owner.popup
+        self.assertEqual(popup.primary_translation.text(),'значение; слово')
+        self.assertFalse(popup.primary_translation.isHidden())
+        self.assertGreater(popup.primary_translation.font().pointSizeF(),self.application.font().pointSizeF())
+        self.owner.receive(self.event('context',result=replace(self.result(),context_meaning='слово в контексте')))
+        self.assertTrue(popup.primary_translation.isHidden())
+        self.assertEqual(popup.meaning_value._role,(1.3,True))
+        raw=Article('Raw','word',None,(),'metadata, not a translation')
+        self.owner.receive(self.event(result=replace(self.result(),articles=(raw,))))
+        self.assertTrue(popup.primary_translation.isHidden())
+        self.assertEqual(popup.primary_translation.text(),'')
 
     def test_compact_offline_summaries_precede_expandable_articles(self):
         self.preferences()

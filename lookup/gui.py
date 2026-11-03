@@ -74,7 +74,7 @@ def components():
     if _components is not None:
         return _components
     from PyQt6.QtCore import QObject,QTimer,Qt,QEvent,QPoint,QRect,pyqtSignal,pyqtSlot,pyqtClassInfo
-    from PyQt6.QtGui import QFont,QIcon,QKeySequence,QShortcut,QTextOption
+    from PyQt6.QtGui import QFont,QIcon,QKeySequence,QShortcut,QTextOption,QPalette
     from PyQt6.QtWidgets import (QApplication,QWidget,QLabel,QVBoxLayout,QHBoxLayout,
                                  QScrollArea,QToolButton,QStyle,QFrame,QSizePolicy,
                                  QSystemTrayIcon,QMenu,QTextEdit,QPushButton,QMessageBox)
@@ -131,7 +131,7 @@ def components():
             self._duration=20000
             self.timer=QTimer(self)
             self.timer.setSingleShot(True)
-            self.timer.timeout.connect(self.dismiss)
+            self.timer.timeout.connect(self.expire)
             self.layout_box=QVBoxLayout(self)
             self.layout_box.setContentsMargins(16,16,16,16)
             self.layout_box.setSpacing(8)
@@ -163,9 +163,17 @@ def components():
             self.content_layout=QVBoxLayout(content)
             self.content_layout.setContentsMargins(0,0,0,0)
             self.content_layout.setSpacing(8)
+            self.primary_translation=self.label('',1.3,True,block=True)
+            self.primary_translation.setAccessibleName('Краткий перевод')
+            self.content_layout.addWidget(self.primary_translation)
+            self.primary_translation.hide()
             self.meaning_heading=self.label('Значение в контексте',bold=True)
             self.meaning_value=self.label('',block=True)
             self.meaning_value.setAccessibleName('Значение в контексте')
+            for widget in (self.primary_translation,self.meaning_value):
+                widget.document().setDocumentMargin(10)
+                widget.viewport().setBackgroundRole(QPalette.ColorRole.AlternateBase)
+                widget.viewport().setAutoFillBackground(True)
             for widget in (self.meaning_heading,self.meaning_value):
                 self.content_layout.addWidget(widget)
                 widget.hide()
@@ -235,7 +243,7 @@ def components():
                 if widget is not None:
                     if widget in self._labels:self._labels.remove(widget)
                     widget.hide();widget.deleteLater()
-            for label in (self.meaning_heading,self.meaning_value,self.context_heading,self.context_source,
+            for label in (self.primary_translation,self.meaning_heading,self.meaning_value,self.context_heading,self.context_source,
                           self.context_fragment,self.context_value,self.cache_warning):
                 label.hide()
             self.footer.clear()
@@ -298,15 +306,20 @@ def components():
             if not ipa and value.online:
                 ipa=value.online.transcription
             self.add(ipa)
+            from .translate import short_translation
+            structured=tuple(article for article in value.articles if article.senses)
+            # Raw article prefixes can contain metadata rather than a translation.
+            summary=short_translation(structured,None if value.articles else value.online)
+            self.primary_translation.setText(summary or '')
             for article in value.articles:
                 if self.body.count():self.body.addSpacing(8)
                 name=article.dict_name
-                heading=self.add('Словарь: '+(name[:79]+'…' if len(name)>80 else name),True)
+                heading=self.add('Словарь: '+(name[:79]+'…' if len(name)>80 else name))
                 if heading is not None:
                     heading.setAccessibleName('Словарь: '+name)
                     heading.setToolTip(name)
                 for pos,terms in article.senses:
-                    self.add((pos+': ' if pos else '')+'; '.join(terms),True)
+                    self.add((pos+': ' if pos else '')+'; '.join(terms))
                 if not article.senses and article.text:
                     self.add(article.text[:239]+'…' if len(article.text)>240 else article.text)
             if value.online:
@@ -359,6 +372,10 @@ def components():
             elif value.kind=='sentence':
                 self.footer.setText('Текст не добавлен в историю слов.')
         def update_context(self,value):
+            contextual=bool(value.context_meaning and self._shown_preferences.popup_show_meaning)
+            self.primary_translation.setVisible(bool(self.primary_translation.text()) and not contextual)
+            self.meaning_value._role=(1.3,True) if contextual else (1,False)
+            self.font_for(self.meaning_value)
             if value.context_meaning:
                 meaning=value.context_meaning
             elif value.meaning_pending:
@@ -434,6 +451,17 @@ def components():
             if self.isVisible() or (owner is not None and owner.scene_window is not None):
                 self.hide_for_capture()
                 self.dismissed.emit()
+        def expire(self):
+            owner=getattr(self,'scene_owner',None)
+            if owner is not None and owner.scene_window is not None and self.isVisible() and self.underMouse():
+                self.timer.start(self._duration)
+                return
+            self.dismiss()
+        def leaveEvent(self,event):
+            owner=getattr(self,'scene_owner',None)
+            if owner is not None and owner.scene_window is not None and self.isVisible():
+                self.timer.start(self._duration)
+            super().leaveEvent(event)
         def keyPressEvent(self,event):
             if event.key()==Qt.Key.Key_Escape:
                 self.dismiss();event.accept()
