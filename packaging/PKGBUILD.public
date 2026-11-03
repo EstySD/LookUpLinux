@@ -32,5 +32,6 @@ package() {
   install -Dm644 lookup-source/lookup/data/NOTICE-wordnet.txt "$pkgdir/usr/share/licenses/$pkgname/NOTICE-wordnet.txt"
   install -Dm644 lookup-source/packaging/THIRD-PARTY.md "$pkgdir/usr/share/licenses/$pkgname/THIRD-PARTY.md"
   install -Dm644 lookup-source/packaging/org.lookup.Linux.desktop "$pkgdir/usr/share/applications/org.lookup.Linux.desktop"
+  install -Dm644 lookup-source/packaging/org.lookup.Linux.Home.desktop "$pkgdir/usr/share/applications/org.lookup.Linux.Home.desktop"
   install -Dm644 lookup-source/packaging/org.lookup.Linux.autostart.desktop "$pkgdir/etc/xdg/autostart/org.lookup.Linux.desktop"
 }

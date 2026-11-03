@@ -85,6 +85,9 @@ class CliLookupTests(CliCase):
                 gui.assert_called_once_with(trigger=action=='--trigger')
                 dictionaries.assert_not_called()
                 database.assert_not_called()
+        with mock.patch('lookup.gui.run',return_value=0) as gui:
+            self.assertEqual(self.call('--background'),(0,'',''))
+            gui.assert_called_once_with(trigger=False,background=True)
         for extra in (('--offline',),('--no-save',),('--context','private'),('--at','1,2')):
             with mock.patch('lookup.gui.run') as gui:
                 self.assertEqual(self.call('--trigger',*extra)[0],2)
@@ -217,7 +220,7 @@ class AutostartTests(CliCase):
     def test_enabled_login_uses_existing_singleton_app_dispatch(self):
         with mock.patch('lookup.gui.run',return_value=0) as run:
             self.assertEqual(self.call('--autostart'),(0,'',''))
-        run.assert_called_once_with(trigger=False)
+        run.assert_called_once_with(trigger=False,background=True)
         self.assertEqual(self.call('--autostart','--offline')[0],2)
         self.assertEqual(self.call('--app','--autostart')[0],2)
 

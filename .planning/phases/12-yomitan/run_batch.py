@@ -10,7 +10,7 @@ import tarfile
 import time
 
 ROOT = Path(__file__).resolve().parents[3]
-OUT = Path(__file__).resolve().parent
+OUT = Path(os.environ.get('LOOKUP_BATCH_OUTPUT', str(Path(__file__).resolve().parent))).resolve()
 ARCHIVE = Path('D:/User/Downloads/English-Russian_dict_Yomitan.zip')
 SSH = ['ssh', '-o', 'BatchMode=yes', '-o', 'ConnectTimeout=5', '-o', 'HostKeyAlias=lookup-gsd-07',
        '-o', 'UserKnownHostsFile=D:/vm/machines/lookup-gsd-07/ssh_known_hosts', '-p', '2227', 'archvm']
@@ -52,6 +52,7 @@ def target():
             names = set(n for n in tracked if n and not n.startswith(('.omx/', '.claude/')))
             names.update(str(p.relative_to(ROOT)).replace('\\', '/') for folder in ('lookup', 'tests', 'tools')
                          for p in (ROOT / folder).rglob('*.py'))
+            names.update(str(p.relative_to(ROOT)).replace('\\','/') for p in (ROOT/'packaging').glob('*.desktop'))
             for name in sorted(names):
                 if (ROOT / name).is_file():
                     archive.add(ROOT / name, arcname=name)
@@ -66,6 +67,16 @@ def target():
                    'test $test_status -eq 0 && test $real_status -eq 0')
         result = run('target-full', [*SSH, command], timeout=360)
         subprocess.run([*SCP, 'archvm:/tmp/lookup-yomitan-12/real-target.json', str(OUT / 'real-target.json')], capture_output=True, timeout=30)
+        if os.environ.get('LOOKUP_CHECK_HOME')=='1':
+            subprocess.run([*SSH,'sudo -n install -d -m 755 -o lookup07 -g lookup07 /tmp/lookup-home-13'],check=True,capture_output=True)
+            native=('cd /tmp/lookup-yomitan-12 && sudo -n -H -u lookup07 env '
+                    'DISPLAY=:0 WAYLAND_DISPLAY=wayland-0 XDG_RUNTIME_DIR=/run/user/1001 '
+                    'DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1001/bus '
+                    'XDG_CONFIG_HOME=/tmp/lookup-home-13/config XDG_DATA_HOME=/tmp/lookup-home-13/data '
+                    'XDG_CACHE_HOME=/tmp/lookup-home-13/cache '
+                    'python tools/check_home.py /tmp/lookup-home-13/home-evidence')
+            result['native_home']=run('native-home',[*SSH,native],timeout=60)
+            subprocess.run([*SCP,'-r','archvm:/tmp/lookup-home-13/home-evidence',str(OUT)],capture_output=True,timeout=30)
         return result
     finally:
         if booted:

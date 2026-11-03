@@ -1,5 +1,6 @@
 [Desktop Entry]
 Type=Application
+NoDisplay=true
 Name=LookUp Linux
 Comment=LookUp Linux owned application trigger
 X-LookUpLinux-Owned=true

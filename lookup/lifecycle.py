@@ -9,6 +9,7 @@ import tempfile
 from . import config, platform
 
 DESKTOP='org.lookup.Linux.desktop'
+HOME_DESKTOP='org.lookup.Linux.Home.desktop'
 INSTALLED_EXECUTABLE=Path('/usr/bin/lookup')
 INSTALLED_DESKTOP=Path('/usr/share/applications')/DESKTOP
 INSTALLED_AUTOSTART=Path('/etc/xdg/autostart')/DESKTOP
@@ -202,18 +203,18 @@ def _entry_value(value):
     return '\\s'*left+value.strip(' ')+'\\s'*right
 
 
-def desktop_text(python=None,directory=None,*,installed=False,autostart=False,shortcut='Meta+Shift+D'):
+def desktop_text(python=None,directory=None,*,installed=False,autostart=False,shortcut='Meta+Shift+D',home=False):
     if not config._valid_scalar('shortcut',shortcut):raise LifecycleError('invalid_shortcut')
     workdir=''
     if installed:
         executable='/usr/bin/lookup'
-        command=executable+(' --autostart' if autostart else ' --trigger')
+        command=executable+(' --autostart' if autostart else ' --app' if home else ' --trigger')
     else:
         executable=_quote(python or sys.executable)
         directory=Path(directory or Path(__file__).resolve().parents[1])
         _quote(directory)
         workdir='Path='+_entry_value(directory)+'\n'
-        command=executable+' -m lookup'+(' --autostart' if autostart else ' --trigger')
+        command=executable+' -m lookup'+(' --autostart' if autostart else ' --app' if home else ' --trigger')
     text=('[Desktop Entry]\nType=Application\nName=LookUp Linux\n'+
           'Comment=LookUp Linux owned application trigger\n'+MARKER+'\n'+
           'Exec='+command+'\n'+workdir+'Icon=accessories-dictionary\nTerminal=false\n')
@@ -223,12 +224,13 @@ def desktop_text(python=None,directory=None,*,installed=False,autostart=False,sh
         from . import gnome
         desktops='GNOME;Unity;' if gnome.active() else 'KDE;'
         return text+'OnlyShowIn='+desktops+'\nTryExec='+attempt+'\nStartupNotify=false\n'
-    return text+'StartupNotify=true\nX-KDE-Shortcuts='+shortcut.replace('\\','\\\\')+'\n'
+    if home:return text+'StartupNotify=true\nCategories=Education;Languages;\n'
+    return text+'NoDisplay=true\nStartupNotify=true\nX-KDE-Shortcuts='+shortcut.replace('\\','\\\\')+'\n'
 
 
 def _legacy_owned(text):
     lines=text.replace('\r\n','\n').splitlines()
-    if len(lines)!=10 or not lines[4].startswith('Exec="') or not lines[4].endswith('" -m lookup --trigger'):
+    if len(lines) not in (10,11) or not lines[4].startswith('Exec="') or not lines[4].endswith('" -m lookup --trigger'):
         return False
     executable=lines[4][6:-len('" -m lookup --trigger')]
     executable=re.sub(r'\\([\\"`$])',lambda match:match[1],executable).replace('%%','%')
@@ -237,7 +239,7 @@ def _legacy_owned(text):
     try:
         expected=desktop_text(executable,directory).replace(MARKER+'\n','')
     except (ValueError,OSError):return False
-    return text.replace('\r\n','\n')==expected
+    return text.replace('\r\n','\n') in (expected,expected.replace('NoDisplay=true\n',''))
 
 
 def _existing(path):
@@ -276,7 +278,7 @@ def ensure_entries(*,python=None,directory=None,shortcut=None):
     home=Path(data) if data and Path(data).is_absolute() else Path.home()/'.local/share'
     configuration=os.environ.get('XDG_CONFIG_HOME','')
     settings=Path(configuration) if configuration and Path(configuration).is_absolute() else Path.home()/'.config'
-    paths=(home/'applications'/DESKTOP,settings/'autostart'/DESKTOP)
+    paths=(home/'applications'/DESKTOP,settings/'autostart'/DESKTOP,home/'applications'/HOME_DESKTOP)
     existing=tuple(_existing(path) for path in paths)  # Refuse collisions before any writes.
     if is_installed():
         changed=False
@@ -287,14 +289,15 @@ def ensure_entries(*,python=None,directory=None,shortcut=None):
         if changed:_refresh()
         return INSTALLED_DESKTOP,INSTALLED_AUTOSTART
     key=shortcut or config.load().shortcut
-    texts=(desktop_text(python,directory,shortcut=key),desktop_text(python,directory,autostart=True))
+    texts=(desktop_text(python,directory,shortcut=key),desktop_text(python,directory,autostart=True),
+           desktop_text(python,directory,home=True))
     changed=False
     for path,text,old in zip(paths,texts,existing):
         if old!=text.encode('utf-8'):
             _write_entry(path,text);changed=True
     if changed:
         _refresh()
-    return paths
+    return paths[:2]
 
 
 def _refresh():

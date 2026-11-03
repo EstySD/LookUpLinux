@@ -35,5 +35,6 @@ package() {
     install -m644 "mueller7/mueller7.$suffix" "$pkgdir/usr/share/lookup/dicts/mueller7/"
   done
   install -Dm644 lookup-source/packaging/org.lookup.Linux.desktop "$pkgdir/usr/share/applications/org.lookup.Linux.desktop"
+  install -Dm644 lookup-source/packaging/org.lookup.Linux.Home.desktop "$pkgdir/usr/share/applications/org.lookup.Linux.Home.desktop"
   install -Dm644 lookup-source/packaging/org.lookup.Linux.autostart.desktop "$pkgdir/etc/xdg/autostart/org.lookup.Linux.desktop"
 }

@@ -27,7 +27,7 @@ def stage(output,root=ROOT,public=False):
         if path.is_file() and (path.suffix=='.py' or (path.parent==root/'lookup/data' and path.suffix=='.txt')):
             files.append(path)
     files += [root/'packaging'/name for name in ('lookup','org.lookup.Linux.desktop',
-        'org.lookup.Linux.autostart.desktop','THIRD-PARTY.md')]
+        'org.lookup.Linux.autostart.desktop','org.lookup.Linux.Home.desktop','THIRD-PARTY.md')]
     files += [root/'LICENSE',root/'COPYING.md']
     files += [root/'native/kwin-capture'/name for name in ('CMakeLists.txt','capture.cpp','metadata.json','README.md')]
     if any(path.is_symlink() or not path.is_file() or not path.resolve().is_relative_to(root) for path in files):

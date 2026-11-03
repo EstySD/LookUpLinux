@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=LookUp Linux
+Comment=Translate English words and open settings, words and review
+Comment[ru]=Перевод английских слов, настройки, слова и повторение
+X-LookUpLinux-Owned=true
+Exec=/usr/bin/lookup --app
+Icon=accessories-dictionary
+Terminal=false
+StartupNotify=true
+Categories=Education;Languages;

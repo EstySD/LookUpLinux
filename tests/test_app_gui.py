@@ -88,7 +88,7 @@ class TriggerSpawnTests(unittest.TestCase):
                      mock.patch('lookup.lifecycle.launch_command',return_value=(command,'/safe/path')) as launch, \
                      mock.patch.object(gui.subprocess,'Popen') as spawn:
                     self.assertEqual(gui.run(trigger=True),0)
-                launch.assert_called_once_with('--app')
+                launch.assert_called_once_with('--background')
                 spawn.assert_called_once_with(command,env=env,cwd='/safe/path',
                     stdin=subprocess.DEVNULL,stdout=subprocess.DEVNULL,
                     stderr=stderr,start_new_session=True)
@@ -132,6 +132,23 @@ class GuiTests(unittest.TestCase):
             image=Capture(bytes(output.data()),1000,800,'public',0)))
         self.owner.receive(replace(self.event('scene'),mode='ocr',scene=scene))
         return self.owner.scene_window
+
+    def test_home_is_discoverable_reused_and_keeps_background_alive(self):
+        with mock.patch.object(self.owner,'open_settings') as settings, mock.patch.object(self.owner,'open_words') as words, mock.patch.object(self.owner,'open_review') as review:
+            self.assertEqual(self.owner.Open(),1)
+            home=self.owner.home_window
+            self.assertTrue(home.isVisible())
+            self.assertIn('Meta+Shift+D',self.owner.home_instructions.text())
+            for name in ('Настройки','Слова','Повторение'):
+                self.owner.home_buttons[name].click()
+            settings.assert_called_once();words.assert_called_once();review.assert_called_once()
+            self.owner._settings_applied(replace(self.owner.popup.preferences,shortcut='Alt+Q'))
+            self.assertIn('Alt+Q',self.owner.home_instructions.text())
+            home.close()
+            self.assertFalse(home.isVisible())
+            self.assertFalse(self.owner.engine.stopping)
+            self.assertEqual(self.owner.Open(),1)
+            self.assertIs(self.owner.home_window,home)
 
     def test_retained_scene_reselects_without_reopening_or_stale_result(self):
         layer=self.enter_scene()

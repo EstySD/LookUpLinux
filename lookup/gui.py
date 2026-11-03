@@ -489,6 +489,9 @@ def components():
             self.words_window=None
             self.review_window=None
             self.settings_window=None
+            self.home_window=None
+            self._home_focus_thread=None
+            self._home_token=''
             self.scene_window=None
             self._scene_id=None
             self._scene_pending=False
@@ -520,6 +523,8 @@ def components():
             self.tray=QSystemTrayIcon(QIcon.fromTheme('accessories-dictionary',QApplication.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogInfoView)),self)
             self.tray.setToolTip('LookUp Linux')
             self.menu=QMenu()
+            self.menu.addAction('Открыть LookUp Linux',self.open_home)
+            self.menu.addSeparator()
             self.future_actions=[]
             for name in ('Слова','Повторение','Настройки'):
                 action=self.menu.addAction(name)
@@ -534,7 +539,65 @@ def components():
             self.menu.addSeparator()
             self.menu.addAction('Выход',self.quit)
             self.tray.setContextMenu(self.menu)
+            self.tray.activated.connect(self._tray_activated)
             self.tray.show()
+        def _tray_activated(self,reason):
+            if reason in (QSystemTrayIcon.ActivationReason.Trigger,QSystemTrayIcon.ActivationReason.DoubleClick):
+                self.open_home()
+        @pyqtSlot(str,result=int)
+        def Open(self,token=''):
+            if self._stopping or not valid_token(token):return 0
+            self._home_token=token
+            self.open_home()
+            return 1
+        def open_home(self):
+            if self._stopping:return
+            if self.home_window is None:
+                self.home_window=QWidget()
+                self.home_window.setWindowTitle('LookUp Linux')
+                layout=QVBoxLayout(self.home_window)
+                layout.setContentsMargins(16,16,16,16);layout.setSpacing(8)
+                heading=QLabel('Перевод английских слов')
+                font=heading.font();font.setBold(True);heading.setFont(font)
+                layout.addWidget(heading)
+                self.home_instructions=QLabel()
+                self.home_instructions.setWordWrap(True)
+                self.home_instructions.setTextFormat(Qt.TextFormat.PlainText)
+                self.home_instructions.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
+                layout.addWidget(self.home_instructions)
+                self.home_buttons={}
+                for name,action in (('Настройки',self.open_settings),('Слова',self.open_words),('Повторение',self.open_review)):
+                    button=QPushButton(name)
+                    button.clicked.connect(action);layout.addWidget(button)
+                    self.home_buttons[name]=button
+                status=QLabel('При закрытии этого окна перевод продолжает работать в трее.\nОткрыть окно снова можно через меню приложений или щелчком по значку в трее.')
+                status.setWordWrap(True);layout.addWidget(status)
+                QShortcut(QKeySequence('Escape'),self.home_window,activated=self.home_window.close)
+            self._home_text()
+            available=QApplication.primaryScreen().availableGeometry()
+            self.home_window.resize(min(440,available.width()),min(self.home_window.sizeHint().height(),available.height()))
+            self.home_window.show();self.home_window.raise_();self.home_window.activateWindow()
+            if self._focus:QTimer.singleShot(100,self._activate_home)
+        def _activate_home(self):
+            if self._stopping or self.home_window is None or not self.home_window.isVisible():return
+            if self._home_focus_thread is not None and self._home_focus_thread.is_alive():return
+            env=dict(self.env)
+            if self._home_token:env['XDG_ACTIVATION_TOKEN']=self._home_token
+            self._home_token=''
+            def activate():
+                try:
+                    from . import gnome
+                    if gnome.active(env):return
+                    windows=platform.run(['kdotool','search','--all','--pid',str(os.getpid()),'--name','^LookUp Linux$'],env,limit=4096).decode().split()
+                    if windows and not self._stopping:
+                        platform.window_action(env,os.getpid(),windows[0],'windowactivate')
+                except platform.PlatformError:pass
+            self._home_focus_thread=threading.Thread(target=activate,name='lookup-home-focus',daemon=True)
+            self._home_focus_thread.start()
+        def _home_text(self):
+            if self.home_window is not None:
+                self.home_instructions.setText('Наведите курсор на английское слово или выделите текст и нажмите '+
+                    self.popup.preferences.shortcut+'.\nEsc закрывает перевод и возвращает управление приложению.')
         def _learning_connection(self):
             if self._learning_conn is None:
                 from .store import open_store
@@ -575,6 +638,7 @@ def components():
         def _settings_applied(self,value):
             self._popup_timeout=value.popup_timeout
             self.popup.preferences=value
+            self._home_text()
         def _invalidate_settings(self):
             self._end_scene()
             self.engine.dismiss(self._identity)
@@ -919,6 +983,10 @@ def components():
                 self.settings_window.close()
                 self.settings_window.deleteLater()
                 self.settings_window=None
+            if self.home_window is not None:
+                self.home_window.close()
+                self.home_window.deleteLater()
+                self.home_window=None
             self._clear_displayed()
             self.engine.stop()
             self._focus_pending=None
@@ -935,6 +1003,7 @@ def components():
             self.poll_quit()
         def poll_quit(self):
             focus_alive=self._focus_thread is not None and self._focus_thread.is_alive()
+            focus_alive=focus_alive or (self._home_focus_thread is not None and self._home_focus_thread.is_alive())
             if self.engine.is_alive() or focus_alive or self.settings_controller.is_alive():
                 QTimer.singleShot(25,self.poll_quit)
             else:
@@ -944,11 +1013,12 @@ def components():
     return _components
 
 
-def run(trigger=False):
+def run(trigger=False,background=False):
     token=os.environ.pop('XDG_ACTIVATION_TOKEN','')
     os.environ.pop('DESKTOP_STARTUP_ID',None)
     if not valid_token(token):token=''
     env=platform.session_env()
+    if not trigger and not background and token:env['XDG_ACTIVATION_TOKEN']=token
     os.environ.update(env)
     from PyQt6.QtCore import QCoreApplication,QTimer
     from PyQt6.QtDBus import QDBusConnection,QDBusMessage,QDBus
@@ -961,8 +1031,8 @@ def run(trigger=False):
         application.setDesktopFileName(DESKTOP.removesuffix('.desktop'))
         application.setQuitOnLastWindowClosed(False)
     bus=QDBusConnection.sessionBus()
-    def forward():
-        message=QDBusMessage.createMethodCall(SERVICE,OBJECT,SERVICE,'Trigger')
+    def forward(method='Trigger'):
+        message=QDBusMessage.createMethodCall(SERVICE,OBJECT,SERVICE,method)
         message.setArguments([token])
         reply=bus.call(message,QDBus.CallMode.Block,1000)
         if reply.type()==QDBusMessage.MessageType.ErrorMessage:
@@ -977,7 +1047,7 @@ def run(trigger=False):
             return 1
         if not present.value():
             from .lifecycle import launch_command
-            command,directory=launch_command('--app')
+            command,directory=launch_command('--background')
             subprocess.Popen(command,env=env,
                              cwd=directory,stdin=subprocess.DEVNULL,
                              stdout=subprocess.DEVNULL,
@@ -990,7 +1060,7 @@ def run(trigger=False):
             time.sleep(.05)
         return 1
     if not bus.registerService(SERVICE):
-        return 0
+        return 0 if background or forward('Open') is not None else 1
     from .lifecycle import ensure_entries,ensure_shortcut,LifecycleError
     core.capture.enable_hotkey_bridge(env)
     registration_error=None
@@ -1004,6 +1074,8 @@ def run(trigger=False):
     owner.lifecycle_error=registration_error
     if registration_error is not None:
         QTimer.singleShot(0,owner.open_settings)
+    if not background:
+        QTimer.singleShot(0,owner.open_home)
     if not bus.registerObject(OBJECT,owner,QDBusConnection.RegisterOption.ExportAllSlots):
         owner.quit()
         owner.engine.join(12)

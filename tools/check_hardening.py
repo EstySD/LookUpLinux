@@ -161,6 +161,7 @@ def _package_member(name):
         'LICENSE':'usr/share/licenses/lookup-linux/LICENSE',
         'COPYING.md':'usr/share/licenses/lookup-linux/COPYING.md',
         'packaging/org.lookup.Linux.desktop':'usr/share/applications/org.lookup.Linux.desktop',
+        'packaging/org.lookup.Linux.Home.desktop':'usr/share/applications/org.lookup.Linux.Home.desktop',
         'packaging/org.lookup.Linux.autostart.desktop':'etc/xdg/autostart/org.lookup.Linux.desktop',
         'packaging/THIRD-PARTY.md':'usr/share/licenses/lookup-linux/THIRD-PARTY.md'}[name]
 
@@ -173,7 +174,7 @@ def _expected_source_inventory():
     names={path.relative_to(root).as_posix() for path in (root/'lookup').rglob('*')
         if path.is_file() and (path.suffix=='.py' or path.parent==root/'lookup/data' and path.suffix=='.txt')}
     names|={'packaging/lookup','packaging/org.lookup.Linux.desktop',
-        'packaging/org.lookup.Linux.autostart.desktop','packaging/THIRD-PARTY.md','LICENSE','COPYING.md'}
+        'packaging/org.lookup.Linux.autostart.desktop','packaging/org.lookup.Linux.Home.desktop','packaging/THIRD-PARTY.md','LICENSE','COPYING.md'}
     names|={'native/kwin-capture/'+name for name in ('CMakeLists.txt','capture.cpp','metadata.json','README.md')}
     _require(all(not (root/name).is_symlink() and (root/name).resolve().is_relative_to(root) for name in names),'unsafe_source')
     return {name:hashlib.sha256((root/name).read_bytes().replace(b'\r\n',b'\n')).hexdigest() for name in names}

@@ -146,6 +146,7 @@ def main(argv=None) -> int:
     group.add_argument('--app', action='store_true')
     group.add_argument('--trigger', action='store_true')
     group.add_argument('--autostart', action='store_true')
+    group.add_argument('--background', action='store_true', help='запустить в трее без главного окна')
     group.add_argument('--doctor', action='store_true')
     parser.add_argument('--context')
     parser.add_argument('--at', type=_image_point)
@@ -153,7 +154,7 @@ def main(argv=None) -> int:
     parser.add_argument('--no-save', action='store_true')
     try:
         args = parser.parse_args(argv)
-        if (args.app or args.trigger or args.autostart or args.doctor) and any((args.context is not None,args.at is not None,args.offline,args.no_save)):
+        if (args.app or args.trigger or args.autostart or args.background or args.doctor) and any((args.context is not None,args.at is not None,args.offline,args.no_save)):
             parser.error('--app, --trigger, --autostart и --doctor не принимают параметры разового поиска')
         if args.word is not None and len(args.word.split()) > translate.MAX_PHRASE_WORDS:
             parser.error('для предложения используйте --text')
@@ -168,10 +169,10 @@ def main(argv=None) -> int:
         return run(sys.stdout)
     if args.autostart and not config.load().autostart:
         return 0
-    if args.app or args.trigger or args.autostart:
+    if args.app or args.trigger or args.autostart or args.background:
         try:
             from lookup.gui import run
-            code=run(trigger=args.trigger)
+            code=run(trigger=False,background=True) if args.autostart or args.background else run(trigger=args.trigger)
             if code:
                 print('Не удалось запустить LookUp Linux. Повторите запуск.',file=sys.stderr)
             return code

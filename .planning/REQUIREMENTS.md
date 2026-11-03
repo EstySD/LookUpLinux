@@ -28,8 +28,8 @@ Defined 2026-11-02 from [agreed brief](v1.1-CONTEXT.md). All requirements are pe
 
 ### First priority: discoverable GUI
 
-- [ ] **TRIG-07**: First launch exposes an understandable interface and how to translate without prior knowledge of right-clicking the tray.
-- [ ] **SET-03**: User can explicitly open settings and existing words/review windows from a discoverable application interface.
+- [x] **TRIG-07**: First launch exposes an understandable interface and how to translate without prior knowledge of right-clicking the tray.
+- [x] **SET-03**: User can explicitly open settings and existing words/review windows from a discoverable application interface.
 
 ### Second priority: reliability and distribution
 
@@ -61,8 +61,8 @@ Audio pronunciation, CEFR and new Anki synchronization are excluded. Existing ca
 | TRIG-06 | Phase 11 | Complete |
 | DICT-04 | Phase 12 | Complete |
 | DICT-05 | Phase 12 | Complete |
-| TRIG-07 | Phase 13 | Pending |
-| SET-03 | Phase 13 | Pending |
+| TRIG-07 | Phase 13 | Complete |
+| SET-03 | Phase 13 | Complete |
 | TRAN-07 | Phase 14 | Pending |
 | DICT-06 | Phase 14 | Pending |
 | CAPT-09 | Phase 14 | Pending |
