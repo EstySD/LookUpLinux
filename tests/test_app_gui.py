@@ -241,7 +241,7 @@ class GuiTests(unittest.TestCase):
         QTest.keyClick(layer,Qt.Key.Key_A)
         self.assertGreater(self.owner.popup.timer.remainingTime(),19000)
         with mock.patch.object(QApplication,'focusWindow',return_value=None):
-            self.owner._scene_focus_event(None);QTest.qWait(90)
+            self.owner._scene_focus_event(None);self.wait_for_dismissal()
         self.assertIsNone(self.owner.scene_window)
         self.assertIsNone(layer._image)
 

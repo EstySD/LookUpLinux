@@ -1,0 +1,15 @@
+{
+  "gates": {
+    "normal_user_build": true,
+    "public_contents_and_licenses": true,
+    "clean_installed_lookup": true,
+    "upgrade_v1_words_cards_settings": true,
+    "removal_preserves_user_data": true
+  },
+  "baseline_package": "lookup-linux 0.2.1-1",
+  "package_sha256": "29189c1a892b97cdfa186299dcaba2eb7be8cd1eeabe9a6175b836300e4341f3",
+  "package": "/home/arch/lookup-release-021-1793725750/aur/lookup-linux-0.2.1-1-x86_64.pkg.tar.zst",
+  "old_package_sha256": "17dd294e0aacda94a4e80380d0a00bbbc7b9f0cdadbd96ba1538f528f9b11fa5",
+  "final_package": "lookup-linux 0.2.1-1",
+  "passed": true
+}

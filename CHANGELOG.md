@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.1 — Unreleased
+## 0.2.1 — 2026-11-03
 
 - Retry context translation with existing Google clients when gtx is restricted,
   under one shared deadline; retain strict marked-word validation.
@@ -8,6 +8,8 @@
 - Prepare checksum-bound AUR metadata and package lifecycle instructions.
 - Agent verification on KDE Wayland: live contextual translation, real MDX/DSL,
   second monitor at 100%/125%, and borderless Wesnoth lookup/input return.
+- Local OCR passes for faint UI text and the reproduced Discover “games” case.
+- Highlighted popup translations, snapshot hover retention and F1 toolbar toggle.
 
 ## 0.2.0 — 2026-11-02
 

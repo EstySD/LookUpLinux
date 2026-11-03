@@ -1,5 +1,6 @@
 ---
-status: agent_verified
+status: complete
+acceptance: agent
 phase: 12-yomitan
 ---
 

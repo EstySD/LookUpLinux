@@ -1,7 +1,4 @@
-# LookUp Linux 0.2.1 — prepared, unpublished
-
-These are draft notes for locally prepared assets. Version 0.2.1 has not been
-published; the currently published release remains 0.2.0.
+# LookUp Linux 0.2.1 — reliability and snapshot selection
 
 **English → Russian. Right where you read.**
 
@@ -59,6 +56,10 @@ The source directory must stay in place because user launchers point to it.
 
 - Context translation retries existing Google clients when gtx is restricted,
   without extending its deadline or relaxing marked-word validation.
+- Local OCR fallback recognizes faint interface text, including the reproduced
+  Discover “games” case.
+- Popup translations are highlighted; hovering keeps the captured scene available,
+  and F1 toggles its toolbar.
 - Public source archives include the native KWin capture plugin build inputs.
 - AUR recipe preparation binds the package to exact public source checksums.
 
@@ -88,10 +89,13 @@ stay local. Online endpoints may be unavailable or rate limited.
 
 ## Validation and known limits
 
-Agent checks, **not human acceptance**:
+Automated validation and manual testing are recorded separately:
 
-- Arch KDE regression: **814 tests, OK, 20 skipped**; real-session diagnostics
-  and a dictionary CLI lookup also passed.
+- Full Windows/Arch suites and actual public-package build, clean installation,
+  v1.0 upgrade and data-preserving removal are release gates. Final counts and
+  results are recorded in the GitHub workflow and milestone closeout.
+- The maintainer reported manual VM testing and committed OCR/popup fixes before
+  approving publication. This does not relabel earlier agent scenarios as human tests.
 - Ubuntu: **118 targeted tests passed**, plus two physical-hotkey VM scenarios:
   cursor OCR and PRIMARY selection, real dictionary articles, popup placement
   and history persistence.
@@ -103,7 +107,7 @@ Agent checks, **not human acceptance**:
   user-supplied dictionary; the container build does not establish desktop acceptance.
 
 [Detailed VM evidence](https://github.com/EstySD/LookUpLinux/blob/v0.2.0/docs/ubuntu-vm-validation.md)
-· [Changes since v0.1.0](https://github.com/EstySD/LookUpLinux/compare/v0.1.0...v0.2.0)
+· [Changes since v0.2.0](https://github.com/EstySD/LookUpLinux/compare/v0.2.0...v0.2.1)
 
 Report issues in **English or Russian** with your desktop/session, reproduction
 and sanitized `--doctor` output. Original code is **GPL-3.0-or-later**; third-party

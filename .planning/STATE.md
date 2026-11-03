@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Надёжность и распространение
-current_phase: 15
-current_phase_name: Подготовка распространения через AUR
-status: in_progress
-stopped_at: Phase 15 source/AUR metadata prepared; visible VM running latest source for Denis manual testing; no publication
-last_updated: "2026-11-03T12:08:25.088Z"
+current_phase: null
+status: Awaiting next milestone
+stopped_at: Milestone v1.1 complete; 877 tests on each platform and five package gates pass; authorized GitHub v0.2.1 publication in progress
+last_updated: "2026-11-03T17:16:28.813Z"
 last_activity: 2026-11-03
-last_activity_desc: Phase 14 complete, transitioned to Phase 15
+last_activity_desc: Milestone v1.1 completed and archived
 progress:
   total_phases: 7
-  completed_phases: 6
+  completed_phases: 7
   total_plans: 11
-  completed_plans: 10
-  percent: 86
+  completed_plans: 11
+  percent: 100
+current_phase_name: null
 ---
 
 # Project State
@@ -24,20 +24,20 @@ progress:
 See: .planning/PROJECT.md (v1 scope expanded 2026-10-27)
 
 **Core value:** Хоткей над английским словом даёт перевод в оверлее у курсора примерно за 1–2 секунды, и слово попадает в базу со счётчиком.
-**Current focus:** Phase 15 — 0.2.1 source/AUR metadata prepared; manual preview running; target package lifecycle pending
+**Current focus:** Milestone v1.1 complete; publish verified public release v0.2.1 on GitHub
 
 ## Current Position
 
-Phase: 15 — Подготовка распространения через AUR
-Plan: 15-01 in progress
-Status: in progress; user manual VM testing
-Last activity: 2026-11-03 — Phase 14 complete, transitioned to Phase 15
+Phase: Milestone v1.1 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-11-03 — Milestone v1.1 completed and archived
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 62
+- Total plans completed: 63
 - Average duration: -
 - Total execution time: not aggregated
 
@@ -61,6 +61,7 @@ Last activity: 2026-11-03 — Phase 14 complete, transitioned to Phase 15
 | 12 | 1 | - | - |
 | 13 | 1 | - | - |
 | 14 | 2 | - | - |
+| 15 | 1 | - | - |
 
 **Recent Trend:**
 
@@ -139,9 +140,9 @@ Items acknowledged and carried forward from previous milestone close:
 ## Session Continuity
 
 Last session: 2026-11-03T10:49:47.525Z
-Stopped at: 0.2.1 source and AUR metadata prepared; host 870 tests pass. Latest app runs from source in visible lookup-gsd-07 for Denis's manual test. No active validation jobs; VM/app intentionally remain running.
-Resume file: .planning/phases/15-aur/continue.md
+Stopped at: Milestone v1.1 complete. Final Windows/Linux suites 877 each, zero failures/errors; five actual package gates pass. VM remains running with 0.2.1 installed. GitHub publication is authorized.
+Resume file: None
 
 ## Operator Next Steps
 
-- After Denis finishes manual VM testing, complete Phase 15 actual makepkg build/install/v1.0 upgrade/removal and Linux full suite. Preserve the running preview until then. No publication, push, release dispatch or AUR submission is authorized.
+- Publish verified v0.2.1 on GitHub after remote CI succeeds. AUR submission is separate; no new milestone is started.

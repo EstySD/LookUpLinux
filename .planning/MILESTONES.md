@@ -1,5 +1,22 @@
 # Milestones
 
+## v1.1 Надёжность и распространение (Shipped: 2026-11-03)
+
+**Phases completed:** 7 phases, 11 plans, 17 requirements
+
+**Key accomplishments:**
+
+- Hotkey-moment capture, configurable compact popup and retained-frame word selection.
+- Real Yomitan dictionaries, discoverable home/settings/learning windows and live context-client fallback.
+- Actual MDX/DSL, second-monitor 100%/125% and borderless Wesnoth acceptance.
+- Public 0.2.1 package: native build, clean install, v1.0 words/cards/settings upgrade, data-preserving removal and checksum-bound AUR metadata.
+
+**Final verification:** 877 tests on Windows and Linux, zero failures/errors; 13/22 skips. Five native package gates pass. User-reported manual VM testing is recorded separately from agent scenarios. [Audit](milestones/v1.1-MILESTONE-AUDIT.md).
+
+**Publication:** GitHub public v0.2.1 authorized; internal milestone tag milestone/v1.1. AUR submission remains separate.
+
+---
+
 ## v1.0 LookUp Linux (Shipped: 2026-11-01)
 
 **Phases completed:** 9 phases, 43 plans

@@ -1,5 +1,7 @@
 # Continue Phase 15
 
+Superseded 2026-11-03: Denis finished manual testing, committed fixes and authorized GitHub publication. Phase 15 and milestone v1.1 now pass verified closeout: final batch release-1793725749, 877 tests on each platform, five package gates. VM remains running with 0.2.1 installed. The prior restrictions below are historical; see 15-ACCEPTANCE.json and milestones/v1.1-MILESTONE-AUDIT.md for current evidence. AUR submission is still separate.
+
 ## Current state
 
 Phase 14 is complete in commit 1e6e025, including live provider fallback and native two-monitor/borderless evidence. Phase 15 is partially implemented; do not create a completion summary or mark PUB-02 accepted yet.

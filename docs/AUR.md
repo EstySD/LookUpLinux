@@ -1,9 +1,9 @@
 # Preparing the Arch/AUR package
 
-Version 0.2.1 is prepared locally and **not published**. The AUR source URL is a
-future release-asset URL; its presence in a PKGBUILD does not make it available.
-Publishing a GitHub release or submitting an AUR package requires a separate
-maintainer action after authorization.
+Version 0.2.1 uses the public GitHub source asset. Verify that the asset exists
+and matches the PKGBUILD checksum before submitting to AUR. A GitHub release
+and an AUR submission are separate maintainer actions; AUR submission has not
+been performed by this release workflow.
 
 ## Prepare exact source and recipe
 

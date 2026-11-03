@@ -11,4 +11,6 @@ Agent decisions under explicit --auto, single discussion pass:
 
 Publication is recorded as pending, independent from PUB-02 package readiness.
 
+2026-11-03 update: Denis reports finishing manual VM testing and committing fixes, and explicitly authorizes GitHub publication and milestone completion. The earlier publication/manual-use restrictions are revoked for this release. AUR submission remains separate. Package lifecycle may run again; leave the verified 0.2.1 package installed in the owned clone.
+
 User clarification: prepare the new version only; no publication, push or AUR submission. User subsequently requested visible GUI VM/manual testing. The latest source preview is running in the owned clone; leave it running and do not perform package install/remove, restart the session or inject automated GUI input while Denis tests. Host checks and metadata preparation can continue independently. Target lifecycle acceptance remains pending until that manual-use constraint ends.

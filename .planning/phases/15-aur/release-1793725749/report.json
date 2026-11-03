@@ -1,0 +1,25 @@
+{
+  "host_full": {
+    "returncode": 0,
+    "log": "host-full.log"
+  },
+  "target": {
+    "remote": "/home/arch/lookup-release-021-1793725750",
+    "stage": {
+      "returncode": 0,
+      "log": "target-stage.log"
+    },
+    "full_suite": {
+      "returncode": 0,
+      "log": "target-full.log"
+    },
+    "package": {
+      "returncode": 0,
+      "log": "target-package.log"
+    },
+    "srcinfo": {
+      "returncode": 0,
+      "log": "srcinfo.log"
+    }
+  }
+}
