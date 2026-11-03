@@ -389,7 +389,7 @@ class Recognition:
     timings: dict[str, float]
 
 
-def _prepare_image(path, point, enlarge, invert):
+def _prepare_image(path, point, enlarge, invert, *, light_text=False, local_text=False):
     x, y = _point(point)
     try:
         from PyQt6.QtCore import QBuffer, QIODevice, Qt
@@ -427,6 +427,10 @@ def _prepare_image(path, point, enlarge, invert):
         # QImageReader interprets @2x filenames; this API always uses physical pixels.
         image.setDevicePixelRatio(1.0)
         crop_w, crop_h = min(width, 4096), min(height, 256)
+        if light_text:
+            crop_w, crop_h = min(width, 128), min(height, 32)
+        elif local_text:
+            crop_w, crop_h = min(width, 192), min(height, 24)
         left = min(max(int(x)-crop_w//2, 0), width-crop_w)
         top = min(max(int(y)-crop_h//2, 0), height-crop_h)
         image = image.copy(left, top, crop_w, crop_h)
@@ -441,6 +445,19 @@ def _prepare_image(path, point, enlarge, invert):
         painter = QPainter(flattened)
         painter.drawImage(0, 0, image)
         painter.end()
+        if light_text:
+            # Isolate pale glyphs from saturated selection colors and nearby UI panels.
+            for py in range(crop_h):
+                for px in range(crop_w):
+                    color = flattened.pixelColor(px, py)
+                    flattened.setPixelColor(px, py, QColor('black' if min(
+                        color.red(), color.green(), color.blue()) > 128 else 'white'))
+        elif local_text:
+            # Preserve faint gray strokes as black on the white local retry.
+            for py in range(crop_h):
+                for px in range(crop_w):
+                    flattened.setPixelColor(px, py, QColor('black' if
+                        flattened.pixelColor(px, py).lightness() < 220 else 'white'))
         if invert == 'auto' and background.lightness() < 128:
             flattened.invertPixels()
         scaled_w, scaled_h = round(crop_w*enlarge), round(crop_h*enlarge)
@@ -475,9 +492,30 @@ def recognize_image(path, point, *, psm=DEFAULT_PSM, enlarge=DEFAULT_ENLARGE,
     start = time.perf_counter()
     png, transform = _prepare_image(path, point, enlarge, invert)
     prepared_at = time.perf_counter()
+    prepare_seconds = prepared_at-start
     deadline = None
     ocr_seconds = select_seconds = 0
-    for mode in ((psm, 11) if psm == 6 and fallback else (psm,)):
+    modes = (psm, 11) if psm == 6 and fallback else (psm,)
+    if psm == 6 and fallback and invert == 'auto':
+        modes += (6, 6, 6)
+    for attempt, mode in enumerate(modes):
+        if attempt == 2:
+            # A dark scene can trigger inversion even when its text needs the original colors.
+            prepare_at = time.perf_counter()
+            original_png, original_transform = _prepare_image(path, point, enlarge, 'never')
+            prepare_seconds += time.perf_counter()-prepare_at
+            if original_png == png:
+                continue
+            png, transform = original_png, original_transform
+        if attempt == 3:
+            prepare_at = time.perf_counter()
+            png, transform = _prepare_image(path, point, enlarge, 'never', light_text=True)
+            prepare_seconds += time.perf_counter()-prepare_at
+        if attempt == 4:
+            # UI field borders can hide a faint line from page segmentation.
+            prepare_at = time.perf_counter()
+            png, transform = _prepare_image(path, point, enlarge, 'never', local_text=True)
+            prepare_seconds += time.perf_counter()-prepare_at
         process_at = time.perf_counter()
         if deadline is None:
             deadline = process_at + 2*OCR_TIMEOUT
@@ -506,7 +544,7 @@ def recognize_image(path, point, *, psm=DEFAULT_PSM, enlarge=DEFAULT_ENLARGE,
         select_seconds += finished-recognized_at
         if selection is not None:
             break
-    return Recognition(selection, {'prepare_image': (prepared_at-start)*1000,
+    return Recognition(selection, {'prepare_image': prepare_seconds*1000,
                                    'ocr': ocr_seconds*1000,
                                    'select': select_seconds*1000,
                                    'total': (finished-start)*1000})

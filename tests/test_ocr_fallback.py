@@ -1,5 +1,6 @@
 """Bounded shared-pixel OCR retry at the external process boundary."""
 import subprocess
+import shutil
 import unittest
 from unittest import mock
 
@@ -62,10 +63,63 @@ class FallbackTests(unittest.TestCase):
                 self.assertIsNone(self.recognize(**options).selection)
                 run.assert_called_once()
 
-    def test_two_valid_misses_stop_without_third_process(self):
+    def test_valid_misses_finish_with_local_original_color_pass(self):
         with mock.patch.object(ocr.subprocess,'run',return_value=self.completed(tsv())) as run:
             self.assertIsNone(self.recognize().selection)
-        self.assertEqual(run.call_count,2)
+        self.assertEqual(run.call_count,4)
+
+    @unittest.skipUnless(shutil.which('tesseract'),'real Tesseract required')
+    def test_discover_quoted_games_placeholder_from_vm(self):
+        from pathlib import Path
+        image=Path(__file__).parent/'fixtures/ocr-discover-games.png'
+        for point in ((278,63),(292,63),(308,63)):
+            with self.subTest(point=point):
+                result=ocr.recognize_image(image,point)
+                self.assertIsNotNone(result.selection)
+                self.assertEqual(result.selection.word,'games')
+                self.assertGreaterEqual(result.selection.confidence,ocr.MIN_CONFIDENCE)
+                x,y,w,h=result.selection.box
+                self.assertTrue(x<=point[0]<=x+w and y<=point[1]<=y+h)
+
+    def test_light_text_retry_preserves_global_coordinates(self):
+        local_hit=tsv((5,1,1,1,1,1,48,40,60,20,95,'run'))
+        with mock.patch.object(ocr.subprocess,'run',side_effect=[
+                self.completed(tsv()),self.completed(tsv()),self.completed(local_hit)]) as run:
+            result=self.recognize()
+        self.assertEqual(result.selection.word,'run')
+        self.assertEqual(result.selection.box,(20,25,30,10))
+        self.assertEqual([call.args[0][6] for call in run.call_args_list],['6','11','6'])
+
+    @unittest.skipUnless(shutil.which('tesseract'),'real Tesseract required')
+    def test_dolphin_selected_home_from_vm(self):
+        from pathlib import Path
+        image=Path(__file__).parent/'fixtures/ocr-selected-home.png'
+        for point in ((35,120),(50,120),(65,120)):
+            with self.subTest(point=point):
+                result=ocr.recognize_image(image,point)
+                self.assertIsNotNone(result.selection)
+                self.assertEqual(result.selection.word,'home')
+                self.assertGreaterEqual(result.selection.confidence,ocr.MIN_CONFIDENCE)
+
+    def test_dark_scene_miss_retries_original_colors_with_same_deadline(self):
+        with mock.patch.object(ocr,'_prepare_image',side_effect=[
+                (b'inverted',ocr.Transform(scale_x=2,scale_y=2,border=8)),
+                (b'original',ocr.Transform(scale_x=2,scale_y=2,border=8))]) as prepare, \
+             mock.patch.object(ocr.subprocess,'run',side_effect=[
+                 self.completed(tsv()),self.completed(tsv()),self.completed(self.hit)]) as run:
+            result=self.recognize()
+        self.assertEqual(result.selection.word,'run')
+        self.assertEqual([call.args[0][6] for call in run.call_args_list],['6','11','6'])
+        self.assertEqual([call.kwargs['input'] for call in run.call_args_list],
+                         [b'inverted',b'inverted',b'original'])
+        self.assertEqual(prepare.call_args_list[-1].args[-1],'never')
+
+    def test_original_colors_retry_is_disabled_with_fallback(self):
+        with mock.patch.object(ocr,'_prepare_image',return_value=(b'image',ocr.Transform())) as prepare, \
+             mock.patch.object(ocr.subprocess,'run',return_value=self.completed(tsv())) as run:
+            self.assertIsNone(self.recognize(fallback=False).selection)
+        prepare.assert_called_once()
+        run.assert_called_once()
 
     def test_retry_uses_remaining_absolute_budget_and_exhaustion_launches_nothing(self):
         with mock.patch.object(ocr.time,'perf_counter',side_effect=[0,.1,.2,2.2,4.1,4.3,5.0,5.1]), \
@@ -107,7 +161,7 @@ class FallbackTests(unittest.TestCase):
         for text,confidence in (('bad123',95),('noise',10)):
             output=tsv((5,1,1,1,1,1,48,48,20,20,confidence,text),
                        (5,1,1,1,1,2,72,48,60,20,95,'run'))
-            with self.subTest(text=text),mock.patch.object(ocr.subprocess,'run',side_effect=[self.completed(tsv()),self.completed(output)]):
+            with self.subTest(text=text),mock.patch.object(ocr.subprocess,'run',return_value=self.completed(output)):
                 self.assertIsNone(self.recognize().selection)
 
 
