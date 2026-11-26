@@ -16,13 +16,13 @@
 
 **v1.2 «Steam Deck»** started 2026-11-26. Desktop Mode is the supported target; Gaming Mode is
 experimental and hardware-unverified because no physical Steam Deck is available. Phase 16 completed
-the session abstraction and diagnostics gate and Phase 17, the portable Desktop Mode install; next is Phase 18, gamescope capture and the headless daemon.
+the session abstraction and diagnostics gate, Phase 17, the portable Desktop Mode install and Phase 18, gamescope capture with a headless daemon; next is Phase 19, the fullscreen word-selection UI.
 
 ## Phases
 
 - [x] **Phase 16: SteamOS-сессия и диагностика** - Detect KDE/GNOME/gamescope and report actionable SteamOS diagnostics. (Complete — 2026-11-26)
 - [x] **Phase 17: Переносимая установка Desktop Mode** - Install, run and remove LookUp under the home directory without root. (Complete — 2026-11-26)
-- [ ] **Phase 18: Gaming Mode: захват и демон** - Capture the gamescope frame and run headless without KDE. (Not started)
+- [x] **Phase 18: Gaming Mode: захват и демон** - Capture the gamescope frame and run headless without KDE. (Complete — 2026-11-26)
 - [ ] **Phase 19: Полноэкранный выбор слова** - Select a word on the frozen frame with touch, controller or keyboard. (Not started)
 - [ ] **Phase 20: Триггер и автозапуск** - Trigger Gaming Mode from a controller chord and start the daemon reliably. (Not started)
 - [ ] **Phase 21: Настройки, диагностика, документация** - Make settings mode-aware and document both modes honestly. (Not started)
@@ -70,7 +70,7 @@ the session abstraction and diagnostics gate and Phase 17, the portable Desktop 
   3. Nested gamescope in the VM captures a real frame if Vulkan/llvmpipe works; otherwise the limitation is recorded, not claimed.
   4. No screenshot or query content is written to permanent storage.
 
-**Plans**: TBD
+**Plans**: 1/1 complete — [18-01-PLAN.md](phases/18-gaming-capture/18-01-PLAN.md), [18-SUMMARY.md](phases/18-gaming-capture/18-SUMMARY.md)
 
 ### Phase 19: Полноэкранный выбор слова
 
@@ -133,7 +133,7 @@ the session abstraction and diagnostics gate and Phase 17, the portable Desktop 
 |-------|----------------|--------|-----------|
 | 16. SteamOS-сессия и диагностика | 1/1 | Complete | 2026-11-26 |
 | 17. Переносимая установка Desktop Mode | 1/1 | Complete | 2026-11-26 |
-| 18. Gaming Mode: захват и демон | 0/TBD | Not started | - |
+| 18. Gaming Mode: захват и демон | 1/1 | Complete | 2026-11-26 |
 | 19. Полноэкранный выбор слова | 0/TBD | Not started | - |
 | 20. Триггер и автозапуск | 0/TBD | Not started | - |
 | 21. Настройки, диагностика, документация | 0/TBD | Not started | - |

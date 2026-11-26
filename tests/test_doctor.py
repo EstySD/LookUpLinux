@@ -99,6 +99,7 @@ class SteamOSDoctorTests(unittest.TestCase):
              mock.patch.object(doctor.session,'input_devices',return_value=('event0',)), \
              mock.patch.object(doctor,'_dbus_ready',return_value=True), \
              mock.patch.object(doctor,'_version_text',return_value='3.14.2'), \
+             mock.patch.object(doctor.gaming,'gamescope_capture_ready',return_value=False), \
              mock.patch.object(doctor.platform,'session_env',return_value={'DISPLAY':':0'}), \
              mock.patch('lookup.lifecycle.inspect_shortcut',side_effect=AssertionError('kde')):
             rows=doctor._gaming_session_checks()
@@ -107,6 +108,17 @@ class SteamOSDoctorTests(unittest.TestCase):
             self.assertTrue(codes[code].ok,code)
         self.assertFalse(codes['capture'].ok)
         self.assertFalse(codes['trigger'].ok)
+
+    def test_gaming_capture_row_tracks_backend_readiness(self):
+        with mock.patch.object(doctor.session,'os_release',return_value={'ID':'steamos'}), \
+             mock.patch.object(doctor.session,'find_gamescope_pids',return_value=()), \
+             mock.patch.object(doctor.session,'input_devices',return_value=()), \
+             mock.patch.object(doctor,'_dbus_ready',return_value=False), \
+             mock.patch.object(doctor,'_version_text',return_value=None), \
+             mock.patch.object(doctor.gaming,'gamescope_capture_ready',return_value=True), \
+             mock.patch.object(doctor.platform,'session_env',return_value={'DISPLAY':':0'}):
+            rows=doctor._gaming_session_checks()
+        self.assertTrue({row.code:row for row in rows}['capture'].ok)
 
     def test_gaming_tools_skip_kde_helpers(self):
         with mock.patch.object(doctor.session,'mode',return_value=doctor.session.GAMING), \

@@ -10,7 +10,7 @@ import stat
 import subprocess
 import sys
 
-from lookup import config,dicts,platform,lifecycle,session
+from lookup import config,dicts,platform,lifecycle,session,gaming
 
 DICTIONARY_TIMEOUT=8
 _application=None
@@ -170,7 +170,10 @@ def _gaming_session_checks():
     version=_version_text('gamescope',['--version'],env)
     rows.append(Diagnostic('gamescope_version',True,
         'gamescope: '+version if version else 'Версия gamescope не определена.'))
-    rows.append(Diagnostic('capture',False,'Захват Gaming Mode ещё не реализован (Phase 18).'))
+    ready=gaming.gamescope_capture_ready(env)
+    rows.append(Diagnostic('capture',ready,
+        'Захват кадра gamescope доступен; снимок не запрашивался.' if ready else
+        'Нет работающего gamescope и PipeWire/GStreamer; захват Gaming Mode недоступен.'))
     rows.append(Diagnostic('trigger',False,'Триггер Gaming Mode ещё не реализован (Phase 20).'))
     return rows
 
