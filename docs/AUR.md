@@ -2,11 +2,11 @@
 
 Version 0.3.0 uses the public GitHub source asset. Verify that the asset exists
 and matches the PKGBUILD checksum before submitting to AUR. The checksum in
-`packaging/aur/` was computed from a locally built 0.3.0 source archive; gzip
-bytes can differ between toolchains. Regenerate it from the canonical CI asset
-before AUR submission. A GitHub release and an AUR submission are separate
-maintainer actions; AUR submission has not been performed by this release
-workflow.
+`packaging/aur/` is bound to the canonical v0.3.0 CI source asset
+(`c9ebc57be08547fda32b8eecae5fb4024b07222d19595d5acb3574562089cfa9`); gzip
+bytes can differ between toolchains, so do not replace it with a locally built
+archive hash. A GitHub release and an AUR submission are separate maintainer
+actions; AUR submission has not been performed by this release workflow.
 
 ## Prepare exact source and recipe
 
