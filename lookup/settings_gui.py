@@ -4,7 +4,7 @@ from pathlib import Path
 
 from . import config, dicts, lifecycle
 
-_components=None
+_components={}
 INITIAL='Изменения применяются после нажатия кнопки'
 PENDING='Применяем настройки…'
 SUCCESS='Настройки применены. Автозапуск изменится при следующем входе в KDE'
@@ -41,9 +41,9 @@ def _fields(value,keys):
     return result
 
 
-def components():
+def components(*,gaming=False):
     global _components
-    if _components is not None:return _components
+    if gaming in _components:return _components[gaming]
     from PyQt6.QtCore import QObject,QTimer,Qt,QUrl,pyqtSignal
     from PyQt6.QtGui import QKeySequence,QShortcut,QDesktopServices
     from PyQt6.QtWidgets import (QWidget,QLabel,QVBoxLayout,QHBoxLayout,QFormLayout,QGroupBox,
@@ -56,9 +56,10 @@ def components():
         invalidating=pyqtSignal()
         _completed=pyqtSignal(object)
 
-        def __init__(self,engine,parent=None,*,registry=None,load=None,save=None,restore=None,discover=None,ack_timeout=8000):
+        def __init__(self,engine,parent=None,*,registry=None,load=None,save=None,restore=None,discover=None,ack_timeout=8000,gaming=False):
             super().__init__(parent)
             self.engine=engine
+            self._gaming=gaming
             self.registry=registry or lifecycle.shortcut_registry()
             self._load=load or config.load
             self._save=save or config.save
@@ -105,12 +106,15 @@ def components():
                 value=self._load()
                 try:rows=self._discover()
                 except Exception:rows=[]
-                try:
-                    binding=self.registry.inspect()
-                    actual=tuple(lifecycle.key_text(key) for key in binding.keys)
-                    available=True
-                except lifecycle.LifecycleError:
-                    actual=();available=False
+                if self._gaming:
+                    actual=('—',);available=False
+                else:
+                    try:
+                        binding=self.registry.inspect()
+                        actual=tuple(lifecycle.key_text(key) for key in binding.keys)
+                        available=True
+                    except lifecycle.LifecycleError:
+                        actual=();available=False
                 folder=_dictionary_folder()
                 return dict(config=value,rows=rows,actual=actual,available=available,
                             folder=str(folder) if folder is not None else '')
@@ -295,6 +299,8 @@ def components():
             invocation_form.addRow('Горячая клавиша',self.shortcut)
             self.actual_binding=label()
             invocation_form.addRow(self.actual_binding)
+            if gaming:
+                self.shortcut.hide();self.actual_binding.hide()
             form.addWidget(invocation)
             dictionaries=QGroupBox('Словари');dictionary_layout=QVBoxLayout(dictionaries)
             self.dictionaries=QListWidget()
@@ -504,5 +510,5 @@ def components():
             self.dictionaries.setCurrentRow(row+step)
             self._edited()
 
-    _components=(SettingsWindow,ApplyController)
-    return _components
+    _components[gaming]=(SettingsWindow,ApplyController)
+    return _components[gaming]

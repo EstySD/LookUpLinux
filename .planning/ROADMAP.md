@@ -16,7 +16,7 @@
 
 **v1.2 «Steam Deck»** started 2026-11-26. Desktop Mode is the supported target; Gaming Mode is
 experimental and hardware-unverified because no physical Steam Deck is available. Phase 16 completed
-the session abstraction and diagnostics gate, Phase 17, the portable Desktop Mode install, Phase 18, gamescope capture with a headless daemon, Phase 19, the fullscreen word-selection UI and Phase 20, the Gaming trigger and autostart; next is Phase 21, mode-aware settings, diagnostics and documentation.
+the session abstraction and diagnostics gate, Phase 17, the portable Desktop Mode install, Phase 18, gamescope capture with a headless daemon, Phase 19, the fullscreen word-selection UI and Phase 20, the Gaming trigger and autostart, and Phase 21, mode-aware settings and SteamOS documentation; next is Phase 22, the portable bundle and final acceptance.
 
 ## Phases
 
@@ -25,7 +25,7 @@ the session abstraction and diagnostics gate, Phase 17, the portable Desktop Mod
 - [x] **Phase 18: Gaming Mode: захват и демон** - Capture the gamescope frame and run headless without KDE. (Complete — 2026-11-26)
 - [x] **Phase 19: Полноэкранный выбор слова** - Select a word on the frozen frame with touch, controller or keyboard. (Complete — 2026-11-26)
 - [x] **Phase 20: Триггер и автозапуск** - Trigger Gaming Mode from a controller chord and start the daemon reliably. (Complete — 2026-11-26)
-- [ ] **Phase 21: Настройки, диагностика, документация** - Make settings mode-aware and document both modes honestly. (Not started)
+- [x] **Phase 21: Настройки, диагностика, документация** - Make settings mode-aware and document both modes honestly. (Complete — 2026-11-26)
 - [ ] **Phase 22: Бандл и приёмка** - Build the portable bundle and run the available acceptance gates. (Not started)
 
 ## Phase Details
@@ -112,7 +112,7 @@ the session abstraction and diagnostics gate, Phase 17, the portable Desktop Mod
   3. README and docs distinguish VM-tested from hardware-unverified behavior.
   4. Diagnostics and docs contain no query text, screenshots, history or other private content.
 
-**Plans**: TBD
+**Plans**: 1/1 complete — [21-01-PLAN.md](phases/21-docs-mode-aware/21-01-PLAN.md), [21-SUMMARY.md](phases/21-docs-mode-aware/21-SUMMARY.md)
 
 ### Phase 22: Бандл и приёмка
 
@@ -136,7 +136,7 @@ the session abstraction and diagnostics gate, Phase 17, the portable Desktop Mod
 | 18. Gaming Mode: захват и демон | 1/1 | Complete | 2026-11-26 |
 | 19. Полноэкранный выбор слова | 1/1 | Complete | 2026-11-26 |
 | 20. Триггер и автозапуск | 1/1 | Complete | 2026-11-26 |
-| 21. Настройки, диагностика, документация | 0/TBD | Not started | - |
+| 21. Настройки, диагностика, документация | 1/1 | Complete | 2026-11-26 |
 | 22. Бандл и приёмка | 0/TBD | Not started | - |
 
 **Execution Order:** 16 → 17 → 18 → 19 → 20 → 21 → 22.

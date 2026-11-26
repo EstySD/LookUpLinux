@@ -7,10 +7,10 @@ last_updated: "2026-11-26T09:16:25.601Z"
 last_activity: 2026-11-26
 progress:
   total_phases: 7
-  completed_phases: 5
-  total_plans: 5
-  completed_plans: 5
-  percent: 71
+  completed_phases: 6
+  total_plans: 6
+  completed_plans: 6
+  percent: 86
 ---
 
 # Project State
@@ -24,12 +24,12 @@ See: .planning/PROJECT.md (updated 2026-11-26)
 
 ## Current Position
 
-Phase: 21 — Настройки, диагностика, документация (next)
+Phase: 22 — Бандл и приёмка (next)
 Plan: — (not planned)
-Status: Ready for Phase 21
-Last activity: 2026-11-26 — Phase 20 complete: host 898 passed, VM 911 passed
+Status: Ready for Phase 22
+Last activity: 2026-11-26 — Phase 21 complete: host 899 passed, VM 912 passed
 
-Progress: [███████░░░] 71%
+Progress: [████████░░] 86%
 
 ## Performance Metrics
 
@@ -98,6 +98,7 @@ Recent decisions affecting current work:
 - [v1.2 Phase 18]: SIGUSR2 frame is consumed and unlinked; PipeWire fallback is bounded; no screenshot is stored permanently.
 - [v1.2 Phase 19]: Gaming trigger reuses the desktop scene pipeline; repeated triggers close instead of stacking.
 - [v1.2 Phase 20]: Gaming autostart is an owned systemd user unit; trigger choice is in settings and diagnostics.
+- [v1.2 Phase 21]: SteamOS docs mark Desktop supported and Gaming experimental/hardware-unverified.
 - [2026-10-27]: V1 adds multiline context and contextual word sense in inserted Phase 5.1 before Phase 6; real fullscreen game validation in Phase 8. Completed Phases 1–5 retain original acceptance. New requirements remain Pending.
 - [Roadmap]: Прод-версия вместо MVP, 8 фаз по горизонтальным слоям (выбор пользователя)
 - [Roadmap]: Фоновое приложение в трее; команда хоткея только будит его и стартует, если оно не запущено
@@ -157,10 +158,10 @@ Items acknowledged and carried forward from previous milestone close:
 ## Session Continuity
 
 Last session: 2026-11-26
-Stopped at: Phase 20 complete with host and VM regression evidence; Phase 21 is next.
-Resume file: .planning/phases/20-gaming-trigger/20-SUMMARY.md
+Stopped at: Phase 21 complete with host and VM regression evidence; Phase 22 is next.
+Resume file: .planning/phases/21-docs-mode-aware/21-SUMMARY.md
 
 ## Operator Next Steps
 
-- Start Phase 21: mode-aware docs, honest verification status and final diagnostics polish.
+- Start Phase 22: build the portable SteamOS bundle and run the final acceptance batch.
 - Do not claim Steam Deck hardware verification; record VM-tested and hardware-unverified separately.

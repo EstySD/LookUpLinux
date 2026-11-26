@@ -1,6 +1,6 @@
 # LookUp Linux
 
-[English](../README.md) · [Скачать словари](DICTIONARIES.md) · [Релизы](https://github.com/EstySD/LookUpLinux/releases)
+[English](../README.md) · [Скачать словари](DICTIONARIES.md) · [SteamOS и Steam Deck](STEAMOS.md) · [Релизы](https://github.com/EstySD/LookUpLinux/releases)
 
 ## Ищете аналог Lookupper для Linux?
 

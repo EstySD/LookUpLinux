@@ -3,6 +3,7 @@
 <p align="center"><strong>Understand English. Right where you read.</strong><br>A cursor dictionary, OCR translator and vocabulary companion for KDE Plasma and GNOME Wayland.</p>
 
 Ubuntu 24.04 with GNOME Wayland: [setup and VM checks](docs/UBUNTU.md).
+SteamOS: [portable Desktop Mode and experimental Gaming Mode](docs/STEAMOS.md).
 
 <p align="center">
 <a href="https://github.com/EstySD/LookUpLinux/releases"><img src="https://img.shields.io/github/v/release/EstySD/LookUpLinux" alt="Latest release"></a>
@@ -63,6 +64,8 @@ in Settings. Installing a dictionary does not change the online language pair.
 | --- | --- | --- |
 | Arch Linux x86_64 · KDE Plasma 6 · Wayland | Target platform; current source package requires KWin ≥ 6.8 | Native `.pkg.tar.zst` and build kit |
 | Ubuntu 24.04 · GNOME 46 · Wayland | Agent-tested desktop preview | [Source + GNOME extension](docs/UBUNTU.md) |
+| SteamOS 3.x · Desktop Mode | Supported via portable user-level install | [Portable install](docs/STEAMOS.md) |
+| SteamOS 3.x · Gaming Mode | Experimental, hardware-unverified; fullscreen selection, not an overlay | [Limits and setup](docs/STEAMOS.md) |
 | Other Linux distributions / desktops, X11, ARM | Unsupported | Porting contributions welcome |
 | Windows / macOS | Unsupported | No application builds |
 

@@ -101,6 +101,20 @@ class SettingsTests(unittest.TestCase):
         return value
     def ack(self,controller,error=None,revision=None):
         controller.ack(SimpleNamespace(stage='reload',reload_revision=revision or controller.reload_revision,error=error))
+    def test_gaming_settings_hide_kde_shortcut_and_keep_trigger(self):
+        from lookup.settings_gui import components
+        Window,Controller=components(gaming=True)
+        controller=Controller(self.engine,registry=self.registry,discover=lambda:[])
+        self.controllers.append(controller)
+        with patch.object(self.registry,'inspect',side_effect=AssertionError('KDE registry used in Gaming Mode')):
+            window=Window(controller)
+            self.windows.append(window)
+            window.show()
+            self.wait(lambda:not controller.pending)
+        self.assertFalse(window.shortcut.isVisible())
+        self.assertFalse(window.actual_binding.isVisible())
+        self.assertIn('Steam Input',window.gaming_trigger.itemText(1))
+
     def test_gaming_trigger_setting_is_visible_and_persisted(self):
         window=self.window()
         self.assertEqual(window.gaming_trigger.currentText(),'Хорд задних кнопок (evdev)')

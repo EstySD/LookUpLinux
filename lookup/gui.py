@@ -545,7 +545,7 @@ def components():
             if self._focus:QApplication.instance().focusWindowChanged.connect(self._scene_focus_event)
             from .settings_gui import components as settings_components
             self._SettingsWindow,ApplyController=settings_components()
-            self.settings_controller=ApplyController(self.engine,self)
+            self.settings_controller=ApplyController(self.engine,self,gaming=self._gaming)
             self.settings_controller.applied.connect(self._settings_applied)
             self.settings_controller.initialized.connect(self._settings_applied)
             self.settings_controller.invalidating.connect(self._invalidate_settings)
