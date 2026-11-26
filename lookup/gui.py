@@ -1113,7 +1113,8 @@ def run(trigger=False,background=False):
     if not gaming:
         core.capture.enable_hotkey_bridge(env)
         try:
-            ensure_entries()
+            if os.environ.get('LOOKUP_PORTABLE')!='1':
+                ensure_entries()
             ensure_shortcut()
         except LifecycleError as error:registration_error=error.reason
     token=''

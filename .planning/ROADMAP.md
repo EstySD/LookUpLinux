@@ -16,12 +16,12 @@
 
 **v1.2 «Steam Deck»** started 2026-11-26. Desktop Mode is the supported target; Gaming Mode is
 experimental and hardware-unverified because no physical Steam Deck is available. Phase 16 completed
-the session abstraction and diagnostics gate; next is Phase 17, the portable Desktop Mode install.
+the session abstraction and diagnostics gate and Phase 17, the portable Desktop Mode install; next is Phase 18, gamescope capture and the headless daemon.
 
 ## Phases
 
 - [x] **Phase 16: SteamOS-сессия и диагностика** - Detect KDE/GNOME/gamescope and report actionable SteamOS diagnostics. (Complete — 2026-11-26)
-- [ ] **Phase 17: Переносимая установка Desktop Mode** - Install, run and remove LookUp under the home directory without root. (Not started)
+- [x] **Phase 17: Переносимая установка Desktop Mode** - Install, run and remove LookUp under the home directory without root. (Complete — 2026-11-26)
 - [ ] **Phase 18: Gaming Mode: захват и демон** - Capture the gamescope frame and run headless without KDE. (Not started)
 - [ ] **Phase 19: Полноэкранный выбор слова** - Select a word on the frozen frame with touch, controller or keyboard. (Not started)
 - [ ] **Phase 20: Триггер и автозапуск** - Trigger Gaming Mode from a controller chord and start the daemon reliably. (Not started)
@@ -56,7 +56,7 @@ the session abstraction and diagnostics gate; next is Phase 17, the portable Des
   3. Uninstall removes the app, entries and unit while preserving words, cards, settings and dictionaries.
   4. Diagnostics show fallback capture when the KWin hotkey plugin is absent.
 
-**Plans**: TBD
+**Plans**: 1/1 complete — [17-01-PLAN.md](phases/17-portable-desktop/17-01-PLAN.md), [17-SUMMARY.md](phases/17-portable-desktop/17-SUMMARY.md)
 
 ### Phase 18: Gaming Mode: захват и демон
 
@@ -132,7 +132,7 @@ the session abstraction and diagnostics gate; next is Phase 17, the portable Des
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 16. SteamOS-сессия и диагностика | 1/1 | Complete | 2026-11-26 |
-| 17. Переносимая установка Desktop Mode | 0/TBD | Not started | - |
+| 17. Переносимая установка Desktop Mode | 1/1 | Complete | 2026-11-26 |
 | 18. Gaming Mode: захват и демон | 0/TBD | Not started | - |
 | 19. Полноэкранный выбор слова | 0/TBD | Not started | - |
 | 20. Триггер и автозапуск | 0/TBD | Not started | - |

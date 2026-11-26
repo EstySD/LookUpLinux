@@ -7,10 +7,10 @@ last_updated: "2026-11-26T09:16:25.601Z"
 last_activity: 2026-11-26
 progress:
   total_phases: 7
-  completed_phases: 1
-  total_plans: 1
-  completed_plans: 1
-  percent: 14
+  completed_phases: 2
+  total_plans: 2
+  completed_plans: 2
+  percent: 29
 ---
 
 # Project State
@@ -24,12 +24,12 @@ See: .planning/PROJECT.md (updated 2026-11-26)
 
 ## Current Position
 
-Phase: 17 — Переносимая установка Desktop Mode (next)
+Phase: 18 — Gaming Mode: захват и демон (next)
 Plan: — (not planned)
-Status: Ready for Phase 17
-Last activity: 2026-11-26 — Phase 16 complete: host 879 passed, VM 892 passed
+Status: Ready for Phase 18
+Last activity: 2026-11-26 — Phase 17 complete: host 884 passed, VM 897 passed
 
-Progress: [██░░░░░░░░] 14%
+Progress: [███░░░░░░░] 29%
 
 ## Performance Metrics
 
@@ -93,6 +93,8 @@ Recent decisions affecting current work:
 - [v1.2]: No physical Deck; hardware acceptance is a blocked external gate.
 - [v1.2 Phase 16]: Gaming daemon skips KDE lifecycle/tray/shortcut and exposes a D-Bus no-op trigger until Phase 18.
 - [v1.2 Phase 16]: KWin hotkey plugin is optional; doctor reports ScreenShot2 fallback instead of failing.
+- [v1.2 Phase 17]: Portable app lives in `~/.local/lib/lookup`; user data stays in the normal XDG paths and uninstall never removes it.
+- [v1.2 Phase 17]: Portable trigger entry owns the ScreenShot2 D-Bus permission; autostart is KDE-only.
 - [2026-10-27]: V1 adds multiline context and contextual word sense in inserted Phase 5.1 before Phase 6; real fullscreen game validation in Phase 8. Completed Phases 1–5 retain original acceptance. New requirements remain Pending.
 - [Roadmap]: Прод-версия вместо MVP, 8 фаз по горизонтальным слоям (выбор пользователя)
 - [Roadmap]: Фоновое приложение в трее; команда хоткея только будит его и стартует, если оно не запущено
@@ -152,10 +154,10 @@ Items acknowledged and carried forward from previous milestone close:
 ## Session Continuity
 
 Last session: 2026-11-26
-Stopped at: Phase 16 complete with host and VM regression evidence; Phase 17 is next.
-Resume file: .planning/phases/16-steamos-session/16-SUMMARY.md
+Stopped at: Phase 17 complete with host and VM regression evidence; Phase 18 is next.
+Resume file: .planning/phases/17-portable-desktop/17-SUMMARY.md
 
 ## Operator Next Steps
 
-- Start Phase 17: portable Desktop Mode install under `~/.local` without root.
+- Start Phase 18: gamescope frame capture and headless Gaming Mode daemon.
 - Do not claim Steam Deck hardware verification; record VM-tested and hardware-unverified separately.

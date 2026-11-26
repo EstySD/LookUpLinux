@@ -246,6 +246,16 @@ def _session_checks():
             with lifecycle.INSTALLED_DESKTOP.open(encoding='utf-8') as stream:text=stream.read(65537)
             allowed=len(text)<=65536 and 'X-KDE-DBUS-Restricted-Interfaces=org.kde.KWin.ScreenShot2' in text
             rows.append(Diagnostic('capture_identity',allowed,'Файл разрешений установленного приложения найден.' if allowed else 'Повреждён файл запуска/разрешений. Переустановите lookup-linux.'))
+        elif os.environ.get('LOOKUP_PORTABLE')=='1':
+            from . import portable
+            entry=portable.paths()['applications']
+            try:text=entry.read_text(encoding='utf-8')[:65537]
+            except OSError:text=''
+            allowed=(len(text)<=65536 and portable.MARKER in text.splitlines()
+                     and portable.RESTRICTED in text.splitlines())
+            rows.append(Diagnostic('capture_identity',allowed,
+                'Разрешение ScreenShot2 в переносимой установке найдено.' if allowed else
+                'Переносимая установка не разрешает ScreenShot2. Переустановите её из tools/install_steamos.py.'))
         return rows
     except lifecycle.LifecycleError as error:
         return [Diagnostic('shortcut',False,'Хоткей не зарегистрирован. Запустите lookup --app и проверьте «Комбинации клавиш» KDE.'
