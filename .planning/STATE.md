@@ -7,10 +7,10 @@ last_updated: "2026-11-26T09:16:25.601Z"
 last_activity: 2026-11-26
 progress:
   total_phases: 7
-  completed_phases: 3
-  total_plans: 3
-  completed_plans: 3
-  percent: 43
+  completed_phases: 4
+  total_plans: 4
+  completed_plans: 4
+  percent: 57
 ---
 
 # Project State
@@ -24,12 +24,12 @@ See: .planning/PROJECT.md (updated 2026-11-26)
 
 ## Current Position
 
-Phase: 19 — Полноэкранный выбор слова (next)
+Phase: 20 — Триггер и автозапуск (next)
 Plan: — (not planned)
-Status: Ready for Phase 19
-Last activity: 2026-11-26 — Phase 18 complete: host 889 passed, VM 902 passed
+Status: Ready for Phase 20
+Last activity: 2026-11-26 — Phase 19 complete: host 892 passed, VM 905 passed
 
-Progress: [████░░░░░░] 43%
+Progress: [█████░░░░░] 57%
 
 ## Performance Metrics
 
@@ -96,6 +96,7 @@ Recent decisions affecting current work:
 - [v1.2 Phase 17]: Portable app lives in `~/.local/lib/lookup`; user data stays in the normal XDG paths and uninstall never removes it.
 - [v1.2 Phase 17]: Portable trigger entry owns the ScreenShot2 D-Bus permission; autostart is KDE-only.
 - [v1.2 Phase 18]: SIGUSR2 frame is consumed and unlinked; PipeWire fallback is bounded; no screenshot is stored permanently.
+- [v1.2 Phase 19]: Gaming trigger reuses the desktop scene pipeline; repeated triggers close instead of stacking.
 - [2026-10-27]: V1 adds multiline context and contextual word sense in inserted Phase 5.1 before Phase 6; real fullscreen game validation in Phase 8. Completed Phases 1–5 retain original acceptance. New requirements remain Pending.
 - [Roadmap]: Прод-версия вместо MVP, 8 фаз по горизонтальным слоям (выбор пользователя)
 - [Roadmap]: Фоновое приложение в трее; команда хоткея только будит его и стартует, если оно не запущено
@@ -155,10 +156,10 @@ Items acknowledged and carried forward from previous milestone close:
 ## Session Continuity
 
 Last session: 2026-11-26
-Stopped at: Phase 18 complete with host and VM regression evidence; Phase 19 is next.
-Resume file: .planning/phases/18-gaming-capture/18-SUMMARY.md
+Stopped at: Phase 19 complete with host and VM regression evidence; Phase 20 is next.
+Resume file: .planning/phases/19-flexible-selection/19-SUMMARY.md
 
 ## Operator Next Steps
 
-- Start Phase 19: fullscreen word selection on the frozen frame with touch, controller and keyboard.
+- Start Phase 20: evdev/Steam Input trigger and Gaming Mode autostart.
 - Do not claim Steam Deck hardware verification; record VM-tested and hardware-unverified separately.

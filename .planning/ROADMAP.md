@@ -16,14 +16,14 @@
 
 **v1.2 «Steam Deck»** started 2026-11-26. Desktop Mode is the supported target; Gaming Mode is
 experimental and hardware-unverified because no physical Steam Deck is available. Phase 16 completed
-the session abstraction and diagnostics gate, Phase 17, the portable Desktop Mode install and Phase 18, gamescope capture with a headless daemon; next is Phase 19, the fullscreen word-selection UI.
+the session abstraction and diagnostics gate, Phase 17, the portable Desktop Mode install, Phase 18, gamescope capture with a headless daemon and Phase 19, the fullscreen word-selection UI; next is Phase 20, the Gaming trigger and autostart.
 
 ## Phases
 
 - [x] **Phase 16: SteamOS-сессия и диагностика** - Detect KDE/GNOME/gamescope and report actionable SteamOS diagnostics. (Complete — 2026-11-26)
 - [x] **Phase 17: Переносимая установка Desktop Mode** - Install, run and remove LookUp under the home directory without root. (Complete — 2026-11-26)
 - [x] **Phase 18: Gaming Mode: захват и демон** - Capture the gamescope frame and run headless without KDE. (Complete — 2026-11-26)
-- [ ] **Phase 19: Полноэкранный выбор слова** - Select a word on the frozen frame with touch, controller or keyboard. (Not started)
+- [x] **Phase 19: Полноэкранный выбор слова** - Select a word on the frozen frame with touch, controller or keyboard. (Complete — 2026-11-26)
 - [ ] **Phase 20: Триггер и автозапуск** - Trigger Gaming Mode from a controller chord and start the daemon reliably. (Not started)
 - [ ] **Phase 21: Настройки, диагностика, документация** - Make settings mode-aware and document both modes honestly. (Not started)
 - [ ] **Phase 22: Бандл и приёмка** - Build the portable bundle and run the available acceptance gates. (Not started)
@@ -84,7 +84,7 @@ the session abstraction and diagnostics gate, Phase 17, the portable Desktop Mod
   3. The card is readable at 1280×800 and one action returns to the game.
   4. Rapid triggers produce one active window; closing restores input control.
 
-**Plans**: TBD
+**Plans**: 1/1 complete — [19-01-PLAN.md](phases/19-flexible-selection/19-01-PLAN.md), [19-SUMMARY.md](phases/19-flexible-selection/19-SUMMARY.md)
 
 ### Phase 20: Триггер и автозапуск
 
@@ -134,7 +134,7 @@ the session abstraction and diagnostics gate, Phase 17, the portable Desktop Mod
 | 16. SteamOS-сессия и диагностика | 1/1 | Complete | 2026-11-26 |
 | 17. Переносимая установка Desktop Mode | 1/1 | Complete | 2026-11-26 |
 | 18. Gaming Mode: захват и демон | 1/1 | Complete | 2026-11-26 |
-| 19. Полноэкранный выбор слова | 0/TBD | Not started | - |
+| 19. Полноэкранный выбор слова | 1/1 | Complete | 2026-11-26 |
 | 20. Триггер и автозапуск | 0/TBD | Not started | - |
 | 21. Настройки, диагностика, документация | 0/TBD | Not started | - |
 | 22. Бандл и приёмка | 0/TBD | Not started | - |

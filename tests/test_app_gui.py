@@ -1022,14 +1022,41 @@ class GamingOwnerTests(unittest.TestCase):
     def setUpClass(cls):
         cls.application=QApplication.instance() or QApplication([])
 
-    def test_gaming_owner_skips_tray_and_trigger_is_a_safe_noop(self):
+    def test_gaming_trigger_captures_and_enqueues_one_scene(self):
+        from lookup import gui,gaming
+        _,Owner=gui.components()
+        owner=Owner({},engine_factory=FakeEngine,focus=False,on_quit=lambda:None,gaming=True)
+        monitor=Monitor('gamescope',0,0,10,10,1)
+        snapshot=gaming.GamescopeSnapshot((5,5),monitor,(0,0,10,10),b'',1,1,0)
+        try:
+            with mock.patch.object(gui.gaming,'capture_gamescope',return_value=snapshot) as capture:
+                self.assertEqual(owner.Trigger('x'),os.getpid())
+                capture.assert_called_once()
+            self.assertEqual(owner.engine.generation,1)
+            self.assertIs(owner.engine.snapshot,snapshot)
+            with mock.patch.object(gui.gaming,'capture_gamescope') as capture:
+                self.assertEqual(owner.Trigger('x'),os.getpid())
+                capture.assert_not_called()
+        finally:
+            owner.quit()
+            deadline=time.monotonic()+2
+            while owner.settings_controller.is_alive() and time.monotonic()<deadline:
+                self.application.processEvents();QTest.qWait(5)
+            owner.popup.deleteLater()
+            owner.deleteLater()
+            self.application.sendPostedEvents(None,QEvent.Type.DeferredDelete)
+            self.application.processEvents()
+
+    def test_gaming_owner_skips_tray_and_handles_missing_capture(self):
         from lookup import gui
         _,Owner=gui.components()
         owner=Owner({},engine_factory=FakeEngine,focus=False,on_quit=lambda:None,gaming=True)
         try:
             self.assertIsNone(owner.tray)
             self.assertIsNone(owner.menu)
-            self.assertEqual(owner.Trigger(''),os.getpid())
+            with mock.patch.object(gui.gaming,'capture_gamescope',
+                                   side_effect=app.platform.PlatformError('gaming_capture_unavailable')):
+                self.assertEqual(owner.Trigger(''),os.getpid())
             self.assertEqual(owner.engine.generation,0)
         finally:
             owner.quit()

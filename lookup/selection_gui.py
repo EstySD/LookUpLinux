@@ -5,7 +5,7 @@ from . import capture
 
 _components=None
 TITLE='Выбор слова по снимку'
-INSTRUCTION='Нажмите на слово · F1 — панель · Esc — закрыть'
+INSTRUCTION='Нажмите или коснитесь слова · Стрелки/DPad — прицел · Enter — выбор · F1 — панель · Esc — закрыть'
 EXPLANATION='Снимок экрана сохранён для выбора. Приложение под ним продолжает работать.'
 NO_WORD='Слово не найдено. Нажмите на другое слово на снимке или закройте снимок клавишей Esc.'
 
@@ -13,7 +13,7 @@ NO_WORD='Слово не найдено. Нажмите на другое сло
 def components():
     global _components
     if _components is not None:return _components
-    from PyQt6.QtCore import Qt,QRectF,QRect,QPoint,QBuffer,QIODevice,pyqtSignal
+    from PyQt6.QtCore import Qt,QEvent,QRectF,QRect,QPoint,QBuffer,QIODevice,pyqtSignal
     from PyQt6.QtGui import QImageReader,QPainter,QColor,QPen,QShortcut,QKeySequence
     from PyQt6.QtWidgets import QWidget,QFrame,QHBoxLayout,QVBoxLayout,QLabel,QPushButton,QApplication,QSizePolicy
 
@@ -38,6 +38,8 @@ def components():
             self._image=image
             self._box=None
             self._released=False
+            self._crosshair=None
+            self._step=48
             self.session_id=scene.session_id
             self.monitor=scene.source.monitor
             self.setWindowTitle(TITLE);self.setAccessibleName(TITLE)
@@ -47,6 +49,7 @@ def components():
             self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
             self.setCursor(Qt.CursorShape.CrossCursor)
             self.setMouseTracking(True)
+            self.setAttribute(Qt.WidgetAttribute.WA_AcceptTouchEvents,True)
             self.setGeometry(round(self.monitor.x),round(self.monitor.y),round(self.monitor.width),round(self.monitor.height))
             self.toolbar=QFrame(self)
             self.toolbar.setAutoFillBackground(True)
@@ -62,6 +65,7 @@ def components():
             self.status.setSizePolicy(QSizePolicy.Policy.Ignored,QSizePolicy.Policy.Preferred)
             labels.addWidget(self.status);row.addLayout(labels,1)
             self.close_button=QPushButton('Закрыть')
+            self.close_button.setMinimumHeight(32)
             self.close_button.setAccessibleName('Закрыть снимок')
             self.close_button.setToolTip('Закрыть снимок (Esc)')
             self.close_button.clicked.connect(self.dismiss)
@@ -132,6 +136,13 @@ def components():
                 if self._box is not None:
                     painter.setPen(QPen(self.palette().highlight().color(),2))
                     painter.drawRect(self.selection_rect())
+                if self._crosshair is not None:
+                    x,y=self._crosshair
+                    painter.setPen(QPen(QColor('white'),3))
+                    painter.drawEllipse(QRectF(x-14,y-14,28,28))
+                    painter.setPen(QPen(QColor('black'),1))
+                    painter.drawLine(QPoint(round(x-22),round(y)),QPoint(round(x+22),round(y)))
+                    painter.drawLine(QPoint(round(x),round(y-22)),QPoint(round(x),round(y+22)))
 
         def mousePressEvent(self,event):
             if (event.button()==Qt.MouseButton.LeftButton and not self._released and
@@ -144,15 +155,41 @@ def components():
         def mouseReleaseEvent(self,event):event.accept()
         def mouseDoubleClickEvent(self,event):event.accept()
         def wheelEvent(self,event):event.accept()
+        def _emit_point(self,x,y):
+            self.selected.emit((self.monitor.x+x*self.monitor.width/self.width(),
+                                self.monitor.y+y*self.monitor.height/self.height()))
+
+        def event(self,event):
+            if (not self._released and event.type()==QEvent.Type.TouchBegin and event.points()):
+                point=event.points()[0].position()
+                if not (self.toolbar.isVisible() and self.toolbar.geometry().contains(point.toPoint())):
+                    self._emit_point(point.x(),point.y())
+                    return True
+            return super().event(event)
+
         def keyPressEvent(self,event):
-            if event.key()==Qt.Key.Key_Escape:self.dismiss()
+            key=event.key()
+            if key==Qt.Key.Key_Escape:
+                self.dismiss();event.accept();return
+            moves={Qt.Key.Key_Left:(-1,0),Qt.Key.Key_Right:(1,0),
+                   Qt.Key.Key_Up:(0,-1),Qt.Key.Key_Down:(0,1)}
+            if key in moves and not self._released:
+                if self._crosshair is None:
+                    self._crosshair=[self.width()/2,self.height()/2]
+                dx,dy=moves[key]
+                self._crosshair[0]=max(0,min(self.width()-1,self._crosshair[0]+dx*self._step))
+                self._crosshair[1]=max(0,min(self.height()-1,self._crosshair[1]+dy*self._step))
+                self.set_status('Прицел: стрелки/DPad перемещают, Enter выбирает')
+                self.update();event.accept();return
+            if key in (Qt.Key.Key_Return,Qt.Key.Key_Enter) and self._crosshair is not None and not self._released:
+                self._emit_point(*self._crosshair);event.accept();return
             event.accept()
         def resizeEvent(self,event):
             super().resizeEvent(event)
             if hasattr(self,'toolbar'):self._layout_controls()
         def release(self):
             self._released=True
-            self.hide();self._image=None;self._box=None
+            self.hide();self._image=None;self._box=None;self._crosshair=None
         def dismiss(self):
             if self._released:return
             self.release();self.dismissed.emit()

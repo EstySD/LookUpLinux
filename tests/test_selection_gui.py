@@ -101,6 +101,34 @@ class SelectionGuiTests(unittest.TestCase):
             self.assertFalse(area.intersects(toolbar))
             QTest.keyClick(window.close_button,Qt.Key.Key_F1)
 
+    def test_crosshair_moves_with_arrows_and_selects_with_enter(self):
+        window=self.window()
+        selected=[]
+        window.selected.connect(selected.append)
+        self.assertIsNone(window._crosshair)
+        QTest.keyClick(window,Qt.Key.Key_Right)
+        QTest.keyClick(window,Qt.Key.Key_Down)
+        self.assertIsNotNone(window._crosshair)
+        self.assertGreater(window._crosshair[0],window.width()/2)
+        self.assertGreater(window._crosshair[1],window.height()/2)
+        x,y=window._crosshair
+        expected=(window.monitor.x+x*window.monitor.width/window.width(),
+                  window.monitor.y+y*window.monitor.height/window.height())
+        QTest.keyClick(window,Qt.Key.Key_Return)
+        self.assertEqual(selected,[expected])
+        window.release()
+        self.assertIsNone(window._crosshair)
+
+    def test_readable_controls_at_deck_resolution(self):
+        window=self.window()
+        window.resize(1280,800)
+        QTest.keyClick(window,Qt.Key.Key_F1)
+        self.application.processEvents()
+        self.assertTrue(window.close_button.isVisibleTo(window))
+        self.assertGreaterEqual(window.close_button.height(),24)
+        self.assertLess(window.toolbar.width(),1280)
+        self.assertIn('DPad',window.instruction.text())
+
     def test_bad_image_rejected_before_showing_surface(self):
         from lookup.selection_gui import components
         from dataclasses import replace

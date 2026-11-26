@@ -10,7 +10,7 @@ import threading
 import time
 from dataclasses import replace
 
-from . import app as core, platform, session, timing, config
+from . import app as core, platform, session, gaming, timing, config
 from .store import MigrationError,SchemaTooNewError
 
 SERVICE='org.lookup.Linux'
@@ -741,9 +741,19 @@ def components():
                 return 0
             token=''
             if self._gaming:
-                # Phase 18 replaces this no-op with gamescope capture and the
-                # fullscreen selection window.  Return a positive pid so the
-                # trigger client does not treat the running daemon as absent.
+                if self.scene_window is not None or self._scene_pending:
+                    self._end_scene()
+                    return os.getpid()
+                try:
+                    snapshot=gaming.capture_gamescope(self.env)
+                except core.platform.PlatformError:
+                    # A missing capture backend must not leave a stuck window.
+                    return os.getpid()
+                identity=self.engine.begin()
+                if identity is None:return 0
+                self._identity=identity
+                self._scene_pending=True
+                self.engine.enqueue_scene(identity,snapshot)
                 return os.getpid()
             snapshot_error=False
             try:
