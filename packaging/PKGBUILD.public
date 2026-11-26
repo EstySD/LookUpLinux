@@ -1,6 +1,6 @@
 # Public package: dictionaries are supplied by the user.
 pkgname=lookup-linux
-pkgver=0.2.1
+pkgver=0.3.0
 pkgrel=1
 pkgdesc='English-Russian OCR dictionary and vocabulary cards for KDE Plasma Wayland'
 url='https://github.com/EstySD/LookUpLinux'

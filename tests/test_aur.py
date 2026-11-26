@@ -11,13 +11,13 @@ from tools.stage_aur import stage
 class AurTests(unittest.TestCase):
     def test_recipe_uses_exact_public_source_hash_and_build_directory(self):
         with tempfile.TemporaryDirectory() as directory:
-            root=Path(directory);build(root/'release','v0.2.1')
-            source=root/'release/lookup-linux-0.2.1-source.tar.gz'
+            root=Path(directory);build(root/'release','v0.3.0')
+            source=root/'release/lookup-linux-0.3.0-source.tar.gz'
             receipt=stage(source,root/'aur')
             recipe=(root/'aur/PKGBUILD').read_text(encoding='utf-8')
-            self.assertIn('v0.2.1/lookup-linux-0.2.1-source.tar.gz',recipe)
+            self.assertIn('v0.3.0/lookup-linux-0.3.0-source.tar.gz',recipe)
             self.assertIn(hashlib.sha256(source.read_bytes()).hexdigest(),recipe)
-            self.assertIn('cmake -S lookup-linux-0.2.1/native/kwin-capture',recipe)
+            self.assertIn('cmake -S lookup-linux-0.3.0/native/kwin-capture',recipe)
             self.assertNotIn('lookup-source/',recipe)
             self.assertNotIn('mueller',recipe.lower())
             self.assertNotIn('@LOCAL_SOURCE_SHA256@',recipe)

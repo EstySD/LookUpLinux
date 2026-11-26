@@ -1,18 +1,21 @@
 # Preparing the Arch/AUR package
 
-Version 0.2.1 uses the public GitHub source asset. Verify that the asset exists
-and matches the PKGBUILD checksum before submitting to AUR. A GitHub release
-and an AUR submission are separate maintainer actions; AUR submission has not
-been performed by this release workflow.
+Version 0.3.0 uses the public GitHub source asset. Verify that the asset exists
+and matches the PKGBUILD checksum before submitting to AUR. The checksum in
+`packaging/aur/` was computed from a locally built 0.3.0 source archive; gzip
+bytes can differ between toolchains. Regenerate it from the canonical CI asset
+before AUR submission. A GitHub release and an AUR submission are separate
+maintainer actions; AUR submission has not been performed by this release
+workflow.
 
 ## Prepare exact source and recipe
 
 From the repository root, use new or empty output directories:
 
 ```sh
-python tools/build_release.py --tag v0.2.1 --output dist
-python tools/stage_aur.py --source dist/lookup-linux-0.2.1-source.tar.gz --output aur-build
-cp dist/lookup-linux-0.2.1-source.tar.gz aur-build/
+python tools/build_release.py --tag v0.3.0 --output dist
+python tools/stage_aur.py --source dist/lookup-linux-0.3.0-source.tar.gz --output aur-build
+cp dist/lookup-linux-0.3.0-source.tar.gz aur-build/
 cd aur-build
 makepkg --printsrcinfo > .SRCINFO
 makepkg --verifysource
@@ -33,7 +36,7 @@ dictionary using [DICTIONARIES.md](DICTIONARIES.md).
 ## Install, upgrade and remove
 
 ```sh
-sudo pacman -U ./lookup-linux-0.2.1-1-x86_64.pkg.tar.zst
+sudo pacman -U ./lookup-linux-0.3.0-1-x86_64.pkg.tar.zst
 lookup --app
 lookup --doctor
 ```

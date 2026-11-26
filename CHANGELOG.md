@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.3.0 — 2026-11-26
+
+- SteamOS Desktop Mode support through a portable user-level install under
+  `~/.local`, without root and without modifying the immutable rootfs.
+- Experimental Gaming Mode: gamescope frame capture, fullscreen word selection
+  with touch/DPad/crosshair, readable card and return to the game. Gaming Mode
+  is not an overlay and is explicitly hardware-unverified.
+- Session detection for KDE, GNOME and gamescope; bounded SteamOS diagnostics in
+  `lookup --doctor` and `tools/check_steamos.py`.
+- Fallback ScreenShot2 capture when the KWin hotkey plugin is unavailable on
+  SteamOS 3.9; plugin remains optional on 3.10+.
+- Gaming trigger via evdev back-button chord or Steam Input key, with debounce,
+  owned systemd user unit and mode-aware settings.
+- Deterministic SteamOS bundle builder with manifest, SHA-256 sums and license
+  notices; runtime-complete binary bundle remains a separate target build.
+- Documentation: [SteamOS guide](docs/STEAMOS.md) with honest verification status.
+
 ## 0.2.1 — 2026-11-03
 
 - Retry context translation with existing Google clients when gtx is restricted,

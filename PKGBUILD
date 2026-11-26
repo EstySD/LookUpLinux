@@ -1,6 +1,6 @@
 # Local source snapshot: generate a ready build directory with tools/stage_package.py.
 pkgname=lookup-linux
-pkgver=0.2.1
+pkgver=0.3.0
 pkgrel=1
 pkgdesc='English-Russian cursor dictionary and learning cards for KDE Wayland (local build)'
 arch=('x86_64')
