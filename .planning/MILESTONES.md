@@ -1,5 +1,17 @@
 # Milestones
 
+## v1.2 Steam Deck (Shipped: 2026-11-26)
+
+**Phases completed:** 7 phases, 7 plans, 21 requirements (PUB-03 partially blocked)
+
+**Delivered:** SteamOS Desktop Mode from a portable user-level install under `~/.local`, experiments with gamescope capture and a fullscreen word-selection window for Gaming Mode, session-aware diagnostics, evdev/Steam Input trigger with autostart, mode-aware settings and a deterministic bundle builder.
+
+**Final verification:** 901 host pytest tests and 914 shared-Arch VM tests pass; 1737 host subtests. All checks are agent/VM checks, not Deck hardware acceptance. Gaming Mode capture, focus return, evdev codes and Steam Input remain hardware-unverified.
+
+**Publication:** [GitHub v0.3.0](https://github.com/EstySD/LookUpLinux/releases/tag/v0.3.0), published 2026-11-26T11:10:10Z. Both remote workflows passed. Canonical source SHA-256: `c9ebc57be08547fda32b8eecae5fb4024b07222d19595d5acb3574562089cfa9`. AUR submission is blocked by AUR's temporary closure of new-account registration; it was deliberately not attempted by script.
+
+---
+
 ## v1.1 Надёжность и распространение (Shipped: 2026-11-03)
 
 **Phases completed:** 7 phases, 11 plans, 17 requirements

@@ -24,6 +24,15 @@
 | Deterministic bundle build | Identical bytes on repeat builds | `tests/test_steamos_bundle.py` |
 | Bundle checksum/license/install | MANIFEST, SHA256SUMS, GPL notice, installed wrapper | `tests/test_steamos_bundle.py`, VM check |
 
+## Publication
+
+GitHub **v0.3.0** was published from the verified draft on 2026-11-26T11:10:10Z:
+<https://github.com/EstySD/LookUpLinux/releases/tag/v0.3.0>. Both remote
+workflows passed. Canonical source SHA-256:
+`c9ebc57be08547fda32b8eecae5fb4024b07222d19595d5acb3574562089cfa9`.
+AUR submission is blocked by the AUR's temporary suspension of new-account
+registration and was not scripted.
+
 ## Honest blocker
 
 - A runtime-complete bundle (PyQt6, Tesseract eng data, kdotool, wl-clipboard

@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-11-26)
 Phase: All 7 phases complete
 Plan: —
 Status: complete
-Last activity: 2026-11-26 — Phase 22 complete: host 901 passed, VM 914 passed, source bundle built
+Last activity: 2026-11-26 — Milestone v1.2 shipped as GitHub v0.3.0; host 901/VM 914 passed; AUR blocked
 
 Progress: [██████████] 100%
 
@@ -134,6 +134,7 @@ None yet.
 - Steam Input has no global Gaming Mode layout; per-game layout may be required for the key fallback.
 - `kdotool` compatibility with SteamOS's KWin is unverified.
 - PUB-03 runtime-complete binary bundle is blocked: builder and offline install are verified, but PyQt6/Tesseract/kdotool/wl-clipboard binaries for the SteamOS ABI were not produced here.
+- AUR submission is blocked by AUR's temporary closure of new-account registration; do not script retries.
 
 Phase 14 complete: provider fallback passes six live target cases; real dictionaries pass twelve source checks; second monitor at 100%/125%, borderless word selection and seven exits pass. Both full suites: 868 tests, zero failures/errors. See `phases/14-reliability/14-ACCEPTANCE.json`. Historical v1.0 limits remain in `milestones/v1.0-MILESTONE-AUDIT.md`.
 
