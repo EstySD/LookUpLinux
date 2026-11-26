@@ -10,7 +10,7 @@ import threading
 import time
 from dataclasses import replace
 
-from . import app as core, platform, session, gaming, timing, config
+from . import app as core, platform, session, gaming, trigger, timing, config
 from .store import MigrationError,SchemaTooNewError
 
 SERVICE='org.lookup.Linux'
@@ -1033,6 +1033,8 @@ def components():
             if self._stopping:return
             self._end_scene()
             self._stopping=True
+            stop=getattr(self,'_trigger_stop',None)
+            if stop is not None:stop()
             self.settings_controller.shutdown()
             if self.settings_window is not None:
                 self.settings_window.close()
@@ -1131,6 +1133,10 @@ def run(trigger=False,background=False):
     _,Owner=components()
     owner=Owner(env,gaming=gaming)
     owner.lifecycle_error=registration_error
+    if gaming:
+        from . import trigger as gaming_trigger
+        owner._trigger_stop=gaming_trigger.watch(
+            lambda: QTimer.singleShot(0,lambda:owner.Trigger('')))
     if registration_error is not None:
         QTimer.singleShot(0,owner.open_settings)
     if not background:

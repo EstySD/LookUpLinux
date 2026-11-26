@@ -32,6 +32,7 @@ class Config:
     shortcut: str = 'Meta+Shift+D'
     popup_timeout: int = 20
     autostart: bool = True
+    gaming_trigger: str = 'back_chord'
     popup_show_context: bool = False
     popup_show_meaning: bool = False
     popup_expand_articles: bool = False
@@ -122,6 +123,8 @@ def _valid_scalar(key, value):
     if key == 'shortcut':
         return (isinstance(value,str) and 1 <= len(value) <= 128 and value == value.strip()
                 and not any(unicodedata.category(c).startswith('C') for c in value))
+    if key == 'gaming_trigger':
+        return value in ('back_chord','key')
     return False
 
 
@@ -133,7 +136,7 @@ def _from_data(data):
         online=online if isinstance(online, bool) else True,
         clients=_parse_clients(data.get("clients")),
         **{key:data[key] if key in data and _valid_scalar(key,data[key]) else getattr(defaults,key)
-           for key in ('shortcut','popup_timeout','autostart') + POPUP_FIELDS},
+           for key in ('shortcut','popup_timeout','autostart','gaming_trigger') + POPUP_FIELDS},
     )
 
 

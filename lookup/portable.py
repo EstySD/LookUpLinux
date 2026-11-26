@@ -17,6 +17,7 @@ RESTRICTED='X-KDE-DBUS-Restricted-Interfaces=org.kde.KWin.ScreenShot2'
 TRIGGER='org.lookup.Linux.desktop'
 AUTOSTART='org.lookup.Linux.autostart.desktop'
 HOME_ENTRY='org.lookup.Linux.Home.desktop'
+SERVICE='lookup-gaming.service'
 OWNED_FILE='.lookup-owned'
 MAX_FILE=64<<20
 MAX_TOTAL=512<<20
@@ -45,7 +46,8 @@ def paths(home=None):
     return dict(app=home/'.local/lib/lookup',wrapper=binaries/'lookup',
                 applications=data/'applications'/TRIGGER,
                 autostart=settings/'autostart'/AUTOSTART,
-                home_entry=data/'applications'/HOME_ENTRY)
+                home_entry=data/'applications'/HOME_ENTRY,
+                service=settings/'systemd/user'/SERVICE)
 
 
 def desktop_text(executable,shortcut='Meta+Shift+D',kind='trigger'):
@@ -67,6 +69,15 @@ def desktop_text(executable,shortcut='Meta+Shift+D',kind='trigger'):
     else:
         text+='--app\nStartupNotify=true\nCategories=Education;Languages;\n'
     return text+'Icon=accessories-dictionary\nTerminal=false\n'
+
+
+def service_text(home=None):
+    wrapper=paths(home)['wrapper']
+    return ('[Unit]\nDescription=LookUp Linux Gaming Mode daemon\n'
+            '# '+MARKER+'\n'
+            '[Service]\nType=simple\nExecStart='+lifecycle._quote(wrapper)+' --background\n'
+            'Restart=on-failure\nRestartSec=2\n'
+            '[Install]\nWantedBy=default.target\n')
 
 
 def wrapper_text(home=None):
@@ -191,6 +202,7 @@ def install(*,source=None,bundle=None,home=None,shortcut='Meta+Shift+D'):
              desktop_text(location['wrapper'],shortcut,'home'))
     existing={key:_owned_text(location[key]) for key in ('applications','autostart','home_entry')}
     existing['wrapper']=_owned_script(location['wrapper'])
+    existing['service']=_owned_script(location['service'])
     temporary=app.parent/('.lookup-install-'+str(os.getpid()))
     if temporary.exists():raise PortableError('file_failed')
     try:
@@ -210,6 +222,7 @@ def install(*,source=None,bundle=None,home=None,shortcut='Meta+Shift+D'):
         if path.is_symlink():raise PortableError('unowned_file')
         _write(path,text)
     _write(location['wrapper'],wrapper_text(home),0o755)
+    _write(location['service'],service_text(home))
     refresh()
     return location
 
@@ -224,7 +237,7 @@ def uninstall(*,home=None):
     location=paths(home)
     if _owned_app(location['app']) is None:raise PortableError('unowned_file')
     for key,path in location.items():
-        if key!='app':(_owned_script if key=='wrapper' else _owned_text)(path)
+        if key!='app':(_owned_script if key in ('wrapper','service') else _owned_text)(path)
     for key,path in location.items():
         if key=='app':
             shutil.rmtree(path,ignore_errors=True)
@@ -241,7 +254,7 @@ def status(*,home=None):
     for key,path in location.items():
         try:
             owned=(_owned_app(path) if key=='app' else
-                   (_owned_script if key=='wrapper' else _owned_text)(path))
+                   (_owned_script if key in ('wrapper','service') else _owned_text)(path))
         except PortableError:owned=None
         result[key]=owned is not None
     return result

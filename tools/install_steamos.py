@@ -3,6 +3,7 @@
 import argparse
 import json
 from pathlib import Path
+import subprocess
 import sys
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -30,6 +31,14 @@ def main(argv=None):
                                    bundle=args.bundle,home=home,shortcut=config.load().shortcut)
             print('Installed portable LookUp Linux in '+str(paths['app']))
             print('Launch from the applications menu or run ~/.local/bin/lookup --app')
+            try:
+                enabled=subprocess.run(['systemctl','--user','enable','--now',
+                                        portable.SERVICE],stdout=subprocess.DEVNULL,
+                                       stderr=subprocess.DEVNULL,timeout=8,check=False).returncode==0
+            except (OSError,subprocess.TimeoutExpired):
+                enabled=False
+            print('Gaming daemon autostart: '+
+                  ('enabled.' if enabled else 'not enabled automatically; run systemctl --user enable --now '+portable.SERVICE))
             return 0
         if args.command=='uninstall':
             location=portable.uninstall(home=home)

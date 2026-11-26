@@ -47,7 +47,7 @@ def components():
     from PyQt6.QtCore import QObject,QTimer,Qt,QUrl,pyqtSignal
     from PyQt6.QtGui import QKeySequence,QShortcut,QDesktopServices
     from PyQt6.QtWidgets import (QWidget,QLabel,QVBoxLayout,QHBoxLayout,QFormLayout,QGroupBox,
-        QScrollArea,QKeySequenceEdit,QListWidget,QListWidgetItem,QPushButton,QSpinBox,QCheckBox)
+        QScrollArea,QKeySequenceEdit,QListWidget,QListWidgetItem,QPushButton,QSpinBox,QCheckBox,QComboBox)
 
     class ApplyController(QObject):
         state=pyqtSignal(object)
@@ -145,7 +145,8 @@ def components():
             self.state.emit(dict(kind='pending',loading=False))
             self.invalidating.emit()
             # The GUI draft is never shared with a background transaction.
-            changes={key:snapshot[key] for key in ('online','popup_timeout','autostart')}
+            changes={key:snapshot.get(key,getattr(config.Config(),key))
+                     for key in ('online','popup_timeout','autostart','gaming_trigger')}
             changes.update({key:snapshot[key] for key in config.POPUP_FIELDS if key in snapshot})
             changes['dictionaries']=[dict(entry) for entry in snapshot['dictionaries']]
             if snapshot.get('shortcut_edited'):changes['shortcut']=snapshot['shortcut']
@@ -329,9 +330,13 @@ def components():
             self.online.setAccessibleName('Онлайн-перевод')
             self.autostart=QCheckBox('Запускать при входе в KDE')
             self.autostart.setAccessibleName('Запускать при входе в KDE')
+            self.gaming_trigger=QComboBox()
+            self.gaming_trigger.addItems(('Хорд задних кнопок (evdev)','Клавиша Steam Input'))
+            self.gaming_trigger.setAccessibleName('Триггер Gaming Mode')
             option_layout.addRow(self.online)
             option_layout.addRow(label('При отключении используются только локальные словари'))
             option_layout.addRow(self.autostart)
+            option_layout.addRow('Триггер Gaming Mode',self.gaming_trigger)
             form.addWidget(options)
             popup=QGroupBox('Содержимое попапа');popup_layout=QVBoxLayout(popup)
             for key,text in zip(config.POPUP_FIELDS,('Показывать исходный текст и перевод контекста',
@@ -352,13 +357,14 @@ def components():
             layout.addLayout(actions)
             for button in (self.apply_button,self.close_button,self.up_button,self.down_button,self.folder_button):
                 button.setAutoDefault(True)
-            self._editors=(self.shortcut,self.dictionaries,self.timeout,self.online,self.autostart)+tuple(
+            self._editors=(self.shortcut,self.dictionaries,self.timeout,self.online,self.autostart,self.gaming_trigger)+tuple(
                 getattr(self,key) for key in config.POPUP_FIELDS)
             self.shortcut.keySequenceChanged.connect(self._edited)
             self.dictionaries.itemChanged.connect(self._edited)
             self.dictionaries.currentRowChanged.connect(self._reorder_state)
             self.timeout.valueChanged.connect(self._edited)
             self.online.toggled.connect(self._edited);self.autostart.toggled.connect(self._edited)
+            self.gaming_trigger.currentIndexChanged.connect(self._edited)
             self.up_button.clicked.connect(lambda:self._move(-1))
             self.down_button.clicked.connect(lambda:self._move(1))
             self.folder_button.clicked.connect(self.open_folder)
@@ -384,6 +390,7 @@ def components():
                     enabled=self.dictionaries.item(i).checkState()==Qt.CheckState.Checked)
                     for i in range(self.dictionaries.count())],popup_timeout=self.timeout.value(),
                 online=self.online.isChecked(),autostart=self.autostart.isChecked(),
+                gaming_trigger=('back_chord','key')[self.gaming_trigger.currentIndex()],
                 **{key:getattr(self,key).isChecked() for key in config.POPUP_FIELDS})
 
         def open_folder(self):
@@ -427,6 +434,7 @@ def components():
                     'Поиск словарей отключён переменной LOOKUP_DICTS. Укажите в ней каталог или уберите переменную, затем перезапустите приложение.')
                 self.timeout.setValue(saved.popup_timeout)
                 self.online.setChecked(saved.online);self.autostart.setChecked(saved.autostart)
+                self.gaming_trigger.setCurrentIndex(0 if saved.gaming_trigger=='back_chord' else 1)
                 for key in config.POPUP_FIELDS:getattr(self,key).setChecked(getattr(saved,key))
                 self._loading=False
                 self._baseline=self.snapshot()
@@ -439,6 +447,7 @@ def components():
                     if value['rows'] is not None:self._set_dictionaries(saved.dictionaries,value['rows'])
                     self.timeout.setValue(saved.popup_timeout)
                     self.online.setChecked(saved.online);self.autostart.setChecked(saved.autostart)
+                    self.gaming_trigger.setCurrentIndex(0 if saved.gaming_trigger=='back_chord' else 1)
                     for key in config.POPUP_FIELDS:getattr(self,key).setChecked(getattr(saved,key))
                     self._loading=False
                     self._shortcut_baseline=self.snapshot()['shortcut']

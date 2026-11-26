@@ -10,7 +10,7 @@ import stat
 import subprocess
 import sys
 
-from lookup import config,dicts,platform,lifecycle,session,gaming
+from lookup import config,dicts,platform,lifecycle,session,gaming,trigger
 
 DICTIONARY_TIMEOUT=8
 _application=None
@@ -174,7 +174,11 @@ def _gaming_session_checks():
     rows.append(Diagnostic('capture',ready,
         'Захват кадра gamescope доступен; снимок не запрашивался.' if ready else
         'Нет работающего gamescope и PipeWire/GStreamer; захват Gaming Mode недоступен.'))
-    rows.append(Diagnostic('trigger',False,'Триггер Gaming Mode ещё не реализован (Phase 20).'))
+    key=config.load().gaming_trigger
+    ready=trigger.gaming_trigger_ready()
+    rows.append(Diagnostic('trigger',ready,
+        'Триггер Gaming Mode ('+key+') доступен.' if ready else
+        'Нет доступных устройств ввода; настройте клавишу Steam Input или проверьте права на /dev/input.'))
     return rows
 
 

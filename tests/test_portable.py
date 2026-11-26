@@ -35,6 +35,13 @@ class PortableTests(unittest.TestCase):
         self.assertIn('OnlyShowIn=KDE;',autostart)
         self.assertIn('--autostart',autostart)
 
+    def test_systemd_unit_is_owned_and_starts_the_daemon(self):
+        text=portable.service_text(self.root)
+        self.assertIn('# '+portable.MARKER,text)
+        self.assertIn('--background',text)
+        self.assertIn('WantedBy=default.target',text)
+        self.assertIn('lookup',text)
+
     def test_install_launch_files_and_uninstall_preserves_user_data(self):
         paths=portable.install(source=self._source(),home=self.root)
         self.assertTrue((paths['app']/'lookup'/'__init__.py').is_file())

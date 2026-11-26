@@ -96,11 +96,23 @@ class SettingsTests(unittest.TestCase):
         return value
     def snapshot(self,**kwargs):
         value=dict(dictionaries=[dict(id='found',enabled=True)],online=False,popup_timeout=7,
-                   autostart=False,shortcut='Meta+Shift+F',shortcut_edited=False)
+                   autostart=False,gaming_trigger='back_chord',shortcut='Meta+Shift+F',shortcut_edited=False)
         value.update(kwargs)
         return value
     def ack(self,controller,error=None,revision=None):
         controller.ack(SimpleNamespace(stage='reload',reload_revision=revision or controller.reload_revision,error=error))
+    def test_gaming_trigger_setting_is_visible_and_persisted(self):
+        window=self.window()
+        self.assertEqual(window.gaming_trigger.currentText(),'Хорд задних кнопок (evdev)')
+        window.gaming_trigger.setCurrentIndex(1)
+        self.assertEqual(window.snapshot()['gaming_trigger'],'key')
+        window.controller.apply(window.snapshot())
+        self.wait(lambda:window.controller.reload_revision is not None)
+        self.ack(window.controller)
+        reopened=self.window()
+        self.assertEqual(reopened.gaming_trigger.currentText(),'Клавиша Steam Input')
+        self.assertEqual(config.load().gaming_trigger,'key')
+
     def test_popup_controls_persist_reopen_and_rollback(self):
         window=self.window()
         controls=(window.popup_show_context,window.popup_show_meaning,window.popup_expand_articles)

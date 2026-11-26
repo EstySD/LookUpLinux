@@ -100,6 +100,7 @@ class SteamOSDoctorTests(unittest.TestCase):
              mock.patch.object(doctor,'_dbus_ready',return_value=True), \
              mock.patch.object(doctor,'_version_text',return_value='3.14.2'), \
              mock.patch.object(doctor.gaming,'gamescope_capture_ready',return_value=False), \
+             mock.patch.object(doctor.trigger,'gaming_trigger_ready',return_value=False), \
              mock.patch.object(doctor.platform,'session_env',return_value={'DISPLAY':':0'}), \
              mock.patch('lookup.lifecycle.inspect_shortcut',side_effect=AssertionError('kde')):
             rows=doctor._gaming_session_checks()
@@ -116,6 +117,7 @@ class SteamOSDoctorTests(unittest.TestCase):
              mock.patch.object(doctor,'_dbus_ready',return_value=False), \
              mock.patch.object(doctor,'_version_text',return_value=None), \
              mock.patch.object(doctor.gaming,'gamescope_capture_ready',return_value=True), \
+             mock.patch.object(doctor.trigger,'gaming_trigger_ready',return_value=False), \
              mock.patch.object(doctor.platform,'session_env',return_value={'DISPLAY':':0'}):
             rows=doctor._gaming_session_checks()
         self.assertTrue({row.code:row for row in rows}['capture'].ok)
