@@ -16,7 +16,7 @@
 
 **v1.2 «Steam Deck»** started 2026-11-26. Desktop Mode is the supported target; Gaming Mode is
 experimental and hardware-unverified because no physical Steam Deck is available. Phase 16 completed
-the session abstraction and diagnostics gate, Phase 17, the portable Desktop Mode install, Phase 18, gamescope capture with a headless daemon, Phase 19, the fullscreen word-selection UI and Phase 20, the Gaming trigger and autostart, and Phase 21, mode-aware settings and SteamOS documentation; next is Phase 22, the portable bundle and final acceptance.
+the session abstraction and diagnostics gate, Phase 17, the portable Desktop Mode install, Phase 18, gamescope capture with a headless daemon, Phase 19, the fullscreen word-selection UI and Phase 20, the Gaming trigger and autostart, Phase 21, mode-aware settings and SteamOS documentation and Phase 22, the portable bundle and final acceptance. All seven phases are complete; Desktop Mode is supported, Gaming Mode is experimental and hardware-unverified, and a runtime-complete binary bundle remains blocked.
 
 ## Phases
 
@@ -26,7 +26,7 @@ the session abstraction and diagnostics gate, Phase 17, the portable Desktop Mod
 - [x] **Phase 19: Полноэкранный выбор слова** - Select a word on the frozen frame with touch, controller or keyboard. (Complete — 2026-11-26)
 - [x] **Phase 20: Триггер и автозапуск** - Trigger Gaming Mode from a controller chord and start the daemon reliably. (Complete — 2026-11-26)
 - [x] **Phase 21: Настройки, диагностика, документация** - Make settings mode-aware and document both modes honestly. (Complete — 2026-11-26)
-- [ ] **Phase 22: Бандл и приёмка** - Build the portable bundle and run the available acceptance gates. (Not started)
+- [x] **Phase 22: Бандл и приёмка** - Build the portable bundle and run the available acceptance gates. (Complete — 2026-11-26; runtime-complete bundle blocked)
 
 ## Phase Details
 
@@ -125,7 +125,7 @@ the session abstraction and diagnostics gate, Phase 17, the portable Desktop Mod
   2. The bundle installs in a clean VM without network runtime dependencies; checksums and license notices are verified.
   3. The real Deck checklist is recorded as blocked/unverified; no hardware behavior is claimed as confirmed.
 
-**Plans**: TBD
+**Plans**: 1/1 complete — [22-01-PLAN.md](phases/22-bundle-acceptance/22-01-PLAN.md), [22-SUMMARY.md](phases/22-bundle-acceptance/22-SUMMARY.md)
 
 ## Progress
 
@@ -137,6 +137,6 @@ the session abstraction and diagnostics gate, Phase 17, the portable Desktop Mod
 | 19. Полноэкранный выбор слова | 1/1 | Complete | 2026-11-26 |
 | 20. Триггер и автозапуск | 1/1 | Complete | 2026-11-26 |
 | 21. Настройки, диагностика, документация | 1/1 | Complete | 2026-11-26 |
-| 22. Бандл и приёмка | 0/TBD | Not started | - |
+| 22. Бандл и приёмка | 1/1 | Complete | 2026-11-26 |
 
 **Execution Order:** 16 → 17 → 18 → 19 → 20 → 21 → 22.

@@ -2,15 +2,18 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Steam Deck
-status: planning
-last_updated: "2026-11-26T09:16:25.601Z"
+current_phase: 7
+status: completed
+stopped_at: Milestone v1.2 complete; all seven phases have host/VM evidence and honest blockers.
+last_updated: "2026-11-26T10:37:36.196Z"
 last_activity: 2026-11-26
+last_activity_desc: "Phase 22 complete: host 901 passed, VM 914 passed, source bundle built"
 progress:
   total_phases: 7
-  completed_phases: 6
-  total_plans: 6
-  completed_plans: 6
-  percent: 86
+  completed_phases: 7
+  total_plans: 7
+  completed_plans: 7
+  percent: 100
 ---
 
 # Project State
@@ -24,12 +27,12 @@ See: .planning/PROJECT.md (updated 2026-11-26)
 
 ## Current Position
 
-Phase: 22 — Бандл и приёмка (next)
-Plan: — (not planned)
-Status: Ready for Phase 22
-Last activity: 2026-11-26 — Phase 21 complete: host 899 passed, VM 912 passed
+Phase: All 7 phases complete
+Plan: —
+Status: complete
+Last activity: 2026-11-26 — Phase 22 complete: host 901 passed, VM 914 passed, source bundle built
 
-Progress: [████████░░] 86%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -130,6 +133,7 @@ None yet.
 - Gamescope SIGUSR2 capture, focus return, and evdev permissions are unverified on real hardware; Phase 16 diagnostics deliberately report Gaming capture/trigger as not implemented until Phases 18/20.
 - Steam Input has no global Gaming Mode layout; per-game layout may be required for the key fallback.
 - `kdotool` compatibility with SteamOS's KWin is unverified.
+- PUB-03 runtime-complete binary bundle is blocked: builder and offline install are verified, but PyQt6/Tesseract/kdotool/wl-clipboard binaries for the SteamOS ABI were not produced here.
 
 Phase 14 complete: provider fallback passes six live target cases; real dictionaries pass twelve source checks; second monitor at 100%/125%, borderless word selection and seven exits pass. Both full suites: 868 tests, zero failures/errors. See `phases/14-reliability/14-ACCEPTANCE.json`. Historical v1.0 limits remain in `milestones/v1.0-MILESTONE-AUDIT.md`.
 
@@ -158,10 +162,11 @@ Items acknowledged and carried forward from previous milestone close:
 ## Session Continuity
 
 Last session: 2026-11-26
-Stopped at: Phase 21 complete with host and VM regression evidence; Phase 22 is next.
-Resume file: .planning/phases/21-docs-mode-aware/21-SUMMARY.md
+Stopped at: Milestone v1.2 complete; all seven phases have host/VM evidence and honest blockers.
+Resume file: .planning/phases/22-bundle-acceptance/22-SUMMARY.md
 
 ## Operator Next Steps
 
-- Start Phase 22: build the portable SteamOS bundle and run the final acceptance batch.
+- Build and publish the runtime-complete bundle on a SteamOS/Linux target, then validate on real hardware.
+- Do not claim Desktop or Gaming Mode hardware verification without a Deck acceptance run.
 - Do not claim Steam Deck hardware verification; record VM-tested and hardware-unverified separately.
