@@ -1,37 +1,35 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: Надёжность и распространение
-current_phase: null
-status: Awaiting next milestone
-stopped_at: Milestone v1.1 complete; GitHub v0.2.1 published; CI and canonical package verified
-last_updated: "2026-11-03T17:16:28.813Z"
-last_activity: 2026-11-03
-last_activity_desc: Milestone v1.1 completed and archived
+milestone: v1.2
+milestone_name: Steam Deck
+status: planning
+last_updated: "2026-11-26T09:16:25.601Z"
+last_activity: 2026-11-26
 progress:
   total_phases: 7
-  completed_phases: 7
-  total_plans: 11
-  completed_plans: 11
-  percent: 100
-current_phase_name: null
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (v1 scope expanded 2026-10-27)
+See: .planning/PROJECT.md (updated 2026-11-26)
 
 **Core value:** Хоткей над английским словом даёт перевод в оверлее у курсора примерно за 1–2 секунды, и слово попадает в базу со счётчиком.
-**Current focus:** Milestone v1.1 complete; public v0.2.1 published; awaiting next milestone
+**Current focus:** v1.2 Steam Deck — Phase 16, session abstraction and diagnostics
 
 ## Current Position
 
-Phase: Milestone v1.1 complete
+Phase: Not started (defining requirements)
 Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-11-03 — Milestone v1.1 completed and archived
+Status: Defining requirements
+Last activity: 2026-11-26 — Milestone v1.2 started
+
+Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
@@ -87,6 +85,12 @@ Last activity: 2026-11-03 — Milestone v1.1 completed and archived
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
+- [v1.2]: Both SteamOS modes; Desktop Mode supported, Gaming Mode experimental.
+- [v1.2]: Gaming Mode uses a fullscreen selection window, not an overlay.
+- [v1.2]: Portable home-directory bundle; no pacman install into immutable `/usr`.
+- [v1.2]: Fallback ScreenShot2 on SteamOS 3.9; KWin plugin optional on 3.10+.
+- [v1.2]: Gaming trigger via evdev back-button chord; Steam Input key fallback.
+- [v1.2]: No physical Deck; hardware acceptance is a blocked external gate.
 - [2026-10-27]: V1 adds multiline context and contextual word sense in inserted Phase 5.1 before Phase 6; real fullscreen game validation in Phase 8. Completed Phases 1–5 retain original acceptance. New requirements remain Pending.
 - [Roadmap]: Прод-версия вместо MVP, 8 фаз по горизонтальным слоям (выбор пользователя)
 - [Roadmap]: Фоновое приложение в трее; команда хоткея только будит его и стартует, если оно не запущено
@@ -112,6 +116,12 @@ Recent decisions affecting current work:
 None yet.
 
 ### Blockers/Concerns
+
+- No physical Steam Deck: Gaming Mode cannot be hardware-verified in this environment.
+- SteamOS 3.9 stable is Plasma 6.7.3, below `kwin>=6.8`; the native plugin is unavailable there.
+- Gamescope SIGUSR2 capture, focus return, and evdev permissions are unverified on real hardware.
+- Steam Input has no global Gaming Mode layout; per-game layout may be required for the key fallback.
+- `kdotool` compatibility with SteamOS's KWin is unverified.
 
 Phase 14 complete: provider fallback passes six live target cases; real dictionaries pass twelve source checks; second monitor at 100%/125%, borderless word selection and seven exits pass. Both full suites: 868 tests, zero failures/errors. See `phases/14-reliability/14-ACCEPTANCE.json`. Historical v1.0 limits remain in `milestones/v1.0-MILESTONE-AUDIT.md`.
 
@@ -139,10 +149,11 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-11-03T10:49:47.525Z
-Stopped at: Milestone v1.1 complete. Public release https://github.com/EstySD/LookUpLinux/releases/tag/v0.2.1 published 2026-11-03T17:34:43Z. Windows/Linux suites 877 each; five package gates, both GitHub workflows and downloaded CI binary smoke pass. Owned clone restored to its observed powered-off state with 0.2.1 installed.
+Last session: 2026-11-26
+Stopped at: Milestone v1.2 started; requirements and roadmap written; Phase 16 is next.
 Resume file: None
 
 ## Operator Next Steps
 
-- No remaining release work. AUR submission is separate; start another milestone only when requested.
+- Start Phase 16: session abstraction and SteamOS diagnostics.
+- Do not claim Steam Deck hardware verification; record VM-tested and hardware-unverified separately.
