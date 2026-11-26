@@ -3,12 +3,12 @@ param(
     [string]$Codes,[int]$X=0,[int]$Y=0,[int]$Buttons=0,[string]$Output
 )
 $ErrorActionPreference='Stop'
-$hardeningVm='cf207909-94b5-4b49-8bd8-ccff973c1dc8'
+$hardeningVm='abc73254-ddf7-4f1f-9c66-7c2fcc5254d7'
 $hardeningVBox='C:/Program Files/Oracle/VirtualBox/VBoxManage.exe'
 $hardeningInfo=& $hardeningVBox showvminfo $hardeningVm --machinereadable
-if ($LASTEXITCODE -ne 0 -or $hardeningInfo -notcontains 'name="lookup-gsd-07"' -or
-    $hardeningInfo -notcontains '"SATA-ImageUUID-0-0"="2712d710-daaa-449c-843d-d570091127bc"' -or
-    -not ($hardeningInfo | Select-String -SimpleMatch 'lookup-gsd-07\\lookup-gsd-07.vdi')) { throw 'Owned full clone attachment mismatch' }
+if ($LASTEXITCODE -ne 0 -or $hardeningInfo -notcontains 'name="arch-kde"' -or
+    $hardeningInfo -notcontains '"SATA-ImageUUID-0-0"="798288be-61f7-4c1e-9867-ae8b7228068b"' -or
+    -not ($hardeningInfo | Select-String -SimpleMatch 'arch-kde\\arch-kde.vdi')) { throw 'Owned full clone attachment mismatch' }
 # Reuse only UUID-guarded physical input/framebuffer controls, never old Native.
 if ($Action -eq 'Burst') {
     & "$PSScriptRoot/check_package_vm.ps1" -Action Check

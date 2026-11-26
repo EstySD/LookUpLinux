@@ -10,3 +10,9 @@ arch-build/
 arch-build-final/
 .planning/phases/12-yomitan/source.tar.gz
 .planning/phases/13-gui/source.tar.gz
+
+# Harness telemetry and completed AUR release evidence are generated locally.
+.omx/
+.planning/phases/15-aur/active-release-job.json
+.planning/phases/15-aur/release-*/
+.planning/phases/15-aur/dist/

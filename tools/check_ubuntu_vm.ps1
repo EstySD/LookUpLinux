@@ -1,3 +1,4 @@
+throw 'Ubuntu VM retired by Denis on 2026-11-13. Only Arch KDE is available; Ubuntu acceptance is BLOCKED. See D:/vm/README.md.'
 param(
     [ValidateSet('Check','Keys','Pointer','Screenshot')][string]$Action='Check',
     [string]$Codes,[int]$X=0,[int]$Y=0,[int]$Buttons=0,[string]$Output

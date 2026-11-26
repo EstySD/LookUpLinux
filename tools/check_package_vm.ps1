@@ -8,28 +8,15 @@ param(
     [string]$Command
 )
 $ErrorActionPreference='Stop'
-$lookupVm='cf207909-94b5-4b49-8bd8-ccff973c1dc8'
+$lookupVm='abc73254-ddf7-4f1f-9c66-7c2fcc5254d7'
 $lookupVBox='C:/Program Files/Oracle/VirtualBox/VBoxManage.exe'
 $lookupInfo=& $lookupVBox showvminfo $lookupVm --machinereadable
-if ($LASTEXITCODE -ne 0 -or $lookupInfo -notcontains 'name="lookup-gsd-07"') { throw 'Owned clone identity mismatch' }
-if ($lookupInfo -notcontains 'macaddress1="080027A05376"' -or
-    $lookupInfo -notcontains 'Forwarding(0)="lookup-gsd-07-ssh,tcp,127.0.0.1,2227,,22"') { throw 'Owned clone network identity mismatch' }
-$lookupDisk='2712d710-daaa-449c-843d-d570091127bc'
-if ($lookupInfo -notcontains ('"SATA-ImageUUID-0-0"="'+$lookupDisk+'"') -or
-    -not ($lookupInfo | Select-String -SimpleMatch 'lookup-gsd-07\\lookup-gsd-07.vdi') -or
-    $lookupInfo -match '^SharedFolder') { throw 'Owned full clone attachment mismatch' }
-$lookupMedium=& $lookupVBox showmediuminfo disk $lookupDisk
-if ($LASTEXITCODE -ne 0 -or -not ($lookupMedium -match '^Parent UUID:\s+base\s*$')) { throw 'Owned disk must be an independent full clone' }
-# Denis permits concurrent agents in separate VMs; protect disk isolation, not power state.
-$lookupOriginal=& $lookupVBox showvminfo abc73254-ddf7-4f1f-9c66-7c2fcc5254d7 --machinereadable
-if ($LASTEXITCODE -ne 0 -or ($lookupOriginal | Select-String -SimpleMatch $lookupDisk)) { throw 'Original VM disk isolation could not be verified' }
+if ($LASTEXITCODE -ne 0 -or $lookupInfo -notcontains 'name="arch-kde"') { throw 'Owned clone identity mismatch' }
+if ($lookupInfo -notcontains 'Forwarding(0)="ssh,tcp,127.0.0.1,2223,,22"' -or
+    $lookupInfo -notcontains '"SATA-ImageUUID-0-0"="798288be-61f7-4c1e-9867-ae8b7228068b"') { throw 'Shared Arch identity mismatch' }
 if ($Action -eq 'Check') { $lookupInfo | Select-String '^(name|UUID|VMState|macaddress1|Forwarding)' | ForEach-Object { $_.Line }; exit 0 }
 if ($lookupInfo -notcontains 'VMState="running"') { throw 'Owned clone is not running' }
-if ($Action -eq 'Native') {
-    $lookupEncoded=[Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($Command))
-    ssh -o BatchMode=yes -o HostKeyAlias=lookup-gsd-07 -o UserKnownHostsFile=D:/vm/machines/lookup-gsd-07/ssh_known_hosts -p 2227 archvm "sudo -n -H -u lookup07 python /home/lookup07/check_settings_app.py --command $lookupEncoded"
-    exit $LASTEXITCODE
-}
+if ($Action -eq 'Native') { throw 'Clone-specific Native helper retired. Migrate the test to shared Arch explicitly; see D:/vm/README.md.' }
 if ($Action -eq 'Keys') {
     if ($Codes -notmatch '^(?:[0-9a-fA-F]{2}\s*)+$') { throw 'Invalid key scancodes' }
     & $lookupVBox controlvm $lookupVm keyboardputscancode @($Codes.Trim() -split '\s+')
