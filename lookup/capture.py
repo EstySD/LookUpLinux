@@ -8,6 +8,7 @@ import tempfile
 import threading
 import time
 
+from . import session
 from .platform import PlatformError, Monitor, run
 
 MAX_RAW = 256 << 20
@@ -40,6 +41,7 @@ class HotkeySnapshot:
 
 def take_hotkey(env):
     """Consume the compositor's one-shot, memory-only key-event snapshot."""
+    if session.is_gaming(env):return None
     if os.name!='posix' or env.get('KDE_SESSION_VERSION')!='6':
         return None
     from PyQt6.QtDBus import QDBusConnection,QDBusMessage,QDBus,QDBusUnixFileDescriptor
@@ -90,6 +92,7 @@ def take_hotkey(env):
 
 
 def enable_hotkey_bridge(env):
+    if session.is_gaming(env):return False
     if os.name!='posix' or env.get('KDE_SESSION_VERSION')!='6':
         return False
     from PyQt6.QtDBus import QDBusConnection,QDBusMessage,QDBus
@@ -221,6 +224,8 @@ def _screenshot2(name):
 
 
 def capture_monitor(monitor, env, backend='screenshot2'):
+    if session.is_gaming(env):
+        raise PlatformError('gaming_capture_unavailable')
     start = time.perf_counter()
     try:
         from . import gnome

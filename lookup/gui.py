@@ -10,7 +10,7 @@ import threading
 import time
 from dataclasses import replace
 
-from . import app as core, platform, timing, config
+from . import app as core, platform, session, timing, config
 from .store import MigrationError,SchemaTooNewError
 
 SERVICE='org.lookup.Linux'
@@ -31,6 +31,7 @@ REASONS={
     'cursor_failed':('Не удалось получить положение курсора','Повторите поиск.'),
     'monitor_failed':('Не удалось определить экран','Повторите поиск.'),
     'capture_failed':('Не удалось получить снимок экрана','Повторите поиск.'),
+    'gaming_unavailable':('Gaming Mode пока не поддерживает поиск','Запустите LookUp Linux в Desktop Mode. Поддержка Gaming Mode появится после проверки на Steam Deck.'),
     'unsupported_session':('Недоступен сеанс KDE Wayland','Запустите LookUp Linux в сеансе KDE Wayland.'),
     'not_found':('Не найдено','Наведите курсор на английское слово или выделите текст и повторите поиск.'),
     'reload_failed':('Не удалось применить настройки','Откройте настройки, повторите применение или запустите lookup --doctor.'),
@@ -501,10 +502,11 @@ def components():
 
     @pyqtClassInfo('D-Bus Interface',SERVICE)
     class Owner(QObject):
-        def __init__(self,env,*,engine_factory=None,focus=True,on_quit=None):
+        def __init__(self,env,*,engine_factory=None,focus=True,on_quit=None,gaming=False):
             super().__init__()
             self.env=env
             self._focus=focus
+            self._gaming=gaming
             self._on_quit=on_quit or QApplication.instance().quit
             self._stopping=False
             self._identity=None
@@ -548,27 +550,30 @@ def components():
             self.settings_controller.initialized.connect(self._settings_applied)
             self.settings_controller.invalidating.connect(self._invalidate_settings)
             self.settings_controller.initialize()
-            self.tray=QSystemTrayIcon(QIcon.fromTheme('accessories-dictionary',QApplication.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogInfoView)),self)
-            self.tray.setToolTip('LookUp Linux')
-            self.menu=QMenu()
-            self.menu.addAction('Открыть LookUp Linux',self.open_home)
-            self.menu.addSeparator()
+            self.tray=None
+            self.menu=None
             self.future_actions=[]
-            for name in ('Слова','Повторение','Настройки'):
-                action=self.menu.addAction(name)
-                action.setEnabled(False)
-                self.future_actions.append(action)
-            self.future_actions[0].setEnabled(True)
-            self.future_actions[0].triggered.connect(self.open_words)
-            self.future_actions[1].setEnabled(True)
-            self.future_actions[1].triggered.connect(self.open_review)
-            self.future_actions[2].setEnabled(True)
-            self.future_actions[2].triggered.connect(self.open_settings)
-            self.menu.addSeparator()
-            self.menu.addAction('Выход',self.quit)
-            self.tray.setContextMenu(self.menu)
-            self.tray.activated.connect(self._tray_activated)
-            self.tray.show()
+            if not self._gaming:
+                self.tray=QSystemTrayIcon(QIcon.fromTheme('accessories-dictionary',QApplication.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogInfoView)),self)
+                self.tray.setToolTip('LookUp Linux')
+                self.menu=QMenu()
+                self.menu.addAction('Открыть LookUp Linux',self.open_home)
+                self.menu.addSeparator()
+                for name in ('Слова','Повторение','Настройки'):
+                    action=self.menu.addAction(name)
+                    action.setEnabled(False)
+                    self.future_actions.append(action)
+                self.future_actions[0].setEnabled(True)
+                self.future_actions[0].triggered.connect(self.open_words)
+                self.future_actions[1].setEnabled(True)
+                self.future_actions[1].triggered.connect(self.open_review)
+                self.future_actions[2].setEnabled(True)
+                self.future_actions[2].triggered.connect(self.open_settings)
+                self.menu.addSeparator()
+                self.menu.addAction('Выход',self.quit)
+                self.tray.setContextMenu(self.menu)
+                self.tray.activated.connect(self._tray_activated)
+                self.tray.show()
         def _tray_activated(self,reason):
             if reason in (QSystemTrayIcon.ActivationReason.Trigger,QSystemTrayIcon.ActivationReason.DoubleClick):
                 self.open_home()
@@ -595,10 +600,13 @@ def components():
                 layout.addWidget(self.home_instructions)
                 self.home_buttons={}
                 for name,action in (('Настройки',self.open_settings),('Слова',self.open_words),('Повторение',self.open_review)):
+                    if self._gaming and name=='Настройки':continue
                     button=QPushButton(name)
                     button.clicked.connect(action);layout.addWidget(button)
                     self.home_buttons[name]=button
-                status=QLabel('При закрытии этого окна перевод продолжает работать в трее.\nОткрыть окно снова можно через меню приложений или щелчком по значку в трее.')
+                status_text=('Gaming Mode: закройте это окно, чтобы вернуться в игру.' if self._gaming else
+                    'При закрытии этого окна перевод продолжает работать в трее.\nОткрыть окно снова можно через меню приложений или щелчком по значку в трее.')
+                status=QLabel(status_text)
                 status.setWordWrap(True);layout.addWidget(status)
                 QShortcut(QKeySequence('Escape'),self.home_window,activated=self.home_window.close)
             self._home_text()
@@ -607,7 +615,7 @@ def components():
             self.home_window.show();self.home_window.raise_();self.home_window.activateWindow()
             if self._focus:QTimer.singleShot(100,self._activate_home)
         def _activate_home(self):
-            if self._stopping or self.home_window is None or not self.home_window.isVisible():return
+            if self._gaming or self._stopping or self.home_window is None or not self.home_window.isVisible():return
             if self._home_focus_thread is not None and self._home_focus_thread.is_alive():return
             env=dict(self.env)
             if self._home_token:env['XDG_ACTIVATION_TOKEN']=self._home_token
@@ -624,6 +632,10 @@ def components():
             self._home_focus_thread.start()
         def _home_text(self):
             if self.home_window is not None:
+                if self._gaming:
+                    self.home_instructions.setText('Gaming Mode: LookUp работает в фоне без трея.\n'
+                        'Захват кадра и выбор слова появятся в следующем обновлении.')
+                    return
                 self.home_instructions.setText('Наведите курсор на английское слово или выделите текст и нажмите '+
                     self.popup.preferences.shortcut+'.\nEsc закрывает перевод и возвращает управление приложению.')
         def _learning_connection(self):
@@ -728,6 +740,11 @@ def components():
             if not valid_token(token) or self._stopping:
                 return 0
             token=''
+            if self._gaming:
+                # Phase 18 replaces this no-op with gamescope capture and the
+                # fullscreen selection window.  Return a positive pid so the
+                # trigger client does not treat the running daemon as absent.
+                return os.getpid()
             snapshot_error=False
             try:
                 snapshot=core.capture.take_hotkey(self.env)
@@ -1019,7 +1036,7 @@ def components():
             self.engine.stop()
             self._focus_pending=None
             self.popup.hide_for_capture()
-            self.tray.hide()
+            if self.tray is not None:self.tray.hide()
             for window in (self.words_window,self.review_window):
                 if window is not None:
                     window.close()
@@ -1045,6 +1062,8 @@ def run(trigger=False,background=False):
     token=os.environ.pop('XDG_ACTIVATION_TOKEN','')
     os.environ.pop('DESKTOP_STARTUP_ID',None)
     if not valid_token(token):token=''
+    mode=session.mode()
+    gaming=mode==session.GAMING
     env=platform.session_env()
     if not trigger and not background and token:env['XDG_ACTIVATION_TOKEN']=token
     os.environ.update(env)
@@ -1090,15 +1109,16 @@ def run(trigger=False,background=False):
     if not bus.registerService(SERVICE):
         return 0 if background or forward('Open') is not None else 1
     from .lifecycle import ensure_entries,ensure_shortcut,LifecycleError
-    core.capture.enable_hotkey_bridge(env)
     registration_error=None
-    try:
-        ensure_entries()
-        ensure_shortcut()
-    except LifecycleError as error:registration_error=error.reason
+    if not gaming:
+        core.capture.enable_hotkey_bridge(env)
+        try:
+            ensure_entries()
+            ensure_shortcut()
+        except LifecycleError as error:registration_error=error.reason
     token=''
     _,Owner=components()
-    owner=Owner(env)
+    owner=Owner(env,gaming=gaming)
     owner.lifecycle_error=registration_error
     if registration_error is not None:
         QTimer.singleShot(0,owner.open_settings)

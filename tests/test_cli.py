@@ -94,7 +94,7 @@ class CliLookupTests(CliCase):
                 gui.assert_not_called()
 
     def test_gui_startup_errors_are_fixed_and_private(self):
-        for error,expected in ((ImportError('private path'),'python-pyqt6'),(RuntimeError('private token'),'KDE Wayland')):
+        for error,expected in ((ImportError('private path'),'python-pyqt6'),(RuntimeError('private token'),'текущем сеансе')):
             with mock.patch('lookup.gui.run',side_effect=error):
                 code,out,err=self.call('--trigger')
             self.assertEqual((code,out),(1,''))

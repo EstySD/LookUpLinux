@@ -7,10 +7,10 @@ last_updated: "2026-11-26T09:16:25.601Z"
 last_activity: 2026-11-26
 progress:
   total_phases: 7
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  completed_phases: 1
+  total_plans: 1
+  completed_plans: 1
+  percent: 14
 ---
 
 # Project State
@@ -24,12 +24,12 @@ See: .planning/PROJECT.md (updated 2026-11-26)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-11-26 — Milestone v1.2 started
+Phase: 17 — Переносимая установка Desktop Mode (next)
+Plan: — (not planned)
+Status: Ready for Phase 17
+Last activity: 2026-11-26 — Phase 16 complete: host 879 passed, VM 892 passed
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██░░░░░░░░] 14%
 
 ## Performance Metrics
 
@@ -91,6 +91,8 @@ Recent decisions affecting current work:
 - [v1.2]: Fallback ScreenShot2 on SteamOS 3.9; KWin plugin optional on 3.10+.
 - [v1.2]: Gaming trigger via evdev back-button chord; Steam Input key fallback.
 - [v1.2]: No physical Deck; hardware acceptance is a blocked external gate.
+- [v1.2 Phase 16]: Gaming daemon skips KDE lifecycle/tray/shortcut and exposes a D-Bus no-op trigger until Phase 18.
+- [v1.2 Phase 16]: KWin hotkey plugin is optional; doctor reports ScreenShot2 fallback instead of failing.
 - [2026-10-27]: V1 adds multiline context and contextual word sense in inserted Phase 5.1 before Phase 6; real fullscreen game validation in Phase 8. Completed Phases 1–5 retain original acceptance. New requirements remain Pending.
 - [Roadmap]: Прод-версия вместо MVP, 8 фаз по горизонтальным слоям (выбор пользователя)
 - [Roadmap]: Фоновое приложение в трее; команда хоткея только будит его и стартует, если оно не запущено
@@ -119,7 +121,7 @@ None yet.
 
 - No physical Steam Deck: Gaming Mode cannot be hardware-verified in this environment.
 - SteamOS 3.9 stable is Plasma 6.7.3, below `kwin>=6.8`; the native plugin is unavailable there.
-- Gamescope SIGUSR2 capture, focus return, and evdev permissions are unverified on real hardware.
+- Gamescope SIGUSR2 capture, focus return, and evdev permissions are unverified on real hardware; Phase 16 diagnostics deliberately report Gaming capture/trigger as not implemented until Phases 18/20.
 - Steam Input has no global Gaming Mode layout; per-game layout may be required for the key fallback.
 - `kdotool` compatibility with SteamOS's KWin is unverified.
 
@@ -150,10 +152,10 @@ Items acknowledged and carried forward from previous milestone close:
 ## Session Continuity
 
 Last session: 2026-11-26
-Stopped at: Milestone v1.2 started; requirements and roadmap written; Phase 16 is next.
-Resume file: None
+Stopped at: Phase 16 complete with host and VM regression evidence; Phase 17 is next.
+Resume file: .planning/phases/16-steamos-session/16-SUMMARY.md
 
 ## Operator Next Steps
 
-- Start Phase 16: session abstraction and SteamOS diagnostics.
+- Start Phase 17: portable Desktop Mode install under `~/.local` without root.
 - Do not claim Steam Deck hardware verification; record VM-tested and hardware-unverified separately.

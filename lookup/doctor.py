@@ -10,7 +10,7 @@ import stat
 import subprocess
 import sys
 
-from lookup import config,dicts,platform,lifecycle
+from lookup import config,dicts,platform,lifecycle,session
 
 DICTIONARY_TIMEOUT=8
 _application=None
@@ -111,27 +111,92 @@ def _dictionary_checks(cfg,roots):
         return [Diagnostic('dictionaries',False,'Проверка словарей не завершилась за отведённое время или файлы недоступны. Проверьте словари по отдельности.')]
 
 
+def _version_text(command,args,env=None):
+    try:
+        text=platform.run([command,*args],env=env,timeout=2,limit=4096).decode('utf-8','replace')
+    except Exception:
+        return None
+    match=re.search(r'\b\d+(?:\.\d+){1,3}\b',text)
+    return match.group(0) if match else (text.strip()[:80] or None)
+
+
+def _steamos_row(info=None):
+    info=session.os_release() if info is None else info
+    version=session.steamos_version(info)
+    if session.is_steamos(os.environ,info):
+        return Diagnostic('steamos',True,'SteamOS '+version if version else 'SteamOS обнаружен.')
+    return Diagnostic('steamos',True,'SteamOS не обнаружен (текущая система не SteamOS).')
+
+
+def _dbus_ready():
+    global _application
+    try:
+        from PyQt6.QtCore import QCoreApplication
+        from PyQt6.QtDBus import QDBusConnection
+        if QCoreApplication.instance() is None:_application=QCoreApplication(['lookup-doctor'])
+        return QDBusConnection.sessionBus().isConnected()
+    except Exception:
+        return False
+
+
+def _kde_plugin_rows(ready):
+    return [Diagnostic('hotkey_capture',True,
+                'Захват по событию хоткея KWin доступен; снимок не запрашивался.' if ready else
+                'Плагин KWin не активен; используется fallback-захват ScreenShot2 после нажатия.'),
+            Diagnostic('hotkey_capture_plugin',True,
+                'Плагин KWin активен.' if ready else 'Плагин KWin не активен (опционально для SteamOS 3.9).')]
+
+
+def _gaming_session_checks():
+    info=session.os_release()
+    rows=[Diagnostic('session',True,'Gaming Mode (gamescope) обнаружен.'),
+          _steamos_row(info)]
+    pids=session.find_gamescope_pids()
+    rows.append(Diagnostic('gamescope',bool(pids),
+        'gamescope запущен (PID '+str(pids[0])+').' if pids else
+        'Процесс gamescope не найден. Запустите LookUp из Gaming Mode.'))
+    try:env=platform.session_env()
+    except Exception:env=None
+    display=bool(env and (env.get('DISPLAY') or env.get('WAYLAND_DISPLAY')))
+    rows.append(Diagnostic('display',display,
+        'Дисплей gamescope доступен.' if display else 'Не найден DISPLAY/WAYLAND_DISPLAY gamescope.'))
+    dbus=_dbus_ready()
+    rows.append(Diagnostic('dbus',dbus,
+        'Сеансовая шина D-Bus доступна.' if dbus else 'Сеансовая шина D-Bus недоступна.'))
+    devices=session.input_devices()
+    rows.append(Diagnostic('input',bool(devices),
+        'Доступно устройств ввода: '+str(len(devices))+'.' if devices else
+        'Нет доступных устройств ввода; проверьте права на /dev/input.'))
+    version=_version_text('gamescope',['--version'],env)
+    rows.append(Diagnostic('gamescope_version',True,
+        'gamescope: '+version if version else 'Версия gamescope не определена.'))
+    rows.append(Diagnostic('capture',False,'Захват Gaming Mode ещё не реализован (Phase 18).'))
+    rows.append(Diagnostic('trigger',False,'Триггер Gaming Mode ещё не реализован (Phase 20).'))
+    return rows
+
+
 def _tool_checks():
     rows=[]
-    from . import gnome
-    is_gnome=gnome.active()
+    mode=session.mode()
+    is_gnome=mode==session.GNOME
+    is_gaming=mode==session.GAMING
     try:env=platform.session_env()
     except Exception:env=None
     try:qt=importlib.util.find_spec('PyQt6.QtDBus') is not None
     except (ImportError,ValueError):qt=False
     rows.append(Diagnostic('pyqt6',qt,'Python/QtDBus доступны.' if qt else 'Установите python-pyqt6.'))
-    for command,package in (() if is_gnome else (('kscreen-doctor','libkscreen'),('kbuildsycoca6','kservice'))):
+    for command,package in (() if (is_gnome or is_gaming) else (('kscreen-doctor','libkscreen'),('kbuildsycoca6','kservice'))):
         found=shutil.which(command) is not None
         rows.append(Diagnostic(command,found,command+' найден.' if found else 'Не найден '+command+'. Установите '+package+'.'))
     for command,args,package in (('kdotool',['--version'],'lookup-linux (или kdotool для запуска из исходников)'),
                                  ('wl-paste',['--version'],'wl-clipboard >= 2.3'),
                                  ('tesseract',['--list-langs'],'tesseract и tesseract-data-eng')):
-        if is_gnome and command=='kdotool':continue
+        if (is_gnome or is_gaming) and command=='kdotool':continue
         try:
             output=platform.run([command,*args],env=env,timeout=2,limit=65536).decode('utf-8','replace')
             if command=='tesseract':ok='eng' in output.splitlines()
             elif command=='wl-paste':
-                match=re.search(r'\b(\d+)\.(\d+)',output);ok=bool(match and tuple(map(int,match.groups()))>=((2,0) if is_gnome else (2,3)))
+                match=re.search(r'\b(\d+)\.(\d+)',output);ok=bool(match and tuple(map(int,match.groups()))>=((2,0) if (is_gnome or is_gaming) else (2,3)))
             else:
                 match=re.search(r'\bkdotool\s+v?(\d+)\.(\d+)',output)
                 ok=bool(match and tuple(map(int,match.groups()))>=(0,3))
@@ -142,8 +207,10 @@ def _tool_checks():
 
 def _session_checks():
     global _application
+    mode=session.mode()
+    if mode==session.GAMING:return _gaming_session_checks()
     from . import gnome
-    if gnome.active():
+    if mode==session.GNOME or gnome.active():
         try:
             state=gnome.state()
             binding=lifecycle.inspect_shortcut()
@@ -167,12 +234,14 @@ def _session_checks():
         binding=lifecycle.inspect_shortcut()
         key=', '.join(lifecycle.key_text(key) for key in binding.keys)
         rows=[Diagnostic('session',True,'KDE Wayland, сеансовая шина и ScreenShot2 доступны; захват не выполнялся.'),
-              Diagnostic('shortcut',bool(binding.keys),'Активный хоткей: '+key if key else 'Хоткей не назначен. Задайте его в настройках LookUp Linux или KDE.')]
+              Diagnostic('shortcut',bool(binding.keys),'Активный хоткей: '+key if key else 'Хоткей не назначен. Задайте его в настройках LookUp Linux или KDE.'),
+              _steamos_row()]
+        for code,command in (('plasma','plasmashell'),('kwin','kwin_wayland')):
+            version=_version_text(command,['--version'])
+            rows.append(Diagnostic(code,True,command+': '+version if version else command+': версия не определена.'))
         bridge=interface.isServiceRegistered('org.lookup.Capture')
         ready=bridge.isValid() and bridge.value()
-        rows.append(Diagnostic('hotkey_capture',bool(ready),
-            'Захват по событию хоткея KWin доступен; снимок не запрашивался.' if ready else
-            'Модуль захвата KWin недоступен. Пересоберите lookup-linux после обновления KWin и запустите lookup --app.'))
+        rows.extend(_kde_plugin_rows(bool(ready)))
         if lifecycle.is_installed():
             with lifecycle.INSTALLED_DESKTOP.open(encoding='utf-8') as stream:text=stream.read(65537)
             allowed=len(text)<=65536 and 'X-KDE-DBUS-Restricted-Interfaces=org.kde.KWin.ScreenShot2' in text

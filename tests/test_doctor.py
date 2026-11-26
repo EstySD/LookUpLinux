@@ -90,3 +90,52 @@ class DoctorTests(unittest.TestCase):
             with contextlib.redirect_stderr(io.StringIO()):
                 self.assertEqual(main(['--doctor','--word','bank']),2)
                 self.assertEqual(main(['--doctor','--offline']),2)
+
+
+class SteamOSDoctorTests(unittest.TestCase):
+    def test_gaming_session_checks_skip_kde_and_report_missing_phases(self):
+        with mock.patch.object(doctor.session,'os_release',return_value={'ID':'steamos','VERSION_ID':'3.9.7'}), \
+             mock.patch.object(doctor.session,'find_gamescope_pids',return_value=(123,)), \
+             mock.patch.object(doctor.session,'input_devices',return_value=('event0',)), \
+             mock.patch.object(doctor,'_dbus_ready',return_value=True), \
+             mock.patch.object(doctor,'_version_text',return_value='3.14.2'), \
+             mock.patch.object(doctor.platform,'session_env',return_value={'DISPLAY':':0'}), \
+             mock.patch('lookup.lifecycle.inspect_shortcut',side_effect=AssertionError('kde')):
+            rows=doctor._gaming_session_checks()
+        codes={row.code:row for row in rows}
+        for code in ('session','steamos','gamescope','display','dbus','input','gamescope_version'):
+            self.assertTrue(codes[code].ok,code)
+        self.assertFalse(codes['capture'].ok)
+        self.assertFalse(codes['trigger'].ok)
+
+    def test_gaming_tools_skip_kde_helpers(self):
+        with mock.patch.object(doctor.session,'mode',return_value=doctor.session.GAMING), \
+             mock.patch.object(doctor.platform,'session_env',return_value={'DISPLAY':':0'}), \
+             mock.patch.object(doctor.platform,'run',side_effect=doctor.platform.PlatformError('missing_command')), \
+             mock.patch.object(doctor.shutil,'which',return_value='/available'), \
+             mock.patch.object(doctor.importlib.util,'find_spec',return_value=object()):
+            rows=doctor._tool_checks()
+        codes={row.code:row for row in rows}
+        self.assertNotIn('kscreen-doctor',codes)
+        self.assertNotIn('kbuildsycoca6',codes)
+        self.assertNotIn('kdotool',codes)
+        self.assertIn('tesseract',codes)
+        self.assertIn('wl-paste',codes)
+        self.assertTrue(all(not row.ok for code,row in codes.items() if code in ('tesseract','wl-paste')))
+
+    def test_kde_plugin_is_optional_and_reports_fallback(self):
+        fallback=doctor._kde_plugin_rows(False)
+        self.assertTrue(all(row.ok for row in fallback))
+        self.assertIn('fallback',fallback[0].message)
+        self.assertIn('опционально',fallback[1].message)
+        active=doctor._kde_plugin_rows(True)
+        self.assertTrue(all(row.ok for row in active))
+        self.assertIn('активен',active[1].message)
+
+    def test_session_checks_dispatch_gaming_without_kde(self):
+        with mock.patch.object(doctor.session,'mode',return_value=doctor.session.GAMING), \
+             mock.patch.object(doctor,'_gaming_session_checks',return_value=[doctor.Diagnostic('session',True,'x')]) as gaming, \
+             mock.patch('lookup.lifecycle.inspect_shortcut',side_effect=AssertionError('kde')):
+            rows=doctor._session_checks()
+        self.assertEqual(rows[0].code,'session')
+        gaming.assert_called_once()

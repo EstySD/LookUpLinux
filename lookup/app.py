@@ -86,11 +86,13 @@ class Source:
             point=snapshot.point if snapshot is not None else platform.cursor_position(self.env)
         except platform.PlatformError as error:
             if error.reason=='gnome_extension_unavailable':raise AppError('missing_gnome_extension') from None
+            if error.reason=='gaming_session':raise AppError('gaming_unavailable') from None
             raise AppError('missing_kdotool' if error.reason=='missing_command' else 'cursor_failed') from None
         try:
             monitor=snapshot.monitor if snapshot is not None else platform.monitor_at(point,platform.monitors(self.env))
             available=snapshot.available if snapshot is not None else platform.work_area(self.env,monitor)
         except platform.PlatformError as error:
+            if error.reason=='gaming_session':raise AppError('gaming_unavailable') from None
             raise AppError('missing_kscreen' if error.reason=='missing_command' else 'monitor_failed') from None
         text=platform.read_primary(self.env)
         text=text.strip() if isinstance(text,str) else ''
@@ -107,6 +109,7 @@ class Source:
         try:
             frame=snapshot.image() if snapshot is not None else capture.capture_monitor(monitor,self.env,'screenshot2')
         except platform.PlatformError as error:
+            if error.reason=='gaming_capture_unavailable':raise AppError('gaming_unavailable') from None
             raise AppError('missing_pyqt6' if error.reason=='missing_pyqt6' else 'capture_failed') from None
         return Frozen('ocr',point,monitor,image=frame,available=available)
 

@@ -1016,5 +1016,31 @@ class GuiTests(unittest.TestCase):
             self.assertFalse(self.owner.popup.isVisible())
 
 
+@unittest.skipIf(QApplication is None,'PyQt6 unavailable')
+class GamingOwnerTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.application=QApplication.instance() or QApplication([])
+
+    def test_gaming_owner_skips_tray_and_trigger_is_a_safe_noop(self):
+        from lookup import gui
+        _,Owner=gui.components()
+        owner=Owner({},engine_factory=FakeEngine,focus=False,on_quit=lambda:None,gaming=True)
+        try:
+            self.assertIsNone(owner.tray)
+            self.assertIsNone(owner.menu)
+            self.assertEqual(owner.Trigger(''),os.getpid())
+            self.assertEqual(owner.engine.generation,0)
+        finally:
+            owner.quit()
+            deadline=time.monotonic()+2
+            while owner.settings_controller.is_alive() and time.monotonic()<deadline:
+                self.application.processEvents();QTest.qWait(5)
+            owner.popup.deleteLater()
+            owner.deleteLater()
+            self.application.sendPostedEvents(None,QEvent.Type.DeferredDelete)
+            self.application.processEvents()
+
+
 if __name__=='__main__':
     unittest.main()

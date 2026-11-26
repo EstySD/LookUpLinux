@@ -10,6 +10,8 @@ import subprocess
 import threading
 import time
 
+from . import session
+
 PRIVATE_KDOTOOL=Path('/usr/lib/lookup/kdotool')
 
 
@@ -163,6 +165,7 @@ def available_rect(monitor, docks):
 
 def panel_rects(env):
     """Read only fixed Plasma dock metadata; never move or activate a panel."""
+    if session.is_gaming(env):raise PlatformError('gaming_session')
     from PyQt6.QtDBus import QDBusConnection,QDBusMessage,QDBus
     ids=run(['kdotool','search','--class','plasmashell'],env,timeout=1,limit=4096).decode('ascii').split()
     if len(ids)>16 or any(not re.fullmatch(r'\{[0-9a-fA-F-]{36}\}',value) for value in ids):
@@ -183,6 +186,7 @@ def panel_rects(env):
 
 
 def work_area(env,monitor):
+    if session.is_gaming(env):raise PlatformError('gaming_session')
     from . import gnome
     if gnome.active(env):
         for item in gnome.state()['monitors']:
@@ -197,6 +201,11 @@ def work_area(env,monitor):
 def session_env():
     if os.name != 'posix' or not hasattr(os, 'getuid'):
         raise PlatformError('unsupported_session')
+    if session.is_gaming(os.environ):
+        env = session.gaming_session_env(os.environ)
+        if not (env.get('DISPLAY') or env.get('WAYLAND_DISPLAY')):
+            raise PlatformError('unsupported_session')
+        return env
     runtime = Path('/run/user') / str(os.getuid())
     sockets = sorted(p for p in runtime.glob('wayland-*') if not p.name.endswith('.lock') and p.is_socket())
     selected = os.environ.get('WAYLAND_DISPLAY')
@@ -220,6 +229,7 @@ def session_env():
 
 
 def cursor_position(env):
+    if session.is_gaming(env):raise PlatformError('gaming_session')
     from . import gnome
     if gnome.active(env):
         point=tuple(gnome.state()['point']);_numbers(point)
@@ -257,6 +267,7 @@ def parse_monitors(data):
 
 
 def monitors(env):
+    if session.is_gaming(env):raise PlatformError('gaming_session')
     from . import gnome
     if gnome.active(env):
         return tuple(Monitor(*(item[key] for key in ('name','x','y','width','height','scale')))
@@ -265,6 +276,7 @@ def monitors(env):
 
 
 def owned_window(env, pid):
+    if session.is_gaming(env):raise PlatformError('gaming_session')
     if type(pid) is not int or pid <= 0:
         raise PlatformError('invalid_owner')
     value = run(['kdotool', 'search', '--all', '--pid', str(pid)], env, limit=4096).decode('ascii').split()

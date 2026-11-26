@@ -15,12 +15,12 @@
 ## Current status
 
 **v1.2 «Steam Deck»** started 2026-11-26. Desktop Mode is the supported target; Gaming Mode is
-experimental and hardware-unverified because no physical Steam Deck is available. Phase 16 is the
-session abstraction and diagnostics gate; implementation proceeds in numeric order.
+experimental and hardware-unverified because no physical Steam Deck is available. Phase 16 completed
+the session abstraction and diagnostics gate; next is Phase 17, the portable Desktop Mode install.
 
 ## Phases
 
-- [ ] **Phase 16: SteamOS-сессия и диагностика** - Detect KDE/GNOME/gamescope and report actionable SteamOS diagnostics. (Not started)
+- [x] **Phase 16: SteamOS-сессия и диагностика** - Detect KDE/GNOME/gamescope and report actionable SteamOS diagnostics. (Complete — 2026-11-26)
 - [ ] **Phase 17: Переносимая установка Desktop Mode** - Install, run and remove LookUp under the home directory without root. (Not started)
 - [ ] **Phase 18: Gaming Mode: захват и демон** - Capture the gamescope frame and run headless without KDE. (Not started)
 - [ ] **Phase 19: Полноэкранный выбор слова** - Select a word on the frozen frame with touch, controller or keyboard. (Not started)
@@ -42,7 +42,7 @@ session abstraction and diagnostics gate; implementation proceeds in numeric ord
   3. `lookup --doctor` reports session, Plasma/KWin/gamescope versions, missing components and the capture/trigger path without private content.
   4. `tools/check_steamos.py` produces sanitized diagnostics that can be run later on a real Deck.
 
-**Plans**: TBD
+**Plans**: 1/1 complete — [16-01-PLAN.md](phases/16-steamos-session/16-01-PLAN.md), [16-SUMMARY.md](phases/16-steamos-session/16-SUMMARY.md)
 
 ### Phase 17: Переносимая установка Desktop Mode
 
@@ -131,7 +131,7 @@ session abstraction and diagnostics gate; implementation proceeds in numeric ord
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 16. SteamOS-сессия и диагностика | 0/TBD | Not started | - |
+| 16. SteamOS-сессия и диагностика | 1/1 | Complete | 2026-11-26 |
 | 17. Переносимая установка Desktop Mode | 0/TBD | Not started | - |
 | 18. Gaming Mode: захват и демон | 0/TBD | Not started | - |
 | 19. Полноэкранный выбор слова | 0/TBD | Not started | - |

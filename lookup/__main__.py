@@ -180,7 +180,7 @@ def main(argv=None) -> int:
             print('Не установлен пакет python-pyqt6.',file=sys.stderr)
             return 1
         except Exception:
-            print('Не удалось запустить LookUp Linux в сеансе KDE Wayland.',file=sys.stderr)
+            print('Не удалось запустить LookUp Linux в текущем сеансе.',file=sys.stderr)
             return 1
     dictionaries = None
     conn = None
